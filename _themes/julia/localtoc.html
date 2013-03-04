@@ -1,0 +1,20 @@
+{#
+    basic/localtoc.html
+    ~~~~~~~~~~~~~~~~~~~
+
+    Sphinx sidebar template: local table of contents.
+
+    :copyright: Copyright 2007-2011 by the Sphinx team, see AUTHORS.
+    :license: BSD, see LICENSE for details.
+#}
+{%- if "manual"==current_page_name[0:6] and "manual/index"!=current_page_name %}
+  <h3><a href="{{ pathto(master_doc) }}/../manual/">{{ _('目录') }}</a></h3>
+{%- elif "stdlib"==current_page_name[0:6] and "stdlib/index"!=current_page_name %}
+  <h3><a href="{{ pathto(master_doc) }}/../stdlib/">{{ _('目录') }}</a></h3>
+{%- else %}
+  <h3><a href="{{ pathto(master_doc) }}">{{ _('主页') }}</a></h3>
+{%- endif %}
+
+{%- if display_toc %}
+  {{ toc }}
+{%- endif %}
