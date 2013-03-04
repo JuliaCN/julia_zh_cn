@@ -22,7 +22,7 @@
 
 .. function:: require(file::String...)
 
-   Evaluate the contents of a source file.
+   对源文件内容求值。
 
 .. function:: help(name)
 
