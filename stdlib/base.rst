@@ -97,7 +97,7 @@
 
 .. function:: convert(type, x)
 
-   Try to convert ``x`` to the given type.
+   试着将 ``x`` 转换为给定类型。
 
 .. function:: promote(xs...)
 
