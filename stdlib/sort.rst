@@ -123,8 +123,7 @@ Timsort 是 O(n log n) 稳定自适应排序算法。它对两种情况混合（
 .. function:: searchsorted(a, x[, ord])
 
    返回the index of the first value of ``a`` equal to or
-   succeeding ``x``, according to ordering ``ord`` (default:
-   ``Sort.Forward``).
+   succeeding ``x``, according to ordering ``ord`` （默认为 ``Sort.Forward`` ）
 
    ``searchsortedfirst()`` 的别名
 

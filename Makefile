@@ -173,7 +173,7 @@ doctest:
 
 helpdb.jl: stdlib/*.rst sphinx/jlhelp.py sphinx/julia.py
 	$(SPHINXBUILD) -b jlhelp $(ALLSPHINXOPTS) $(BUILDDIR)/jlhelp
-	mv $(BUILDDIR)/jlhelp/jlhelp.jl helpdb.jl
+	mv $(BUILDDIR)/jlhelp/jlhelp.jl helpdb_zh_CN.jl
 
 listpkg: 
 	$(JULIA) listpkg.jl

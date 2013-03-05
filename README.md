@@ -18,7 +18,7 @@ On ubuntu, you'll need the following packages installed:
 
 Then run
 
-    $ make helpdb.jl
+    $ make helpdb_zh_CN.jl
     $ make html
     $ make latexpdf
 
