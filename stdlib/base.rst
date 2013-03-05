@@ -9,35 +9,35 @@
 
 .. function:: whos([Module,] [pattern::Regex])
 
-   打印模块中全局变量的信息，可选择限制打印匹配 ``pattern`` 的变量。
+   打印模块中全局变量的信息，可选择性地限制打印匹配 ``pattern`` 的变量。
 
 .. function:: edit(file::String, [line])
 
-   Edit a file optionally providing a line number to edit at. 返回to the julia prompt when you quit the editor. If the file name ends in ".jl" it is reloaded when the editor closes the file.
+   编辑文件；可选择性地提供要编辑的行号。退出编辑器后返回 Julia 会话。如果文件后缀名为 ".jl" ，关闭文件后会重载该文件。
 
 .. function:: edit(function, [types])
 
-   Edit the definition of a function, optionally specifying a tuple of types to indicate which method to edit. When the editor exits, the source file containing the definition is reloaded.
+   编辑函数定义，可选择性地提供一个类型多元组以指明要编辑哪个方法。退出编辑器后，包含定义的源文件会被重载。
 
 .. function:: require(file::String...)
 
-   Load source files once, in the context of the ``Main`` module, on every active node, searching the system-wide ``LOAD_PATH`` for files. ``require`` is considered a top-level operation, so it sets the current ``include`` path but does not use it to search for files (see help for ``include``). This function is typically used to load library code, and is implicitly called by ``using`` to load packages.
+   在 ``Main`` 模块的上下文中，对每个活动的节点，通过系统的 ``LOAD_PATH`` 查找文件，并只载入一次。``require`` 是顶层操作，因此它设置当前的 ``include`` 路径，但并不使用它来查找文件（参见 ``include`` 的帮助）。此函数常用来载入库代码； ``using`` 函数隐含使用它来载入扩展包。
 
 .. function:: reload(file::String)
 
-   类似 ``require`` ，except forces loading of files regardless of whether they have been loaded before. Typically used when interactively developing libraries.
+   类似 ``require`` ，但不管是否曾载入过，都要载入文件。常在交互式地开发库时使用。
 
 .. function:: include(path::String)
 
-   Evaluate the contents of a source file in the current context. During including, a task-local include path is set to the directory containing the file. Nested calls to ``include`` will search relative to that path. All paths refer to files on node 1 when running in parallel, and files will be fetched from node 1. This function is typically used to load source interactively, or to combine files in packages that are broken into multiple source files.
+   在当前上下文中，对源文件的内容求值。在包含的过程中，它将本地任务包含路径设置为包含文件的文件夹。嵌套调用 ``include`` 时会搜索那个路径的相关的路径。并行运行时，所有的路径都指向节点 1 上文件，并从节点 1 上获取文件。此函数常用来交互式地载入源文件，或将分散为多个源文件的扩展包结合起来。
 
 .. function:: include_string(code::String)
 
-   类似 ``include`` ，except reads code from the given string rather than from a file. Since there is no file path involved, no path processing or fetching from node 1 is done.
+   类似 ``include`` ，但它从指定的字符串读取代码，而不是从文件中。由于没有涉及到文件路径，不会进行路径处理或从节点 1 获取文件。
 
 .. function:: evalfile(path::String)
 
-   Evaluate all expressions in the given file, and return the value of the last one. No other processing (path searching, fetching from node 1, etc.) is performed.
+   对指定文件的所有表达式求值，并返回最后一个表达式的值。不会进行其他处理（搜索路径，从节点 1 获取文件等）。
 
 .. function:: help(name)
 
@@ -65,19 +65,19 @@
 
 .. function:: is(x, y)
 
-   Determine whether ``x`` and ``y`` are identical, 依据为程序不能区分它们。
+   判断 ``x`` 与 ``y`` 是否相同，依据为程序不能区分它们。
 
 .. function:: isa(x, type)
 
-   Determine whether ``x`` is of the given type.
+   检查 ``x`` 是否为指定类型。
 
 .. function:: isequal(x, y)
 
-   True if and only if ``x`` and ``y`` have the same contents. Loosely speaking, this means ``x`` and ``y`` would look the same when printed.
+   当且仅当 ``x`` 和 ``y`` 内容相同是为真。粗略地说，即打印出来的 ``x`` 和 ``y`` 看起来一模一样。
 
 .. function:: isless(x, y)
 
-   Test whether ``x`` is less than ``y``. Provides a total order consistent with ``isequal``. Values that are normally unordered, such as ``NaN``, are ordered in an arbitrary but consistent fashion. This is the default comparison used by ``sort``. Non-numeric types that can be ordered should implement this function.
+   检查 ``x`` 是否比 ``y`` 小。它具有与 ``isequal`` 一致的整体排序。不能正常排序的值如 ``NaN`` ，会按照任意顺序排序，但其排序方式会保持一致。它是 ``sort`` 默认使用的比较函数。可进行排序的非数值类型，应当实现此方法。
 
 .. function:: typeof(x)
 
@@ -89,31 +89,31 @@
 
 .. function:: ntuple(n, f::Function)
 
-   构造a tuple of length ``n``, computing each element as ``f(i)``, where ``i`` is the index of the element.
+   构造长度为 ``n`` 的多元组，每个元素为 ``f(i)`` ，其中 ``i`` 为元素的索引值。
 
 .. function:: object_id(x)
 
-   Get a unique integer id for ``x``. ``object_id(x)==object_id(y)`` if and only if ``is(x,y)``.
+   获取 ``x`` 唯一的整数值 ID 。当且仅当 ``is(x,y)`` 时， ``object_id(x)==object_id(y)`` 。
 
 .. function:: hash(x)
 
-   计算整数哈希值，由此， ``isequal(x,y)`` 等价于 ``hash(x)==hash(y)`` 。
+   计算整数哈希值。因而 ``isequal(x,y)`` 等价于 ``hash(x)==hash(y)`` 。
 
 .. function:: finalizer(x, function)
 
-   Register a function ``f(x)`` to be called when there are no program-accessible references to ``x``. The behavior of this function is unpredictable if ``x`` is of a bits type.
+   当没有程序可理解的对 ``x`` 的引用时，注册一个注册可调用的函数 ``f(x)`` 。当 ``x`` 为位类型时，此函数的行为不可预测。
 
 .. function:: copy(x)
 
-   构造a shallow copy of ``x``: the outer structure is copied, but not all internal values. For example, copying an array produces a new array with identically-same elements as the original.
+   构造 ``x`` 的浅拷贝：仅复制外层结构，不复制内部值。如，复制数组时，会生成一个元素与原先完全相同的新数组。
 
 .. function:: deepcopy(x)
 
-   构造a deep copy of ``x``: everything is copied recursively, resulting in a fully independent object. For example, deep-copying an array produces a new array whose elements are deep-copies of the original elements.
+   构造 ``x`` 的深拷贝：递归复制所有的东西，返回一个完全独立的对象。如，深拷贝数组时，会生成一个元素为原先元素深拷贝的新数组。
 
-   As a special case, functions can only be actually deep-copied if they are anonymous, otherwise they are just copied. The difference is only relevant in the case of closures, i.e. functions which may contain hidden internal references.
+   作为特例，匿名函数只能深拷贝，非匿名函数则为浅拷贝。它们的区别仅与闭包有关，如含有隐藏内部引用的函数。
 
-   While it isn't normally necessary, user-defined types can override the default ``deepcopy`` behavior by defining a specialized version of the function ``deepcopy_internal(x::T, dict::ObjectIdDict)`` (which shouldn't otherwise be used), where ``T`` is the type to be specialized for, and ``dict`` keeps track of objects copied so far within the recursion. Within the definition, ``deepcopy_internal`` should be used in place of ``deepcopy``, and the ``dict`` variable should be updated as appropriate before returning.
+   While it isn't normally necessary,自定义类型可通过定义特殊版本的 ``deepcopy_internal(x::T, dict::ObjectIdDict)`` 函数（此函数其它情况下不应使用）来覆盖默认的 ``deepcopy`` 行为，其中 ``T`` 是要指明的类型， ``dict`` 记录迄今为止递归中复制的对象。在定义中， ``deepcopy_internal`` 应当用来代替 ``deepcopy`` ， ``dict`` 变量应当在返回前正确的更新。
 
 .. function:: convert(type, x)
 
@@ -121,7 +121,7 @@
 
 .. function:: promote(xs...)
 
-   Convert all arguments to their common promotion type (if any), and return them all (as a tuple).
+   将所有参数转换为共同的提升类型（如果有的话），并将它们（作为多元组）返回。
 
 类型
 ----
@@ -140,52 +140,52 @@
 
 .. function:: realmin(type)
 
-   The smallest in absolute value non-denormal value representable by the given floating-point type
+   指定的浮点数类型可表示的非反常值中，绝对值最小的数。
 
 .. function:: realmax(type)
 
-   The highest finite value representable by the given floating-point type
+   指定的浮点数类型可表示的最大的有穷数。
 
 .. function:: maxintfloat(type)
 
-   The largest integer losslessly representable by the given floating-point type
+   指定的浮点数类型可无损表示的最大整数
 
 .. function:: sizeof(type)
 
-   Size, in bytes, of the canonical binary representation of the given type, if any.
+   指定类型的权威二进制表示（如果有的话）所占的字节大小。
 
 .. function:: eps([type])
 
-   The distance between 1.0 and the next larger representable floating-point value of ``type``. The only types that are sensible arguments are ``Float32`` and ``Float64``. If ``type`` is omitted, then ``eps(Float64)`` is returned.
+   1.0 与下一个稍大的 ``type`` 类型可表示的浮点数之间的距离。有效的类型为 ``Float32`` 和 ``Float64`` 。如果省略 ``type`` ，则返回 ``eps(Float64)`` 。
 
 .. function:: eps(x)
 
-   The distance between ``x`` and the next larger representable floating-point value of the same type as ``x``.
+   ``x`` 与下一个稍大的 ``x`` 同类型可表示的浮点数之间的距离。
 
 .. function:: promote_type(type1, type2)
 
-   Determine a type big enough to hold values of each argument type without loss, whenever possible. In some cases, where no type exists which to which both types can be promoted losslessly, some loss is tolerated; for example, ``promote_type(Int64,Float64)`` returns ``Float64`` even though strictly, not all ``Int64`` values can be represented exactly as ``Float64`` values.
+   如果可能的话，给出可以无损表示每个参数类型值的类型。若不存在无损表示时，可以容忍有损；如 ``promote_type(Int64,Float64)`` 返回 ``Float64`` ，尽管严格来说，并非所有的 ``Int64`` 值都可以由 ``Float64`` 无损表示。
 
 通用函数
 --------
 
 .. function:: method_exists(f, tuple) -> Bool
 
-   Determine whether the given generic function has a method matching the given tuple of argument types.
+   检查指定的通用函数是否有匹配参数类型多元组的方法。
 
    **例子** ： ``method_exists(length, (Array,)) = true``
 
 .. function:: applicable(f, args...)
 
-   Determine whether the given generic function has a method applicable to the given arguments.
+   检查指定的通用函数是否有可用于指定参数的方法。
 
 .. function:: invoke(f, (types...), args...)
 
-   Invoke a method for the given generic function matching the specified types (as a tuple), on the specified arguments. The arguments must be compatible with the specified types. This allows invoking a method other than the most specific matching method, which is useful when the behavior of a more general definition is explicitly needed (often as part of the implementation of a more specific method of the same function).
+   对指定的参数，为匹配指定类型（多元组）的通用函数指定要调用的方法。参数应与指定的类型兼容。它允许在最匹配的方法之外，指定一个方法。这对明确需要一个更通用的定义的行为时非常有用（通常作为相同函数的更特殊的方法实现的一部分）。
 
 .. function:: |
    
-   Applies a function to the preceding argument which allows for easy function chaining.
+   对前面的参数应用一个函数，方便写链式函数。
 
    **例子** ： ``[1:5] | x->x.^2 | sum | inv``
 
@@ -203,7 +203,7 @@
     state = start(I)
     while !done(I, state)
       (i, state) = next(I, state)
-      # body
+      # 代码体
     end
 
 ``state`` 对象可为任何东西，每个迭代类型都应选取与其相适应的。
@@ -218,23 +218,23 @@
 
 .. function:: next(iter, state) -> item, state
 
-   For a given iterable object and iteration state, return the current item and the next iteration state
+   对指定的可迭代对象和迭代状态，返回当前项和下一个迭代状态
 
 .. function:: zip(iters...)
 
-   For a set of iterable objects, returns an iterable of tuples, where 第 ``i`` 个 tuple contains 第 ``i`` 个 component of each input iterable.
+   对一组迭代对象，返回一组可迭代多元组，其中第 ``i`` 个多元组包含每个可迭代输入的第 ``i`` 个分量。
 
-   Note that ``zip`` is it's own inverse: [zip(zip(a...)...)...] == [a...]
+   注意 ``zip`` 是它自己的逆操作： [zip(zip(a...)...)...] == [a...]
 
 
-Fully implemented by: ``Range``, ``Range1``, ``NDRange``, ``Tuple``, ``Real``, ``AbstractArray``, ``IntSet``, ``ObjectIdDict``, ``Dict``, ``WeakKeyDict``, ``EachLine``, ``String``, ``Set``, ``Task``.
+完全实现的有： ``Range``, ``Range1``, ``NDRange``, ``Tuple``, ``Real``, ``AbstractArray``, ``IntSet``, ``ObjectIdDict``, ``Dict``, ``WeakKeyDict``, ``EachLine``, ``String``, ``Set``, ``Task``.
 
 通用集合
 --------
 
 .. function:: isempty(collection) -> Bool
 
-   Determine whether a collection is empty (has no elements).
+   检查集合是否为空（没有元素）。
 
 .. function:: empty!(collection) -> collection
 
@@ -242,34 +242,34 @@ Fully implemented by: ``Range``, ``Range1``, ``NDRange``, ``Tuple``, ``Real``, `
 
 .. function:: length(collection) -> Integer
 
-   For ordered, indexable collections, the maximum index ``i`` for which ``ref(collection, i)`` is valid. For unordered collections, the number of elements.
+   对可排序、可索引的集合，用于 ``ref(collection, i)`` 最大索引值 ``i`` 是有效的。对不可排序的集合，结果为元素个数。
 
 .. function:: endof(collection) -> Integer
 
-   返回the last index of the collection.
+   返回集合的最后一个索引值。
    
    **例子** ： ``endof([1,2,4]) = 3``
 
-Fully implemented by: ``Range``, ``Range1``, ``Tuple``, ``Number``, ``AbstractArray``, ``IntSet``, ``Dict``, ``WeakKeyDict``, ``String``, ``Set``.
+完全实现的有： ``Range``, ``Range1``, ``Tuple``, ``Number``, ``AbstractArray``, ``IntSet``, ``Dict``, ``WeakKeyDict``, ``String``, ``Set``.
 
 可迭代集合
 ----------
 
 .. function:: contains(itr, x) -> Bool
 
-   Determine whether a collection contains the given value, ``x``.
+   检查集合是否包含指定值 ``x`` 
 
 .. function:: findin(a, b)
 
-   返回the indices of elements in collection ``a`` that appear in collection ``b``
+   返回曾在集合 ``b`` 中出现的，集合 ``a``  中元素的索引值。
 
 .. function:: unique(itr)
 
-   返回an array containing only the unique elements of the iterable ``itr``.
+   返回 ``itr`` 中去除多余重复元素的数组。
 
 .. function:: reduce(op, v0, itr)
 
-   Reduce the given collection with the given operator, i.e. accumulate ``v = op(v,elt)`` for each element, where ``v`` starts as ``v0``. Reductions for certain commonly-used operators are available in a more convenient 1-argument form: ``max(itr)``, ``min(itr)``, ``sum(itr)``, ``prod(itr)``, ``any(itr)``, ``all(itr)``.
+   使用指定的运算符约简指定集合， ``v0`` 为约简的初始值。一些常用运算符的缩减，有更简便的单参数格式： ``max(itr)``, ``min(itr)``, ``sum(itr)``, ``prod(itr)``, ``any(itr)``, ``all(itr)``.
 
 .. function:: max(itr)
 
@@ -305,31 +305,31 @@ Fully implemented by: ``Range``, ``Range1``, ``Tuple``, ``Number``, ``AbstractAr
 
 .. function:: any(itr) -> Bool
 
-   Test whether any elements of a boolean collection are true
+   检查布尔值集合中是否有为真的元素
 
 .. function:: all(itr) -> Bool
 
-   Test whether all elements of a boolean collection are true
+   检查布尔值集合中是否所有的元素都为真
 
 .. function:: count(itr) -> Integer
 
-   Count the number of boolean elements in ``itr`` which are true.
+   ``itr`` 中为真的布尔值元素的个数
 
 .. function:: countp(p, itr) -> Integer
 
-   Count the number of elements in ``itr`` for which predicate ``p`` is true.
+   ``itr`` 中断言 ``p`` 为真的布尔值元素的个数
 
 .. function:: any(p, itr) -> Bool
 
-   Determine whether any element of ``itr`` satisfies the given predicate.
+   检查 ``itr`` 中是否存在使指定断言为真的元素
 
 .. function:: all(p, itr) -> Bool
 
-   Determine whether all elements of ``itr`` satisfy the given predicate.
+   检查 ``itr`` 中是否所有元素都使指定断言为真
 
 .. function:: map(f, c) -> collection
 
-   Transform collection ``c`` by applying ``f`` to each element.
+   使用 ``f`` 遍历集合 ``c`` 的每个元素
 
    **例子** ： ``map((x) -> x * 2, [1, 2, 3]) = [2, 4, 6]``
 
@@ -339,17 +339,17 @@ Fully implemented by: ``Range``, ``Range1``, ``Tuple``, ``Number``, ``AbstractAr
 
 .. function:: mapreduce(f, op, itr)
 
-   Applies function ``f`` to each element in ``itr`` and then reduces the result using the binary function ``op``.
+   使用 ``f`` 遍历集合 ``c`` 的每个元素，然后使用二元函数 ``op`` 对结果进行约简
 
    **例子** ： ``mapreduce(x->x^2, +, [1:3]) == 1 + 4 + 9 == 14``
 
 .. function:: first(coll)
 
-   Get the first element of an ordered collection.
+   获取可排序集合的第一个元素
 
 .. function:: last(coll)
 
-   Get the last element of an ordered collection.
+   获取可排序集合的最后一个元素
    
 可索引集合
 ----------
@@ -357,16 +357,16 @@ Fully implemented by: ``Range``, ``Range1``, ``Tuple``, ``Number``, ``AbstractAr
 .. function:: ref(collection, key...)
               collection[key...]
 
-   Retrieve the value(s) stored at the given key or index within a collection.
+   取回集合中存储在指定 key 键或索引值内的值
 
 .. function:: assign(collection, value, key...)
               collection[key...] = value
 
-   Store the given value at the given key or index within a collection.
+   将指定值存储在集合的指定 key 键或索引值内
 
-Fully implemented by: ``Array``, ``DArray``, ``AbstractArray``, ``SubArray``, ``ObjectIdDict``, ``Dict``, ``WeakKeyDict``, ``String``.
+完全实现的有： ``Array``, ``DArray``, ``AbstractArray``, ``SubArray``, ``ObjectIdDict``, ``Dict``, ``WeakKeyDict``, ``String``.
 
-Partially implemented by: ``Range``, ``Range1``, ``Tuple``.
+部分实现的有： ``Range``, ``Range1``, ``Tuple``.
 
 关联性集合
 ----------
@@ -440,9 +440,9 @@ As with arrays, ``Dicts`` may be created with comprehensions. For example,
 
    Suggest that collection ``s`` reserve capacity for at least ``n`` elements. This can improve performance.
    
-Fully implemented by: ``ObjectIdDict``, ``Dict``, ``WeakKeyDict``.
+完全实现的有： ``ObjectIdDict``, ``Dict``, ``WeakKeyDict``.
 
-Partially implemented by: ``IntSet``, ``Set``, ``EnvHash``, ``Array``.
+部分实现的有： ``IntSet``, ``Set``, ``EnvHash``, ``Array``.
 
 类集集合
 --------
@@ -511,9 +511,9 @@ Partially implemented by: ``IntSet``, ``Set``, ``EnvHash``, ``Array``.
 
    Intersects IntSets s1 and s2 and overwrites the set s1 with the result. If needed, s1 will be expanded to the size of s2.
 
-Fully implemented by: ``IntSet``, ``Set``.
+完全实现的有： ``IntSet``, ``Set``.
 
-Partially implemented by: ``Array``.
+部分实现的有： ``Array``.
 
 双端队列
 --------
@@ -554,7 +554,7 @@ Partially implemented by: ``Array``.
 
    将 ``items`` 元素附加到集合末尾。
 
-完全由 ``Vector`` （即 1 维 ``Array`` ）来实现。
+完全实现的有： ``Vector`` （即 1 维 ``Array`` ）
 
 字符串
 ------
