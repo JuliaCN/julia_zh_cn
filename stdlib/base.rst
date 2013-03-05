@@ -1789,7 +1789,7 @@ I/O
 
 .. function:: isinf(f)
 
-   检查数是否为无穷大
+   检查数是否为无穷大或无穷小
 
 .. function:: isnan(f)
 

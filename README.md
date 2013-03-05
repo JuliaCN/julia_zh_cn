@@ -18,7 +18,7 @@ On ubuntu, you'll need the following packages installed:
 
 Then run
 
-    $ make helpdb_zh_CN.jl
+    $ make helpdb.jl
     $ make html
     $ make latexpdf
 
@@ -27,7 +27,7 @@ File layout
 -----------
 
     conf.py             Sphinx configuration
-    helpdb.jl           REPL help database
+    helpdb_zh_CN.jl     REPL help database
     sphinx/             Sphinx extensions and plugins
     sphinx/jlhelp.py    Sphinx plugin to build helpdb.jl
     stdlib/             Julia standard library documentation
