@@ -54,6 +54,11 @@
 .. function:: methods(f)
 
    显示 ``f`` 的所有方法及其对应的参数类型。
+   
+.. function:: methodswith(t)
+
+   显示 ``t`` 类型的所有方法。
+   
 
 所有对象
 --------
