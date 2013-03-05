@@ -9,8 +9,7 @@
 
 .. function:: whos([Module,] [pattern::Regex])
 
-   打印information about global variables in a module, optionally restricted
-   to those matching ``pattern``.
+   打印模块中全局变量的信息，可选择限制打印匹配 ``pattern`` 的变量。
 
 .. function:: edit(file::String, [line])
 
@@ -22,7 +21,23 @@
 
 .. function:: require(file::String...)
 
-   对源文件内容求值。
+   Load source files once, in the context of the ``Main`` module, on every active node, searching the system-wide ``LOAD_PATH`` for files. ``require`` is considered a top-level operation, so it sets the current ``include`` path but does not use it to search for files (see help for ``include``). This function is typically used to load library code, and is implicitly called by ``using`` to load packages.
+
+.. function:: reload(file::String)
+
+   类似 ``require`` ，except forces loading of files regardless of whether they have been loaded before. Typically used when interactively developing libraries.
+
+.. function:: include(path::String)
+
+   Evaluate the contents of a source file in the current context. During including, a task-local include path is set to the directory containing the file. Nested calls to ``include`` will search relative to that path. All paths refer to files on node 1 when running in parallel, and files will be fetched from node 1. This function is typically used to load source interactively, or to combine files in packages that are broken into multiple source files.
+
+.. function:: include_string(code::String)
+
+   类似 ``include`` ，except reads code from the given string rather than from a file. Since there is no file path involved, no path processing or fetching from node 1 is done.
+
+.. function:: evalfile(path::String)
+
+   Evaluate all expressions in the given file, and return the value of the last one. No other processing (path searching, fetching from node 1, etc.) is performed.
 
 .. function:: help(name)
 
@@ -34,11 +49,11 @@
 
 .. function:: which(f, args...)
 
-   Show which method of ``f`` will be called for the given arguments.
+   对指定的参数，显示应调用 ``f`` 的哪个方法。
 
 .. function:: methods(f)
 
-   Show all methods of ``f`` with their argument types.
+   显示 ``f`` 的所有方法及其对应的参数类型。
 
 所有对象
 --------
@@ -65,7 +80,7 @@
 
 .. function:: tuple(xs...)
 
-   构造给定的对象的多元组。
+   构造指定对象的多元组。
 
 .. function:: ntuple(n, f::Function)
 
@@ -97,7 +112,7 @@
 
 .. function:: convert(type, x)
 
-   试着将 ``x`` 转换为给定类型。
+   试着将 ``x`` 转换为指定类型。
 
 .. function:: promote(xs...)
 
@@ -108,15 +123,15 @@
 
 .. function:: subtype(type1, type2)
 
-   True if and only if all values of ``type1`` are also of ``type2``. Can also be written using the ``<:`` infix operator as ``type1 <: type2``.
+   仅在 ``type1`` 的所有值都是 ``type2`` 时为真。也可使用 ``<:`` 中缀运算符，写为 ``type1 <: type2`` 。
 
 .. function:: typemin(type)
 
-   The lowest value representable by the given (real) numeric type.
+   指定（实数）数值类型可表示的最小值。
 
 .. function:: typemax(type)
 
-   The highest value representable by the given (real) numeric type.
+   指定（实数）数值类型可表示的最大值。
 
 .. function:: realmin(type)
 
@@ -190,11 +205,11 @@
 
 .. function:: start(iter) -> state
 
-   Get initial iteration state for an iterable object
+   获取可迭代对象的初始迭代状态
 
 .. function:: done(iter, state) -> Bool
 
-   Test whether we are done iterating
+   检查迭代是否完成
 
 .. function:: next(iter, state) -> item, state
 
@@ -218,7 +233,7 @@ Fully implemented by: ``Range``, ``Range1``, ``NDRange``, ``Tuple``, ``Real``, `
 
 .. function:: empty!(collection) -> collection
 
-   移除all elements from a collection.
+   移除集合中的所有元素。
 
 .. function:: length(collection) -> Integer
 
@@ -323,6 +338,14 @@ Fully implemented by: ``Range``, ``Range1``, ``Tuple``, ``Number``, ``AbstractAr
 
    **例子** ： ``mapreduce(x->x^2, +, [1:3]) == 1 + 4 + 9 == 14``
 
+.. function:: first(coll)
+
+   Get the first element of an ordered collection.
+
+.. function:: last(coll)
+
+   Get the last element of an ordered collection.
+   
 可索引集合
 ----------
 
@@ -492,23 +515,23 @@ Partially implemented by: ``Array``.
 
 .. function:: push!(collection, item) -> collection
 
-   Insert an item at the end of a collection.
+   在集合尾端插入一项。
 
 .. function:: pop!(collection) -> item
 
-   移除the last item in a collection and return it.
+   移除集合的最后一项，并将其返回。
 
 .. function:: unshift!(collection, item) -> collection
 
-   Insert an item at the beginning of a collection.
+   在集合首端插入一项。
 
 .. function:: shift!(collection) -> item
 
-   移除the first item in a collection.
+   移除集合首项。
 
 .. function:: insert!(collection, index, item)
 
-   Insert an item at the given index.
+   在指定索引值处插入一项。
 
 .. function:: delete!(collection, index) -> item
 
@@ -612,6 +635,10 @@ Fully implemented by: ``Vector`` (aka 1-d ``Array``).
 
    返回the index of ``char`` in ``string``, giving 0 if not found. The second argument may also be a vector or a set of characters. The third argument optionally specifies a starting index.
 
+.. function:: ismatch(r::Regex, s::String)
+
+   Test whether a string contains a match of the given regular expression.
+   
 .. function:: lpad(string, n, p)
 
    Make a string at least ``n`` characters long by padding on the left with copies of ``p``.
@@ -713,6 +740,58 @@ Fully implemented by: ``Vector`` (aka 1-d ``Array``).
 .. function:: strwidth(s)
 
    Gives the number of columns needed to print a string.
+   
+.. function:: isalnum(c::Char)
+
+   Tests whether a character is alphanumeric.
+
+.. function:: isalpha(c::Char)
+
+   Tests whether a character is alphabetic.
+
+.. function:: isascii(c::Char)
+
+   Tests whether a character belongs to the ASCII character set.
+
+.. function:: isblank(c::Char)
+
+   Tests whether a character is a tab or space.
+
+.. function:: iscntrl(c::Char)
+
+   Tests whether a character is a control character.
+
+.. function:: isdigit(c::Char)
+
+   Tests whether a character is a numeric digit (0-9).
+
+.. function:: isgraph(c::Char)
+
+   Tests whether a character is printable, and not a space.
+
+.. function:: islower(c::Char)
+
+   Tests whether a character is a lowercase letter.
+
+.. function:: isprint(c::Char)
+
+   Tests whether a character is printable, including space.
+
+.. function:: ispunct(c::Char)
+
+   Tests whether a character is printable, and not a space or alphanumeric.
+
+.. function:: isspace(c::Char)
+
+   Tests whether a character is any whitespace character.
+
+.. function:: isupper(c::Char)
+
+   Tests whether a character is an uppercase letter.
+
+.. function:: isxdigit(c::Char)
+
+   Tests whether a character is a valid hexadecimal digit.
 
 I/O
 ---
@@ -912,9 +991,9 @@ I/O
 
    二元加、减、乘、左除、右除、指数运算符
 
-.. function:: .* ./ .\\ .^
+.. function:: .+ .- .* ./ .\\ .^
 
-   The element-wise binary addition, subtraction, multiplication, left division, right division, and exponentiation operators
+   逐元素二元加、减、乘、左除、右除、指数运算符
 
 .. function:: div(a,b)
 
@@ -939,15 +1018,15 @@ I/O
 
 .. function:: //
 
-   Rational division
+   分数除法
 
 .. function:: num(x)
 
-   Numerator of the rational representation of ``x``
+   分数 ``x`` 的分子
 
 .. function:: den(x)
 
-   Denominator of the rational representation of ``x``
+   分数 ``x`` 的分母
 
 .. function:: << >>
 
@@ -983,187 +1062,187 @@ I/O
 
 .. function:: sin(x)
 
-   计算sine of ``x`` ，其中 ``x`` 的单位为弧度
+   计算 ``x`` 的正弦值，其中 ``x`` 的单位为弧度
 
 .. function:: cos(x)
 
-   计算cosine of ``x`` ，其中 ``x`` 的单位为弧度
+   计算 ``x`` 的余弦值，其中 ``x`` 的单位为弧度
 
 .. function:: tan(x)
 
-   计算tangent of ``x`` ，其中 ``x`` 的单位为弧度
+   计算 ``x`` 的正切值，其中 ``x`` 的单位为弧度
 
 .. function:: sind(x)
 
-   计算sine of ``x`` ，其中 ``x`` 的单位为度数
+   计算 ``x`` 的正弦值，其中 ``x`` 的单位为度数
 
 .. function:: cosd(x)
 
-   计算cosine of ``x`` ，其中 ``x`` 的单位为度数
+   计算 ``x`` 的余弦值，其中 ``x`` 的单位为度数
 
 .. function:: tand(x)
 
-   计算tangent of ``x`` ，其中 ``x`` 的单位为度数
+   计算 ``x`` 的正切值，其中 ``x`` 的单位为度数
 
 .. function:: sinh(x)
 
-   计算hyperbolic sine of ``x``
+   计算 ``x`` 的双曲正弦值
 
 .. function:: cosh(x)
 
-   计算hyperbolic cosine of ``x``
+   计算 ``x`` 的双曲余弦值
 
 .. function:: tanh(x)
 
-   计算hyperbolic tangent of ``x``
+   计算 ``x`` 的双曲正切值
 
 .. function:: asin(x)
 
-   计算the inverse sine of ``x`` ，结果的单位为弧度
+   计算 ``x`` 的反正弦值，结果的单位为弧度
 
 .. function:: acos(x)
 
-   计算the inverse cosine of ``x`` ，结果的单位为弧度
+   计算 ``x`` 的反余弦值，结果的单位为弧度
 
 .. function:: atan(x)
 
-   计算the inverse tangent of ``x`` ，结果的单位为弧度
+   计算 ``x`` 的反正切值，结果的单位为弧度
 
 .. function:: atan2(y, x)
 
-   计算the inverse tangent of ``y/x``, using the signs of both ``x`` and ``y`` to determine the quadrant of the return value.
+   计算 ``y/x`` 的反正切值，由 ``x`` 和 ``y`` 的正负号来确定返回值的象限
 
 .. function:: asind(x)
 
-   计算the inverse sine of ``x`` ，结果的单位为度数
+   计算 ``x`` 的反正弦值，结果的单位为度数
 
 .. function:: acosd(x)
 
-   计算the inverse cosine of ``x`` ，结果的单位为度数
+   计算 ``x`` 的反余弦值，结果的单位为度数
 
 .. function:: atand(x)
 
-   计算the inverse tangent of ``x`` ，结果的单位为度数
+   计算 ``x`` 的反正切值，结果的单位为度数
 
 .. function:: sec(x)
 
-   计算the secant of ``x`` ，其中 ``x`` 的单位为弧度
+   计算 ``x`` 的正割值，其中 ``x`` 的单位为弧度
 
 .. function:: csc(x)
 
-   计算the cosecant of ``x`` ，其中 ``x`` 的单位为弧度
+   计算 ``x`` 的余割值，其中 ``x`` 的单位为弧度
 
 .. function:: cot(x)
 
-   计算the cotangent of ``x`` ，其中 ``x`` 的单位为弧度
+   计算 ``x`` 的余切值，其中 ``x`` 的单位为弧度
 
 .. function:: secd(x)
 
-   计算the secant of ``x`` ，其中 ``x`` 的单位为度数
+   计算 ``x`` 的正割值，其中 ``x`` 的单位为度数
 
 .. function:: cscd(x)
 
-   计算the cosecant of ``x`` ，其中 ``x`` 的单位为度数
+   计算 ``x`` 的余割值，其中 ``x`` 的单位为度数
 
 .. function:: cotd(x)
 
-   计算the cotangent of ``x`` ，其中 ``x`` 的单位为度数
+   计算 ``x`` 的余切值，其中 ``x`` 的单位为度数
 
 .. function:: asec(x)
 
-   计算the inverse secant of ``x`` ，结果的单位为弧度
+   计算 ``x`` 的反正割值，结果的单位为弧度
 
 .. function:: acsc(x)
 
-   计算the inverse cosecant of ``x`` ，结果的单位为弧度
+   计算 ``x`` 的反余割值，结果的单位为弧度
 
 .. function:: acot(x)
 
-   计算the inverse cotangent of ``x`` ，结果的单位为弧度
+   计算 ``x`` 的反余切值，结果的单位为弧度
 
 .. function:: asecd(x)
 
-   计算the inverse secant of ``x`` ，结果的单位为度数
+   计算 ``x`` 的反正割值，结果的单位为度数
 
 .. function:: acscd(x)
 
-   计算the inverse cosecant of ``x`` ，结果的单位为度数
+   计算 ``x`` 的反余割值，结果的单位为度数
 
 .. function:: acotd(x)
 
-   计算the inverse cotangent of ``x`` ，结果的单位为度数
+   计算 ``x`` 的反余切值，结果的单位为度数
 
 .. function:: sech(x)
 
-   计算the hyperbolic secant of ``x``
+   计算 ``x`` 的双曲正割值
 
 .. function:: csch(x)
 
-   计算the hyperbolic cosecant of ``x``
+   计算 ``x`` 的双曲余割值
 
 .. function:: coth(x)
 
-   计算the hyperbolic cotangent of ``x``
+   计算 ``x`` 的双曲余切值
 
 .. function:: asinh(x)
 
-   计算the inverse hyperbolic sine of ``x``
+   计算 ``x`` 的反双曲正弦值
 
 .. function:: acosh(x)
 
-   计算the inverse hyperbolic cosine of ``x``
+   计算 ``x`` 的反双曲余弦值
 
 .. function:: atanh(x)
 
-   计算the inverse hyperbolic cotangent of ``x``
+   计算 ``x`` 的反双曲正切值
 
 .. function:: asech(x)
 
-   计算the inverse hyperbolic secant of ``x``
+   计算 ``x`` 的反双曲正割值
 
 .. function:: acsch(x)
 
-   计算the inverse hyperbolic cosecant of ``x``
+   计算 ``x`` 的反双曲余割值
 
 .. function:: acoth(x)
 
-   计算the inverse hyperbolic cotangent of ``x``
+   计算 ``x`` 的反双曲余切值
 
 .. function:: sinc(x)
 
-   计算:math:`sin(\pi x) / x`
+   计算 :math:`sin(\pi x) / x`
 
 .. function:: cosc(x)
 
-   计算:math:`cos(\pi x) / x`
+   计算 :math:`cos(\pi x) / x`
 
 .. function:: degrees2radians(x)
 
-   Convert ``x`` from degrees to radians
+   将 ``x`` 度数转换为弧度
 
 .. function:: radians2degrees(x)
 
-   Convert ``x`` from radians to degrees
+   将 ``x`` 弧度转换为度数
 
 .. function:: hypot(x, y)
 
-   计算the :math:`\sqrt{(x^2+y^2)}` without undue overflow or underflow
+   计算 :math:`\sqrt{(x^2+y^2)}` ，计算过程不会出现上溢、下溢
 
 .. function:: log(x)
    
-   计算the natural logarithm of ``x``
+   计算 ``x`` 的自然对数
 
 .. function:: log2(x)
 
-   计算the natural logarithm of ``x`` to base 2
+   计算 ``x`` 以 2 为底的对数
 
 .. function:: log10(x)
 
-   计算the natural logarithm of ``x`` to base 10
+   计算 ``x`` 以 10 为底的对数
 
 .. function:: log1p(x)
 
-   Accurate natural logarithm of ``1+x``
+   ``1+x`` 自然对数的精确值
 
 .. function:: logb(x)
 
@@ -1180,20 +1259,19 @@ I/O
 
 .. function:: exp(x)
 
-   计算:math:`e^x`
+   计算 :math:`e^x`
 
 .. function:: exp2(x)
 
-   计算:math:`2^x`
+   计算 :math:`2^x`
 
 .. function:: ldexp(x, n)
 
-   计算:math:`x \times 2^n`
+   计算 :math:`x \times 2^n`
 
 .. function:: modf(x)
 
-   返回a tuple (fpart,ipart) of the fractional and integral parts of a
-   number. 两部分都与参数同正负号。
+   返回一个数的小数部分和整数部分的多元组。两部分都与参数同正负号。
 
 .. function:: expm1(x)
 
@@ -1201,7 +1279,7 @@ I/O
 
 .. function:: square(x)
 
-   计算:math:`x^2`
+   计算 :math:`x^2`
 
 .. function:: round(x, [digits, [base]]) -> FloatingPoint
 
@@ -1221,7 +1299,7 @@ I/O
 
 .. function:: iround(x) -> Integer
 
-   返回the nearest integer to ``x``.
+   返回离 ``x`` 最近的整数。
 
 .. function:: iceil(x) -> Integer
 
@@ -1265,7 +1343,7 @@ I/O
 
 .. function:: sign(x)
 
-   返回 ``+1`` if ``x`` is positive, ``0`` if ``x == 0``, and ``-1`` if ``x`` is negative.
+   如果 ``x`` 是正数时返回 ``+1`` ， ``x == 0`` 时返回 ``0`` ， ``x`` 是负数时返回 ``-1`` 。
 
 .. function:: signbit(x)
 
@@ -1313,23 +1391,23 @@ I/O
 
 .. function:: real(z)
 
-   返回the real part of the complex number ``z``
+   返回复数 ``z`` 的实数部分
 
 .. function:: imag(z)
 
-   返回the imaginary part of the complex number ``z``
+   返回复数 ``z`` 的虚数部分
 
 .. function:: reim(z)
 
-   返回both the real and imaginary parts of the complex number ``z``
+   返回复数 ``z`` 的整数部分和虚数部分
 
 .. function:: conj(z)
 
-   计算the complex conjugate of a complex number ``z``
+   计算复数 ``z`` 的共轭
 
 .. function:: angle(z)
 
-   计算the phase angle of a complex number ``z``   
+   计算复数 ``z`` 的相位角
 
 .. function:: cis(z)
 
@@ -1337,11 +1415,11 @@ I/O
 
 .. function:: binomial(n,k)
 
-   Number of ways to choose ``k`` out of ``n`` items
+   从  ``n`` 项中选取 ``k`` 项，有多少种方法
 
 .. function:: factorial(n)
 
-   Factorial of n
+   n 的阶乘
 
 .. function:: factorial(n,k)
 
@@ -1355,11 +1433,11 @@ I/O
 
 .. function:: gcd(x,y)
 
-   Greatest common divisor
+   最大公因数
 
 .. function:: lcm(x,y)
 
-   Least common multiple
+   最小公倍数
 
 .. function:: gcdx(x,y)
 
@@ -1403,7 +1481,7 @@ I/O
 
 .. function:: gamma(x)
 
-   计算the gamma function of ``x``
+   计算 ``x`` 的 gamma 函数
 
 .. function:: lgamma(x)
 
@@ -1694,7 +1772,7 @@ I/O
 
 .. data:: pi
 
-   The constant pi
+   常量 pi
 
 .. function:: isdenormal(f) -> Bool
 
@@ -1869,7 +1947,7 @@ Julia 中的随机数生成使用 `Mersenne Twister 库 <http://www.math.sci.hir
 
 .. function:: ndims(A) -> Integer
 
-   返回the number of dimensions of A
+   返回 A 有几个维度
 
 .. function:: size(A)
 
@@ -1890,6 +1968,10 @@ Julia 中的随机数生成使用 `Mersenne Twister 库 <http://www.math.sci.hir
 .. function:: scale!(A, k)
 
    Scale the contents of an array A with k (in-place)
+   
+.. function:: conj!(A)
+
+   Convert an array to its complex conjugate in-place
 
 .. function:: stride(A, k)
 
@@ -2048,6 +2130,22 @@ All mathematical operations and functions are supported for arrays
 .. function:: findn(A)
 
    返回a vector of indexes for each dimension giving the locations of the non-zeros in ``A``.
+   
+.. function:: nonzeros(A)
+
+   Return a vector of the non-zero values in array ``A``.
+
+.. function:: findfirst(A)
+
+   Return the index of the first non-zero value in ``A``.
+
+.. function:: findfirst(A,v)
+
+   Return the index of the first element equal to ``v`` in ``A``.
+
+.. function:: findfirst(predicate, A)
+
+   Return the index of the first element that satisfies the given predicate in ``A``.
 
 .. function:: permutedims(A,perm)
 
@@ -2075,6 +2173,10 @@ All mathematical operations and functions are supported for arrays
 .. function:: cumsum(A, [dim])
 
    Cumulative sum along a dimension.
+   
+.. function:: cumsum_kbn(A, [dim])
+
+   Cumulative sum along a dimension, using the Kahan-Babuska-Neumaier compensated summation algorithm for additional accuracy.
 
 .. function:: cummin(A, [dim])
 
@@ -2105,6 +2207,10 @@ All mathematical operations and functions are supported for arrays
    Reduce 2-argument function ``f`` along dimensions of ``A``. ``dims`` is a
    vector specifying the dimensions to reduce, and ``initial`` is the initial
    value to use in the reductions.
+   
+.. function:: sum_kbn(A)
+
+   Returns the sum of all array elements, using the Kahan-Babuska-Neumaier compensated summation algorithm for additional accuracy.
 
 稀疏矩阵
 --------
@@ -2968,7 +3074,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: time()
 
-   Get the time in seconds since the epoch, with fairly high (typically, microsecond) resolution.
+   Get the system time in seconds since the epoch, with fairly high (typically, microsecond) resolution.
 
 .. function:: time_ns()
 

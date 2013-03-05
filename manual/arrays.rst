@@ -29,11 +29,11 @@
 
 1.  ``Array(type, dims...)`` — 未初始化的稠密数组
 2.  ``cell(dims...)`` — 未初始化的元胞数组（异构数组）
-3.  ``zeros(type, dims...)`` — 给定类型的全 0 数组
-4.  ``ones(type, dims...)`` — 给定类型的全 1 数组
+3.  ``zeros(type, dims...)`` — 指定类型的全 0 数组
+4.  ``ones(type, dims...)`` — 指定类型的全 1 数组
 5.  ``trues(dims...)`` — 全 ``true`` 的 ``Bool`` 数组
 6.  ``falses(dims...)`` — 全 ``false`` 的 ``Bool`` 数组
-7.  ``reshape(A, dims...)`` — 将数组中的数据按照给定维度排列
+7.  ``reshape(A, dims...)`` — 将数组中的数据按照指定维度排列
 8.  ``copy(A)``  — 复制 ``A``
 9.  ``deepcopy(A)`` — 复制 ``A`` ，并递归复制其元素
 10. ``similar(A, element_type, dims...)`` — 属性与输入数组（稠密、稀疏等）相同的未初始化数组，但指明了元素类型和维度。第二、三参数可省略，省略时默认为 ``A`` 的元素类型和维度

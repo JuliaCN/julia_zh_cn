@@ -218,15 +218,13 @@
 
 (E"Getting Around",E"Base",E"exit",E"exit([code])
 
-   Quit (or control-D at the prompt). The default exit code is zero,
-   indicating that the processes completed successfully.
+   退出（或在会话中按下 control-D ）。默认退出代码为 0 ，表示进程正常结束。
 
 "),
 
 (E"Getting Around",E"Base",E"whos",E"whos([Module,] [pattern::Regex])
 
-   Print information about global variables in a module, optionally
-   restricted to those matching \"pattern\".
+   打印模块中全局变量的信息，可选择限制打印匹配 \"pattern\" 的变量。
 
 "),
 
@@ -248,31 +246,74 @@
 
 (E"Getting Around",E"Base",E"require",E"require(file::String...)
 
-   Evaluate the contents of a source file.
+   Load source files once, in the context of the \"Main\" module, on
+   every active node, searching the system-wide \"LOAD_PATH\" for
+   files. \"require\" is considered a top-level operation, so it sets
+   the current \"include\" path but does not use it to search for
+   files (see help for \"include\"). This function is typically used
+   to load library code, and is implicitly called by \"using\" to load
+   packages.
+
+"),
+
+(E"Getting Around",E"Base",E"reload",E"reload(file::String)
+
+   Like \"require\", except forces loading of files regardless of
+   whether they have been loaded before. Typically used when
+   interactively developing libraries.
+
+"),
+
+(E"Getting Around",E"Base",E"include",E"include(path::String)
+
+   Evaluate the contents of a source file in the current context.
+   During including, a task-local include path is set to the directory
+   containing the file. Nested calls to \"include\" will search
+   relative to that path. All paths refer to files on node 1 when
+   running in parallel, and files will be fetched from node 1. This
+   function is typically used to load source interactively, or to
+   combine files in packages that are broken into multiple source
+   files.
+
+"),
+
+(E"Getting Around",E"Base",E"include_string",E"include_string(code::String)
+
+   Like \"include\", except reads code from the given string rather
+   than from a file. Since there is no file path involved, no path
+   processing or fetching from node 1 is done.
+
+"),
+
+(E"Getting Around",E"Base",E"evalfile",E"evalfile(path::String)
+
+   Evaluate all expressions in the given file, and return the value of
+   the last one. No other processing (path searching, fetching from
+   node 1, etc.) is performed.
 
 "),
 
 (E"Getting Around",E"Base",E"help",E"help(name)
 
-   Get help for a function. \"name\" can be an object or a string.
+   获得函数帮助。\"name\" 可以是对象或字符串。
 
 "),
 
 (E"Getting Around",E"Base",E"apropos",E"apropos(string)
 
-   Search documentation for functions related to \"string\".
+   查询文档中与 \"string\" 相关的函数。
 
 "),
 
 (E"Getting Around",E"Base",E"which",E"which(f, args...)
 
-   Show which method of \"f\" will be called for the given arguments.
+   对指定的参数，显示应调用 \"f\" 的哪个方法。
 
 "),
 
 (E"Getting Around",E"Base",E"methods",E"methods(f)
 
-   Show all methods of \"f\" with their argument types.
+   显示 \"f\" 的所有方法及其对应的参数类型。
 
 "),
 
@@ -394,21 +435,19 @@
 
 (E"Types",E"Base",E"subtype",E"subtype(type1, type2)
 
-   True if and only if all values of \"type1\" are also of \"type2\".
-   Can also be written using the \"<:\" infix operator as \"type1 <:
-   type2\".
+   仅在 \"type1\" 的所有值都是 \"type2\" 时为真。也可使用 \"<:\" 中缀运算符，写为 \"type1 <: type2\" 。
 
 "),
 
 (E"Types",E"Base",E"typemin",E"typemin(type)
 
-   The lowest value representable by the given (real) numeric type.
+   指定（实数）数值类型可表示的最小值。
 
 "),
 
 (E"Types",E"Base",E"typemax",E"typemax(type)
 
-   The highest value representable by the given (real) numeric type.
+   指定（实数）数值类型可表示的最大值。
 
 "),
 
@@ -472,7 +511,7 @@
    Determine whether the given generic function has a method matching
    the given tuple of argument types.
 
-   **Example**: \"method_exists(length, (Array,)) = true\"
+   例子： \"method_exists(length, (Array,)) = true\"
 
 "),
 
@@ -500,7 +539,7 @@
    Applies a function to the preceding argument which allows for easy
    function chaining.
 
-   **Example**: \"[1:5] | x->x.^2 | sum | inv\"
+   例子： \"[1:5] | x->x.^2 | sum | inv\"
 
 "),
 
@@ -526,7 +565,7 @@
 (E"Iteration",E"Base",E"zip",E"zip(iters...)
 
    For a set of iterable objects, returns an iterable of tuples, where
-   the >>``<<i``th tuple contains the >>``<<i``th component of each
+   the \"i\"th tuple contains the \"i\"th component of each
    input iterable.
 
    Note that \"zip\" is it's own inverse: [zip(zip(a...)...)...] ==
@@ -558,7 +597,7 @@
 
    Returns the last index of the collection.
 
-   **Example**: \"endof([1,2,4]) = 3\"
+   例子： \"endof([1,2,4]) = 3\"
 
 "),
 
@@ -684,7 +723,7 @@
 
    Transform collection \"c\" by applying \"f\" to each element.
 
-   **Example**: \"map((x) -> x * 2, [1, 2, 3]) = [2, 4, 6]\"
+   例子： \"map((x) -> x * 2, [1, 2, 3]) = [2, 4, 6]\"
 
 "),
 
@@ -699,7 +738,19 @@
    Applies function \"f\" to each element in \"itr\" and then reduces
    the result using the binary function \"op\".
 
-   **Example**: \"mapreduce(x->x^2, +, [1:3]) == 1 + 4 + 9 == 14\"
+   例子： \"mapreduce(x->x^2, +, [1:3]) == 1 + 4 + 9 == 14\"
+
+"),
+
+(E"Iterable Collections",E"Base",E"first",E"first(coll)
+
+   Get the first element of an ordered collection.
+
+"),
+
+(E"Iterable Collections",E"Base",E"last",E"last(coll)
+
+   Get the last element of an ordered collection.
 
 "),
 
@@ -925,31 +976,31 @@ collection[key...] = value
 
 (E"Dequeues",E"Base",E"push!",E"push!(collection, item) -> collection
 
-   Insert an item at the end of a collection.
+   在集合尾端插入一项。
 
 "),
 
 (E"Dequeues",E"Base",E"pop!",E"pop!(collection) -> item
 
-   Remove the last item in a collection and return it.
+   移除集合的最后一项，并将其返回。
 
 "),
 
 (E"Dequeues",E"Base",E"unshift!",E"unshift!(collection, item) -> collection
 
-   Insert an item at the beginning of a collection.
+   在集合首端插入一项。
 
 "),
 
 (E"Dequeues",E"Base",E"shift!",E"shift!(collection) -> item
 
-   Remove the first item in a collection.
+   移除集合首项。
 
 "),
 
 (E"Dequeues",E"Base",E"insert!",E"insert!(collection, index, item)
 
-   Insert an item at the given index.
+   在指定索引值处插入一项。
 
 "),
 
@@ -995,7 +1046,7 @@ string(strs...)
 
    Concatenate strings.
 
-   **Example**: \"\"Hello \" * \"world\" == \"Hello world\"\"
+   例子： \"\"Hello \" * \"world\" == \"Hello world\"\"
 
 "),
 
@@ -1003,7 +1054,7 @@ string(strs...)
 
    Repeat a string.
 
-   **Example**: \"\"Julia \"^3 == \"Julia Julia Julia \"\"
+   例子： \"\"Julia \"^3 == \"Julia Julia Julia \"\"
 
 "),
 
@@ -1102,6 +1153,13 @@ string(strs...)
    Return the index of \"char\" in \"string\", giving 0 if not found.
    The second argument may also be a vector or a set of characters.
    The third argument optionally specifies a starting index.
+
+"),
+
+(E"Strings",E"Base",E"ismatch",E"ismatch(r::Regex, s::String)
+
+   Test whether a string contains a match of the given regular
+   expression.
 
 "),
 
@@ -1290,21 +1348,100 @@ string(strs...)
 
 "),
 
+(E"Strings",E"Base",E"isalnum",E"isalnum(c::Char)
+
+   Tests whether a character is alphanumeric.
+
+"),
+
+(E"Strings",E"Base",E"isalpha",E"isalpha(c::Char)
+
+   Tests whether a character is alphabetic.
+
+"),
+
+(E"Strings",E"Base",E"isascii",E"isascii(c::Char)
+
+   Tests whether a character belongs to the ASCII character set.
+
+"),
+
+(E"Strings",E"Base",E"isblank",E"isblank(c::Char)
+
+   Tests whether a character is a tab or space.
+
+"),
+
+(E"Strings",E"Base",E"iscntrl",E"iscntrl(c::Char)
+
+   Tests whether a character is a control character.
+
+"),
+
+(E"Strings",E"Base",E"isdigit",E"isdigit(c::Char)
+
+   Tests whether a character is a numeric digit (0-9).
+
+"),
+
+(E"Strings",E"Base",E"isgraph",E"isgraph(c::Char)
+
+   Tests whether a character is printable, and not a space.
+
+"),
+
+(E"Strings",E"Base",E"islower",E"islower(c::Char)
+
+   Tests whether a character is a lowercase letter.
+
+"),
+
+(E"Strings",E"Base",E"isprint",E"isprint(c::Char)
+
+   Tests whether a character is printable, including space.
+
+"),
+
+(E"Strings",E"Base",E"ispunct",E"ispunct(c::Char)
+
+   Tests whether a character is printable, and not a space or
+   alphanumeric.
+
+"),
+
+(E"Strings",E"Base",E"isspace",E"isspace(c::Char)
+
+   Tests whether a character is any whitespace character.
+
+"),
+
+(E"Strings",E"Base",E"isupper",E"isupper(c::Char)
+
+   Tests whether a character is an uppercase letter.
+
+"),
+
+(E"Strings",E"Base",E"isxdigit",E"isxdigit(c::Char)
+
+   Tests whether a character is a valid hexadecimal digit.
+
+"),
+
 (E"I/O",E"Base",E"STDOUT",E"STDOUT
 
-   Global variable referring to the standard out stream.
+   指向标准输出流的全局变量
 
 "),
 
 (E"I/O",E"Base",E"STDERR",E"STDERR
 
-   Global variable referring to the standard error stream.
+   指向标准错误流的全局变量
 
 "),
 
 (E"I/O",E"Base",E"STDIN",E"STDIN
 
-   Global variable referring to the standard input stream.
+   指向标准输入流的全局变量
 
 "),
 
@@ -1350,7 +1487,7 @@ string(strs...)
    Apply the function \"f\" to the result of \"open(args...)\" and
    close the resulting file descriptor upon completion.
 
-   **Example**: \"open(readall, \"file.txt\")\"
+   例子： \"open(readall, \"file.txt\")\"
 
 "),
 
@@ -1560,7 +1697,7 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
    an offset (in bytes) if, for example, you want to skip over a
    header in the file.
 
-   **Example**:  A = mmap_array(Int64, (25,30000), s)
+   例子：  A = mmap_array(Int64, (25,30000), s)
 
    This would create a 25-by-30000 array of Int64s, linked to the file
    associated with stream s.
@@ -1594,21 +1731,19 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"Mathematical Functions",E"Base",E"-",E"-()
 
-   Unary minus
+   一元减
 
 "),
 
 (E"Mathematical Functions",E"",E"+ - * / \\ ^",E"+ - * / \\ ^
 
-   The binary addition, subtraction, multiplication, left division,
-   right division, and exponentiation operators
+   二元加、减、乘、左除、右除、指数运算符
 
 "),
 
 (E"Mathematical Functions",E"",E".* ./ .\\ .^",E".* ./ .\\ .^
 
-   The element-wise binary addition, subtraction, multiplication, left
-   division, right division, and exponentiation operators
+   逐元素二元加、减、乘、左除、右除、指数运算符
 
 "),
 
@@ -1645,25 +1780,25 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"Mathematical Functions",E"Base",E"//",E"//()
 
-   Rational division
+   分数除法
 
 "),
 
 (E"Mathematical Functions",E"Base",E"num",E"num(x)
 
-   Numerator of the rational representation of \"x\"
+   分数 \"x\" 的分子
 
 "),
 
 (E"Mathematical Functions",E"Base",E"den",E"den(x)
 
-   Denominator of the rational representation of \"x\"
+   分数 \"x\" 的分母
 
 "),
 
 (E"Mathematical Functions",E"",E"<< >>",E"<< >>
 
-   Left and right shift operators
+   左移、右移运算符
 
 "),
 
@@ -1683,7 +1818,7 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"Mathematical Functions",E"Base",E"!",E"!()
 
-   Boolean not
+   逻辑非
 
 "),
 
@@ -1695,13 +1830,13 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"Mathematical Functions",E"Base",E"&",E"&()
 
-   Bitwise and
+   逻辑与
 
 "),
 
 (E"Mathematical Functions",E"Base",E"|",E"|()
 
-   Bitwise or
+   逻辑或
 
 "),
 
@@ -1713,284 +1848,277 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"Mathematical Functions",E"Base",E"sin",E"sin(x)
 
-   Compute sine of \"x\", where \"x\" is in radians
+   计算 ``x`` 的正弦值，其中 ``x`` 的单位为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"cos",E"cos(x)
 
-   Compute cosine of \"x\", where \"x\" is in radians
+   计算 ``x`` 的余弦值，其中 ``x`` 的单位为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"tan",E"tan(x)
 
-   Compute tangent of \"x\", where \"x\" is in radians
+   计算 ``x`` 的正切值，其中 ``x`` 的单位为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"sind",E"sind(x)
 
-   Compute sine of \"x\", where \"x\" is in degrees
+   计算 ``x`` 的正弦值，其中 ``x`` 的单位为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"cosd",E"cosd(x)
 
-   Compute cosine of \"x\", where \"x\" is in degrees
+   计算 ``x`` 的余弦值，其中 ``x`` 的单位为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"tand",E"tand(x)
 
-   Compute tangent of \"x\", where \"x\" is in degrees
+   计算 ``x`` 的正切值，其中 ``x`` 的单位为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"sinh",E"sinh(x)
 
-   Compute hyperbolic sine of \"x\"
+   计算 ``x`` 的双曲正弦值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"cosh",E"cosh(x)
 
-   Compute hyperbolic cosine of \"x\"
+   计算 ``x`` 的双曲余弦值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"tanh",E"tanh(x)
 
-   Compute hyperbolic tangent of \"x\"
+   计算 ``x`` 的双曲正切值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"asin",E"asin(x)
 
-   Compute the inverse sine of \"x\", where the output is in radians
+   计算 ``x`` 的反正弦值，结果的单位为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"acos",E"acos(x)
 
-   Compute the inverse cosine of \"x\", where the output is in radians
+   计算 ``x`` 的反余弦值，结果的单位为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"atan",E"atan(x)
 
-   Compute the inverse tangent of \"x\", where the output is in
-   radians
+   计算 ``x`` 的反正切值，结果的单位为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"atan2",E"atan2(y, x)
 
-   Compute the inverse tangent of \"y/x\", using the signs of both
-   \"x\" and \"y\" to determine the quadrant of the return value.
+   计算 ``y/x`` 的反正切值，由 ``x`` 和 ``y`` 的正负号来确定返回值的象限
 
 "),
 
 (E"Mathematical Functions",E"Base",E"asind",E"asind(x)
 
-   Compute the inverse sine of \"x\", where the output is in degrees
+   计算 ``x`` 的反正弦值，结果的单位为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"acosd",E"acosd(x)
 
-   Compute the inverse cosine of \"x\", where the output is in degrees
+   计算 ``x`` 的反余弦值，结果的单位为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"atand",E"atand(x)
 
-   Compute the inverse tangent of \"x\", where the output is in
-   degrees
+   计算 ``x`` 的反正切值，结果的单位为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"sec",E"sec(x)
 
-   Compute the secant of \"x\", where \"x\" is in radians
+   计算 ``x`` 的正割值，其中 ``x`` 的单位为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"csc",E"csc(x)
 
-   Compute the cosecant of \"x\", where \"x\" is in radians
+  计算 ``x`` 的余割值，其中 ``x`` 的单位为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"cot",E"cot(x)
 
-   Compute the cotangent of \"x\", where \"x\" is in radians
+  计算 ``x`` 的余切值，其中 ``x`` 的单位为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"secd",E"secd(x)
 
-   Compute the secant of \"x\", where \"x\" is in degrees
+   计算 ``x`` 的正割值，其中 ``x`` 的单位为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"cscd",E"cscd(x)
 
-   Compute the cosecant of \"x\", where \"x\" is in degrees
+   计算 ``x`` 的余割值，其中 ``x`` 的单位为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"cotd",E"cotd(x)
 
-   Compute the cotangent of \"x\", where \"x\" is in degrees
+   计算 ``x`` 的余切值，其中 ``x`` 的单位为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"asec",E"asec(x)
 
-   Compute the inverse secant of \"x\", where the output is in radians
+   计算 ``x`` 的反正割值，结果的单位为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"acsc",E"acsc(x)
 
-   Compute the inverse cosecant of \"x\", where the output is in
-   radians
+   计算 ``x`` 的反余割值，结果的单位为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"acot",E"acot(x)
 
-   Compute the inverse cotangent of \"x\", where the output is in
-   radians
+   计算 ``x`` 的反余切值，结果的单位为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"asecd",E"asecd(x)
 
-   Compute the inverse secant of \"x\", where the output is in degrees
+   计算 ``x`` 的反正割值，结果的单位为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"acscd",E"acscd(x)
 
-   Compute the inverse cosecant of \"x\", where the output is in
-   degrees
+   计算 ``x`` 的反余割值，结果的单位为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"acotd",E"acotd(x)
 
-   Compute the inverse cotangent of \"x\", where the output is in
-   degrees
+   计算 ``x`` 的反余切值，结果的单位为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"sech",E"sech(x)
 
-   Compute the hyperbolic secant of \"x\"
+   计算 ``x`` 的双曲正割值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"csch",E"csch(x)
 
-   Compute the hyperbolic cosecant of \"x\"
+   计算 ``x`` 的双曲余割值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"coth",E"coth(x)
 
-   Compute the hyperbolic cotangent of \"x\"
+   计算 ``x`` 的双曲余切值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"asinh",E"asinh(x)
 
-   Compute the inverse hyperbolic sine of \"x\"
+   计算 ``x`` 的反双曲正弦值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"acosh",E"acosh(x)
 
-   Compute the inverse hyperbolic cosine of \"x\"
+   计算 ``x`` 的反双曲余弦值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"atanh",E"atanh(x)
 
-   Compute the inverse hyperbolic cotangent of \"x\"
+   计算 ``x`` 的反双曲正切值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"asech",E"asech(x)
 
-   Compute the inverse hyperbolic secant of \"x\"
+   计算 ``x`` 的反双曲正割值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"acsch",E"acsch(x)
 
-   Compute the inverse hyperbolic cosecant of \"x\"
+   计算 ``x`` 的反双曲余割值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"acoth",E"acoth(x)
 
-   Compute the inverse hyperbolic cotangent of \"x\"
+   计算 ``x`` 的反双曲余切值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"sinc",E"sinc(x)
 
-   Compute sin(\\pi x) / x
+   计算 sin(\\pi x) / x
 
 "),
 
 (E"Mathematical Functions",E"Base",E"cosc",E"cosc(x)
 
-   Compute cos(\\pi x) / x
+   计算 cos(\\pi x) / x
 
 "),
 
 (E"Mathematical Functions",E"Base",E"degrees2radians",E"degrees2radians(x)
 
-   Convert \"x\" from degrees to radians
+   将 ``x`` 度数转换为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"radians2degrees",E"radians2degrees(x)
 
-   Convert \"x\" from radians to degrees
+   将 ``x`` 弧度转换为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"hypot",E"hypot(x, y)
 
-   Compute the \\sqrt{(x^2+y^2)} without undue overflow or underflow
+   计算 \\sqrt{(x^2+y^2)} ，计算过程不会出现上溢、下溢
 
 "),
 
 (E"Mathematical Functions",E"Base",E"log",E"log(x)
 
-   Compute the natural logarithm of \"x\"
+   计算 ``x`` 的自然对数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"log2",E"log2(x)
 
-   Compute the natural logarithm of \"x\" to base 2
+   计算 ``x`` 以 2 为底的对数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"log10",E"log10(x)
 
-   Compute the natural logarithm of \"x\" to base 10
+    计算 ``x`` 以 10 为底的对数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"log1p",E"log1p(x)
 
-   Accurate natural logarithm of \"1+x\"
+   ``1+x`` 自然对数的精确值
 
 "),
 
@@ -2015,26 +2143,25 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"Mathematical Functions",E"Base",E"exp",E"exp(x)
 
-   Compute e^x
+   计算 e^x
 
 "),
 
 (E"Mathematical Functions",E"Base",E"exp2",E"exp2(x)
 
-   Compute 2^x
+   计算 2^x
 
 "),
 
 (E"Mathematical Functions",E"Base",E"ldexp",E"ldexp(x, n)
 
-   Compute x \\times 2^n
+   计算 x \\times 2^n
 
 "),
 
 (E"Mathematical Functions",E"Base",E"modf",E"modf(x)
 
-   Return a tuple (fpart,ipart) of the fractional and integral parts
-   of a number. Both parts have the same sign as the argument.
+   返回一个数的小数部分和整数部分的多元组。两部分都与参数同正负号。
 
 "),
 
@@ -2083,7 +2210,7 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"Mathematical Functions",E"Base",E"iround",E"iround(x) -> Integer
 
-   Returns the nearest integer to \"x\".
+   返回离 ``x`` 最近的整数。
 
 "),
 
@@ -2153,8 +2280,7 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"Mathematical Functions",E"Base",E"sign",E"sign(x)
 
-   Return \"+1\" if \"x\" is positive, \"0\" if \"x == 0\", and \"-1\"
-   if \"x\" is negative.
+   如果 ``x`` 是正数时返回 ``+1`` ， ``x == 0`` 时返回 ``0`` ， ``x`` 是负数时返回 ``-1`` 。
 
 "),
 
@@ -2174,13 +2300,13 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"Mathematical Functions",E"Base",E"sqrt",E"sqrt(x)
 
-   Return \\sqrt{x}
+   返回 \\sqrt{x}
 
 "),
 
 (E"Mathematical Functions",E"Base",E"cbrt",E"cbrt(x)
 
-   Return x^{1/3}
+   返回 x^{1/3}
 
 "),
 
@@ -2224,32 +2350,31 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"Mathematical Functions",E"Base",E"real",E"real(z)
 
-   Return the real part of the complex number \"z\"
+   返回复数 ``z`` 的实数部分
 
 "),
 
 (E"Mathematical Functions",E"Base",E"imag",E"imag(z)
 
-   Return the imaginary part of the complex number \"z\"
+   返回复数 ``z`` 的虚数部分
 
 "),
 
 (E"Mathematical Functions",E"Base",E"reim",E"reim(z)
 
-   Return both the real and imaginary parts of the complex number
-   \"z\"
+   返回复数 ``z`` 的整数部分和虚数部分
 
 "),
 
 (E"Mathematical Functions",E"Base",E"conj",E"conj(z)
 
-   Compute the complex conjugate of a complex number \"z\"
+   计算复数 ``z`` 的共轭
 
 "),
 
 (E"Mathematical Functions",E"Base",E"angle",E"angle(z)
 
-   Compute the phase angle of a complex number \"z\"
+   计算复数 ``z`` 的相位角
 
 "),
 
@@ -2262,19 +2387,19 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"Mathematical Functions",E"Base",E"binomial",E"binomial(n, k)
 
-   Number of ways to choose \"k\" out of \"n\" items
+   从  ``n`` 项中选取 ``k`` 项，有多少种方法
 
 "),
 
 (E"Mathematical Functions",E"Base",E"factorial",E"factorial(n)
 
-   Factorial of n
+   n 的阶乘
 
 "),
 
 (E"Mathematical Functions",E"Base",E"factorial",E"factorial(n, k)
 
-   Compute \"factorial(n)/factorial(k)\"
+   计算 \"factorial(n)/factorial(k)\"
 
 "),
 
@@ -2286,19 +2411,19 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
    each key indicates the number of times the factor appears in the
    factorization.
 
-   **Example**: 100=2*2*5*5; then, \"factor(100) -> [5=>2,2=>2]\"
+   例子： 100=2*2*5*5; then, \"factor(100) -> [5=>2,2=>2]\"
 
 "),
 
 (E"Mathematical Functions",E"Base",E"gcd",E"gcd(x, y)
 
-   Greatest common divisor
+   最大公因数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"lcm",E"lcm(x, y)
 
-   Least common multiple
+   最小公倍数
 
 "),
 
@@ -2361,13 +2486,13 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"Mathematical Functions",E"Base",E"powermod",E"powermod(x, p, m)
 
-   Compute \"mod(x^p, m)\"
+   计算 \"mod(x^p, m)\"
 
 "),
 
 (E"Mathematical Functions",E"Base",E"gamma",E"gamma(x)
 
-   Compute the gamma function of \"x\"
+   计算 ``x`` 的 gamma 函数
 
 "),
 
@@ -2824,7 +2949,7 @@ airyaiprime(x)
 
 (E"Numbers",E"Base",E"pi",E"pi
 
-   The constant pi
+   常量 pi
 
 "),
 
@@ -2924,7 +3049,7 @@ airyaiprime(x)
 
    Number of ones in the binary representation of \"x\".
 
-   **Example**: \"count_ones(7) -> 3\"
+   例子： \"count_ones(7) -> 3\"
 
 "),
 
@@ -2932,7 +3057,7 @@ airyaiprime(x)
 
    Number of zeros in the binary representation of \"x\".
 
-   **Example**: \"count_zeros(int32(2 ^ 16 - 1)) -> 16\"
+   例子： \"count_zeros(int32(2 ^ 16 - 1)) -> 16\"
 
 "),
 
@@ -2940,7 +3065,7 @@ airyaiprime(x)
 
    Number of zeros leading the binary representation of \"x\".
 
-   **Example**: \"leading_zeros(int32(1)) -> 31\"
+   例子： \"leading_zeros(int32(1)) -> 31\"
 
 "),
 
@@ -2948,7 +3073,7 @@ airyaiprime(x)
 
    Number of ones leading the binary representation of \"x\".
 
-   **Example**: \"leading_ones(int32(2 ^ 32 - 2)) -> 31\"
+   例子： \"leading_ones(int32(2 ^ 32 - 2)) -> 31\"
 
 "),
 
@@ -2956,7 +3081,7 @@ airyaiprime(x)
 
    Number of zeros trailing the binary representation of \"x\".
 
-   **Example**: \"trailing_zeros(2) -> 1\"
+   例子： \"trailing_zeros(2) -> 1\"
 
 "),
 
@@ -2964,7 +3089,7 @@ airyaiprime(x)
 
    Number of ones trailing the binary representation of \"x\".
 
-   **Example**: \"trailing_ones(3) -> 2\"
+   例子： \"trailing_ones(3) -> 2\"
 
 "),
 
@@ -2972,7 +3097,7 @@ airyaiprime(x)
 
    Returns \"true\" if \"x\" is prime, and \"false\" otherwise.
 
-   **Example**: \"isprime(3) -> true\"
+   例子： \"isprime(3) -> true\"
 
 "),
 
@@ -2981,7 +3106,7 @@ airyaiprime(x)
    Returns \"true\" if \"x\" is odd (that is, not divisible by 2), and
    \"false\" otherwise.
 
-   **Example**: \"isodd(9) -> false\"
+   例子： \"isodd(9) -> false\"
 
 "),
 
@@ -2990,7 +3115,7 @@ airyaiprime(x)
    Returns \"true\" is \"x\" is even (that is, divisible by 2), and
    \"false\" otherwise.
 
-   **Example**: \"iseven(1) -> false\"
+   例子： \"iseven(1) -> false\"
 
 "),
 
@@ -3077,7 +3202,7 @@ airyaiprime(x)
 
 (E"Arrays",E"Base",E"ndims",E"ndims(A) -> Integer
 
-   Returns the number of dimensions of A
+   返回 A 有几个维度
 
 "),
 
@@ -3109,6 +3234,12 @@ airyaiprime(x)
 (E"Arrays",E"Base",E"scale!",E"scale!(A, k)
 
    Scale the contents of an array A with k (in-place)
+
+"),
+
+(E"Arrays",E"Base",E"conj!",E"conj!(A)
+
+   Convert an array to its complex conjugate in-place
 
 "),
 
@@ -3357,6 +3488,31 @@ airyaiprime(x)
 
 "),
 
+(E"Arrays",E"Base",E"nonzeros",E"nonzeros(A)
+
+   Return a vector of the non-zero values in array \"A\".
+
+"),
+
+(E"Arrays",E"Base",E"findfirst",E"findfirst(A)
+
+   Return the index of the first non-zero value in \"A\".
+
+"),
+
+(E"Arrays",E"Base",E"findfirst",E"findfirst(A, v)
+
+   Return the index of the first element equal to \"v\" in \"A\".
+
+"),
+
+(E"Arrays",E"Base",E"findfirst",E"findfirst(predicate, A)
+
+   Return the index of the first element that satisfies the given
+   predicate in \"A\".
+
+"),
+
 (E"Arrays",E"Base",E"permutedims",E"permutedims(A, perm)
 
    Permute the dimensions of array \"A\". \"perm\" is a vector
@@ -3394,6 +3550,13 @@ airyaiprime(x)
 (E"Arrays",E"Base",E"cumsum",E"cumsum(A[, dim])
 
    Cumulative sum along a dimension.
+
+"),
+
+(E"Arrays",E"Base",E"cumsum_kbn",E"cumsum_kbn(A[, dim])
+
+   Cumulative sum along a dimension, using the Kahan-Babuska-Neumaier
+   compensated summation algorithm for additional accuracy.
 
 "),
 
@@ -3438,6 +3601,13 @@ airyaiprime(x)
    Reduce 2-argument function \"f\" along dimensions of \"A\".
    \"dims\" is a vector specifying the dimensions to reduce, and
    \"initial\" is the initial value to use in the reductions.
+
+"),
+
+(E"Arrays",E"Base",E"sum_kbn",E"sum_kbn(A)
+
+   Returns the sum of all array elements, using the Kahan-Babuska-
+   Neumaier compensated summation algorithm for additional accuracy.
 
 "),
 
@@ -3763,17 +3933,17 @@ airyaiprime(x)
 
 (E"Linear Algebra",E"Base",E"svd",E"svd(A[, thin]) -> U, S, V
 
-   Compute the SVD of A, returning \"U\", \"S\", and \"V\" such that
-   \"A = U*S*V'\". If \"thin\" is \"true\", an economy mode
-   decomposition is returned.
+   Compute the SVD of A, returning \"U\", vector \"S\", and \"V\" such
+   that \"A == U*diagm(S)*V'\". If \"thin\" is \"true\", an economy
+   mode decomposition is returned.
 
 "),
 
 (E"Linear Algebra",E"Base",E"svdt",E"svdt(A[, thin]) -> U, S, Vt
 
-   Compute the SVD of A, returning \"U\", \"S\", and \"Vt\" such that
-   \"A = U*S*Vt\". If \"thin\" is \"true\", an economy mode
-   decomposition is returned.
+   Compute the SVD of A, returning \"U\", vector \"S\", and \"Vt\"
+   such that \"A = U*diagm(S)*Vt\". If \"thin\" is \"true\", an
+   economy mode decomposition is returned.
 
 "),
 
@@ -4460,7 +4630,7 @@ airyaiprime(x)
    Performs a multidimensional real-input/real-output (r2r) transform
    of type \"kind\" of the array \"A\", as defined in the FFTW manual.
    \"kind\" specifies either a discrete cosine transform of various
-   types (\"FFTW.REDFT00\", \"FFTW.REDFT01\",``FFTW.REDFT10``, or
+   types (\"FFTW.REDFT00\", \"FFTW.REDFT01\", \"FFTW.REDFT10\", or
    \"FFTW.REDFT11\"), a discrete sine transform of various types
    (\"FFTW.RODFT00\", \"FFTW.RODFT01\", \"FFTW.RODFT10\", or
    \"FFTW.RODFT11\"), a real-input DFT with halfcomplex-format output
@@ -4472,9 +4642,9 @@ airyaiprime(x)
    definitions of these transform types, at
    *<http://www.fftw.org/doc>*.
 
-   The optional \"dims``argument specifies an iterable subset of
+   The optional \"dims\" argument specifies an iterable subset of
    dimensions (e.g. an integer, range, tuple, or array) to transform
-   along.  ``kind[i]\" is then the transform type for \"dims[i]\",
+   along.  \"kind[i]\" is then the transform type for \"dims[i]\",
    with \"kind[end]\" being used for \"i > length(kind)\".
 
    See also \"FFTW.plan_r2r()\" to pre-plan optimized r2r transforms.
@@ -4739,12 +4909,20 @@ airyaiprime(x)
 
 "),
 
+(E"System",E"Base",E"readandwrite",E"readandwrite(command)
+
+   Starts running a command asynchronously, and returns a tuple
+   (stdout,stdin,process) of the output stream and input stream of the
+   process, and the process object itself.
+
+"),
+
 (E"System",E"",E"> < >> .>",E"> < >> .>
 
    \">\" \"<\" and \">>\" work exactly as in bash, and \".>\"
    redirects STDERR.
 
-   **Example**: \"run((`ls` > \"out.log\") .> \"err.log\")\"
+   例子： \"run((`ls` > \"out.log\") .> \"err.log\")\"
 
 "),
 
@@ -4803,7 +4981,7 @@ airyaiprime(x)
 
 (E"System",E"Base",E"time",E"time()
 
-   Get the time in seconds since the epoch, with fairly high
+   Get the system time in seconds since the epoch, with fairly high
    (typically, microsecond) resolution.
 
 "),
@@ -4865,9 +5043,21 @@ ccall(fptr::Ptr{Void}, RetType, (ArgType1, ...), ArgVar1, ...)
 
 "),
 
-(E"C Interface",E"Base",E"dlopen",E"dlopen(libfile::String)
+(E"C Interface",E"Base",E"dlopen",E"dlopen(libfile::String[, flags::Integer])
 
    Load a shared library, returning an opaque handle.
+
+   The optional flags argument is a bitwise-or of zero or more of
+   RTLD_LOCAL, RTLD_GLOBAL, RTLD_LAZY, RTLD_NOW, RTLD_NODELETE,
+   RTLD_NOLOAD, RTLD_DEEPBIND, and RTLD_FIRST.  These are converted to
+   the corresponding flags of the POSIX (and/or GNU libc and/or MacOS)
+   dlopen command, if possible, or are ignored if the specified
+   functionality is not available on the current platform.  The
+   default is RTLD_LAZY|RTLD_DEEPBIND|RTLD_LOCAL.  An important usage
+   of these flags, on POSIX platforms, is to specify
+   RTLD_LAZY|RTLD_DEEPBIND|RTLD_GLOBAL in order for the library's
+   symbols to be available for usage in other shared libraries, in
+   situations where there are dependencies between shared libraries.
 
 "),
 
@@ -4893,7 +5083,7 @@ ccall(fptr::Ptr{Void}, RetType, (ArgType1, ...), ArgVar1, ...)
 
 (E"C Interface",E"Base",E"c_free",E"c_free(addr::Ptr)
 
-   Call free() from C standard library.
+   调用 C 标准库中的 free() 。
 
 "),
 
