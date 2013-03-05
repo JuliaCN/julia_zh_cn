@@ -371,74 +371,73 @@
 关联性集合
 ----------
 
-``Dict`` is the standard associative collection. Its implementation uses the ``hash(x)`` as the hashing function for the key, and ``isequal(x,y)`` to determine equality. Define these two functions for custom types to override how they are stored in a hash table.
+字典 ``Dict`` 是标准关联性集合。它的实现中，key 键使用 ``hash(x)`` 作为其哈希函数，使用 ``isequal(x,y)`` 判断是否相等。为自定义类型定义这两个函数，可覆盖它们如何存储在哈希表中的细节。
 
-``ObjectIdDict`` is a special hash table where the keys are always object identities. ``WeakKeyDict`` is a hash table implementation where the keys are weak references to objects, and thus may be garbage collected even when referenced in a hash table.
+``ObjectIdDict`` 是个特殊的哈希表，它的 key 是对象的 ID 。 ``WeakKeyDict`` 是一种哈希表实现，它的 key 是对象的弱引用，因此即使在哈希表中被引用，它也可能被垃圾回收机制处理。
 
-Dicts can be created using a literal syntax: ``{"A"=>1, "B"=>2}``. Use of curly brackets will create a ``Dict`` of type ``Dict{Any,Any}``. Use of square brackets will attempt to infer type information from the keys and values (i.e. ``["A"=>1, "B"=>2]`` creates a ``Dict{ASCIIString, Int64}``). To explicitly specify types use the syntax: ``(KeyType=>ValueType)[...]``. For example, ``(ASCIIString=>Int32)["A"=>1, "B"=>2]``.
+字典可通过文本化语法构造： ``{"A"=>1, "B"=>2}`` 。使用花括号可以构造 ``Dict{Any,Any}`` 类型的 ``Dict`` 。使用方括号会尝试从 key 和值中推导类型信息（如 ``["A"=>1, "B"=>2]`` 可构造 ``Dict{ASCIIString, Int64}`` ）。使用 ``(KeyType=>ValueType)[...]`` 来指明类型。如 ``(ASCIIString=>Int32)["A"=>1, "B"=>2]`` 。
 
-As with arrays, ``Dicts`` may be created with comprehensions. For example,
-``{i => f(i) for i = 1:10}``.
+至于数组， ``Dicts`` 可使用内涵式语法来构造。如 ``{i => f(i) for i = 1:10}`` 。
 
 .. function:: Dict{K,V}()
 
-   构造a hashtable with keys of type K and values of type V
+   使用 K 类型的 key 和 V 类型的值来构造哈希表
 
 .. function:: has(collection, key)
 
-   Determine whether a collection has a mapping for a given key.
+   检查集合是否含有指定 key 的映射
 
 .. function:: get(collection, key, default)
 
-   返回the value stored for the given key, or the given default value if no mapping for the key is present.
+   返回指定 key 存储的值；当前没有 key 的映射时，返回默认值
 
 .. function:: getkey(collection, key, default)
 
-   返回the key matching argument ``key`` if one exists in ``collection``, otherwise return ``default``.
+   如果参数 ``key`` 匹配 ``collection`` 中的 key ，将其返回；否在返回 ``default`` 
 
 .. function:: delete!(collection, key)
 
-   删除the mapping for the given key in a collection.
+   删除集合中指定 key 的映射
 
 .. function:: empty!(collection)
 
-   删除all keys from a collection.
+   删除集合中所有的 key 
 
 .. function:: keys(collection)
 
-   返回an array of all keys in a collection.
+   返回集合中所有 key 组成的数组
 
 .. function:: values(collection)
 
-   返回an array of all values in a collection.
+   返回集合中所有值组成的数组
 
 .. function:: collect(collection)
 
-   返回an array of all items in a collection. For associative collections, returns (key, value) tuples.
+   返回集合中的所有项。对关联性集合，返回 (key, value) 多元组。
 
 .. function:: merge(collection, others...)
 
-   构造a merged collection from the given collections.
+   使用指定的集合构造归并集合
 
 .. function:: merge!(collection, others...)
 
-   Update collection with pairs from the other collections
+   将其它集合中的对儿更新进 ``collection``
 
 .. function:: filter(function, collection)
 
-   返回a copy of collection, removing (key, value) pairs for which function is false.
+   返回集合的浅拷贝，移除使 ``function`` 函数为假的 (key, value) 对儿
 
 .. function:: filter!(function, collection)
 
-   Update collection, removing (key, value) pairs for which function is false.
+   更新集合，移除使 ``function`` 函数为假的 (key, value) 对儿
 
 .. function:: eltype(collection)
 
-   返回the type tuple of the (key,value) pairs contained in collection.
+   返回集合中包含的 (key,value) 对儿的类型多元组
 
 .. function:: sizehint(s, n)
 
-   Suggest that collection ``s`` reserve capacity for at least ``n`` elements. This can improve performance.
+   使集合 ``s`` 保留最少 ``n`` 个元素的容量。这样可提高性能。
    
 完全实现的有： ``ObjectIdDict``, ``Dict``, ``WeakKeyDict``.
 
@@ -822,12 +821,12 @@ I/O
    Alternate syntax for open, where a string-based mode specifier is used instead of the five booleans. The values of ``mode`` correspond to those from ``fopen(3)`` or Perl ``open``, and are equivalent to setting the following boolean groups:
 
    ==== =================================
-    r    read
-    r+   read, write
-    w    write, create, truncate
-    w+   read, write, create, truncate
-    a    write, create, append
-    a+   read, write, create, append
+    r    读
+    r+   读、写
+    w    写、新建、truncate
+    w+   读写、新建、truncate
+    a    写、新建、追加
+    a+   读、写、新建、追加
    ==== =================================
 
 
@@ -966,7 +965,7 @@ I/O
 
    **例子** ：  A = mmap_array(Int64, (25,30000), s)
 
-   This would create a 25-by-30000 array of Int64s, linked to the file associated with stream s.
+   它将构造一个 25 x 30000 的 Int64 类型的数列, linked to the file associated with stream s.
 
 .. function:: msync(array)
 
@@ -974,7 +973,7 @@ I/O
 
 .. function:: mmap(len, prot, flags, fd, offset)
 
-   Low-level interface to the mmap system call. See the man page.
+   低级接口 to the mmap 系统调用。
 
 .. function:: munmap(pointer, len)
 
@@ -1039,7 +1038,7 @@ I/O
 
 .. function:: == != < <= > >=
 
-   Comparison operators to test equals, not equals, less than, less than or equals, greater than, and greater than or equals
+   比较运算符，用于检查是否相等、不等、小于、小于等于、大于、大于等于
 
 .. function:: cmp(x,y)
 
