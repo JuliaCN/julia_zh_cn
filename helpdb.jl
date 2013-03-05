@@ -376,8 +376,7 @@
 
 (E"All Objects",E"Base",E"hash",E"hash(x)
 
-   Compute an integer hash code such that \"isequal(x,y)\" implies
-   \"hash(x)==hash(y)\".
+   计算整数哈希值，由此，\"isequal(x,y)\" 等价于 \"hash(x)==hash(y)\" 。
 
 "),
 
@@ -634,49 +633,49 @@
 
 (E"Iterable Collections",E"Base",E"max",E"max(itr)
 
-   Returns the largest element in a collection
+   返回集合中最大的元素
 
 "),
 
 (E"Iterable Collections",E"Base",E"min",E"min(itr)
 
-   Returns the smallest element in a collection
+   返回集合中最小的元素
 
 "),
 
 (E"Iterable Collections",E"Base",E"indmax",E"indmax(itr) -> Integer
 
-   Returns the index of the maximum element in a collection
+   返回集合中最大的元素的索引值
 
 "),
 
 (E"Iterable Collections",E"Base",E"indmin",E"indmin(itr) -> Integer
 
-   Returns the index of the minimum element in a collection
+   返回集合中最小的元素的索引值
 
 "),
 
 (E"Iterable Collections",E"Base",E"findmax",E"findmax(itr) -> (x, index)
 
-   Returns the maximum element and its index
+   返回最大的元素及其索引值
 
 "),
 
 (E"Iterable Collections",E"Base",E"findmin",E"findmin(itr) -> (x, index)
 
-   Returns the minimum element and its index
+   返回最小的元素及其索引值
 
 "),
 
 (E"Iterable Collections",E"Base",E"sum",E"sum(itr)
 
-   Returns the sum of all elements in a collection
+   返回集合中所有元素的和
 
 "),
 
 (E"Iterable Collections",E"Base",E"prod",E"prod(itr)
 
-   Returns the product of all elements of a collection
+   返回集合中所有元素的乘积
 
 "),
 
@@ -1006,45 +1005,44 @@ collection[key...] = value
 
 (E"Dequeues",E"Base",E"delete!",E"delete!(collection, index) -> item
 
-   Remove the item at the given index, and return the deleted item.
+   移除指定索引值处的项，并返回删除项。
 
 "),
 
 (E"Dequeues",E"Base",E"delete!",E"delete!(collection, range) -> items
 
-   Remove items at specified range, and return a collection containing
-   the deleted items.
+   移除指定范围内的项，并返回包含删除项的集合。
 
 "),
 
 (E"Dequeues",E"Base",E"resize!",E"resize!(collection, n) -> collection
 
-   Resize collection to contain \"n\" elements.
+   改变集合的大小，使其可包含 \"n\" 个元素。
 
 "),
 
 (E"Dequeues",E"Base",E"append!",E"append!(collection, items) -> collection
 
-   Add the elements of \"items\" to the end of a collection.
+   将 \"items\" 元素附加到集合末尾。
 
 "),
 
 (E"Strings",E"Base",E"length",E"length(s)
 
-   The number of characters in string \"s\".
+   字符串 \"s\" 中的字符数。
 
 "),
 
 (E"Strings",E"Base",E"collect",E"collect(string)
 
-   Return an array of the characters in \"string\".
+   返回 \"string\" 中的字符数组。
 
 "),
 
 (E"Strings",E"Base",E"string",E"*()
 string(strs...)
 
-   Concatenate strings.
+   连接字符串。
 
    例子： \"\"Hello \" * \"world\" == \"Hello world\"\"
 
@@ -1052,7 +1050,7 @@ string(strs...)
 
 (E"Strings",E"Base",E"^",E"^()
 
-   Repeat a string.
+   重复字符串。
 
    例子： \"\"Julia \"^3 == \"Julia Julia Julia \"\"
 
@@ -1060,19 +1058,19 @@ string(strs...)
 
 (E"Strings",E"Base",E"string",E"string(char...)
 
-   Create a string with the given characters.
+   使用指定字符构造字符串。
 
 "),
 
 (E"Strings",E"Base",E"string",E"string(x)
 
-   Create a string from any value using the \"print\" function.
+   使用 \"print\" 函数的值构造字符串。
 
 "),
 
 (E"Strings",E"Base",E"repr",E"repr(x)
 
-   Create a string from any value using the \"show\" function.
+   使用 \"show\" 函数的值构造字符串。
 
 "),
 
@@ -1280,13 +1278,13 @@ string(strs...)
 
 (E"Strings",E"Base",E"chop",E"chop(string)
 
-   Remove the last character from a string
+   移除字符串的最后一个字符
 
 "),
 
 (E"Strings",E"Base",E"chomp",E"chomp(string)
 
-   Remove a trailing newline from a string
+   移除字符串最后的换行符
 
 "),
 
@@ -1350,80 +1348,79 @@ string(strs...)
 
 (E"Strings",E"Base",E"isalnum",E"isalnum(c::Char)
 
-   Tests whether a character is alphanumeric.
+   检查字符是否为字母或数字。
 
 "),
 
 (E"Strings",E"Base",E"isalpha",E"isalpha(c::Char)
 
-   Tests whether a character is alphabetic.
+   检查字符是否为字母。
 
 "),
 
 (E"Strings",E"Base",E"isascii",E"isascii(c::Char)
 
-   Tests whether a character belongs to the ASCII character set.
+   检查字符是否属于 ASCII 字符集。
 
 "),
 
 (E"Strings",E"Base",E"isblank",E"isblank(c::Char)
 
-   Tests whether a character is a tab or space.
+   检查字符是否为 tab 或空格。
 
 "),
 
 (E"Strings",E"Base",E"iscntrl",E"iscntrl(c::Char)
 
-   Tests whether a character is a control character.
+   检查字符是否为控制字符。
 
 "),
 
 (E"Strings",E"Base",E"isdigit",E"isdigit(c::Char)
 
-   Tests whether a character is a numeric digit (0-9).
+   检查字符是否为一位数字（0-9）。
 
 "),
 
 (E"Strings",E"Base",E"isgraph",E"isgraph(c::Char)
 
-   Tests whether a character is printable, and not a space.
+   检查字符是否可打印，且不是空白字符。
 
 "),
 
 (E"Strings",E"Base",E"islower",E"islower(c::Char)
 
-   Tests whether a character is a lowercase letter.
+   检查字符是否为小写字母。
 
 "),
 
 (E"Strings",E"Base",E"isprint",E"isprint(c::Char)
 
-   Tests whether a character is printable, including space.
+   检查字符是否可打印，包括空白字符。
 
 "),
 
 (E"Strings",E"Base",E"ispunct",E"ispunct(c::Char)
 
-   Tests whether a character is printable, and not a space or
-   alphanumeric.
+   检查字符是否可打印，且既非空白字符也非字母或数字。
 
 "),
 
 (E"Strings",E"Base",E"isspace",E"isspace(c::Char)
 
-   Tests whether a character is any whitespace character.
+   检查字符是否为任意空白字符。
 
 "),
 
 (E"Strings",E"Base",E"isupper",E"isupper(c::Char)
 
-   Tests whether a character is an uppercase letter.
+   检查字符是否为大写字母。
 
 "),
 
 (E"Strings",E"Base",E"isxdigit",E"isxdigit(c::Char)
 
-   Tests whether a character is a valid hexadecimal digit.
+   检查字符是否为有效的十六进制字符。
 
 "),
 
@@ -1478,7 +1475,7 @@ string(strs...)
 
 (E"I/O",E"Base",E"open",E"open(file_name) -> IOStream
 
-   Open a file in read mode.
+   以只读模式打开文件。
 
 "),
 
@@ -1848,223 +1845,223 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"Mathematical Functions",E"Base",E"sin",E"sin(x)
 
-   计算 ``x`` 的正弦值，其中 ``x`` 的单位为弧度
+   计算 \"x\" 的正弦值，其中 \"x\" 的单位为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"cos",E"cos(x)
 
-   计算 ``x`` 的余弦值，其中 ``x`` 的单位为弧度
+   计算 \"x\" 的余弦值，其中 \"x\" 的单位为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"tan",E"tan(x)
 
-   计算 ``x`` 的正切值，其中 ``x`` 的单位为弧度
+   计算 \"x\" 的正切值，其中 \"x\" 的单位为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"sind",E"sind(x)
 
-   计算 ``x`` 的正弦值，其中 ``x`` 的单位为度数
+   计算 \"x\" 的正弦值，其中 \"x\" 的单位为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"cosd",E"cosd(x)
 
-   计算 ``x`` 的余弦值，其中 ``x`` 的单位为度数
+   计算 \"x\" 的余弦值，其中 \"x\" 的单位为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"tand",E"tand(x)
 
-   计算 ``x`` 的正切值，其中 ``x`` 的单位为度数
+   计算 \"x\" 的正切值，其中 \"x\" 的单位为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"sinh",E"sinh(x)
 
-   计算 ``x`` 的双曲正弦值
+   计算 \"x\" 的双曲正弦值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"cosh",E"cosh(x)
 
-   计算 ``x`` 的双曲余弦值
+   计算 \"x\" 的双曲余弦值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"tanh",E"tanh(x)
 
-   计算 ``x`` 的双曲正切值
+   计算 \"x\" 的双曲正切值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"asin",E"asin(x)
 
-   计算 ``x`` 的反正弦值，结果的单位为弧度
+   计算 \"x\" 的反正弦值，结果的单位为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"acos",E"acos(x)
 
-   计算 ``x`` 的反余弦值，结果的单位为弧度
+   计算 \"x\" 的反余弦值，结果的单位为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"atan",E"atan(x)
 
-   计算 ``x`` 的反正切值，结果的单位为弧度
+   计算 \"x\" 的反正切值，结果的单位为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"atan2",E"atan2(y, x)
 
-   计算 ``y/x`` 的反正切值，由 ``x`` 和 ``y`` 的正负号来确定返回值的象限
+   计算 \"y/x\" 的反正切值，由 \"x\" 和 \"y\" 的正负号来确定返回值的象限
 
 "),
 
 (E"Mathematical Functions",E"Base",E"asind",E"asind(x)
 
-   计算 ``x`` 的反正弦值，结果的单位为度数
+   计算 \"x\" 的反正弦值，结果的单位为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"acosd",E"acosd(x)
 
-   计算 ``x`` 的反余弦值，结果的单位为度数
+   计算 \"x\" 的反余弦值，结果的单位为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"atand",E"atand(x)
 
-   计算 ``x`` 的反正切值，结果的单位为度数
+   计算 \"x\" 的反正切值，结果的单位为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"sec",E"sec(x)
 
-   计算 ``x`` 的正割值，其中 ``x`` 的单位为弧度
+   计算 \"x\" 的正割值，其中 \"x\" 的单位为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"csc",E"csc(x)
 
-  计算 ``x`` 的余割值，其中 ``x`` 的单位为弧度
+  计算 \"x\" 的余割值，其中 \"x\" 的单位为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"cot",E"cot(x)
 
-  计算 ``x`` 的余切值，其中 ``x`` 的单位为弧度
+  计算 \"x\" 的余切值，其中 \"x\" 的单位为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"secd",E"secd(x)
 
-   计算 ``x`` 的正割值，其中 ``x`` 的单位为度数
+   计算 \"x\" 的正割值，其中 \"x\" 的单位为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"cscd",E"cscd(x)
 
-   计算 ``x`` 的余割值，其中 ``x`` 的单位为度数
+   计算 \"x\" 的余割值，其中 \"x\" 的单位为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"cotd",E"cotd(x)
 
-   计算 ``x`` 的余切值，其中 ``x`` 的单位为度数
+   计算 \"x\" 的余切值，其中 \"x\" 的单位为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"asec",E"asec(x)
 
-   计算 ``x`` 的反正割值，结果的单位为弧度
+   计算 \"x\" 的反正割值，结果的单位为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"acsc",E"acsc(x)
 
-   计算 ``x`` 的反余割值，结果的单位为弧度
+   计算 \"x\" 的反余割值，结果的单位为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"acot",E"acot(x)
 
-   计算 ``x`` 的反余切值，结果的单位为弧度
+   计算 \"x\" 的反余切值，结果的单位为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"asecd",E"asecd(x)
 
-   计算 ``x`` 的反正割值，结果的单位为度数
+   计算 \"x\" 的反正割值，结果的单位为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"acscd",E"acscd(x)
 
-   计算 ``x`` 的反余割值，结果的单位为度数
+   计算 \"x\" 的反余割值，结果的单位为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"acotd",E"acotd(x)
 
-   计算 ``x`` 的反余切值，结果的单位为度数
+   计算 \"x\" 的反余切值，结果的单位为度数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"sech",E"sech(x)
 
-   计算 ``x`` 的双曲正割值
+   计算 \"x\" 的双曲正割值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"csch",E"csch(x)
 
-   计算 ``x`` 的双曲余割值
+   计算 \"x\" 的双曲余割值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"coth",E"coth(x)
 
-   计算 ``x`` 的双曲余切值
+   计算 \"x\" 的双曲余切值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"asinh",E"asinh(x)
 
-   计算 ``x`` 的反双曲正弦值
+   计算 \"x\" 的反双曲正弦值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"acosh",E"acosh(x)
 
-   计算 ``x`` 的反双曲余弦值
+   计算 \"x\" 的反双曲余弦值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"atanh",E"atanh(x)
 
-   计算 ``x`` 的反双曲正切值
+   计算 \"x\" 的反双曲正切值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"asech",E"asech(x)
 
-   计算 ``x`` 的反双曲正割值
+   计算 \"x\" 的反双曲正割值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"acsch",E"acsch(x)
 
-   计算 ``x`` 的反双曲余割值
+   计算 \"x\" 的反双曲余割值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"acoth",E"acoth(x)
 
-   计算 ``x`` 的反双曲余切值
+   计算 \"x\" 的反双曲余切值
 
 "),
 
@@ -2082,13 +2079,13 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"Mathematical Functions",E"Base",E"degrees2radians",E"degrees2radians(x)
 
-   将 ``x`` 度数转换为弧度
+   将 \"x\" 度数转换为弧度
 
 "),
 
 (E"Mathematical Functions",E"Base",E"radians2degrees",E"radians2degrees(x)
 
-   将 ``x`` 弧度转换为度数
+   将 \"x\" 弧度转换为度数
 
 "),
 
@@ -2100,25 +2097,25 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"Mathematical Functions",E"Base",E"log",E"log(x)
 
-   计算 ``x`` 的自然对数
+   计算 \"x\" 的自然对数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"log2",E"log2(x)
 
-   计算 ``x`` 以 2 为底的对数
+   计算 \"x\" 以 2 为底的对数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"log10",E"log10(x)
 
-    计算 ``x`` 以 10 为底的对数
+    计算 \"x\" 以 10 为底的对数
 
 "),
 
 (E"Mathematical Functions",E"Base",E"log1p",E"log1p(x)
 
-   ``1+x`` 自然对数的精确值
+   \"1+x\" 自然对数的精确值
 
 "),
 
@@ -2167,13 +2164,13 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"Mathematical Functions",E"Base",E"expm1",E"expm1(x)
 
-   Accurately compute e^x-1
+   e^x-1 的精确值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"square",E"square(x)
 
-   Compute x^2
+   计算 x^2
 
 "),
 
@@ -2210,7 +2207,7 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"Mathematical Functions",E"Base",E"iround",E"iround(x) -> Integer
 
-   返回离 ``x`` 最近的整数。
+   返回离 \"x\" 最近的整数。
 
 "),
 
@@ -2243,13 +2240,13 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"Mathematical Functions",E"Base",E"min",E"min(x, y)
 
-   Return the minimum of \"x\" and \"y\"
+   返回 \"x\" 和 \"y\" 的最小值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"max",E"max(x, y)
 
-   Return the maximum of \"x\" and \"y\"
+   返回 \"x\" 和 \"y\" 的最大值
 
 "),
 
@@ -2262,13 +2259,13 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"Mathematical Functions",E"Base",E"abs",E"abs(x)
 
-   Absolute value of \"x\"
+   \"x\" 的绝对值
 
 "),
 
 (E"Mathematical Functions",E"Base",E"abs2",E"abs2(x)
 
-   Squared absolute value of \"x\"
+   \"x\" 绝对值的平方
 
 "),
 
@@ -2280,7 +2277,7 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"Mathematical Functions",E"Base",E"sign",E"sign(x)
 
-   如果 ``x`` 是正数时返回 ``+1`` ， ``x == 0`` 时返回 ``0`` ， ``x`` 是负数时返回 ``-1`` 。
+   如果 \"x\" 是正数时返回 \"+1\" ， \"x == 0\" 时返回 \"0\" ， \"x\" 是负数时返回 \"-1\" 。
 
 "),
 
@@ -2350,44 +2347,43 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"Mathematical Functions",E"Base",E"real",E"real(z)
 
-   返回复数 ``z`` 的实数部分
+   返回复数 \"z\" 的实数部分
 
 "),
 
 (E"Mathematical Functions",E"Base",E"imag",E"imag(z)
 
-   返回复数 ``z`` 的虚数部分
+   返回复数 \"z\" 的虚数部分
 
 "),
 
 (E"Mathematical Functions",E"Base",E"reim",E"reim(z)
 
-   返回复数 ``z`` 的整数部分和虚数部分
+   返回复数 \"z\" 的整数部分和虚数部分
 
 "),
 
 (E"Mathematical Functions",E"Base",E"conj",E"conj(z)
 
-   计算复数 ``z`` 的共轭
+   计算复数 \"z\" 的共轭
 
 "),
 
 (E"Mathematical Functions",E"Base",E"angle",E"angle(z)
 
-   计算复数 ``z`` 的相位角
+   计算复数 \"z\" 的相位角
 
 "),
 
 (E"Mathematical Functions",E"Base",E"cis",E"cis(z)
 
-   Return \"cos(z) + i*sin(z)\" if z is real. Return \"(cos(real(z)) +
-   i*sin(real(z)))/exp(imag(z))\" if \"z\" is complex
+   如果 \"z\" 是实数，返回 \"cos(z) + i*sin(z)\" 。如果 \"z\" 是实数，返回 \"(cos(real(z)) + i*sin(real(z)))/exp(imag(z))\" 。
 
 "),
 
 (E"Mathematical Functions",E"Base",E"binomial",E"binomial(n, k)
 
-   从  ``n`` 项中选取 ``k`` 项，有多少种方法
+   从  \"n\" 项中选取 \"k\" 项，有多少种方法
 
 "),
 
@@ -2492,7 +2488,7 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"Mathematical Functions",E"Base",E"gamma",E"gamma(x)
 
-   计算 ``x`` 的 gamma 函数
+   计算 \"x\" 的 gamma 函数
 
 "),
 
@@ -2775,73 +2771,73 @@ airyaiprime(x)
 
 (E"Data Formats",E"Base",E"int8",E"int8(x)
 
-   Convert a number or array to \"Int8\" data type
+   将数或数组转换为 \"Int8\" 数据类型
 
 "),
 
 (E"Data Formats",E"Base",E"int16",E"int16(x)
 
-   Convert a number or array to \"Int16\" data type
+   将数或数组转换为 \"Int16\" 数据类型
 
 "),
 
 (E"Data Formats",E"Base",E"int32",E"int32(x)
 
-   Convert a number or array to \"Int32\" data type
+   将数或数组转换为 \"Int32\" 数据类型
 
 "),
 
 (E"Data Formats",E"Base",E"int64",E"int64(x)
 
-   Convert a number or array to \"Int64\" data type
+   将数或数组转换为 \"Int64\" 数据类型
 
 "),
 
 (E"Data Formats",E"Base",E"int128",E"int128(x)
 
-   Convert a number or array to \"Int128\" data type
+   将数或数组转换为 \"Int128\" 数据类型
 
 "),
 
 (E"Data Formats",E"Base",E"uint8",E"uint8(x)
 
-   Convert a number or array to \"Uint8\" data type
+   将数或数组转换为 \"Uint8\" 数据类型
 
 "),
 
 (E"Data Formats",E"Base",E"uint16",E"uint16(x)
 
-   Convert a number or array to \"Uint16\" data type
+   将数或数组转换为 \"Uint16\" 数据类型
 
 "),
 
 (E"Data Formats",E"Base",E"uint32",E"uint32(x)
 
-   Convert a number or array to \"Uint32\" data type
+   将数或数组转换为 \"Uint32\" 数据类型
 
 "),
 
 (E"Data Formats",E"Base",E"uint64",E"uint64(x)
 
-   Convert a number or array to \"Uint64\" data type
+   将数或数组转换为 \"Uint64\" 数据类型
 
 "),
 
 (E"Data Formats",E"Base",E"uint128",E"uint128(x)
 
-   Convert a number or array to \"Uint128\" data type
+   将数或数组转换为 \"Uint128\" 数据类型
 
 "),
 
 (E"Data Formats",E"Base",E"float32",E"float32(x)
 
-   Convert a number or array to \"Float32\" data type
+   将数或数组转换为 \"Float32\" 数据类型
 
 "),
 
 (E"Data Formats",E"Base",E"float64",E"float64(x)
 
-   Convert a number or array to \"Float64\" data type
+   将数或数组转换为 \"Float64\" 数据类型
 
 "),
 
@@ -2872,19 +2868,19 @@ airyaiprime(x)
 
 (E"Data Formats",E"Base",E"complex64",E"complex64(r, i)
 
-   Convert to \"r+i*im\" represented as a \"Complex64\" data type
+   Convert to \"r+i*im\" represented as a \"Complex64\" 数据类型
 
 "),
 
 (E"Data Formats",E"Base",E"complex128",E"complex128(r, i)
 
-   Convert to \"r+i*im\" represented as a \"Complex128\" data type
+   Convert to \"r+i*im\" represented as a \"Complex128\" 数据类型
 
 "),
 
 (E"Data Formats",E"Base",E"char",E"char(x)
 
-   Convert a number or array to \"Char\" data type
+   将数或数组转换为 \"Char\" 数据类型
 
 "),
 
@@ -2902,13 +2898,13 @@ airyaiprime(x)
 
 (E"Data Formats",E"Base",E"iscomplex",E"iscomplex(x) -> Bool
 
-   Test whether a number or array is of a complex type
+   检查数或数组是否为复数类型
 
 "),
 
 (E"Data Formats",E"Base",E"isreal",E"isreal(x) -> Bool
 
-   Test whether a number or array is of a real type
+   检查数或数组是否为实数类型
 
 "),
 
@@ -2961,19 +2957,19 @@ airyaiprime(x)
 
 (E"Numbers",E"Base",E"isfinite",E"isfinite(f) -> Bool
 
-   Test whether a number is finite
+   检查数是否有限
 
 "),
 
 (E"Numbers",E"Base",E"isinf",E"isinf(f)
 
-   Test whether a number is infinite
+   检查数是否为无穷大
 
 "),
 
 (E"Numbers",E"Base",E"isnan",E"isnan(f)
 
-   Test whether a floating point number is not a number (NaN)
+   检查浮点数是否为非数值（NaN）
 
 "),
 
@@ -3005,13 +3001,13 @@ airyaiprime(x)
 
 (E"Numbers",E"Base",E"integer_valued",E"integer_valued(x)
 
-   Test whether \"x\" is numerically equal to some integer
+   检查 \"x\" 在数值上是否为整数
 
 "),
 
 (E"Numbers",E"Base",E"real_valued",E"real_valued(x)
 
-   Test whether \"x\" is numerically equal to some real number
+   检查 \"x\" 在数值上是否为实数
 
 "),
 
@@ -3138,7 +3134,7 @@ airyaiprime(x)
 
 (E"Random Numbers",E"Base",E"rand",E"rand()
 
-   Generate a \"Float64\" random number in (0,1)
+   生成 (0,1) 内的 \"Float64\" 随机数
 
 "),
 
@@ -3208,13 +3204,13 @@ airyaiprime(x)
 
 (E"Arrays",E"Base",E"size",E"size(A)
 
-   Returns a tuple containing the dimensions of A
+   返回 A 的维度多元组
 
 "),
 
 (E"Arrays",E"Base",E"eltype",E"eltype(A)
 
-   Returns the type of the elements contained in A
+   返回 A 中元素的类型
 
 "),
 
@@ -3227,7 +3223,7 @@ airyaiprime(x)
 
 (E"Arrays",E"Base",E"nnz",E"nnz(A)
 
-   Counts the number of nonzero values in A
+   A 中非零元素的个数
 
 "),
 
@@ -3365,13 +3361,13 @@ airyaiprime(x)
 
 (E"Arrays",E"Base",E"eye",E"eye(n)
 
-   n-by-n identity matrix
+   n x n 单位矩阵
 
 "),
 
 (E"Arrays",E"Base",E"eye",E"eye(m, n)
 
-   m-by-n identity matrix
+   m x n 单位矩阵
 
 "),
 
@@ -3434,13 +3430,13 @@ airyaiprime(x)
 
 (E"Arrays",E"Base",E"vcat",E"vcat(A...)
 
-   Concatenate along dimension 1
+   在维度 1 上连接
 
 "),
 
 (E"Arrays",E"Base",E"hcat",E"hcat(A...)
 
-   Concatenate along dimension 2
+   在维度 2 上连接
 
 "),
 
@@ -3458,13 +3454,13 @@ airyaiprime(x)
 
 (E"Arrays",E"Base",E"flipud",E"flipud(A)
 
-   Equivalent to \"flipdim(A,1)\".
+   等价于 \"flipdim(A,1)\"
 
 "),
 
 (E"Arrays",E"Base",E"fliplr",E"fliplr(A)
 
-   Equivalent to \"flipdim(A,2)\".
+   等价于 \"flipdim(A,2)\"
 
 "),
 
@@ -3655,33 +3651,31 @@ airyaiprime(x)
 
 (E"Sparse Matrices",E"Base",E"sparse",E"sparse(A)
 
-   Convert a dense matrix \"A\" into a sparse matrix.
+   将稠密矩阵 \"A\" 转换为稀疏矩阵
 
 "),
 
 (E"Sparse Matrices",E"Base",E"sparsevec",E"sparsevec(A)
 
-   Convert a dense vector \"A\" into a sparse matrix of size \"m x
-   1\". In julia, sparse vectors are really just sparse matrices with
-   one column.
+   将稠密矩阵 \"A\" 转换为 \"m x 1\" 的稀疏矩阵。在 Julia 中，稀疏向量是只有一列的稀疏矩阵。
 
 "),
 
 (E"Sparse Matrices",E"Base",E"dense",E"dense(S)
 
-   Convert a sparse matrix \"S\" into a dense matrix.
+   将稀疏矩阵 \"S\" 转换为稠密矩阵
 
 "),
 
 (E"Sparse Matrices",E"Base",E"full",E"full(S)
 
-   Convert a sparse matrix \"S\" into a dense matrix.
+   将稀疏矩阵 \"S\" 转换为稠密矩阵
 
 "),
 
 (E"Sparse Matrices",E"Base",E"spzeros",E"spzeros(m, n)
 
-   Create an empty sparse matrix of size \"m x n\".
+   构造 \"m x n\" 的空稀疏矩阵
 
 "),
 
@@ -3723,7 +3717,7 @@ airyaiprime(x)
 
 (E"Linear Algebra",E"Base",E"*",E"*()
 
-   Matrix multiplication
+   矩阵乘法
 
 "),
 
@@ -3743,7 +3737,7 @@ airyaiprime(x)
 
 (E"Linear Algebra",E"Base",E"dot",E"dot()
 
-   Compute the dot product
+   计算点积
 
 "),
 
@@ -3755,7 +3749,7 @@ airyaiprime(x)
 
 (E"Linear Algebra",E"Base",E"norm",E"norm()
 
-   Compute the norm of a \"Vector\" or a \"Matrix\"
+   计算 \"Vector\" 或 \"Matrix\" 的模
 
 "),
 
@@ -3904,13 +3898,13 @@ airyaiprime(x)
 
 (E"Linear Algebra",E"Base",E"eig",E"eig(A) -> D, V
 
-   Compute eigenvalues and eigenvectors of A
+   计算 \"A\" 的特征值和特征向量
 
 "),
 
 (E"Linear Algebra",E"Base",E"eigvals",E"eigvals(A)
 
-   Returns the eigenvalues of \"A\".
+   返回 \"A\" 的特征值
 
 "),
 
@@ -3986,13 +3980,13 @@ airyaiprime(x)
 
 (E"Linear Algebra",E"Base",E"triu",E"triu(M)
 
-   Upper triangle of a matrix
+   矩阵上三角
 
 "),
 
 (E"Linear Algebra",E"Base",E"tril",E"tril(M)
 
-   Lower triangle of a matrix
+   矩阵下三角
 
 "),
 
@@ -4033,7 +4027,7 @@ airyaiprime(x)
 
 (E"Linear Algebra",E"Base",E"rank",E"rank(M)
 
-   Compute the rank of a matrix
+   计算矩阵的秩
 
 "),
 
@@ -4064,19 +4058,19 @@ airyaiprime(x)
 
 (E"Linear Algebra",E"Base",E"trace",E"trace(M)
 
-   Matrix trace
+   矩阵的迹
 
 "),
 
 (E"Linear Algebra",E"Base",E"det",E"det(M)
 
-   Matrix determinant
+   矩阵的行列式
 
 "),
 
 (E"Linear Algebra",E"Base",E"inv",E"inv(M)
 
-   Matrix inverse
+   矩阵的逆
 
 "),
 
@@ -4126,43 +4120,43 @@ airyaiprime(x)
 
 (E"Linear Algebra",E"Base",E"issym",E"issym(A)
 
-   Test whether a matrix is symmetric.
+   检查是否为对称矩阵
 
 "),
 
 (E"Linear Algebra",E"Base",E"isposdef",E"isposdef(A)
 
-   Test whether a matrix is positive-definite.
+    检查是否为正定矩阵
 
 "),
 
 (E"Linear Algebra",E"Base",E"istril",E"istril(A)
 
-   Test whether a matrix is lower-triangular.
+   检查是否为下三角矩阵
 
 "),
 
 (E"Linear Algebra",E"Base",E"istriu",E"istriu(A)
 
-   Test whether a matrix is upper-triangular.
+   检查是否为上三角矩阵
 
 "),
 
 (E"Linear Algebra",E"Base",E"ishermitian",E"ishermitian(A)
 
-   Test whether a matrix is hermitian.
+   检查是否为 Hamilton 矩阵
 
 "),
 
 (E"Linear Algebra",E"Base",E"transpose",E"transpose(A)
 
-   The transpose operator (.').
+   转置运算符（ .' ）
 
 "),
 
 (E"Linear Algebra",E"Base",E"ctranspose",E"ctranspose(A)
 
-   The conjugate transpose operator (').
+   共轭转置运算符（ ' ）
 
 "),
 
@@ -4226,7 +4220,7 @@ airyaiprime(x)
 
 (E"Combinatorics",E"Base",E"shuffle!",E"shuffle!(v)
 
-   In-place version of \"shuffle()\".
+   \"shuffle()\" 的原地版本
 
 "),
 
@@ -4238,7 +4232,7 @@ airyaiprime(x)
 
 (E"Combinatorics",E"Base",E"reverse!",E"reverse!(v) -> v
 
-   In-place version of \"reverse()\".
+   \"reverse()\" 的原地版本
 
 "),
 
@@ -4416,7 +4410,7 @@ airyaiprime(x)
 
 (E"Signal Processing",E"Base",E"fft!",E"fft!(A[, dims])
 
-   Same as \"fft()\", but operates in-place on \"A\", which must be an
+   与 \"fft()\" 相同，but operates in-place on \"A\", which must be an
    array of complex floating-point numbers.
 
 "),
@@ -4436,7 +4430,7 @@ airyaiprime(x)
 
 (E"Signal Processing",E"Base",E"ifft!",E"ifft!(A[, dims])
 
-   Same as \"ifft()\", but operates in-place on \"A\".
+   与 \"ifft()\" 相同，但在原地对 \"A\" 进行运算
 
 "),
 
@@ -4453,7 +4447,7 @@ airyaiprime(x)
 
 (E"Signal Processing",E"Base",E"bfft!",E"bfft!(A[, dims])
 
-   Same as \"bfft()\", but operates in-place on \"A\".
+   与 \"bfft()\" 相同，但在原地对 \"A\" 进行运算
 
 "),
 
@@ -4484,19 +4478,19 @@ airyaiprime(x)
 
 (E"Signal Processing",E"Base",E"plan_fft!",E"plan_fft!(A[, dims[, flags[, timelimit]]])
 
-   Same as \"plan_fft()\", but operates in-place on \"A\".
+   与 \"plan_fft()\" 相同，但在原地对 \"A\" 进行运算
 
 "),
 
 (E"Signal Processing",E"Base",E"plan_ifft!",E"plan_ifft!(A[, dims[, flags[, timelimit]]])
 
-   Same as \"plan_ifft()\", but operates in-place on \"A\".
+   与 \"plan_ifft()\" 相同，但在原地对 \"A\" 进行运算
 
 "),
 
 (E"Signal Processing",E"Base",E"plan_bfft!",E"plan_bfft!(A[, dims[, flags[, timelimit]]])
 
-   Same as \"plan_bfft()\", but operates in-place on \"A\".
+   与 \"plan_bfft()\" 相同，但在原地对 \"A\" 进行运算
 
 "),
 
@@ -4572,7 +4566,7 @@ airyaiprime(x)
 
 (E"Signal Processing",E"Base",E"dct!",E"dct!(A[, dims])
 
-   Same as \"dct!()\", except that it operates in-place on \"A\",
+   与 \"dct!()\" 相同，except that it operates in-place on \"A\",
    which must be an array of real or complex floating-point values.
 
 "),
@@ -4592,7 +4586,7 @@ airyaiprime(x)
 
 (E"Signal Processing",E"Base",E"idct!",E"idct!(A[, dims])
 
-   Same as \"idct!()\", but operates in-place on \"A\".
+   与 \"idct!()\" 相同，但在原地对 \"A\" 进行运算
 
 "),
 
@@ -4606,7 +4600,7 @@ airyaiprime(x)
 
 (E"Signal Processing",E"Base",E"plan_dct!",E"plan_dct!(A[, dims[, flags[, timelimit]]])
 
-   Same as \"plan_dct()\", but operates in-place on \"A\".
+   与 \"plan_dct()\" 相同，但在原地对 \"A\" 进行运算
 
 "),
 
@@ -4621,7 +4615,7 @@ airyaiprime(x)
 
 (E"Signal Processing",E"Base",E"plan_idct!",E"plan_idct!(A[, dims[, flags[, timelimit]]])
 
-   Same as \"plan_idct()\", but operates in-place on \"A\".
+   与 \"plan_idct()\" 相同，但在原地对 \"A\" 进行运算
 
 "),
 
@@ -4697,13 +4691,13 @@ airyaiprime(x)
 
 (E"Signal Processing",E"Base",E"conv",E"conv(u, v)
 
-   Convolution of two vectors. Uses FFT algorithm.
+   计算两个向量的卷积。使用 FFT 算法。
 
 "),
 
 (E"Signal Processing",E"Base",E"xcorr",E"xcorr(u, v)
 
-   Compute the cross-correlation of two vectors.
+   计算两个向量的互相关
 
 "),
 
@@ -5090,32 +5084,31 @@ ccall(fptr::Ptr{Void}, RetType, (ArgType1, ...), ArgVar1, ...)
 (E"Errors",E"Base",E"error",E"error(message::String)
 error(Exception)
 
-   Raise an error with the given message
+   引发错误，并显示指定信息
 
 "),
 
 (E"Errors",E"Base",E"throw",E"throw(e)
 
-   Throw an object as an exception
+   将一个对象作为异常抛出
 
 "),
 
 (E"Errors",E"Base",E"errno",E"errno()
 
-   Get the value of the C library's \"errno\"
+   获取 C 库 \"errno\" 的值
 
 "),
 
 (E"Errors",E"Base",E"strerror",E"strerror(n)
 
-   Convert a system call error code to a descriptive string
+   将系统调用错误代码转换为描述字符串
 
 "),
 
 (E"Errors",E"Base",E"assert",E"assert(cond)
 
-   Raise an error if \"cond\" is false. Also available as the macro
-   \"@assert expr\".
+   如果 \"cond\" 为假则报错。也可以使用宏 \"@assert expr\" 。
 
 "),
 
@@ -5308,52 +5301,41 @@ error(Exception)
 
 (E"Constants",E"Base",E"OS_NAME",E"OS_NAME
 
-   A symbol representing the name of the operating system. Possible
-   values are \":Linux\", \":Darwin\" (OS X), or \":Windows\".
+   表示操作系统名的符号。可能的值有 \":Linux\", \":Darwin\" (OS X), 或 \":Windows\" 。
 
 "),
 
 (E"cpp.jl",E"",E"@cpp",E"@cpp(ccall_expression)
 
-   Suppose you have a C++ shared library, \"libdemo\", which contains
-   a function \"timestwo\":
+   假设有一个 C++ 共享库 \"libdemo\" ，库中包含函数 \"timestwo\" ：
 
-      int timestwo(int x) {
-        return 2*x;
-      }
+     int timestwo(int x) {
+       return 2*x;
+     }
 
-      double timestwo(double x) {
-        return 2*x;
-      }
+     double timestwo(double x) {
+       return 2*x;
+     }
 
-   You can use these functions by placing the \"@cpp\" macro prior to
-   a ccall, for example:
+   可以在调用时，在函数前添加 \"@cpp\" 宏，例如：
 
-      mylib = dlopen(\"libdemo\")
-      x = 3.5
-      x2 = @cpp ccall(dlsym(mylib, :timestwo), Float64, (Float64,), x)
-      y = 3
-      y2 = @cpp ccall(dlsym(mylib, :timestwo), Int, (Int,), y)
+     mylib = dlopen("libdemo")
+     x = 3.5
+     x2 = @cpp ccall(dlsym(mylib, :timestwo), Float64, (Float64,), x)
+     y = 3
+     y2 = @cpp ccall(dlsym(mylib, :timestwo), Int, (Int,), y)
+     
+   这个宏通过 C++ ABI name-mangling （使用参数的类型）来确定正确的库符号。
 
-   The macro performs C++ ABI name-mangling (using the types of the
-   parameters) to determine the correct library symbol.
+   与 \"ccall\" 一样，这样调用库没有开销，但现在还有些局限：
 
-   Like \"ccall\", this performs library calls without overhead.
-   However, currently it has a number of limitations:
+   * 不支持纯头文件的库
+   * \"ccall\" 有些限制；例如，不支持 \"struct\" 。因而，不能使用 C++ 对象。
+   * 目前不支持 C++ 命名空间
+   * 目前不支持模板函数
+   * 目前仅支持 g++ (GNU GCC)
 
-   * It does not support pure-header libraries
-
-   * The restrictions of \"ccall\" apply here; for example, there is
-     no support for \"struct\". Consequently it is not possible to use
-     C++ objects.
-
-   * Currently there is no C++ namespace support
-
-   * Currently there is no support for templated functions
-
-   * Currently only g++ is supported
-
-   The latter three may not be difficult to fix.
+   后三个比较难修正。
 
 "),
 
@@ -6964,17 +6946,13 @@ eval_tab_col(glp_prob, k)
 
 (E"Base.Sort",E"Base.Sort",E"sort",E"sort(v[, alg[, ord]])
 
-   Sort a vector in ascending order.  Specify \"alg\" to choose a
-   particular sorting algorithm (\"Sort.InsertionSort\",
-   \"Sort.QuickSort\", \"Sort.MergeSort\", or \"Sort.TimSort\"), and
-   \"ord\" to sort with a custom ordering (e.g., Sort.Reverse or a
-   comparison function).
+   按升序对向量排序。\"alg\" 为特定的排序算法（\"Sort.InsertionSort\", \"Sort.QuickSort\", \"Sort.MergeSort\", 或 \"Sort.TimSort\" ），\"ord\" 为自定义的排序顺序（如 Sort.Reverse 或一个比较函数）。
 
 "),
 
 (E"Base.Sort",E"Base.Sort",E"sort!",E"sort!(...)
 
-   In-place sort.
+   原地排序。
 
 "),
 

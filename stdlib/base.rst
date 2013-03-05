@@ -92,7 +92,7 @@
 
 .. function:: hash(x)
 
-   计算an integer hash code such that ``isequal(x,y)`` implies ``hash(x)==hash(y)``.
+   计算整数哈希值，由此， ``isequal(x,y)`` 等价于 ``hash(x)==hash(y)`` 。
 
 .. function:: finalizer(x, function)
 
@@ -268,35 +268,35 @@ Fully implemented by: ``Range``, ``Range1``, ``Tuple``, ``Number``, ``AbstractAr
 
 .. function:: max(itr)
 
-   返回the largest element in a collection
+   返回集合中最大的元素
 
 .. function:: min(itr)
 
-   返回the smallest element in a collection
+   返回集合中最小的元素
 
 .. function:: indmax(itr) -> Integer
 
-   返回the index of the maximum element in a collection
+   返回集合中最大的元素的索引值
 
 .. function:: indmin(itr) -> Integer
 
-   返回the index of the minimum element in a collection
+   返回集合中最小的元素的索引值
 
 .. function:: findmax(itr) -> (x, index)
 
-   返回the maximum element and its index
+   返回最大的元素及其索引值
 
 .. function:: findmin(itr) -> (x, index)
 
-   返回the minimum element and its index
+   返回最小的元素及其索引值
 
 .. function:: sum(itr)
 
-   返回the sum of all elements in a collection
+   返回集合中所有元素的和
 
 .. function:: prod(itr)
 
-   返回the product of all elements of a collection
+   返回集合中所有元素的乘积
 
 .. function:: any(itr) -> Bool
 
@@ -535,57 +535,57 @@ Partially implemented by: ``Array``.
 
 .. function:: delete!(collection, index) -> item
 
-   移除the item at the given index, and return the deleted item.
+   移除指定索引值处的项，并返回删除项。
 
 .. function:: delete!(collection, range) -> items
    
-   移除items at specified range, and return a collection containing the deleted items.
+   移除指定范围内的项，并返回包含删除项的集合。
 
 .. function:: resize!(collection, n) -> collection
 
-   Resize collection to contain ``n`` elements.
+   改变集合的大小，使其可包含 ``n`` 个元素。
 
 .. function:: append!(collection, items) -> collection
 
-   Add the elements of ``items`` to the end of a collection.
+   将 ``items`` 元素附加到集合末尾。
 
-Fully implemented by: ``Vector`` (aka 1-d ``Array``).
+完全由 ``Vector`` （即 1 维 ``Array`` ）来实现。
 
 字符串
 ------
 
 .. function:: length(s)
 
-   The number of characters in string ``s``.
+   字符串 ``s`` 中的字符数。
 
 .. function:: collect(string)
 
-   返回an array of the characters in ``string``.
+   返回 ``string`` 中的字符数组。
 
 .. function:: *
               string(strs...)
 
-   Concatenate strings.
+   连接字符串。
 
    **例子** ： ``"Hello " * "world" == "Hello world"``
 
 .. function:: ^
 
-   Repeat a string.
+   重复字符串。
 
    **例子** ： ``"Julia "^3 == "Julia Julia Julia "``
 
 .. function:: string(char...)
 
-   构造a string with the given characters.
+   使用指定字符构造字符串。
 
 .. function:: string(x)
 
-   构造a string from any value using the ``print`` function.
+   使用 ``print`` 函数的值构造字符串。
 
 .. function:: repr(x)
 
-   构造a string from any value using the ``show`` function.
+   使用 ``show`` 函数的值构造字符串。
 
 .. function:: bytestring(::Ptr{Uint8})
 
@@ -697,11 +697,11 @@ Fully implemented by: ``Vector`` (aka 1-d ``Array``).
 
 .. function:: chop(string)
 
-   移除the last character from a string
+   移除字符串的最后一个字符
 
 .. function:: chomp(string)
 
-   移除a trailing newline from a string
+   移除字符串最后的换行符
 
 .. function:: ind2chr(string, i)
 
@@ -743,55 +743,55 @@ Fully implemented by: ``Vector`` (aka 1-d ``Array``).
    
 .. function:: isalnum(c::Char)
 
-   Tests whether a character is alphanumeric.
+   检查字符是否为字母或数字。
 
 .. function:: isalpha(c::Char)
 
-   Tests whether a character is alphabetic.
+   检查字符是否为字母。
 
 .. function:: isascii(c::Char)
 
-   Tests whether a character belongs to the ASCII character set.
+   检查字符是否属于 ASCII 字符集。
 
 .. function:: isblank(c::Char)
 
-   Tests whether a character is a tab or space.
+   检查字符是否为 tab 或空格。
 
 .. function:: iscntrl(c::Char)
 
-   Tests whether a character is a control character.
+   检查字符是否为控制字符。
 
 .. function:: isdigit(c::Char)
 
-   Tests whether a character is a numeric digit (0-9).
+   检查字符是否为一位数字（0-9）。
 
 .. function:: isgraph(c::Char)
 
-   Tests whether a character is printable, and not a space.
+   检查字符是否可打印，且不是空白字符。
 
 .. function:: islower(c::Char)
 
-   Tests whether a character is a lowercase letter.
+   检查字符是否为小写字母。
 
 .. function:: isprint(c::Char)
 
-   Tests whether a character is printable, including space.
+   检查字符是否可打印，包括空白字符。
 
 .. function:: ispunct(c::Char)
 
-   Tests whether a character is printable, and not a space or alphanumeric.
+   检查字符是否可打印，且既非空白字符也非字母或数字。
 
 .. function:: isspace(c::Char)
 
-   Tests whether a character is any whitespace character.
+   检查字符是否为任意空白字符。
 
 .. function:: isupper(c::Char)
 
-   Tests whether a character is an uppercase letter.
+   检查字符是否为大写字母。
 
 .. function:: isxdigit(c::Char)
 
-   Tests whether a character is a valid hexadecimal digit.
+   检查字符是否为有效的十六进制字符。
 
 I/O
 ---
@@ -828,7 +828,7 @@ I/O
 
 .. function:: open(file_name) -> IOStream
 
-   Open a file in read mode.
+   以只读模式打开文件。
 
 .. function:: open(f::function, args...)
 
@@ -883,7 +883,7 @@ I/O
 
 .. function:: eof(stream)
 
-   Tests whether an I/O stream is at end-of-file. If the stream is not yet exhausted, this function will block to wait for more data if necessary, and then return ``false``. Therefore it is always safe to read one byte after seeing ``eof`` return ``false``.
+   检查 whether an I/O stream is at end-of-file. If the stream is not yet exhausted, this function will block to wait for more data if necessary, and then return ``false``. Therefore it is always safe to read one byte after seeing ``eof`` return ``false``.
 
 文本 I/O
 --------
@@ -1275,7 +1275,7 @@ I/O
 
 .. function:: expm1(x)
 
-   Accurately compute :math:`e^x-1`
+   :math:`e^x-1` 的精确值
 
 .. function:: square(x)
 
@@ -1319,11 +1319,11 @@ I/O
 
 .. function:: min(x, y)
 
-   返回the minimum of ``x`` and ``y``
+   返回 ``x`` 和 ``y`` 的最小值
 
 .. function:: max(x, y)
 
-   返回the maximum of ``x`` and ``y``
+   返回 ``x`` 和 ``y`` 的最大值
 
 .. function:: clamp(x, lo, hi)
 
@@ -1331,11 +1331,11 @@ I/O
 
 .. function:: abs(x)
 
-   Absolute value of ``x``
+   ``x`` 的绝对值
 
 .. function:: abs2(x)
 
-   Squared absolute value of ``x``
+   ``x`` 绝对值的平方
 
 .. function:: copysign(x, y)
 
@@ -1411,7 +1411,7 @@ I/O
 
 .. function:: cis(z)
 
-   返回 ``cos(z) + i*sin(z)`` if z is real. 返回``(cos(real(z)) + i*sin(real(z)))/exp(imag(z))`` if ``z`` is complex
+   如果 ``z`` 是实数，返回 ``cos(z) + i*sin(z)`` 。如果 ``z`` 是实数，返回 ``(cos(real(z)) + i*sin(real(z)))/exp(imag(z))`` 。
 
 .. function:: binomial(n,k)
 
@@ -1427,7 +1427,7 @@ I/O
 
 .. function:: factor(n)
 
-   计算the prime factorization of an integer ``n``. 返回a dictionary. The keys of the dictionary correspond to the factors, and hence are of the same type as ``n``. The value associated with each key indicates the number of times the factor appears in the factorization.
+   对 ``n`` 分解质因数。返回a dictionary. The keys of the dictionary correspond to the factors, and hence are of the same type as ``n``. The value associated with each key indicates the number of times the factor appears in the factorization.
 
    **例子** ： :math:`100=2*2*5*5`; then, ``factor(100) -> [5=>2,2=>2]``
 
@@ -1659,51 +1659,51 @@ I/O
 
 .. function:: int8(x)
 
-   Convert a number or array to ``Int8`` 数据类型
+   将数或数组转换为 ``Int8`` 数据类型
 
 .. function:: int16(x)
 
-   Convert a number or array to ``Int16`` 数据类型
+   将数或数组转换为 ``Int16`` 数据类型
 
 .. function:: int32(x)
 
-   Convert a number or array to ``Int32`` 数据类型
+   将数或数组转换为 ``Int32`` 数据类型
 
 .. function:: int64(x)
 
-   Convert a number or array to ``Int64`` 数据类型
+   将数或数组转换为 ``Int64`` 数据类型
 
 .. function:: int128(x)
 
-   Convert a number or array to ``Int128`` 数据类型
+   将数或数组转换为 ``Int128`` 数据类型
 
 .. function:: uint8(x)
 
-   Convert a number or array to ``Uint8`` 数据类型
+   将数或数组转换为 ``Uint8`` 数据类型
 
 .. function:: uint16(x)
 
-   Convert a number or array to ``Uint16`` 数据类型
+   将数或数组转换为 ``Uint16`` 数据类型
 
 .. function:: uint32(x)
 
-   Convert a number or array to ``Uint32`` 数据类型
+   将数或数组转换为 ``Uint32`` 数据类型
 
 .. function:: uint64(x)
 
-   Convert a number or array to ``Uint64`` 数据类型
+   将数或数组转换为 ``Uint64`` 数据类型
 
 .. function:: uint128(x)
 
-   Convert a number or array to ``Uint128`` 数据类型
+   将数或数组转换为 ``Uint128`` 数据类型
 
 .. function:: float32(x)
 
-   Convert a number or array to ``Float32`` 数据类型
+   将数或数组转换为 ``Float32`` 数据类型
 
 .. function:: float64(x)
 
-   Convert a number or array to ``Float64`` 数据类型
+   将数或数组转换为 ``Float64`` 数据类型
 
 .. function:: float(x)
 
@@ -1729,7 +1729,7 @@ I/O
 
 .. function:: char(x)
 
-   Convert a number or array to ``Char`` 数据类型
+   将数或数组转换为 ``Char`` 数据类型
 
 .. function:: safe_char(x)
 
@@ -1741,11 +1741,11 @@ I/O
 
 .. function:: iscomplex(x) -> Bool
 
-   Test whether a number or array is of a complex type
+   检查数或数组是否为复数类型
 
 .. function:: isreal(x) -> Bool
 
-   Test whether a number or array is of a real type
+   检查数或数组是否为实数类型
 
 .. function:: bswap(n)
 
@@ -1780,15 +1780,15 @@ I/O
 
 .. function:: isfinite(f) -> Bool
 
-   Test whether a number is finite
+   检查数是否有限
 
 .. function:: isinf(f)
 
-   Test whether a number is infinite
+   检查数是否为无穷大
 
 .. function:: isnan(f)
 
-   Test whether a floating point number is not a number (NaN)
+   检查浮点数是否为非数值（NaN）
 
 .. function:: inf(f)
 
@@ -1808,11 +1808,11 @@ I/O
 
 .. function:: integer_valued(x)
 
-   Test whether ``x`` is numerically equal to some integer
+   检查 ``x`` 在数值上是否为整数
 
 .. function:: real_valued(x)
 
-   Test whether ``x`` is numerically equal to some real number
+   检查 ``x`` 在数值上是否为实数
 
 .. function:: exponent(f)
 
@@ -1905,7 +1905,7 @@ Julia 中的随机数生成使用 `Mersenne Twister 库 <http://www.math.sci.hir
 
 .. function:: rand()
 
-   Generate a ``Float64`` random number in (0,1)
+   生成 (0,1) 内的 ``Float64`` 随机数
 
 .. function:: rand!([rng], A)
 
@@ -1951,11 +1951,11 @@ Julia 中的随机数生成使用 `Mersenne Twister 库 <http://www.math.sci.hir
 
 .. function:: size(A)
 
-   返回a tuple containing the dimensions of A
+   返回 A 的维度多元组
 
 .. function:: eltype(A)
 
-   返回the type of the elements contained in A
+   返回 A 中元素的类型
 
 .. function:: length(A) -> Integer
 
@@ -1963,7 +1963,7 @@ Julia 中的随机数生成使用 `Mersenne Twister 库 <http://www.math.sci.hir
 
 .. function:: nnz(A)
 
-   Counts the number of nonzero values in A
+   A 中非零元素的个数
 
 .. function:: scale!(A, k)
 
@@ -2049,11 +2049,11 @@ Julia 中的随机数生成使用 `Mersenne Twister 库 <http://www.math.sci.hir
 
 .. function:: eye(n)
 
-   n-by-n identity matrix
+   n x n 单位矩阵
 
 .. function:: eye(m, n)
 
-   m-by-n identity matrix
+   m x n 单位矩阵
 
 .. function:: linspace(start, stop, n)
 
@@ -2097,11 +2097,11 @@ All mathematical operations and functions are supported for arrays
 
 .. function:: vcat(A...)
 
-   Concatenate along dimension 1
+   在维度 1 上连接
 
 .. function:: hcat(A...)
 
-   Concatenate along dimension 2
+   在维度 2 上连接
 
 .. function:: hvcat
 
@@ -2113,11 +2113,11 @@ All mathematical operations and functions are supported for arrays
 
 .. function:: flipud(A)
 
-   Equivalent to ``flipdim(A,1)``.
+   等价于 ``flipdim(A,1)`` 
 
 .. function:: fliplr(A)
 
-   Equivalent to ``flipdim(A,2)``.
+   等价于 ``flipdim(A,2)`` 
 
 .. function:: circshift(A,shifts)
 
@@ -2239,23 +2239,23 @@ All mathematical operations and functions are supported for arrays
 
 .. function:: sparse(A)
 
-   Convert a dense matrix ``A`` into a sparse matrix.
+   将稠密矩阵 ``A`` 转换为稀疏矩阵
 
 .. function:: sparsevec(A)
 
-   Convert a dense vector ``A`` into a sparse matrix of size ``m x 1``. In julia, sparse vectors are really just sparse matrices with one column.
+   将稠密矩阵 ``A`` 转换为 ``m x 1`` 的稀疏矩阵。在 Julia 中，稀疏向量是只有一列的稀疏矩阵。
 
 .. function:: dense(S)
 
-   Convert a sparse matrix ``S`` into a dense matrix.   
+   将稀疏矩阵 ``S`` 转换为稠密矩阵
 
 .. function:: full(S)
 
-   Convert a sparse matrix ``S`` into a dense matrix.   
+   将稀疏矩阵 ``S`` 转换为稠密矩阵 
 
 .. function:: spzeros(m,n)
 
-   构造an empty sparse matrix of size ``m x n``.
+   构造 ``m x n`` 的空稀疏矩阵
 
 .. function:: speye(type,m[,n])
 
@@ -2285,7 +2285,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: *
 
-   Matrix multiplication
+   矩阵乘法
 
 .. function:: \
 
@@ -2293,7 +2293,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: dot
 
-   计算the dot product
+   计算点积
 
 .. function:: cross
 
@@ -2301,7 +2301,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: norm
 
-   计算the norm of a ``Vector`` or a ``Matrix``
+   计算 ``Vector`` 或 ``Matrix`` 的模
 
 .. function:: factors(F)
 
@@ -2377,11 +2377,11 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: eig(A) -> D, V
 
-   计算eigenvalues and eigenvectors of A
+   计算 ``A`` 的特征值和特征向量
 
 .. function:: eigvals(A)
 
-   返回the eigenvalues of ``A``.
+   返回  ``A`` 的特征值
 
 .. function:: svdfact(A, [thin]) -> SVDDense
 
@@ -2421,11 +2421,11 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: triu(M)
 
-   Upper triangle of a matrix
+   矩阵上三角
 
 .. function:: tril(M)
 
-   Lower triangle of a matrix
+   矩阵下三角
 
 .. function:: diag(M, [k])
 
@@ -2451,7 +2451,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: rank(M)
 
-   计算the rank of a matrix
+   计算矩阵的秩
 
 .. function:: norm(A, [p])
 
@@ -2467,15 +2467,15 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: trace(M)
 
-   Matrix trace
+   矩阵的迹
 
 .. function:: det(M)
 
-   Matrix determinant
+   矩阵的行列式
 
 .. function:: inv(M)
 
-   Matrix inverse
+   矩阵的逆
 
 .. function:: pinv(M)
 
@@ -2507,31 +2507,31 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: issym(A)
 
-   Test whether a matrix is symmetric.
+   检查是否为对称矩阵
 
 .. function:: isposdef(A)
 
-   Test whether a matrix is positive-definite.
+   检查是否为正定矩阵
 
 .. function:: istril(A)
 
-   Test whether a matrix is lower-triangular.
+   检查是否为下三角矩阵
 
 .. function:: istriu(A)
 
-   Test whether a matrix is upper-triangular.
+   检查是否为上三角矩阵
 
 .. function:: ishermitian(A)
 
-   Test whether a matrix is hermitian.
+   检查是否为 Hamilton 矩阵
 
 .. function:: transpose(A)
 
-   The transpose operator (.').
+   转置运算符（ ``.'`` ）
 
 .. function:: ctranspose(A)
 
-   The conjugate transpose operator (').
+   共轭转置运算符（ ``'`` ）
 
 排列组合
 --------
@@ -2578,7 +2578,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: shuffle!(v)
 
-   原地version of :func:`shuffle`.
+   :func:`shuffle` 的原地版本
 
 .. function:: reverse(v)
 
@@ -2586,7 +2586,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: reverse!(v) -> v
 
-   原地version of :func:`reverse`.
+   :func:`reverse` 的原地版本
 
 .. function:: combinations(array, n)
 
@@ -2698,7 +2698,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: ifft!(A [, dims])
 
-   与 :func:`ifft` 相同，but operates in-place on ``A``.
+   与 :func:`ifft` 相同，但在原地对 ``A`` 进行运算
 
 .. function:: bfft(A [, dims])
 
@@ -2711,7 +2711,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: bfft!(A [, dims])
 
-   与 :func:`bfft` 相同，but operates in-place on ``A``.
+   与 :func:`bfft` 相同，但在原地对 ``A`` 进行运算
 
 .. function:: plan_fft(A [, dims [, flags [, timelimit]]]),  plan_ifft, plan_bfft
 
@@ -2737,15 +2737,15 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: plan_fft!(A [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_fft` 相同，but operates in-place on ``A``.
+   与 :func:`plan_fft` 相同，但在原地对 ``A`` 进行运算
 
 .. function:: plan_ifft!(A [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_ifft` 相同，but operates in-place on ``A``.
+   与 :func:`plan_ifft` 相同，但在原地对 ``A`` 进行运算
 
 .. function:: plan_bfft!(A [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_bfft` 相同，but operates in-place on ``A``.
+   与 :func:`plan_bfft` 相同，但在原地对 ``A`` 进行运算
 
 .. function:: rfft(A [, dims])
 
@@ -2821,7 +2821,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: idct!(A [, dims])
 
-   与 :func:`idct!` 相同，but operates in-place on ``A``.
+   与 :func:`idct!` 相同，但在原地对 ``A`` 进行运算
 
 .. function:: plan_dct(A [, dims [, flags [, timelimit]]])
 
@@ -2831,7 +2831,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: plan_dct!(A [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_dct` 相同，but operates in-place on ``A``.
+   与 :func:`plan_dct` 相同，但在原地对 ``A`` 进行运算
 
 .. function:: plan_idct(A [, dims [, flags [, timelimit]]])
 
@@ -2841,7 +2841,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: plan_idct!(A [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_idct` 相同，but operates in-place on ``A``.
+   与 :func:`plan_idct` 相同，但在原地对 ``A`` 进行运算
 
 .. function:: FFTW.r2r(A, kind [, dims]), FFTW.r2r!
 
@@ -2898,11 +2898,11 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: conv(u,v)
 
-   Convolution of two vectors. Uses FFT algorithm.
+   计算两个向量的卷积。使用 FFT 算法。
 
 .. function:: xcorr(u,v)
 
-   计算the cross-correlation of two vectors.
+   计算两个向量的互相关
 
 并行计算
 --------
@@ -3150,23 +3150,23 @@ C 接口
 .. function:: error(message::String)
               error(Exception)
 
-   Raise an error with the given message
+   报错，并显示指定信息
 
 .. function:: throw(e)
 
-   Throw an object as an exception
+   将一个对象作为异常抛出
 
 .. function:: errno()
 
-   Get the value of the C library's ``errno``
+   获取 C 库 ``errno`` 的值
 
 .. function:: strerror(n)
 
-   Convert a system call error code to a descriptive string
+   将系统调用错误代码转换为描述字符串
 
 .. function:: assert(cond)
 
-   Raise an error if ``cond`` is false. Also available as the macro ``@assert expr``.
+   如果 ``cond`` 为假则报错。也可以使用宏 ``@assert expr`` 。
 
 任务
 ----

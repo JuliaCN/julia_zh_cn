@@ -8,7 +8,7 @@ cpp.jl --- Julia 调用 C++
 
 .. function:: @cpp(ccall_expression)
 
-   假设有一个 C++ 共享库 ``libdemo`` ，库中包含函数 ``timestwo``::
+   假设有一个 C++ 共享库 ``libdemo`` ，库中包含函数 ``timestwo`` ： ::
 
      int timestwo(int x) {
        return 2*x;
