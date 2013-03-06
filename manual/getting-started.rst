@@ -105,9 +105,9 @@ Julia 的语法尽量保持与 MATLAB 兼容。但 Julia 不是简单地复制 M
 - Julia 能区分标量、向量和矩阵。在 R 中， ``1`` 和 ``c(1)`` 是一样的。在 Julia 中，它们完全不同。例如若 ``x`` 和 ``y`` 为向量，则 ``x' * y`` 是一个单元素向量，而不是标量。要得到标量，应使用 ``dot(x, y)`` 
 - Julia 中的 ``diag()`` 和 ``diagm()`` 与 R 中的不同
 - Julia 不能在赋值语句左侧写函数调用：不能写 ``diag(M) = ones(n)`` 
-- Julia 不赞成把 main 命名空间塞满函数。大多数统计学函数可以在 `扩展包 </en/latest/packages/packagelist.html/>`_ 中找到，比如 DataFrames 和 and Distributions 包：
+- Julia 不赞成把 main 命名空间塞满函数。大多数统计学函数可以在 `扩展包 </en/latest/packages/packagelist.html/>`_ 中找到，比如 DataFrames 和 Distributions 包：
 	- `Distributions 包 <https://github.com/JuliaStats/Distributions.jl>`_ 提供了概率分布函数
-	- `DataFrames 包 <https://github.com/HarlanH/DataFrames.jl>`_ 提供了数据帧
+	- `DataFrames 包 <https://github.com/HarlanH/DataFrames.jl>`_ 提供了数据框
 	- GLM 公式必须要转义：使用 ``:(y ~ x)`` ，而不是 ``y ~ x`` 
 - Julia 提供了多元组和哈希表，但不提供 R 的列表。当返回多项时，应该使用多元组：不要使用 ``list(a = 1, b = 2)`` ，应该使用 ``(1, 2)`` 
 - 鼓励自定义类型。Julia 的类型比 R 中的 S3 或 S4 对象简单。 Julia 的重载系统意味着 ``table(x::TypeA)`` 和 ``table(x::TypeB)`` 的结果，和 R 中的 ``table.TypeA(x)`` 和 ``table.TypeB(x)`` 一样
