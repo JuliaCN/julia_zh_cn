@@ -1,8 +1,8 @@
 
 .. currentmodule:: Base
 
-Constants
----------
+常量
+----
 
 .. data:: OS_NAME
 

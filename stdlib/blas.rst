@@ -64,8 +64,7 @@
    Update vector ``y`` as ``alpha*A*x + beta*y`` or ``alpha*A'*x +
    beta*y`` according to ``trans`` ('N' or 'T').  The matrix ``A`` is
    a general band matrix of dimension ``m`` by ``size(A,2)`` with
-   ``kl`` sub-diagonals and ``ku`` super-diagonals. 返回the
-   updated ``y``.
+   ``kl`` sub-diagonals and ``ku`` super-diagonals. 返回更新后的 ``y`` 。
 
 .. function:: gbmv(trans, m, kl, ku, alpha, A, x, beta, y)
 
@@ -82,7 +81,7 @@
    layout for ``A`` is described the reference BLAS module, level-2
    BLAS at `<http://www.netlib.org/lapack/explore-html/>`.
 
-   返回the updated ``y``.
+   返回更新后的 ``y`` 。
 
 .. function:: sbmv(uplo, k, alpha, A, x)
 
@@ -93,8 +92,7 @@
 .. function:: gemm!(tA, tB, alpha, A, B, beta, C)
 
    Update ``C`` as ``alpha*A*B + beta*C`` or the other three variants
-   according to ``tA`` (transpose ``A``) and ``tB``.  返回the
-   updated ``C``.
+   according to ``tA`` (transpose ``A``) and ``tB``.返回更新后的 ``C`` 。
 
 .. function:: gemm(tA, tB, alpha, A, B)
 

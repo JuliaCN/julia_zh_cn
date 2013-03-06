@@ -69,7 +69,7 @@
 
 .. function:: isa(x, type)
 
-   检查 ``x`` 是否为指定类型。
+   判断 ``x`` 是否为指定类型。
 
 .. function:: isequal(x, y)
 
@@ -77,7 +77,7 @@
 
 .. function:: isless(x, y)
 
-   检查 ``x`` 是否比 ``y`` 小。它具有与 ``isequal`` 一致的整体排序。不能正常排序的值如 ``NaN`` ，会按照任意顺序排序，但其排序方式会保持一致。它是 ``sort`` 默认使用的比较函数。可进行排序的非数值类型，应当实现此方法。
+   判断 ``x`` 是否比 ``y`` 小。它具有与 ``isequal`` 一致的整体排序。不能正常排序的值如 ``NaN`` ，会按照任意顺序排序，但其排序方式会保持一致。它是 ``sort`` 默认使用的比较函数。可进行排序的非数值类型，应当实现此方法。
 
 .. function:: typeof(x)
 
@@ -171,13 +171,13 @@
 
 .. function:: method_exists(f, tuple) -> Bool
 
-   检查指定的通用函数是否有匹配参数类型多元组的方法。
+   判断指定的通用函数是否有匹配参数类型多元组的方法。
 
    **例子** ： ``method_exists(length, (Array,)) = true``
 
 .. function:: applicable(f, args...)
 
-   检查指定的通用函数是否有可用于指定参数的方法。
+   判断指定的通用函数是否有可用于指定参数的方法。
 
 .. function:: invoke(f, (types...), args...)
 
@@ -214,7 +214,7 @@
 
 .. function:: done(iter, state) -> Bool
 
-   检查迭代是否完成
+   判断迭代是否完成
 
 .. function:: next(iter, state) -> item, state
 
@@ -234,7 +234,7 @@
 
 .. function:: isempty(collection) -> Bool
 
-   检查集合是否为空（没有元素）。
+   判断集合是否为空（没有元素）。
 
 .. function:: empty!(collection) -> collection
 
@@ -257,7 +257,7 @@
 
 .. function:: contains(itr, x) -> Bool
 
-   检查集合是否包含指定值 ``x`` 
+   判断集合是否包含指定值 ``x`` 
 
 .. function:: findin(a, b)
 
@@ -305,11 +305,11 @@
 
 .. function:: any(itr) -> Bool
 
-   检查布尔值集合中是否有为真的元素
+   判断布尔值集合中是否有为真的元素
 
 .. function:: all(itr) -> Bool
 
-   检查布尔值集合中是否所有的元素都为真
+   判断布尔值集合中是否所有的元素都为真
 
 .. function:: count(itr) -> Integer
 
@@ -321,11 +321,11 @@
 
 .. function:: any(p, itr) -> Bool
 
-   检查 ``itr`` 中是否存在使指定断言为真的元素
+   判断 ``itr`` 中是否存在使指定断言为真的元素
 
 .. function:: all(p, itr) -> Bool
 
-   检查 ``itr`` 中是否所有元素都使指定断言为真
+   判断 ``itr`` 中是否所有元素都使指定断言为真
 
 .. function:: map(f, c) -> collection
 
@@ -385,7 +385,7 @@
 
 .. function:: has(collection, key)
 
-   检查集合是否含有指定 key 的映射
+   判断集合是否含有指定 key 的映射
 
 .. function:: get(collection, key, default)
 
@@ -641,7 +641,7 @@
 
 .. function:: ismatch(r::Regex, s::String)
 
-   检查字符串是否匹配指定的正则表达式
+   判断字符串是否匹配指定的正则表达式
    
 .. function:: lpad(string, n, p)
 
@@ -747,55 +747,55 @@
    
 .. function:: isalnum(c::Char)
 
-   检查字符是否为字母或数字。
+   判断字符是否为字母或数字。
 
 .. function:: isalpha(c::Char)
 
-   检查字符是否为字母。
+   判断字符是否为字母。
 
 .. function:: isascii(c::Char)
 
-   检查字符是否属于 ASCII 字符集。
+   判断字符是否属于 ASCII 字符集。
 
 .. function:: isblank(c::Char)
 
-   检查字符是否为 tab 或空格。
+   判断字符是否为 tab 或空格。
 
 .. function:: iscntrl(c::Char)
 
-   检查字符是否为控制字符。
+   判断字符是否为控制字符。
 
 .. function:: isdigit(c::Char)
 
-   检查字符是否为一位数字（0-9）。
+   判断字符是否为一位数字（0-9）。
 
 .. function:: isgraph(c::Char)
 
-   检查字符是否可打印，且不是空白字符。
+   判断字符是否可打印，且不是空白字符。
 
 .. function:: islower(c::Char)
 
-   检查字符是否为小写字母。
+   判断字符是否为小写字母。
 
 .. function:: isprint(c::Char)
 
-   检查字符是否可打印，包括空白字符。
+   判断字符是否可打印，包括空白字符。
 
 .. function:: ispunct(c::Char)
 
-   检查字符是否可打印，且既非空白字符也非字母或数字。
+   判断字符是否可打印，且既非空白字符也非字母或数字。
 
 .. function:: isspace(c::Char)
 
-   检查字符是否为任意空白字符。
+   判断字符是否为任意空白字符。
 
 .. function:: isupper(c::Char)
 
-   检查字符是否为大写字母。
+   判断字符是否为大写字母。
 
 .. function:: isxdigit(c::Char)
 
-   检查字符是否为有效的十六进制字符。
+   判断字符是否为有效的十六进制字符。
 
 I/O
 ---
@@ -887,7 +887,7 @@ I/O
 
 .. function:: eof(stream)
 
-   检查 whether an I/O stream is at end-of-file. If the stream is not yet exhausted, this function will block to wait for more data if necessary, and then return ``false``. Therefore it is always safe to read one byte after seeing ``eof`` return ``false``.
+   判断 whether an I/O stream is at end-of-file. If the stream is not yet exhausted, this function will block to wait for more data if necessary, and then return ``false``. Therefore it is always safe to read one byte after seeing ``eof`` return ``false``.
 
 文本 I/O
 --------
@@ -1038,7 +1038,7 @@ I/O
 
 .. function:: == != < <= > >=
 
-   比较运算符，用于检查是否相等、不等、小于、小于等于、大于、大于等于
+   比较运算符，用于判断是否相等、不等、小于、小于等于、大于、大于等于
 
 .. function:: cmp(x,y)
 
@@ -1745,11 +1745,11 @@ I/O
 
 .. function:: iscomplex(x) -> Bool
 
-   检查数或数组是否为复数类型
+   判断数或数组是否为复数类型
 
 .. function:: isreal(x) -> Bool
 
-   检查数或数组是否为实数类型
+   判断数或数组是否为实数类型
 
 .. function:: bswap(n)
 
@@ -1784,15 +1784,15 @@ I/O
 
 .. function:: isfinite(f) -> Bool
 
-   检查数是否有限
+   判断数是否有限
 
 .. function:: isinf(f)
 
-   检查数是否为无穷大或无穷小
+   判断数是否为无穷大或无穷小
 
 .. function:: isnan(f)
 
-   检查浮点数是否为非数值（NaN）
+   判断浮点数是否为非数值（NaN）
 
 .. function:: inf(f)
 
@@ -1812,11 +1812,11 @@ I/O
 
 .. function:: integer_valued(x)
 
-   检查 ``x`` 在数值上是否为整数
+   判断 ``x`` 在数值上是否为整数
 
 .. function:: real_valued(x)
 
-   检查 ``x`` 在数值上是否为实数
+   判断 ``x`` 在数值上是否为实数
 
 .. function:: exponent(f)
 
@@ -2511,23 +2511,23 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: issym(A)
 
-   检查是否为对称矩阵
+   判断是否为对称矩阵
 
 .. function:: isposdef(A)
 
-   检查是否为正定矩阵
+   判断是否为正定矩阵
 
 .. function:: istril(A)
 
-   检查是否为下三角矩阵
+   判断是否为下三角矩阵
 
 .. function:: istriu(A)
 
-   检查是否为上三角矩阵
+   判断是否为上三角矩阵
 
 .. function:: ishermitian(A)
 
-   检查是否为 Hamilton 矩阵
+   判断是否为 Hamilton 矩阵
 
 .. function:: transpose(A)
 
@@ -3150,11 +3150,11 @@ C 接口
 
 .. function:: unsafe_ref(p::Ptr{T},i::Integer)
 
-   Dereference the pointer ``p[i]`` or ``*p``, returning a copy of type T.
+   对指针解引用 ``p[i]`` 或 ``*p`` ，返回类型 T 的值的浅拷贝
 
 .. function:: unsafe_assign(p::Ptr{T},x,i::Integer)
 
-   Assign to the pointer ``p[i] = x`` or ``*p = x``, making a copy of object x into the memory at p.
+   给指针赋值 ``p[i] = x`` 或 ``*p = x`` ，将对象 x 复制进 p 处的内存中
 
 错误
 ----
@@ -3185,40 +3185,40 @@ C 接口
 
 .. function:: Task(func)
 
-   构造a ``Task`` (i.e. thread, or coroutine) to execute the given function. The task exits when this function returns.
+   构造 ``Task`` （如线程，协程）来执行指定程序。此函数返回时，任务自动退出。
 
 .. function:: yieldto(task, args...)
 
-   Switch to the given task. The first time a task is switched to, the task's function is called with ``args``. On subsequent switches, ``args`` are returned from the task's last call to ``yieldto``.
+   跳转到指定的任务。第一次跳转到某任务时，使用 ``args`` 参数来调用任务的函数。在后续的跳转时， ``args`` 被任务的最后一个调用返回到 ``yieldto`` 。
 
 .. function:: current_task()
 
-   Get the currently running Task.
+   获取当前正在运行的任务
 
 .. function:: istaskdone(task)
 
-   Tell whether a task has exited.
+   判断任务是否已退出
 
 .. function:: consume(task)
 
-   Receive the next value passed to ``produce`` by the specified task.
+   接收由指定任务传递给 ``produce`` 的下一个值
 
 .. function:: produce(value)
 
-   Send the given value to the last ``consume`` call, switching to the consumer task.
+   将指定值传递给最近的一次 ``consume`` 调用，然后跳转到消费者任务
 
 .. function:: make_scheduled(task)
 
-   Register a task with the main event loop, so it will automatically run when possible.
+   使用主事件循环来注册任务，任务会在允许的时候自动运行
 
 .. function:: yield()
 
-   For scheduled tasks, switch back to the scheduler to allow another scheduled task to run.
+   对安排好的任务，跳转到安排者来允许运行另一个安排好的任务
 
 .. function:: tls(symbol)
 
-   Look up the value of a symbol in the current task's task-local storage.
+   在当前任务的本地任务存储中查询 ``symbol`` 的值
 
 .. function:: tls(symbol, value)
 
-   Assign a value to a symbol in the current task's task-local storage.
+   给当前任务的本地任务存储中的 ``symbol`` 赋值 ``value`` 
