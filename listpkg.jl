@@ -14,7 +14,7 @@ function gen_listpkg()
 
 	Pkg.update()
 	io=open("packages/packagelist.rst","w+");
-	print(io, "********************\n Available Packages  \n********************\n\n")
+	print(io, "************\n 可用扩展包  \n************\n\n")
 	cd(Pkg.dir()) do 
 	for pkg in Pkg.Metadata.each_package()
 		print(" Processing $(pkg)\n")
@@ -49,16 +49,16 @@ function gen_listpkg()
 		print(io, "`$(pkg) <$(html_url)>`_\n"); 
 		print(io, "_"^(length("`$(pkg) <$(html_url)>`_")) * "\n\n")
 		print(io, "  .. image:: $(u[:avatar])\n     :height: 80px\n     :width: 80px\n     :align: right\n     :alt: $(u[:fullname])\n     :target: $(u[:url])\n\n")
-		print(io, "  Current Version: ``$(maxv.version)``\n\n"); 
+		print(io, "  当前版本： ``$(maxv.version)``\n\n"); 
 		print(io, "  $(desc) \n\n")
-		print(io, "  Maintainer: `$(u[:fullname]) <$(u[:url])>`_\n\n") 
+		print(io, "  维护者： `$(u[:fullname]) <$(u[:url])>`_\n\n") 
 		
 		if homepage != nothing && length(chomp(homepage)) > 0
-			print(io, "  Documentation: `<$(homepage)>`_ \n\n")
+			print(io, "  文档： `<$(homepage)>`_ \n\n")
 		end
-		print(io, "  Dependencies::\n\n" )
+		print(io, "  依赖关系： ::\n\n" )
 		ver_dir = "METADATA/$pkg/versions/$(maxv.version)/requires"
-		any_ver = "Any Version"
+		any_ver = "任意版本"
 		if isfile(ver_dir)
 			vset = Pkg.Metadata.parse_requires(ver_dir)
 			if length(vset) > 0
@@ -66,15 +66,15 @@ function gen_listpkg()
 					print(io, "      $(deps.package)"); print(io, " "^(15-length(deps.package))); print(io, "$(length(deps.versions)>0 ? deps.versions : any_ver)\n")
 				end
 			else 
-				print(io, "      None\n")
+				print(io, "      无\n")
 			end
 		else 
-			print(io, "      None\n")
+			print(io, "      无\n")
 		end
 		print(io, "\n")
 
 		if ismatch(r"github\.com", host)
-			print(io, "  Contributors:\n\n")
+			print(io, "  贡献者：\n\n")
 			for contributor in gh_contrib 
 				c_user = get(contributor, "login", "")
 				u=get_user_details_gh(c_user)
@@ -85,7 +85,7 @@ function gen_listpkg()
 
 		print(io, "----\n\n")
 	end  #for pkg
-	print(io, ".. footer: $(length(Pkg.Metadata.packages())) packages, generated $(now()) \n\n")
+	print(io, ".. footer: $(length(Pkg.Metadata.packages())) 个扩展包，本文档生成于 $(now()) \n\n")
 	end  #cd
 	
 	close(io)

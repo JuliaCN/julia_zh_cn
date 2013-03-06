@@ -448,7 +448,7 @@
 
 .. function:: add!(collection, key)
 
-   Add an element to a set-like collection.
+   向类集集合添加元素
 
 .. function:: add_each!(collection, iterable)
 
@@ -593,107 +593,107 @@
 
 .. function:: bytestring(::Ptr{Uint8})
 
-   构造a string from the address of a C (0-terminated) string.
+   从 C （以 0 结尾的）格式字符串的地址构造一个字符串。它使用了浅拷贝；可以安全释放指针
 
 .. function:: bytestring(s)
 
-   Convert a string to a contiguous byte array representation appropriate for passing it to C functions.
+   将字符串转换为连续的字节数组，从而可将它传递给 C 函数
 
 .. function:: ascii(::Array{Uint8,1})
 
-   构造an ASCII string from a byte array.
+   从字节数组构造 ASCII 字符串
 
 .. function:: ascii(s)
 
-   Convert a string to a contiguous ASCII string (all characters must be valid ASCII characters).
+   将字符串转换为连续的 ASCII 字符串（所有的字符都是有效的 ASCII 字符）
 
 .. function:: utf8(::Array{Uint8,1})
 
-   构造a UTF-8 string from a byte array.
+   从字节数组构造 UTF-8 字符串
 
 .. function:: utf8(s)
 
-   Convert a string to a contiguous UTF-8 string (all characters must be valid UTF-8 characters).
+   将字符串转换为连续的 UTF-8 字符串（所有的字符都是有效的 UTF-8 字符）
 
 .. function:: is_valid_ascii(s) -> Bool
 
-   返回true if the string is valid ASCII, false otherwise.
+   如果字符串是有效的 ASCII ，返回真；否则返回假
 
 .. function:: is_valid_utf8(s) -> Bool
 
-   返回true if the string is valid UTF-8, false otherwise.
+   如果字符串是有效的 UTF-8 ，返回真；否则返回假
 
 .. function:: check_ascii(s)
 
-   调用 :func:`is_valid_ascii` on string. Throws error if it is not valid.
+   对字符串调用 :func:`is_valid_ascii` 。如果它不是有效的，则抛出错误。
 
 .. function:: check_utf8(s)
 
-   调用 :func:`is_valid_utf8` on string. Throws error if it is not valid.
+   对字符串调用 :func:`is_valid_utf8` 。如果它不是有效的，则抛出错误。
 
 .. function:: byte_string_classify(s)
 
-   返回 0 if the string is neither valid ASCII nor UTF-8, 1 if it is valid ASCII, and 2 if it is valid UTF-8.
+   如果字符串不是有效的 ASCII 或 UTF-8 ，则返回 0 ；如果是有效的 ASCII，则返回 1 ；如果是有效的 UTF-8，则返回 2 。
 
 .. function:: search(string, char, [i])
 
-   返回the index of ``char`` in ``string``, giving 0 if not found. The second argument may also be a vector or a set of characters. The third argument optionally specifies a starting index.
+   返回 ``string`` 中 ``char`` 的索引值；如果没找到，则返回 0 。第二个参数也可以是字符向量或集合。第三个参数是可选的，它指明起始索引值。
 
 .. function:: ismatch(r::Regex, s::String)
 
-   Test whether a string contains a match of the given regular expression.
+   检查字符串是否匹配指定的正则表达式
    
 .. function:: lpad(string, n, p)
 
-   Make a string at least ``n`` characters long by padding on the left with copies of ``p``.
+   在字符串左侧填充一系列 ``p`` ，以保证字符串至少有 ``n`` 个字符。
 
 .. function:: rpad(string, n, p)
 
-   Make a string at least ``n`` characters long by padding on the right with copies of ``p``.
+   在字符串右侧填充一系列 ``p`` ，以保证字符串至少有 ``n`` 个字符。
 
 .. function:: search(string, chars, [start])
 
-   查找the given characters within the given string. The second argument may be a single character, a vector or a set of characters, a string, or a regular expression (but regular expressions are only allowed on contiguous strings, such as ASCII or UTF-8 strings). The third argument optionally specifies a starting index. The return value is a range of indexes where the matching sequence is found, such that ``s[search(s,x)] == x``. The return value is ``0:-1`` if there is no match.
+   在指定字符串中查找指定字符。第二个参数可以是单字符、字符向量或集合、字符串、或正则表达式（但正则表达式仅用来处理连续字符串，如 ASCII 或 UTF-8 字符串）。第三个参数是可选的，它指明起始索引值。返回值为所找到的匹配序列的索引值范围，它满足 ``s[search(s,x)] == x`` 。如果没有匹配，则返回值为 ``0:-1`` 。
 
 .. function:: replace(string, pat, r[, n])
 
-   查找the given pattern ``pat``, and replace each occurance with ``r``. If ``n`` is provided, replace at most ``n`` occurances.  As with search, the second argument may be a single character, a vector or a set of characters, a string, or a regular expression.
+   查找指定模式 ``pat`` ，并替换为 ``r`` 。如果提供 ``n`` ，则最多替换 ``n`` 次。搜索时，第二个参数可以是单字符、字符向量或集合、字符串、或正则表达式。
 
 .. function:: replace(string, pat, f[, n])
 
-   查找the given pattern ``pat``, and replace each occurance with ``f(pat)``. If ``n`` is provided, replace at most ``n`` occurances.  As with search, the second argument may be a single character, a vector or a set of characters, a string, or a regular expression.
+   查找指定模式 ``pat`` ，并替换为 ``f(pat)`` 。如果提供 ``n`` ，则最多替换 ``n`` 次。搜索时，第二个参数可以是单字符、字符向量或集合、字符串、或正则表达式。
 
 .. function:: split(string, [chars, [limit,] [include_empty]])
 
-   返回an array of strings by splitting the given string on occurrences of the given character delimiters, which may be specified in any of the formats allowed by ``search``'s second argument (i.e. a single character, collection of characters, string, or regular expression). If ``chars`` is omitted, it defaults to the set of all space characters, and ``include_empty`` is taken to be false. The last two arguments are also optional: they are are a maximum size for the result and a flag determining whether empty fields should be included in the result.
+   返回由指定字符分割符所分割的指定字符串的字符串数组。分隔符可由 ``search`` 的第二个参数所允许的任何格式所指明（如单字符、字符集合、字符串、或正则表达式）。如果省略 ``chars`` ，则它默认为整个空白字符集，且 ``include_empty`` 默认为假。最后两个参数是可选的：它们是结果的最大长度，且由标志位决定是否在结果中包括空域。
 
 .. function:: strip(string, [chars])
 
-   返回 ``string`` with any leading and trailing whitespace removed. If a string ``chars`` is provided, instead remove characters contained in that string.
+   返回去除头部、尾部空白的 ``string`` 。如果提供了字符串 ``chars`` ，则去除字符串中包含的字符。
 
 .. function:: lstrip(string, [chars])
 
-   返回 ``string`` with any leading whitespace removed. If a string ``chars`` is provided, instead remove characters contained in that string.
+   返回去除头部空白的 ``string`` 。如果提供了字符串 ``chars`` ，则去除字符串中包含的字符。
 
 .. function:: rstrip(string, [chars])
 
-   返回 ``string`` with any trailing whitespace removed. If a string ``chars`` is provided, instead remove characters contained in that string.
+   返回去除尾部空白的 ``string`` 。如果提供了字符串 ``chars`` ，则去除字符串中包含的字符。
 
 .. function:: begins_with(string, prefix)
 
-   返回 ``true`` if ``string`` starts with ``prefix``.
+   如果 ``string`` 以 ``prefix`` 开始，则返回 ``true`` 
 
 .. function:: ends_with(string, suffix)
 
-   返回 ``true`` if ``string`` ends with ``suffix``.
+   如果 ``string`` 以 ``suffix`` 结尾，则返回 ``true`` 
 
 .. function:: uppercase(string)
 
-   返回 ``string`` with all characters converted to uppercase.
+   返回所有字符转换为大写的 ``string`` 
 
 .. function:: lowercase(string)
 
-   返回 ``string`` with all characters converted to lowercase.
+   返回所有字符转换为小写的 ``string`` 
 
 .. function:: join(strings, delim)
 
@@ -2373,7 +2373,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: qTmulQR(QR, A)
 
-   Perform Q'*A efficiently, where Q is a an orthogonal matrix defined as the product of k elementary reflectors from the QR decomposition.
+   Perform ``Q'*A`` efficiently, where Q is a an orthogonal matrix defined as the product of k elementary reflectors from the QR decomposition.
 
 .. function:: sqrtm(A)
 
@@ -3086,7 +3086,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: tic()
 
-   Set a timer to be read by the next call to :func:`toc` or :func:`toq`. The macro call ``@time expr`` can also be used to time evaluation.
+   设置计时器， :func:`toc` 或 :func:`toq` 会调用它所计时的时间。The macro call ``@time expr`` can also be used to time evaluation.
 
 .. function:: toc()
 
@@ -3142,11 +3142,19 @@ C 接口
 
 .. function:: dlclose(handle)
 
-   Close shared library referenced by handle.
+   通过句柄来关闭共享库的引用
 
 .. function:: c_free(addr::Ptr)
   
-   调用 C 标准库中的 free() 。
+   调用 C 标准库中的 free()
+
+.. function:: unsafe_ref(p::Ptr{T},i::Integer)
+
+   Dereference the pointer ``p[i]`` or ``*p``, returning a copy of type T.
+
+.. function:: unsafe_assign(p::Ptr{T},x,i::Integer)
+
+   Assign to the pointer ``p[i] = x`` or ``*p = x``, making a copy of object x into the memory at p.
 
 错误
 ----
