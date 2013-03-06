@@ -111,7 +111,7 @@
 
    构造 ``x`` 的深拷贝：递归复制所有的东西，返回一个完全独立的对象。如，深拷贝数组时，会生成一个元素为原先元素深拷贝的新数组。
 
-   作为特例，匿名函数只能深拷贝，非匿名函数则为浅拷贝。它们的区别仅与闭包有关，如含有隐藏内部引用的函数。
+   作为特例，匿名函数只能深拷贝，非匿名函数则为浅拷贝。它们的区别仅与闭包有关，例如含有隐藏的内部引用的函数。
 
    While it isn't normally necessary,自定义类型可通过定义特殊版本的 ``deepcopy_internal(x::T, dict::ObjectIdDict)`` 函数（此函数其它情况下不应使用）来覆盖默认的 ``deepcopy`` 行为，其中 ``T`` 是要指明的类型， ``dict`` 记录迄今为止递归中复制的对象。在定义中， ``deepcopy_internal`` 应当用来代替 ``deepcopy`` ， ``dict`` 变量应当在返回前正确的更新。
 
@@ -195,7 +195,7 @@
 序贯迭代是通过 ``start``, ``done``, 及 ``next`` 方法实现的。通用 ``for`` 循环： ::
 
     for i = I
-      # body
+      # 代码体
     end
 
 可以重写为： ::
@@ -957,27 +957,27 @@ I/O
 
 .. function:: mmap_array(type, dims, stream, [offset])
 
-   构造an array whose values are linked to a file, using memory-mapping. This provides a convenient way of working with data too large to fit in the computer's memory.
+   使用内存映射构造数组，数组的值连接到文件。它提供了处理对计算机内存来说过于庞大数据的简便方法。
 
-   The type determines how the bytes of the array are interpreted (no format conversions are possible), and dims is a tuple containing the size of the array.  
+   ``type`` 决定了如何解释数组中的字节（不使用格式转换）。 ``dims`` 是包含字节大小的多元组。
 
-   The file is specified via the stream.  When you initialize the stream, use "r" for a "read-only" array, and "w+" to create a new array used to write values to disk. Optionally, you can specify an offset (in bytes) if, for example, you want to skip over a header in the file.
+   文件是由 ``stream`` 指明的。初始化流时，对“只读”数组使用 “r” ，使用 "w+" 新建用于向硬盘写入值的数组。可以选择指明偏移值（单位为字节），用来跳过文件头等。
 
    **例子** ：  A = mmap_array(Int64, (25,30000), s)
 
-   它将构造一个 25 x 30000 的 Int64 类型的数列, linked to the file associated with stream s.
+   它将构造一个 25 x 30000 的 Int64 类型的数列，它链接到与流 s 有关的文件上。
 
 .. function:: msync(array)
 
-   Forces synchronization between the in-memory version of a memory-mapped array and the on-disk version. You may not need to call this function, because synchronization is performed at intervals automatically by the operating system. Hower, you can call this directly if, for example, you are concerned about losing the result of a long-running calculation.
+   对内存映射数组的内存中的版本和硬盘上的版本强制同步。程序员可能不需要调用此函数，因为操作系统在休息时自动同步。但是，如果你担心丢失一个需要很长时间来运算的结果，就可以直接调用此函数。
 
 .. function:: mmap(len, prot, flags, fd, offset)
 
-   低级接口 to the mmap 系统调用。
+   mmap 系统调用的低级接口
 
 .. function:: munmap(pointer, len)
 
-   Low-level interface for unmapping memory (see the man page). With mmap_array you do not need to call this directly; the memory is unmapped for you when the array goes out of scope.
+   取消内存映射的低级接口。对于 mmap_array 则不需要直接调用此函数；当数组离开作用域时，会自动取消内存映射。
 
 标准数值类型
 ------------
@@ -1250,11 +1250,11 @@ I/O
 
 .. function:: logb(x)
 
-   返回the exponent of x, represented as a floating-point number
+   返回浮点数 :math:`trunc( log2( abs(x) ) )`
 
 .. function:: ilogb(x) 
 
-   返回the exponent of x, represented as a signed integer value
+   :func:`logb` 的返回值为整数的版本
 
 .. function:: frexp(val, exp)
 
@@ -1291,15 +1291,15 @@ I/O
 
 .. function:: ceil(x, [digits, [base]]) -> FloatingPoint
 
-   返回the nearest integer not less than ``x``. ``digits`` and ``base`` work as above.
+   返回the nearest integer not less than ``x``. ``digits`` 与 ``base`` 的解释参见 :func:`round` 。
 
 .. function:: floor(x, [digits, [base]]) -> FloatingPoint
 
-   返回the nearest integer not greater than ``x``. ``digits`` and ``base`` work as above.
+   返回the nearest integer not greater than ``x``. ``digits`` 与 ``base`` 的解释参见 :func:`round` 。
 
 .. function:: trunc(x, [digits, [base]]) -> FloatingPoint
 
-   返回the nearest integer not greater in magnitude than ``x``. ``digits`` and ``base`` work as above.
+   返回the nearest integer not greater in magnitude than ``x``. ``digits`` 与 ``base`` 的解释参见 :func:`round` 。
 
 .. function:: iround(x) -> Integer
 
@@ -2546,7 +2546,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: nthperm!(v, k)
 
-   原地version of :func:`nthperm`.
+   :func:`nthperm` 的原地版本
 
 .. function:: randperm(n)
 
