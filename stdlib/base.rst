@@ -2001,27 +2001,27 @@ Julia 中的随机数生成使用 `Mersenne Twister 库 <http://www.math.sci.hir
    构造an uninitialized cell array (heterogeneous array). ``dims`` can be either a tuple or a series of integer arguments.  
 .. function:: zeros(type, dims)
 
-   构造an array of all zeros of specified type
+   构造指定类型的全零数组
 
 .. function:: ones(type, dims)
 
-   构造an array of all ones of specified type
+   构造指定类型的全一数组
 
 .. function:: trues(dims)
 
-   构造a Bool array with all values set to true
+   构造元素全为真的布尔值数组
 
 .. function:: falses(dims)
 
-   构造a Bool array with all values set to false
+   构造元素全为假的布尔值数组
 
 .. function:: fill(v, dims)
 
-   构造an array filled with ``v``
+   构造数组，元素都初始化为 ``v``
 
 .. function:: fill!(A, x)
 
-   Fill array ``A`` with value ``x``
+   将数组 ``A`` 的元素都改为 ``x``
 
 .. function:: reshape(A, dims)
 
@@ -2070,11 +2070,11 @@ Julia 中的随机数生成使用 `Mersenne Twister 库 <http://www.math.sci.hir
 数学运算符和函数
 ~~~~~~~~~~~~~~~~
 
-All mathematical operations and functions are supported for arrays
+数组可以使用所有的数学运算和函数
 
 .. function:: bsxfun(fn, A, B[, C...])
 
-   Apply binary function ``fn`` to two or more arrays, with singleton dimensions expanded.
+   对两个或两个以上的数组使用二元函数 ``fn`` ，它会展开单态的维度。
 
 索引，赋值和连接
 ~~~~~~~~~~~~~~~~
