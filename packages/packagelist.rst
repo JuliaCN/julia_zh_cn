@@ -16,7 +16,7 @@ __________________________________________________________
 
   Package for parsing command-line arguments to Julia programs. 
 
-  维护者: `Carlo Baldassi <https://github.com/carlobaldassi>`_
+  维护者： `Carlo Baldassi <https://github.com/carlobaldassi>`_
 
   依赖关系： ::
 
@@ -59,7 +59,7 @@ _____________________________________________________________
 
   A package for benchmarking code and packages 
 
-  维护者: `John Myles White <https://github.com/johnmyleswhite>`_
+  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
   依赖关系： ::
 
@@ -101,7 +101,7 @@ ___________________________________________________
 
   Tool for building binary dependencies for Julia modules 
 
-  维护者: `Keno Fischer <https://github.com/loladiro>`_
+  维护者： `Keno Fischer <https://github.com/loladiro>`_
 
   依赖关系： ::
 
@@ -137,7 +137,7 @@ _________________________________________________
 
   Julia's package for working on Bioinformatics with DNA, RNA and Protein Sequences 
 
-  维护者: `Diego Javier Zea <https://github.com/diegozea>`_
+  维护者： `Diego Javier Zea <https://github.com/diegozea>`_
 
   依赖关系： ::
 
@@ -173,7 +173,7 @@ ___________________________________________________________________
 
   Bloom filters in Julia 
 
-  维护者: `John Myles White <https://github.com/johnmyleswhite>`_
+  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
   依赖关系： ::
 
@@ -203,7 +203,7 @@ ________________________________________________
 
   Bindings to the Cairo graphics library. 
 
-  维护者: `The Julia Language <https://github.com/JuliaLang>`_
+  维护者： `The Julia Language <https://github.com/JuliaLang>`_
 
   依赖关系： ::
 
@@ -260,6 +260,13 @@ ________________________________________________
         :alt: Westley Argentum Hennigh
         :target: https://github.com/WestleyArgentum
 
+	.. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+			:height: 40px
+			:width: 40px
+			:alt: Tim Holy
+			:target: https://github.com/timholy
+		
+		
 ----
 
 `Calculus <https://github.com/johnmyleswhite/Calculus.jl>`_
@@ -276,7 +283,7 @@ ___________________________________________________________
 
   Calculus functions in Julia 
 
-  维护者: `John Myles White <https://github.com/johnmyleswhite>`_
+  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
   依赖关系： ::
 
@@ -324,7 +331,7 @@ __________________________________________________
 
   Calendar time package for Julia 
 
-  维护者: `Mike Nolta <https://github.com/nolta>`_
+  维护者： `Mike Nolta <https://github.com/nolta>`_
 
   依赖关系： ::
 
@@ -359,14 +366,14 @@ ___________________________________________________
      :height: 80px
      :width: 80px
      :align: right
-     :alt: Alessandro Andrioni Silva
+     :alt: Alessandro Andrioni
      :target: https://github.com/andrioni
 
   当前版本： ``0.0.0``
 
   Catalan: a combinatorics library for Julia 
 
-  维护者: `Alessandro Andrioni Silva <https://github.com/andrioni>`_
+  维护者： `Alessandro Andrioni<https://github.com/andrioni>`_
 
   依赖关系： ::
 
@@ -377,7 +384,7 @@ ___________________________________________________
     .. image:: https://secure.gravatar.com/avatar/c928b9b00cbc5133c4ae7a743cf96f10?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: Alessandro Andrioni Silva
+        :alt: Alessandro Andrioni
         :target: https://github.com/andrioni
 
 ----
@@ -396,7 +403,7 @@ _________________________________________
 
   Interface to the Coin-OR Linear Programming solver (CLP) 
 
-  维护者: `Miles Lubin <https://github.com/mlubin>`_
+  维护者： `Miles Lubin <https://github.com/mlubin>`_
 
   依赖关系： ::
 
@@ -426,7 +433,7 @@ _______________________________________________________________
 
   Basic functions for clustering data: k-means, dp-means, etc. 
 
-  维护者: `John Myles White <https://github.com/johnmyleswhite>`_
+  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
   依赖关系： ::
 
@@ -462,7 +469,7 @@ ________________________________________________
 
   Common data encoding algorithms 
 
-  维护者: `Daniel Jones <https://github.com/dcjones>`_
+  维护者： `Daniel Jones <https://github.com/dcjones>`_
 
   依赖关系： ::
 
@@ -492,7 +499,7 @@ _______________________________________________
 
    
 
-  维护者: `Miles Lubin <https://github.com/mlubin>`_
+  维护者： `Miles Lubin <https://github.com/mlubin>`_
 
   依赖关系： ::
 
@@ -522,7 +529,7 @@ ________________________________________________
 
   Basic color manipulation utilities. 
 
-  维护者: `The Julia Language <https://github.com/JuliaLang>`_
+  维护者： `The Julia Language <https://github.com/JuliaLang>`_
 
   依赖关系： ::
 
@@ -552,7 +559,7 @@ __________________________________________________
 
   Declarative vector graphics 
 
-  维护者: `Daniel Jones <https://github.com/dcjones>`_
+  维护者： `Daniel Jones <https://github.com/dcjones>`_
 
   依赖关系： ::
 
@@ -619,7 +626,7 @@ _______________________________________________________________________________
 
   Types and functions for working with continued fractions in Julia 
 
-  维护者: `John Myles White <https://github.com/johnmyleswhite>`_
+  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
   依赖关系： ::
 
@@ -632,6 +639,30 @@ _______________________________________________________________________________
         :width: 40px
         :alt: John Myles White
         :target: https://github.com/johnmyleswhite
+
+----
+
+`Cubature <https://github.com/stevengj/Cubature.jl>`_
+_____________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/9563cfcf21df990e570df1dd019bce16?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Steven G. Johnson
+     :target: https://github.com/stevengj
+
+  当前版本： ``0.0.0``
+
+  One- and multi-dimensional adaptive integration routines for the Julia language 
+
+  维护者： `Steven G. Johnson <https://github.com/stevengj>`_
+
+  依赖关系： ::
+
+      BinDeps        任意版本
+
+  贡献者：
 
 ----
 
@@ -649,7 +680,7 @@ __________________________________________
 
   a Julia HTTP curl library 
 
-  维护者: `Forio Online Simulations <https://github.com/forio>`_
+  维护者： `Forio Online Simulations <https://github.com/forio>`_
 
   依赖关系： ::
 
@@ -679,7 +710,7 @@ _______________________________________________
 
   DICOM for Julia 
 
-  维护者: `Isaiah <https://github.com/ihnorton>`_
+  维护者： `Isaiah <https://github.com/ihnorton>`_
 
   依赖关系： ::
 
@@ -733,7 +764,7 @@ ________________________________________________________
 
   library for working with tabular data in Julia 
 
-  维护者: `Harlan Harris <https://github.com/HarlanH>`_
+  维护者： `Harlan Harris <https://github.com/HarlanH>`_
 
   依赖关系： ::
 
@@ -896,7 +927,7 @@ _____________________________________________
 
   Prototype interactive debugger for Julia 
 
-  维护者: `toivoh <https://github.com/toivoh>`_
+  维护者： `toivoh <https://github.com/toivoh>`_
 
   依赖关系： ::
 
@@ -932,7 +963,7 @@ _______________________________________________________________
 
   Decision Tree Classifier in Julia 
 
-  维护者: `Ben Sadeghi <https://github.com/bensadeghi>`_
+  维护者： `Ben Sadeghi <https://github.com/bensadeghi>`_
 
   依赖关系： ::
 
@@ -962,7 +993,7 @@ ___________________________________________________________
 
   A Julia framework for delayed expression evaluation 
 
-  维护者: `Dahua Lin <https://github.com/lindahua>`_
+  维护者： `Dahua Lin <https://github.com/lindahua>`_
 
   依赖关系： ::
 
@@ -992,7 +1023,7 @@ __________________________________________________________
 
   KeysView and ValuesView types for dynamic low-overhead views into the entries of dictionaries 
 
-  维护者: `David de Laat <https://github.com/daviddelaat>`_
+  维护者： `David de Laat <https://github.com/daviddelaat>`_
 
   依赖关系： ::
 
@@ -1022,7 +1053,7 @@ ________________________________________________________________________________
 
   Methods for dimensionality reduction: PCA, ICA, NMF 
 
-  维护者: `John Myles White <https://github.com/johnmyleswhite>`_
+  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
   依赖关系： ::
 
@@ -1052,7 +1083,7 @@ _____________________________________________________
 
   Julia module for Distance evaluation 
 
-  维护者: `Dahua Lin <https://github.com/lindahua>`_
+  维护者： `Dahua Lin <https://github.com/lindahua>`_
 
   依赖关系： ::
 
@@ -1082,7 +1113,7 @@ _________________________________________________________________
 
   A Julia package for probability distributions and associated funtions. 
 
-  维护者: `JuliaStats <https://github.com/JuliaStats>`_
+  维护者： `JuliaStats <https://github.com/JuliaStats>`_
 
   依赖关系： ::
 
@@ -1130,7 +1161,7 @@ __________________________________________________
 
   Elliptic integral and Jacobi elliptic special functions 
 
-  维护者: `Mike Nolta <https://github.com/nolta>`_
+  维护者： `Mike Nolta <https://github.com/nolta>`_
 
   依赖关系： ::
 
@@ -1160,7 +1191,7 @@ ____________________________________________________
 
   Example Julia package repo. 
 
-  维护者: `The Julia Language <https://github.com/JuliaLang>`_
+  维护者： `The Julia Language <https://github.com/JuliaLang>`_
 
   依赖关系： ::
 
@@ -1190,7 +1221,7 @@ ______________________________________________
 
   FITS file package for Julia 
 
-  维护者: `Mike Nolta <https://github.com/nolta>`_
+  维护者： `Mike Nolta <https://github.com/nolta>`_
 
   依赖关系： ::
 
@@ -1220,7 +1251,7 @@ ____________________________________________________________
 
   A fast FASTA reader for Julia 
 
-  维护者: `Carlo Baldassi <https://github.com/carlobaldassi>`_
+  维护者： `Carlo Baldassi <https://github.com/carlobaldassi>`_
 
   依赖关系： ::
 
@@ -1250,7 +1281,7 @@ ___________________________________________________________
 
   File::Find implementation in Julia 
 
-  维护者: `John Myles White <https://github.com/johnmyleswhite>`_
+  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
   依赖关系： ::
 
@@ -1280,7 +1311,7 @@ _____________________________________________
 
   Generalized linear models in Julia 
 
-  维护者: `JuliaStats <https://github.com/JuliaStats>`_
+  维护者： `JuliaStats <https://github.com/JuliaStats>`_
 
   依赖关系： ::
 
@@ -1323,7 +1354,7 @@ __________________________________________________
 
   GLPK wrapper module for Julia 
 
-  维护者: `Carlo Baldassi <https://github.com/carlobaldassi>`_
+  维护者： `Carlo Baldassi <https://github.com/carlobaldassi>`_
 
   依赖关系： ::
 
@@ -1359,7 +1390,7 @@ ______________________________________________
 
   Julia interface to GLUT 
 
-  维护者: `Robert Ennis <https://github.com/rennis250>`_
+  维护者： `Robert Ennis <https://github.com/rennis250>`_
 
   依赖关系： ::
 
@@ -1390,7 +1421,9 @@ _____________________________________________
 
   A Julia interface for gzip functions in zlib 
 
-  维护者: `Kevin Squire <https://github.com/kmsquire>`_
+  维护者： `Kevin Squire <https://github.com/kmsquire>`_
+  
+  文档： `<https://gzipjl.readthedocs.org/en/latest/>`_
 
   依赖关系： ::
 
@@ -1420,9 +1453,9 @@ ________________________________________________
 
   Crafty statistical graphics for Julia. 
 
-  维护者: `Daniel Jones <https://github.com/dcjones>`_
+  维护者： `Daniel Jones <https://github.com/dcjones>`_
 
-  More Info: `<http://dcjones.github.com/Gadfly.jl/doc>`_ 
+  文档： `<http://dcjones.github.com/Gadfly.jl/doc>`_ 
 
   依赖关系： ::
 
@@ -1480,6 +1513,42 @@ ________________________________________________
 
 ----
 
+`Gaston <https://github.com/mbaz/Gaston.jl>`_
+_____________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/ec325e7c3c35e354f2ea5ead5b0ec745?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: mbaz
+     :target: https://github.com/mbaz
+
+  当前版本： ``0.0.0``
+
+  A julia front-end for gnuplot. 
+
+  维护者： `mbaz <https://github.com/mbaz>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/ec325e7c3c35e354f2ea5ead5b0ec745?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: mbaz
+        :target: https://github.com/mbaz
+
+    .. image:: https://secure.gravatar.com/avatar/8af4d5971a2308b86a94f58fb98129c5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Jameson Nash
+        :target: https://github.com/vtjnash
+
+----
+
 `GetC <https://github.com/rennis250/GetC.jl>`_
 ______________________________________________
 
@@ -1494,7 +1563,7 @@ ______________________________________________
 
   Minimal implementation of Jasper's Julia FFI 
 
-  维护者: `Robert Ennis <https://github.com/rennis250>`_
+  维护者： `Robert Ennis <https://github.com/rennis250>`_
 
   依赖关系： ::
 
@@ -1524,7 +1593,7 @@ _______________________________________________________
 
   Working with graphs in Julia 
 
-  维护者: `John Myles White <https://github.com/johnmyleswhite>`_
+  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
   依赖关系： ::
 
@@ -1560,7 +1629,7 @@ ____________________________________________
 
   Grid operations for the Julia language 
 
-  维护者: `Tim Holy <https://github.com/timholy>`_
+  维护者： `Tim Holy <https://github.com/timholy>`_
 
   依赖关系： ::
 
@@ -1590,7 +1659,7 @@ __________________________________________
 
   Julia interface to Gtk windowing toolkit. 
 
-  维护者: `Jameson Nash <https://github.com/vtjnash>`_
+  维护者： `Jameson Nash <https://github.com/vtjnash>`_
 
   依赖关系： ::
 
@@ -1620,7 +1689,7 @@ ____________________________________________
 
   HDF5 interface for the Julia language 
 
-  维护者: `Tim Holy <https://github.com/timholy>`_
+  维护者： `Tim Holy <https://github.com/timholy>`_
 
   依赖关系： ::
 
@@ -1662,7 +1731,7 @@ ______________________________________________
 
   A Julia to the Hadoop and Map-R filesystems 
 
-  维护者: `The Julia Language <https://github.com/JuliaLang>`_
+  维护者： `The Julia Language <https://github.com/JuliaLang>`_
 
   依赖关系： ::
 
@@ -1688,11 +1757,11 @@ _________________________________________
      :alt: Dirk Gadsden
      :target: https://github.com/dirk
 
-  当前版本： ``0.0.1``
+  当前版本： ``0.0.2``
 
   HTTP library (server, client, parser) for the Julia language 
 
-  维护者: `Dirk Gadsden <https://github.com/dirk>`_
+  维护者： `Dirk Gadsden <https://github.com/dirk>`_
 
   依赖关系： ::
 
@@ -1722,7 +1791,7 @@ _____________________________________________________
 
   Fast Walsh-Hadamard transforms for the Julia language 
 
-  维护者: `Steven G. Johnson <https://github.com/stevengj>`_
+  维护者： `Steven G. Johnson <https://github.com/stevengj>`_
 
   依赖关系： ::
 
@@ -1746,7 +1815,7 @@ ____________________________________________________________________
 
   T-tests, Wilcoxon rank sum (Mann-Whitney U), signed rank, and circular statistics in Julia 
 
-  维护者: `Simon Kornblith <https://github.com/simonster>`_
+  维护者： `Simon Kornblith <https://github.com/simonster>`_
 
   依赖关系： ::
 
@@ -1776,7 +1845,7 @@ ________________________________________
 
   Julia wrapper for the International Components for Unicode (ICU) library 
 
-  维护者: `Mike Nolta <https://github.com/nolta>`_
+  维护者： `Mike Nolta <https://github.com/nolta>`_
 
   依赖关系： ::
 
@@ -1804,6 +1873,42 @@ ________________________________________
 
 ----
 
+`Images <https://github.com/timholy/Images.jl>`_
+________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Tim Holy
+     :target: https://github.com/timholy
+
+  当前版本： ``0.0.0``
+
+  An image library for Julia 
+
+  维护者： `Tim Holy <https://github.com/timholy>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tim Holy
+        :target: https://github.com/timholy
+
+    .. image:: https://secure.gravatar.com/avatar/d04d5b6e71776eb13d195ba7cc94b995?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Waldir
+        :target: https://github.com/waldir
+
+----
+
 `IniFile <https://github.com/JuliaLang/IniFile.jl>`_
 ____________________________________________________
 
@@ -1818,7 +1923,7 @@ ____________________________________________________
 
   Reading and writing Windows-style INI files (writing not yet implemented). 
 
-  维护者: `The Julia Language <https://github.com/JuliaLang>`_
+  维护者： `The Julia Language <https://github.com/JuliaLang>`_
 
   依赖关系： ::
 
@@ -1866,7 +1971,7 @@ ________________________________________________________
 
   Common functional iterator patterns. 
 
-  维护者: `The Julia Language <https://github.com/JuliaLang>`_
+  维护者： `The Julia Language <https://github.com/JuliaLang>`_
 
   依赖关系： ::
 
@@ -1908,9 +2013,9 @@ ________________________________________
 
   A Julia package for quantitative finance 
 
-  维护者: `Avik Sengupta <https://github.com/aviks>`_
+  维护者： `Avik Sengupta <https://github.com/aviks>`_
 
-  More Info: `<http://aviks.github.com/Ito.jl/>`_ 
+  文档： `<http://aviks.github.com/Ito.jl/>`_ 
 
   依赖关系： ::
 
@@ -1947,7 +2052,7 @@ ___________________________________________________
 
   Simulation and inference for Ito processes and diffusions. 
 
-  维护者: `M. Schauer <https://github.com/mschauer>`_
+  维护者： `M. Schauer <https://github.com/mschauer>`_
 
   依赖关系： ::
 
@@ -1977,7 +2082,7 @@ __________________________________________
 
   JSON parsing and printing 
 
-  维护者: `Avik Sengupta <https://github.com/aviks>`_
+  维护者： `Avik Sengupta <https://github.com/aviks>`_
 
   依赖关系： ::
 
@@ -2055,7 +2160,7 @@ _________________________________________________
 
   Interface to use yacas from julia 
 
-  维护者: `john verzani <https://github.com/jverzani>`_
+  维护者： `john verzani <https://github.com/jverzani>`_
 
   依赖关系： ::
 
@@ -2085,7 +2190,7 @@ ___________________________________________________________________
 
   KL-divergence estimation in Julia 
 
-  维护者: `John Myles White <https://github.com/johnmyleswhite>`_
+  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
   依赖关系： ::
 
@@ -2115,7 +2220,7 @@ ___________________________________________
 
   Linear models in Julia 
 
-  维护者: `JuliaStats <https://github.com/JuliaStats>`_
+  维护者： `JuliaStats <https://github.com/JuliaStats>`_
 
   依赖关系： ::
 
@@ -2152,7 +2257,7 @@ _____________________________________________________________
 
   A package for working with human languages 
 
-  维护者: `John Myles White <https://github.com/johnmyleswhite>`_
+  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
   依赖关系： ::
 
@@ -2182,7 +2287,7 @@ ______________________________________________________________
 
   Lazy sequences. 
 
-  维护者: `Daniel Jones <https://github.com/dcjones>`_
+  维护者： `Daniel Jones <https://github.com/dcjones>`_
 
   依赖关系： ::
 
@@ -2212,7 +2317,7 @@ ________________________________________________________________
 
   High-level linear programming functionality for Julia via GLPK library (transitional package) 
 
-  维护者: `Carlo Baldassi <https://github.com/carlobaldassi>`_
+  维护者： `Carlo Baldassi <https://github.com/carlobaldassi>`_
 
   依赖关系： ::
 
@@ -2242,7 +2347,7 @@ ___________________________________________________
 
   Loss functions 
 
-  维护者: `John Myles White <https://github.com/johnmyleswhite>`_
+  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
   依赖关系： ::
 
@@ -2272,7 +2377,7 @@ ____________________________________________
 
   Julia module for reading MATLAB files 
 
-  维护者: `Simon Kornblith <https://github.com/simonster>`_
+  维护者： `Simon Kornblith <https://github.com/simonster>`_
 
   依赖关系： ::
 
@@ -2320,7 +2425,7 @@ ___________________________________________
 
   MCMC tools for Julia 
 
-  维护者: `Chris DuBois <https://github.com/doobwa>`_
+  维护者： `Chris DuBois <https://github.com/doobwa>`_
 
   依赖关系： ::
 
@@ -2362,7 +2467,7 @@ _________________________________________________
 
   A set of functions to support the development of machine learning algorithms 
 
-  维护者: `Dahua Lin <https://github.com/lindahua>`_
+  维护者： `Dahua Lin <https://github.com/lindahua>`_
 
   依赖关系： ::
 
@@ -2393,7 +2498,7 @@ _______________________________________________________________________
 
   Technical analysis of financial time series in Julia 
 
-  维护者: `milktrader <https://github.com/milktrader>`_
+  维护者： `milktrader <https://github.com/milktrader>`_
 
   依赖关系： ::
 
@@ -2427,7 +2532,7 @@ ___________________________________________________
 
   Modelling language for Linear, Integer, and Quadratic Programming 
 
-  维护者: `Iain Dunning <https://github.com/IainNZ>`_
+  维护者： `Iain Dunning <https://github.com/IainNZ>`_
 
   依赖关系： ::
 
@@ -2450,6 +2555,36 @@ ___________________________________________________
 
 ----
 
+`Meshes <https://github.com/twadleigh/Meshes.jl>`_
+__________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/9553bee3aa95ce13310db4f5f70acc62?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Tracy Wadleigh
+     :target: https://github.com/twadleigh
+
+  当前版本： ``0.0.0``
+
+  Generation and manipulation of triangular meshes. 
+
+  维护者： `Tracy Wadleigh <https://github.com/twadleigh>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/9553bee3aa95ce13310db4f5f70acc62?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tracy Wadleigh
+        :target: https://github.com/twadleigh
+
+----
+
 `Monads <https://github.com/pao/Monads.jl>`_
 ____________________________________________
 
@@ -2464,9 +2599,9 @@ ____________________________________________
 
   Monadic expressions and sequences for Julia 
 
-  维护者: `Patrick O'Leary <https://github.com/pao>`_
+  维护者： `Patrick O'Leary <https://github.com/pao>`_
 
-  More Info: `<https://monadsjl.readthedocs.org/>`_ 
+  文档： `<https://monadsjl.readthedocs.org/>`_ 
 
   依赖关系： ::
 
@@ -2496,7 +2631,7 @@ __________________________________________________
 
   Mongrel2 handlers in Julia 
 
-  维护者: `Avik Sengupta <https://github.com/aviks>`_
+  维护者： `Avik Sengupta <https://github.com/aviks>`_
 
   依赖关系： ::
 
@@ -2533,7 +2668,7 @@ _____________________________________________________
 
   Port of mustache.js to julia 
 
-  维护者: `john verzani <https://github.com/jverzani>`_
+  维护者： `john verzani <https://github.com/jverzani>`_
 
   依赖关系： ::
 
@@ -2546,6 +2681,12 @@ _____________________________________________________
         :width: 40px
         :alt: john verzani
         :target: https://github.com/jverzani
+
+    .. image:: https://secure.gravatar.com/avatar/d9c8c5a29b60871d14846a382d50626a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Dirk Gadsden
+        :target: https://github.com/dirk
 
 ----
 
@@ -2563,7 +2704,7 @@ ___________________________________________________
 
   Null hypothesis significance tests 
 
-  维护者: `John Myles White <https://github.com/johnmyleswhite>`_
+  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
   依赖关系： ::
 
@@ -2593,7 +2734,7 @@ ______________________________________________
 
   Julia named index and named vector types 
 
-  维护者: `Harlan Harris <https://github.com/HarlanH>`_
+  维护者： `Harlan Harris <https://github.com/HarlanH>`_
 
   依赖关系： ::
 
@@ -2623,7 +2764,7 @@ ______________________________________________
 
   A low-level ODBC interface for the Julia programming language 
 
-  维护者: `Jacob Quinn <https://github.com/karbarcca>`_
+  维护者： `Jacob Quinn <https://github.com/karbarcca>`_
 
   依赖关系： ::
 
@@ -2653,7 +2794,7 @@ __________________________________________
 
   Assorted basic Ordinary Differential Equation solvers 
 
-  维护者: `Jameson Nash <https://github.com/vtjnash>`_
+  维护者： `Jameson Nash <https://github.com/vtjnash>`_
 
   依赖关系： ::
 
@@ -2683,7 +2824,7 @@ __________________________________________________
 
   Julia interface to OpenGL 
 
-  维护者: `Robert Ennis <https://github.com/rennis250>`_
+  维护者： `Robert Ennis <https://github.com/rennis250>`_
 
   依赖关系： ::
 
@@ -2713,9 +2854,9 @@ _____________________________________________________
 
   Optimization functions for Julia 
 
-  维护者: `John Myles White <https://github.com/johnmyleswhite>`_
+  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
-  More Info: `<http://johnmyleswhite.com>`_ 
+  文档： `<http://johnmyleswhite.com>`_ 
 
   依赖关系： ::
 
@@ -2765,7 +2906,7 @@ ____________________________________________________
 
   A framework for providing optional arguments to functions. 
 
-  维护者: `The Julia Language <https://github.com/JuliaLang>`_
+  维护者： `The Julia Language <https://github.com/JuliaLang>`_
 
   依赖关系： ::
 
@@ -2819,7 +2960,7 @@ ____________________________________________
 
   Julia module for reading Plexon PLX files 
 
-  维护者: `Simon Kornblith <https://github.com/simonster>`_
+  维护者： `Simon Kornblith <https://github.com/simonster>`_
 
   依赖关系： ::
 
@@ -2849,7 +2990,7 @@ _________________________________________________________________
 
   Method dispatch based on pattern matching for Julia 
 
-  维护者: `toivoh <https://github.com/toivoh>`_
+  维护者： `toivoh <https://github.com/toivoh>`_
 
   依赖关系： ::
 
@@ -2885,7 +3026,7 @@ ________________________________________________________
 
   Polynomial manipulations 
 
-  维护者: `Jameson Nash <https://github.com/vtjnash>`_
+  维护者： `Jameson Nash <https://github.com/vtjnash>`_
 
   依赖关系： ::
 
@@ -2915,7 +3056,7 @@ __________________________________________________
 
   Profilers for Julia 
 
-  维护者: `Tim Holy <https://github.com/timholy>`_
+  维护者： `Tim Holy <https://github.com/timholy>`_
 
   依赖关系： ::
 
@@ -2957,7 +3098,7 @@ _________________________________________________________________________
 
   ProjectTemplate for Julia 
 
-  维护者: `John Myles White <https://github.com/johnmyleswhite>`_
+  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
   依赖关系： ::
 
@@ -2988,7 +3129,7 @@ _________________________________________________
 
   Package to call Python functions from the Julia language 
 
-  维护者: `Steven G. Johnson <https://github.com/stevengj>`_
+  维护者： `Steven G. Johnson <https://github.com/stevengj>`_
 
   依赖关系： ::
 
@@ -3030,9 +3171,9 @@ ____________________________________________________
 
   QuickCheck specification-based testing for Julia 
 
-  维护者: `Patrick O'Leary <https://github.com/pao>`_
+  维护者： `Patrick O'Leary <https://github.com/pao>`_
 
-  More Info: `<https://quickcheckjl.readthedocs.org/>`_ 
+  文档： `<https://quickcheckjl.readthedocs.org/>`_ 
 
   依赖关系： ::
 
@@ -3062,7 +3203,7 @@ _____________________________________________________________
 
   Julia package for loading many of the data sets available in R 
 
-  维护者: `John Myles White <https://github.com/johnmyleswhite>`_
+  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
   依赖关系： ::
 
@@ -3098,7 +3239,7 @@ _____________________________________________________________
 
   Code for testing of Julia's random numbers 
 
-  维护者: `Andreas Noack Jensen <https://github.com/andreasnoackjensen>`_
+  维护者： `Andreas Noack Jensen <https://github.com/andreasnoackjensen>`_
 
   依赖关系： ::
 
@@ -3134,7 +3275,7 @@ _______________________________________________________________
 
   Tools for resampling data in Julia 
 
-  维护者: `John Myles White <https://github.com/johnmyleswhite>`_
+  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
   依赖关系： ::
 
@@ -3164,7 +3305,7 @@ ___________________________________________
 
   Julia-to-R interface 
 
-  维护者: `Laurent Gautier <https://github.com/lgautier>`_
+  维护者： `Laurent Gautier <https://github.com/lgautier>`_
 
   依赖关系： ::
 
@@ -3186,6 +3327,36 @@ ___________________________________________
 
 ----
 
+`Rmath <https://github.com/dmbates/Rmath.jl>`_
+______________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/a27d23ce4c080f3307cc6507f6fdfe87?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: dmbates
+     :target: https://github.com/dmbates
+
+  当前版本： ``0.0.0``
+
+  Archive of functions that emulate R's d-p-q-r functions for probability distributions 
+
+  维护者： `dmbates <https://github.com/dmbates>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/a27d23ce4c080f3307cc6507f6fdfe87?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: dmbates
+        :target: https://github.com/dmbates
+
+----
+
 `SDL <https://github.com/rennis250/SDL.jl>`_
 ____________________________________________
 
@@ -3200,7 +3371,7 @@ ____________________________________________
 
   Julia interface to SDL 
 
-  维护者: `Robert Ennis <https://github.com/rennis250>`_
+  维护者： `Robert Ennis <https://github.com/rennis250>`_
 
   依赖关系： ::
 
@@ -3231,7 +3402,7 @@ ___________________________________________
 
   Experiments with non-causal, equation-based modeling in Julia 
 
-  维护者: `Tom Short <https://github.com/tshort>`_
+  维护者： `Tom Short <https://github.com/tshort>`_
 
   依赖关系： ::
 
@@ -3261,7 +3432,7 @@ _________________________________________________
 
   Basic statistics for Julia 
 
-  维护者: `JuliaStats <https://github.com/JuliaStats>`_
+  维护者： `JuliaStats <https://github.com/JuliaStats>`_
 
   依赖关系： ::
 
@@ -3297,9 +3468,9 @@ ______________________________________________
 
   Swiss Army Knife for encoding and decoding binary streams 
 
-  维护者: `Patrick O'Leary <https://github.com/pao>`_
+  维护者： `Patrick O'Leary <https://github.com/pao>`_
 
-  More Info: `<https://strpackjl.readthedocs.org/>`_ 
+  文档： `<https://strpackjl.readthedocs.org/>`_ 
 
   依赖关系： ::
 
@@ -3329,7 +3500,7 @@ ________________________________________________________
 
   Symbolic linear programming and linear constraints 
 
-  维护者: `Tim Holy <https://github.com/timholy>`_
+  维护者： `Tim Holy <https://github.com/timholy>`_
 
   依赖关系： ::
 
@@ -3342,6 +3513,37 @@ ________________________________________________________
         :width: 40px
         :alt: Tim Holy
         :target: https://github.com/timholy
+
+----
+
+`TOML <https://github.com/pygy/TOML.jl>`_
+_________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/e38cd950767e62fd3250795bbd208cf6?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: pygy
+     :target: https://github.com/pygy
+
+  当前版本： ``0.0.0``
+
+  A TOML parser for Julia. 
+
+  维护者： `pygy <https://github.com/pygy>`_
+
+  依赖关系： ::
+
+      Calendar       Any Version
+      JSON           Any Version
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/e38cd950767e62fd3250795bbd208cf6?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: pygy
+        :target: https://github.com/pygy
 
 ----
 
@@ -3359,7 +3561,7 @@ ___________________________________________________________________
 
   Julia package for text analysis 
 
-  维护者: `John Myles White <https://github.com/johnmyleswhite>`_
+  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
   依赖关系： ::
 
@@ -3390,7 +3592,7 @@ __________________________________________________________
 
   Package for wrapping text into paragraphs. 
 
-  维护者: `Carlo Baldassi <https://github.com/carlobaldassi>`_
+  维护者： `Carlo Baldassi <https://github.com/carlobaldassi>`_
 
   依赖关系： ::
 
@@ -3426,7 +3628,7 @@ ___________________________________________________________
 
   Time series toolkit for Julia 
 
-  维护者: `milktrader <https://github.com/milktrader>`_
+  维护者： `milktrader <https://github.com/milktrader>`_
 
   依赖关系： ::
 
@@ -3465,7 +3667,7 @@ __________________________________________
 
   Julia interface to Tk windowing toolkit. 
 
-  维护者: `The Julia Language <https://github.com/JuliaLang>`_
+  维护者： `The Julia Language <https://github.com/JuliaLang>`_
 
   依赖关系： ::
 
@@ -3510,6 +3712,12 @@ __________________________________________
         :alt: Blake Johnson
         :target: https://github.com/blakejohnson
 
+    .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tim Holy
+        :target: https://github.com/timholy
+
 ----
 
 `TradingInstrument <https://github.com/milktrader/TradingInstrument.jl>`_
@@ -3526,7 +3734,7 @@ _________________________________________________________________________
 
   Downloading financial time series data and providing financial asset types in Julia 
 
-  维护者: `milktrader <https://github.com/milktrader>`_
+  维护者： `milktrader <https://github.com/milktrader>`_
 
   依赖关系： ::
 
@@ -3560,7 +3768,7 @@ ______________________________________________
 
   Implementation of the trie data structure. 
 
-  维护者: `The Julia Language <https://github.com/JuliaLang>`_
+  维护者： `The Julia Language <https://github.com/JuliaLang>`_
 
   依赖关系： ::
 
@@ -3590,7 +3798,7 @@ ____________________________________________
 
   UTF16 string type for Julia 
 
-  维护者: `Mike Nolta <https://github.com/nolta>`_
+  维护者： `Mike Nolta <https://github.com/nolta>`_
 
   依赖关系： ::
 
@@ -3612,6 +3820,36 @@ ____________________________________________
 
 ----
 
+`Units <https://github.com/timholy/Units.jl>`_
+______________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Tim Holy
+     :target: https://github.com/timholy
+
+  当前版本： ``0.0.0``
+
+  Infrastructure for handling physical units for the Julia programming language 
+
+  维护者： `Tim Holy <https://github.com/timholy>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tim Holy
+        :target: https://github.com/timholy
+
+----
+
 `WAV <https://github.com/dancasimiro/WAV.jl>`_
 ______________________________________________
 
@@ -3626,7 +3864,7 @@ ______________________________________________
 
   Julia package for working with WAV files 
 
-  维护者: `Daniel Casimiro <https://github.com/dancasimiro>`_
+  维护者： `Daniel Casimiro <https://github.com/dancasimiro>`_
 
   依赖关系： ::
 
@@ -3656,7 +3894,7 @@ ________________________________________________
 
   2D plotting for Julia 
 
-  维护者: `Mike Nolta <https://github.com/nolta>`_
+  维护者： `Mike Nolta <https://github.com/nolta>`_
 
   依赖关系： ::
 
@@ -3725,7 +3963,7 @@ ________________________________________
 
   Julia interface to ZMQ 
 
-  维护者: `Avik Sengupta <https://github.com/aviks>`_
+  维护者： `Avik Sengupta <https://github.com/aviks>`_
 
   依赖关系： ::
 
@@ -3767,7 +4005,7 @@ _________________________________________________
 
   The k-nearest neighbors algorithm in Julia 
 
-  维护者: `John Myles White <https://github.com/johnmyleswhite>`_
+  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
   依赖关系： ::
 
@@ -3783,4 +4021,4 @@ _________________________________________________
 
 ----
 
-.. footer: 100 packages, generated 1 Mar 2013 13:43:06 GMT 
+.. footer: 107 packages, generated 5 Mar 2013 16:13:57 GMT
