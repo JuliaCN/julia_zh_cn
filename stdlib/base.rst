@@ -148,7 +148,7 @@
 
 .. function:: maxintfloat(type)
 
-   指定的浮点数类型可无损表示的最大整数
+   指定的浮点数类型可无损表示的最大整数。
 
 .. function:: sizeof(type)
 
@@ -210,15 +210,15 @@
 
 .. function:: start(iter) -> state
 
-   获取可迭代对象的初始迭代状态
+   获取可迭代对象的初始迭代状态。
 
 .. function:: done(iter, state) -> Bool
 
-   判断迭代是否完成
+   判断迭代是否完成。
 
 .. function:: next(iter, state) -> item, state
 
-   对指定的可迭代对象和迭代状态，返回当前项和下一个迭代状态
+   对指定的可迭代对象和迭代状态，返回当前项和下一个迭代状态。
 
 .. function:: zip(iters...)
 
@@ -257,7 +257,7 @@
 
 .. function:: contains(itr, x) -> Bool
 
-   判断集合是否包含指定值 ``x`` 
+   判断集合是否包含指定值 ``x`` 。
 
 .. function:: findin(a, b)
 
@@ -273,63 +273,63 @@
 
 .. function:: max(itr)
 
-   返回集合中最大的元素
+   返回集合中最大的元素。
 
 .. function:: min(itr)
 
-   返回集合中最小的元素
+   返回集合中最小的元素。
 
 .. function:: indmax(itr) -> Integer
 
-   返回集合中最大的元素的索引值
+   返回集合中最大的元素的索引值。
 
 .. function:: indmin(itr) -> Integer
 
-   返回集合中最小的元素的索引值
+   返回集合中最小的元素的索引值。
 
 .. function:: findmax(itr) -> (x, index)
 
-   返回最大的元素及其索引值
+   返回最大的元素及其索引值。
 
 .. function:: findmin(itr) -> (x, index)
 
-   返回最小的元素及其索引值
+   返回最小的元素及其索引值。
 
 .. function:: sum(itr)
 
-   返回集合中所有元素的和
+   返回集合中所有元素的和。
 
 .. function:: prod(itr)
 
-   返回集合中所有元素的乘积
+   返回集合中所有元素的乘积。
 
 .. function:: any(itr) -> Bool
 
-   判断布尔值集合中是否有为真的元素
+   判断布尔值集合中是否有为真的元素。
 
 .. function:: all(itr) -> Bool
 
-   判断布尔值集合中是否所有的元素都为真
+   判断布尔值集合中是否所有的元素都为真。
 
 .. function:: count(itr) -> Integer
 
-   ``itr`` 中为真的布尔值元素的个数
+   ``itr`` 中为真的布尔值元素的个数。
 
 .. function:: countp(p, itr) -> Integer
 
-   ``itr`` 中断言 ``p`` 为真的布尔值元素的个数
+   ``itr`` 中断言 ``p`` 为真的布尔值元素的个数。
 
 .. function:: any(p, itr) -> Bool
 
-   判断 ``itr`` 中是否存在使指定断言为真的元素
+   判断 ``itr`` 中是否存在使指定断言为真的元素。
 
 .. function:: all(p, itr) -> Bool
 
-   判断 ``itr`` 中是否所有元素都使指定断言为真
+   判断 ``itr`` 中是否所有元素都使指定断言为真。
 
 .. function:: map(f, c) -> collection
 
-   使用 ``f`` 遍历集合 ``c`` 的每个元素
+   使用 ``f`` 遍历集合 ``c`` 的每个元素。
 
    **例子** ： ``map((x) -> x * 2, [1, 2, 3]) = [2, 4, 6]``
 
@@ -339,17 +339,17 @@
 
 .. function:: mapreduce(f, op, itr)
 
-   使用 ``f`` 遍历集合 ``c`` 的每个元素，然后使用二元函数 ``op`` 对结果进行约简
+   使用 ``f`` 遍历集合 ``c`` 的每个元素，然后使用二元函数 ``op`` 对结果进行约简。
 
    **例子** ： ``mapreduce(x->x^2, +, [1:3]) == 1 + 4 + 9 == 14``
 
 .. function:: first(coll)
 
-   获取可排序集合的第一个元素
+   获取可排序集合的第一个元素。
 
 .. function:: last(coll)
 
-   获取可排序集合的最后一个元素
+   获取可排序集合的最后一个元素。
    
 可索引集合
 ----------
@@ -357,12 +357,12 @@
 .. function:: ref(collection, key...)
               collection[key...]
 
-   取回集合中存储在指定 key 键或索引值内的值
+   取回集合中存储在指定 key 键或索引值内的值。
 
 .. function:: assign(collection, value, key...)
               collection[key...] = value
 
-   将指定值存储在集合的指定 key 键或索引值内
+   将指定值存储在集合的指定 key 键或索引值内。
 
 完全实现的有： ``Array``, ``DArray``, ``AbstractArray``, ``SubArray``, ``ObjectIdDict``, ``Dict``, ``WeakKeyDict``, ``String``.
 
@@ -381,35 +381,35 @@
 
 .. function:: Dict{K,V}()
 
-   使用 K 类型的 key 和 V 类型的值来构造哈希表
+   使用 K 类型的 key 和 V 类型的值来构造哈希表。
 
 .. function:: has(collection, key)
 
-   判断集合是否含有指定 key 的映射
+   判断集合是否含有指定 key 的映射。
 
 .. function:: get(collection, key, default)
 
-   返回指定 key 存储的值；当前没有 key 的映射时，返回默认值
+   返回指定 key 存储的值；当前没有 key 的映射时，返回默认值。
 
 .. function:: getkey(collection, key, default)
 
-   如果参数 ``key`` 匹配 ``collection`` 中的 key ，将其返回；否在返回 ``default`` 
+   如果参数 ``key`` 匹配 ``collection`` 中的 key ，将其返回；否在返回 ``default`` 。
 
 .. function:: delete!(collection, key)
 
-   删除集合中指定 key 的映射
+   删除集合中指定 key 的映射。
 
 .. function:: empty!(collection)
 
-   删除集合中所有的 key 
+   删除集合中所有的 key 。
 
 .. function:: keys(collection)
 
-   返回集合中所有 key 组成的数组
+   返回集合中所有 key 组成的数组。
 
 .. function:: values(collection)
 
-   返回集合中所有值组成的数组
+   返回集合中所有值组成的数组。
 
 .. function:: collect(collection)
 
@@ -417,23 +417,23 @@
 
 .. function:: merge(collection, others...)
 
-   使用指定的集合构造归并集合
+   使用指定的集合构造归并集合。
 
 .. function:: merge!(collection, others...)
 
-   将其它集合中的对儿更新进 ``collection``
+   将其它集合中的对儿更新进 ``collection`` 。
 
 .. function:: filter(function, collection)
 
-   返回集合的浅拷贝，移除使 ``function`` 函数为假的 (key, value) 对儿
+   返回集合的浅拷贝，移除使 ``function`` 函数为假的 (key, value) 对儿。
 
 .. function:: filter!(function, collection)
 
-   更新集合，移除使 ``function`` 函数为假的 (key, value) 对儿
+   更新集合，移除使 ``function`` 函数为假的 (key, value) 对儿。
 
 .. function:: eltype(collection)
 
-   返回集合中包含的 (key,value) 对儿的类型多元组
+   返回集合中包含的 (key,value) 对儿的类型多元组。
 
 .. function:: sizehint(s, n)
 
@@ -448,7 +448,7 @@
 
 .. function:: add!(collection, key)
 
-   向类集集合添加元素
+   向类集集合添加元素。
 
 .. function:: add_each!(collection, iterable)
 
@@ -593,35 +593,35 @@
 
 .. function:: bytestring(::Ptr{Uint8})
 
-   从 C （以 0 结尾的）格式字符串的地址构造一个字符串。它使用了浅拷贝；可以安全释放指针
+   从 C （以 0 结尾的）格式字符串的地址构造一个字符串。它使用了浅拷贝；可以安全释放指针。
 
 .. function:: bytestring(s)
 
-   将字符串转换为连续的字节数组，从而可将它传递给 C 函数
+   将字符串转换为连续的字节数组，从而可将它传递给 C 函数。
 
 .. function:: ascii(::Array{Uint8,1})
 
-   从字节数组构造 ASCII 字符串
+   从字节数组构造 ASCII 字符串。
 
 .. function:: ascii(s)
 
-   将字符串转换为连续的 ASCII 字符串（所有的字符都是有效的 ASCII 字符）
+   将字符串转换为连续的 ASCII 字符串（所有的字符都是有效的 ASCII 字符）。
 
 .. function:: utf8(::Array{Uint8,1})
 
-   从字节数组构造 UTF-8 字符串
+   从字节数组构造 UTF-8 字符串。
 
 .. function:: utf8(s)
 
-   将字符串转换为连续的 UTF-8 字符串（所有的字符都是有效的 UTF-8 字符）
+   将字符串转换为连续的 UTF-8 字符串（所有的字符都是有效的 UTF-8 字符）。
 
 .. function:: is_valid_ascii(s) -> Bool
 
-   如果字符串是有效的 ASCII ，返回真；否则返回假
+   如果字符串是有效的 ASCII ，返回真；否则返回假。
 
 .. function:: is_valid_utf8(s) -> Bool
 
-   如果字符串是有效的 UTF-8 ，返回真；否则返回假
+   如果字符串是有效的 UTF-8 ，返回真；否则返回假。
 
 .. function:: check_ascii(s)
 
@@ -641,7 +641,7 @@
 
 .. function:: ismatch(r::Regex, s::String)
 
-   判断字符串是否匹配指定的正则表达式
+   判断字符串是否匹配指定的正则表达式。
    
 .. function:: lpad(string, n, p)
 
@@ -681,19 +681,19 @@
 
 .. function:: begins_with(string, prefix)
 
-   如果 ``string`` 以 ``prefix`` 开始，则返回 ``true`` 
+   如果 ``string`` 以 ``prefix`` 开始，则返回 ``true`` 。
 
 .. function:: ends_with(string, suffix)
 
-   如果 ``string`` 以 ``suffix`` 结尾，则返回 ``true`` 
+   如果 ``string`` 以 ``suffix`` 结尾，则返回 ``true`` 。
 
 .. function:: uppercase(string)
 
-   返回所有字符转换为大写的 ``string`` 
+   返回所有字符转换为大写的 ``string`` 。
 
 .. function:: lowercase(string)
 
-   返回所有字符转换为小写的 ``string`` 
+   返回所有字符转换为小写的 ``string`` 。
 
 .. function:: join(strings, delim)
 
@@ -701,11 +701,11 @@
 
 .. function:: chop(string)
 
-   移除字符串的最后一个字符
+   移除字符串的最后一个字符。
 
 .. function:: chomp(string)
 
-   移除字符串最后的换行符
+   移除字符串最后的换行符。
 
 .. function:: ind2chr(string, i)
 
@@ -802,15 +802,15 @@ I/O
 
 .. data:: STDOUT
 
-   指向标准输出流的全局变量
+   指向标准输出流的全局变量。
 
 .. data:: STDERR
 
-   指向标准错误流的全局变量
+   指向标准错误流的全局变量。
 
 .. data:: STDIN
 
-   指向标准输入流的全局变量
+   指向标准输入流的全局变量。
 
 .. function:: open(file_name, [read, write, create, truncate, append]) -> IOStream
 
@@ -902,7 +902,7 @@ I/O
 
 .. function:: println(x)
 
-   打印(using :func:`print`) ``x`` followed by a newline
+   使用 :func:`print` 打印 ``x`` ，并接一个换行符。
 
 .. function:: showall(x)
 
@@ -973,7 +973,7 @@ I/O
 
 .. function:: mmap(len, prot, flags, fd, offset)
 
-   mmap 系统调用的低级接口
+   mmap 系统调用的低级接口。
 
 .. function:: munmap(pointer, len)
 
@@ -989,15 +989,15 @@ I/O
 
 .. function:: -
 
-   一元减
+   一元减。
 
 .. function:: + - * / \\ ^
 
-   二元加、减、乘、左除、右除、指数运算符
+   二元加、减、乘、左除、右除、指数运算符。
 
 .. function:: .+ .- .* ./ .\\ .^
 
-   逐元素二元加、减、乘、左除、右除、指数运算符
+   逐元素二元加、减、乘、左除、右除、指数运算符。
 
 .. function:: div(a,b)
 
@@ -1022,23 +1022,23 @@ I/O
 
 .. function:: //
 
-   分数除法
+   分数除法。
 
 .. function:: num(x)
 
-   分数 ``x`` 的分子
+   分数 ``x`` 的分子。
 
 .. function:: den(x)
 
-   分数 ``x`` 的分母
+   分数 ``x`` 的分母。
 
 .. function:: << >>
 
-   左移、右移运算符
+   左移、右移运算符。
 
 .. function:: == != < <= > >=
 
-   比较运算符，用于判断是否相等、不等、小于、小于等于、大于、大于等于
+   比较运算符，用于判断是否相等、不等、小于、小于等于、大于、大于等于。
 
 .. function:: cmp(x,y)
 
@@ -1046,7 +1046,7 @@ I/O
 
 .. function:: !
 
-   逻辑非
+   逻辑非。
 
 .. function:: ~
 
@@ -1054,11 +1054,11 @@ I/O
 
 .. function:: &
 
-   逻辑与
+   逻辑与。
 
 .. function:: |
 
-   逻辑或
+   逻辑或。
 
 .. function:: $
 
@@ -1066,195 +1066,195 @@ I/O
 
 .. function:: sin(x)
 
-   计算 ``x`` 的正弦值，其中 ``x`` 的单位为弧度
+   计算 ``x`` 的正弦值，其中 ``x`` 的单位为弧度。
 
 .. function:: cos(x)
 
-   计算 ``x`` 的余弦值，其中 ``x`` 的单位为弧度
+   计算 ``x`` 的余弦值，其中 ``x`` 的单位为弧度。
 
 .. function:: tan(x)
 
-   计算 ``x`` 的正切值，其中 ``x`` 的单位为弧度
+   计算 ``x`` 的正切值，其中 ``x`` 的单位为弧度。
 
 .. function:: sind(x)
 
-   计算 ``x`` 的正弦值，其中 ``x`` 的单位为度数
+   计算 ``x`` 的正弦值，其中 ``x`` 的单位为度数。
 
 .. function:: cosd(x)
 
-   计算 ``x`` 的余弦值，其中 ``x`` 的单位为度数
+   计算 ``x`` 的余弦值，其中 ``x`` 的单位为度数。
 
 .. function:: tand(x)
 
-   计算 ``x`` 的正切值，其中 ``x`` 的单位为度数
+   计算 ``x`` 的正切值，其中 ``x`` 的单位为度数。
 
 .. function:: sinh(x)
 
-   计算 ``x`` 的双曲正弦值
+   计算 ``x`` 的双曲正弦值。
 
 .. function:: cosh(x)
 
-   计算 ``x`` 的双曲余弦值
+   计算 ``x`` 的双曲余弦值。
 
 .. function:: tanh(x)
 
-   计算 ``x`` 的双曲正切值
+   计算 ``x`` 的双曲正切值。
 
 .. function:: asin(x)
 
-   计算 ``x`` 的反正弦值，结果的单位为弧度
+   计算 ``x`` 的反正弦值，结果的单位为弧度。
 
 .. function:: acos(x)
 
-   计算 ``x`` 的反余弦值，结果的单位为弧度
+   计算 ``x`` 的反余弦值，结果的单位为弧度。
 
 .. function:: atan(x)
 
-   计算 ``x`` 的反正切值，结果的单位为弧度
+   计算 ``x`` 的反正切值，结果的单位为弧度。
 
 .. function:: atan2(y, x)
 
-   计算 ``y/x`` 的反正切值，由 ``x`` 和 ``y`` 的正负号来确定返回值的象限
+   计算 ``y/x`` 的反正切值，由 ``x`` 和 ``y`` 的正负号来确定返回值的象限。
 
 .. function:: asind(x)
 
-   计算 ``x`` 的反正弦值，结果的单位为度数
+   计算 ``x`` 的反正弦值，结果的单位为度数。
 
 .. function:: acosd(x)
 
-   计算 ``x`` 的反余弦值，结果的单位为度数
+   计算 ``x`` 的反余弦值，结果的单位为度数。
 
 .. function:: atand(x)
 
-   计算 ``x`` 的反正切值，结果的单位为度数
+   计算 ``x`` 的反正切值，结果的单位为度数。
 
 .. function:: sec(x)
 
-   计算 ``x`` 的正割值，其中 ``x`` 的单位为弧度
+   计算 ``x`` 的正割值，其中 ``x`` 的单位为弧度。
 
 .. function:: csc(x)
 
-   计算 ``x`` 的余割值，其中 ``x`` 的单位为弧度
+   计算 ``x`` 的余割值，其中 ``x`` 的单位为弧度。
 
 .. function:: cot(x)
 
-   计算 ``x`` 的余切值，其中 ``x`` 的单位为弧度
+   计算 ``x`` 的余切值，其中 ``x`` 的单位为弧度。
 
 .. function:: secd(x)
 
-   计算 ``x`` 的正割值，其中 ``x`` 的单位为度数
+   计算 ``x`` 的正割值，其中 ``x`` 的单位为度数。
 
 .. function:: cscd(x)
 
-   计算 ``x`` 的余割值，其中 ``x`` 的单位为度数
+   计算 ``x`` 的余割值，其中 ``x`` 的单位为度数。
 
 .. function:: cotd(x)
 
-   计算 ``x`` 的余切值，其中 ``x`` 的单位为度数
+   计算 ``x`` 的余切值，其中 ``x`` 的单位为度数。
 
 .. function:: asec(x)
 
-   计算 ``x`` 的反正割值，结果的单位为弧度
+   计算 ``x`` 的反正割值，结果的单位为弧度。
 
 .. function:: acsc(x)
 
-   计算 ``x`` 的反余割值，结果的单位为弧度
+   计算 ``x`` 的反余割值，结果的单位为弧度。
 
 .. function:: acot(x)
 
-   计算 ``x`` 的反余切值，结果的单位为弧度
+   计算 ``x`` 的反余切值，结果的单位为弧度。
 
 .. function:: asecd(x)
 
-   计算 ``x`` 的反正割值，结果的单位为度数
+   计算 ``x`` 的反正割值，结果的单位为度数。
 
 .. function:: acscd(x)
 
-   计算 ``x`` 的反余割值，结果的单位为度数
+   计算 ``x`` 的反余割值，结果的单位为度数。
 
 .. function:: acotd(x)
 
-   计算 ``x`` 的反余切值，结果的单位为度数
+   计算 ``x`` 的反余切值，结果的单位为度数。
 
 .. function:: sech(x)
 
-   计算 ``x`` 的双曲正割值
+   计算 ``x`` 的双曲正割值。
 
 .. function:: csch(x)
 
-   计算 ``x`` 的双曲余割值
+   计算 ``x`` 的双曲余割值。
 
 .. function:: coth(x)
 
-   计算 ``x`` 的双曲余切值
+   计算 ``x`` 的双曲余切值。
 
 .. function:: asinh(x)
 
-   计算 ``x`` 的反双曲正弦值
+   计算 ``x`` 的反双曲正弦值。
 
 .. function:: acosh(x)
 
-   计算 ``x`` 的反双曲余弦值
+   计算 ``x`` 的反双曲余弦值。
 
 .. function:: atanh(x)
 
-   计算 ``x`` 的反双曲正切值
+   计算 ``x`` 的反双曲正切值。
 
 .. function:: asech(x)
 
-   计算 ``x`` 的反双曲正割值
+   计算 ``x`` 的反双曲正割值。
 
 .. function:: acsch(x)
 
-   计算 ``x`` 的反双曲余割值
+   计算 ``x`` 的反双曲余割值。
 
 .. function:: acoth(x)
 
-   计算 ``x`` 的反双曲余切值
+   计算 ``x`` 的反双曲余切值。
 
 .. function:: sinc(x)
 
-   计算 :math:`sin(\pi x) / x`
+   计算 :math:`sin(\pi x) / x` 。
 
 .. function:: cosc(x)
 
-   计算 :math:`cos(\pi x) / x`
+   计算 :math:`cos(\pi x) / x` 。
 
 .. function:: degrees2radians(x)
 
-   将 ``x`` 度数转换为弧度
+   将 ``x`` 度数转换为弧度。
 
 .. function:: radians2degrees(x)
 
-   将 ``x`` 弧度转换为度数
+   将 ``x`` 弧度转换为度数。
 
 .. function:: hypot(x, y)
 
-   计算 :math:`\sqrt{(x^2+y^2)}` ，计算过程不会出现上溢、下溢
+   计算 :math:`\sqrt{(x^2+y^2)}` ，计算过程不会出现上溢、下溢。
 
 .. function:: log(x)
    
-   计算 ``x`` 的自然对数
+   计算 ``x`` 的自然对数。
 
 .. function:: log2(x)
 
-   计算 ``x`` 以 2 为底的对数
+   计算 ``x`` 以 2 为底的对数。
 
 .. function:: log10(x)
 
-   计算 ``x`` 以 10 为底的对数
+   计算 ``x`` 以 10 为底的对数。
 
 .. function:: log1p(x)
 
-   ``1+x`` 自然对数的精确值
+   ``1+x`` 自然对数的精确值。
 
 .. function:: logb(x)
 
-   返回浮点数 :math:`trunc( log2( abs(x) ) )`
+   返回浮点数 :math:`trunc( log2( abs(x) ) )` 。
 
 .. function:: ilogb(x) 
 
-   :func:`logb` 的返回值为整数的版本
+   :func:`logb` 的返回值为整数的版本。
 
 .. function:: frexp(val, exp)
 
@@ -1263,15 +1263,15 @@ I/O
 
 .. function:: exp(x)
 
-   计算 :math:`e^x`
+   计算 :math:`e^x` 。
 
 .. function:: exp2(x)
 
-   计算 :math:`2^x`
+   计算 :math:`2^x` 。
 
 .. function:: ldexp(x, n)
 
-   计算 :math:`x \times 2^n`
+   计算 :math:`x \times 2^n` 。
 
 .. function:: modf(x)
 
@@ -1279,11 +1279,11 @@ I/O
 
 .. function:: expm1(x)
 
-   :math:`e^x-1` 的精确值
+   :math:`e^x-1` 的精确值。
 
 .. function:: square(x)
 
-   计算 :math:`x^2`
+   计算 :math:`x^2` 。
 
 .. function:: round(x, [digits, [base]]) -> FloatingPoint
 
@@ -1323,11 +1323,11 @@ I/O
 
 .. function:: min(x, y)
 
-   返回 ``x`` 和 ``y`` 的最小值
+   返回 ``x`` 和 ``y`` 的最小值。
 
 .. function:: max(x, y)
 
-   返回 ``x`` 和 ``y`` 的最大值
+   返回 ``x`` 和 ``y`` 的最大值。
 
 .. function:: clamp(x, lo, hi)
 
@@ -1335,11 +1335,11 @@ I/O
 
 .. function:: abs(x)
 
-   ``x`` 的绝对值
+   ``x`` 的绝对值。
 
 .. function:: abs2(x)
 
-   ``x`` 绝对值的平方
+   ``x`` 绝对值的平方。
 
 .. function:: copysign(x, y)
 
@@ -1359,11 +1359,11 @@ I/O
 
 .. function:: sqrt(x)
    
-   返回 :math:`\sqrt{x}`
+   返回 :math:`\sqrt{x}` 。
 
 .. function:: cbrt(x)
 
-   返回 :math:`x^{1/3}`
+   返回 :math:`x^{1/3}` 。
 
 .. function:: erf(x)
 
@@ -1395,23 +1395,23 @@ I/O
 
 .. function:: real(z)
 
-   返回复数 ``z`` 的实数部分
+   返回复数 ``z`` 的实数部分。
 
 .. function:: imag(z)
 
-   返回复数 ``z`` 的虚数部分
+   返回复数 ``z`` 的虚数部分。
 
 .. function:: reim(z)
 
-   返回复数 ``z`` 的整数部分和虚数部分
+   返回复数 ``z`` 的整数部分和虚数部分。
 
 .. function:: conj(z)
 
-   计算复数 ``z`` 的共轭
+   计算复数 ``z`` 的共轭。
 
 .. function:: angle(z)
 
-   计算复数 ``z`` 的相位角
+   计算复数 ``z`` 的相位角。
 
 .. function:: cis(z)
 
@@ -1419,11 +1419,11 @@ I/O
 
 .. function:: binomial(n,k)
 
-   从  ``n`` 项中选取 ``k`` 项，有多少种方法
+   从  ``n`` 项中选取 ``k`` 项，有多少种方法。
 
 .. function:: factorial(n)
 
-   n 的阶乘
+   n 的阶乘。
 
 .. function:: factorial(n,k)
 
@@ -1437,11 +1437,11 @@ I/O
 
 .. function:: gcd(x,y)
 
-   最大公因数
+   最大公因数。
 
 .. function:: lcm(x,y)
 
-   最小公倍数
+   最小公倍数。
 
 .. function:: gcdx(x,y)
 
@@ -1481,11 +1481,11 @@ I/O
 
 .. function:: powermod(x, p, m)
 
-   计算 ``mod(x^p, m)``
+   计算 ``mod(x^p, m)`` 。
 
 .. function:: gamma(x)
 
-   计算 ``x`` 的 gamma 函数
+   计算 ``x`` 的 gamma 函数。
 
 .. function:: lgamma(x)
 
@@ -1663,51 +1663,51 @@ I/O
 
 .. function:: int8(x)
 
-   将数或数组转换为 ``Int8`` 数据类型
+   将数或数组转换为 ``Int8`` 数据类型。
 
 .. function:: int16(x)
 
-   将数或数组转换为 ``Int16`` 数据类型
+   将数或数组转换为 ``Int16`` 数据类型。
 
 .. function:: int32(x)
 
-   将数或数组转换为 ``Int32`` 数据类型
+   将数或数组转换为 ``Int32`` 数据类型。
 
 .. function:: int64(x)
 
-   将数或数组转换为 ``Int64`` 数据类型
+   将数或数组转换为 ``Int64`` 数据类型。
 
 .. function:: int128(x)
 
-   将数或数组转换为 ``Int128`` 数据类型
+   将数或数组转换为 ``Int128`` 数据类型。
 
 .. function:: uint8(x)
 
-   将数或数组转换为 ``Uint8`` 数据类型
+   将数或数组转换为 ``Uint8`` 数据类型。
 
 .. function:: uint16(x)
 
-   将数或数组转换为 ``Uint16`` 数据类型
+   将数或数组转换为 ``Uint16`` 数据类型。
 
 .. function:: uint32(x)
 
-   将数或数组转换为 ``Uint32`` 数据类型
+   将数或数组转换为 ``Uint32`` 数据类型。
 
 .. function:: uint64(x)
 
-   将数或数组转换为 ``Uint64`` 数据类型
+   将数或数组转换为 ``Uint64`` 数据类型。
 
 .. function:: uint128(x)
 
-   将数或数组转换为 ``Uint128`` 数据类型
+   将数或数组转换为 ``Uint128`` 数据类型。
 
 .. function:: float32(x)
 
-   将数或数组转换为 ``Float32`` 数据类型
+   将数或数组转换为 ``Float32`` 数据类型。
 
 .. function:: float64(x)
 
-   将数或数组转换为 ``Float64`` 数据类型
+   将数或数组转换为 ``Float64`` 数据类型。
 
 .. function:: float(x)
 
@@ -1733,7 +1733,7 @@ I/O
 
 .. function:: char(x)
 
-   将数或数组转换为 ``Char`` 数据类型
+   将数或数组转换为 ``Char`` 数据类型。
 
 .. function:: safe_char(x)
 
@@ -1745,11 +1745,11 @@ I/O
 
 .. function:: iscomplex(x) -> Bool
 
-   判断数或数组是否为复数类型
+   判断数或数组是否为复数类型。
 
 .. function:: isreal(x) -> Bool
 
-   判断数或数组是否为实数类型
+   判断数或数组是否为实数类型。
 
 .. function:: bswap(n)
 
@@ -1776,7 +1776,7 @@ I/O
 
 .. data:: pi
 
-   常量 pi
+   常量 pi 。
 
 .. function:: isdenormal(f) -> Bool
 
@@ -1784,15 +1784,15 @@ I/O
 
 .. function:: isfinite(f) -> Bool
 
-   判断数是否有限
+   判断数是否有限。
 
 .. function:: isinf(f)
 
-   判断数是否为无穷大或无穷小
+   判断数是否为无穷大或无穷小。
 
 .. function:: isnan(f)
 
-   判断浮点数是否为非数值（NaN）
+   判断浮点数是否为非数值（NaN）。
 
 .. function:: inf(f)
 
@@ -1812,11 +1812,11 @@ I/O
 
 .. function:: integer_valued(x)
 
-   判断 ``x`` 在数值上是否为整数
+   判断 ``x`` 在数值上是否为整数。
 
 .. function:: real_valued(x)
 
-   判断 ``x`` 在数值上是否为实数
+   判断 ``x`` 在数值上是否为实数。
 
 .. function:: exponent(f)
 
@@ -1897,7 +1897,7 @@ I/O
 随机数
 ------
 
-Julia 中的随机数生成使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/#dSFMT>`_ 。Julia 默认使用全局 RNG 。Multiple RNGs can be plugged in using the ``AbstractRNG`` object, which can then be used to have multiple streams of random numbers.目前只支持 ``MersenneTwister`` 。
+Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/#dSFMT>`_ 来生成随机数。Julia 默认使用全局 RNG 。Multiple RNGs can be plugged in using the ``AbstractRNG`` object, which can then be used to have multiple streams of random numbers.目前只支持 ``MersenneTwister`` 。
 
 .. function:: srand([rng], seed)
 
@@ -1909,7 +1909,7 @@ Julia 中的随机数生成使用 `Mersenne Twister 库 <http://www.math.sci.hir
 
 .. function:: rand()
 
-   生成 (0,1) 内的 ``Float64`` 随机数
+   生成 (0,1) 内的 ``Float64`` 随机数。
 
 .. function:: rand!([rng], A)
 
@@ -1951,15 +1951,15 @@ Julia 中的随机数生成使用 `Mersenne Twister 库 <http://www.math.sci.hir
 
 .. function:: ndims(A) -> Integer
 
-   返回 A 有几个维度
+   返回 A 有几个维度。
 
 .. function:: size(A)
 
-   返回 A 的维度多元组
+   返回 A 的维度多元组。
 
 .. function:: eltype(A)
 
-   返回 A 中元素的类型
+   返回 A 中元素的类型。
 
 .. function:: length(A) -> Integer
 
@@ -1967,7 +1967,7 @@ Julia 中的随机数生成使用 `Mersenne Twister 库 <http://www.math.sci.hir
 
 .. function:: nnz(A)
 
-   A 中非零元素的个数
+   A 中非零元素的个数。
 
 .. function:: scale!(A, k)
 
@@ -1998,30 +1998,31 @@ Julia 中的随机数生成使用 `Mersenne Twister 库 <http://www.math.sci.hir
 
 .. function:: cell(dims)
 
-   构造an uninitialized cell array (heterogeneous array). ``dims`` can be either a tuple or a series of integer arguments.  
+   构造an uninitialized cell array (heterogeneous array). ``dims`` can be either a tuple or a series of integer arguments.
+   
 .. function:: zeros(type, dims)
 
-   构造指定类型的全零数组
+   构造指定类型的全零数组。
 
 .. function:: ones(type, dims)
 
-   构造指定类型的全一数组
+   构造指定类型的全一数组。
 
 .. function:: trues(dims)
 
-   构造元素全为真的布尔值数组
+   构造元素全为真的布尔值数组。
 
 .. function:: falses(dims)
 
-   构造元素全为假的布尔值数组
+   构造元素全为假的布尔值数组。
 
 .. function:: fill(v, dims)
 
-   构造数组，元素都初始化为 ``v``
+   构造数组，元素都初始化为 ``v`` 。
 
 .. function:: fill!(A, x)
 
-   将数组 ``A`` 的元素都改为 ``x``
+   将数组 ``A`` 的元素都改为 ``x`` 。
 
 .. function:: reshape(A, dims)
 
@@ -2053,11 +2054,11 @@ Julia 中的随机数生成使用 `Mersenne Twister 库 <http://www.math.sci.hir
 
 .. function:: eye(n)
 
-   n x n 单位矩阵
+   n x n 单位矩阵。
 
 .. function:: eye(m, n)
 
-   m x n 单位矩阵
+   m x n 单位矩阵。
 
 .. function:: linspace(start, stop, n)
 
@@ -2070,7 +2071,7 @@ Julia 中的随机数生成使用 `Mersenne Twister 库 <http://www.math.sci.hir
 数学运算符和函数
 ~~~~~~~~~~~~~~~~
 
-数组可以使用所有的数学运算和函数
+数组可以使用所有的数学运算和函数。
 
 .. function:: bsxfun(fn, A, B[, C...])
 
@@ -2101,11 +2102,11 @@ Julia 中的随机数生成使用 `Mersenne Twister 库 <http://www.math.sci.hir
 
 .. function:: vcat(A...)
 
-   在维度 1 上连接
+   在维度 1 上连接。
 
 .. function:: hcat(A...)
 
-   在维度 2 上连接
+   在维度 2 上连接。
 
 .. function:: hvcat
 
@@ -2117,11 +2118,11 @@ Julia 中的随机数生成使用 `Mersenne Twister 库 <http://www.math.sci.hir
 
 .. function:: flipud(A)
 
-   等价于 ``flipdim(A,1)`` 
+   等价于 ``flipdim(A,1)`` 。
 
 .. function:: fliplr(A)
 
-   等价于 ``flipdim(A,2)`` 
+   等价于 ``flipdim(A,2)`` 。
 
 .. function:: circshift(A,shifts)
 
@@ -2243,7 +2244,7 @@ Julia 中的随机数生成使用 `Mersenne Twister 库 <http://www.math.sci.hir
 
 .. function:: sparse(A)
 
-   将稠密矩阵 ``A`` 转换为稀疏矩阵
+   将稠密矩阵 ``A`` 转换为稀疏矩阵。
 
 .. function:: sparsevec(A)
 
@@ -2251,15 +2252,15 @@ Julia 中的随机数生成使用 `Mersenne Twister 库 <http://www.math.sci.hir
 
 .. function:: dense(S)
 
-   将稀疏矩阵 ``S`` 转换为稠密矩阵
+   将稀疏矩阵 ``S`` 转换为稠密矩阵。
 
 .. function:: full(S)
 
-   将稀疏矩阵 ``S`` 转换为稠密矩阵 
+   将稀疏矩阵 ``S`` 转换为稠密矩阵。
 
 .. function:: spzeros(m,n)
 
-   构造 ``m x n`` 的空稀疏矩阵
+   构造 ``m x n`` 的空稀疏矩阵。
 
 .. function:: speye(type,m[,n])
 
@@ -2289,7 +2290,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: *
 
-   矩阵乘法
+   矩阵乘法。
 
 .. function:: \
 
@@ -2297,7 +2298,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: dot
 
-   计算点积
+   计算点积。
 
 .. function:: cross
 
@@ -2305,7 +2306,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: norm
 
-   计算 ``Vector`` 或 ``Matrix`` 的模
+   计算 ``Vector`` 或 ``Matrix`` 的模。
 
 .. function:: factors(F)
 
@@ -2381,11 +2382,11 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: eig(A) -> D, V
 
-   计算 ``A`` 的特征值和特征向量
+   计算 ``A`` 的特征值和特征向量。
 
 .. function:: eigvals(A)
 
-   返回  ``A`` 的特征值
+   返回  ``A`` 的特征值。
 
 .. function:: svdfact(A, [thin]) -> SVDDense
 
@@ -2425,11 +2426,11 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: triu(M)
 
-   矩阵上三角
+   矩阵上三角。
 
 .. function:: tril(M)
 
-   矩阵下三角
+   矩阵下三角。
 
 .. function:: diag(M, [k])
 
@@ -2455,7 +2456,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: rank(M)
 
-   计算矩阵的秩
+   计算矩阵的秩。
 
 .. function:: norm(A, [p])
 
@@ -2471,15 +2472,15 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: trace(M)
 
-   矩阵的迹
+   矩阵的迹。
 
 .. function:: det(M)
 
-   矩阵的行列式
+   矩阵的行列式。
 
 .. function:: inv(M)
 
-   矩阵的逆
+   矩阵的逆。
 
 .. function:: pinv(M)
 
@@ -2511,31 +2512,31 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: issym(A)
 
-   判断是否为对称矩阵
+   判断是否为对称矩阵。
 
 .. function:: isposdef(A)
 
-   判断是否为正定矩阵
+   判断是否为正定矩阵。
 
 .. function:: istril(A)
 
-   判断是否为下三角矩阵
+   判断是否为下三角矩阵。
 
 .. function:: istriu(A)
 
-   判断是否为上三角矩阵
+   判断是否为上三角矩阵。
 
 .. function:: ishermitian(A)
 
-   判断是否为 Hamilton 矩阵
+   判断是否为 Hamilton 矩阵。
 
 .. function:: transpose(A)
 
-   转置运算符（ ``.'`` ）
+   转置运算符（ ``.'`` ）。
 
 .. function:: ctranspose(A)
 
-   共轭转置运算符（ ``'`` ）
+   共轭转置运算符（ ``'`` ）。
 
 排列组合
 --------
@@ -2546,7 +2547,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: nthperm!(v, k)
 
-   :func:`nthperm` 的原地版本
+   :func:`nthperm` 的原地版本。
 
 .. function:: randperm(n)
 
@@ -2582,7 +2583,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: shuffle!(v)
 
-   :func:`shuffle` 的原地版本
+   :func:`shuffle` 的原地版本。
 
 .. function:: reverse(v)
 
@@ -2590,7 +2591,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: reverse!(v) -> v
 
-   :func:`reverse` 的原地版本
+   :func:`reverse` 的原地版本。
 
 .. function:: combinations(array, n)
 
@@ -2702,7 +2703,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: ifft!(A [, dims])
 
-   与 :func:`ifft` 相同，但在原地对 ``A`` 进行运算
+   与 :func:`ifft` 相同，但在原地对 ``A`` 进行运算。
 
 .. function:: bfft(A [, dims])
 
@@ -2715,7 +2716,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: bfft!(A [, dims])
 
-   与 :func:`bfft` 相同，但在原地对 ``A`` 进行运算
+   与 :func:`bfft` 相同，但在原地对 ``A`` 进行运算。
 
 .. function:: plan_fft(A [, dims [, flags [, timelimit]]]),  plan_ifft, plan_bfft
 
@@ -2741,15 +2742,15 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: plan_fft!(A [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_fft` 相同，但在原地对 ``A`` 进行运算
+   与 :func:`plan_fft` 相同，但在原地对 ``A`` 进行运算。
 
 .. function:: plan_ifft!(A [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_ifft` 相同，但在原地对 ``A`` 进行运算
+   与 :func:`plan_ifft` 相同，但在原地对 ``A`` 进行运算。
 
 .. function:: plan_bfft!(A [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_bfft` 相同，但在原地对 ``A`` 进行运算
+   与 :func:`plan_bfft` 相同，但在原地对 ``A`` 进行运算。
 
 .. function:: rfft(A [, dims])
 
@@ -2825,7 +2826,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: idct!(A [, dims])
 
-   与 :func:`idct!` 相同，但在原地对 ``A`` 进行运算
+   与 :func:`idct!` 相同，但在原地对 ``A`` 进行运算。
 
 .. function:: plan_dct(A [, dims [, flags [, timelimit]]])
 
@@ -2835,7 +2836,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: plan_dct!(A [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_dct` 相同，但在原地对 ``A`` 进行运算
+   与 :func:`plan_dct` 相同，但在原地对 ``A`` 进行运算。
 
 .. function:: plan_idct(A [, dims [, flags [, timelimit]]])
 
@@ -2845,7 +2846,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: plan_idct!(A [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_idct` 相同，但在原地对 ``A`` 进行运算
+   与 :func:`plan_idct` 相同，但在原地对 ``A`` 进行运算。
 
 .. function:: FFTW.r2r(A, kind [, dims]), FFTW.r2r!
 
@@ -2906,7 +2907,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: xcorr(u,v)
 
-   计算两个向量的互相关
+   计算两个向量的互相关。
 
 并行计算
 --------
@@ -2925,11 +2926,11 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: nprocs()
 
-   Get the number of available processors.
+   获取当前可用处理器的个数。
 
 .. function:: myid()
 
-   Get the id of the current processor.
+   获取当前处理器的 ID 。
 
 .. function:: pmap(f, c)
 
@@ -2937,7 +2938,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: remote_call(id, func, args...)
 
-   Call a function asynchronously on the given arguments on the specified processor. 返回a ``RemoteRef``.
+   Call a function asynchronously on the given arguments on the specified processor. 返回 ``RemoteRef`` 。
 
 .. function:: wait(RemoteRef)
 
@@ -2945,7 +2946,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: fetch(RemoteRef)
 
-   Wait for and get the value of a remote reference.
+   等待并获取 remote reference 的值。
 
 .. function:: remote_call_wait(id, func, args...)
 
@@ -2961,7 +2962,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: take(RemoteRef)
 
-   Fetch the value of a remote reference, removing it so that the reference is empty again.
+   取回 remote reference 的值，removing it so that the reference is empty again.
 
 .. function:: RemoteRef()
 
@@ -2976,35 +2977,35 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: DArray(init, dims, [procs, dist])
 
-   构造a distributed array. ``init`` is a function accepting a tuple of index ranges. This function should return a chunk of the distributed array for the specified indexes. ``dims`` is the overall size of the distributed array. ``procs`` optionally specifies a vector of processor IDs to use. ``dist`` is an integer vector specifying how many chunks the distributed array should be divided into in each dimension.
+   构造分布式数组。 ``init`` is a function accepting a tuple of index ranges. This function should return a chunk of the distributed array for the specified indexes. ``dims`` is the overall size of the distributed array. ``procs`` optionally specifies a vector of processor IDs to use. ``dist`` is an integer vector specifying how many chunks the distributed array should be divided into in each dimension.
 
 .. function:: dzeros(dims, ...)
 
-   构造a distributed array of zeros. Trailing arguments are the same as those accepted by ``darray``.
+   构造全零的分布式数组。Trailing arguments are the same as those accepted by ``darray``.
 
 .. function:: dones(dims, ...)
 
-   构造a distributed array of ones. Trailing arguments are the same as those accepted by ``darray``.
+   构造全一的分布式数组。Trailing arguments are the same as those accepted by ``darray``.
 
 .. function:: dfill(x, dims, ...)
 
-   构造a distributed array filled with value ``x``. Trailing arguments are the same as those accepted by ``darray``.
+   构造值全为 ``x`` 的分布式数组。Trailing arguments are the same as those accepted by ``darray``.
 
 .. function:: drand(dims, ...)
 
-   构造a distributed uniform random array. Trailing arguments are the same as those accepted by ``darray``.
+   构造均匀分布的随机分布式数组。Trailing arguments are the same as those accepted by ``darray``.
 
 .. function:: drandn(dims, ...)
 
-   构造a distributed normal random array. Trailing arguments are the same as those accepted by ``darray``.
+   构造正态分布的随机分布式数组。Trailing arguments are the same as those accepted by ``darray``.
 
 .. function:: distribute(a)
 
-   Convert a local array to distributed
+   将本地数组转换为分布式数组。
 
 .. function:: localize(d)
 
-   Get the local piece of a distributed array
+   获取分布式数组的本地部分。
 
 .. function:: myindexes(d)
 
@@ -3142,19 +3143,19 @@ C 接口
 
 .. function:: dlclose(handle)
 
-   通过句柄来关闭共享库的引用
+   通过句柄来关闭共享库的引用。
 
 .. function:: c_free(addr::Ptr)
   
-   调用 C 标准库中的 free()
+   调用 C 标准库中的 ·``free()`` 。
 
 .. function:: unsafe_ref(p::Ptr{T},i::Integer)
 
-   对指针解引用 ``p[i]`` 或 ``*p`` ，返回类型 T 的值的浅拷贝
+   对指针解引用 ``p[i]`` 或 ``*p`` ，返回类型 T 的值的浅拷贝。
 
 .. function:: unsafe_assign(p::Ptr{T},x,i::Integer)
 
-   给指针赋值 ``p[i] = x`` 或 ``*p = x`` ，将对象 x 复制进 p 处的内存中
+   给指针赋值 ``p[i] = x`` 或 ``*p = x`` ，将对象 x 复制进 p 处的内存中。
 
 错误
 ----
@@ -3162,19 +3163,19 @@ C 接口
 .. function:: error(message::String)
               error(Exception)
 
-   报错，并显示指定信息
+   报错，并显示指定信息。
 
 .. function:: throw(e)
 
-   将一个对象作为异常抛出
+   将一个对象作为异常抛出。
 
 .. function:: errno()
 
-   获取 C 库 ``errno`` 的值
+   获取 C 库 ``errno`` 的值。
 
 .. function:: strerror(n)
 
-   将系统调用错误代码转换为描述字符串
+   将系统调用错误代码转换为描述字符串。
 
 .. function:: assert(cond)
 
@@ -3193,32 +3194,32 @@ C 接口
 
 .. function:: current_task()
 
-   获取当前正在运行的任务
+   获取当前正在运行的任务。
 
 .. function:: istaskdone(task)
 
-   判断任务是否已退出
+   判断任务是否已退出。
 
 .. function:: consume(task)
 
-   接收由指定任务传递给 ``produce`` 的下一个值
+   接收由指定任务传递给 ``produce`` 的下一个值。
 
 .. function:: produce(value)
 
-   将指定值传递给最近的一次 ``consume`` 调用，然后跳转到消费者任务
+   将指定值传递给最近的一次 ``consume`` 调用，然后跳转到消费者任务。
 
 .. function:: make_scheduled(task)
 
-   使用主事件循环来注册任务，任务会在允许的时候自动运行
+   使用主事件循环来注册任务，任务会在允许的时候自动运行。
 
 .. function:: yield()
 
-   对安排好的任务，跳转到安排者来允许运行另一个安排好的任务
+   对安排好的任务，跳转到安排者来允许运行另一个安排好的任务。
 
 .. function:: tls(symbol)
 
-   在当前任务的本地任务存储中查询 ``symbol`` 的值
+   在当前任务的本地任务存储中查询 ``symbol`` 的值。
 
 .. function:: tls(symbol, value)
 
-   给当前任务的本地任务存储中的 ``symbol`` 赋值 ``value`` 
+   给当前任务的本地任务存储中的 ``symbol`` 赋值 ``value`` 。
