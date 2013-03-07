@@ -1502,20 +1502,20 @@ I/O
 .. function:: airy(x)
               airyai(x)
 
-   Airy function :math:`\operatorname{Ai}(x)`.
+   Airy 函数 :math:`\operatorname{Ai}(x)`.
 
 .. function:: airyprime(x)
               airyaiprime(x)
 
-   Airy function derivative :math:`\operatorname{Ai}'(x)`.
+   Airy 函数 derivative :math:`\operatorname{Ai}'(x)`.
 
 .. function:: airybi(x)
 
-   Airy function :math:`\operatorname{Bi}(x)`.
+   Airy 函数 :math:`\operatorname{Bi}(x)`.
 
 .. function:: airybiprime(x)
 
-   Airy function derivative :math:`\operatorname{Bi}'(x)`.
+   Airy 函数 derivative :math:`\operatorname{Bi}'(x)`.
 
 .. function:: besselj0(x)
 
@@ -1567,11 +1567,11 @@ I/O
 
 .. function:: eta(x)
 
-   Dirichlet eta 函数 :math:`\eta(s) = \sum^\infty_{n=1}(-)^{n-1}/n^{s}`.
+   Dirichlet eta 函数 :math:`\eta(s) = \sum^\infty_{n=1}(-)^{n-1}/n^{s}` 。
 
 .. function:: zeta(x)
 
-   Riemann zeta 函数 ``\zeta(s)``.
+   Riemann zeta 函数 ``\zeta(s)`` 。
 
 .. function:: bitmix(x, y)
 
