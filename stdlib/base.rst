@@ -1230,7 +1230,7 @@ I/O
 
 .. function:: hypot(x, y)
 
-   计算 :math:`\sqrt{(x^2+y^2)}` ，计算过程不会出现上溢、下溢。
+   计算 ``sqrt( (x^2+y^2) )`` ，计算过程不会出现上溢、下溢。
 
 .. function:: log(x)
    
@@ -1250,7 +1250,7 @@ I/O
 
 .. function:: logb(x)
 
-   返回浮点数 :math:`trunc( log2( abs(x) ) )` 。
+   返回浮点数 ``trunc( log2( abs(x) ) )`` 。
 
 .. function:: ilogb(x) 
 
@@ -1263,11 +1263,11 @@ I/O
 
 .. function:: exp(x)
 
-   计算 :math:`e^x` 。
+   计算 ``e^x`` 。
 
 .. function:: exp2(x)
 
-   计算 :math:`2^x` 。
+   计算 ``2^x`` 。
 
 .. function:: ldexp(x, n)
 
@@ -1279,43 +1279,43 @@ I/O
 
 .. function:: expm1(x)
 
-   :math:`e^x-1` 的精确值。
+   ``e^x-1`` 的精确值。
 
 .. function:: square(x)
 
-   计算 :math:`x^2` 。
+   计算 ``x^2`` 。
 
 .. function:: round(x, [digits, [base]]) -> FloatingPoint
 
-   ``round(x)`` returns the nearest integer to ``x``. ``round(x, digits)`` rounds to the specified number of digits after the decimal place, or before if negative, e.g., ``round(pi,2)`` is ``3.14``. ``round(x, digits, base)`` rounds using a different base, defaulting to 10, e.g., ``round(pi, 3, 2)`` is ``3.125``.
+   ``round(x)`` 返回离 ``x`` 最近的整数。 ``round(x, digits)`` rounds to the specified number of digits after the decimal place, or before if negative, e.g., ``round(pi,2)`` is ``3.14``. ``round(x, digits, base)`` rounds using a different base, defaulting to 10, e.g., ``round(pi, 3, 2)`` is ``3.125``.
 
 .. function:: ceil(x, [digits, [base]]) -> FloatingPoint
 
-   返回the nearest integer not less than ``x``. ``digits`` 与 ``base`` 的解释参见 :func:`round` 。
+   将 ``x`` 向 +Inf 取整。 ``digits`` 与 ``base`` 的解释参见 :func:`round` 。
 
 .. function:: floor(x, [digits, [base]]) -> FloatingPoint
 
-   返回the nearest integer not greater than ``x``. ``digits`` 与 ``base`` 的解释参见 :func:`round` 。
+   将 ``x`` 向 -Inf 取整。 ``digits`` 与 ``base`` 的解释参见 :func:`round` 。
 
 .. function:: trunc(x, [digits, [base]]) -> FloatingPoint
 
-   返回the nearest integer not greater in magnitude than ``x``. ``digits`` 与 ``base`` 的解释参见 :func:`round` 。
+   将 ``x`` 向 0 取整。 ``digits`` 与 ``base`` 的解释参见 :func:`round` 。
 
 .. function:: iround(x) -> Integer
 
-   返回离 ``x`` 最近的整数。
+   结果为整数类型的 :func:`round` 。
 
 .. function:: iceil(x) -> Integer
 
-   返回the nearest integer not less than ``x``.
+   结果为整数类型的 :func:`ceil` 。
 
 .. function:: ifloor(x) -> Integer
 
-   返回the nearest integer not greater than ``x``.
+   结果为整数类型的 :func:`floor` 。
 
 .. function:: itrunc(x) -> Integer
 
-   返回the nearest integer not greater in magnitude than ``x``.
+   结果为整数类型的 :func:`trunc` 。
 
 .. function:: signif(x, digits, [base]) -> FloatingPoint
 
@@ -1367,7 +1367,7 @@ I/O
 
 .. function:: erf(x)
 
-   计算the error function of ``x``, defined by
+   计算 ``x`` 的误差函数，defined by
    :math:`\frac{2}{\sqrt{\pi}} \int_0^x e^{-t^2} dt`
    for arbitrary complex ``x``.
 
@@ -1381,7 +1381,7 @@ I/O
    计算the scaled complementary error function of ``x``,
    defined by :math:`e^{x^2} \operatorname{erfc}(x)`.  Note
    also that :math:`\operatorname{erfcx}(-ix)` computes the
-   Faddeeva function :math:`w(x)`.
+   Faddeeva function ``w(x)``.
 
 .. function:: erfi(x)
 
@@ -1433,7 +1433,7 @@ I/O
 
    对 ``n`` 分解质因数。返回a dictionary. The keys of the dictionary correspond to the factors, and hence are of the same type as ``n``. The value associated with each key indicates the number of times the factor appears in the factorization.
 
-   **例子** ： :math:`100=2*2*5*5`; then, ``factor(100) -> [5=>2,2=>2]``
+   **例子** ： ``100=2*2*5*5`` ，因此 ``factor(100) -> [5=>2,2=>2]`` 
 
 .. function:: gcd(x,y)
 
@@ -1571,7 +1571,7 @@ I/O
 
 .. function:: zeta(x)
 
-   Riemann zeta 函数 :math:`\zeta(s)`.
+   Riemann zeta 函数 ``\zeta(s)``.
 
 .. function:: bitmix(x, y)
 
