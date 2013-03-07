@@ -5,6 +5,8 @@
 
 翻译进行中，欢迎群策群力。
 
+需要翻译的就是 `manual/` 及 `stdlib/` 下的所有文档。仅翻译的话，什么都不用安装，直接找到要修改的文件，点击 `Edit` ，编辑好后提交即可。对 git 熟悉的请使用 git 。
+
 文件布局
 -----------
 
@@ -19,7 +21,6 @@
     sphinx/jlhelp.py                Sphinx 插件，用于生成 helpdb_zh_CN.jl
 	listpkg.jl                      生成 packages/packagelist.rst
 	
-因此，需要翻译的就是 `manual/` 及 `stdlib/` 下的所有文档。
 	
 生成帮助文档及扩展包文档
 ------------------------
