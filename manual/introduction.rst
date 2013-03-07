@@ -34,5 +34,5 @@ Julia 想要变成一个前所未有的集易用、强大、高效于一体的�
 -  完全支持
    `Unicode <http://zh.wikipedia.org/zh-cn/Unicode>`_, 包括但不止 `UTF-8 <http://zh.wikipedia.org/zh-cn/UTF-8>`_
 -  直接调用 C 函数（不需封装或 API）
--  强大的像 Shell 一样管理其他进程的能力
+-  像 Shell 一样强大的管理其他进程的能力
 -  像 Lisp 一样的宏和其他元编程工具

@@ -110,7 +110,7 @@ Julia 的语法尽量保持与 MATLAB 兼容。但 Julia 不是简单地复制 M
 	- `DataFrames 包 <https://github.com/HarlanH/DataFrames.jl>`_ 提供了数据框
 	- GLM 公式必须要转义：使用 ``:(y ~ x)`` ，而不是 ``y ~ x`` 
 - Julia 提供了多元组和哈希表，但不提供 R 的列表。当返回多项时，应该使用多元组：不要使用 ``list(a = 1, b = 2)`` ，应该使用 ``(1, 2)`` 
-- 鼓励自定义类型。Julia 的类型比 R 中的 S3 或 S4 对象简单。Julia 的重载系统使得 ``table(x::TypeA)`` 和 ``table(x::TypeB)`` 的结果，和 R 中的 ``table.TypeA(x)`` 和 ``table.TypeB(x)`` 一样
+- 鼓励自定义类型。Julia 的类型比 R 中的 S3 或 S4 对象简单。Julia 的重载系统使 ``table(x::TypeA)`` 和 ``table(x::TypeB)`` 的结果，和 R 中的 ``table.TypeA(x)`` 和 ``table.TypeB(x)`` 一样
 - 在 Julia 中，传递值和赋值是靠引用。如果一个函数修改了数组，所调用的函数就能告诉你。这与 R 非常不同，这使得在大数据结构上进行新函数操作非常高效
 - 使用 ``hcat`` 和 ``vcat`` 来连接向量和矩阵，而不是 ``c``, ``rbind`` 和 ``cbind`` 
 - Julia 的范围对象如 ``a:b`` 与 R 中的定义向量的符号不同。它是一个特殊的对象，用于无高内存开销的迭代。要把范围对象转换为向量，应该用方括号把范围对象括起来 ``[a:b]`` 
