@@ -52,6 +52,7 @@ B. 生成扩展包文档
 	julia> Pkg.add("Calendar")
 	
 然后
+
 	julia> evalfile("listpkg.jl")
 	
 上面这个命令的文件路径要正确，自己确认一下。即可生成新的 `packages/packagelist.rst` ，即本文档的 `可用扩展包` 章节。
