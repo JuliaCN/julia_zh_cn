@@ -918,7 +918,7 @@ I/O
 
 .. function:: readline(stream)
 
-   Read a single line of text, including a trailing newline character (if one is reached before the end of the input).
+   读取一行文本，包括末尾的换行符（不管输入是否结束，遇到换行符就返回）。
 
 .. function:: readuntil(stream, delim)
 
@@ -926,7 +926,7 @@ I/O
 
 .. function:: readlines(stream)
 
-   Read all lines as an array.
+   将读入的所有行返回为数组。
 
 .. function:: each_line(stream)
 
