@@ -101,7 +101,7 @@
 
 .. function:: finalizer(x, function)
 
-   当没有程序可理解的对 ``x`` 的引用时，注册一个注册可调用的函数 ``f(x)`` 。当 ``x`` 为位类型时，此函数的行为不可预测。
+   当对 ``x`` 的引用处于程序不可用时，注册一个注册可调用的函数 ``f(x)`` 来终结这个引用。当 ``x`` 为位类型时，此函数的行为不可预测。
 
 .. function:: copy(x)
 
@@ -1587,23 +1587,23 @@ I/O
 
 .. function:: bin(n, [pad])
 
-   Convert an integer to a binary string, optionally specifying a number of digits to pad to.
+   将整数转换为二进制字符串，可选择性指明空白补位后的位数。
 
 .. function:: hex(n, [pad])
 
-   Convert an integer to a hexadecimal string, optionally specifying a number of digits to pad to.
+   将整数转换为十六进制字符串，可选择性指明空白补位后的位数。
 
 .. function:: dec(n, [pad])
 
-   Convert an integer to a decimal string, optionally specifying a number of digits to pad to.
+   将整数转换为十进制字符串，可选择性指明空白补位后的位数。
 
 .. function:: oct(n, [pad])
 
-   Convert an integer to an octal string, optionally specifying a number of digits to pad to.
+   将整数转换为八进制字符串，可选择性指明空白补位后的位数。
 
 .. function:: base(b, n, [pad])
 
-   Convert an integer to a string in the given base, optionally specifying a number of digits to pad to.
+   将整数 ``n`` 转换为指定进制 ``b`` 的字符串，可选择性指明空白补位后的位数。
 
 .. function:: bits(n)
 
@@ -1631,11 +1631,11 @@ I/O
 
 .. function:: bool(x)
 
-   Convert a number or numeric array to boolean
+   将数或数值数组转换为布尔值类型的。
 
 .. function:: isbool(x)
 
-   Test whether number or array is boolean
+   判断数或数组是否是布尔值类型的。
 
 .. function:: int(x)
 
@@ -1651,15 +1651,15 @@ I/O
 
 .. function:: isinteger(x)
 
-   Test whether a number or array is of integer type
+   判断数或数组是否为整数类型的。
 
 .. function:: signed(x)
 
-   Convert a number to a signed integer
+   将数转换为有符号整数。
 
 .. function:: unsigned(x)
 
-   Convert a number to an unsigned integer
+   将数转换为无符号整数。
 
 .. function:: int8(x)
 
@@ -1711,25 +1711,25 @@ I/O
 
 .. function:: float(x)
 
-   Convert a number, array, or string to a ``FloatingPoint`` 数据类型. For numeric data, the smallest suitable ``FloatingPoint`` type is used. For strings, it converts to ``Float64``.
+   将数、数组、或字符串转换为 ``FloatingPoint`` 数据类型。对数值数据，使用最小的恰当 ``FloatingPoint`` 类型。对字符串，它将被转换为 ``Float64`` 类型。
 
 .. function:: significand(x)
 
    Extract the significand(s) (a.k.a. mantissa), in binary representation, of a floating-point number or array.
    
-   For example, ``significand(15.2)/15.2 == 0.125``, and ``significand(15.2)*8 == 15.2``
+   例如， ``significand(15.2)/15.2 == 0.125`` 与``significand(15.2)*8 == 15.2`` 。
 
 .. function:: float64_valued(x::Rational)
 
-   True if ``x`` can be losslessly represented as a ``Float64`` 数据类型
+   如果 ``x`` 能被无损地用 ``Float64`` 数据类型表示，返回真。
 
 .. function:: complex64(r,i)
 
-   Convert to ``r+i*im`` represented as a ``Complex64`` 数据类型
+   构造值为 ``r+i*im`` 的 ``Complex64`` 数据类型。
 
 .. function:: complex128(r,i)
 
-   Convert to ``r+i*im`` represented as a ``Complex128`` 数据类型
+   构造值为 ``r+i*im`` 的 ``Complex128`` 数据类型。
 
 .. function:: char(x)
 
@@ -1737,11 +1737,11 @@ I/O
 
 .. function:: safe_char(x)
 
-   Convert to ``Char``, checking for invalid code points
+   转换为 ``Char`` ，同时检查是否为有效码位。
 
 .. function:: complex(r,i)
 
-   Convert real numbers or arrays to complex
+   将实数或数组转换为复数。
 
 .. function:: iscomplex(x) -> Bool
 
@@ -1796,11 +1796,11 @@ I/O
 
 .. function:: inf(f)
 
-   返回infinity in the same floating point type as ``f`` (or ``f`` can by the type itself)
+   返回与 ``f`` 相同浮点数类型的无穷大（ ``f`` 也可以为类型）。
 
 .. function:: nan(f)
 
-   返回 NaN in the same floating point type as ``f`` (or ``f`` can by the type itself)
+   返回与 ``f`` 相同浮点数类型的 NaN （ ``f`` 也可以为类型）。
 
 .. function:: nextfloat(f)
 
@@ -1828,13 +1828,11 @@ I/O
 
 .. function:: BigInt(x)
 
-   构造an arbitrary precision integer. ``x`` may be an ``Int`` (or anything that can be converted to an ``Int``) or a ``String``. 
-   The usual mathematical operators are defined for this type, and results are promoted to a ``BigInt``. 
+   构造任意精度的整数。 ``x`` 可以是 ``Int`` （或可以被转换为 ``Int`` 的）或 ``String`` 。可以对其使用常用的数学运算符，结果被提升为 ``BigInt`` 类型。
 
 .. function:: BigFloat(x)
 
-   构造an arbitrary precision floating point number. ``x`` may be an ``Integer``, a ``Float64``, a ``String`` or a ``BigInt``. The 
-   usual mathematical operators are defined for this type, and results are promoted to a ``BigFloat``.
+   构造任意精度的浮点数。 ``x`` 可以是 ``Integer``, ``Float64``, ``String`` 或 ``BigInt`` 。可以对其使用常用的数学运算符，结果被提升为 ``BigFloat`` 类型。
 
 整数
 ~~~~
@@ -1897,7 +1895,7 @@ I/O
 随机数
 ------
 
-Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/#dSFMT>`_ 来生成随机数。Julia 默认使用全局 RNG 。Multiple RNGs can be plugged in using the ``AbstractRNG`` object, which can then be used to have multiple streams of random numbers.目前只支持 ``MersenneTwister`` 。
+Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/#dSFMT>`_ 来生成随机数。Julia 默认使用全局随机数生成器 RNG 。Multiple RNGs can be plugged in using the ``AbstractRNG`` object, which can then be used to have multiple streams of random numbers.目前只支持 ``MersenneTwister`` 。
 
 .. function:: srand([rng], seed)
 
