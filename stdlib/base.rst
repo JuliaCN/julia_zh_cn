@@ -717,7 +717,7 @@
 
 .. function:: isvalid(str, i)
 
-   Tells whether index ``i`` is valid for the given string
+   判断指定字符串的第 ``i`` 个索引值处是否是有效字符。
 
 .. function:: nextind(str, i)
 
@@ -3091,11 +3091,11 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: toc()
 
-   打印and return the time elapsed since the last :func:`tic`.
+   打印并返回最后一个 :func:`tic` 计时器的时间。
 
 .. function:: toq()
 
-   Return, but do not print, the time elapsed since the last :func:`tic`.
+   返回但不打印最后一个 :func:`tic` 计时器的时间。
 
 .. function:: EnvHash() -> EnvHash
 

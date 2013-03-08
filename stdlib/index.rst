@@ -39,7 +39,6 @@
    gzip
    profile
    sound
-   strpack
    textwrap
    zlib
 

@@ -373,7 +373,7 @@ ___________________________________________________
 
   Catalan: a combinatorics library for Julia 
 
-  维护者： `Alessandro Andrioni<https://github.com/andrioni>`_
+  维护者： `Alessandro Andrioni <https://github.com/andrioni>`_
 
   依赖关系： ::
 
