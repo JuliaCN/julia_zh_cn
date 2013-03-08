@@ -1351,11 +1351,11 @@ I/O
 
 .. function:: signbit(x)
 
-   返回 ``1`` if the value of the sign of ``x`` is negative, otherwise ``0``.
+   如果 ``x`` 是负数时返回 ``1`` ，否则返回 ``0`` 。
 
 .. function:: flipsign(x, y)
 
-   返回 ``x`` with its sign flipped if ``y`` is negative. For example ``abs(x) = flipsign(x,x)``.
+   如果 ``y`` 为复数，返回 ``x`` 的相反数，否则返回 ``x`` 。如 ``abs(x) = flipsign(x,x)``.
 
 .. function:: sqrt(x)
    
@@ -2378,7 +2378,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: sqrtm(A)
 
-   计算the matrix square root of ``A``. If ``B = sqrtm(A)``, then ``B*B == A`` within roundoff error.
+   计算 ``A`` 的矩阵平方根。如果 ``B = sqrtm(A)`` ，则在误差范围内 ``B*B == A`` 。
 
 .. function:: eig(A) -> D, V
 
@@ -2398,19 +2398,19 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: svd(A, [thin]) -> U, S, V
 
-   计算the SVD of A, returning ``U``, vector ``S``, and ``V`` such that ``A == U*diagm(S)*V'``. If ``thin`` is ``true``, an economy mode decomposition is returned.
+   对 A 做奇异值分解，返回 ``U`` ，向量 ``S`` ，及 ``V`` ，满足 ``A == U*diagm(S)*V'`` 。如果 ``thin`` 为 ``true`` ，则做节约模式分解。
 
 .. function:: svdt(A, [thin]) -> U, S, Vt
 
-   计算the SVD of A, returning ``U``, vector ``S``, and ``Vt`` such that ``A = U*diagm(S)*Vt``. If ``thin`` is ``true``, an economy mode decomposition is returned.
+   对 A 做奇异值分解，返回 ``U`` ，向量 ``S`` ，及 ``Vt`` ，满足 ``A = U*diagm(S)*Vt`` 。如果 ``thin`` 为 ``true`` ，则做节约模式分解。
 
 .. function:: svdvals(A)
 
-   返回the singular values of ``A``.
+   返回 ``A`` 的奇异值。
 
 .. function:: svdvals!(A)
 
-   返回the singular values of ``A``, while saving space by overwriting the input.
+   返回 ``A`` 的奇异值，将结果覆写到输入上以节约空间。
 
 .. function:: svdfact(A, B) -> GSVDDense
 
@@ -2434,11 +2434,11 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: diag(M, [k])
 
-   The ``k``-th diagonal of a matrix, as a vector
+   矩阵的第 ``k`` 条对角线，结果为向量。 ``k`` 从 0 开始。
 
 .. function:: diagm(v, [k])
 
-   构造a diagonal matrix and place ``v`` on the ``k``-th diagonal
+   构造 ``v`` 为第 ``k`` 条对角线的对角矩阵。 ``k`` 从 0 开始。
 
 .. function:: diagmm(matrix, vector)
 
@@ -2504,7 +2504,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: linreg(x, y, w)
 
-   Weighted least-squares linear regression.
+   带权最小二乘法线性回归。
 
 .. function:: expm(A)
 

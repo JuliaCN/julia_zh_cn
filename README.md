@@ -24,8 +24,8 @@
 	
 生成帮助文档及扩展包文档
 ------------------------
-
-`Ubuntu` 上安装需要几个组件。安装吧，都很小。
+1. 生成帮助文档
+`Ubuntu` 上需要几个组件。安装吧，都很小。
 
     sudo apt-get install python-setuptools
     sudo easy_install -U Sphinx
@@ -36,7 +36,23 @@
 
 好啦，`helpdb_zh_CN.jl` 就生成了。这就是命令行输入 `help()` 时会调用的帮助文档。
 
-关于生成扩展包文档，我还没试。改天再说吧。
+可以将这个文档放在 `$JULIA_HOME/../share/julia/zh_CN/` 中，改名为 `helpdb.jl` ，然后运行：
+
+	julia> Base.locale("zh_CN")
+	"zh_CN"
+
+重启后，`help()` 应该就可以调用中文帮助文档了。
+
+
+2. 生成扩展包文档
+运行 Julia ，安装两个扩展包
+	julia> Pkg.add("JSON")
+	julia> Pkg.add("Calendar")
+	
+然后
+	julia> evalfile("listpkg.jl")
+	
+上面这个命令的文件路径要正确，自己确认一下。即可生成新的 `packages/packagelist.rst` ，即本文档的 `可用扩展包` 章节。
 
 	
 生成文档

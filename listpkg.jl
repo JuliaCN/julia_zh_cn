@@ -2,7 +2,7 @@
 require("JSON")
 require("Calendar")
 using Calendar
-
+println("wltest")
 try 
 	  global gh_auth
 		gh_auth = ENV["GH_AUTH"]
