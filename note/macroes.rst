@@ -11,7 +11,7 @@
 
 @time 宏可打印出程序运行所需的时间。可用于单行表达式或代码块： ::
 
-    julia> @time sqrtm( sum( randn(1000) ) )
+	julia> @time sqrtm( sum( randn(1000) ) )
 	elapsed time: 0.0 seconds
 	5.128676446664007
 	
@@ -27,7 +27,7 @@
 
 @which 宏可以显示对于指定的表达式，Julia调用的是哪个具体的方法来求值： ::
 
-    julia> @which rand(1:10)
+	julia> @which rand(1:10)
 	rand{T<:Integer}(Range1{T<:Integer},) at random.jl:145
 	
 	julia> @which 1 + 2im
