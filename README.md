@@ -47,7 +47,8 @@ A. 生成帮助文档
 
 B. 生成扩展包文档
 
-运行 Julia ，安装两个扩展包
+运行 Julia ，安装两个扩展包、
+
 	julia> Pkg.add("JSON")
 	julia> Pkg.add("Calendar")
 	
