@@ -1915,15 +1915,15 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: rand(rng::AbstractRNG, [dims...])
 
-   Generate a random ``Float64`` number or array of the size specified by dims, using the specified RNG object. Currently, ``MersenneTwister`` is the only available Random Number Generator (RNG), which may be seeded using srand.
+   使用指定的 RNG 对象，生成 ``Float64`` 类型的随机数或数组。目前仅提供 ``MersenneTwister`` 随机数生成器 RNG ，可由 srand 设置随机数种子。
 
 .. function:: rand(dims...)
 
-   Generate a random ``Float64`` array of the size specified by dims
+   生成指定维度的 ``Float64`` 类型的随机数组。
 
 .. function:: rand(Int32|Uint32|Int64|Uint64|Int128|Uint128, [dims...])
 
-   Generate a random integer of the given type. Optionally, generate an array of random integers of the given type by specifying dims.
+   生成指定整数类型的随机数。若指定维度，则生成对应类型的随机数组。
 
 .. function:: rand(r, [dims...])
 
@@ -1931,7 +1931,7 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: randbool([dims...])
 
-   Generate a random boolean value. Optionally, generate an array of random boolean values.
+   生成随机布尔值。若指定维度，则生成布尔值类型的随机数组。
 
 .. function:: randbool!(A)
 
@@ -1939,7 +1939,7 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: randn([dims...])
 
-   Generate a normally-distributed random number with mean 0 and standard deviation 1. Optionally generate an array of normally-distributed random numbers.
+   生成均值为 0 ，标准差为 1 的正态分布随机数。若指定维度，则生成正态分布的随机数组。
 
 数组
 ----
