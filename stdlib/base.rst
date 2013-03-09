@@ -1502,76 +1502,76 @@ I/O
 .. function:: airy(x)
               airyai(x)
 
-   Airy 函数 :math:`\operatorname{Ai}(x)`.
+   艾里函数 :math:`\operatorname{Ai}(x)`.
 
 .. function:: airyprime(x)
               airyaiprime(x)
 
-   Airy 函数 derivative :math:`\operatorname{Ai}'(x)`.
+   艾里函数的导数 :math:`\operatorname{Ai}'(x)`.
 
 .. function:: airybi(x)
 
-   Airy 函数 :math:`\operatorname{Bi}(x)`.
+   艾里函数 :math:`\operatorname{Bi}(x)`.
 
 .. function:: airybiprime(x)
 
-   Airy 函数 derivative :math:`\operatorname{Bi}'(x)`.
+   艾里函数的导数 :math:`\operatorname{Bi}'(x)`.
 
 .. function:: besselj0(x)
 
-   Bessel 函数 of the first kind of order 0, :math:`J_0(x)`.
+   ``0`` 阶的第一类贝塞尔函数, :math:`J_0(x)`.
 
 .. function:: besselj1(x)
 
-   Bessel 函数 of the first kind of order 1, :math:`J_1(x)`.
+   ``1`` 阶的第一类贝塞尔函数, :math:`J_1(x)`.
 
 .. function:: besselj(nu, x)
 
-   Bessel 函数 of the first kind of order ``nu``, :math:`J_\nu(x)`.
+   ``nu`` 阶的第一类贝塞尔函数, :math:`J_\nu(x)`.
 
 .. function:: bessely0(x)
 
-   Bessel 函数 of the second kind of order 0, :math:`Y_0(x)`.
+   ``0`` 阶的第二类贝塞尔函数, :math:`Y_0(x)`.
 
 .. function:: bessely1(x)
 
-   Bessel 函数 of the second kind of order 1, :math:`Y_1(x)`.
+   ``1`` 阶的第二类贝塞尔函数, :math:`Y_1(x)`.
 
 .. function:: bessely(nu, x)
 
-   Bessel 函数 of the second kind of order ``nu``, :math:`Y_\nu(x)`.
+   ``nu`` 阶的第二类贝塞尔函数, :math:`Y_\nu(x)`.
 
 .. function:: hankelh1(nu, x)
 
-   Bessel 函数 of the third kind of order ``nu``, :math:`H^{(1)}_\nu(x)`.
+   ``nu`` 阶的第三类贝塞尔函数, :math:`H^{(1)}_\nu(x)`.
 
 .. function:: hankelh2(nu, x)
 
-   Bessel 函数 of the third kind of order ``nu``, :math:`H^{(2)}_\nu(x)`.
+   ``nu`` 阶的第三类贝塞尔函数, :math:`H^{(2)}_\nu(x)`.
 
 .. function:: besseli(nu, x)
 
-   Modified Bessel 函数 of the first kind of order ``nu``, :math:`I_\nu(x)`.
+   ``nu`` 阶的变形第一类贝塞尔函数, :math:`I_\nu(x)`.
 
 .. function:: besselk(nu, x)
 
-   Modified Bessel 函数 of the second kind of order ``nu``, :math:`K_\nu(x)`.
+   ``nu`` 阶的变形第二类贝塞尔函数, :math:`K_\nu(x)`.
 
 .. function:: beta(x, y)
 
-   Euler integral of the first kind :math:`\operatorname{B}(x,y) = \Gamma(x)\Gamma(y)/\Gamma(x+y)`.
+   第一型欧拉积分 :math:`\operatorname{B}(x,y) = \Gamma(x)\Gamma(y)/\Gamma(x+y)`.
 
 .. function:: lbeta(x, y)
 
-   Natural logarithm of the beta function :math:`\log(\operatorname{B}(x,y))`.
+   贝塔函数的自然对数 :math:`\log(\operatorname{B}(x,y))`.
 
 .. function:: eta(x)
 
-   Dirichlet eta 函数 :math:`\eta(s) = \sum^\infty_{n=1}(-)^{n-1}/n^{s}` 。
+   狄利克雷η函数 :math:`\eta(s) = \sum^\infty_{n=1}(-)^{n-1}/n^{s}` 。
 
 .. function:: zeta(x)
 
-   Riemann zeta 函数 ``\zeta(s)`` 。
+   黎曼ζ函数 ``\zeta(s)`` 。
 
 .. function:: bitmix(x, y)
 
