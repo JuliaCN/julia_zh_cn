@@ -74,8 +74,9 @@
     python-sphinx
     texlive
     texlive-latex-extra
+    texlive-xetex
 
-然后运行
+首先生成所需的 TeX 文档
 
     $ make helpdb.jl
     $ make latex
