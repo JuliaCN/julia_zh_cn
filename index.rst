@@ -8,6 +8,7 @@
    manual/index
    stdlib/index
    packages/packagelist
+   note/index
    
 索引和表格
 ==========

@@ -66,7 +66,7 @@ Julia 代码表示为由 Julia 的 ``Expr`` 类型的数据结构而构成的语
       +(x,y)
     end
 
- ``:`` 的参数为符号时，结果为 ``Symbol`` 对象，而不是 ``Expr`` ： ::
+``:`` 的参数为符号时，结果为 ``Symbol`` 对象，而不是 ``Expr`` ： ::
 
     julia> :foo
     foo

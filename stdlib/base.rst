@@ -1449,7 +1449,7 @@ I/O
 
 .. function:: ispow2(n)
 
-   Test whether ``n`` is a power of two
+   判断 ``n`` 是否为 2 的幂。
 
 .. function:: nextpow2(n)
 
@@ -1567,11 +1567,11 @@ I/O
 
 .. function:: eta(x)
 
-   狄利克雷η函数 :math:`\eta(s) = \sum^\infty_{n=1}(-)^{n-1}/n^{s}` 。
+   狄利克雷 η 函数 :math:`\eta(s) = \sum^\infty_{n=1}(-)^{n-1}/n^{s}` 。
 
 .. function:: zeta(x)
 
-   黎曼ζ函数 ``\zeta(s)`` 。
+   黎曼 ζ 函数 ``\zeta(s)`` 。
 
 .. function:: bitmix(x, y)
 
