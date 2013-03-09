@@ -2577,7 +2577,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: shuffle(v)
 
-   Randomly rearrange the elements of a vector.
+   随机重新排布向量中的元素.
 
 .. function:: shuffle!(v)
 
@@ -2618,7 +2618,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: mean(v, [dim])
 
-   计算the mean of whole array ``v``, or optionally along dimension ``dim``
+   计算整个数组 ``v`` 的均值, 或按某一维 ``dim`` 计算（可选）
 
 .. function:: std(v, [corrected])
 
@@ -2638,31 +2638,31 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: median(v)
 
-   计算the median of a vector ``v``
+   计算向量 ``v`` 的中位数
 
 .. function:: hist(v, [n])
 
-   计算the histogram of ``v``, optionally using ``n`` bins
+   计算 ``v`` 的直方图, 可以指定划分为 ``n`` 个区间
 
 .. function:: hist(v, e)
 
-   计算the histogram of ``v`` using a vector ``e`` as the edges for the bins
+   计算 ``v`` 的直方图，使用向量 ``e`` 指定区间的边界
 
 .. function:: quantile(v, p)
 
-   计算the quantiles of a vector ``v`` at a specified set of probability values ``p``.
+   计算向量 ``v`` 在指定概率值集合 ``p`` 处的分位数.
 
 .. function:: quantile(v)
 
-   计算the quantiles of a vector ``v`` at the probability values ``[.0, .2, .4, .6, .8, 1.0]``.
+   计算向量 ``v`` 在概率值 ``[.0, .2, .4, .6, .8, 1.0]`` 处的分位数.
 
 .. function:: cov(v)
 
-   计算the Pearson covariance between two vectors ``v1`` and ``v2``.
+   计算两个向量 ``v1`` 和 ``v2`` 的协方差.
 
 .. function:: cor(v)
 
-   计算the Pearson correlation between two vectors ``v1`` and ``v2``.
+   计算两个向量 ``v1`` 和 ``v2`` 的 Pearson 相关系数.
 
 信号处理
 --------
