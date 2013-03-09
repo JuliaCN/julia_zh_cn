@@ -1,5 +1,4 @@
-Julia 中文文档说明
-=================
+# Julia 中文文档说明
 
 这是 `Julia` 语言的中文文档，可以 [在线阅读](http://julia_zh_cn.readthedocs.org) 。
 
@@ -7,8 +6,7 @@ Julia 中文文档说明
 
 需要翻译的就是 `manual/` 及 `stdlib/` 下的所有文档。仅翻译的话，什么都不用安装，直接找到要修改的文件，点击 `Edit` ，编辑好后提交即可。对 git 熟悉的请使用 git 。
 
-文件布局
------------
+## 文件布局
 
     manual/                         Julia 手册
     stdlib/                         Julia 标准库文档
@@ -20,12 +18,10 @@ Julia 中文文档说明
     sphinx/                         Sphinx 扩展和插件
     sphinx/jlhelp.py                Sphinx 插件，用于生成 helpdb_zh_CN.jl
 	listpkg.jl                      生成 packages/packagelist.rst
-	
-	
-生成帮助文档及扩展包文档
-------------------------
 
-A. 生成帮助文档
+## 生成帮助文档及扩展包文档
+
+### 生成帮助文档
 
 `Ubuntu` 上需要几个组件。安装吧，都很小。
 
@@ -45,8 +41,7 @@ A. 生成帮助文档
 
 这样 `help()` 应该就可以调用中文帮助文档了。想返回英文帮助文档，输入 `Base.locale("")` 或重启程序即可。
 
-
-B. 生成扩展包文档
+### 生成扩展包文档
 
 运行 Julia ，安装两个扩展包、
 
@@ -59,11 +54,9 @@ B. 生成扩展包文档
 	
 上面这个命令的文件路径要正确，自己确认一下。即可生成新的 `packages/packagelist.rst` ，即本文档的 `可用扩展包` 章节。
 
-	
-生成网页版和可打印文档
-------------------------
+## 生成网页版和可打印文档
 
-A. 生成网页版文档
+### 生成网页版文档
 
 `readthedocs.org` 网站可以自动生成在线的网页版本，我都弄好了。除了在线阅读，也可到 [下载页面](https://readthedocs.org/projects/julia_zh_cn/downloads/) 下载最新的网页版文档压缩包。
 
@@ -72,8 +65,7 @@ A. 生成网页版文档
     $ make helpdb.jl
     $ make html
 
-
-B. 生成 PDF 可打印文档
+### 生成 PDF 可打印文档
 
 `readthedocs.org` 网站没有中文字体（丫是一老外网站，没有是必然的），因此不能生成 pdf 文件。在找到更好的托管方式以前，我们暂时会不定期上传和更新编译好的中文 PDF 文档，[点此下载](https://www.dropbox.com/s/0x936am75jyz9a8/JuliaLanguage.pdf) 。
 
@@ -88,7 +80,7 @@ B. 生成 PDF 可打印文档
     $ make helpdb.jl
     $ make latex
 
-此时 `_builds/latex/` 目录下已经自动生成了编译所需的 TeX 文档。但此文档无法支持中文，需要手工打补丁。仿照 [这里](http://bone.twbbs.org.tw/blog/2012-03-23-SphinxXeTex.html) 的说明，进入 `_builds/latex/` 目录，修改 `JuliaLanguage.tex`，将引言区的
+此时 `_build/latex/` 目录下已经自动生成了编译所需的 TeX 文档。但此文档无法支持中文，需要手工打补丁。仿照 [这里](http://bone.twbbs.org.tw/blog/2012-03-23-SphinxXeTex.html) 的说明，进入 `_build/latex/` 目录，修改 `JuliaLanguage.tex`，将引言区的
 
     \usepackage[utf8]{inputenc}
     
