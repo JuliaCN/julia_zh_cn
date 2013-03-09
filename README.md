@@ -54,9 +54,9 @@
 	
 上面这个命令的文件路径要正确，自己确认一下。即可生成新的 `packages/packagelist.rst` ，即本文档的 `可用扩展包` 章节。
 
-## 生成网页版和可打印文档
+## 生成网页文档及 PDF 文档
 
-### 生成网页版文档
+### 生成网页文档
 
 `readthedocs.org` 网站可以自动生成在线的网页版本，我都弄好了。除了在线阅读，也可到 [下载页面](https://readthedocs.org/projects/julia_zh_cn/downloads/) 下载最新的网页版文档压缩包。
 
@@ -65,7 +65,7 @@
     $ make helpdb.jl
     $ make html
 
-### 生成 PDF 可打印文档
+### 生成 PDF 文档
 
 `readthedocs.org` 网站没有中文字体（丫是一老外网站，没有是必然的），因此不能生成 pdf 文件。在找到更好的托管方式以前，我们暂时会不定期上传和更新编译好的中文 PDF 文档，[点此下载](https://www.dropbox.com/s/0x936am75jyz9a8/JuliaLanguage.pdf) 。
 
