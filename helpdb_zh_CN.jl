@@ -243,7 +243,7 @@
 (E"杂项",E"Base",E"require",E"require(file::String...)
 
    在 \"Main\" 模块的上下文中，对每个活动的节点，通过系统的 \"LOAD_PATH\"
-   查找文件，并只载入一次。``require`` 是顶层操作，因此它设置当前的 \"include\"
+   查找文件，并只载入一次。\"require\" 是顶层操作，因此它设置当前的 \"include\"
    路径，但并不使用它来查找文件（参见 \"include\" 的帮助）。此函数常用来载入库代码； \"using\"
    函数隐含使用它来载入扩展包。
 
@@ -364,7 +364,7 @@
 
 (E"所有对象",E"Base",E"finalizer",E"finalizer(x, function)
 
-   当没有程序可理解的对 \"x\" 的引用时，注册一个注册可调用的函数 \"f(x)\" 。当 \"x\"
+   当对 \"x\" 的引用处于程序不可用时，注册一个注册可调用的函数 \"f(x)\" 来终结这个引用。当 \"x\"
    为位类型时，此函数的行为不可预测。
 
 "),
@@ -1200,7 +1200,7 @@ string(strs...)
 
 (E"字符串",E"Base",E"isvalid",E"isvalid(str, i)
 
-   Tells whether index \"i\" is valid for the given string
+   判断指定字符串的第 \"i\" 个索引值处是否是有效字符。
 
 "),
 
@@ -1342,9 +1342,7 @@ string(strs...)
 
 (E"I/O",E"Base",E"open",E"open(file_name[, read, write, create, truncate, append]) -> IOStream
 
-   Open a file in a mode specified by five boolean arguments. The
-   default is to open files for reading only. 返回a stream for accessing
-   the file.
+   按五个布尔值参数指明的模式打开文件。默认以只读模式打开文件。返回操作文件的流。
 
 "),
 
@@ -1412,7 +1410,7 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"I/O",E"Base",E"close",E"close(stream)
 
-   Close an I/O stream. Performs a \"flush\" first.
+   关闭 I/O 流。它将在关闭前先做一次 \"flush\" 。
 
 "),
 
@@ -1441,19 +1439,19 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"I/O",E"Base",E"position",E"position(s)
 
-   Get the current position of a stream.
+   获取流的当前位置。
 
 "),
 
 (E"I/O",E"Base",E"seek",E"seek(s, pos)
 
-   Seek a stream to the given position.
+   将流定位到指定位置。
 
 "),
 
 (E"I/O",E"Base",E"seek_end",E"seek_end(s)
 
-   Seek a stream to the end.
+   将流定位到尾端。
 
 "),
 
@@ -1465,10 +1463,10 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"I/O",E"Base",E"eof",E"eof(stream)
 
-   判断 whether an I/O stream is at end-of-file. If the stream is not
-   yet exhausted, this function will block to wait for more data if
-   necessary, and then return \"false\". Therefore it is always safe
-   to read one byte after seeing \"eof\" return \"false\".
+   判断 I/O 流是否到达文件尾。If the stream is not yet exhausted, this function
+   will block to wait for more data if necessary, and then return
+   \"false\". Therefore it is always safe to read one byte after
+   seeing \"eof\" return \"false\".
 
 "),
 
@@ -1515,8 +1513,7 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"文本 I/O",E"Base",E"readline",E"readline(stream)
 
-   Read a single line of text, including a trailing newline character
-   (if one is reached before the end of the input).
+   读取一行文本，包括末尾的换行符（不管输入是否结束，遇到换行符就返回）。
 
 "),
 
@@ -1528,7 +1525,7 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"文本 I/O",E"Base",E"readlines",E"readlines(stream)
 
-   Read all lines as an array.
+   将读入的所有行返回为数组。
 
 "),
 
@@ -1630,32 +1627,32 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"数学函数",E"Base",E"div",E"div(a, b)
 
-   计算 a/b, truncating to an integer
+   截断取整除法；商向 0 舍入。
 
 "),
 
 (E"数学函数",E"Base",E"fld",E"fld(a, b)
 
-   Largest integer less than or equal to a/b
+   向下取整除法；商向 -Inf 舍入。
 
 "),
 
 (E"数学函数",E"Base",E"mod",E"mod(x, m)
 
-   Modulus after division, returning in the range [0,m)
+   取模余数；满足 x == fld(x,m)*m + mod(x,m) ，与 m 同号，返回值范围 [0,m) 。
 
 "),
 
-(E"数学函数",E"Base",E"%",E"rem()
+(E"数学函数",E"Base",E"%",E"rem(x, m)
 %()
 
-   Remainder after division
+   除法余数；满足 x == div(x,m)*m + rem(x,m) ，与 x 同号。
 
 "),
 
 (E"数学函数",E"Base",E"mod1",E"mod1(x, m)
 
-   Modulus after division, returning in the range (0,m]
+   整除后取模，返回值范围为 (0,m] 。
 
 "),
 
@@ -1691,8 +1688,7 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"数学函数",E"Base",E"cmp",E"cmp(x, y)
 
-   返回-1, 0, or 1 depending on whether \"x<y\", \"x==y\", or \"x>y\",
-   respectively
+   根据 \"x<y\", \"x==y\", 或 \"x>y\" 三种情况，对应返回 -1, 0, 或 1 。
 
 "),
 
@@ -2164,15 +2160,14 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 (E"数学函数",E"Base",E"signbit",E"signbit(x)
 
-   返回 \"1\" if the value of the sign of \"x\" is negative, otherwise
-   \"0\".
+   如果 \"x\" 是负数时返回 \"1\" ，否则返回 \"0\" 。
 
 "),
 
 (E"数学函数",E"Base",E"flipsign",E"flipsign(x, y)
 
-   返回 \"x\" with its sign flipped if \"y\" is negative. For example
-   \"abs(x) = flipsign(x,x)\".
+   如果 \"y\" 为复数，返回 \"x\" 的相反数，否则返回 \"x\" 。如 \"abs(x) =
+   flipsign(x,x)\".
 
 "),
 
@@ -2518,36 +2513,31 @@ airyaiprime(x)
 
 (E"数据格式",E"Base",E"bin",E"bin(n[, pad])
 
-   Convert an integer to a binary string, optionally specifying a
-   number of digits to pad to.
+   将整数转换为二进制字符串，可选择性指明空白补位后的位数。
 
 "),
 
 (E"数据格式",E"Base",E"hex",E"hex(n[, pad])
 
-   Convert an integer to a hexadecimal string, optionally specifying a
-   number of digits to pad to.
+   将整数转换为十六进制字符串，可选择性指明空白补位后的位数。
 
 "),
 
 (E"数据格式",E"Base",E"dec",E"dec(n[, pad])
 
-   Convert an integer to a decimal string, optionally specifying a
-   number of digits to pad to.
+   将整数转换为十进制字符串，可选择性指明空白补位后的位数。
 
 "),
 
 (E"数据格式",E"Base",E"oct",E"oct(n[, pad])
 
-   Convert an integer to an octal string, optionally specifying a
-   number of digits to pad to.
+   将整数转换为八进制字符串，可选择性指明空白补位后的位数。
 
 "),
 
 (E"数据格式",E"Base",E"base",E"base(b, n[, pad])
 
-   Convert an integer to a string in the given base, optionally
-   specifying a number of digits to pad to.
+   将整数 \"n\" 转换为指定进制 \"b\" 的字符串，可选择性指明空白补位后的位数。
 
 "),
 
@@ -2594,13 +2584,13 @@ airyaiprime(x)
 
 (E"数据格式",E"Base",E"bool",E"bool(x)
 
-   Convert a number or numeric array to boolean
+   将数或数值数组转换为布尔值类型的。
 
 "),
 
 (E"数据格式",E"Base",E"isbool",E"isbool(x)
 
-   Test whether number or array is boolean
+   判断数或数组是否是布尔值类型的。
 
 "),
 
@@ -2630,19 +2620,19 @@ airyaiprime(x)
 
 (E"数据格式",E"Base",E"isinteger",E"isinteger(x)
 
-   Test whether a number or array is of integer type
+   判断数或数组是否为整数类型的。
 
 "),
 
 (E"数据格式",E"Base",E"signed",E"signed(x)
 
-   Convert a number to a signed integer
+   将数转换为有符号整数。
 
 "),
 
 (E"数据格式",E"Base",E"unsigned",E"unsigned(x)
 
-   Convert a number to an unsigned integer
+   将数转换为无符号整数。
 
 "),
 
@@ -2720,9 +2710,8 @@ airyaiprime(x)
 
 (E"数据格式",E"Base",E"float",E"float(x)
 
-   Convert a number, array, or string to a \"FloatingPoint\" 数据类型. For
-   numeric data, the smallest suitable \"FloatingPoint\" type is used.
-   For strings, it converts to \"Float64\".
+   将数、数组、或字符串转换为 \"FloatingPoint\" 数据类型。对数值数据，使用最小的恰当
+   \"FloatingPoint\" 类型。对字符串，它将被转换为 \"Float64\" 类型。
 
 "),
 
@@ -2731,26 +2720,26 @@ airyaiprime(x)
    Extract the significand(s) (a.k.a. mantissa), in binary
    representation, of a floating-point number or array.
 
-   For example, \"significand(15.2)/15.2 == 0.125\", and
-   \"significand(15.2)*8 == 15.2\"
+   例如， \"significand(15.2)/15.2 == 0.125\" 与``significand(15.2)*8 ==
+   15.2`` 。
 
 "),
 
 (E"数据格式",E"Base",E"float64_valued",E"float64_valued(x::Rational)
 
-   True if \"x\" can be losslessly represented as a \"Float64\" 数据类型
+   如果 \"x\" 能被无损地用 \"Float64\" 数据类型表示，返回真。
 
 "),
 
 (E"数据格式",E"Base",E"complex64",E"complex64(r, i)
 
-   Convert to \"r+i*im\" represented as a \"Complex64\" 数据类型
+   构造值为 \"r+i*im\" 的 \"Complex64\" 数据类型。
 
 "),
 
 (E"数据格式",E"Base",E"complex128",E"complex128(r, i)
 
-   Convert to \"r+i*im\" represented as a \"Complex128\" 数据类型
+   构造值为 \"r+i*im\" 的 \"Complex128\" 数据类型。
 
 "),
 
@@ -2762,13 +2751,13 @@ airyaiprime(x)
 
 (E"数据格式",E"Base",E"safe_char",E"safe_char(x)
 
-   Convert to \"Char\", checking for invalid code points
+   转换为 \"Char\" ，同时检查是否为有效码位。
 
 "),
 
 (E"数据格式",E"Base",E"complex",E"complex(r, i)
 
-   Convert real numbers or arrays to complex
+   将实数或数组转换为复数。
 
 "),
 
@@ -2851,15 +2840,13 @@ airyaiprime(x)
 
 (E"数",E"Base",E"inf",E"inf(f)
 
-   返回infinity in the same floating point type as \"f\" (or \"f\" can
-   by the type itself)
+   返回与 \"f\" 相同浮点数类型的无穷大（ \"f\" 也可以为类型）。
 
 "),
 
 (E"数",E"Base",E"nan",E"nan(f)
 
-   返回 NaN in the same floating point type as \"f\" (or \"f\" can by
-   the type itself)
+   返回与 \"f\" 相同浮点数类型的 NaN （ \"f\" 也可以为类型）。
 
 "),
 
@@ -2901,19 +2888,15 @@ airyaiprime(x)
 
 (E"数",E"Base",E"BigInt",E"BigInt(x)
 
-   构造an arbitrary precision integer. \"x\" may be an \"Int\" (or
-   anything that can be converted to an \"Int\") or a \"String\". The
-   usual mathematical operators are defined for this type, and results
-   are promoted to a \"BigInt\".
+   构造任意精度的整数。 \"x\" 可以是 \"Int\" （或可以被转换为 \"Int\" 的）或 \"String\"
+   。可以对其使用常用的数学运算符，结果被提升为 \"BigInt\" 类型。
 
 "),
 
 (E"数",E"Base",E"BigFloat",E"BigFloat(x)
 
-   构造an arbitrary precision floating point number. \"x\" may be an
-   \"Integer\", a \"Float64\", a \"String\" or a \"BigInt\". The usual
-   mathematical operators are defined for this type, and results are
-   promoted to a \"BigFloat\".
+   构造任意精度的浮点数。 \"x\" 可以是 \"Integer\", \"Float64\", \"String\" 或
+   \"BigInt\" 。可以对其使用常用的数学运算符，结果被提升为 \"BigFloat\" 类型。
 
 "),
 
@@ -3765,8 +3748,7 @@ airyaiprime(x)
 
 (E"线性代数",E"Base",E"sqrtm",E"sqrtm(A)
 
-   计算the matrix square root of \"A\". If \"B = sqrtm(A)\", then \"B*B
-   == A\" within roundoff error.
+   计算 \"A\" 的矩阵平方根。如果 \"B = sqrtm(A)\" ，则在误差范围内 \"B*B == A\" 。
 
 "),
 
@@ -3801,30 +3783,27 @@ airyaiprime(x)
 
 (E"线性代数",E"Base",E"svd",E"svd(A[, thin]) -> U, S, V
 
-   计算the SVD of A, returning \"U\", vector \"S\", and \"V\" such that
-   \"A == U*diagm(S)*V'\". If \"thin\" is \"true\", an economy mode
-   decomposition is returned.
+   对 A 做奇异值分解，返回 \"U\" ，向量 \"S\" ，及 \"V\" ，满足 \"A == U*diagm(S)*V'\"
+   。如果 \"thin\" 为 \"true\" ，则做节约模式分解。
 
 "),
 
 (E"线性代数",E"Base",E"svdt",E"svdt(A[, thin]) -> U, S, Vt
 
-   计算the SVD of A, returning \"U\", vector \"S\", and \"Vt\" such that
-   \"A = U*diagm(S)*Vt\". If \"thin\" is \"true\", an economy mode
-   decomposition is returned.
+   对 A 做奇异值分解，返回 \"U\" ，向量 \"S\" ，及 \"Vt\" ，满足 \"A = U*diagm(S)*Vt\"
+   。如果 \"thin\" 为 \"true\" ，则做节约模式分解。
 
 "),
 
 (E"线性代数",E"Base",E"svdvals",E"svdvals(A)
 
-   返回the singular values of \"A\".
+   返回 \"A\" 的奇异值。
 
 "),
 
 (E"线性代数",E"Base",E"svdvals!",E"svdvals!(A)
 
-   返回the singular values of \"A\", while saving space by overwriting
-   the input.
+   返回 \"A\" 的奇异值，将结果覆写到输入上以节约空间。
 
 "),
 
@@ -3866,13 +3845,13 @@ airyaiprime(x)
 
 (E"线性代数",E"Base",E"diag",E"diag(M[, k])
 
-   The \"k\"-th diagonal of a matrix, as a vector
+   矩阵的第 \"k\" 条对角线，结果为向量。 \"k\" 从 0 开始。
 
 "),
 
 (E"线性代数",E"Base",E"diagm",E"diagm(v[, k])
 
-   构造a diagonal matrix and place \"v\" on the \"k\"-th diagonal
+   构造 \"v\" 为第 \"k\" 条对角线的对角矩阵。 \"k\" 从 0 开始。
 
 "),
 
@@ -3980,7 +3959,7 @@ airyaiprime(x)
 
 (E"线性代数",E"Base",E"linreg",E"linreg(x, y, w)
 
-   Weighted least-squares linear regression.
+   带权最小二乘法线性回归。
 
 "),
 
@@ -4863,14 +4842,13 @@ airyaiprime(x)
 
 (E"系统",E"Base",E"toc",E"toc()
 
-   打印and return the time elapsed since the last \"tic()\".
+   打印并返回最后一个 \"tic()\" 计时器的时间。
 
 "),
 
 (E"系统",E"Base",E"toq",E"toq()
 
-   Return, but do not print, the time elapsed since the last
-   \"tic()\".
+   返回但不打印最后一个 \"tic()\" 计时器的时间。
 
 "),
 
@@ -4944,7 +4922,7 @@ ccall(fptr::Ptr{Void}, RetType, (ArgType1, ...), ArgVar1, ...)
 
 (E"C 接口",E"Base",E"c_free",E"c_free(addr::Ptr)
 
-   调用 C 标准库中的 ·``free()`` 。
+   调用 C 标准库中的 ·\"free()\" 。
 
 "),
 
@@ -6992,23 +6970,6 @@ eval_tab_col(glp_prob, k)
       wavwrite(y::Array) = wavwrite(y, @options)
       wavwrite(y::Array, Fs::Real, filename::String) = wavwrite(y, filename, @options sample_rate=Fs)
       wavwrite(y::Array, Fs::Real, N::Real, filename::String) = wavwrite(y, filename, @options sample_rate=Fs nbits=N)
-
-"),
-
-(E"strpack.jl",E"",E"pack",E"pack(io, composite[, strategy])
-
-   Create a packed buffer representation of \"composite\" in stream
-   \"io\", using data alignment coded by \"strategy\". This buffer is
-   suitable to pass as a \"struct\" argument in a \"ccall\".
-
-"),
-
-(E"strpack.jl",E"",E"unpack",E"unpack(io, T[, strategy])
-
-   Extract an instance of the Julia composite type \"T\" from the
-   packed representation in the stream \"io\". \"io\" must be
-   positioned at the beginning (using \"seek\"). This allows you to
-   read C \"struct\" outputs from \"ccall\".
 
 "),
 

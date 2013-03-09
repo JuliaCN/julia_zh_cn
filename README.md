@@ -26,6 +26,7 @@
 ------------------------
 
 A. 生成帮助文档
+
 `Ubuntu` 上需要几个组件。安装吧，都很小。
 
     sudo apt-get install python-setuptools
