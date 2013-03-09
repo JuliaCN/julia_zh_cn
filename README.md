@@ -1,7 +1,7 @@
-中文文档说明
-============
+Julia 中文文档说明
+=================
 
-这是 `Julia` 的中文文档，可以 [在线阅读](http://julia_zh_cn.readthedocs.org) 。
+这是 `Julia` 语言的中文文档，可以 [在线阅读](http://julia_zh_cn.readthedocs.org) 。
 
 翻译进行中，欢迎群策群力。
 
@@ -26,6 +26,7 @@
 ------------------------
 
 A. 生成帮助文档
+~~~~~~~~~~~~~~~~
 
 `Ubuntu` 上需要几个组件。安装吧，都很小。
 
@@ -47,6 +48,7 @@ A. 生成帮助文档
 
 
 B. 生成扩展包文档
+~~~~~~~~~~~~~~~~
 
 运行 Julia ，安装两个扩展包、
 
@@ -60,10 +62,26 @@ B. 生成扩展包文档
 上面这个命令的文件路径要正确，自己确认一下。即可生成新的 `packages/packagelist.rst` ，即本文档的 `可用扩展包` 章节。
 
 	
-生成文档
---------
+生成网页版和可打印文档
+------------------------
 
-`readthedocs.org` 网站可以自动生成在线的网页版本，我都弄好了。但该网站没有中文字体（丫是一老外网站，没有是必然的），因此不能生成 pdf 文件。老外说要在 `Ubuntu` 上生成 `pdf` 需要下面几个组件。我没试，爱捯饬的自个儿弄吧。
+A. 生成网页版文档
+~~~~~~~~~~~~~~~~
+
+`readthedocs.org` 网站可以自动生成在线的网页版本，我都弄好了。除了在线阅读，也可到 [下载页面](https://readthedocs.org/projects/julia_zh_cn/downloads/) 下载最新的网页版文档压缩包。
+
+要在本地生成网页版文档，只需运行
+
+    $ make helpdb.jl
+    $ make html
+
+
+B. 生成 PDF 可打印文档
+~~~~~~~~~~~~~~~~~~~~~~
+
+`readthedocs.org` 网站没有中文字体（丫是一老外网站，没有是必然的），因此不能生成 pdf 文件。在找到更好的托管方式以前，我们暂时会不定期上传和更新编译好的中文 PDF 文档，[点此下载](https://www.dropbox.com/s/0x936am75jyz9a8/JuliaLanguage.pdf) 。
+
+要在 `Ubuntu` 上生成 `pdf` 需要下面几个组件：
 
     python-sphinx
     texlive
@@ -72,5 +90,16 @@ B. 生成扩展包文档
 然后运行
 
     $ make helpdb.jl
-    $ make html
-    $ make latexpdf
+    $ make latex
+
+此时 `_builds/latex/` 目录下已经自动生成了编译所需的 TeX 文档。但此文档无法支持中文，需要手工打补丁。仿照 [这里](http://bone.twbbs.org.tw/blog/2012-03-23-SphinxXeTex.html) 的说明，进入 `_builds/latex/` 目录，修改 `JuliaLanguage.tex`，将引言区的
+
+    \usepackage[utf8]{inputenc}
+    
+            \DeclareUnicodeCharacter{00A0}{\nobreakspace}
+            \DeclareUnicodeCharacter{2203}{\ensuremath{\exists}}
+            \DeclareUnicodeCharacter{2200}{\ensuremath{\forall}}
+            \DeclareUnicodeCharacter{27FA}{\ensuremath{\Longleftrightarrow}}
+
+语句删去，替换为 `\usepackage[adobefonts]{ctex}` 并保存（使用选项 `adobefonts` 需要在系统中安装 Adobe 的四个简体中文字体，也可使用 ctex 宏包的相应命令自定义中文字体，ctex 宏包说明可以在终端使用命令 `texdoc ctex` 查看）。然后在此目录下执行 `xelatex JuliaLanguage.tex` 两次即可生成中文 PDF 文档。编译过程如果遇到警告，使用回车跳过即可。
+
