@@ -1502,68 +1502,68 @@ I/O
 .. function:: airy(x)
               airyai(x)
 
-   艾里函数 :math:`\operatorname{Ai}(x)`。
+   艾里函数 :math:`\operatorname{Ai}(x)` 。
 
 .. function:: airyprime(x)
               airyaiprime(x)
 
-   艾里函数的导数 :math:`\operatorname{Ai}'(x)`。
+   艾里函数的导数 :math:`\operatorname{Ai}'(x)` 。
 
 .. function:: airybi(x)
 
-   艾里函数 :math:`\operatorname{Bi}(x)`。
+   艾里函数 :math:`\operatorname{Bi}(x)` 。
 
 .. function:: airybiprime(x)
 
-   艾里函数的导数 :math:`\operatorname{Bi}'(x)`。
+   艾里函数的导数 :math:`\operatorname{Bi}'(x)` 。
 
 .. function:: besselj0(x)
 
-   ``0`` 阶的第一类贝塞尔函数, :math:`J_0(x)`。
+   ``0`` 阶的第一类贝塞尔函数, :math:`J_0(x)` 。
 
 .. function:: besselj1(x)
 
-   ``1`` 阶的第一类贝塞尔函数, :math:`J_1(x)`。
+   ``1`` 阶的第一类贝塞尔函数, :math:`J_1(x)` 。
 
 .. function:: besselj(nu, x)
 
-   ``nu`` 阶的第一类贝塞尔函数, :math:`J_\nu(x)`。
+   ``nu`` 阶的第一类贝塞尔函数, :math:`J_\nu(x)` 。
 
 .. function:: bessely0(x)
 
-   ``0`` 阶的第二类贝塞尔函数, :math:`Y_0(x)`。
+   ``0`` 阶的第二类贝塞尔函数, :math:`Y_0(x)` 。
 
 .. function:: bessely1(x)
 
-   ``1`` 阶的第二类贝塞尔函数, :math:`Y_1(x)`。
+   ``1`` 阶的第二类贝塞尔函数, :math:`Y_1(x)` 。
 
 .. function:: bessely(nu, x)
 
-   ``nu`` 阶的第二类贝塞尔函数, :math:`Y_\nu(x)`。
+   ``nu`` 阶的第二类贝塞尔函数, :math:`Y_\nu(x)` 。
 
 .. function:: hankelh1(nu, x)
 
-   ``nu`` 阶的第三类贝塞尔函数, :math:`H^{(1)}_\nu(x)`。
+   ``nu`` 阶的第三类贝塞尔函数, :math:`H^{(1)}_\nu(x)` 。
 
 .. function:: hankelh2(nu, x)
 
-   ``nu`` 阶的第三类贝塞尔函数, :math:`H^{(2)}_\nu(x)`。
+   ``nu`` 阶的第三类贝塞尔函数, :math:`H^{(2)}_\nu(x)` 。
 
 .. function:: besseli(nu, x)
 
-   ``nu`` 阶的变形第一类贝塞尔函数, :math:`I_\nu(x)`。
+   ``nu`` 阶的变形第一类贝塞尔函数, :math:`I_\nu(x)` 。
 
 .. function:: besselk(nu, x)
 
-   ``nu`` 阶的变形第二类贝塞尔函数, :math:`K_\nu(x)`。
+   ``nu`` 阶的变形第二类贝塞尔函数, :math:`K_\nu(x)` 。
 
 .. function:: beta(x, y)
 
-   第一型欧拉积分 :math:`\operatorname{B}(x,y) = \Gamma(x)\Gamma(y)/\Gamma(x+y)`。
+   第一型欧拉积分 :math:`\operatorname{B}(x,y) = \Gamma(x)\Gamma(y)/\Gamma(x+y)` 。
 
 .. function:: lbeta(x, y)
 
-   贝塔函数的自然对数 :math:`\log(\operatorname{B}(x,y))`。
+   贝塔函数的自然对数 :math:`\log(\operatorname{B}(x,y))` 。
 
 .. function:: eta(x)
 
@@ -2618,7 +2618,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: mean(v, [dim])
 
-   计算整个数组 ``v`` 的均值, 或按某一维 ``dim`` 计算（可选）
+   计算整个数组 ``v`` 的均值，或按某一维 ``dim`` 计算（可选）
 
 .. function:: std(v, [corrected])
 
@@ -2642,7 +2642,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: hist(v, [n])
 
-   计算 ``v`` 的直方图, 可以指定划分为 ``n`` 个区间
+   计算 ``v`` 的直方图，可以指定划分为 ``n`` 个区间
 
 .. function:: hist(v, e)
 
@@ -2650,19 +2650,19 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: quantile(v, p)
 
-   计算向量 ``v`` 在指定概率值集合 ``p`` 处的分位数.
+   计算向量 ``v`` 在指定概率值集合 ``p`` 处的分位数。
 
 .. function:: quantile(v)
 
-   计算向量 ``v`` 在概率值 ``[.0, .2, .4, .6, .8, 1.0]`` 处的分位数.
+   计算向量 ``v`` 在概率值 ``[.0, .2, .4, .6, .8, 1.0]`` 处的分位数。
 
 .. function:: cov(v)
 
-   计算两个向量 ``v1`` 和 ``v2`` 的协方差.
+   计算两个向量 ``v1`` 和 ``v2`` 的协方差。
 
 .. function:: cor(v)
 
-   计算两个向量 ``v1`` 和 ``v2`` 的 Pearson 相关系数.
+   计算两个向量 ``v1`` 和 ``v2`` 的 Pearson 相关系数。
 
 信号处理
 --------
