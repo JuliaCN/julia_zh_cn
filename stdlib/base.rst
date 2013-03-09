@@ -1519,43 +1519,43 @@ I/O
 
 .. function:: besselj0(x)
 
-   ``0`` 阶的第一类贝塞尔函数, :math:`J_0(x)` 。
+   ``0`` 阶的第一类贝塞尔函数， :math:`J_0(x)` 。
 
 .. function:: besselj1(x)
 
-   ``1`` 阶的第一类贝塞尔函数, :math:`J_1(x)` 。
+   ``1`` 阶的第一类贝塞尔函数， :math:`J_1(x)` 。
 
 .. function:: besselj(nu, x)
 
-   ``nu`` 阶的第一类贝塞尔函数, :math:`J_\nu(x)` 。
+   ``nu`` 阶的第一类贝塞尔函数， :math:`J_\nu(x)` 。
 
 .. function:: bessely0(x)
 
-   ``0`` 阶的第二类贝塞尔函数, :math:`Y_0(x)` 。
+   ``0`` 阶的第二类贝塞尔函数， :math:`Y_0(x)` 。
 
 .. function:: bessely1(x)
 
-   ``1`` 阶的第二类贝塞尔函数, :math:`Y_1(x)` 。
+   ``1`` 阶的第二类贝塞尔函数， :math:`Y_1(x)` 。
 
 .. function:: bessely(nu, x)
 
-   ``nu`` 阶的第二类贝塞尔函数, :math:`Y_\nu(x)` 。
+   ``nu`` 阶的第二类贝塞尔函数， :math:`Y_\nu(x)` 。
 
 .. function:: hankelh1(nu, x)
 
-   ``nu`` 阶的第三类贝塞尔函数, :math:`H^{(1)}_\nu(x)` 。
+   ``nu`` 阶的第三类贝塞尔函数， :math:`H^{(1)}_\nu(x)` 。
 
 .. function:: hankelh2(nu, x)
 
-   ``nu`` 阶的第三类贝塞尔函数, :math:`H^{(2)}_\nu(x)` 。
+   ``nu`` 阶的第三类贝塞尔函数， :math:`H^{(2)}_\nu(x)` 。
 
 .. function:: besseli(nu, x)
 
-   ``nu`` 阶的变形第一类贝塞尔函数, :math:`I_\nu(x)` 。
+   ``nu`` 阶的变形第一类贝塞尔函数， :math:`I_\nu(x)` 。
 
 .. function:: besselk(nu, x)
 
-   ``nu`` 阶的变形第二类贝塞尔函数, :math:`K_\nu(x)` 。
+   ``nu`` 阶的变形第二类贝塞尔函数， :math:`K_\nu(x)` 。
 
 .. function:: beta(x, y)
 
