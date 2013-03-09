@@ -814,7 +814,7 @@ I/O
 
 .. function:: open(file_name, [read, write, create, truncate, append]) -> IOStream
 
-   Open a file in a mode specified by five boolean arguments. The default is to open files for reading only. 返回a stream for accessing the file.
+   按五个布尔值参数指明的模式打开文件。默认以只读模式打开文件。返回操作文件的流。
 
 .. function:: open(file_name, [mode]) -> IOStream
 
@@ -855,7 +855,7 @@ I/O
 
 .. function:: close(stream)
 
-   Close an I/O stream. Performs a ``flush`` first.
+   关闭 I/O 流。它将在关闭前先做一次 ``flush`` 。
 
 .. function:: write(stream, x)
 
@@ -871,15 +871,15 @@ I/O
 
 .. function:: position(s)
 
-   Get the current position of a stream.
+   获取流的当前位置。
 
 .. function:: seek(s, pos)
 
-   Seek a stream to the given position.
+   将流定位到指定位置。
 
 .. function:: seek_end(s)
 
-   Seek a stream to the end.
+   将流定位到尾端。
 
 .. function:: skip(s, offset)
 
@@ -887,7 +887,7 @@ I/O
 
 .. function:: eof(stream)
 
-   判断 whether an I/O stream is at end-of-file. If the stream is not yet exhausted, this function will block to wait for more data if necessary, and then return ``false``. Therefore it is always safe to read one byte after seeing ``eof`` return ``false``.
+   判断 I/O 流是否到达文件尾。If the stream is not yet exhausted, this function will block to wait for more data if necessary, and then return ``false``. Therefore it is always safe to read one byte after seeing ``eof`` return ``false``.
 
 文本 I/O
 --------
@@ -1001,24 +1001,24 @@ I/O
 
 .. function:: div(a,b)
 
-   计算 a/b, truncating to an integer
+   截断取整除法；商向 0 舍入。
 
 .. function:: fld(a,b)
 
-   Largest integer less than or equal to a/b
+   向下取整除法；商向 -Inf 舍入。
 
 .. function:: mod(x,m)
 
-   Modulus after division, returning in the range [0,m)
+   取模余数；满足 x == fld(x,m)*m + mod(x,m) ，与 m 同号，返回值范围 [0,m) 。
 
-.. function:: rem
+.. function:: rem(x,m)
               %
 
-   Remainder after division
+   除法余数；满足 x == div(x,m)*m + rem(x,m) ，与 x 同号。
 
 .. function:: mod1(x,m)
 
-   Modulus after division, returning in the range (0,m]
+   整除后取模，返回值范围为 (0,m] 。
 
 .. function:: //
 
@@ -1042,7 +1042,7 @@ I/O
 
 .. function:: cmp(x,y)
 
-   返回-1, 0, or 1 depending on whether ``x<y``, ``x==y``, or ``x>y``, respectively
+   根据 ``x<y``, ``x==y``, 或 ``x>y`` 三种情况，对应返回 -1, 0, 或 1 。
 
 .. function:: !
 
