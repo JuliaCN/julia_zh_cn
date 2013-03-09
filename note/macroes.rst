@@ -16,8 +16,8 @@
 	5.128676446664007
 	
 	julia> @time for i=1:1000
-					sqrtm(sum(randn(1000)))
-				 end
+	                sqrtm(sum(randn(1000)))
+	             end
 	elapsed time: 0.04699993133544922 seconds
 	
 这个宏适合在优化代码等情况时使用。
