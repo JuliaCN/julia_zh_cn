@@ -41,4 +41,4 @@
 	julia> @which a[2,3]
 	ref(Array{T,N},Real,Real) at array.jl:246
 
-这个宏比较方便 debug 时使用。
+这个宏比较方便 debug 时使用。比使用 :func:`which` 函数方便。
