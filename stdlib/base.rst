@@ -1768,11 +1768,11 @@ I/O
 
 .. function:: one(x)
 
-   Get the multiplicative identity element for the type of x (x can also specify the type itself). For matrices, returns an identity matrix of the appropriate size and type.
+   获取与 x 同类型的乘法单位元（ x 也可为类型），即用该类型表示数值 1 。对于矩阵，返回与之大小、类型相匹配的的单位矩阵。
 
 .. function:: zero(x)
 
-   Get the additive identity element for the type of x (x can also specify the type itself).
+   获取与 x 同类型的加法单位元（ x 也可为类型），即用该类型表示数值 0 。对于矩阵，返回与之大小、类型相匹配的的全零矩阵。
 
 .. data:: pi
 
@@ -1780,7 +1780,7 @@ I/O
 
 .. function:: isdenormal(f) -> Bool
 
-   Test whether a floating point number is denormal
+   判断浮点数是否为反常值。
 
 .. function:: isfinite(f) -> Bool
 
@@ -1804,11 +1804,11 @@ I/O
 
 .. function:: nextfloat(f)
 
-   Get the next floating point number in lexicographic order
+   获取下一个绝对值稍大的同正负号的浮点数。
 
 .. function:: prevfloat(f) -> Float
 
-   Get the previous floating point number in lexicographic order
+   获取下一个绝对值稍小的同正负号的浮点数。
 
 .. function:: integer_valued(x)
 
@@ -1820,7 +1820,7 @@ I/O
 
 .. function:: exponent(f)
 
-   Get the exponent of a floating-point number
+   返回浮点数 ``trunc( log2( abs(x) ) )`` 。
 
 .. function:: mantissa(f)
 
