@@ -93,11 +93,11 @@
 
 .. function:: object_id(x)
 
-   获取 ``x`` 唯一的整数值 ID 。当且仅当 ``is(x,y)`` 时， ``object_id(x)==object_id(y)`` 。
+   获取 ``x`` 唯一的整数值 ID 。当且仅当 ``is(x,y)`` 时， ``object_id(x) == object_id(y)`` 。
 
 .. function:: hash(x)
 
-   计算整数哈希值。因而 ``isequal(x,y)`` 等价于 ``hash(x)==hash(y)`` 。
+   计算整数哈希值。因而 ``isequal(x,y)`` 等价于 ``hash(x) == hash(y)`` 。
 
 .. function:: finalizer(x, function)
 
@@ -721,21 +721,19 @@
 
 .. function:: nextind(str, i)
 
-   Get the next valid string index after ``i``. 返回``endof(str)+1`` at
-   the end of the string.
+   获取索引值 ``i`` 处之后的有效字符的索引值。如果在字符串末尾，则返回 ``endof(str)+1`` 。
 
 .. function:: prevind(str, i)
 
-   Get the previous valid string index before ``i``. 返回``0`` at
-   the beginning of the string.
+   获取索引值 ``i`` 处之前的有效字符的索引值。如果在字符串开头，则返回 ``0`` 。
 
 .. function:: thisind(str, i)
 
-   Adjust ``i`` downwards until it reaches a valid index for the given string.
+   返回索引值 ``i`` 处所在的有效字符的索引值。
 
 .. function:: randstring(len)
 
-   构造a random ASCII string of length ``len``, consisting of upper- and lower-case letters and the digits 0-9
+   构造长度为 ``len`` 的随机 ASCII 字符串。有效的字符为大小写字母和数字 0-9 。
 
 .. function:: charwidth(c)
 

@@ -31,7 +31,7 @@
      # don't check whether a and b are used
      opts = @options CheckNone a=5 b=2
 
-   As an alternative to the macro syntax, you can also say::
+   如果不想使用宏语法，也可以写成如下这样： ::
 
      opts = Options(CheckWarn, :a, 5, :b, 2)
 

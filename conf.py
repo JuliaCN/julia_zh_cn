@@ -180,7 +180,7 @@ htmlhelp_basename = 'JuliaLanguageDoc'
 
 latex_elements = {
 # The paper size ('letterpaper' or 'a4paper').
-#'papersize': 'letterpaper',
+'papersize': 'a4paper',
 
 # The font size ('10pt', '11pt' or '12pt').
 #'pointsize': '10pt',
@@ -199,7 +199,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'JuliaLanguage.tex', u'Julia Language Documentation',
+  ('index', 'JuliaLanguage.tex', u'Julia 文档',
    AUTHORS, 'manual'),
 ]
 
@@ -221,7 +221,7 @@ latex_documents = [
 #latex_appendices = []
 
 # If false, no module index is generated.
-#latex_domain_indices = True
+latex_domain_indices = False
 
 
 # -- Options for manual page output --------------------------------------------
@@ -229,7 +229,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'julialanguage', u'Julia Language Documentation',
+    ('index', 'julialanguage', u'Julia 文档',
      [AUTHORS], 1)
 ]
 
@@ -243,7 +243,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'JuliaLanguage', u'Julia Language Documentation',
+  ('index', 'JuliaLanguage', u'Julia 文档',
    AUTHORS, 'JuliaLanguage', 'One line description of project.',
    'Miscellaneous'),
 ]
