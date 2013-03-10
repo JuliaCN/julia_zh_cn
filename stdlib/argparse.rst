@@ -11,9 +11,6 @@ the program defines which arguments, options and sub-commands it accepts, and th
 does the actual parsing, issues errors when the input is invalid, and automatically generates help
 and usage messages.
 
-Users familiar with Python's argparse module will find many similarities, but some important differences
-as well.
-
 .. _argparse-overview:
 
 ----------
@@ -25,7 +22,7 @@ as well.
     require("argparse")
     using ArgParse
 
-注意，在第二行中，我们引入了当前命名空间下所有的命名；大多数情况下都是非常安全的。
+注意，在第二行中，我们引入了当前命名空间下所有的命名；这个操作大多数情况下都非常安全。
 
 There are two main steps for defining a command-line interface: creating an ``ArgParseSettings`` object, and
 populating it with allowed arguments and options using either the macro ``@add_arg_table`` or the function ``add_arg_table``

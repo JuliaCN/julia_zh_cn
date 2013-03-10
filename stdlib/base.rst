@@ -359,7 +359,7 @@
 
    取回集合中存储在指定 key 键或索引值内的值。
 
-.. function:: assign(collection, value, key...)
+.. function:: setindex!(collection, value, key...)
               collection[key...] = value
 
    将指定值存储在集合的指定 key 键或索引值内。
@@ -456,19 +456,19 @@
 
 .. function:: Set(x...)
 
-   构造a ``Set`` with the given elements. Should be used instead of ``IntSet`` for sparse integer sets.
+   使用指定元素来构造 ``Set`` 。Should be used instead of ``IntSet`` for sparse integer sets.
 
 .. function:: IntSet(i...)
 
-   构造an ``IntSet`` of the given integers. Implemented as a bit string, and therefore good for dense integer sets.
+   使用指定元素来构造 ``IntSet`` 。Implemented as a bit string, and therefore good for dense integer sets.
 
 .. function:: union(s1,s2...)
 
-   构造the union of two or more sets. Maintains order with arrays.
+   构造两个及两个以上集合的共用体。Maintains order with arrays.
 
 .. function:: union!(s1,s2)
 
-   Constructs the union of IntSets s1 and s2, stores the result in ``s1``.
+   构造 ``IntSet``  s1 和 s2 的共用体，将结果保存在 ``s1`` 中。
 
 .. function:: intersect(s1,s2...)
 
@@ -476,7 +476,7 @@
 
 .. function:: setdiff(s1,s2)
 
-   构造the set of elements in ``s1`` but not ``s2``. Maintains order with arrays.
+   使用存在于 ``s1`` 且不在 ``s2`` 的元素来构造集合。Maintains order with arrays.
 
 .. function:: symdiff(s1,s2...)
 
@@ -496,7 +496,7 @@
 
 .. function:: complement(s)
 
-   返回the set-complement of IntSet s.
+   返回 ``IntSet`` s 的补集。
 
 .. function:: complement!(s)
 
@@ -697,7 +697,7 @@
 
 .. function:: join(strings, delim)
 
-   Join an array of strings into a single string, inserting the given delimiter between adjacent strings.
+   将字符串数组合并为一个字符串，在邻接字符串间添加分隔符 ``delim`` 。
 
 .. function:: chop(string)
 
@@ -709,11 +709,11 @@
 
 .. function:: ind2chr(string, i)
 
-   Convert a byte index to a character index
+   给出字符串中递增至索引值 i 的字符数。
 
 .. function:: chr2ind(string, i)
 
-   Convert a character index to a byte index
+   给出字符串中第 i 个字符的索引值。
 
 .. function:: isvalid(str, i)
 
@@ -1050,7 +1050,7 @@ I/O
 
 .. function:: ~
 
-   Boolean or bitwise not
+   逻辑非、按位取反。
 
 .. function:: &
 
@@ -1062,7 +1062,7 @@ I/O
 
 .. function:: $
 
-   Bitwise exclusive or
+   位异或。
 
 .. function:: sin(x)
 
@@ -1258,8 +1258,7 @@ I/O
 
 .. function:: frexp(val, exp)
 
-   返回a number ``x`` such that it has a magnitude in the interval ``[1/2, 1)`` or 0,
-   and val = :math:`x \times 2^{exp}`.
+   返回数 ``x`` ，满足 ``x`` 的取值范围为 ``[1/2, 1)`` 或 0 ，且 val = :math:`x \times 2^{exp}` 。
 
 .. function:: exp(x)
 
@@ -1287,7 +1286,7 @@ I/O
 
 .. function:: round(x, [digits, [base]]) -> FloatingPoint
 
-   ``round(x)`` 返回离 ``x`` 最近的整数。 ``round(x, digits)`` rounds to the specified number of digits after the decimal place, or before if negative, e.g., ``round(pi,2)`` is ``3.14``. ``round(x, digits, base)`` rounds using a different base, defaulting to 10, e.g., ``round(pi, 3, 2)`` is ``3.125``.
+   ``round(x)`` 返回离 ``x`` 最近的整数。 ``round(x, digits)`` 若 digits 为正数时舍入到小数点后对应位数，若为负数，舍入到小数点前对应位数，例子 ``round(pi,2) == 3.14`` 。 ``round(x, digits, base)`` 使用指定的进制来舍入，默认进制为 10，例子 ``round(pi, 3, 2) == 3.125`` 。
 
 .. function:: ceil(x, [digits, [base]]) -> FloatingPoint
 
@@ -1319,7 +1318,7 @@ I/O
 
 .. function:: signif(x, digits, [base]) -> FloatingPoint
 
-   Rounds (in the sense of ``round``) ``x`` so that there are ``digits`` significant digits, under a base ``base`` representation, default 10. E.g., ``signif(123.456, 2)`` is ``120.0``, and ``signif(357.913, 4, 2)`` is ``352.0``. 
+   将 ``x`` 舍入（使用 ``round`` 函数）到指定的有效位数。 ``digits`` 与 ``base`` 的解释参见 :func:`round` 。 例如 ``signif(123.456, 2) == 120.0`` ， ``signif(357.913, 4, 2) == 352.0`` 。 
 
 .. function:: min(x, y)
 
@@ -1343,7 +1342,7 @@ I/O
 
 .. function:: copysign(x, y)
 
-   返回 ``x`` such that it has the same sign as ``y``
+   返回 ``x`` ，但其正负号与 ``y`` 相同。
 
 .. function:: sign(x)
 
@@ -1367,14 +1366,11 @@ I/O
 
 .. function:: erf(x)
 
-   计算 ``x`` 的误差函数，defined by
-   :math:`\frac{2}{\sqrt{\pi}} \int_0^x e^{-t^2} dt`
-   for arbitrary complex ``x``.
+   计算 ``x`` 的误差函数，其定义为 :math:`\frac{2}{\sqrt{\pi}} \int_0^x e^{-t^2} dt` 。
 
 .. function:: erfc(x)
 
-   计算the complementary error function of ``x``,
-   defined by :math:`1 - \operatorname{erf}(x)`.
+   计算 ``x`` 的互补误差函数，其定义为 :math:`1 - \operatorname{erf}(x) = \frac{2}{\sqrt{\pi}} \int_x^{\infty} e^{-t^2} dt` 。
 
 .. function:: erfcx(x)
 
@@ -1818,10 +1814,6 @@ I/O
 
    判断 ``x`` 在数值上是否为实数。
 
-.. function:: exponent(f)
-
-   返回浮点数 ``trunc( log2( abs(x) ) )`` 。
-
 .. function:: BigInt(x)
 
    构造任意精度的整数。 ``x`` 可以是 ``Int`` （或可以被转换为 ``Int`` 的）或 ``String`` 。可以对其使用常用的数学运算符，结果被提升为 ``BigInt`` 类型。
@@ -2086,7 +2078,7 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
    返回all the data of ``A`` where the index for dimension ``d`` equals ``i``. Equivalent to ``A[:,:,...,i,:,:,...]`` where ``i`` is in position ``d``.
 
-.. function:: assign(A, X, ind)
+.. function:: setindex!(A, X, ind)
 
    Store an input array ``X`` within some subset of ``A`` as specified by ``ind``.
 

@@ -15,7 +15,7 @@
 前言
 ----
 
-只需要简单的翻译规则（ 和 :ref:`很少的表达式 <glpk-different-than-C>` ），Julia 可以调用几乎所有的 GLPK 函数，语法与原本 C 库中一样。现在还缺少一些功能（详见 :ref:`this list <glpk-not-available>` ）；大部分将来会添加进来。
+只需要简单的翻译规则（和 :ref:`很少的表达式 <glpk-different-than-C>` ），Julia 可以调用几乎所有的 GLPK 函数，语法与原本 C 库中一样。现在还缺少一些功能（详见 :ref:`this list <glpk-not-available>` ）；大部分将来会添加进来。
 
 下面是 GLPK 中示例程序 :file:`sample.c` 开头的摘录：
 
