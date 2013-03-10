@@ -6,10 +6,7 @@
 
 .. note:: 位于 ``argparse.jl``
 
-This module allows the creation of user-friendly command-line interfaces to Julia programs:
-the program defines which arguments, options and sub-commands it accepts, and the ``ArgParse`` module
-does the actual parsing, issues errors when the input is invalid, and automatically generates help
-and usage messages.
+此模块用于构造用户友好的命令行接口：Julia程序定义它接收哪个参数、选项、子命令， ``ArgParse`` 模块对其进行解析，输入无效时报错，自动生成帮助和使用信息。
 
 .. _argparse-overview:
 
