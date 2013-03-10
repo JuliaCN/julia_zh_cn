@@ -6,18 +6,22 @@
 
 需要翻译的就是 `manual/` 及 `stdlib/` 下的所有文档。仅翻译的话，什么都不用安装，直接找到要修改的文件，点击 `Edit` ，编辑好后提交即可。对 git 熟悉的请使用 git 。
 
+本翻译项目追随 [Julia 源代码](https://github.com/JuliaLang/julia) 的 master 分支。对其余分支（如已发行版的维护分支）的支持，暂不能保证（总是忘记 fork ）。
+
 ## 文件布局
 
     manual/                         Julia 手册
     stdlib/                         Julia 标准库文档
 	packages/packagelist.rst        扩展包文档（由 listpkg.jl 生成）
-	helpdb_zh_CN.jl                 REPL 帮助文档数据库 （由 stdlib/ 中的文档解析生成，不需要修改）
+	helpdb_zh_CN.jl                 REPL 帮助文档数据库 （由 stdlib/ 中的文档解析生成，不需要手动修改）
 	
 	conf.py                         Sphinx 配置文件
     _themes/                        Sphinx html 主题
     sphinx/                         Sphinx 扩展和插件
     sphinx/jlhelp.py                Sphinx 插件，用于生成 helpdb_zh_CN.jl
 	listpkg.jl                      生成 packages/packagelist.rst
+	
+	note/                           暂时存放一些笔记之类的东西，将来很有可能移走
 
 ## 生成帮助文档及扩展包文档
 
@@ -28,11 +32,11 @@
     sudo apt-get install python-setuptools
     sudo easy_install -U Sphinx
 
-然后运行
+然后运行：
 
     $ make helpdb.jl
 
-好啦，`helpdb_zh_CN.jl` 就生成了。这就是命令行输入 `help()` 时会调用的帮助文档。
+好啦，`helpdb_zh_CN.jl` 就生成了。这就是在命令行输入 `help()` 时会调用的帮助文档。
 
 可以将这个文档放在 `$JULIA_HOME/../share/julia/zh_CN/` 中，改名为 `helpdb.jl` ，然后运行：
 
@@ -58,9 +62,9 @@
 
 ### 生成网页文档
 
-`readthedocs.org` 网站可以自动生成在线的网页版本，我都弄好了。除了在线阅读，也可到 [下载页面](https://readthedocs.org/projects/julia_zh_cn/downloads/) 下载最新的网页版文档压缩包。
+`readthedocs.org` 网站可以自动生成在线的网页版本，已经配置好了。除了在线阅读，也可到 [下载页面](https://readthedocs.org/projects/julia_zh_cn/downloads/) 下载最新的网页版文档压缩包。
 
-要在本地生成网页版文档，只需运行
+要在本地生成网页版文档，只需运行：
 
     $ make helpdb.jl
     $ make html
@@ -76,7 +80,7 @@
     texlive-latex-extra
     texlive-xetex
 
-首先生成所需的 TeX 文档
+首先生成所需的 TeX 文档：
 
     $ make helpdb.jl
     $ make latex

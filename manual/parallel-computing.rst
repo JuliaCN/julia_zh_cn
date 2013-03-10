@@ -36,10 +36,10 @@ reference 调用 ``wait`` ，以等待 remote call 执行完毕，然后通过 `
 
 ``remote_call_fetch`` 函数可以立即获取要在远端计算的值。它等价于 ``fetch(remote_call(...))`` ，但比之更高效： ::
 
-    julia> remote_call_fetch(2, ref, r, 1, 1)
+    julia> remote_call_fetch(2, getindex, r, 1, 1)
     0.10824216411304866
 
-``ref(r,1,1)`` :ref:`等价于 <man-array-indexing>` ``r[1,1]`` ，因此，这个调用获取 remote reference 对象 ``r`` 的第一个元素。
+``getindex(r,1,1)`` :ref:`等价于 <man-array-indexing>` ``r[1,1]`` ，因此，这个调用获取 remote reference 对象 ``r`` 的第一个元素。
 
 ``remote_call`` 语法不太方便。 ``@spawn`` 宏简化了这件事儿，它对表达式而非函数进行操作，并自动选取在哪个处理器进行计算： ::
 
@@ -55,7 +55,7 @@ reference 调用 ``wait`` ，以等待 remote call 执行完毕，然后通过 `
 
 注意，此处用 ``1+fetch(r)`` 而不是 ``1+r`` 。这是因为我们不知道代码在何处运行，而 ``fetch`` 会将需要的 ``r`` 移到做加法的处理器上。实际上， ``@spawn`` 很聪明，它知道在有 ``r`` 对象的处理器上进行计算，因而 ``fetch`` 将不做任何操作。
 
-（ ``@spawn`` 不是内建函数，而是 Julia 定义的 :ref:`macro <man-macros>` ）
+（ ``@spawn`` 不是内建函数，而是 Julia 定义的 :ref:`宏 <man-macros>` ）
 
 所有执行程序代码的处理器上，都必须有程序代码。例如，输入::
 

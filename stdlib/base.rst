@@ -242,7 +242,7 @@
 
 .. function:: length(collection) -> Integer
 
-   对可排序、可索引的集合，用于 ``ref(collection, i)`` 最大索引值 ``i`` 是有效的。对不可排序的集合，结果为元素个数。
+   对可排序、可索引的集合，用于 ``getindex(collection, i)`` 最大索引值 ``i`` 是有效的。对不可排序的集合，结果为元素个数。
 
 .. function:: endof(collection) -> Integer
 
@@ -354,7 +354,7 @@
 可索引集合
 ----------
 
-.. function:: ref(collection, key...)
+.. function:: getindex(collection, key...)
               collection[key...]
 
    取回集合中存储在指定 key 键或索引值内的值。
@@ -1248,7 +1248,7 @@ I/O
 
    ``1+x`` 自然对数的精确值。
 
-.. function:: logb(x)
+.. function:: exponent(x)
 
    返回浮点数 ``trunc( log2( abs(x) ) )`` 。
 
@@ -1822,10 +1822,6 @@ I/O
 
    返回浮点数 ``trunc( log2( abs(x) ) )`` 。
 
-.. function:: mantissa(f)
-
-   Get the mantissa of a floating-point number
-
 .. function:: BigInt(x)
 
    构造任意精度的整数。 ``x`` 可以是 ``Int`` （或可以被转换为 ``Int`` 的）或 ``String`` 。可以对其使用常用的数学运算符，结果被提升为 ``BigInt`` 类型。
@@ -1990,7 +1986,7 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
    构造an uninitialized dense array. ``dims`` may be a tuple or a series of integer arguments.
 
-.. function:: ref(type)
+.. function:: getindex(type)
 
    构造an empty 1-d array of the specified type. This is usually called with the syntax ``Type[]``. Element values can be specified using ``Type[a,b,c,...]``.
 
@@ -2078,13 +2074,13 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 索引，赋值和连接
 ~~~~~~~~~~~~~~~~
 
-.. function:: ref(A, ind)
+.. function:: getindex(A, ind)
 
    返回a subset of ``A`` as specified by ``ind``, 结果可能是 ``Int``, ``Range``, 或 ``Vector`` 。
 
 .. function:: sub(A, ind)
 
-   返回a SubArray, which stores the input ``A`` and ``ind`` rather than computing the result immediately. Calling ``ref`` on a SubArray computes the indices on the fly.
+   返回a SubArray, which stores the input ``A`` and ``ind`` rather than computing the result immediately. Calling ``getindex`` on a SubArray computes the indices on the fly.
 
 .. function:: slicedim(A, d, i)
 

@@ -111,9 +111,9 @@
 
 结果 X 维度通常为 ``(length(I_1), length(I_2), ..., length(I_n))`` ，且 X 的索引 ``(i_1, i_2, ..., i_n)`` 处的值为 ``A[I_1[i_1], I_2[i_2], ..., I_n[i_n]]`` 。缀在后面的标量索引的维度信息被舍弃。如，``A[I, 1]`` 的维度为 ``(length(I),)`` 。由布尔值向量索引的维度长度，是向量中 ``true`` 值的个数。
 
-索引语法与调用 ``ref`` 等价： ::
+索引语法与调用 ``getindex`` 等价： ::
 
-    X = ref(A, I_1, I_2, ..., I_n)
+    X = getindex(A, I_1, I_2, ..., I_n)
 
 例如： ::
 
@@ -145,9 +145,9 @@
 
 X 的维度为 ``(length(I_1), length(I_2), ..., length(I_n))`` ，且 A 在 ``(i_1, i_2, ..., i_n)`` 处的值被覆写为 ``X[I_1[i_1], I_2[i_2], ..., I_n[i_n]]`` 。
 
-索引赋值语法等价于调用 ``assign`` ： ::
+索引赋值语法等价于调用 ``setindex!`` ： ::
 
-      A = assign(A, X, I_1, I_2, ..., I_n)
+      A = setindex!(A, X, I_1, I_2, ..., I_n)
 
 例如： ::
 
@@ -239,7 +239,7 @@ Julia 的基础数组类型是抽象类型 ``AbstractArray{T,n}`` ，其中维�
 
 ``Array{T,n}`` 类型是 ``AbstractArray`` 的特殊实例，它的元素以列序为主序存储。 ``Vector`` 和 ``Matrix`` 是分别是它 1 维 和 2 维的别名。
 
-``SubArray`` 是 ``AbstractArray`` 的特殊实例，它通过引用而不是复制来进行索引。使用 ``sub`` 函数来构造 ``SubArray`` ，它的调用方式与 ``ref`` 相同（使用数组和一组索引参数）。 ``sub`` 的结果与 ``ref`` 的结果类似，但它的数据仍留在原地。 ``sub`` 在 ``SubArray`` 对象中保存输入的索引向量，这个向量将被用来间接索引原数组。
+``SubArray`` 是 ``AbstractArray`` 的特殊实例，它通过引用而不是复制来进行索引。使用 ``sub`` 函数来构造 ``SubArray`` ，它的调用方式与 ``getindex`` 相同（使用数组和一组索引参数）。 ``sub`` 的结果与 ``getindex`` 的结果类似，但它的数据仍留在原地。 ``sub`` 在 ``SubArray`` 对象中保存输入的索引向量，这个向量将被用来间接索引原数组。
 
 ``StridedVector`` 和 ``StridedMatrix`` 是为了方便而定义的别名。通过给他们传递 ``Array`` 或 ``SubArray`` 对象，可以使 Julia 大范围调用 BLAS 和 LAPACK 函数，提高索引和申请内存的效率。
 
