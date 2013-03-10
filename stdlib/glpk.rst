@@ -6,7 +6,7 @@
 
 .. note:: 位于 ``glpk.jl``
 
-此模块提供GNU 线性规划套件（ `GLPK <http://www.gnu.org/software/glpk>`_ ）的封装，GLPK 是 C 库。
+此模块提供 GNU 线性规划套件（ `GLPK <http://www.gnu.org/software/glpk>`_ ）的封装，GLPK 是 C 库。
 此模块被设计用来方便 C 代码迁移到 Julia，同时具有 Julia 的高级语言特性，如自动内存管理，可返回多元组、字符串、向量等。
 
 它现在基于 GLPK 4.47 。
@@ -15,7 +15,7 @@
 前言
 ----
 
-只需要简单的翻译规则（ 和 :ref:`很少的表达式 <glpk-different-than-C>` ），Julia 可以调用几乎所有的 GLPK 函数，语法与原本 C 库中一样。现在还缺少一些性能（详见 :ref:`this list <glpk-not-available>` ）；大部分将来会添加进来。
+只需要简单的翻译规则（ 和 :ref:`很少的表达式 <glpk-different-than-C>` ），Julia 可以调用几乎所有的 GLPK 函数，语法与原本 C 库中一样。现在还缺少一些功能（详见 :ref:`this list <glpk-not-available>` ）；大部分将来会添加进来。
 
 下面是 GLPK 中示例程序 :file:`sample.c` 开头的摘录：
 
@@ -43,7 +43,7 @@
 
 Julia 函数和对应的 C 函数紧密关联，且 GLPK 文档写的十分详尽，此手册页不会详述整个 GLPK 库，但会提供 :ref:`the rules <glpk-translation-rules>` ，详细描述规则中的 :ref:`少量表达式 <glpk-different-than-C>` ，然后 :ref:`列出所有可用函数 <glpk-function-list>` ，并简单对用法做描述。
 
-库 API 请详阅原本的GLPK 手册（ 可在 http://www.gnu.org/software/glpk 获得）。
+库 API 请详阅原本的 GLPK 手册（ 可在 http://www.gnu.org/software/glpk 获得）。
 
 .. _glpk-translation-rules:
 
