@@ -1571,7 +1571,7 @@ I/O
 
 .. function:: zeta(x)
 
-   黎曼 :math:`\zeta` 函数 ``\zeta(s)`` 。
+   黎曼 :math:`\zeta` 函数 :math:``\zeta(s)`` 。
 
 .. function:: bitmix(x, y)
 
@@ -2478,7 +2478,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: pinv(M)
 
-   Moore-Penrose inverse
+   矩阵的 Moore-Penrose （广义）逆
 
 .. function:: null(M)
 
@@ -2490,7 +2490,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: kron(A, B)
 
-   Kronecker tensor product of two vectors or two matrices.
+   两个向量或两个矩阵的 Kronecker 张量积。
 
 .. function:: linreg(x, y)
 
@@ -2573,7 +2573,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: shuffle(v)
 
-   随机重新排布向量中的元素.
+   随机重新排列向量中的元素。
 
 .. function:: shuffle!(v)
 
@@ -2581,7 +2581,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: reverse(v)
 
-   Reverse vector ``v``.
+   逆序排列向量 ``v`` 。
 
 .. function:: reverse!(v) -> v
 
@@ -2618,19 +2618,19 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: std(v, [corrected])
 
-   计算the sample standard deviation of a vector ``v``. If the optional argument ``corrected`` is either left unspecified or is explicitly set to the default value of ``true``, then the algorithm will return an estimator of the generative distribution's standard deviation under the assumption that each entry of ``v`` is an IID draw from that generative distribution. This computation is equivalent to calculating ``sqrt(sum((v .- mean(v)).^2) / (length(v) - 1))`` and involves an implicit correction term sometimes called the Bessel correction which insures that the estimator of the variance is unbiased. If, instead, the optional argument ``corrected`` is set to ``false``, then the algorithm will produce the equivalent of ``sqrt(sum((v .- mean(v)).^2) / length(v))``, which is the empirical standard deviation of the sample.
+   计算向量 ``v`` 的样本标准差。如果未设定可选参数 ``corrected`` 或显式设定为默认值 ``true`` ，则算法将在 ``v`` 中的每个元素都是从某个生成分布中独立同分布地取得的假设下，返回一个此生成分布标准差的估计。计算结果等价于 ``sqrt(sum((v .- mean(v)).^2) / (length(v) - 1))`` 并且引入了一个有时被称为贝赛尔修正的隐含修正项，这样就能保证方差的估计是无偏的。反之，如果可选参数 ``corrected`` 被设定为 ``false`` ，则算法将给出等价于 ``sqrt(sum((v .- mean(v)).^2) / length(v))`` 的结果，即样本的经验标准差。
 
 .. function:: std(v, m, [corrected])
 
-   计算the sample standard deviation of a vector ``v`` with known mean ``m``. If the optional argument ``corrected`` is either left unspecified or is explicitly set to the default value of ``true``, then the algorithm will return an estimator of the generative distribution's standard deviation under the assumption that each entry of ``v`` is an IID draw from that generative distribution. This computation is equivalent to calculating ``sqrt(sum((v .- m).^2) / (length(v) - 1))`` and involves an implicit correction term sometimes called the Bessel correction which insures that the estimator of the variance is unbiased. If, instead, the optional argument ``corrected`` is set to ``false``, then the algorithm will produce the equivalent of ``sqrt(sum((v .- m).^2) / length(v))``, which is the empirical standard deviation of the sample.
+   计算已知均值为 ``m`` 的向量 ``v`` 的样本标准差。如果未设定可选参数 ``corrected`` 或显式设定为默认值 ``true`` ，则算法将在 ``v`` 中的每个元素都是从某个生成分布中独立同分布地取得的假设下，返回一个此生成分布标准差的估计。计算结果等价于 ``sqrt(sum((v .- m).^2) / (length(v) - 1))`` 并且引入了一个有时被称为贝赛尔修正的隐含修正项，这样就能保证方差的估计是无偏的。反之，如果可选参数 ``corrected`` 被设定为 ``false`` ，则算法将给出等价于 ``sqrt(sum((v .- m).^2) / length(v))`` 的结果，即样本的经验标准差。
 
 .. function:: var(v, [corrected])
 
-   计算the sample variance of a vector ``v``. If the optional argument ``corrected`` is either left unspecified or is explicitly set to the default value of ``true``, then the algorithm will return an unbiased estimator of the generative distribution's variance under the assumption that each entry of ``v`` is an IID draw from that generative distribution. This computation is equivalent to calculating ``sum((v .- mean(v)).^2) / (length(v) - 1)`` and involves an implicit correction term sometimes called the Bessel correction. If, instead, the optional argument ``corrected`` is set to ``false``, then the algorithm will produce the equivalent of ``sum((v .- mean(v)).^2) / length(v)``, which is the empirical variance of the sample.
+   计算向量 ``v`` 的样本方差。如果未设定可选参数 ``corrected`` 或显式设定为默认值 ``true`` ，则算法将在 ``v`` 中的每个元素都是从某个生成分布中独立同分布地取得的假设下，返回一个此生成分布方差的估计。计算结果等价于 ``sum((v .- mean(v)).^2) / (length(v) - 1)`` 并且引入了一个有时被称为贝赛尔修正的隐含修正项，这样就能保证方差的估计是无偏的。反之，如果可选参数 ``corrected`` 被设定为 ``false`` ，则算法将给出等价于 ``sum((v .- mean(v)).^2) / length(v)`` 的结果，即样本的经验方差。
 
 .. function:: var(v, m, [corrected])
 
-   计算the sample variance of a vector ``v`` with known mean ``m``. If the optional argument ``corrected`` is either left unspecified or is explicitly set to the default value of ``true``, then the algorithm will return an unbiased estimator of the generative distribution's variance under the assumption that each entry of ``v`` is an IID draw from that generative distribution. This computation is equivalent to calculating ``sum((v .- m)).^2) / (length(v) - 1)`` and involves an implicit correction term sometimes called the Bessel correction. If, instead, the optional argument ``corrected`` is set to ``false``, then the algorithm will produce the equivalent of ``sum((v .- m)).^2) / length(v)``, which is the empirical variance of the sample.
+   计算已知均值为 ``m`` 的向量 ``v`` 的样本方差。如果未设定可选参数 ``corrected`` 或显式设定为默认值 ``true`` ，则算法将在 ``v`` 中的每个元素都是从某个生成分布中独立同分布地取得的假设下，返回一个此生成分布方差的估计。计算结果等价于 ``sum((v .- m)).^2) / (length(v) - 1)`` 并且引入了一个有时被称为贝赛尔修正的隐含修正项，这样就能保证方差的估计是无偏的。反之，如果可选参数 ``corrected`` 被设定为 ``false`` ，则算法将给出等价于 ``sum((v .- m)).^2) / length(v)`` 的结果，即样本的经验方差。
 
 .. function:: median(v)
 
@@ -3040,15 +3040,15 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: gethostname() -> String
 
-   Get the local machine's host name.
+   获取本机的主机名。
 
 .. function:: getipaddr() -> String
 
-   Get the IP address of the local machine, as a string of the form "x.x.x.x".
+   获取本机的 IP 地址，形为 "x.x.x.x" 的字符串。
 
 .. function:: pwd() -> String
 
-   Get the current working directory.
+   获取当前的工作目录。
 
 .. function:: cd(dir::String)
 
