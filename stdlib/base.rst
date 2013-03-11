@@ -3123,15 +3123,15 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: getpid() -> Int32
 
-   Get julia's process ID.
+   获取 Julia 的进程 ID 。
 
 .. function:: time()
 
-   Get the system time in seconds since the epoch, with fairly high (typically, microsecond) resolution.
+   获取系统自 1970-01-01 00:00:00 UTC 起至今的秒数。结果是高解析度（一般为微秒 :math:`10^{-6}` ）的。
 
 .. function:: time_ns()
 
-   Get the time in nanoseconds. The time corresponding to 0 is undefined, and wraps every 5.8 years.
+   获取时间，单位为纳秒 :math:`10^{-9}` 。对应于 0 的时间是未定义的，计时时间 5.8 年为最长周期。
 
 .. function:: tic()
 
@@ -3147,11 +3147,11 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: EnvHash() -> EnvHash
 
-   A singleton of this type provides a hash table interface to environment variables.
+   给环境变量提供哈希表接口的单态。
 
 .. data:: ENV
 
-   Reference to the singleton ``EnvHash``.
+   对单态 ``EnvHash`` 的引用。
 
 C 接口
 ------
@@ -3167,19 +3167,9 @@ C 接口
 
 .. function:: dlopen(libfile::String [, flags::Integer])
 
-   Load a shared library, returning an opaque handle.
+   载入共享库，返回不透明句柄。
 
-   The optional flags argument is a bitwise-or of zero or more of
-   RTLD_LOCAL, RTLD_GLOBAL, RTLD_LAZY, RTLD_NOW, RTLD_NODELETE,
-   RTLD_NOLOAD, RTLD_DEEPBIND, and RTLD_FIRST.  These are converted to
-   the corresponding flags of the POSIX (and/or GNU libc and/or MacOS)
-   dlopen command, if possible, or are ignored if the specified
-   functionality is not available on the current platform.  The
-   default is RTLD_LAZY|RTLD_DEEPBIND|RTLD_LOCAL.  An important usage
-   of these flags, on POSIX platforms, is to specify
-   RTLD_LAZY|RTLD_DEEPBIND|RTLD_GLOBAL in order for the library's
-   symbols to be available for usage in other shared libraries, in
-   situations where there are dependencies between shared libraries.
+   可选参数为 0 或者是 RTLD_LOCAL, RTLD_GLOBAL, RTLD_LAZY, RTLD_NOW, RTLD_NODELETE, RTLD_NOLOAD, RTLD_DEEPBIND, RTLD_FIRST 等参数的位或。它们被转换为对应的 POSIX dlopen 命令的标志位，如果当前平台不支持某个特性，则忽略。默认值为 RTLD_LAZY|RTLD_DEEPBIND|RTLD_LOCAL 。在 POSIX 平台上，这些标志位的重要用途是当共享库之间有依赖关系时，指明 RTLD_LAZY|RTLD_DEEPBIND|RTLD_GLOBAL 来使库的符号可被其它共享库使用。
 
 .. function:: dlsym(handle, sym)
 
