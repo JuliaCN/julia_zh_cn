@@ -351,14 +351,14 @@
 
 ("所有对象","Base","object_id","object_id(x)
 
-   获取 \"x\" 唯一的整数值 ID 。当且仅当 \"is(x,y)\" 时，
-   \"object_id(x)==object_id(y)\" 。
+   获取 \"x\" 唯一的整数值 ID 。当且仅当 \"is(x,y)\" 时， \"object_id(x) ==
+   object_id(y)\" 。
 
 "),
 
 ("所有对象","Base","hash","hash(x)
 
-   计算整数哈希值。因而 \"isequal(x,y)\" 等价于 \"hash(x)==hash(y)\" 。
+   计算整数哈希值。因而 \"isequal(x,y)\" 等价于 \"hash(x) == hash(y)\" 。
 
 "),
 
@@ -486,7 +486,7 @@
 
 "),
 
-("通用函数","Base","|","|()
+("通用函数","Base","|","|(x, f)
 
    对前面的参数应用一个函数，方便写链式函数。
 
@@ -516,7 +516,7 @@
 
    对一组迭代对象，返回一组可迭代多元组，其中第 \"i\" 个多元组包含每个可迭代输入的第 \"i\" 个分量。
 
-   注意 \"zip\" 是它自己的逆操作： [zip(zip(a...)...)...] == [a...]
+   注意 \"zip\" 是它自己的逆操作： \"[zip(zip(a...)...)...] == [a...]\" 。
 
 "),
 
@@ -534,7 +534,7 @@
 
 ("通用集合","Base","length","length(collection) -> Integer
 
-   对可排序、可索引的集合，用于 \"ref(collection, i)\" 最大索引值 \"i\"
+   对可排序、可索引的集合，用于 \"getindex(collection, i)\" 最大索引值 \"i\"
    是有效的。对不可排序的集合，结果为元素个数。
 
 "),
@@ -691,17 +691,17 @@
 
 "),
 
-("可索引集合","Base","collection[key...]","ref(collection, key...)
-collection[key...]()
+("可索引集合","Base","getindex","getindex(collection, key...)
 
-   取回集合中存储在指定 key 键或索引值内的值。
+   取回集合中存储在指定 key 键或索引值内的值。语法 \"a[i,j,...]\" 由编译器转换为 \"getindex(a, i,
+   j, ...)\" 。
 
 "),
 
-("可索引集合","","collection[key...] = value","assign(collection, value, key...)
-collection[key...] = value
+("可索引集合","Base","setindex!","setindex!(collection, value, key...)
 
-   将指定值存储在集合的指定 key 键或索引值内。
+   将指定值存储在集合的指定 key 键或索引值内。语法 \"a[i,j,...] = x\" 由编译器转换为
+   \"setindex!(a, x, i, j, ...)\" 。
 
 "),
 
@@ -809,28 +809,27 @@ collection[key...] = value
 
 ("类集集合","Base","Set","Set(x...)
 
-   构造a \"Set\" with the given elements. Should be used instead of
-   \"IntSet\" for sparse integer sets.
+   使用指定元素来构造 \"Set\" 。Should be used instead of \"IntSet\" for sparse
+   integer sets.
 
 "),
 
 ("类集集合","Base","IntSet","IntSet(i...)
 
-   构造an \"IntSet\" of the given integers. Implemented as a bit string,
-   and therefore good for dense integer sets.
+   使用指定元素来构造 \"IntSet\" 。Implemented as a bit string, and therefore
+   good for dense integer sets.
 
 "),
 
 ("类集集合","Base","union","union(s1, s2...)
 
-   构造the union of two or more sets. Maintains order with arrays.
+   构造两个及两个以上集合的共用体。Maintains order with arrays.
 
 "),
 
 ("类集集合","Base","union!","union!(s1, s2)
 
-   Constructs the union of IntSets s1 and s2, stores the result in
-   \"s1\".
+   构造 \"IntSet\"  s1 和 s2 的共用体，将结果保存在 \"s1\" 中。
 
 "),
 
@@ -843,8 +842,7 @@ collection[key...] = value
 
 ("类集集合","Base","setdiff","setdiff(s1, s2)
 
-   构造the set of elements in \"s1\" but not \"s2\". Maintains order
-   with arrays.
+   使用存在于 \"s1\" 且不在 \"s2\" 的元素来构造集合。Maintains order with arrays.
 
 "),
 
@@ -878,7 +876,7 @@ collection[key...] = value
 
 ("类集集合","Base","complement","complement(s)
 
-   返回the set-complement of IntSet s.
+   返回 \"IntSet\" s 的补集。
 
 "),
 
@@ -967,8 +965,7 @@ collection[key...] = value
 
 "),
 
-("字符串","Base","string","*()
-string(strs...)
+("字符串","Base","*","*(s, t)
 
    连接字符串。
 
@@ -976,9 +973,9 @@ string(strs...)
 
 "),
 
-("字符串","Base","^","^()
+("字符串","Base","^","^(s, n)
 
-   重复字符串。
+   将字符串 \"s\" 重复 \"n\" 次。
 
    **例子** ： \"\"Julia \"^3 == \"Julia Julia Julia \"\"
 
@@ -1169,8 +1166,7 @@ string(strs...)
 
 ("字符串","Base","join","join(strings, delim)
 
-   Join an array of strings into a single string, inserting the given
-   delimiter between adjacent strings.
+   将字符串数组合并为一个字符串，在邻接字符串间添加分隔符 \"delim\" 。
 
 "),
 
@@ -1188,13 +1184,13 @@ string(strs...)
 
 ("字符串","Base","ind2chr","ind2chr(string, i)
 
-   Convert a byte index to a character index
+   给出字符串中递增至索引值 i 的字符数。
 
 "),
 
 ("字符串","Base","chr2ind","chr2ind(string, i)
 
-   Convert a character index to a byte index
+   给出字符串中第 i 个字符的索引值。
 
 "),
 
@@ -1206,29 +1202,25 @@ string(strs...)
 
 ("字符串","Base","nextind","nextind(str, i)
 
-   Get the next valid string index after \"i\". 返回``endof(str)+1`` at
-   the end of the string.
+   获取索引值 \"i\" 处之后的有效字符的索引值。如果在字符串末尾，则返回 \"endof(str)+1\" 。
 
 "),
 
 ("字符串","Base","prevind","prevind(str, i)
 
-   Get the previous valid string index before \"i\". 返回``0`` at the
-   beginning of the string.
+   获取索引值 \"i\" 处之前的有效字符的索引值。如果在字符串开头，则返回 \"0\" 。
 
 "),
 
 ("字符串","Base","thisind","thisind(str, i)
 
-   Adjust \"i\" downwards until it reaches a valid index for the given
-   string.
+   返回索引值 \"i\" 处所在的有效字符的索引值。
 
 "),
 
 ("字符串","Base","randstring","randstring(len)
 
-   构造a random ASCII string of length \"len\", consisting of upper- and
-   lower-case letters and the digits 0-9
+   构造长度为 \"len\" 的随机 ASCII 字符串。有效的字符为大小写字母和数字 0-9 。
 
 "),
 
@@ -1607,21 +1599,81 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 "),
 
-("数学函数","Base","-","-()
+("数学函数","Base","-","-(x)
 
-   一元减。
-
-"),
-
-("数学函数","","+ - * / \\ ^","+ - * / \\ ^
-
-   二元加、减、乘、左除、右除、指数运算符。
+   一元减运算符。
 
 "),
 
-("数学函数","",".+ .- .* ./ .\\ .^",".+ .- .* ./ .\\ .^
+("数学函数","Base","+","+(x, y)
 
-   逐元素二元加、减、乘、左除、右除、指数运算符。
+   二元加运算符。
+
+"),
+
+("数学函数","Base","-","-(x, y)
+
+   二元减运算符。
+
+"),
+
+("数学函数","Base","*","*(x, y)
+
+   二元乘运算符。
+
+"),
+
+("数学函数","Base","/","/(x, y)
+
+   二元左除运算符。
+
+"),
+
+("数学函数","Base","\\","\\(x, y)
+
+   二元右除运算符。
+
+"),
+
+("数学函数","Base","^","^(x, y)
+
+   二元指数运算符。
+
+"),
+
+("数学函数","Base","+",".+(x, y)
+
+   逐元素二元加运算符。
+
+"),
+
+("数学函数","Base","-",".-(x, y)
+
+   逐元素二元减运算符。
+
+"),
+
+("数学函数","Base","*",".*(x, y)
+
+   逐元素二元乘运算符。
+
+"),
+
+("数学函数","Base","/","./(x, y)
+
+   逐元素二元左除运算符。
+
+"),
+
+("数学函数","Base","\\",".\\(x, y)
+
+   逐元素二元右除运算符。
+
+"),
+
+("数学函数","Base","^",".^(x, y)
+
+   逐元素二元指数运算符。
 
 "),
 
@@ -1643,10 +1695,15 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 "),
 
-("数学函数","Base","%","rem(x, m)
-%()
+("数学函数","Base","rem","rem(x, m)
 
    除法余数；满足 x == div(x,m)*m + rem(x,m) ，与 x 同号。
+
+"),
+
+("数学函数","Base","%","%(x, m)
+
+   除法余数。 \"rem\" 的运算符形式。
 
 "),
 
@@ -1656,7 +1713,7 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 "),
 
-("数学函数","Base","//","//()
+("数学函数","Base","//","//(num, den)
 
    分数除法。
 
@@ -1674,15 +1731,51 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 "),
 
-("数学函数","","<< >>","<< >>
+("数学函数","Base","<<","<<(x, n)
 
-   左移、右移运算符。
+   左移运算符。
 
 "),
 
-("数学函数","","== != < <= > >=","== != < <= > >=
+("数学函数","Base",">>",">>(x, n)
 
-   比较运算符，用于判断是否相等、不等、小于、小于等于、大于、大于等于。
+   右移运算符。
+
+"),
+
+("数学函数","Base","==","==(x, y)
+
+   相等运算符。
+
+"),
+
+("数学函数","Base","!=","!=(x, y)
+
+   不等运算符。
+
+"),
+
+("数学函数","Base","<","<(x, y)
+
+   小于运算符。
+
+"),
+
+("数学函数","Base","<=","<=(x, y)
+
+   小于等于运算符。
+
+"),
+
+("数学函数","Base",">",">(x, y)
+
+   大于运算符。
+
+"),
+
+("数学函数","Base",">=",">=(x, y)
+
+   大于等于运算符。
 
 "),
 
@@ -1692,33 +1785,33 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 "),
 
-("数学函数","Base","!","!()
+("数学函数","Base","!","!(x)
 
    逻辑非。
 
 "),
 
-("数学函数","Base","~","~()
+("数学函数","Base","~","~(x)
 
-   Boolean or bitwise not
+   按位取反。
 
 "),
 
-("数学函数","Base","&","&()
+("数学函数","Base","&","&(x, y)
 
    逻辑与。
 
 "),
 
-("数学函数","Base","|","|()
+("数学函数","Base","|","|(x, y)
 
    逻辑或。
 
 "),
 
-("数学函数","Base","\$","\$()
+("数学函数","Base","\$","\$(x, y)
 
-   Bitwise exclusive or
+   按位异或。
 
 "),
 
@@ -1946,13 +2039,13 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 ("数学函数","Base","sinc","sinc(x)
 
-   计算 sin(\\pi x) / x 。
+   计算 \\sin(\\pi x) / x 。
 
 "),
 
 ("数学函数","Base","cosc","cosc(x)
 
-   计算 cos(\\pi x) / x 。
+   计算 \\cos(\\pi x) / x 。
 
 "),
 
@@ -1970,7 +2063,7 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 ("数学函数","Base","hypot","hypot(x, y)
 
-   计算 \"sqrt( (x^2+y^2) )\" ，计算过程不会出现上溢、下溢。
+   计算 \\sqrt{x^2+y^2} ，计算过程不会出现上溢、下溢。
 
 "),
 
@@ -1998,7 +2091,7 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 "),
 
-("数学函数","Base","logb","logb(x)
+("数学函数","Base","exponent","exponent(x)
 
    返回浮点数 \"trunc( log2( abs(x) ) )\" 。
 
@@ -2012,20 +2105,20 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 ("数学函数","Base","frexp","frexp(val, exp)
 
-   返回a number \"x\" such that it has a magnitude in the interval
-   \"[1/2, 1)\" or 0, and val = x \\times 2^{exp}.
+   返回数 \"x\" ，满足 \"x\" 的取值范围为 \"[1/2, 1)\" 或 0 ，且 val = x \\times
+   2^{exp} 。
 
 "),
 
 ("数学函数","Base","exp","exp(x)
 
-   计算 \"e^x\" 。
+   计算 e^x 。
 
 "),
 
 ("数学函数","Base","exp2","exp2(x)
 
-   计算 \"2^x\" 。
+   计算 2^x 。
 
 "),
 
@@ -2043,23 +2136,22 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 ("数学函数","Base","expm1","expm1(x)
 
-   \"e^x-1\" 的精确值。
+   e^x-1 的精确值。
 
 "),
 
 ("数学函数","Base","square","square(x)
 
-   计算 \"x^2\" 。
+   计算 x^2 。
 
 "),
 
 ("数学函数","Base","round","round(x[, digits[, base]]) -> FloatingPoint
 
-   \"round(x)\" 返回离 \"x\" 最近的整数。 \"round(x, digits)\" rounds to the
-   specified number of digits after the decimal place, or before if
-   negative, e.g., \"round(pi,2)\" is \"3.14\". \"round(x, digits,
-   base)\" rounds using a different base, defaulting to 10, e.g.,
-   \"round(pi, 3, 2)\" is \"3.125\".
+   \"round(x)\" 返回离 \"x\" 最近的整数。 \"round(x, digits)\" 若 digits
+   为正数时舍入到小数点后对应位数，若为负数，舍入到小数点前对应位数，例子 \"round(pi,2) == 3.14\" 。
+   \"round(x, digits, base)\" 使用指定的进制来舍入，默认进制为 10，例子 \"round(pi, 3, 2)
+   == 3.125\" 。
 
 "),
 
@@ -2107,10 +2199,9 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 ("数学函数","Base","signif","signif(x, digits[, base]) -> FloatingPoint
 
-   Rounds (in the sense of \"round\") \"x\" so that there are
-   \"digits\" significant digits, under a base \"base\"
-   representation, default 10. E.g., \"signif(123.456, 2)\" is
-   \"120.0\", and \"signif(357.913, 4, 2)\" is \"352.0\".
+   将 \"x\" 舍入（使用 \"round\" 函数）到指定的有效位数。 \"digits\" 与 \"base\" 的解释参见
+   \"round()\" 。 例如 \"signif(123.456, 2) == 120.0\" ，
+   \"signif(357.913, 4, 2) == 352.0\" 。
 
 "),
 
@@ -2147,7 +2238,7 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 ("数学函数","Base","copysign","copysign(x, y)
 
-   返回 \"x\" such that it has the same sign as \"y\"
+   返回 \"x\" ，但其正负号与 \"y\" 相同。
 
 "),
 
@@ -2185,15 +2276,14 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 ("数学函数","Base","erf","erf(x)
 
-   计算 \"x\" 的误差函数，defined by \\frac{2}{\\sqrt{\\pi}} \\int_0^x
-   e^{-t^2} dt for arbitrary complex \"x\".
+   计算 \"x\" 的误差函数，其定义为 \\frac{2}{\\sqrt{\\pi}} \\int_0^x e^{-t^2} dt 。
 
 "),
 
 ("数学函数","Base","erfc","erfc(x)
 
-   计算the complementary error function of \"x\", defined by 1 -
-   \\operatorname{erf}(x).
+   计算 \"x\" 的互补误差函数，其定义为 1 - \\operatorname{erf}(x) =
+   \\frac{2}{\\sqrt{\\pi}} \\int_x^{\\infty} e^{-t^2} dt 。
 
 "),
 
@@ -2201,7 +2291,7 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
    计算the scaled complementary error function of \"x\", defined by
    e^{x^2} \\operatorname{erfc}(x).  Note also that
-   \\operatorname{erfcx}(-ix) computes the Faddeeva function \"w(x)\".
+   \\operatorname{erfcx}(-ix) computes the Faddeeva function w(x).
 
 "),
 
@@ -2282,7 +2372,7 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
    associated with each key indicates the number of times the factor
    appears in the factorization.
 
-   **例子** ： \"100=2*2*5*5\" ，因此 \"factor(100) -> [5=>2,2=>2]\"
+   **例子** ： 100=2*2*5*5 ，因此 \"factor(100) -> [5=>2,2=>2]\"
 
 "),
 
@@ -2307,7 +2397,7 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 ("数学函数","Base","ispow2","ispow2(n)
 
-   Test whether \"n\" is a power of two
+   判断 \"n\" 是否为 2 的幂。
 
 "),
 
@@ -2389,112 +2479,111 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 ("数学函数","Base","airyai","airy(x)
 airyai(x)
 
-   Airy 函数 \\operatorname{Ai}(x).
+   艾里函数 \\operatorname{Ai}(x) 。
 
 "),
 
 ("数学函数","Base","airyaiprime","airyprime(x)
 airyaiprime(x)
 
-   Airy 函数 derivative \\operatorname{Ai}'(x).
+   艾里函数的导数 \\operatorname{Ai}'(x) 。
 
 "),
 
 ("数学函数","Base","airybi","airybi(x)
 
-   Airy 函数 \\operatorname{Bi}(x).
+   艾里函数 \\operatorname{Bi}(x) 。
 
 "),
 
 ("数学函数","Base","airybiprime","airybiprime(x)
 
-   Airy 函数 derivative \\operatorname{Bi}'(x).
+   艾里函数的导数 \\operatorname{Bi}'(x) 。
 
 "),
 
 ("数学函数","Base","besselj0","besselj0(x)
 
-   Bessel 函数 of the first kind of order 0, J_0(x).
+   \"0\" 阶的第一类贝塞尔函数， J_0(x) 。
 
 "),
 
 ("数学函数","Base","besselj1","besselj1(x)
 
-   Bessel 函数 of the first kind of order 1, J_1(x).
+   \"1\" 阶的第一类贝塞尔函数， J_1(x) 。
 
 "),
 
 ("数学函数","Base","besselj","besselj(nu, x)
 
-   Bessel 函数 of the first kind of order \"nu\", J_\\nu(x).
+   \"nu\" 阶的第一类贝塞尔函数， J_\\nu(x) 。
 
 "),
 
 ("数学函数","Base","bessely0","bessely0(x)
 
-   Bessel 函数 of the second kind of order 0, Y_0(x).
+   \"0\" 阶的第二类贝塞尔函数， Y_0(x) 。
 
 "),
 
 ("数学函数","Base","bessely1","bessely1(x)
 
-   Bessel 函数 of the second kind of order 1, Y_1(x).
+   \"1\" 阶的第二类贝塞尔函数， Y_1(x) 。
 
 "),
 
 ("数学函数","Base","bessely","bessely(nu, x)
 
-   Bessel 函数 of the second kind of order \"nu\", Y_\\nu(x).
+   \"nu\" 阶的第二类贝塞尔函数， Y_\\nu(x) 。
 
 "),
 
 ("数学函数","Base","hankelh1","hankelh1(nu, x)
 
-   Bessel 函数 of the third kind of order \"nu\", H^{(1)}_\\nu(x).
+   \"nu\" 阶的第三类贝塞尔函数， H^{(1)}_\\nu(x) 。
 
 "),
 
 ("数学函数","Base","hankelh2","hankelh2(nu, x)
 
-   Bessel 函数 of the third kind of order \"nu\", H^{(2)}_\\nu(x).
+   \"nu\" 阶的第三类贝塞尔函数， H^{(2)}_\\nu(x) 。
 
 "),
 
 ("数学函数","Base","besseli","besseli(nu, x)
 
-   Modified Bessel 函数 of the first kind of order \"nu\", I_\\nu(x).
+   \"nu\" 阶的变形第一类贝塞尔函数， I_\\nu(x) 。
 
 "),
 
 ("数学函数","Base","besselk","besselk(nu, x)
 
-   Modified Bessel 函数 of the second kind of order \"nu\", K_\\nu(x).
+   \"nu\" 阶的变形第二类贝塞尔函数， K_\\nu(x) 。
 
 "),
 
 ("数学函数","Base","beta","beta(x, y)
 
-   Euler integral of the first kind \\operatorname{B}(x,y) =
-   \\Gamma(x)\\Gamma(y)/\\Gamma(x+y).
+   第一型欧拉积分 \\operatorname{B}(x,y) = \\Gamma(x)\\Gamma(y)/\\Gamma(x+y)
+   。
 
 "),
 
 ("数学函数","Base","lbeta","lbeta(x, y)
 
-   Natural logarithm of the beta function
-   \\log(\\operatorname{B}(x,y)).
+   贝塔函数的自然对数 \\log(\\operatorname{B}(x,y)) 。
 
 "),
 
 ("数学函数","Base","eta","eta(x)
 
-   Dirichlet eta 函数 \\eta(s) = \\sum^\\infty_{n=1}(-)^{n-1}/n^{s} 。
+   狄利克雷 \\eta 函数 \\eta(s) = \\sum^\\infty_{n=1}(-)^{n-1}/n^{s} 。
 
 "),
 
 ("数学函数","Base","zeta","zeta(x)
 
-   Riemann zeta 函数 \"\\zeta(s)\" 。
+   黎曼 \\zeta 函数 :math:\"\\zeta(s)\" 。
 
 "),
 
@@ -2795,16 +2884,13 @@ airyaiprime(x)
 
 ("数","Base","one","one(x)
 
-   Get the multiplicative identity element for the type of x (x can
-   also specify the type itself). For matrices, returns an identity
-   matrix of the appropriate size and type.
+   获取与 x 同类型的乘法单位元（ x 也可为类型），即用该类型表示数值 1 。对于矩阵，返回与之大小、类型相匹配的的单位矩阵。
 
 "),
 
 ("数","Base","zero","zero(x)
 
-   Get the additive identity element for the type of x (x can also
-   specify the type itself).
+   获取与 x 同类型的加法单位元（ x 也可为类型），即用该类型表示数值 0 。对于矩阵，返回与之大小、类型相匹配的的全零矩阵。
 
 "),
 
@@ -2816,7 +2902,7 @@ airyaiprime(x)
 
 ("数","Base","isdenormal","isdenormal(f) -> Bool
 
-   Test whether a floating point number is denormal
+   判断浮点数是否为反常值。
 
 "),
 
@@ -2852,13 +2938,13 @@ airyaiprime(x)
 
 ("数","Base","nextfloat","nextfloat(f)
 
-   Get the next floating point number in lexicographic order
+   获取下一个绝对值稍大的同正负号的浮点数。
 
 "),
 
 ("数","Base","prevfloat","prevfloat(f) -> Float
 
-   Get the previous floating point number in lexicographic order
+   获取下一个绝对值稍小的同正负号的浮点数。
 
 "),
 
@@ -2871,18 +2957,6 @@ airyaiprime(x)
 ("数","Base","real_valued","real_valued(x)
 
    判断 \"x\" 在数值上是否为实数。
-
-"),
-
-("数","Base","exponent","exponent(f)
-
-   Get the exponent of a floating-point number
-
-"),
-
-("数","Base","mantissa","mantissa(f)
-
-   Get the mantissa of a floating-point number
 
 "),
 
@@ -3006,23 +3080,20 @@ airyaiprime(x)
 
 ("随机数","Base","rand","rand(rng::AbstractRNG[, dims...])
 
-   Generate a random \"Float64\" number or array of the size specified
-   by dims, using the specified RNG object. Currently,
-   \"MersenneTwister\" is the only available Random Number Generator
-   (RNG), which may be seeded using srand.
+   使用指定的 RNG 对象，生成 \"Float64\" 类型的随机数或数组。目前仅提供 \"MersenneTwister\"
+   随机数生成器 RNG ，可由 srand 设置随机数种子。
 
 "),
 
 ("随机数","Base","rand","rand(dims...)
 
-   Generate a random \"Float64\" array of the size specified by dims
+   生成指定维度的 \"Float64\" 类型的随机数组。
 
 "),
 
 ("随机数","Base","rand","rand(Int32|Uint32|Int64|Uint64|Int128|Uint128[, dims...])
 
-   Generate a random integer of the given type. Optionally, generate
-   an array of random integers of the given type by specifying dims.
+   生成指定整数类型的随机数。若指定维度，则生成对应类型的随机数组。
 
 "),
 
@@ -3035,8 +3106,7 @@ airyaiprime(x)
 
 ("随机数","Base","randbool","randbool([dims...])
 
-   Generate a random boolean value. Optionally, generate an array of
-   random boolean values.
+   生成随机布尔值。若指定维度，则生成布尔值类型的随机数组。
 
 "),
 
@@ -3049,9 +3119,7 @@ airyaiprime(x)
 
 ("随机数","Base","randn","randn([dims...])
 
-   Generate a normally-distributed random number with mean 0 and
-   standard deviation 1. Optionally generate an array of normally-
-   distributed random numbers.
+   生成均值为 0 ，标准差为 1 的正态分布随机数。若指定维度，则生成正态分布的随机数组。
 
 "),
 
@@ -3118,7 +3186,7 @@ airyaiprime(x)
 
 "),
 
-("数组","Base","ref","ref(type)
+("数组","Base","getindex","getindex(type)
 
    构造an empty 1-d array of the specified type. This is usually called
    with the syntax \"Type[]\". Element values can be specified using
@@ -3250,7 +3318,7 @@ airyaiprime(x)
 
 "),
 
-("数组","Base","ref","ref(A, ind)
+("数组","Base","getindex","getindex(A, ind)
 
    返回a subset of \"A\" as specified by \"ind\", 结果可能是 \"Int\",
    \"Range\", 或 \"Vector\" 。
@@ -3260,8 +3328,8 @@ airyaiprime(x)
 ("数组","Base","sub","sub(A, ind)
 
    返回a SubArray, which stores the input \"A\" and \"ind\" rather than
-   computing the result immediately. Calling \"ref\" on a SubArray
-   computes the indices on the fly.
+   computing the result immediately. Calling \"getindex\" on a
+   SubArray computes the indices on the fly.
 
 "),
 
@@ -3273,7 +3341,7 @@ airyaiprime(x)
 
 "),
 
-("数组","Base","assign","assign(A, X, ind)
+("数组","Base","setindex!","setindex!(A, X, ind)
 
    Store an input array \"X\" within some subset of \"A\" as specified
    by \"ind\".
@@ -3573,13 +3641,13 @@ airyaiprime(x)
 
 "),
 
-("线性代数","Base","*","*()
+("线性代数","Base","*","*(A, B)
 
    矩阵乘法。
 
 "),
 
-("线性代数","Base","\\","\\()
+("线性代数","Base","\\","\\(A, B)
 
    Matrix division using a polyalgorithm. For input matrices \"A\" and
    \"B\", the result \"X\" is such that \"A*X == B\". For rectangular
@@ -3593,19 +3661,19 @@ airyaiprime(x)
 
 "),
 
-("线性代数","Base","dot","dot()
+("线性代数","Base","dot","dot(x, y)
 
    计算点积。
 
 "),
 
-("线性代数","Base","cross","cross()
+("线性代数","Base","cross","cross(x, y)
 
    计算the cross product of two 3-vectors
 
 "),
 
-("线性代数","Base","norm","norm()
+("线性代数","Base","norm","norm(a)
 
    计算 \"Vector\" 或 \"Matrix\" 的模。
 
@@ -3927,7 +3995,7 @@ airyaiprime(x)
 
 ("线性代数","Base","pinv","pinv(M)
 
-   Moore-Penrose inverse
+   矩阵的 Moore-Penrose （广义）逆
 
 "),
 
@@ -3946,7 +4014,7 @@ airyaiprime(x)
 
 ("线性代数","Base","kron","kron(A, B)
 
-   Kronecker tensor product of two vectors or two matrices.
+   两个向量或两个矩阵的 Kronecker 张量积。
 
 "),
 
@@ -4065,7 +4133,7 @@ airyaiprime(x)
 
 ("排列组合","Base","shuffle","shuffle(v)
 
-   Randomly rearrange the elements of a vector.
+   随机重新排列向量中的元素。
 
 "),
 
@@ -4077,7 +4145,7 @@ airyaiprime(x)
 
 ("排列组合","Base","reverse","reverse(v)
 
-   Reverse vector \"v\".
+   逆序排列向量 \"v\" 。
 
 "),
 
@@ -4118,124 +4186,95 @@ airyaiprime(x)
 
 ("统计","Base","mean","mean(v[, dim])
 
-   计算the mean of whole array \"v\", or optionally along dimension
-   \"dim\"
+   计算整个数组 \"v\" 的均值，或按某一维 \"dim\" 计算（可选）
 
 "),
 
 ("统计","Base","std","std(v[, corrected])
 
-   计算the sample standard deviation of a vector \"v\". If the optional
-   argument \"corrected\" is either left unspecified or is explicitly
-   set to the default value of \"true\", then the algorithm will
-   return an estimator of the generative distribution's standard
-   deviation under the assumption that each entry of \"v\" is an IID
-   draw from that generative distribution. This computation is
-   equivalent to calculating \"sqrt(sum((v .- mean(v)).^2) /
-   (length(v) - 1))\" and involves an implicit correction term
-   sometimes called the Bessel correction which insures that the
-   estimator of the variance is unbiased. If, instead, the optional
-   argument \"corrected\" is set to \"false\", then the algorithm will
-   produce the equivalent of \"sqrt(sum((v .- mean(v)).^2) /
-   length(v))\", which is the empirical standard deviation of the
-   sample.
+   计算向量 \"v\" 的样本标准差。如果未设定可选参数 \"corrected\" 或显式设定为默认值 \"true\" ，则算法将在
+   \"v\" 中的每个元素都是从某个生成分布中独立同分布地取得的假设下，返回一个此生成分布标准差的估计。计算结果等价于
+   \"sqrt(sum((v .- mean(v)).^2) / (length(v) - 1))\"
+   并且引入了一个有时被称为贝赛尔修正的隐含修正项，这样就能保证方差的估计是无偏的。反之，如果可选参数 \"corrected\"
+   被设定为 \"false\" ，则算法将给出等价于 \"sqrt(sum((v .- mean(v)).^2) /
+   length(v))\" 的结果，即样本的经验标准差。
 
 "),
 
 ("统计","Base","std","std(v, m[, corrected])
 
-   计算the sample standard deviation of a vector \"v\" with known mean
-   \"m\". If the optional argument \"corrected\" is either left
-   unspecified or is explicitly set to the default value of \"true\",
-   then the algorithm will return an estimator of the generative
-   distribution's standard deviation under the assumption that each
-   entry of \"v\" is an IID draw from that generative distribution.
-   This computation is equivalent to calculating \"sqrt(sum((v .-
-   m).^2) / (length(v) - 1))\" and involves an implicit correction
-   term sometimes called the Bessel correction which insures that the
-   estimator of the variance is unbiased. If, instead, the optional
-   argument \"corrected\" is set to \"false\", then the algorithm will
-   produce the equivalent of \"sqrt(sum((v .- m).^2) / length(v))\",
-   which is the empirical standard deviation of the sample.
+   计算已知均值为 \"m\" 的向量 \"v\" 的样本标准差。如果未设定可选参数 \"corrected\" 或显式设定为默认值
+   \"true\" ，则算法将在 \"v\"
+   中的每个元素都是从某个生成分布中独立同分布地取得的假设下，返回一个此生成分布标准差的估计。计算结果等价于 \"sqrt(sum((v
+   .- m).^2) / (length(v) - 1))\"
+   并且引入了一个有时被称为贝赛尔修正的隐含修正项，这样就能保证方差的估计是无偏的。反之，如果可选参数 \"corrected\"
+   被设定为 \"false\" ，则算法将给出等价于 \"sqrt(sum((v .- m).^2) / length(v))\"
+   的结果，即样本的经验标准差。
 
 "),
 
 ("统计","Base","var","var(v[, corrected])
 
-   计算the sample variance of a vector \"v\". If the optional argument
-   \"corrected\" is either left unspecified or is explicitly set to
-   the default value of \"true\", then the algorithm will return an
-   unbiased estimator of the generative distribution's variance under
-   the assumption that each entry of \"v\" is an IID draw from that
-   generative distribution. This computation is equivalent to
-   calculating \"sum((v .- mean(v)).^2) / (length(v) - 1)\" and
-   involves an implicit correction term sometimes called the Bessel
-   correction. If, instead, the optional argument \"corrected\" is set
-   to \"false\", then the algorithm will produce the equivalent of
-   \"sum((v .- mean(v)).^2) / length(v)\", which is the empirical
-   variance of the sample.
+   计算向量 \"v\" 的样本方差。如果未设定可选参数 \"corrected\" 或显式设定为默认值 \"true\" ，则算法将在
+   \"v\" 中的每个元素都是从某个生成分布中独立同分布地取得的假设下，返回一个此生成分布方差的估计。计算结果等价于 \"sum((v
+   .- mean(v)).^2) / (length(v) - 1)\"
+   并且引入了一个有时被称为贝赛尔修正的隐含修正项，这样就能保证方差的估计是无偏的。反之，如果可选参数 \"corrected\"
+   被设定为 \"false\" ，则算法将给出等价于 \"sum((v .- mean(v)).^2) / length(v)\"
+   的结果，即样本的经验方差。
 
 "),
 
 ("统计","Base","var","var(v, m[, corrected])
 
-   计算the sample variance of a vector \"v\" with known mean \"m\". If
-   the optional argument \"corrected\" is either left unspecified or
-   is explicitly set to the default value of \"true\", then the
-   algorithm will return an unbiased estimator of the generative
-   distribution's variance under the assumption that each entry of
-   \"v\" is an IID draw from that generative distribution. This
-   computation is equivalent to calculating \"sum((v .- m)).^2) /
-   (length(v) - 1)\" and involves an implicit correction term
-   sometimes called the Bessel correction. If, instead, the optional
-   argument \"corrected\" is set to \"false\", then the algorithm will
-   produce the equivalent of \"sum((v .- m)).^2) / length(v)\", which
-   is the empirical variance of the sample.
+   计算已知均值为 \"m\" 的向量 \"v\" 的样本方差。如果未设定可选参数 \"corrected\" 或显式设定为默认值
+   \"true\" ，则算法将在 \"v\"
+   中的每个元素都是从某个生成分布中独立同分布地取得的假设下，返回一个此生成分布方差的估计。计算结果等价于 \"sum((v .-
+   m)).^2) / (length(v) - 1)\"
+   并且引入了一个有时被称为贝赛尔修正的隐含修正项，这样就能保证方差的估计是无偏的。反之，如果可选参数 \"corrected\"
+   被设定为 \"false\" ，则算法将给出等价于 \"sum((v .- m)).^2) / length(v)\"
+   的结果，即样本的经验方差。
 
 "),
 
 ("统计","Base","median","median(v)
 
-   计算the median of a vector \"v\"
+   计算向量 \"v\" 的中位数
 
 "),
 
 ("统计","Base","hist","hist(v[, n])
 
-   计算the histogram of \"v\", optionally using \"n\" bins
+   计算 \"v\" 的直方图，可以指定划分为 \"n\" 个区间
 
 "),
 
 ("统计","Base","hist","hist(v, e)
 
-   计算the histogram of \"v\" using a vector \"e\" as the edges for the
-   bins
+   计算 \"v\" 的直方图，使用向量 \"e\" 指定区间的边界
 
 "),
 
 ("统计","Base","quantile","quantile(v, p)
 
-   计算the quantiles of a vector \"v\" at a specified set of probability
-   values \"p\".
+   计算向量 \"v\" 在指定概率值集合 \"p\" 处的分位数。
 
 "),
 
 ("统计","Base","quantile","quantile(v)
 
-   计算the quantiles of a vector \"v\" at the probability values \"[.0,
-   .2, .4, .6, .8, 1.0]\".
+   计算向量 \"v\" 在概率值 \"[.0, .2, .4, .6, .8, 1.0]\" 处的分位数。
 
 "),
 
 ("统计","Base","cov","cov(v)
 
-   计算the Pearson covariance between two vectors \"v1\" and \"v2\".
+   计算两个向量 \"v1\" 和 \"v2\" 的协方差。
 
 "),
 
 ("统计","Base","cor","cor(v)
 
-   计算the Pearson correlation between two vectors \"v1\" and \"v2\".
+   计算两个向量 \"v1\" 和 \"v2\" 的 Pearson 相关系数。
 
 "),
 
@@ -4769,20 +4808,19 @@ airyaiprime(x)
 
 ("系统","Base","gethostname","gethostname() -> String
 
-   Get the local machine's host name.
+   获取本机的主机名。
 
 "),
 
 ("系统","Base","getipaddr","getipaddr() -> String
 
-   Get the IP address of the local machine, as a string of the form
-   \"x.x.x.x\".
+   获取本机的 IP 地址，形为 \"x.x.x.x\" 的字符串。
 
 "),
 
 ("系统","Base","pwd","pwd() -> String
 
-   Get the current working directory.
+   获取当前的工作目录。
 
 "),
 
@@ -4815,21 +4853,19 @@ airyaiprime(x)
 
 ("系统","Base","getpid","getpid() -> Int32
 
-   Get julia's process ID.
+   获取 Julia 的进程 ID 。
 
 "),
 
 ("系统","Base","time","time()
 
-   Get the system time in seconds since the epoch, with fairly high
-   (typically, microsecond) resolution.
+   获取系统自 1970-01-01 00:00:00 UTC 起至今的秒数。结果是高解析度（一般为微秒 10^{-6} ）的。
 
 "),
 
 ("系统","Base","time_ns","time_ns()
 
-   Get the time in nanoseconds. The time corresponding to 0 is
-   undefined, and wraps every 5.8 years.
+   获取时间，单位为纳秒 10^{-9} 。对应于 0 的时间是未定义的，计时时间 5.8 年为最长周期。
 
 "),
 
@@ -4854,14 +4890,13 @@ airyaiprime(x)
 
 ("系统","Base","EnvHash","EnvHash() -> EnvHash
 
-   A singleton of this type provides a hash table interface to
-   environment variables.
+   给环境变量提供哈希表接口的单态。
 
 "),
 
 ("系统","Base","ENV","ENV
 
-   Reference to the singleton \"EnvHash\".
+   对单态 \"EnvHash\" 的引用。
 
 "),
 
@@ -4884,19 +4919,14 @@ ccall(fptr::Ptr{Void}, RetType, (ArgType1, ...), ArgVar1, ...)
 
 ("C 接口","Base","dlopen","dlopen(libfile::String[, flags::Integer])
 
-   Load a shared library, returning an opaque handle.
+   载入共享库，返回不透明句柄。
 
-   The optional flags argument is a bitwise-or of zero or more of
-   RTLD_LOCAL, RTLD_GLOBAL, RTLD_LAZY, RTLD_NOW, RTLD_NODELETE,
-   RTLD_NOLOAD, RTLD_DEEPBIND, and RTLD_FIRST.  These are converted to
-   the corresponding flags of the POSIX (and/or GNU libc and/or MacOS)
-   dlopen command, if possible, or are ignored if the specified
-   functionality is not available on the current platform.  The
-   default is RTLD_LAZY|RTLD_DEEPBIND|RTLD_LOCAL.  An important usage
-   of these flags, on POSIX platforms, is to specify
-   RTLD_LAZY|RTLD_DEEPBIND|RTLD_GLOBAL in order for the library's
-   symbols to be available for usage in other shared libraries, in
-   situations where there are dependencies between shared libraries.
+   可选参数为 0 或者是 RTLD_LOCAL, RTLD_GLOBAL, RTLD_LAZY, RTLD_NOW,
+   RTLD_NODELETE, RTLD_NOLOAD, RTLD_DEEPBIND, RTLD_FIRST
+   等参数的位或。它们被转换为对应的 POSIX dlopen 命令的标志位，如果当前平台不支持某个特性，则忽略。默认值为
+   RTLD_LAZY|RTLD_DEEPBIND|RTLD_LOCAL 。在 POSIX
+   平台上，这些标志位的重要用途是当共享库之间有依赖关系时，指明 RTLD_LAZY|RTLD_DEEPBIND|RTLD_GLOBAL
+   来使库的符号可被其它共享库使用。
 
 "),
 
@@ -6609,7 +6639,7 @@ eval_tab_col(glp_prob, k)
       # don't check whether a and b are used
       opts = @options CheckNone a=5 b=2
 
-   As an alternative to the macro syntax, you can also say:
+   如果不想使用宏语法，也可以写成如下这样：
 
       opts = Options(CheckWarn, :a, 5, :b, 2)
 

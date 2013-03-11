@@ -1328,7 +1328,7 @@ I/O
 
 .. function:: exp2(x)
 
-   计算 :math:`2^x 。
+   计算 :math:`2^x` 。
 
 .. function:: ldexp(x, n)
 
