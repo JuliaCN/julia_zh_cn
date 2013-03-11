@@ -183,7 +183,7 @@
 
    对指定的参数，为匹配指定类型（多元组）的通用函数指定要调用的方法。参数应与指定的类型兼容。它允许在最匹配的方法之外，指定一个方法。这对明确需要一个更通用的定义的行为时非常有用（通常作为相同函数的更特殊的方法实现的一部分）。
 
-.. function:: |
+.. function:: |(x, f)
    
    对前面的参数应用一个函数，方便写链式函数。
 
@@ -224,7 +224,7 @@
 
    对一组迭代对象，返回一组可迭代多元组，其中第 ``i`` 个多元组包含每个可迭代输入的第 ``i`` 个分量。
 
-   注意 ``zip`` 是它自己的逆操作： [zip(zip(a...)...)...] == [a...]
+   注意 ``zip`` 是它自己的逆操作： ``[zip(zip(a...)...)...] == [a...]`` 。
 
 
 完全实现的有： ``Range``, ``Range1``, ``NDRange``, ``Tuple``, ``Real``, ``AbstractArray``, ``IntSet``, ``ObjectIdDict``, ``Dict``, ``WeakKeyDict``, ``EachLine``, ``String``, ``Set``, ``Task``.
@@ -355,14 +355,12 @@
 ----------
 
 .. function:: getindex(collection, key...)
-              collection[key...]
 
-   取回集合中存储在指定 key 键或索引值内的值。
+   取回集合中存储在指定 key 键或索引值内的值。语法 ``a[i,j,...]`` 由编译器转换为 ``getindex(a, i, j, ...)`` 。
 
 .. function:: setindex!(collection, value, key...)
-              collection[key...] = value
 
-   将指定值存储在集合的指定 key 键或索引值内。
+   将指定值存储在集合的指定 key 键或索引值内。语法 ``a[i,j,...] = x`` 由编译器转换为 ``setindex!(a, x, i, j, ...)`` 。
 
 完全实现的有： ``Array``, ``DArray``, ``AbstractArray``, ``SubArray``, ``ObjectIdDict``, ``Dict``, ``WeakKeyDict``, ``String``.
 
@@ -566,16 +564,15 @@
 
    返回 ``string`` 中的字符数组。
 
-.. function:: *
-              string(strs...)
+.. function:: *(s, t)
 
    连接字符串。
 
    **例子** ： ``"Hello " * "world" == "Hello world"``
 
-.. function:: ^
+.. function:: ^(s, n)
 
-   重复字符串。
+   将字符串 ``s`` 重复 ``n`` 次。
 
    **例子** ： ``"Julia "^3 == "Julia Julia Julia "``
 
@@ -985,17 +982,57 @@ I/O
 数学函数
 --------
 
-.. function:: -
+.. function:: -(x)
 
-   一元减。
+   一元减运算符。
 
-.. function:: + - * / \\ ^
+.. function:: +(x, y)
 
-   二元加、减、乘、左除、右除、指数运算符。
+   二元加运算符。
 
-.. function:: .+ .- .* ./ .\\ .^
+.. function:: -(x, y)
 
-   逐元素二元加、减、乘、左除、右除、指数运算符。
+   二元减运算符。
+
+.. function:: *(x, y)
+
+   二元乘运算符。
+
+.. function:: /(x, y)
+
+   二元左除运算符。
+
+.. function:: \\(x, y)
+
+   二元右除运算符。
+
+.. function:: ^(x, y)
+
+   二元指数运算符。
+
+.. function:: .+(x, y)
+
+   逐元素二元加运算符。
+
+.. function:: .-(x, y)
+
+   逐元素二元减运算符。
+
+.. function:: .*(x, y)
+
+   逐元素二元乘运算符。
+
+.. function:: ./(x, y)
+
+   逐元素二元左除运算符。
+
+.. function:: .\\(x, y)
+
+   逐元素二元右除运算符。
+
+.. function:: .^(x, y)
+
+   逐元素二元指数运算符。
 
 .. function:: div(a,b)
 
@@ -1010,15 +1047,18 @@ I/O
    取模余数；满足 x == fld(x,m)*m + mod(x,m) ，与 m 同号，返回值范围 [0,m) 。
 
 .. function:: rem(x,m)
-              %
 
    除法余数；满足 x == div(x,m)*m + rem(x,m) ，与 x 同号。
+   
+.. function:: %(x, m)
+
+   除法余数。 ``rem`` 的运算符形式。
 
 .. function:: mod1(x,m)
 
    整除后取模，返回值范围为 (0,m] 。
 
-.. function:: //
+.. function:: //(num, den)
 
    分数除法。
 
@@ -1030,37 +1070,61 @@ I/O
 
    分数 ``x`` 的分母。
 
-.. function:: << >>
+.. function:: <<(x, n)
 
-   左移、右移运算符。
+   左移运算符。
 
-.. function:: == != < <= > >=
+.. function:: >>(x, n)
 
-   比较运算符，用于判断是否相等、不等、小于、小于等于、大于、大于等于。
+   右移运算符。
+
+.. function:: ==(x, y)
+
+   相等运算符。
+
+.. function:: !=(x, y)
+
+   不等运算符。
+
+.. function:: <(x, y)
+
+   小于运算符。
+
+.. function:: <=(x, y)
+
+   小于等于运算符。
+
+.. function:: >(x, y)
+
+   大于运算符。
+
+.. function:: >=(x, y)
+
+   大于等于运算符。
 
 .. function:: cmp(x,y)
 
    根据 ``x<y``, ``x==y``, 或 ``x>y`` 三种情况，对应返回 -1, 0, 或 1 。
 
-.. function:: !
+.. function:: !(x)
 
    逻辑非。
 
-.. function:: ~
+.. function:: ~(x)
 
-   逻辑非、按位取反。
+   按位取反。
 
-.. function:: &
+.. function:: &(x, y)
 
    逻辑与。
 
-.. function:: |
+.. function:: |(x, y)
 
    逻辑或。
 
-.. function:: $
+.. function:: $(x, y)
 
-   位异或。
+   按位异或。
 
 .. function:: sin(x)
 
@@ -1212,11 +1276,11 @@ I/O
 
 .. function:: sinc(x)
 
-   计算 :math:`sin(\pi x) / x` 。
+   计算 :math:`\sin(\pi x) / x` 。
 
 .. function:: cosc(x)
 
-   计算 :math:`cos(\pi x) / x` 。
+   计算 :math:`\cos(\pi x) / x` 。
 
 .. function:: degrees2radians(x)
 
@@ -1228,7 +1292,7 @@ I/O
 
 .. function:: hypot(x, y)
 
-   计算 ``sqrt( (x^2+y^2) )`` ，计算过程不会出现上溢、下溢。
+   计算 :math:`\sqrt{x^2+y^2}` ，计算过程不会出现上溢、下溢。
 
 .. function:: log(x)
    
@@ -1260,11 +1324,11 @@ I/O
 
 .. function:: exp(x)
 
-   计算 ``e^x`` 。
+   计算 :math:`e^x` 。
 
 .. function:: exp2(x)
 
-   计算 ``2^x`` 。
+   计算 :math:`2^x 。
 
 .. function:: ldexp(x, n)
 
@@ -1276,11 +1340,11 @@ I/O
 
 .. function:: expm1(x)
 
-   ``e^x-1`` 的精确值。
+   :math:`e^x-1` 的精确值。
 
 .. function:: square(x)
 
-   计算 ``x^2`` 。
+   计算 :math:`x^2` 。
 
 .. function:: round(x, [digits, [base]]) -> FloatingPoint
 
@@ -1375,7 +1439,7 @@ I/O
    计算the scaled complementary error function of ``x``,
    defined by :math:`e^{x^2} \operatorname{erfc}(x)`.  Note
    also that :math:`\operatorname{erfcx}(-ix)` computes the
-   Faddeeva function ``w(x)``.
+   Faddeeva function :math:`w(x)`.
 
 .. function:: erfi(x)
 
@@ -1427,7 +1491,7 @@ I/O
 
    对 ``n`` 分解质因数。返回a dictionary. The keys of the dictionary correspond to the factors, and hence are of the same type as ``n``. The value associated with each key indicates the number of times the factor appears in the factorization.
 
-   **例子** ： ``100=2*2*5*5`` ，因此 ``factor(100) -> [5=>2,2=>2]`` 
+   **例子** ： :math:`100=2*2*5*5` ，因此 ``factor(100) -> [5=>2,2=>2]`` 
 
 .. function:: gcd(x,y)
 
@@ -2272,23 +2336,23 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netlib.org/lapack/>`_ 中的函数。
 
-.. function:: *
+.. function:: *(A, B)
 
    矩阵乘法。
 
-.. function:: \
+.. function:: \\(A, B)
 
    Matrix division using a polyalgorithm. For input matrices ``A`` and ``B``, the result ``X`` is such that ``A*X == B``. For rectangular ``A``, QR factorization is used. For triangular ``A``, a triangular solve is performed. For square ``A``, Cholesky factorization is tried if the input is symmetric with a heavy diagonal. LU factorization is used in case Cholesky factorization fails or for general square inputs. If ``size(A,1) > size(A,2)``, the result is a least squares solution of ``A*X+eps=B`` using the singular value decomposition. ``A`` does not need to have full rank.
 
-.. function:: dot
+.. function:: dot(x, y)
 
    计算点积。
 
-.. function:: cross
+.. function:: cross(x, y)
 
    计算the cross product of two 3-vectors
 
-.. function:: norm
+.. function:: norm(a)
 
    计算 ``Vector`` 或 ``Matrix`` 的模。
 
