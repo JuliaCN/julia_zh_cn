@@ -17,7 +17,7 @@ function gen_listpkg()
 	print(io, "************\n 可用扩展包  \n************\n\n")
 	cd(Pkg.dir()) do 
 	for pkg in Pkg.Metadata.each_package()
-		print(" Processing $(pkg)\n")
+		print(" 正在处理 $(pkg)\n")
 		url = (Pkg.Metadata.pkg_url(pkg))
 		maxv = Pkg.Metadata.versions([pkg])[end]
 		url_reg = r"^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?"
@@ -34,14 +34,11 @@ function gen_listpkg()
 			user=m2.captures[1]
 			repo=m2.captures[2]
 			u=get_user_details_gh(user)
-			gh_repo_url = "https://api.github.com/repos/$(user)/$(repo)?access_token=$(gh_auth)"
-			gh_contrib_url = "https://api.github.com/repos/$(user)/$(repo)/contributors?access_token=$(gh_auth)"
-			#print("processing $gh_repo_url")
+			gh_repo_url = "https://api.github.com/repos/$(user)/$(repo)"
+			gh_contrib_url = "https://api.github.com/repos/$(user)/$(repo)/contributors"
 			gh_repo=JSON.parse(readall(download_file(gh_repo_url)))
-			#print("processing $gh_user_url")
 			gh_contrib=JSON.parse(readall(download_file(gh_contrib_url)))
 			
-
 			desc = get(gh_repo, "description", "No description provided")
 			homepage = get(gh_repo, "homepage", nothing)
 			html_url = gh_repo["html_url"]
@@ -105,7 +102,7 @@ end
 function get_user_details_gh(user)
 
 	if !has(user_cache, user)
-		gh_user_url = "https://api.github.com/users/$(user)?access_token=$(gh_auth)"
+		gh_user_url = "https://api.github.com/users/$(user)"
 		gh_user=JSON.parse(readall(download_file(gh_user_url)))
 		fullname = get(gh_user, "name", user)
 		if fullname == nothing; fullname = user; end

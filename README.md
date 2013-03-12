@@ -52,11 +52,11 @@
 	julia> Pkg.add("JSON")
 	julia> Pkg.add("Calendar")
 	
-然后
+然后进入 `julia_zh_cn` 文件夹，运行
 
-	julia> evalfile("listpkg.jl")
+	julia> require("listpkg.jl")
 	
-上面这个命令的文件路径要正确，自己确认一下。即可生成新的 `packages/packagelist.rst` ，即本文档的 `可用扩展包` 章节。
+有时会因为 github 提示连接太频繁而运行出错。即可生成新的 `packages/packagelist.rst` ，即本文档的 `可用扩展包` 章节。
 
 ## 生成网页文档及 PDF 文档
 
