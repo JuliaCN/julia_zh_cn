@@ -1392,7 +1392,7 @@ I/O
 
 .. function:: clamp(x, lo, hi)
 
-   返回 x if ``lo <= x <= y``. If ``x < lo``, return ``lo``. If ``x > hi``, return ``hi``.
+   如果 ``lo <= x <= y`` 则返回 x 。如果 ``x < lo`` ，返回 ``lo`` 。如果 ``x > hi`` ，返回 ``hi`` 。
 
 .. function:: abs(x)
 
@@ -1416,7 +1416,7 @@ I/O
 
 .. function:: flipsign(x, y)
 
-   如果 ``y`` 为复数，返回 ``x`` 的相反数，否则返回 ``x`` 。如 ``abs(x) = flipsign(x,x)``.
+   如果 ``y`` 为复数，返回 ``x`` 的相反数，否则返回 ``x`` 。如 ``abs(x) = flipsign(x,x)`` 。
 
 .. function:: sqrt(x)
    
@@ -1889,55 +1889,55 @@ I/O
 
 .. function:: count_ones(x::Integer) -> Integer
 
-   Number of ones in the binary representation of ``x``.
+   ``x`` 的二进制表示中有多少个 1 。
    
    **例子** ： ``count_ones(7) -> 3``
 
 .. function:: count_zeros(x::Integer) -> Integer
 
-   Number of zeros in the binary representation of ``x``.
+   ``x`` 的二进制表示中有多少个 0 。
    
    **例子** ： ``count_zeros(int32(2 ^ 16 - 1)) -> 16``
 
 .. function:: leading_zeros(x::Integer) -> Integer
 
-   Number of zeros leading the binary representation of ``x``.
+   ``x`` 的二进制表示中开头有多少个 0 。
    
    **例子** ： ``leading_zeros(int32(1)) -> 31``
 
 .. function:: leading_ones(x::Integer) -> Integer
 
-   Number of ones leading the binary representation of ``x``.
+   ``x`` 的二进制表示中开头有多少个 1 。
    
    **例子** ： ``leading_ones(int32(2 ^ 32 - 2)) -> 31``
 
 .. function:: trailing_zeros(x::Integer) -> Integer
 
-   Number of zeros trailing the binary representation of ``x``.
+   ``x`` 的二进制表示中末尾有多少个 0 。
    
    **例子** ： ``trailing_zeros(2) -> 1``
 
 .. function:: trailing_ones(x::Integer) -> Integer
 
-   Number of ones trailing the binary representation of ``x``.
+   ``x`` 的二进制表示中末尾有多少个 1 。
    
    **例子** ： ``trailing_ones(3) -> 2``
 
 .. function:: isprime(x::Integer) -> Bool
 
-   返回``true`` if ``x`` is prime, and ``false`` otherwise.
+   如果 ``x`` 是质数，返回 ``true`` ；否则为 ``false`` 。
 
    **例子** ： ``isprime(3) -> true``
 
 .. function:: isodd(x::Integer) -> Bool
 
-   返回``true`` if ``x`` is odd (that is, not divisible by 2), and ``false`` otherwise.
+   如果 ``x`` 是奇数，返回 ``true`` ；否则为 ``false`` 。
 
    **例子** ： ``isodd(9) -> false``
 
 .. function:: iseven(x::Integer) -> Bool
 
-   返回``true`` is ``x`` is even (that is, divisible by 2), and ``false`` otherwise.
+   如果 ``x`` 是偶数，返回 ``true`` ；否则为 ``false`` 。
 
    **例子** ： ``iseven(1) -> false``
 
@@ -1953,7 +1953,7 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: MersenneTwister([seed])
 
-   构造a ``MersenneTwister`` RNG object. Different RNG objects can have their own seeds, which may be useful for generating different streams of random numbers.
+   构造一个 ``MersenneTwister`` RNG 对象。不同的 RNG 对象可以有不同的种子，这对于生成不同的随机数流非常有用。
 
 .. function:: rand()
 
@@ -2038,7 +2038,7 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: Array(type, dims)
 
-   构造an uninitialized dense array. ``dims`` may be a tuple or a series of integer arguments.
+   构造一个未初始化的稠密数组。 ``dims`` 可以是多元组或一组整数参数。
 
 .. function:: getindex(type)
 
@@ -2078,7 +2078,7 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: copy(A)
 
-   构造a copy of ``A``
+   构造 ``A`` 的浅拷贝。
 
 .. function:: similar(array, element_type, dims)
 
@@ -2284,11 +2284,11 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: issparse(S)
 
-   返回 ``true`` if ``S`` is sparse, 否则为 ``false`` 。
+   如果 ``S`` 为稀疏矩阵，返回 ``true`` ；否则为 ``false`` 。
 
 .. function:: nnz(S)
 
-   返回the number of nonzeros in ``S``.
+   返回 ``S`` 中非零元素的个数。
 
 .. function:: sparse(A)
 
@@ -2362,7 +2362,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: lu(A) -> L, U, P
 
-   计算the LU factorization of ``A``, such that ``A[P,:] = L*U``.
+   计算 ``A`` 的 LU 分解，满足 ``A[P,:] = L*U`` 。
 
 .. function:: lufact(A) -> LUDense
 
@@ -2394,7 +2394,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: qr(A) -> Q, R
 
-   计算the QR factorization of ``A`` such that ``A = Q*R``. Also see ``qrd``.
+   计算 ``A`` 的 QR 分解，满足 ``A = Q*R`` 。也可参见 ``qrd`` 。
 
 .. function:: qrfact(A)
 
@@ -2668,7 +2668,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: mean(v, [dim])
 
-   计算整个数组 ``v`` 的均值，或按某一维 ``dim`` 计算（可选）
+   计算整个数组 ``v`` 的均值，或按某一维 ``dim`` 计算（可选）。
 
 .. function:: std(v, [corrected])
 
@@ -2688,15 +2688,15 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: median(v)
 
-   计算向量 ``v`` 的中位数
+   计算向量 ``v`` 的中位数。
 
 .. function:: hist(v, [n])
 
-   计算 ``v`` 的直方图，可以指定划分为 ``n`` 个区间
+   计算 ``v`` 的直方图，可以指定划分为 ``n`` 个区间。
 
 .. function:: hist(v, e)
 
-   计算 ``v`` 的直方图，使用向量 ``e`` 指定区间的边界
+   计算 ``v`` 的直方图，使用向量 ``e`` 指定区间的边界。
 
 .. function:: quantile(v, p)
 
@@ -3068,11 +3068,11 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: run(command)
 
-   执行命令对象， constructed with backticks. Throws an error if anything goes wrong, including the process exiting with a non-zero status.
+   执行命令对象。Throws an error if anything goes wrong, including the process exiting with a non-zero status.命令是由倒引号引起来的。
 
 .. function:: success(command)
 
-   执行命令对象， constructed with backticks, and tell whether it was successful (exited with a code of 0).
+   执行命令对象，并判断是否成功（退出代码是否为 0 ）。命令是由倒引号引起来的。
 
 .. function:: readsfrom(command)
 
@@ -3135,7 +3135,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: tic()
 
-   设置计时器， :func:`toc` 或 :func:`toq` 会调用它所计时的时间。The macro call ``@time expr`` can also be used to time evaluation.
+   设置计时器， :func:`toc` 或 :func:`toq` 会调用它所计时的时间。也可以使用 ``@time expr`` 宏来计算时间。
 
 .. function:: toc()
 
