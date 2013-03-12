@@ -2,13 +2,6 @@
 require("JSON")
 require("Calendar")
 using Calendar
-println("wltest")
-try 
-	  global gh_auth
-		gh_auth = ENV["GH_AUTH"]
-catch e
-		error ("Please provide a Github OAuth Token as environment variable GH_AUTH")
-end
 
 function gen_listpkg()
 
