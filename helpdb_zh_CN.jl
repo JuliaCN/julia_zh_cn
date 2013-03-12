@@ -243,7 +243,7 @@
 ("杂项","Base","require","require(file::String...)
 
    在 \"Main\" 模块的上下文中，对每个活动的节点，通过系统的 \"LOAD_PATH\"
-   查找文件，并只载入一次。\"require\" 是顶层操作，因此它设置当前的 \"include\"
+   查找文件，并只载入一次。``require`` 是顶层操作，因此它设置当前的 \"include\"
    路径，但并不使用它来查找文件（参见 \"include\" 的帮助）。此函数常用来载入库代码； \"using\"
    函数隐含使用它来载入扩展包。
 
@@ -1484,6 +1484,19 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 "),
 
+("文本 I/O","Base","@printf","@printf(\"%Fmt\", args...)
+
+   Print arg(s) using C \"printf()\" style format specification
+   string.
+
+"),
+
+("文本 I/O","Base","@sprintf","@sprintf(stream::IOStream, \"%Fmt\", args...)
+
+   Write \"@printf\" formatted output arg(s) to stream.
+
+"),
+
 ("文本 I/O","Base","showall","showall(x)
 
    Show x, printing all elements of arrays
@@ -2219,8 +2232,8 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 ("数学函数","Base","clamp","clamp(x, lo, hi)
 
-   返回 x if \"lo <= x <= y\". If \"x < lo\", return \"lo\". If \"x >
-   hi\", return \"hi\".
+   如果 \"lo <= x <= y\" 则返回 x 。如果 \"x < lo\" ，返回 \"lo\" 。如果 \"x > hi\"
+   ，返回 \"hi\" 。
 
 "),
 
@@ -2257,8 +2270,8 @@ fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
 ("数学函数","Base","flipsign","flipsign(x, y)
 
-   如果 \"y\" 为复数，返回 \"x\" 的相反数，否则返回 \"x\" 。如 \"abs(x) =
-   flipsign(x,x)\".
+   如果 \"y\" 为复数，返回 \"x\" 的相反数，否则返回 \"x\" 。如 \"abs(x) = flipsign(x,x)\"
+   。
 
 "),
 
@@ -2976,7 +2989,7 @@ airyaiprime(x)
 
 ("数","Base","count_ones","count_ones(x::Integer) -> Integer
 
-   Number of ones in the binary representation of \"x\".
+   \"x\" 的二进制表示中有多少个 1 。
 
    **例子** ： \"count_ones(7) -> 3\"
 
@@ -2984,7 +2997,7 @@ airyaiprime(x)
 
 ("数","Base","count_zeros","count_zeros(x::Integer) -> Integer
 
-   Number of zeros in the binary representation of \"x\".
+   \"x\" 的二进制表示中有多少个 0 。
 
    **例子** ： \"count_zeros(int32(2 ^ 16 - 1)) -> 16\"
 
@@ -2992,7 +3005,7 @@ airyaiprime(x)
 
 ("数","Base","leading_zeros","leading_zeros(x::Integer) -> Integer
 
-   Number of zeros leading the binary representation of \"x\".
+   \"x\" 的二进制表示中开头有多少个 0 。
 
    **例子** ： \"leading_zeros(int32(1)) -> 31\"
 
@@ -3000,7 +3013,7 @@ airyaiprime(x)
 
 ("数","Base","leading_ones","leading_ones(x::Integer) -> Integer
 
-   Number of ones leading the binary representation of \"x\".
+   \"x\" 的二进制表示中开头有多少个 1 。
 
    **例子** ： \"leading_ones(int32(2 ^ 32 - 2)) -> 31\"
 
@@ -3008,7 +3021,7 @@ airyaiprime(x)
 
 ("数","Base","trailing_zeros","trailing_zeros(x::Integer) -> Integer
 
-   Number of zeros trailing the binary representation of \"x\".
+   \"x\" 的二进制表示中末尾有多少个 0 。
 
    **例子** ： \"trailing_zeros(2) -> 1\"
 
@@ -3016,7 +3029,7 @@ airyaiprime(x)
 
 ("数","Base","trailing_ones","trailing_ones(x::Integer) -> Integer
 
-   Number of ones trailing the binary representation of \"x\".
+   \"x\" 的二进制表示中末尾有多少个 1 。
 
    **例子** ： \"trailing_ones(3) -> 2\"
 
@@ -3024,7 +3037,7 @@ airyaiprime(x)
 
 ("数","Base","isprime","isprime(x::Integer) -> Bool
 
-   返回``true`` if \"x\" is prime, and \"false\" otherwise.
+   如果 \"x\" 是质数，返回 \"true\" ；否则为 \"false\" 。
 
    **例子** ： \"isprime(3) -> true\"
 
@@ -3032,8 +3045,7 @@ airyaiprime(x)
 
 ("数","Base","isodd","isodd(x::Integer) -> Bool
 
-   返回``true`` if \"x\" is odd (that is, not divisible by 2), and
-   \"false\" otherwise.
+   如果 \"x\" 是奇数，返回 \"true\" ；否则为 \"false\" 。
 
    **例子** ： \"isodd(9) -> false\"
 
@@ -3041,8 +3053,7 @@ airyaiprime(x)
 
 ("数","Base","iseven","iseven(x::Integer) -> Bool
 
-   返回``true`` is \"x\" is even (that is, divisible by 2), and
-   \"false\" otherwise.
+   如果 \"x\" 是偶数，返回 \"true\" ；否则为 \"false\" 。
 
    **例子** ： \"iseven(1) -> false\"
 
@@ -3059,9 +3070,8 @@ airyaiprime(x)
 
 ("随机数","Base","MersenneTwister","MersenneTwister([seed])
 
-   构造a \"MersenneTwister\" RNG object. Different RNG objects can have
-   their own seeds, which may be useful for generating different
-   streams of random numbers.
+   构造一个 \"MersenneTwister\" RNG 对象。不同的 RNG
+   对象可以有不同的种子，这对于生成不同的随机数流非常有用。
 
 "),
 
@@ -3181,8 +3191,7 @@ airyaiprime(x)
 
 ("数组","Base","Array","Array(type, dims)
 
-   构造an uninitialized dense array. \"dims\" may be a tuple or a series
-   of integer arguments.
+   构造一个未初始化的稠密数组。 \"dims\" 可以是多元组或一组整数参数。
 
 "),
 
@@ -3247,7 +3256,7 @@ airyaiprime(x)
 
 ("数组","Base","copy","copy(A)
 
-   构造a copy of \"A\"
+   构造 \"A\" 的浅拷贝。
 
 "),
 
@@ -3565,13 +3574,13 @@ airyaiprime(x)
 
 ("稀疏矩阵","Base","issparse","issparse(S)
 
-   返回 \"true\" if \"S\" is sparse, 否则为 \"false\" 。
+   如果 \"S\" 为稀疏矩阵，返回 \"true\" ；否则为 \"false\" 。
 
 "),
 
 ("稀疏矩阵","Base","nnz","nnz(S)
 
-   返回the number of nonzeros in \"S\".
+   返回 \"S\" 中非零元素的个数。
 
 "),
 
@@ -3688,7 +3697,7 @@ airyaiprime(x)
 
 ("线性代数","Base","lu","lu(A) -> L, U, P
 
-   计算the LU factorization of \"A\", such that \"A[P,:] = L*U\".
+   计算 \"A\" 的 LU 分解，满足 \"A[P,:] = L*U\" 。
 
 "),
 
@@ -3753,8 +3762,7 @@ airyaiprime(x)
 
 ("线性代数","Base","qr","qr(A) -> Q, R
 
-   计算the QR factorization of \"A\" such that \"A = Q*R\". Also see
-   \"qrd\".
+   计算 \"A\" 的 QR 分解，满足 \"A = Q*R\" 。也可参见 \"qrd\" 。
 
 "),
 
@@ -4186,7 +4194,7 @@ airyaiprime(x)
 
 ("统计","Base","mean","mean(v[, dim])
 
-   计算整个数组 \"v\" 的均值，或按某一维 \"dim\" 计算（可选）
+   计算整个数组 \"v\" 的均值，或按某一维 \"dim\" 计算（可选）。
 
 "),
 
@@ -4238,19 +4246,19 @@ airyaiprime(x)
 
 ("统计","Base","median","median(v)
 
-   计算向量 \"v\" 的中位数
+   计算向量 \"v\" 的中位数。
 
 "),
 
 ("统计","Base","hist","hist(v[, n])
 
-   计算 \"v\" 的直方图，可以指定划分为 \"n\" 个区间
+   计算 \"v\" 的直方图，可以指定划分为 \"n\" 个区间。
 
 "),
 
 ("统计","Base","hist","hist(v, e)
 
-   计算 \"v\" 的直方图，使用向量 \"e\" 指定区间的边界
+   计算 \"v\" 的直方图，使用向量 \"e\" 指定区间的边界。
 
 "),
 
@@ -4761,15 +4769,14 @@ airyaiprime(x)
 
 ("系统","Base","run","run(command)
 
-   执行命令对象， constructed with backticks. Throws an error if anything
-   goes wrong, including the process exiting with a non-zero status.
+   执行命令对象。Throws an error if anything goes wrong, including the
+   process exiting with a non-zero status.命令是由倒引号引起来的。
 
 "),
 
 ("系统","Base","success","success(command)
 
-   执行命令对象， constructed with backticks, and tell whether it was
-   successful (exited with a code of 0).
+   执行命令对象，并判断是否成功（退出代码是否为 0 ）。命令是由倒引号引起来的。
 
 "),
 
@@ -4871,8 +4878,8 @@ airyaiprime(x)
 
 ("系统","Base","tic","tic()
 
-   设置计时器， \"toc()\" 或 \"toq()\" 会调用它所计时的时间。The macro call \"@time
-   expr\" can also be used to time evaluation.
+   设置计时器， \"toc()\" 或 \"toq()\" 会调用它所计时的时间。也可以使用 \"@time expr\"
+   宏来计算时间。
 
 "),
 
@@ -4952,7 +4959,7 @@ ccall(fptr::Ptr{Void}, RetType, (ArgType1, ...), ArgVar1, ...)
 
 ("C 接口","Base","c_free","c_free(addr::Ptr)
 
-   调用 C 标准库中的 ·\"free()\" 。
+   调用 C 标准库中的 ·``free()`` 。
 
 "),
 
