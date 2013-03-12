@@ -899,6 +899,14 @@ I/O
 
    使用 :func:`print` 打印 ``x`` ，并接一个换行符。
 
+.. function:: @printf("%Fmt", args...)
+
+   Print arg(s) using C ``printf()`` style format specification string.
+
+.. function:: @sprintf(stream::IOStream, "%Fmt", args...)
+    
+   Write ``@printf`` formatted output arg(s) to stream.
+
 .. function:: showall(x)
 
    Show x, printing all elements of arrays
