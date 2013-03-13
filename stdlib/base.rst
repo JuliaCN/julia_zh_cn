@@ -726,11 +726,11 @@
 
 .. function:: charwidth(c)
 
-   Gives the number of columns needed to print a character.
+   给出需要多少列来打印此字符。
 
 .. function:: strwidth(s)
 
-   Gives the number of columns needed to print a string.
+   给出需要多少列来打印此字符串。
    
 .. function:: isalnum(c::Char)
 
@@ -805,13 +805,13 @@ I/O
 
 .. function:: open(file_name, [mode]) -> IOStream
 
-   Alternate syntax for open, where a string-based mode specifier is used instead of the five booleans. The values of ``mode`` correspond to those from ``fopen(3)`` or Perl ``open``, and are equivalent to setting the following boolean groups:
+   另一种打开文件的语法，它使用字符串样式的标识符：
 
    ==== =================================
     r    读
     r+   读、写
-    w    写、新建、truncate
-    w+   读写、新建、truncate
+    w    写、新建、清空重写
+    w+   读写、新建、清空重写
     a    写、新建、追加
     a+   读、写、新建、追加
    ==== =================================
