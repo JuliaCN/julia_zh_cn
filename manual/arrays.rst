@@ -195,8 +195,7 @@ X 的维度为 ``(length(I_1), length(I_2), ..., length(I_n))`` ，且 A 在 ``(
     ``sec``, ``csc``, ``cot``, ``asec``, ``acsc``, ``acot``, ``sech``,
     ``csch``, ``coth``, ``asech``, ``acsch``, ``acoth``, ``sinc``,
     ``cosc``, ``hypot``
-7.  对数函数 — ``log``, ``log2``, ``log10``, ``log1p``,
-    ``logb``, ``ilogb``
+7.  对数函数 — ``log``, ``log2``, ``log10``, ``log1p``
 8.  指数函数 — ``exp``, ``expm1``, ``exp2``, ``ldexp``
 9.  舍入函数 — ``ceil``, ``floor``, ``trunc``, ``round``,
     ``ipart``, ``fpart``

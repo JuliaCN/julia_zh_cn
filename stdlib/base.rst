@@ -614,23 +614,15 @@
 
 .. function:: is_valid_ascii(s) -> Bool
 
-   如果字符串是有效的 ASCII ，返回真；否则返回假。
+   如果字符串或字节向量是有效的 ASCII ，返回真；否则返回假。
 
 .. function:: is_valid_utf8(s) -> Bool
 
-   如果字符串是有效的 UTF-8 ，返回真；否则返回假。
+   如果字符串或字节向量是有效的 UTF-8 ，返回真；否则返回假。
 
-.. function:: check_ascii(s)
+.. function:: is_valid_char(c) -> Bool
 
-   对字符串调用 :func:`is_valid_ascii` 。如果它不是有效的，则抛出错误。
-
-.. function:: check_utf8(s)
-
-   对字符串调用 :func:`is_valid_utf8` 。如果它不是有效的，则抛出错误。
-
-.. function:: byte_string_classify(s)
-
-   如果字符串不是有效的 ASCII 或 UTF-8 ，则返回 0 ；如果是有效的 ASCII，则返回 1 ；如果是有效的 UTF-8，则返回 2 。
+   如果指定的字符或整数是有效的 Unicode 码位，则返回真。
 
 .. function:: search(string, char, [i])
 
@@ -1318,14 +1310,6 @@ I/O
 
    ``1+x`` 自然对数的精确值。
 
-.. function:: exponent(x)
-
-   返回浮点数 ``trunc( log2( abs(x) ) )`` 。
-
-.. function:: ilogb(x) 
-
-   :func:`logb` 的返回值为整数的版本。
-
 .. function:: frexp(val, exp)
 
    返回数 ``x`` ，满足 ``x`` 的取值范围为 ``[1/2, 1)`` 或 0 ，且 val = :math:`x \times 2^{exp}` 。
@@ -1784,6 +1768,10 @@ I/O
    Extract the significand(s) (a.k.a. mantissa), in binary representation, of a floating-point number or array.
    
    例如， ``significand(15.2)/15.2 == 0.125`` 与``significand(15.2)*8 == 15.2`` 。
+   
+.. function:: exponent(x) -> Int
+
+   返回浮点数 ``trunc( log2( abs(x) ) )`` 。
 
 .. function:: float64_valued(x::Rational)
 
@@ -1800,10 +1788,6 @@ I/O
 .. function:: char(x)
 
    将数或数组转换为 ``Char`` 数据类型。
-
-.. function:: safe_char(x)
-
-   转换为 ``Char`` ，同时检查是否为有效码位。
 
 .. function:: complex(r,i)
 
@@ -2229,49 +2213,47 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: cumprod(A, [dim])
 
-   Cumulative product along a dimension.
+   沿某个维度的累积乘法。
 
 .. function:: cumsum(A, [dim])
 
-   Cumulative sum along a dimension.
+   沿某个维度的累积加法。
    
 .. function:: cumsum_kbn(A, [dim])
 
-   Cumulative sum along a dimension, using the Kahan-Babuska-Neumaier compensated summation algorithm for additional accuracy.
+   沿某个维度的累积加法。使用 Kahan-Babuska-Neumaier 的加法补偿算法来提高精度。
 
 .. function:: cummin(A, [dim])
 
-   Cumulative minimum along a dimension.
+   沿某个维度的累积最小值。
 
 .. function:: cummax(A, [dim])
 
-   Cumulative maximum along a dimension.
+   沿某个维度的累积最大值。
 
 .. function:: diff(A, [dim])
 
-   Finite difference operator of matrix or vector.
+   沿某个维度的差值（第 2 个减去第 1 个，... ，第 n 个减去第 n-1 个）。
 
 .. function:: rot180(A)
 
-   Rotate matrix ``A`` 180 degrees.
+   将矩阵 ``A`` 旋转 180 度。
 
 .. function:: rotl90(A)
 
-   Rotate matrix ``A`` left 90 degrees.
+   将矩阵 ``A`` 向左旋转 90 度。
 
 .. function:: rotr90(A)
 
-   Rotate matrix ``A`` right 90 degrees.
+   将矩阵 ``A`` 向右旋转 90 度。
 
 .. function:: reducedim(f, A, dims, initial)
 
-   Reduce 2-argument function ``f`` along dimensions of ``A``. ``dims`` is a
-   vector specifying the dimensions to reduce, and ``initial`` is the initial
-   value to use in the reductions.
+   沿 ``A`` 的某个维度使用 ``f`` 函数进行约简。 ``dims`` 指明了约简的维度， ``initial`` 为约简的初始值。
    
 .. function:: sum_kbn(A)
 
-   Returns the sum of all array elements, using the Kahan-Babuska-Neumaier compensated summation algorithm for additional accuracy.
+   返回数组中所有元素的总和。使用 Kahan-Babuska-Neumaier 的加法补偿算法来提高精度。
 
 稀疏矩阵
 --------
