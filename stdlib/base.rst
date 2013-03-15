@@ -1657,27 +1657,27 @@ I/O
 
 .. function:: bits(n)
 
-   A string giving the literal bit representation of a number.
+   用二进制字符串文本表示一个数。
 
 .. function:: parse_int(type, str, [base])
 
-   Parse a string as an integer in the given base (default 10), yielding a number of the specified type.
+   将字符串解析为指定类型、指定进制（默认为 10 ）的整数。
 
 .. function:: parse_bin(type, str)
 
-   Parse a string as an integer in base 2, yielding a number of the specified type.
+   将字符串解析为指定类型的二进制整数。
 
 .. function:: parse_oct(type, str)
 
-   Parse a string as an integer in base 8, yielding a number of the specified type.
+   将字符串解析为指定类型的八进制整数。
 
 .. function:: parse_hex(type, str)
 
-   Parse a string as an integer in base 16, yielding a number of the specified type.
+   将字符串解析为指定类型的十六进制整数。
 
 .. function:: parse_float(type, str)
 
-   Parse a string as a decimal floating point number, yielding a number of the specified type.
+   将字符串解析为指定类型的十进制浮点数。
 
 .. function:: bool(x)
 
@@ -1689,15 +1689,15 @@ I/O
 
 .. function:: int(x)
 
-   Convert a number or array to the default integer type on your platform. Alternatively, ``x`` can be a string, which is parsed as an integer.
+   将数或数组转换为所使用电脑上默认的整数类型。 ``x`` 也可以是字符串，使用此函数时会将其解析为整数。
 
 .. function:: uint(x)
 
-   Convert a number or array to the default unsigned integer type on your platform. Alternatively, ``x`` can be a string, which is parsed as an unsigned integer.
+   将数或数组转换为所使用电脑上默认的无符号整数类型。 ``x`` 也可以是字符串，使用此函数时会将其解析为无符号整数。
 
 .. function:: integer(x)
 
-   Convert a number or array to integer type. If ``x`` is already of integer type it is unchanged, otherwise it converts it to the default integer type on your platform.
+   将数或数组转换为整数类型。如果 ``x`` 已经是整数类型，则不处理；否则将其转换为所使用电脑上默认的整数类型。
 
 .. function:: isinteger(x)
 
@@ -1765,7 +1765,7 @@ I/O
 
 .. function:: significand(x)
 
-   Extract the significand(s) (a.k.a. mantissa), in binary representation, of a floating-point number or array.
+   提取浮点数或浮点数组的二进制表示的有效数字。
    
    例如， ``significand(15.2)/15.2 == 0.125`` 与``significand(15.2)*8 == 15.2`` 。
    
@@ -1803,15 +1803,15 @@ I/O
 
 .. function:: bswap(n)
 
-   Byte-swap an integer
+   给出将一个整数的字节翻转后所得的整数。
 
 .. function:: num2hex(f)
 
-   Get a hexadecimal string of the binary representation of a floating point number
+   将浮点数的二进制表示转换为十六进制字符串。
 
 .. function:: hex2num(str)
 
-   Convert a hexadecimal string to the floating point number it represents
+   将十六进制字符串转换为它所表示的浮点数。
 
 数
 --
@@ -2656,31 +2656,34 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 统计
 ----
 
-.. function:: mean(v, [dim])
+.. function:: mean(v[, region])
 
    计算整个数组 ``v`` 的均值，或按某一维 ``dim`` 计算（可选）。
+   Compute the mean of whole array ``v``, or optionally along the dimensions in ``region``.
 
-.. function:: std(v, [corrected])
+.. function:: std(v[, region])
 
    计算向量 ``v`` 的样本标准差。如果未设定可选参数 ``corrected`` 或显式设定为默认值 ``true`` ，则算法将在 ``v`` 中的每个元素都是从某个生成分布中独立同分布地取得的假设下，返回一个此生成分布标准差的估计。计算结果等价于 ``sqrt(sum((v .- mean(v)).^2) / (length(v) - 1))`` 并且引入了一个有时被称为贝赛尔修正的隐含修正项，这样就能保证方差的估计是无偏的。反之，如果可选参数 ``corrected`` 被设定为 ``false`` ，则算法将给出等价于 ``sqrt(sum((v .- mean(v)).^2) / length(v))`` 的结果，即样本的经验标准差。
+   Compute the sample standard deviation of a vector or array``v``, optionally along dimensions in ``region``. The algorithm returns an estimator of the generative distribution's standard deviation under the assumption that each entry of ``v`` is an IID draw from that generative distribution. This computation is equivalent to calculating ``sqrt(sum((v - mean(v)).^2) / (length(v) - 1))``.
 
-.. function:: std(v, m, [corrected])
+.. function:: stdm(v, m)
 
-   计算已知均值为 ``m`` 的向量 ``v`` 的样本标准差。如果未设定可选参数 ``corrected`` 或显式设定为默认值 ``true`` ，则算法将在 ``v`` 中的每个元素都是从某个生成分布中独立同分布地取得的假设下，返回一个此生成分布标准差的估计。计算结果等价于 ``sqrt(sum((v .- m).^2) / (length(v) - 1))`` 并且引入了一个有时被称为贝赛尔修正的隐含修正项，这样就能保证方差的估计是无偏的。反之，如果可选参数 ``corrected`` 被设定为 ``false`` ，则算法将给出等价于 ``sqrt(sum((v .- m).^2) / length(v))`` 的结果，即样本的经验标准差。
+   计算已知均值为 ``m`` 的向量 ``v`` 的样本标准差。
 
-.. function:: var(v, [corrected])
+.. function:: var(v[, region])
 
    计算向量 ``v`` 的样本方差。如果未设定可选参数 ``corrected`` 或显式设定为默认值 ``true`` ，则算法将在 ``v`` 中的每个元素都是从某个生成分布中独立同分布地取得的假设下，返回一个此生成分布方差的估计。计算结果等价于 ``sum((v .- mean(v)).^2) / (length(v) - 1)`` 并且引入了一个有时被称为贝赛尔修正的隐含修正项，这样就能保证方差的估计是无偏的。反之，如果可选参数 ``corrected`` 被设定为 ``false`` ，则算法将给出等价于 ``sum((v .- mean(v)).^2) / length(v)`` 的结果，即样本的经验方差。
+   Compute the sample variance of a vector or array``v``, optionally along dimensions in ``region``. The algorithm will return an estimator of the generative distribution's variance under the assumption that each entry of ``v`` is an IID draw from that generative distribution. This computation is equivalent to calculating ``sum((v - mean(v)).^2) / (length(v) - 1)``.
 
-.. function:: var(v, m, [corrected])
+.. function:: varm(v, m)
 
-   计算已知均值为 ``m`` 的向量 ``v`` 的样本方差。如果未设定可选参数 ``corrected`` 或显式设定为默认值 ``true`` ，则算法将在 ``v`` 中的每个元素都是从某个生成分布中独立同分布地取得的假设下，返回一个此生成分布方差的估计。计算结果等价于 ``sum((v .- m)).^2) / (length(v) - 1)`` 并且引入了一个有时被称为贝赛尔修正的隐含修正项，这样就能保证方差的估计是无偏的。反之，如果可选参数 ``corrected`` 被设定为 ``false`` ，则算法将给出等价于 ``sum((v .- m)).^2) / length(v)`` 的结果，即样本的经验方差。
+   计算已知均值为 ``m`` 的向量 ``v`` 的样本方差。
 
 .. function:: median(v)
 
    计算向量 ``v`` 的中位数。
 
-.. function:: hist(v, [n])
+.. function:: hist(v[, n])
 
    计算 ``v`` 的直方图，可以指定划分为 ``n`` 个区间。
 
@@ -2696,13 +2699,13 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
    计算向量 ``v`` 在概率值 ``[.0, .2, .4, .6, .8, 1.0]`` 处的分位数。
 
-.. function:: cov(v)
+.. function:: cov(v1[, v2])
 
-   计算两个向量 ``v1`` 和 ``v2`` 的协方差。
+   计算两个向量 ``v1`` 和 ``v2`` 的协方差。If called with a single element ``v``, then computes covariance of columns of ``v``.
 
-.. function:: cor(v)
+.. function:: cor(v1[, v2])
 
-   计算两个向量 ``v1`` 和 ``v2`` 的 Pearson 相关系数。
+   计算两个向量 ``v1`` 和 ``v2`` 的 Pearson 相关系数。If called with a single element ``v``, then computes correlation of columns of ``v``.
 
 信号处理
 --------
