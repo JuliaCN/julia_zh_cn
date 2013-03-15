@@ -1,7 +1,7 @@
 ************
- 可用扩展包  
+ 可用扩展包
 ************
- 
+
 `ArgParse <https://github.com/carlobaldassi/ArgParse.jl>`_
 __________________________________________________________
 
@@ -12,7 +12,7 @@ __________________________________________________________
      :alt: Carlo Baldassi
      :target: https://github.com/carlobaldassi
 
-  当前版本： ``0.0.0``
+  当前版本： ``0.2.0``
 
   Package for parsing command-line arguments to Julia programs. 
 
@@ -22,6 +22,7 @@ __________________________________________________________
 
       Options        任意版本
       TextWrap       任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -236,6 +237,18 @@ ________________________________________________
         :alt: Stefan Karpinski
         :target: https://github.com/StefanKarpinski
 
+    .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tim Holy
+        :target: https://github.com/timholy
+
+    .. image:: https://secure.gravatar.com/avatar/55e277a715ee2afd0d29c309174eca02?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Viral B. Shah
+        :target: https://github.com/ViralBShah
+
     .. image:: https://secure.gravatar.com/avatar/16d8443194c380ca93a77fb8530a5aee?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
@@ -248,25 +261,12 @@ ________________________________________________
         :alt: Kevin Squire
         :target: https://github.com/kmsquire
 
-    .. image:: https://secure.gravatar.com/avatar/55e277a715ee2afd0d29c309174eca02?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: Viral B. Shah
-        :target: https://github.com/ViralBShah
-
     .. image:: https://secure.gravatar.com/avatar/dfc3b0fbb59c9444153823fd35dbd13b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Westley Argentum Hennigh
         :target: https://github.com/WestleyArgentum
 
-	.. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-			:height: 40px
-			:width: 40px
-			:alt: Tim Holy
-			:target: https://github.com/timholy
-		
-		
 ----
 
 `Calculus <https://github.com/johnmyleswhite/Calculus.jl>`_
@@ -389,6 +389,49 @@ ___________________________________________________
 
 ----
 
+`Clang <https://github.com/ihnorton/Clang.jl>`_
+_______________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/192f114babcc8c2f53936c145bbc502c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Isaiah
+     :target: https://github.com/ihnorton
+
+  当前版本： ``0.0.0``
+
+  Julia access to the libclang interface of the LLVM Clang compiler. 
+
+  维护者： `Isaiah <https://github.com/ihnorton>`_
+
+  依赖关系： ::
+
+      BinDeps        任意版本
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/192f114babcc8c2f53936c145bbc502c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Isaiah
+        :target: https://github.com/ihnorton
+
+    .. image:: https://secure.gravatar.com/avatar/8af4d5971a2308b86a94f58fb98129c5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Jameson Nash
+        :target: https://github.com/vtjnash
+
+    .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tim Holy
+        :target: https://github.com/timholy
+
+----
+
 `Clp <https://github.com/mlubin/Clp.jl>`_
 _________________________________________
 
@@ -437,7 +480,10 @@ _______________________________________________________________
 
   依赖关系： ::
 
-      DataFrames     任意版本
+      Devectorize    任意版本
+      Distance       任意版本
+      MLBase         任意版本
+      Options        任意版本
 
   贡献者：
 
@@ -446,6 +492,12 @@ _______________________________________________________________
         :width: 40px
         :alt: John Myles White
         :target: https://github.com/johnmyleswhite
+
+    .. image:: https://secure.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Dahua Lin
+        :target: https://github.com/lindahua
 
     .. image:: https://secure.gravatar.com/avatar/1af2db0b26142fd0c7ab082f3d445f73?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -536,6 +588,12 @@ ________________________________________________
       无
 
   贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/fd97b03d16e1aa4c404391216d81c1d5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Daniel Jones
+        :target: https://github.com/dcjones
 
     .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -639,6 +697,36 @@ _______________________________________________________________________________
         :width: 40px
         :alt: John Myles White
         :target: https://github.com/johnmyleswhite
+
+----
+
+`Cpp <https://github.com/timholy/Cpp.jl>`_
+__________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Tim Holy
+     :target: https://github.com/timholy
+
+  当前版本： ``0.0.0``
+
+  Utilities for calling C++ from Julia 
+
+  维护者： `Tim Holy <https://github.com/timholy>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tim Holy
+        :target: https://github.com/timholy
 
 ----
 
@@ -760,7 +848,7 @@ ________________________________________________________
      :alt: Harlan Harris
      :target: https://github.com/HarlanH
 
-  当前版本： ``0.0.0``
+  当前版本： ``0.2.0``
 
   library for working with tabular data in Julia 
 
@@ -768,8 +856,10 @@ ________________________________________________________
 
   依赖关系： ::
 
+      GZip           任意版本
       Options        任意版本
       Stats          任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -815,17 +905,17 @@ ________________________________________________________
         :alt: milktrader
         :target: https://github.com/milktrader
 
-    .. image:: https://secure.gravatar.com/avatar/a27d23ce4c080f3307cc6507f6fdfe87?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: dmbates
-        :target: https://github.com/dmbates
-
     .. image:: https://secure.gravatar.com/avatar/42c8c4ab92de3390bcd2f637ef6ca16c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Kevin Squire
         :target: https://github.com/kmsquire
+
+    .. image:: https://secure.gravatar.com/avatar/a27d23ce4c080f3307cc6507f6fdfe87?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: dmbates
+        :target: https://github.com/dmbates
 
     .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -941,6 +1031,12 @@ _____________________________________________
         :alt: toivoh
         :target: https://github.com/toivoh
 
+    .. image:: https://secure.gravatar.com/avatar/5c06e9faa0d7bd205f81d10e825d7e4a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: nfoti
+        :target: https://github.com/nfoti
+
     .. image:: https://secure.gravatar.com/avatar/317e44562dcf11f5164d0a4936696fbc?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
@@ -967,7 +1063,7 @@ _______________________________________________________________
 
   依赖关系： ::
 
-      无
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -1139,11 +1235,23 @@ _________________________________________________________________
         :alt: dmbates
         :target: https://github.com/dmbates
 
+    .. image:: https://secure.gravatar.com/avatar/52ec3f52d9c7be45b398b9e8afa4ee8c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Dan Merl
+        :target: https://github.com/danmerl
+
     .. image:: https://secure.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Dahua Lin
         :target: https://github.com/lindahua
+
+    .. image:: https://secure.gravatar.com/avatar/0b41d1f9e580cde53307166a47ae5300?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Sergey Bartunov
+        :target: https://github.com/sbos
 
 ----
 
@@ -1247,7 +1355,7 @@ ____________________________________________________________
      :alt: Carlo Baldassi
      :target: https://github.com/carlobaldassi
 
-  当前版本： ``0.0.0``
+  当前版本： ``0.2.0``
 
   A fast FASTA reader for Julia 
 
@@ -1255,7 +1363,8 @@ ____________________________________________________________
 
   依赖关系： ::
 
-      无
+      GZip           任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -1264,6 +1373,12 @@ ____________________________________________________________
         :width: 40px
         :alt: Carlo Baldassi
         :target: https://github.com/carlobaldassi
+
+    .. image:: https://secure.gravatar.com/avatar/42c8c4ab92de3390bcd2f637ef6ca16c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Kevin Squire
+        :target: https://github.com/kmsquire
 
 ----
 
@@ -1422,8 +1537,8 @@ _____________________________________________
   A Julia interface for gzip functions in zlib 
 
   维护者： `Kevin Squire <https://github.com/kmsquire>`_
-  
-  文档： `<https://gzipjl.readthedocs.org/en/latest/>`_
+
+  文档： `<https://gzipjl.readthedocs.org/en/latest/>`_ 
 
   依赖关系： ::
 
@@ -1531,7 +1646,7 @@ _____________________________________________
 
   依赖关系： ::
 
-      无
+      julia          [v"0.1.0-", v"0.2.0-"]
 
   贡献者：
 
@@ -1625,7 +1740,7 @@ ____________________________________________
      :alt: Tim Holy
      :target: https://github.com/timholy
 
-  当前版本： ``0.0.0``
+  当前版本： ``0.2.0``
 
   Grid operations for the Julia language 
 
@@ -1675,6 +1790,36 @@ __________________________________________
 
 ----
 
+`Gurobi <https://github.com/lindahua/Gurobi.jl>`_
+_________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Dahua Lin
+     :target: https://github.com/lindahua
+
+  当前版本： ``0.0.0``
+
+  Julia Port of Gurobi Optimizer 
+
+  维护者： `Dahua Lin <https://github.com/lindahua>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Dahua Lin
+        :target: https://github.com/lindahua
+
+----
+
 `HDF5 <https://github.com/timholy/HDF5.jl>`_
 ____________________________________________
 
@@ -1685,7 +1830,7 @@ ____________________________________________
      :alt: Tim Holy
      :target: https://github.com/timholy
 
-  当前版本： ``0.0.0``
+  当前版本： ``0.2.0``
 
   HDF5 interface for the Julia language 
 
@@ -1693,7 +1838,8 @@ ____________________________________________
 
   依赖关系： ::
 
-      无
+      StrPack        任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -1703,17 +1849,17 @@ ____________________________________________
         :alt: Tim Holy
         :target: https://github.com/timholy
 
-    .. image:: https://secure.gravatar.com/avatar/9524ef56c2823a59d54f9226a7ef08ba?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: Simon Kornblith
-        :target: https://github.com/simonster
-
     .. image:: https://secure.gravatar.com/avatar/449044e4f0ed377b21409488cddafc45?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Blake Johnson
         :target: https://github.com/blakejohnson
+
+    .. image:: https://secure.gravatar.com/avatar/9524ef56c2823a59d54f9226a7ef08ba?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Simon Kornblith
+        :target: https://github.com/simonster
 
 ----
 
@@ -1904,8 +2050,14 @@ ________________________________________________
     .. image:: https://secure.gravatar.com/avatar/d04d5b6e71776eb13d195ba7cc94b995?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: Waldir
+        :alt: Waldir Pimenta
         :target: https://github.com/waldir
+
+    .. image:: https://secure.gravatar.com/avatar/afb7f86706c41da610daf216d60e59b9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Ron Rock
+        :target: https://github.com/rsrock
 
 ----
 
@@ -2143,6 +2295,37 @@ __________________________________________
         :width: 40px
         :alt: Daniel Jones
         :target: https://github.com/dcjones
+
+----
+
+`JuliaWebRepl <https://github.com/vtjnash/JuliaWebRepl.jl>`_
+____________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/8af4d5971a2308b86a94f58fb98129c5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Jameson Nash
+     :target: https://github.com/vtjnash
+
+  当前版本： ``0.0.0``
+
+   
+
+  维护者： `Jameson Nash <https://github.com/vtjnash>`_
+
+  依赖关系： ::
+
+      BinDeps        任意版本
+      julia          [v"0.2.0"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/8af4d5971a2308b86a94f58fb98129c5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Jameson Nash
+        :target: https://github.com/vtjnash
 
 ----
 
@@ -2411,6 +2594,36 @@ ____________________________________________
 
 ----
 
+`MATLAB <https://github.com/lindahua/MATLAB.jl>`_
+_________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Dahua Lin
+     :target: https://github.com/lindahua
+
+  当前版本： ``0.0.0``
+
+  Calling MATLAB in Julia through MATLAB Engine 
+
+  维护者： `Dahua Lin <https://github.com/lindahua>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Dahua Lin
+        :target: https://github.com/lindahua
+
+----
+
 `MCMC <https://github.com/doobwa/MCMC.jl>`_
 ___________________________________________
 
@@ -2507,6 +2720,7 @@ _______________________________________________________________________
       Stats          任意版本
       TimeSeries     任意版本
       UTF16          任意版本
+      julia          [v"0.1.0-", v"0.2.0-"]
 
   贡献者：
 
@@ -2538,6 +2752,7 @@ ___________________________________________________
 
       Clp            任意版本
       CoinMP         任意版本
+      julia          [v"0.1.0-"]
 
   贡献者：
 
@@ -2583,6 +2798,12 @@ __________________________________________________
         :alt: Tracy Wadleigh
         :target: https://github.com/twadleigh
 
+    .. image:: https://secure.gravatar.com/avatar/9c8bbd5a306197b461704991872a05b0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: michelk
+        :target: https://github.com/michelk
+
 ----
 
 `Monads <https://github.com/pao/Monads.jl>`_
@@ -2614,6 +2835,36 @@ ____________________________________________
         :width: 40px
         :alt: Patrick O'Leary
         :target: https://github.com/pao
+
+----
+
+`Mongo <https://github.com/Lytol/Mongo.jl>`_
+____________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/eabc077018e56904597d150369b4a803?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Brian Smith
+     :target: https://github.com/Lytol
+
+  当前版本： ``0.0.0``
+
+  Mongo bindings for the Julia programming language 
+
+  维护者： `Brian Smith <https://github.com/Lytol>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/eabc077018e56904597d150369b4a803?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Brian Smith
+        :target: https://github.com/Lytol
 
 ----
 
@@ -2681,6 +2932,12 @@ _____________________________________________________
         :width: 40px
         :alt: john verzani
         :target: https://github.com/jverzani
+
+    .. image:: https://secure.gravatar.com/avatar/f5c61e85dfa465686adc24e0bffba42a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Avik Sengupta
+        :target: https://github.com/aviks
 
     .. image:: https://secure.gravatar.com/avatar/d9c8c5a29b60871d14846a382d50626a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -2840,6 +3097,36 @@ __________________________________________________
 
 ----
 
+`OpenSSL <https://github.com/dirk/OpenSSL.jl>`_
+_______________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/d9c8c5a29b60871d14846a382d50626a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Dirk Gadsden
+     :target: https://github.com/dirk
+
+  当前版本： ``0.0.0``
+
+  WIP OpenSSL bindings for Julia 
+
+  维护者： `Dirk Gadsden <https://github.com/dirk>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/d9c8c5a29b60871d14846a382d50626a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Dirk Gadsden
+        :target: https://github.com/dirk
+
+----
+
 `Optim <https://github.com/johnmyleswhite/Optim.jl>`_
 _____________________________________________________
 
@@ -2902,7 +3189,7 @@ ____________________________________________________
      :alt: The Julia Language
      :target: https://github.com/JuliaLang
 
-  当前版本： ``0.0.0``
+  当前版本： ``0.2.0``
 
   A framework for providing optional arguments to functions. 
 
@@ -2910,9 +3197,15 @@ ____________________________________________________
 
   依赖关系： ::
 
-      无
+      julia          [v"0.2.0-"]
 
   贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/80502de63c1b21d8f3ba663d72ba5be2?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Carlo Baldassi
+        :target: https://github.com/carlobaldassi
 
     .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -2926,23 +3219,17 @@ ____________________________________________________
         :alt: Tim Holy
         :target: https://github.com/timholy
 
-    .. image:: https://secure.gravatar.com/avatar/9f1a68b9e623be5da422b44e733fa8bc?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: Harlan Harris
-        :target: https://github.com/HarlanH
-
     .. image:: https://secure.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: John Myles White
         :target: https://github.com/johnmyleswhite
 
-    .. image:: https://secure.gravatar.com/avatar/80502de63c1b21d8f3ba663d72ba5be2?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+    .. image:: https://secure.gravatar.com/avatar/9f1a68b9e623be5da422b44e733fa8bc?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: Carlo Baldassi
-        :target: https://github.com/carlobaldassi
+        :alt: Harlan Harris
+        :target: https://github.com/HarlanH
 
 ----
 
@@ -3133,7 +3420,7 @@ _________________________________________________
 
   依赖关系： ::
 
-      无
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -3388,6 +3675,36 @@ ____________________________________________
 
 ----
 
+`SemidefiniteProgramming <https://github.com/daviddelaat/SemidefiniteProgramming.jl>`_
+______________________________________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/62df30beab9c2a6f3fe3f86995e94387?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: David de Laat
+     :target: https://github.com/daviddelaat
+
+  当前版本： ``0.0.0``
+
+  Interface to semidefinite programming libraries. 
+
+  维护者： `David de Laat <https://github.com/daviddelaat>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/62df30beab9c2a6f3fe3f86995e94387?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: David de Laat
+        :target: https://github.com/daviddelaat
+
+----
+
 `Sims <https://github.com/tshort/Sims.jl>`_
 ___________________________________________
 
@@ -3474,7 +3791,7 @@ ______________________________________________
 
   依赖关系： ::
 
-      无
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -3483,6 +3800,36 @@ ______________________________________________
         :width: 40px
         :alt: Patrick O'Leary
         :target: https://github.com/pao
+
+    .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tim Holy
+        :target: https://github.com/timholy
+
+----
+
+`Sundials <https://github.com/tshort/Sundials.jl>`_
+___________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/903acb22f47a901577ee48d3962d5858?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Tom Short
+     :target: https://github.com/tshort
+
+  当前版本： ``0.0.0``
+
+  Julia interface to Sundials, including a nonlinear solver (KINSOL), ODE's (CVODE), and DAE's (IDA). 
+
+  维护者： `Tom Short <https://github.com/tshort>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
 
 ----
 
@@ -3534,8 +3881,8 @@ _________________________________________
 
   依赖关系： ::
 
-      Calendar       Any Version
-      JSON           Any Version
+      Calendar       任意版本
+      JSON           任意版本
 
   贡献者：
 
@@ -3614,6 +3961,47 @@ __________________________________________________________
 
 ----
 
+`TimeModels <https://github.com/milktrader/TimeModels.jl>`_
+___________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/25ce2ab2f5e673e46208c1188a39e6ca?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: milktrader
+     :target: https://github.com/milktrader
+
+  当前版本： ``0.0.0``
+
+  Modeling time series in Julia 
+
+  维护者： `milktrader <https://github.com/milktrader>`_
+
+  依赖关系： ::
+
+      Calendar       任意版本
+      DataFrames     任意版本
+      Stats          任意版本
+      TimeSeries     任意版本
+      UTF16          任意版本
+      julia          [v"0.1.0-", v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/25ce2ab2f5e673e46208c1188a39e6ca?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: milktrader
+        :target: https://github.com/milktrader
+
+    .. image:: https://secure.gravatar.com/avatar/ab31fb941184aaef823ddad0f2179c1f?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: João Daniel
+        :target: https://github.com/jdanielnd
+
+----
+
 `TimeSeries <https://github.com/milktrader/TimeSeries.jl>`_
 ___________________________________________________________
 
@@ -3636,6 +4024,7 @@ ___________________________________________________________
       DataFrames     任意版本
       Stats          任意版本
       UTF16          任意版本
+      julia          [v"0.1.0-", v"0.2.0-"]
 
   贡献者：
 
@@ -3694,29 +4083,29 @@ __________________________________________
         :alt: Mike Nolta
         :target: https://github.com/nolta
 
-    .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: Stefan Karpinski
-        :target: https://github.com/StefanKarpinski
-
     .. image:: https://secure.gravatar.com/avatar/55e277a715ee2afd0d29c309174eca02?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Viral B. Shah
         :target: https://github.com/ViralBShah
 
-    .. image:: https://secure.gravatar.com/avatar/449044e4f0ed377b21409488cddafc45?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+    .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: Blake Johnson
-        :target: https://github.com/blakejohnson
+        :alt: Stefan Karpinski
+        :target: https://github.com/StefanKarpinski
 
     .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Tim Holy
         :target: https://github.com/timholy
+
+    .. image:: https://secure.gravatar.com/avatar/449044e4f0ed377b21409488cddafc45?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Blake Johnson
+        :target: https://github.com/blakejohnson
 
 ----
 
@@ -3743,6 +4132,7 @@ _________________________________________________________________________
       Stats          任意版本
       TimeSeries     任意版本
       UTF16          任意版本
+      julia          [v"0.1.0-", v"0.2.0-"]
 
   贡献者：
 
@@ -3991,6 +4381,36 @@ ________________________________________
 
 ----
 
+`Zlib <https://github.com/dcjones/Zlib.jl>`_
+____________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/fd97b03d16e1aa4c404391216d81c1d5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Daniel Jones
+     :target: https://github.com/dcjones
+
+  当前版本： ``0.0.0``
+
+  zlib bindings for Julia 
+
+  维护者： `Daniel Jones <https://github.com/dcjones>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/fd97b03d16e1aa4c404391216d81c1d5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Daniel Jones
+        :target: https://github.com/dcjones
+
+----
+
 `kNN <https://github.com/johnmyleswhite/kNN.jl>`_
 _________________________________________________
 
@@ -4021,4 +4441,5 @@ _________________________________________________
 
 ----
 
-.. footer: 107 packages, generated 5 Mar 2013 16:13:57 GMT
+.. footer: 118 个扩展包，本文档生成于 15 Mar 2013 13:56:28 GMT 
+

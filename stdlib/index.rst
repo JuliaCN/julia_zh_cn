@@ -16,6 +16,8 @@
 
    base
    constants
+   file
+   punctuation
 
 ********
 内建模块
@@ -26,22 +28,6 @@
 
    sort
 
-****
-附加
-****
-
-.. toctree::
-   :maxdepth: 1
-
-   argparse
-   cpp
-   options
-   gzip
-   profile
-   sound
-   textwrap
-   zlib
-
 **********
 数学和数值
 **********
@@ -50,5 +36,4 @@
    :maxdepth: 1
 
    blas
-   glpk
 

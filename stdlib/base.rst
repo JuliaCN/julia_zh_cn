@@ -799,6 +799,10 @@ I/O
 
    指向标准输入流的全局变量。
 
+.. data:: OUTPUT_STREAM
+
+   用于文本输出的默认流，如在 ``print`` 和 ``show`` 函数中的流。
+
 .. function:: open(file_name, [read, write, create, truncate, append]) -> IOStream
 
    按五个布尔值参数指明的模式打开文件。默认以只读模式打开文件。返回操作文件的流。
@@ -1827,6 +1831,30 @@ I/O
 .. data:: pi
 
    常量 pi 。
+
+.. data:: im
+
+   虚数单位。
+
+.. data:: e
+
+   常量 e 。
+
+.. data:: Inf
+
+   正无穷，类型为 Float64 。
+
+.. data:: Inf32
+
+   正无穷，类型为 Float32 。
+
+.. data:: NaN
+
+   表示“它不是数”的值，类型为 Float64 。
+
+.. data:: NaN32
+
+   表示“它不是数”的值，类型为 Float32 。
 
 .. function:: isdenormal(f) -> Bool
 
@@ -3144,7 +3172,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. data:: ENV
 
-   对单态 ``EnvHash`` 的引用。
+   对单态 ``EnvHash`` 的引用，提供系统环境变量的字典接口。
 
 C 接口
 ------

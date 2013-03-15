@@ -4,6 +4,8 @@
  模块  
 ******
 
+.. index:: module, baremodule, using, import, export, importall
+
 Julia 的模块是一个独立的全局变量工作区。它由句法限制在 ``module Name ... end`` 之间。在模块内部，你可以控制其他模块的命名是否可见（通过 ``import`` ），也可以指明本模块的命名是否为 public （通过 ``export`` ）。
 
 下面的例子展示了模块的主要特征。这个例子仅为演示： ::

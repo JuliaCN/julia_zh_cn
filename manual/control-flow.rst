@@ -198,7 +198,7 @@ Julia 提供一系列控制流：
     2
     true
 
-``&&`` 和 ``||`` 的操作数也必须是布尔值（ ``true`` 或 ``false`` ），否则会出现错误： ::
+``&&`` 和 ``||`` 的运算对象也必须是布尔值（ ``true`` 或 ``false`` ），否则会出现错误： ::
 
     julia> 1 && 2
     type error: lambda: in if, expected Bool, got Int64
