@@ -450,19 +450,19 @@
 
 .. function:: add_each!(collection, iterable)
 
-   Adds each element in iterable to the collection.
+   向类集集合逐个添加 ``iterable`` 中的元素。
 
 .. function:: Set(x...)
 
-   使用指定元素来构造 ``Set`` 。Should be used instead of ``IntSet`` for sparse integer sets.
+   使用指定元素来构造 ``Set`` 。构造稀疏整数集合时应使用此函数，而非 ``IntSet`` 。
 
 .. function:: IntSet(i...)
 
-   使用指定元素来构造 ``IntSet`` 。Implemented as a bit string, and therefore good for dense integer sets.
+   使用指定元素来构造 ``IntSet`` 。它是由位字符串实现的，因而适合构造稠密整数集合。
 
 .. function:: union(s1,s2...)
 
-   构造两个及两个以上集合的共用体。Maintains order with arrays.
+   构造两个及两个以上集合的共用体。保持原数组中的顺序。
 
 .. function:: union!(s1,s2)
 
@@ -470,15 +470,15 @@
 
 .. function:: intersect(s1,s2...)
 
-   构造the intersection of two or more sets. Maintains order with arrays.
+   构造两个及两个以上集合的交集。保持原数组中的顺序。
 
 .. function:: setdiff(s1,s2)
 
-   使用存在于 ``s1`` 且不在 ``s2`` 的元素来构造集合。Maintains order with arrays.
+   使用存在于 ``s1`` 且不在 ``s2`` 的元素来构造集合。保持原数组中的顺序。
 
 .. function:: symdiff(s1,s2...)
 
-   构造the symmetric difference of elements in the passed in sets or arrays. Maintains order with arrays.
+   构造由传递进来的集合或数组中不相同的元素构成的集合。保持原数组中的顺序。
 
 .. function:: symdiff!(s, n)
 
@@ -490,7 +490,7 @@
 
 .. function:: symdiff!(s1, s2)
 
-   构造the symmetric difference of IntSets ``s1`` and ``s2``, storing the result in ``s1``.
+   构造由 ``IntSets`` 类型的 ``s1`` 和 ``s2`` 中不相同的元素构成的集合，结果保存在 ``s1`` 中。
 
 .. function:: complement(s)
 
@@ -498,7 +498,7 @@
 
 .. function:: complement!(s)
 
-   Mutates IntSet s into its set-complement.
+   将 ``IntSet`` s 转换为它的补集。
 
 .. function:: del_each!(s, itr)
 
@@ -927,7 +927,7 @@ I/O
 
    将读入的所有行返回为数组。
 
-.. function:: each_line(stream)
+.. function:: eachline(stream)
 
    构造an iterable object that will yield each line from a stream.
 
@@ -2039,11 +2039,11 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: scale!(A, k)
 
-   Scale the contents of an array A with k (in-place)
+   原地将数组 A 的内容乘以 k 。
    
 .. function:: conj!(A)
 
-   Convert an array to its complex conjugate in-place
+   原地求数组的复数共轭。
 
 .. function:: stride(A, k)
 
@@ -2368,7 +2368,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: cross(x, y)
 
-   计算the cross product of two 3-vectors
+   计算三维向量的向量积。
 
 .. function:: norm(a)
 
@@ -2388,7 +2388,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: lufact!(A) -> LUDense
 
-   ``lufact!`` 与 ``lufact`` 相同，but saves space by overwriting the input A, instead of creating a copy.
+   ``lufact!`` 与 ``lufact`` 相同，但它覆写输入 A ，而非构造浅拷贝。
 
 .. function:: chol(A, [LU]) -> F
 
@@ -2400,7 +2400,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function: cholfact!(A, [LU]) -> CholeskyDense
 
-   ``cholfact!`` 与 ``cholfact`` 相同，but saves space by overwriting the input A, instead of creating a copy.
+   ``cholfact!`` 与 ``cholfact`` 相同，但它覆写输入 A ，而非构造浅拷贝。
 
 ..  function:: cholpfact(A, [LU]) -> CholeskyPivotedDense
 
@@ -2408,7 +2408,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: cholpfact!(A, [LU]) -> CholeskyPivotedDense
 
-   ``cholpfact!`` 与 ``cholpfact`` 相同，but saves space by overwriting the input A, instead of creating a copy.
+   ``cholpfact!`` 与 ``cholpfact`` 相同，但它覆写输入 A ，而非构造浅拷贝。
 
 .. function:: qr(A) -> Q, R
 
@@ -2420,11 +2420,11 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: qrfact!(A)
 
-   ``qrfact!`` 与 ``qrfact`` 相同，but saves space by overwriting the input A, instead of creating a copy.
+   ``qrfact!`` 与 ``qrfact`` 相同，但它覆写输入 A ，而非构造浅拷贝。
 
 .. function:: qrp(A) -> Q, R, P
 
-   计算the QR factorization of ``A`` with pivoting, such that ``A*I[:,P] = Q*R``, where ``I`` is the identity matrix. Also see ``qrpfact``.
+   计算the QR factorization of ``A`` with pivoting, such that ``A*I[:,P] = Q*R``, 其中 ``I`` 为单位矩阵。另见 ``qrpfact`` 。
 
 .. function:: qrpfact(A) -> QRPivotedDense
 
@@ -2432,15 +2432,15 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: qrpfact!(A) -> QRPivotedDense
 
-   ``qrpfact!`` 与 ``qrpfact`` 相同，but saves space by overwriting the input A, instead of creating a copy.
+   ``qrpfact!`` 与 ``qrpfact`` 相同，但它覆写输入 A ，而非构造浅拷贝。
 
 .. function:: qmulQR(QR, A)
    
-   Perform Q*A efficiently, where Q is a an orthogonal matrix defined as the product of k elementary reflectors from the QR decomposition.
+   高效计算 ``Q*A`` 。其中 Q 为使用豪斯霍尔德变换的 QR 分解中得到的正交矩阵。
 
 .. function:: qTmulQR(QR, A)
 
-   Perform ``Q'*A`` efficiently, where Q is a an orthogonal matrix defined as the product of k elementary reflectors from the QR decomposition.
+   高效计算 ``Q'*A`` 。其中 Q 为使用豪斯霍尔德变换的 QR 分解中得到的正交矩阵。
 
 .. function:: sqrtm(A)
 
@@ -2514,7 +2514,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: Tridiagonal(dl, d, du)
 
-   构造a tridiagonal matrix from the lower diagonal, diagonal, and upper diagonal
+   由下对角线、主对角线、上对角线来构造三对角矩阵
 
 .. function:: Woodbury(A, U, C, V)
 
@@ -2530,7 +2530,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: normfro(A)
 
-   计算the Frobenius norm of a matrix ``A``.
+   计算矩阵 ``A`` 的 Frobenius 范数。
 
 .. function:: cond(M, [p])
 
@@ -2558,7 +2558,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: repmat(A, n, m)
 
-   构造a matrix by repeating the given matrix ``n`` times in dimension 1 and ``m`` times in dimension 2.
+   重复矩阵 ``A`` 来构造新数组，在第一维度上重复 ``n`` 次，第二维度上重复 ``m`` 次。
 
 .. function:: kron(A, B)
 
@@ -2742,33 +2742,22 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: fft(A [, dims])
 
-   Performs a multidimensional FFT of the array ``A``.  The optional ``dims``
-   argument specifies an iterable subset of dimensions (e.g. an integer,
-   range, tuple, or array) to transform along.  Most efficient if the
-   size of ``A`` along the transformed dimensions is a product of small
-   primes; see :func:`nextprod`.  See also :func:`plan_fft` for even
-   greater efficiency.
-
-   A one-dimensional FFT computes the one-dimensional discrete Fourier
-   transform (DFT) as defined by :math:`\operatorname{DFT}[k] = \sum_{n=1}^{\operatorname{length}(A)} \exp\left(-i\frac{2\pi (n-1)(k-1)}{\operatorname{length}(A)} \right) A[n]`.  A multidimensional FFT simply performs this operation
-   along each transformed dimension of ``A``.
+   对数组 ``A`` 做多维 FFT 。可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、多元组、数组）。如果 ``A`` 要运算的维度上的长度是较小的质数的积，算法会比较高效；详见 :func:`nextprod` 。另见高效的 :func:`plan_fft` 。
+   
+   一维 FFT 计算一维离散傅里叶变换（ DFT ），其定义为 :math:`\operatorname{DFT}[k] = \sum_{n=1}^{\operatorname{length}(A)} \exp\left(-i\frac{2\pi (n-1)(k-1)}{\operatorname{length}(A)} \right) A[n]` 。多维 FFT 对 ``A`` 的多个维度做此运算。
 
 .. function:: fft!(A [, dims])
 
-   与 :func:`fft` 相同，but operates in-place on ``A``,
-   which must be an array of complex floating-point numbers.
+   与 :func:`fft` 相同，但在原地对 ``A`` 运算， ``A`` 必须是复数浮点数数组。
 
 .. function:: ifft(A [, dims]), bfft, bfft!
 
-   Multidimensional inverse FFT.
+   多维 IFFT 。
 
-   A one-dimensional backward FFT computes
+   一维反向 FFT 计算
    :math:`\operatorname{BDFT}[k] =
    \sum_{n=1}^{\operatorname{length}(A)} \exp\left(+i\frac{2\pi
-   (n-1)(k-1)}{\operatorname{length}(A)} \right) A[n]`.  A
-   multidimensional backward FFT simply performs this operation along
-   each transformed dimension of ``A``.  The inverse FFT computes
-   the same thing divided by the product of the transformed dimensions.
+   (n-1)(k-1)}{\operatorname{length}(A)} \right) A[n]` 。多维反向 FFT 对 ``A`` 的多个维度做此运算。IFFT 将其结果除以所运算的维度大小的积。
 
 .. function:: ifft!(A [, dims])
 
@@ -2776,12 +2765,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: bfft(A [, dims])
 
-   类似 :func:`ifft`, but computes an unnormalized inverse
-   (backward) transform, which must be divided by the product of the sizes
-   of the transformed dimensions in order to obtain the inverse.  (This is
-   slightly more efficient than :func:`ifft` because it omits a scaling
-   step, which in some applications can be combined with other
-   computational steps elsewhere.)
+   类似 :func:`ifft` ，但计算非归一化的（即反向）变换，它的结果需要除以所运算的维度大小的积，才是 IFFT 的结果。（它比 :func:`ifft` 稍微高效一点儿，因为它省略了归一化的步骤；有时归一化的步骤可以与其它地方的其它计算合并在一起做。）
 
 .. function:: bfft!(A [, dims])
 
@@ -2790,9 +2774,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 .. function:: plan_fft(A [, dims [, flags [, timelimit]]]),  plan_ifft, plan_bfft
 
    Pre-plan an optimized FFT along given dimensions (``dims``) of arrays
-   matching the shape and type of ``A``.  (The first two arguments have
-   the same meaning as for :func:`fft`.)  返回a function ``plan(A)``
-   that computes ``fft(A, dims)`` quickly.
+   matching the shape and type of ``A``. （前两个参数的意义参见 :func:`fft` 。）返回可快速计算 ``fft(A, dims)`` 的函数 ``plan(A)`` 。
 
    The ``flags`` argument is a bitwise-or of FFTW planner flags, defaulting
    to ``FFTW.ESTIMATE``.  e.g. passing ``FFTW.MEASURE`` or ``FFTW.PATIENT``
@@ -2823,11 +2805,10 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: rfft(A [, dims])
 
-   Multidimensional FFT of a real array A, exploiting the fact that
+   对实数数组 ``A`` 做多维 FFT ，exploiting the fact that
    the transform has conjugate symmetry in order to save roughly half
    the computational time and storage costs compared with :func:`fft`.
-   If ``A`` has size ``(n_1, ..., n_d)``, the result has size
-   ``(floor(n_1/2)+1, ..., n_d)``.
+   如果 ``A`` 的大小为 ``(n_1, ..., n_d)`` ，结果的大小为 ``(floor(n_1/2)+1, ..., n_d)`` 。
 
    The optional ``dims`` argument specifies an iterable subset of one or
    more dimensions of ``A`` to transform, similar to :func:`fft`.  Instead
@@ -2868,8 +2849,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: dct(A [, dims])
 
-   Performs a multidimensional type-II discrete cosine transform (DCT)
-   of the array ``A``, using the unitary normalization of the DCT.
+   对数组 ``A`` 做第二类离散余弦变换（ DCT ），using the unitary normalization of the DCT.
    The optional ``dims`` argument specifies an iterable subset of
    dimensions (e.g. an integer, range, tuple, or array) to transform
    along.  Most efficient if the size of ``A`` along the transformed
@@ -2878,9 +2858,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: dct!(A [, dims])
 
-   与 :func:`dct!` 相同，except that it operates in-place
-   on ``A``, which must be an array of real or complex floating-point
-   values. 
+   与 :func:`dct!` 相同，但在原地对 ``A`` 进行运算。 ``A`` 必须是实数或复数的浮点数数组。
 
 .. function:: idct(A [, dims])
 
@@ -2940,9 +2918,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
    See also :func:`FFTW.plan_r2r` to pre-plan optimized r2r transforms.
 
-   :func:`FFTW.r2r!` 与 :func:`FFTW.r2r` 相同，but operates
-   in-place on ``A``, which must be an array of real or complex 
-   floating-point numbers.
+   :func:`FFTW.r2r!` 与 :func:`FFTW.r2r` 相同，但在原地对 ``A`` 进行运算。 ``A`` 必须是实数或复数的浮点数数组。
 
 .. function:: FFTW.plan_r2r(A, kind [, dims [, flags [, timelimit]]]), FFTW.plan_r2r!
 
@@ -3089,7 +3065,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: run(command)
 
-   执行命令对象。Throws an error if anything goes wrong, including the process exiting with a non-zero status.命令是由倒引号引起来的。
+   执行命令对象。如果出错或进程退出时为非零状态，将报错。命令是由倒引号引起来的。
 
 .. function:: success(command)
 
@@ -3127,20 +3103,19 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: cd(dir::String)
 
-   Set the current working directory. 返回the new current directory.
+   设置当前工作文件夹。返回新的当前文件夹。
 
 .. function:: cd(f, ["dir"])
 
-   Temporarily changes the current working directory (HOME if not specified) and applies function f before returning. 
+   临时更改当前工作文件夹（未指明主文件夹），调用 f 函数，然后返回原文件夹。
 
 .. function:: mkdir(path, [mode])
 
-   Make a new directory with name ``path`` and permissions ``mode``.
-   ``mode`` defaults to 0o777, modified by the current file creation mask.
+   新建名为 ``path`` 的文件夹，其权限为 ``mode`` 。 ``mode`` 默认为 0o777 ，可通过当前文件创建掩码来修改。
 
 .. function:: rmdir(path)
 
-   移除the directory named ``path``.
+   删除 ``path`` 文件夹。
 
 .. function:: getpid() -> Int32
 
@@ -3180,11 +3155,11 @@ C 接口
 .. function:: ccall( (symbol, library), RetType, (ArgType1, ...), ArgVar1, ...)
               ccall( fptr::Ptr{Void}, RetType, (ArgType1, ...), ArgVar1, ...)
 
-   Call function in C-exported shared library, specified by (function name, library) tuple (String or :Symbol). Alternatively, ccall may be used to call a function pointer returned by dlsym, but note that this usage is generally discouraged to facilitate future static compilation.
+   调用从 C 导出的共享库的函数，它由 (函数名, 共享库名) 多元组（字符串或 :Symbol ）指明。 ccall 也可用来调用由 dlsym 返回的函数指针，但由于将来想实现静态编译，不提倡这种用法。
 
 .. function:: cfunction(fun::Function, RetType::Type, (ArgTypes...))
    
-   Generate C-callable function pointer from Julia function.
+   使用 Julia 函数生成 C 可调用的函数指针。
 
 .. function:: dlopen(libfile::String [, flags::Integer])
 
@@ -3194,11 +3169,11 @@ C 接口
 
 .. function:: dlsym(handle, sym)
 
-   Look up a symbol from a shared library handle, return callable function pointer on success.
+   在共享库句柄中查找符号。查找成功时返回可调用的函数指针。
 
 .. function:: dlsym_e(handle, sym)
    
-   Look up a symbol from a shared library handle, silently return NULL pointer on lookup failure.
+   在共享库句柄中查找符号。如果查找失败，则安静地返回空指针。
 
 .. function:: dlclose(handle)
 

@@ -30,7 +30,7 @@
 
 .. function:: axpy!(n, a, X, incx, Y, incy)
 
-   Overwrite ``Y`` with ``a*X + Y``.返回 ``Y`` 。
+   将 ``a*X + Y`` 赋值给 ``Y`` 并返回。
 
 .. function:: syrk!(uplo, trans, alpha, A, beta, C)
 
