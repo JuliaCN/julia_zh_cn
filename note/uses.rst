@@ -13,6 +13,6 @@ Win 下启用并行编程
 
 -  在命令行中将 ``-p n`` 参数传递给 ``julia.bat`` 脚本
 -  编辑 `julia.bat` 脚本中有 ``.exe`` 的那一行为 ``call "%JULIA_HOME%julia-release-readline.exe" -p n %*`` 
--  正常启动 Julia 后调用 ``add_procslocal(1)`` 函数来增加一个处理器
+-  正常启动 Julia 后调用 ``addprocs_local(1)`` 函数来增加一个处理器
 
 这三种方法都可以分别启用并行编程。前两者中， ``n`` 应设置为电脑 CPU 的内核数。

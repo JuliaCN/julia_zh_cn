@@ -113,7 +113,7 @@
 
    作为特例，匿名函数只能深拷贝，非匿名函数则为浅拷贝。它们的区别仅与闭包有关，例如含有隐藏的内部引用的函数。
 
-   While it isn't normally necessary,自定义类型可通过定义特殊版本的 ``deepcopy_internal(x::T, dict::ObjectIdDict)`` 函数（此函数其它情况下不应使用）来覆盖默认的 ``deepcopy`` 行为，其中 ``T`` 是要指明的类型， ``dict`` 记录迄今为止递归中复制的对象。在定义中， ``deepcopy_internal`` 应当用来代替 ``deepcopy`` ， ``dict`` 变量应当在返回前正确的更新。
+   正常情况都不必要这么做：自定义类型可通过定义特殊版本的 ``deepcopy_internal(x::T, dict::ObjectIdDict)`` 函数（此函数其它情况下不应使用）来覆盖默认的 ``deepcopy`` 行为，其中 ``T`` 是要指明的类型， ``dict`` 记录迄今为止递归中复制的对象。在定义中， ``deepcopy_internal`` 应当用来代替 ``deepcopy`` ， ``dict`` 变量应当在返回前正确的更新。
 
 .. function:: convert(type, x)
 
@@ -225,7 +225,10 @@
    对一组迭代对象，返回一组可迭代多元组，其中第 ``i`` 个多元组包含每个可迭代输入的第 ``i`` 个分量。
 
    注意 ``zip`` 是它自己的逆操作： ``[zip(zip(a...)...)...] == [a...]`` 。
+   
+.. function:: enumerate(iter)
 
+   返回生成 ``(i, x)`` 的迭代器，其中 ``i`` 是从 1 开始的索引， ``x`` 是指定迭代器的第 ``i`` 个值。
 
 完全实现的有： ``Range``, ``Range1``, ``NDRange``, ``Tuple``, ``Real``, ``AbstractArray``, ``IntSet``, ``ObjectIdDict``, ``Dict``, ``WeakKeyDict``, ``EachLine``, ``String``, ``Set``, ``Task``.
 
@@ -371,7 +374,7 @@
 
 字典 ``Dict`` 是标准关联性集合。它的实现中，key 键使用 ``hash(x)`` 作为其哈希函数，使用 ``isequal(x,y)`` 判断是否相等。为自定义类型定义这两个函数，可覆盖它们如何存储在哈希表中的细节。
 
-``ObjectIdDict`` 是个特殊的哈希表，它的 key 是对象的 ID 。 ``WeakKeyDict`` 是一种哈希表实现，它的 key 是对象的弱引用，因此即使在哈希表中被引用，它也可能被垃圾回收机制处理。
+``ObjectIdDict`` 是个特殊的哈希表，它的 key 是对象的 ID 。 ``WeakKeyDict`` 是一种哈希表实现，它的 key 是对象的弱引用，因此即使在哈希表中被引用，它也可能被回收机制处理。
 
 字典可通过文本化语法构造： ``{"A"=>1, "B"=>2}`` 。使用花括号可以构造 ``Dict{Any,Any}`` 类型的 ``Dict`` 。使用方括号会尝试从 key 和值中推导类型信息（如 ``["A"=>1, "B"=>2]`` 可构造 ``Dict{ASCIIString, Int64}`` ）。使用 ``(KeyType=>ValueType)[...]`` 来指明类型。如 ``(ASCIIString=>Int32)["A"=>1, "B"=>2]`` 。
 
@@ -827,7 +830,7 @@ I/O
 
 .. function:: open(f::function, args...)
 
-   Apply the function ``f`` to the result of ``open(args...)`` and close the resulting file descriptor upon completion.
+   将函数 ``f`` 映射到 ``open(args...)`` 的返回值上，完成后关闭文件描述符。
 
    **例子** ： ``open(readall, "file.txt")``
 
@@ -838,11 +841,11 @@ I/O
 .. function:: fdio(fd::Integer, [own::Bool]) -> IOStream
               fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
 
-   构造an ``IOStream`` object from an integer file descriptor. If ``own`` is true, closing this object will close the underlying descriptor. By default, an ``IOStream`` is closed when it is garbage collected. ``name`` allows you to associate the descriptor with a named file.
+   用整数文件描述符构造 ``IOStream`` 对象。如果 ``own`` 为真，关闭对象时会关闭底层的描述符。默认垃圾回收时 ``IOStream`` 是关闭的。 ``name`` 用文件描述符关联已命名的文件。
 
 .. function:: flush(stream)
 
-   Commit all currently buffered writes to the given stream.
+   将当前所有的缓冲写入指定流。
 
 .. function:: close(stream)
 
@@ -850,15 +853,15 @@ I/O
 
 .. function:: write(stream, x)
 
-   Write the canonical binary representation of a value to the given stream.
+   将值的标准二进制表示写入指定流。
 
 .. function:: read(stream, type)
 
-   Read a value of the given type from a stream, in canonical binary representation.
+   从标准二进制表示的流中读出指定类型的值。
 
 .. function:: read(stream, type, dims)
 
-   Read a series of values of the given type from a stream, in canonical binary representation. ``dims`` is either a tuple or a series of integer arguments specifying the size of ``Array`` to return.
+   从标准二进制表示的流中读出指定类型的一组值。 ``dims`` 可以是整数参数的多元组或集合，它指明要返还 ``Array`` 的大小。
 
 .. function:: position(s)
 
@@ -874,7 +877,7 @@ I/O
 
 .. function:: skip(s, offset)
 
-   Seek a stream relative to the current position.
+   相对于当前位置定位流。
 
 .. function:: eof(stream)
 
@@ -929,7 +932,7 @@ I/O
 
 .. function:: eachline(stream)
 
-   构造an iterable object that will yield each line from a stream.
+   构造可迭代对象，它从流中生成每一行文本。
 
 .. function:: readdlm(filename, delim::Char)
 
@@ -1629,12 +1632,11 @@ I/O
 
 .. function:: bitmix(x, y)
 
-   Hash two integers into a single integer. Useful for constructing hash
-   functions.
+   将两个整数散列为一个整数。用于构造哈希函数。
 
 .. function:: ndigits(n, b)
 
-   计算the number of digits in number ``n`` written in base ``b``.
+   计算用 ``b`` 进制表示 ``n`` 时的位数。
 
 数据格式
 --------
@@ -1965,7 +1967,7 @@ I/O
 随机数
 ------
 
-Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/#dSFMT>`_ 来生成随机数。Julia 默认使用全局随机数生成器 RNG 。Multiple RNGs can be plugged in using the ``AbstractRNG`` object, which can then be used to have multiple streams of random numbers.目前只支持 ``MersenneTwister`` 。
+Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/#dSFMT>`_ 来生成随机数。Julia 默认使用全局随机数生成器 RNG 。可以使用 ``AbstractRNG`` 对象来插入多个 RNG ，用来生成多个随机数流。目前只支持 ``MersenneTwister`` 。
 
 .. function:: srand([rng], seed)
 
@@ -2058,15 +2060,15 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: Array(type, dims)
 
-   构造一个未初始化的稠密数组。 ``dims`` 可以是多元组或一组整数参数。
+   构造一个未初始化的稠密数组。 ``dims`` 可以是整数参数的多元组或集合。
 
 .. function:: getindex(type)
 
-   构造an empty 1-d array of the specified type. This is usually called with the syntax ``Type[]``. Element values can be specified using ``Type[a,b,c,...]``.
+   构造指定类型的一维数组。它常被 ``Type[]`` 语法调用。元素值可由 ``Type[a,b,c,...]`` 指明。
 
 .. function:: cell(dims)
 
-   构造an uninitialized cell array (heterogeneous array). ``dims`` can be either a tuple or a series of integer arguments.
+   构造未初始化的元胞数组（异构数组）。 ``dims`` 可以是整数参数的多元组或集合。
    
 .. function:: zeros(type, dims)
 
@@ -2130,7 +2132,7 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: linspace(start, stop, n)
 
-   构造a vector of ``n`` linearly-spaced elements from ``start`` to ``stop``.
+   构造从 ``start`` 到 ``stop`` 的 ``n`` 个元素的向量，元素之间为线性步长。
 
 .. function:: logspace(start, stop, n)
 
@@ -2609,7 +2611,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: nthperm(v, k)
 
-   计算the kth lexicographic permutation of a vector.
+   按字典顺序返回向量的第 k 种排列。
 
 .. function:: nthperm!(v, k)
 
@@ -2617,31 +2619,29 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: randperm(n)
 
-   构造a random permutation of the given length.
+   构造指定长度的随机排列。
 
 .. function:: invperm(v)
 
-   返回the inverse permutation of v.
+   返回 v 的逆排列。
 
 .. function:: isperm(v) -> Bool
 
-   返回true if v is a valid permutation.
+   如果 v 是有效排列，则返回 ``true`` 。
 
 .. function:: permute!(v, p)
 
-   Permute vector ``v`` in-place, according to permutation ``p``.  No
-   checking is done to verify that ``p`` is a permutation.
+   根据排列 ``p`` 对向量 ``v`` 进行原地排列。此函数不验证 ``p`` 是否为排列。
 
-   To return a new permutation, use ``v[p]``.  Note that this is
-   generally faster than ``permute!(v,p)`` for large vectors.
+   使用 ``v[p]`` 返回新排列。对于大向量，它通常比 ``permute!(v,p)`` 快。
 
 .. function:: ipermute!(v, p)
 
-   Like permute!, but the inverse of the given permutation is applied.
+   类似 permute! ，但它使用指定排列的逆排列。
 
 .. function:: randcycle(n)
 
-   构造a random cyclic permutation of the given length.
+   构造指定长度的随机循环排列。
 
 .. function:: shuffle(v)
 
@@ -2661,33 +2661,22 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: combinations(array, n)
 
-   Generate all combinations of ``n`` elements from a given array. Because
-   the number of combinations can be very large, this function runs inside
-   a Task to produce values on demand. Write ``c = @task combinations(a,n)``,
-   then iterate ``c`` or call ``consume`` on it.
+   从指定数组生成 ``n`` 个元素的所有组合。由于组合的个数很多，这个函数应在 Task 内部使用。写成 ``c = @task combinations(a,n)`` 的形式，然后迭代 ``c`` 或对其调用 ``consume`` 。
 
 .. function:: integer_partitions(n, m)
 
-   Generate all arrays of ``m`` integers that sum to ``n``. Because
-   the number of partitions can be very large, this function runs inside
-   a Task to produce values on demand. Write
-   ``c = @task integer_partitions(n,m)``, then iterate ``c`` or call
-   ``consume`` on it.
+   生成由 ``m`` 个整数加起来等于 ``n`` 的所有数组。由于组合的个数很多，这个函数应在 Task 内部使用。写成 ``c = @task integer_partitions(n,m)`` 的形式，然后迭代 ``c`` 或对其调用 ``consume`` 。
 
 .. function:: partitions(array)
 
-   Generate all set partitions of the elements of an array, represented as
-   arrays of arrays. Because the number of partitions can be very large, this
-   function runs inside a Task to produce values on demand. Write
-   ``c = @task partitions(a)``, then iterate ``c`` or call ``consume`` on it.
+   生成数组中元素所有可能的组合，表示为数组的数组。由于组合的个数很多，这个函数应在 Task 内部使用。写成 ``c = @task partitions(a)`` 的形式，然后迭代 ``c`` 或对其调用 ``consume`` 。
 
 统计
 ----
 
 .. function:: mean(v[, region])
 
-   计算整个数组 ``v`` 的均值，或按某一维 ``dim`` 计算（可选）。
-   Compute the mean of whole array ``v``, or optionally along the dimensions in ``region``.
+   计算整个数组 ``v`` 的均值，或按 ``region`` 中列出的维度计算（可选）。
 
 .. function:: std(v[, region])
 
@@ -2750,7 +2739,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
    与 :func:`fft` 相同，但在原地对 ``A`` 运算， ``A`` 必须是复数浮点数数组。
 
-.. function:: ifft(A [, dims]), bfft, bfft!
+.. function:: ifft(A [, dims])
 
    多维 IFFT 。
 
@@ -2771,10 +2760,10 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
    与 :func:`bfft` 相同，但在原地对 ``A`` 进行运算。
 
-.. function:: plan_fft(A [, dims [, flags [, timelimit]]]),  plan_ifft, plan_bfft
+.. function:: plan_fft(A [, dims [, flags [, timelimit]]])
 
    Pre-plan an optimized FFT along given dimensions (``dims``) of arrays
-   matching the shape and type of ``A``. （前两个参数的意义参见 :func:`fft` 。）返回可快速计算 ``fft(A, dims)`` 的函数 ``plan(A)`` 。
+   matching the shape and type of ``A``. （前两个参数的意义参见 :func:`fft` 。）返回可快速计算 ``fft(A, dims)`` 的函数。
 
    The ``flags`` argument is a bitwise-or of FFTW planner flags, defaulting
    to ``FFTW.ESTIMATE``.  e.g. passing ``FFTW.MEASURE`` or ``FFTW.PATIENT``
@@ -2790,6 +2779,14 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
    complex floating-point numbers).  :func:`plan_ifft` and so on
    are similar but produce plans that perform the equivalent of
    the inverse transforms :func:`ifft` and so on.
+
+.. function:: plan_ifft(A [, dims [, flags [, timelimit]]])
+
+   与 :func:`plan_fft` 相同，but produces a plan that performs an inverse transforms :func:`ifft`.
+
+.. function:: plan_bfft(A [, dims [, flags [, timelimit]]])
+
+   与 :func:`plan_fft` 相同，but produces a plan that performs an unnormalized backwards transform :func:`bfft`.
 
 .. function:: plan_fft!(A [, dims [, flags [, timelimit]]])
 
@@ -2810,9 +2807,8 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
    the computational time and storage costs compared with :func:`fft`.
    如果 ``A`` 的大小为 ``(n_1, ..., n_d)`` ，结果的大小为 ``(floor(n_1/2)+1, ..., n_d)`` 。
 
-   The optional ``dims`` argument specifies an iterable subset of one or
-   more dimensions of ``A`` to transform, similar to :func:`fft`.  Instead
-   of (roughly) halving the first dimension of ``A`` in the result, the
+   与 :func:`fft` 相同，可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、多元组、数组）。
+   Instead of (roughly) halving the first dimension of ``A`` in the result, the
    ``dims[1]`` dimension is (roughly) halved in the same way.
 
 .. function:: irfft(A, d [, dims])
@@ -2837,24 +2833,16 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 .. function:: plan_rfft(A [, dims [, flags [, timelimit]]])
 
    Pre-plan an optimized real-input FFT, similar to :func:`plan_fft`
-   except for :func:`rfft` instead of :func:`fft`.  The first two
-   arguments, and the size of the transformed result, are the same as
-   for :func:`rfft`.
+   except for :func:`rfft` instead of :func:`fft`.前两个参数及变换后的大小，都与 :func:`rfft` 相同。
 
-.. function:: plan_irfft(A, d [, dims [, flags [, timelimit]]]), plan_bfft
+.. function:: plan_irfft(A, d [, dims [, flags [, timelimit]]])
 
    Pre-plan an optimized inverse real-input FFT, similar to :func:`plan_rfft`
-   except for :func:`irfft` and :func:`brfft`, respectively.  The first
-   three arguments have the same meaning as for :func:`irfft`.
+   except for :func:`irfft` and :func:`brfft`, respectively. 前三个参数的意义与 :func:`irfft` 相同。
 
 .. function:: dct(A [, dims])
 
-   对数组 ``A`` 做第二类离散余弦变换（ DCT ），using the unitary normalization of the DCT.
-   The optional ``dims`` argument specifies an iterable subset of
-   dimensions (e.g. an integer, range, tuple, or array) to transform
-   along.  Most efficient if the size of ``A`` along the transformed
-   dimensions is a product of small primes; see :func:`nextprod`.  See
-   also :func:`plan_dct` for even greater efficiency.
+   对数组 ``A`` 做第二类离散余弦变换（ DCT ），使用归一化的 DCT 。与 :func:`fft` 相同，可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、多元组、数组）。如果 ``A`` 要运算的维度上的长度是较小的质数的积，算法会比较高效；详见 :func:`nextprod` 。另见高效的 :func:`plan_dct` 。
 
 .. function:: dct!(A [, dims])
 
@@ -2862,14 +2850,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: idct(A [, dims])
 
-   Computes the multidimensional inverse discrete cosine transform (DCT)
-   of the array ``A`` (technically, a type-III DCT with the unitary
-   normalization).
-   The optional ``dims`` argument specifies an iterable subset of
-   dimensions (e.g. an integer, range, tuple, or array) to transform
-   along.  Most efficient if the size of ``A`` along the transformed
-   dimensions is a product of small primes; see :func:`nextprod`.  See
-   also :func:`plan_idct` for even greater efficiency.
+   对数组 ``A`` 做多维逆离散余弦变换（ IDCT）（即归一化的第三类 DCT）。可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、多元组、数组）。如果 ``A`` 要运算的维度上的长度是较小的质数的积，算法会比较高效；详见 :func:`nextprod` 。另见高效的 :func:`plan_idct` 。
 
 .. function:: idct!(A [, dims])
 
@@ -2879,7 +2860,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
    Pre-plan an optimized discrete cosine transform (DCT), similar to
    :func:`plan_fft` except producing a function that computes :func:`dct`.
-   The first two arguments have the same meaning as for :func:`dct`.
+   前两个参数的意义与 :func:`dct` 相同。
 
 .. function:: plan_dct!(A [, dims [, flags [, timelimit]]])
 
@@ -2889,16 +2870,16 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
    Pre-plan an optimized inverse discrete cosine transform (DCT), similar to
    :func:`plan_fft` except producing a function that computes :func:`idct`.
-   The first two arguments have the same meaning as for :func:`idct`.
+   前两个参数的意义与 :func:`idct` 相同。
 
 .. function:: plan_idct!(A [, dims [, flags [, timelimit]]])
 
    与 :func:`plan_idct` 相同，但在原地对 ``A`` 进行运算。
 
-.. function:: FFTW.r2r(A, kind [, dims]), FFTW.r2r!
+.. function:: FFTW.r2r(A, kind [, dims])
 
    Performs a multidimensional real-input/real-output (r2r) transform
-   of type ``kind`` of the array ``A``, as defined in the FFTW manual.
+   of type ``kind`` of the array ``A`` .
    ``kind`` specifies either a discrete cosine transform of various types
    (``FFTW.REDFT00``, ``FFTW.REDFT01``, ``FFTW.REDFT10``, or
    ``FFTW.REDFT11``), a discrete sine transform of various types 
@@ -2908,35 +2889,38 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
    Hartley transform (``FFTW.DHT``).  The ``kind`` argument may be
    an array or tuple in order to specify different transform types
    along the different dimensions of ``A``; ``kind[end]`` is used
-   for any unspecified dimensions.  See the FFTW manual for precise
-   definitions of these transform types, at `<http://www.fftw.org/doc>`.
+   for any unspecified dimensions.  有关这些变换类型的精确定义，详见 FFTW 手册 `<http://www.fftw.org/doc>`.
 
-   The optional ``dims`` argument specifies an iterable subset of
-   dimensions (e.g. an integer, range, tuple, or array) to transform
-   along. ``kind[i]`` is then the transform type for ``dims[i]``,
+   可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、多元组、数组）。 ``kind[i]`` is then the transform type for ``dims[i]``,
    with ``kind[end]`` being used for ``i > length(kind)``.
 
-   See also :func:`FFTW.plan_r2r` to pre-plan optimized r2r transforms.
+   另见 :func:`FFTW.plan_r2r` to pre-plan optimized r2r transforms.
+
+.. function:: FFTW.r2r!
 
    :func:`FFTW.r2r!` 与 :func:`FFTW.r2r` 相同，但在原地对 ``A`` 进行运算。 ``A`` 必须是实数或复数的浮点数数组。
 
-.. function:: FFTW.plan_r2r(A, kind [, dims [, flags [, timelimit]]]), FFTW.plan_r2r!
+.. function:: FFTW.plan_r2r(A, kind [, dims [, flags [, timelimit]]])
 
    Pre-plan an optimized r2r transform, similar to :func:`plan_fft`
    except that the transforms (and the first three arguments)
    correspond to :func:`FFTW.r2r` and :func:`FFTW.r2r!`, respectively.
 
+.. function:: FFTW.plan_r2r!
+
+   与 :func:`plan_fft` 相同，但它对应于 :func:`FFTW.r2r!` 。
+
 .. function:: fftshift(x)
 
-   Swap the first and second halves of each dimension of ``x``.
+   交换 ``x`` 每个维度的上半部分和下半部分。
 
 .. function:: fftshift(x,dim)
 
-   Swap the first and second halves of the given dimension of array ``x``.
+   交换 ``x`` 指定维度的上半部分和下半部分。
 
 .. function:: ifftshift(x, [dim])
 
-   Undoes the effect of ``fftshift``.
+   ``fftshift`` 的逆运算。
 
 .. function:: filt(b,a,x)
 
@@ -2944,7 +2928,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: deconv(b,a)
 
-   构造vector ``c`` such that ``b = conv(a,c) + r``. Equivalent to polynomial division.
+   构造向量 ``c`` ，满足 ``b = conv(a,c) + r`` 。等价于多项式除法。
 
 .. function:: conv(u,v)
 
@@ -2959,15 +2943,15 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: addprocs_local(n)
 
-   Add processes on the local machine. Can be used to take advantage of multiple cores.
+   在当前机器上添加一个进程。适用于多核。
 
 .. function:: addprocs_ssh({"host1","host2",...})
 
-   Add processes on remote machines via SSH. Requires julia to be installed in the same location on each node, or to be available via a shared file system.
+   通过 SSH 在远程机器上添加进程。需要在每个节点的相同位置安装 Julia ，或者通过共享文件系统可以使用 Julia 。
 
 .. function:: addprocs_sge(n)
 
-   Add processes via the Sun/Oracle Grid Engine batch queue, using ``qsub``.
+   通过 Sun/Oracle Grid Engine batch queue 来添加进程，使用 ``qsub`` 。
 
 .. function:: nprocs()
 
@@ -2979,70 +2963,70 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: pmap(f, c)
 
-   Transform collection ``c`` by applying ``f`` to each element in parallel.
+   并行地将函数 ``f`` 映射到集合 ``c`` 的每个元素上。
 
 .. function:: remote_call(id, func, args...)
 
-   Call a function asynchronously on the given arguments on the specified processor. 返回 ``RemoteRef`` 。
+   在指定的处理器上，对指定参数异步调用函数。返回 ``RemoteRef`` 。
 
 .. function:: wait(RemoteRef)
 
-   Wait for a value to become available for the specified remote reference.
+   等待指定的 ``RemoteRef`` 所需的值为可用。
 
 .. function:: fetch(RemoteRef)
 
-   等待并获取 remote reference 的值。
+   等待并获取 ``RemoteRef`` 的值。
 
 .. function:: remote_call_wait(id, func, args...)
 
-   Perform ``wait(remote_call(...))`` in one message.
+   在一个信息内运行 ``wait(remote_call(...))`` 。
 
 .. function:: remote_call_fetch(id, func, args...)
 
-   Perform ``fetch(remote_call(...))`` in one message.
+   在一个信息内运行 ``fetch(remote_call(...))`` 。
 
 .. function:: put(RemoteRef, value)
 
-   Store a value to a remote reference. Implements "shared queue of length 1" semantics: if a value is already present, blocks until the value is removed with ``take``.
+   把值存储在 ``RemoteRef`` 中。它的实现符合“共享长度为 1 的队列”：如果现在有一个值，除非值由 ``take`` 函数移除，否则一直阻塞。
 
 .. function:: take(RemoteRef)
 
-   取回 remote reference 的值，removing it so that the reference is empty again.
+   取回 ``RemoteRef`` 的值，将其移除，从而清空 ``RemoteRef`` 。
 
 .. function:: RemoteRef()
 
-   Make an uninitialized remote reference on the local machine.
+   在当前机器上生成一个未初始化的 ``RemoteRef`` 。
 
 .. function:: RemoteRef(n)
 
-   Make an uninitialized remote reference on processor ``n``.
+   在处理器 ``n`` 上生成一个未初始化的 ``RemoteRef`` 。
 
 分布式数组
 ----------
 
 .. function:: DArray(init, dims, [procs, dist])
 
-   构造分布式数组。 ``init`` is a function accepting a tuple of index ranges. This function should return a chunk of the distributed array for the specified indexes. ``dims`` is the overall size of the distributed array. ``procs`` optionally specifies a vector of processor IDs to use. ``dist`` is an integer vector specifying how many chunks the distributed array should be divided into in each dimension.
+   构造分布式数组。 ``init`` 函数接收索引值范围多元组为参数，此函数为指定的索引值返回分布式数组中对应的块。 ``dims`` 为整个分布式数组的大小。 ``procs`` 为要使用的处理器 ID 的向量。 ``dist`` 是整数向量，指明分布式数组在每个维度上需要划分为多少块。
 
 .. function:: dzeros(dims, ...)
 
-   构造全零的分布式数组。Trailing arguments are the same as those accepted by ``darray``.
+   构造全零的分布式数组。尾参数可参见 ``darray`` 。
 
 .. function:: dones(dims, ...)
 
-   构造全一的分布式数组。Trailing arguments are the same as those accepted by ``darray``.
+   构造全一的分布式数组。尾参数可参见 ``DArray`` 。
 
 .. function:: dfill(x, dims, ...)
 
-   构造值全为 ``x`` 的分布式数组。Trailing arguments are the same as those accepted by ``darray``.
+   构造值全为 ``x`` 的分布式数组。尾参数可参见 ``DArray`` 。
 
 .. function:: drand(dims, ...)
 
-   构造均匀分布的随机分布式数组。Trailing arguments are the same as those accepted by ``darray``.
+   构造均匀分布的随机分布式数组。尾参数可参见 ``DArray`` 。
 
 .. function:: drandn(dims, ...)
 
-   构造正态分布的随机分布式数组。Trailing arguments are the same as those accepted by ``darray``.
+   构造正态分布的随机分布式数组。尾参数可参见 ``DArray`` 。
 
 .. function:: distribute(a)
 
@@ -3050,15 +3034,15 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: localize(d)
 
-   获取分布式数组的本地部分。
+   获取分布式数组 ``d`` 的本地部分。
 
 .. function:: myindexes(d)
 
-   A tuple describing the indexes owned by the local processor
+   分布式数组 ``d`` 的本地部分所对应的索引值的多元组。
 
 .. function:: procs(d)
 
-   Get the vector of processors storing pieces of ``d``
+   获取存储分布式数组 ``d`` 的处理器 ID 的向量。
 
 系统
 ----
@@ -3067,27 +3051,43 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
    执行命令对象。如果出错或进程退出时为非零状态，将报错。命令是由倒引号引起来的。
 
+.. function:: spawn(command)
+
+   异步运行命令，返回生成的 ``Process`` 对象。
+
 .. function:: success(command)
 
    执行命令对象，并判断是否成功（退出代码是否为 0 ）。命令是由倒引号引起来的。
 
 .. function:: readsfrom(command)
 
-   Starts running a command asynchronously, and returns a tuple (stream,process). The first value is a stream reading from the process' standard output.
+   异步运行命令，返回 (stream,process) 多元组。第一个值是从进程的标准输出读出的流。
 
 .. function:: writesto(command)
 
-   Starts running a command asynchronously, and returns a tuple (stream,process). The first value is a stream writing to the process' standard input.
+   异步运行命令，返回 (stream,process) 多元组。第一个值是向进程的标准输入写入的流。
 
 .. function:: readandwrite(command)
 
-   Starts running a command asynchronously, and returns a tuple (stdout,stdin,process) of the output stream and input stream of the process, and the process object itself.
+   异步运行命令，返回 (stdout,stdin,process) 多元组，分别为进程的输出流、输入流，及进程本身。
 
-.. function:: > < >> .>
+.. function:: >
 
-   ``>`` ``<`` and ``>>`` work exactly as in bash, and ``.>`` redirects STDERR.
+   重定向进程的标准输出流。
 
-   **例子** ： ``run((`ls` > "out.log") .> "err.log")``
+   **例子**: ``run(`ls` > "out.log")``
+
+.. function:: <
+
+   重定向进程的标准输入流流。
+
+.. function:: >>
+
+   重定向进程的标准输出流，添加到目标文件尾部。
+
+.. function:: .>
+
+   重定向进程的标准错误流。
 
 .. function:: gethostname() -> String
 
@@ -3190,6 +3190,18 @@ C 接口
 .. function:: unsafe_assign(p::Ptr{T},x,i::Integer)
 
    给指针赋值 ``p[i] = x`` 或 ``*p = x`` ，将对象 x 复制进 p 处的内存中。
+
+.. function:: pointer(a[, index])
+
+   获取数组元素的原生地址。要确保使用指针时，必须存在 Julia 对 ``a`` 的引用。
+
+.. function:: pointer(type, Uint)
+
+   指向指定元素类型的指针，地址为该无符号整数。
+
+.. function:: pointer_to_array(p, dims[, own])
+
+   将原生指针封装为 Julia 数组对象。指针元素的类型决定了数组元素的类型。 ``own`` 可选项指明 Julia 是否可以控制内存，当数组不再被引用时调用 ``free`` 释放指针。
 
 错误
 ----
