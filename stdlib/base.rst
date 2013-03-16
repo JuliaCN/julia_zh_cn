@@ -113,7 +113,7 @@
 
    作为特例，匿名函数只能深拷贝，非匿名函数则为浅拷贝。它们的区别仅与闭包有关，例如含有隐藏的内部引用的函数。
 
-   正常情况都不必要这么做：自定义类型可通过定义特殊版本的 ``deepcopy_internal(x::T, dict::ObjectIdDict)`` 函数（此函数其它情况下不应使用）来覆盖默认的 ``deepcopy`` 行为，其中 ``T`` 是要指明的类型， ``dict`` 记录迄今为止递归中复制的对象。在定义中， ``deepcopy_internal`` 应当用来代替 ``deepcopy`` ， ``dict`` 变量应当在返回前正确的更新。
+   正常情况都不必这么做：自定义类型可通过定义特殊版本的 ``deepcopy_internal(x::T, dict::ObjectIdDict)`` 函数（此函数其它情况下不应使用）来覆盖默认的 ``deepcopy`` 行为，其中 ``T`` 是要指明的类型， ``dict`` 记录迄今为止递归中复制的对象。在定义中， ``deepcopy_internal`` 应当用来代替 ``deepcopy`` ， ``dict`` 变量应当在返回前正确的更新。
 
 .. function:: convert(type, x)
 
@@ -359,11 +359,11 @@
 
 .. function:: getindex(collection, key...)
 
-   取回集合中存储在指定 key 键或索引值内的值。语法 ``a[i,j,...]`` 由编译器转换为 ``getindex(a, i, j, ...)`` 。
+   取回集合中存储在指定键或索引值内的值。语法 ``a[i,j,...]`` 由编译器转换为 ``getindex(a, i, j, ...)`` 。
 
 .. function:: setindex!(collection, value, key...)
 
-   将指定值存储在集合的指定 key 键或索引值内。语法 ``a[i,j,...] = x`` 由编译器转换为 ``setindex!(a, x, i, j, ...)`` 。
+   将指定值存储在集合的指定键或索引值内。语法 ``a[i,j,...] = x`` 由编译器转换为 ``setindex!(a, x, i, j, ...)`` 。
 
 完全实现的有： ``Array``, ``DArray``, ``AbstractArray``, ``SubArray``, ``ObjectIdDict``, ``Dict``, ``WeakKeyDict``, ``String``.
 
@@ -372,41 +372,41 @@
 关联性集合
 ----------
 
-字典 ``Dict`` 是标准关联性集合。它的实现中，key 键使用 ``hash(x)`` 作为其哈希函数，使用 ``isequal(x,y)`` 判断是否相等。为自定义类型定义这两个函数，可覆盖它们如何存储在哈希表中的细节。
+字典 ``Dict`` 是标准关联性集合。它的实现中，键使用 ``hash(x)`` 作为其哈希函数，使用 ``isequal(x,y)`` 判断是否相等。为自定义类型定义这两个函数，可覆盖它们如何存储在哈希表中的细节。
 
-``ObjectIdDict`` 是个特殊的哈希表，它的 key 是对象的 ID 。 ``WeakKeyDict`` 是一种哈希表实现，它的 key 是对象的弱引用，因此即使在哈希表中被引用，它也可能被回收机制处理。
+``ObjectIdDict`` 是个特殊的哈希表，它的键是对象的 ID 。 ``WeakKeyDict`` 是一种哈希表实现，它的键是对象的弱引用，因此即使在哈希表中被引用，它也可能被回收机制处理。
 
-字典可通过文本化语法构造： ``{"A"=>1, "B"=>2}`` 。使用花括号可以构造 ``Dict{Any,Any}`` 类型的 ``Dict`` 。使用方括号会尝试从 key 和值中推导类型信息（如 ``["A"=>1, "B"=>2]`` 可构造 ``Dict{ASCIIString, Int64}`` ）。使用 ``(KeyType=>ValueType)[...]`` 来指明类型。如 ``(ASCIIString=>Int32)["A"=>1, "B"=>2]`` 。
+字典可通过文本化语法构造： ``{"A"=>1, "B"=>2}`` 。使用花括号可以构造 ``Dict{Any,Any}`` 类型的 ``Dict`` 。使用方括号会尝试从键和值中推导类型信息（如 ``["A"=>1, "B"=>2]`` 可构造 ``Dict{ASCIIString, Int64}`` ）。使用 ``(KeyType=>ValueType)[...]`` 来指明类型。如 ``(ASCIIString=>Int32)["A"=>1, "B"=>2]`` 。
 
 至于数组， ``Dicts`` 可使用内涵式语法来构造。如 ``{i => f(i) for i = 1:10}`` 。
 
 .. function:: Dict{K,V}()
 
-   使用 K 类型的 key 和 V 类型的值来构造哈希表。
+   使用 K 类型的键和 V 类型的值来构造哈希表。
 
 .. function:: has(collection, key)
 
-   判断集合是否含有指定 key 的映射。
+   判断集合是否含有指定键的映射。
 
 .. function:: get(collection, key, default)
 
-   返回指定 key 存储的值；当前没有 key 的映射时，返回默认值。
+   返回指定键存储的值；当前没有键的映射时，返回默认值。
 
 .. function:: getkey(collection, key, default)
 
-   如果参数 ``key`` 匹配 ``collection`` 中的 key ，将其返回；否在返回 ``default`` 。
+   如果参数 ``key`` 匹配 ``collection`` 中的键，将其返回；否在返回 ``default`` 。
 
 .. function:: delete!(collection, key)
 
-   删除集合中指定 key 的映射。
+   删除集合中指定键的映射。
 
 .. function:: empty!(collection)
 
-   删除集合中所有的 key 。
+   删除集合中所有的键。
 
 .. function:: keys(collection)
 
-   返回集合中所有 key 组成的数组。
+   返回集合中所有键组成的数组。
 
 .. function:: values(collection)
 
@@ -469,7 +469,7 @@
 
 .. function:: union!(s1,s2)
 
-   构造 ``IntSet``  s1 和 s2 的共用体，将结果保存在 ``s1`` 中。
+   构造 ``IntSet`` s1 和 s2 的共用体，将结果保存在 ``s1`` 中。
 
 .. function:: intersect(s1,s2...)
 
@@ -836,7 +836,7 @@ I/O
 
 .. function:: memio([size[, finalize::Bool]]) -> IOStream
 
-   构造an in-memory I/O stream, optionally specifying how much initial space is needed.
+   构造内存中 I/O 流，可选择性指明需要多少初始化空间。
 
 .. function:: fdio(fd::Integer, [own::Bool]) -> IOStream
               fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
@@ -881,7 +881,7 @@ I/O
 
 .. function:: eof(stream)
 
-   判断 I/O 流是否到达文件尾。If the stream is not yet exhausted, this function will block to wait for more data if necessary, and then return ``false``. Therefore it is always safe to read one byte after seeing ``eof`` return ``false``.
+   判断 I/O 流是否到达文件尾。如果流还没被耗尽，函数会阻塞并继续等待数据，然后返回 ``false`` 。因此当 ``eof`` 返回 ``false`` 后，可以很安全地读取一个字节。
 
 文本 I/O
 --------
@@ -900,11 +900,11 @@ I/O
 
 .. function:: @printf("%Fmt", args...)
 
-   Print arg(s) using C ``printf()`` style format specification string.
+   使用 C 中 ``printf()`` 的样式来打印。
 
 .. function:: @sprintf(stream::IOStream, "%Fmt", args...)
     
-   Write ``@printf`` formatted output arg(s) to stream.
+   按 ``@printf`` 的样式输出到流。
 
 .. function:: showall(x)
 
@@ -944,15 +944,15 @@ I/O
 
 .. function:: writedlm(filename, array, delim::Char)
 
-   Write an array to a text file using the given delimeter (defaults to comma).
+   使用指定的分隔符（默认为逗号）将数组写入到文本文件。
 
 .. function:: readcsv(filename, [T::Type])
 
-   Equivalent to ``readdlm`` with ``delim`` set to comma.
+   等价于 ``delim`` 为逗号的 ``readdlm`` 函数。
 
 .. function:: writecsv(filename, array)
 
-   Equivalent to ``writedlm`` with ``delim`` set to comma.
+   等价于 ``delim`` 为逗号的 ``writedlm`` 函数。
 
 内存映射 I/O
 ------------
@@ -1435,20 +1435,15 @@ I/O
 
 .. function:: erfcx(x)
 
-   计算the scaled complementary error function of ``x``,
-   defined by :math:`e^{x^2} \operatorname{erfc}(x)`.  Note
-   also that :math:`\operatorname{erfcx}(-ix)` computes the
-   Faddeeva function :math:`w(x)`.
+   计算 ``x`` 的缩放互补误差函数，其定义为 :math:`e^{x^2} \operatorname{erfc}(x)` 。注意 :math:`\operatorname{erfcx}(-ix)` 即为 Faddeeva 函数 :math:`w(x)` 。
 
 .. function:: erfi(x)
 
-   计算the imaginary error function of ``x``,
-   defined by :math:`-i \operatorname{erf}(ix)`.
+   计算 ``x`` 的虚误差函数，其定义为 :math:`-i \operatorname{erf}(ix)`.
 
 .. function:: dawson(x)
 
-   计算the Dawson function (scaled imaginary error function) of ``x``,
-   defined by :math:`\frac{\sqrt{\pi}}{2} e^{-x^2} \operatorname{erfi}(x)`.
+   计算 ``x`` 的 Dawson 函数（缩放虚误差函数），其定义为 :math:`\frac{\sqrt{\pi}}{2} e^{-x^2} \operatorname{erfi}(x)`.
 
 .. function:: real(z)
 
@@ -1488,7 +1483,7 @@ I/O
 
 .. function:: factor(n)
 
-   对 ``n`` 分解质因数。返回a dictionary. The keys of the dictionary correspond to the factors, and hence are of the same type as ``n``. The value associated with each key indicates the number of times the factor appears in the factorization.
+   对 ``n`` 分解质因数，返回一个字典。字典的键对应于质因数，与 ``n`` 类型相同。每个键的值显示因式分解中这个质因数出现的次数。
 
    **例子** ： :math:`100=2*2*5*5` ，因此 ``factor(100) -> [5=>2,2=>2]`` 
 
@@ -2292,15 +2287,15 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: sparse(I,J,V,[m,n,combine])
 
-   构造a sparse matrix ``S`` of dimensions ``m x n`` such that ``S[I[k], J[k]] = V[k]``. The ``combine`` function is used to combine duplicates. If ``m`` and ``n`` are not specified, they are set to ``max(I)`` and ``max(J)`` respectively. If the ``combine`` function is not supplied, duplicates are added by default.
+   构造 ``m x n`` 的稀疏矩阵 ``S`` ，满足 ``S[I[k], J[k]] = V[k]`` 。使用 ``combine`` 函数来 combine duplicates 。如果未指明 ``m`` 和 ``n`` ，则默认为 ``max(I)`` 和 ``max(J)`` 。如果未提供 ``combine`` 函数，duplicates are added by default.
 
 .. function:: sparsevec(I, V, [m, combine])
 
-   构造a sparse matrix ``S`` of size ``m x 1`` such that ``S[I[k]] = V[k]``. Duplicates are combined using the ``combine`` function, which defaults to `+` if it is not provided. In julia, sparse vectors are really just sparse matrices with one column. Given Julia's Compressed Sparse Columns (CSC) storage format, a sparse column matrix with one column is sparse, whereas a sparse row matrix with one row ends up being dense.
+   构造 ``m x 1`` 的稀疏矩阵 ``S`` ，满足 ``S[I[k]] = V[k]`` 。使用 ``combine`` 函数来 combine duplicates ，如果未提供，则默认为 `+` 。在 Julia 中，稀疏向量是只有一列的稀疏矩阵。由于 Julia 使用列压缩（CSC）存储格式，只有一列的稀疏列矩阵是稀疏的，但只有一行的稀疏行矩阵是稠密的。
 
 .. function:: sparsevec(D::Dict, [m])
 
-   构造a sparse matrix of size ``m x 1`` where the row values are keys from the dictionary, and the nonzero values are the values from the dictionary.
+   构造 ``m x 1`` 大小的稀疏矩阵，其行值为字典中的键，非零值为字典中的值。
 
 .. function:: issparse(S)
 
@@ -2332,23 +2327,23 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: speye(type,m[,n])
 
-   构造a sparse identity matrix of specified type of size ``m x m``. In case ``n`` is supplied, create a sparse identity matrix of size ``m x n``.
+   构造指定类型、大小为 ``m x m`` 的稀疏单位矩阵。如果提供了 ``n`` 则构建大小为 ``m x n`` 的稀疏单位矩阵。
 
 .. function:: spones(S)
 
-   构造a sparse matrix with the same structure as that of ``S``, but with every nonzero element having the value ``1.0``.
+   构造与 ``S`` 同样结构的稀疏矩阵，但非零元素值为 ``1.0`` 。
 
 .. function:: sprand(m,n,density[,rng])
 
-   构造a random sparse matrix with the specified density. Nonzeros are sampled from the distribution specified by ``rng``. The uniform distribution is used in case ``rng`` is not specified.
+   构造指定密度的随机稀疏矩阵。非零样本满足由 ``rng`` 指定的分布。默认为均匀分布。
 
 .. function:: sprandn(m,n,density)
 
-   构造a random sparse matrix of specified density with nonzeros sampled from the normal distribution.
+   构造指定密度的随机稀疏矩阵，非零样本满足正态分布。
 
 .. function:: sprandbool(m,n,density)
 
-   构造a random sparse boolean matrix with the specified density.
+   构造指定密度的随机稀疏布尔值矩阵。
 
 
 线性代数
@@ -2362,7 +2357,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: \\(A, B)
 
-   Matrix division using a polyalgorithm. For input matrices ``A`` and ``B``, the result ``X`` is such that ``A*X == B``. For rectangular ``A``, QR factorization is used. For triangular ``A``, a triangular solve is performed. For square ``A``, Cholesky factorization is tried if the input is symmetric with a heavy diagonal. LU factorization is used in case Cholesky factorization fails or for general square inputs. If ``size(A,1) > size(A,2)``, the result is a least squares solution of ``A*X+eps=B`` using the singular value decomposition. ``A`` does not need to have full rank.
+   使用 polyalgorithm 做矩阵除法。对输入矩阵 ``A`` 和 ``B`` ，输出 ``X`` 满足 ``A*X == B`` 。对长方矩阵 ``A`` 使用 QR 分解。对三角矩阵 ``A`` 使用三角求解。对方阵 ``A`` ，如果输是对称矩阵且对角线附近值较大时，尝试使用 Cholesky 分解。当 Cholesky 分解失败时或对普通输入方阵时，使用 LU 分解。如果 ``size(A,1) > size(A,2)`` ，结果为使用奇异值分解的 ``A*X+eps=B`` 最小二乘法的解。 ``A`` 不需要为满秩。
 
 .. function:: dot(x, y)
 
@@ -2378,7 +2373,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: factors(F)
 
-   返回the factors of a factorization ``F``. For example, in the case of an LU decomposition, factors(LU) -> L, U, P
+   返回 ``F`` 分解的因子。如对 A 进行 LU 分解，factors(lufact(A)) -> L, U, P 。
 
 .. function:: lu(A) -> L, U, P
 
@@ -2386,7 +2381,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: lufact(A) -> LUDense
 
-   计算the LU factorization of ``A`` and return a ``LUDense`` object. ``factors(lufact(A))`` returns the triangular matrices containing the factorization. The following functions are available for ``LUDense`` objects: ``size``, ``factors``, ``\``, ``inv``, ``det``.
+   计算 ``A`` 的 LU 分解，返回 ``LUDense`` 对象。 ``factors(lufact(A))`` 返回包含分解的三角矩阵。 ``LUDense`` 对象可使用下列函数： ``size``, ``factors``, ``\``, ``inv``, ``det`` 。
 
 .. function:: lufact!(A) -> LUDense
 
@@ -2394,11 +2389,11 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: chol(A, [LU]) -> F
 
-   计算Cholesky factorization of a symmetric positive-definite matrix ``A`` and return the matrix ``F``. If ``LU`` is ``L`` (Lower), ``A = L*L'``. If ``LU`` is ``U`` (Upper), ``A = R'*R``.
+   计算对称正定矩阵 ``A`` 的 Cholesky 分解，返回 ``F`` 矩阵。如果 ``LU`` 为 ``L`` （下三角）， ``A = L*L'`` 。如果 ``LU`` 为 ``U`` （下三角）， ``A = R'*R`` 。
 
 .. function:: cholfact(A, [LU]) -> CholeskyDense
 
-   计算the Cholesky factorization of a symmetric positive-definite matrix ``A`` and return a ``CholeskyDense`` object. ``LU`` may be 'L' for using the lower part or 'U' for the upper part. The default is to use 'U'. ``factors(cholfact(A))`` returns the triangular matrix containing the factorization. The following functions are available for ``CholeskyDense`` objects: ``size``, ``factors``, ``\``, ``inv``, ``det``. A ``LAPACK.PosDefException`` error is thrown in case the matrix is not positive definite.
+   计算对称正定矩阵 ``A`` 的 Cholesky 分解，返回 ``CholeskyDense`` 对象。 ``LU`` 若为 'L' 则使用下三角，若为 'U' 则使用上三角。默认使用 'U' 。 ``factors(cholfact(A))`` 返回包含分解的三角矩阵。 ``CholeskyDense`` 对象可使用下列函数： ``size``, ``factors``, ``\``, ``inv``, ``det`` 。如果矩阵不是正定，会抛出 ``LAPACK.PosDefException`` 错误。
 
 .. function: cholfact!(A, [LU]) -> CholeskyDense
 
@@ -2406,7 +2401,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 ..  function:: cholpfact(A, [LU]) -> CholeskyPivotedDense
 
-   计算the pivoted Cholesky factorization of a symmetric positive semi-definite matrix ``A`` and return a ``CholeskyDensePivoted`` object. ``LU`` may be 'L' for using the lower part or 'U' for the upper part. The default is to use 'U'. ``factors(cholpfact(A))`` returns the triangular matrix containing the factorization. The following functions are available for ``CholeskyDensePivoted`` objects: ``size``, ``factors``, ``\``, ``inv``, ``det``. A ``LAPACK.RankDeficientException`` error is thrown in case the matrix is rank deficient.
+   计算对称正定矩阵 ``A`` 的主元 Cholesky 分解，返回 ``CholeskyDensePivoted`` 对象。 ``LU`` 若为 'L' 则使用下三角，若为 'U' 则使用上三角。默认使用 'U' 。 ``factors(cholpfact(A))`` 返回包含分解的三角矩阵。 ``CholeskyDensePivoted`` 对象可使用下列函数： ``size``, ``factors``, ``\``, ``inv``, ``det`` 。如果矩阵不是满秩，会抛出 ``LAPACK.RankDeficientException`` 错误。
 
 .. function:: cholpfact!(A, [LU]) -> CholeskyPivotedDense
 
@@ -2418,7 +2413,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: qrfact(A)
 
-   计算the QR factorization of ``A`` and return a ``QRDense`` object. ``factors(qrfact(A))`` returns ``Q`` and ``R``. The following functions are available for ``QRDense`` objects: ``size``, ``factors``, ``qmulQR``, ``qTmulQR``, ``\``. 
+   计算 ``A`` 的 QR 分解，返回 ``QRDense`` 对象。 ``factors(qrfact(A))`` 返回 ``Q`` 和 ``R`` 。 ``QRDense`` 对象可使用下列函数： ``size``, ``factors``, ``qmulQR``, ``qTmulQR``, ``\`` 。
 
 .. function:: qrfact!(A)
 
@@ -2426,15 +2421,15 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: qrp(A) -> Q, R, P
 
-   计算the QR factorization of ``A`` with pivoting, such that ``A*I[:,P] = Q*R``, 其中 ``I`` 为单位矩阵。另见 ``qrpfact`` 。
+   计算 ``A`` 的主元 QR 分解，满足 ``A*I[:,P] = Q*R``, 其中 ``I`` 为单位矩阵。另见 ``qrpfact`` 。
 
 .. function:: qrpfact(A) -> QRPivotedDense
 
-   计算the QR factorization of ``A`` with pivoting and return a ``QRDensePivoted`` object. ``factors(qrpfact(A))`` returns ``Q`` and ``R``. The following functions are available for ``QRDensePivoted`` objects: ``size``, ``factors``, ``qmulQR``, ``qTmulQR``, ``\``. 
+   计算 ``A`` 的主元 QR 分解，返回 ``QRDensePivoted`` 对象。 ``factors(qrpfact(A))`` 返回 ``Q`` 和 ``R`` 。 ``QRDensePivoted`` 对象可使用下列函数： ``size``, ``factors``, ``qmulQR``, ``qTmulQR``, ``\`` 。
 
 .. function:: qrpfact!(A) -> QRPivotedDense
 
-   ``qrpfact!`` 与 ``qrpfact`` 相同，但它覆写输入 A ，而非构造浅拷贝。
+   ``qrpfact!`` 与 ``qrpfact`` 相同，但它覆写 A 以节约空间，而非构造浅拷贝。
 
 .. function:: qmulQR(QR, A)
    
@@ -2458,19 +2453,19 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: svdfact(A, [thin]) -> SVDDense
 
-   计算the Singular Value Decomposition (SVD) of ``A`` and return an ``SVDDense`` object. ``factors(svdfact(A))`` returns ``U``, ``S``, and ``Vt``, such that ``A = U*diagm(S)*Vt``. If ``thin`` is ``true``, an economy mode decomposition is returned.
+   计算 ``A`` 的奇异值分解（SVD），返回 ``SVDDense`` 对象。 ``factors(svdfact(A))`` 返回 ``U``, ``S``, 和 ``Vt`` ，满足 ``A = U*diagm(S)*Vt`` 。如果 ``thin`` 为 ``true`` ，则做节约模式分解。
 
 .. function:: svdfact!(A, [thin]) -> SVDDense
 
-   ``svdfact!`` 与 ``svdfact`` 相同，but saves space by overwriting the input A, instead of creating a copy. If ``thin`` is ``true``, an economy mode decomposition is returned.
+   ``svdfact!`` 与 ``svdfact`` 相同，但它覆写 A 以节约空间，而非构造浅拷贝。如果 ``thin`` 为 ``true`` ，则做节约模式分解。
 
 .. function:: svd(A, [thin]) -> U, S, V
 
-   对 A 做奇异值分解，返回 ``U`` ，向量 ``S`` ，及 ``V`` ，满足 ``A == U*diagm(S)*V'`` 。如果 ``thin`` 为 ``true`` ，则做节约模式分解。
+   计算 ``A`` 做奇异值分解，返回 ``U`` ，向量 ``S`` ，及 ``V`` ，满足 ``A == U*diagm(S)*V'`` 。如果 ``thin`` 为 ``true`` ，则做节约模式分解。
 
 .. function:: svdt(A, [thin]) -> U, S, Vt
 
-   对 A 做奇异值分解，返回 ``U`` ，向量 ``S`` ，及 ``Vt`` ，满足 ``A = U*diagm(S)*Vt`` 。如果 ``thin`` 为 ``true`` ，则做节约模式分解。
+   计算 ``A`` 做奇异值分解，返回 ``U`` ，向量 ``S`` ，及 ``Vt`` ，满足 ``A = U*diagm(S)*Vt`` 。如果 ``thin`` 为 ``true`` ，则做节约模式分解。
 
 .. function:: svdvals(A)
 
@@ -2482,15 +2477,15 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: svdfact(A, B) -> GSVDDense
 
-   计算the generalized SVD of ``A`` and ``B``, returning a ``GSVDDense`` Factorization object. ``factors(svdfact(A,b))`` returns ``U``, ``V``, ``Q``, ``D1``, ``D2``, and ``R0`` such that ``A = U*D1*R0*Q'`` and ``B = V*D2*R0*Q'``.
+   计算 ``A`` 和 ``B`` 的广义 SVD ，返回 ``GSVDDense`` 分解对象。 ``factors(svdfact(A,b))`` 返回 ``U``, ``V``, ``Q``, ``D1``, ``D2``, 和 ``R0`` 满足 ``A = U*D1*R0*Q'`` 及 ``B = V*D2*R0*Q'`` 。
    
 .. function:: svd(A, B) -> U, V, Q, D1, D2, R0
 
-   计算the generalized SVD of ``A`` and ``B``, returning ``U``, ``V``, ``Q``, ``D1``, ``D2``, and ``R0`` such that ``A = U*D1*R0*Q'`` and ``B = V*D2*R0*Q'``.
+   计算 ``A`` 和 ``B`` 的广义 SVD ，返回 ``U``, ``V``, ``Q``, ``D1``, ``D2``, 和 ``R0`` ，满足 ``A = U*D1*R0*Q'`` 及 ``B = V*D2*R0*Q'`` 。
  
 .. function:: svdvals(A, B)
 
-   返回only the singular values from the generalized singular value decomposition of ``A`` and ``B``.
+   仅返回 ``A`` 和 ``B`` 广义 SVD 中的奇异值。
 
 .. function:: triu(M)
 
@@ -2528,7 +2523,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: norm(A, [p])
 
-   计算the ``p``-norm of a vector or a matrix. ``p`` is ``2`` by default, if not provided. If ``A`` is a vector, ``norm(A, p)`` computes the ``p``-norm. ``norm(A, Inf)`` returns the largest value in ``abs(A)``, whereas ``norm(A, -Inf)`` returns the smallest. If ``A`` is a matrix, valid values for ``p`` are ``1``, ``2``, or ``Inf``. In order to compute the Frobenius norm, use ``normfro``.
+   计算向量或矩阵的 ``p`` 范数。 ``p`` 默认为 2 。如果 ``A`` 是向量， ``norm(A, p)`` 计算 ``p`` 范数。 ``norm(A, Inf)`` 返回 ``abs(A)`` 中的最大值， ``norm(A, -Inf)`` 返回最小值。如果 ``A`` 是矩阵， ``p`` 的有效值为 ``1``, ``2``, 和 ``Inf`` 。要计算 Frobenius 范数，应使用 ``normfro`` 。
 
 .. function:: normfro(A)
 
@@ -2536,7 +2531,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: cond(M, [p])
 
-   Matrix condition number, computed using the p-norm. ``p`` 如果省略，默认为 2 。 ``p`` 的有效值为 ``1``, ``2``, 和 ``Inf``.
+   使用 p 范数计算矩阵条件数。 ``p`` 如果省略，默认为 2 。 ``p`` 的有效值为 ``1``, ``2``, 和 ``Inf``.
 
 .. function:: trace(M)
 
@@ -2556,7 +2551,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: null(M)
 
-   Basis for null space of M.
+   矩阵 M 的零空间的基。
 
 .. function:: repmat(A, n, m)
 
@@ -2568,7 +2563,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: linreg(x, y)
 
-   Determine parameters ``[a, b]`` that minimize the squared error between ``y`` and ``a+b*x``.
+   最小二乘法线性回归来计算参数 ``[a, b]`` ，使 ``y`` 逼近 ``a+b*x`` 。
 
 .. function:: linreg(x, y, w)
 
@@ -2576,7 +2571,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: expm(A)
 
-   Matrix exponential.
+   矩阵指数。
 
 .. function:: issym(A)
 
@@ -2680,8 +2675,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: std(v[, region])
 
-   计算向量 ``v`` 的样本标准差。如果未设定可选参数 ``corrected`` 或显式设定为默认值 ``true`` ，则算法将在 ``v`` 中的每个元素都是从某个生成分布中独立同分布地取得的假设下，返回一个此生成分布标准差的估计。计算结果等价于 ``sqrt(sum((v .- mean(v)).^2) / (length(v) - 1))`` 并且引入了一个有时被称为贝赛尔修正的隐含修正项，这样就能保证方差的估计是无偏的。反之，如果可选参数 ``corrected`` 被设定为 ``false`` ，则算法将给出等价于 ``sqrt(sum((v .- mean(v)).^2) / length(v))`` 的结果，即样本的经验标准差。
-   Compute the sample standard deviation of a vector or array``v``, optionally along dimensions in ``region``. The algorithm returns an estimator of the generative distribution's standard deviation under the assumption that each entry of ``v`` is an IID draw from that generative distribution. This computation is equivalent to calculating ``sqrt(sum((v - mean(v)).^2) / (length(v) - 1))``.
+   计算向量或数组 ``v`` 的样本标准差，可选择按 ``region`` 中列出的维度计算。算法在 ``v`` 中的每个元素都是从某个生成分布中独立同分布地取得的假设下，返回一个此生成分布标准差的估计。它等价于 ``sqrt(sum((v - mean(v)).^2) / (length(v) - 1))`` 。
 
 .. function:: stdm(v, m)
 
@@ -2689,8 +2683,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: var(v[, region])
 
-   计算向量 ``v`` 的样本方差。如果未设定可选参数 ``corrected`` 或显式设定为默认值 ``true`` ，则算法将在 ``v`` 中的每个元素都是从某个生成分布中独立同分布地取得的假设下，返回一个此生成分布方差的估计。计算结果等价于 ``sum((v .- mean(v)).^2) / (length(v) - 1)`` 并且引入了一个有时被称为贝赛尔修正的隐含修正项，这样就能保证方差的估计是无偏的。反之，如果可选参数 ``corrected`` 被设定为 ``false`` ，则算法将给出等价于 ``sum((v .- mean(v)).^2) / length(v)`` 的结果，即样本的经验方差。
-   Compute the sample variance of a vector or array``v``, optionally along dimensions in ``region``. The algorithm will return an estimator of the generative distribution's variance under the assumption that each entry of ``v`` is an IID draw from that generative distribution. This computation is equivalent to calculating ``sum((v - mean(v)).^2) / (length(v) - 1)``.
+   计算向量或数组 ``v`` 的样本方差，可选择按 ``region`` 中列出的维度计算。算法在 ``v`` 中的每个元素都是从某个生成分布中独立同分布地取得的假设下，返回一个此生成分布方差的估计。它等价于 ``sum((v - mean(v)).^2) / (length(v) - 1)`` 。
 
 .. function:: varm(v, m)
 
@@ -2718,11 +2711,11 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: cov(v1[, v2])
 
-   计算两个向量 ``v1`` 和 ``v2`` 的协方差。If called with a single element ``v``, then computes covariance of columns of ``v``.
+   计算两个向量 ``v1`` 和 ``v2`` 的协方差。如果调用时只有 ``v`` 这一个参数，它计算 ``v`` 中列的协方差。
 
 .. function:: cor(v1[, v2])
 
-   计算两个向量 ``v1`` 和 ``v2`` 的 Pearson 相关系数。If called with a single element ``v``, then computes correlation of columns of ``v``.
+   计算两个向量 ``v1`` 和 ``v2`` 的 Pearson 相关系数。如果调用时只有 ``v`` 这一个参数，它计算 ``v`` 中列的相关系数。
 
 信号处理
 --------
@@ -2733,7 +2726,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
    对数组 ``A`` 做多维 FFT 。可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、多元组、数组）。如果 ``A`` 要运算的维度上的长度是较小的质数的积，算法会比较高效；详见 :func:`nextprod` 。另见高效的 :func:`plan_fft` 。
    
-   一维 FFT 计算一维离散傅里叶变换（ DFT ），其定义为 :math:`\operatorname{DFT}[k] = \sum_{n=1}^{\operatorname{length}(A)} \exp\left(-i\frac{2\pi (n-1)(k-1)}{\operatorname{length}(A)} \right) A[n]` 。多维 FFT 对 ``A`` 的多个维度做此运算。
+   一维 FFT 计算一维离散傅里叶变换（DFT），其定义为 :math:`\operatorname{DFT}[k] = \sum_{n=1}^{\operatorname{length}(A)} \exp\left(-i\frac{2\pi (n-1)(k-1)}{\operatorname{length}(A)} \right) A[n]` 。多维 FFT 对 ``A`` 的多个维度做此运算。
 
 .. function:: fft!(A [, dims])
 
@@ -2842,7 +2835,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: dct(A [, dims])
 
-   对数组 ``A`` 做第二类离散余弦变换（ DCT ），使用归一化的 DCT 。与 :func:`fft` 相同，可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、多元组、数组）。如果 ``A`` 要运算的维度上的长度是较小的质数的积，算法会比较高效；详见 :func:`nextprod` 。另见高效的 :func:`plan_dct` 。
+   对数组 ``A`` 做第二类离散余弦变换（DCT），使用归一化的 DCT 。与 :func:`fft` 相同，可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、多元组、数组）。如果 ``A`` 要运算的维度上的长度是较小的质数的积，算法会比较高效；详见 :func:`nextprod` 。另见高效的 :func:`plan_dct` 。
 
 .. function:: dct!(A [, dims])
 
@@ -2850,7 +2843,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: idct(A [, dims])
 
-   对数组 ``A`` 做多维逆离散余弦变换（ IDCT）（即归一化的第三类 DCT）。可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、多元组、数组）。如果 ``A`` 要运算的维度上的长度是较小的质数的积，算法会比较高效；详见 :func:`nextprod` 。另见高效的 :func:`plan_idct` 。
+   对数组 ``A`` 做多维逆离散余弦变换（IDCT）（即归一化的第三类 DCT）。可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、多元组、数组）。如果 ``A`` 要运算的维度上的长度是较小的质数的积，算法会比较高效；详见 :func:`nextprod` 。另见高效的 :func:`plan_idct` 。
 
 .. function:: idct!(A [, dims])
 
