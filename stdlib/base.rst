@@ -21,7 +21,7 @@
 
 .. function:: require(file::String...)
 
-   在 ``Main`` 模块的上下文中，对每个活动的节点，通过系统的 ``LOAD_PATH`` 查找文件，并只载入一次。``require`` 是顶层操作，因此它设置当前的 ``include`` 路径，但并不使用它来查找文件（参见 ``include`` 的帮助）。此函数常用来载入库代码； ``using`` 函数隐含使用它来载入扩展包。
+   在 ``Main`` 模块的上下文中，对每个活动的节点，通过系统的 ``LOAD_PATH`` 查找文件，并只载入一次。``require`` 是顶层操作，因此它设置当前的 ``include`` 路径，但并不使用它来查找文件（详见 ``include`` ）。此函数常用来载入库代码； ``using`` 函数隐含使用它来载入扩展包。
 
 .. function:: reload(file::String)
 
@@ -398,7 +398,7 @@
 
 .. function:: delete!(collection, key)
 
-   删除集合中指定键的映射。
+   删除集合中指定键的映射，返回被删的键的值。
 
 .. function:: empty!(collection)
 
@@ -453,19 +453,19 @@
 
 .. function:: add_each!(collection, iterable)
 
-   向类集集合逐个添加 ``iterable`` 中的元素。
+   向集合逐个添加 ``iterable`` 中的元素。
 
 .. function:: Set(x...)
 
-   使用指定元素来构造 ``Set`` 。构造稀疏整数集合时应使用此函数，而非 ``IntSet`` 。
+   使用指定元素来构造 ``Set`` 。构造稀疏整数集时应使用此函数，而非 ``IntSet`` 。
 
 .. function:: IntSet(i...)
 
-   使用指定元素来构造 ``IntSet`` 。它是由位字符串实现的，因而适合构造稠密整数集合。
+   使用指定元素来构造 ``IntSet`` 。它是由位字符串实现的，因而适合构造稠密整数集。
 
 .. function:: union(s1,s2...)
 
-   构造两个及两个以上集合的共用体。保持原数组中的顺序。
+   构造两个及两个以上集的共用体。保持原数组中的顺序。
 
 .. function:: union!(s1,s2)
 
@@ -473,7 +473,7 @@
 
 .. function:: intersect(s1,s2...)
 
-   构造两个及两个以上集合的交集。保持原数组中的顺序。
+   构造两个及两个以上集的交集。保持原数组中的顺序。
 
 .. function:: setdiff(s1,s2)
 
@@ -481,19 +481,19 @@
 
 .. function:: symdiff(s1,s2...)
 
-   构造由传递进来的集合或数组中不相同的元素构成的集合。保持原数组中的顺序。
+   构造由集合或数组中不同的元素构成的集。保持原数组中的顺序。
 
 .. function:: symdiff!(s, n)
 
-   IntSet s is destructively modified to toggle the inclusion of integer ``n``.
+   向 ``IntSet`` s 中插入整数元素 ``n`` 。
 
 .. function:: symdiff!(s, itr)
 
-   For each element in ``itr``, destructively toggle its inclusion in set ``s``.
+   向 set s 中插入 ``itr`` 中的元素。
 
 .. function:: symdiff!(s1, s2)
 
-   构造由 ``IntSets`` 类型的 ``s1`` 和 ``s2`` 中不相同的元素构成的集合，结果保存在 ``s1`` 中。
+   构造由 ``IntSets`` 类型的 ``s1`` 和 ``s2`` 中不同的元素构成的集，结果保存在 ``s1`` 中。
 
 .. function:: complement(s)
 
@@ -505,11 +505,11 @@
 
 .. function:: del_each!(s, itr)
 
-   删除each element of itr in set s in-place.
+   在原地将集合 s 中 itr 的元素删除。
 
 .. function:: intersect!(s1, s2)
 
-   Intersects IntSets s1 and s2 and overwrites the set s1 with the result. If needed, s1 will be expanded to the size of s2.
+   构造 `Inset` s1 和 s2 的交集，并将结果覆写到 s1 。s1 根据需要来决定是否扩展到 s2 的大小。
 
 完全实现的有： ``IntSet``, ``Set``.
 
@@ -540,11 +540,11 @@
 
 .. function:: delete!(collection, index) -> item
 
-   移除指定索引值处的项，并返回删除项。
+   移除指定索引值处的项，返回删除项。
 
 .. function:: delete!(collection, range) -> items
    
-   移除指定范围内的项，并返回包含删除项的集合。
+   移除指定范围内的项，返回包含删除项的集合。
 
 .. function:: resize!(collection, n) -> collection
 
@@ -888,11 +888,11 @@ I/O
 
 .. function:: show(x)
 
-   Write an informative text representation of a value to the current output stream. New types should overload ``show(io, x)`` where the first argument is a stream.
+   向当前输出流写入值的信息型文本表示。新构造的类型应重载 ``show(io, x)`` ，其中 ``io`` 为流。
 
 .. function:: print(x)
 
-   Write (to the default output stream) a canonical (un-decorated) text representation of a value if there is one, otherwise call ``show``.
+   如果值有标准（未修饰）的文本表示，则将其写入默认输出流；否则调用 ``show`` 。
 
 .. function:: println(x)
 
@@ -908,15 +908,15 @@ I/O
 
 .. function:: showall(x)
 
-   Show x, printing all elements of arrays
+   打印数组的所有元素。
 
 .. function:: dump(x)
 
-   Write a thorough text representation of a value to the current output stream.
+   向当前输出流写入值的完整文本表示。
 
 .. function:: readall(stream)
 
-   Read the entire contents of an I/O stream as a string.
+   按照字符串读取 I/O 流的所有内容。
 
 .. function:: readline(stream)
 
@@ -924,7 +924,7 @@ I/O
 
 .. function:: readuntil(stream, delim)
 
-   Read a string, up to and including the given delimiter byte.
+   读取字符串，直到指定的分隔符为止。字符串包括此分隔符。
 
 .. function:: readlines(stream)
 
@@ -936,11 +936,11 @@ I/O
 
 .. function:: readdlm(filename, delim::Char)
 
-   Read a matrix from a text file where each line gives one row, with elements separated by the given delimeter. If all data is numeric, the result will be a numeric array. If some elements cannot be parsed as numbers, a cell array of numbers and strings is returned.
+   从文本文件中读取矩阵，文本中的每一行是矩阵的行，元素由指定的分隔符隔开。如果所有的数据都是数值，结果为数值矩阵。如果有些元素不能被解析为数，将返回由数和字符串构成的元胞数组。
 
 .. function:: readdlm(filename, delim::Char, T::Type)
 
-   Read a matrix from a text file with a given element type. If ``T`` is a numeric type, the result is an array of that type, with any non-numeric elements as ``NaN`` for floating-point types, or zero. Other useful values of ``T`` include ``ASCIIString``, ``String``, and ``Any``.
+   从文本文件中读取指定元素类型的矩阵。如果 ``T`` 是数值类型，结果为此类型的数组：若为浮点数类型，非数值的元素变为 ``NaN`` ；其余类型为 0 。 ``T`` 的类型还有 ``ASCIIString``, ``String``, 和 ``Any`` 。
 
 .. function:: writedlm(filename, array, delim::Char)
 
@@ -1108,6 +1108,30 @@ I/O
 .. function:: >=(x, y)
 
    大于等于运算符。
+
+.. function:: .==(x, y)
+
+   逐元素相等运算符。
+
+.. function:: .!=(x, y)
+
+   逐元素不等运算符。
+
+.. function:: .<(x, y)
+
+   逐元素小于运算符。
+
+.. function:: .<=(x, y)
+
+   逐元素小于等于运算符。
+
+.. function:: .>(x, y)
+
+   逐元素大于运算符。
+
+.. function:: .>=(x, y)
+
+   逐元素大于等于运算符。
 
 .. function:: cmp(x,y)
 
@@ -1347,7 +1371,7 @@ I/O
 
 .. function:: round(x, [digits, [base]]) -> FloatingPoint
 
-   ``round(x)`` 返回离 ``x`` 最近的整数。 ``round(x, digits)`` 若 digits 为正数时舍入到小数点后对应位数，若为负数，舍入到小数点前对应位数，例子 ``round(pi,2) == 3.14`` 。 ``round(x, digits, base)`` 使用指定的进制来舍入，默认进制为 10，例子 ``round(pi, 3, 2) == 3.125`` 。
+   ``round(x)`` 返回离 ``x`` 最近的整数。 ``round(x, digits)`` 若 ``digits`` 为正数时舍入到小数点后对应位数，若为负数，舍入到小数点前对应位数，例子 ``round(pi,2) == 3.14`` 。 ``round(x, digits, base)`` 使用指定的进制来舍入，默认进制为 10，例子 ``round(pi, 3, 2) == 3.125`` 。
 
 .. function:: ceil(x, [digits, [base]]) -> FloatingPoint
 
@@ -1497,7 +1521,7 @@ I/O
 
 .. function:: gcdx(x,y)
 
-   Greatest common divisor, also returning integer coefficients ``u`` and ``v`` that solve ``ux+vy == gcd(x,y)``
+   最大公因数，同时返回整数因子 ``u`` 和 ``v`` ，满足 ``u*x+v*y == gcd(x,y)`` 。
 
 .. function:: ispow2(n)
 
@@ -1505,31 +1529,31 @@ I/O
 
 .. function:: nextpow2(n)
 
-   Next power of two not less than ``n``
+   不小于 ``n`` 的值为 2 的幂的数。
 
 .. function:: prevpow2(n)
 
-   Previous power of two not greater than ``n``
+   不大于 ``n`` 的值为 2 的幂的数。
 
 .. function:: nextpow(a, n)
 
-   Next power of ``a`` not less than ``n``
+   不小于 ``n`` 的值为 ``a`` 的幂的数。
 
 .. function:: prevpow(a, n)
 
-   Previous power of ``a`` not greater than ``n``
+   不大于 ``n`` 的值为 ``a`` 的幂的数。
 
 .. function:: nextprod([a,b,c], n)
 
-   Next integer not less than ``n`` that can be written ``a^i1 * b^i2 * c^i3`` for integers ``i1``, ``i2``, ``i3``.
+   不小于 ``n`` 的数，存在整数 ``i1``, ``i2``, ``i3`` 使这个数等于 ``a^i1 * b^i2 * c^i3`` 。
 
 .. function:: prevprod([a,b,c], n)
 
-   Previous integer not greater than ``n`` that can be written ``a^i1 * b^i2 * c^i3`` for integers ``i1``, ``i2``, ``i3``.
+   不大于 ``n`` 的数，存在整数 ``i1``, ``i2``, ``i3`` 使这个数等于 ``a^i1 * b^i2 * c^i3`` 。
 
-.. function:: invmod(x,m)
+.. function:: invmod(n,m)
 
-   Inverse of ``x``, modulo ``m``
+   ``n``的关于模 ``m`` 的逆，即求满足 ``(x * n ) % m == 1`` 的数 ``x`` 。
 
 .. function:: powermod(x, p, m)
 
@@ -1541,15 +1565,15 @@ I/O
 
 .. function:: lgamma(x)
 
-   计算the logarithm of ``gamma(x)``
+   计算 ``gamma(x)`` 的对数。
 
 .. function:: lfact(x)
 
-   计算the logarithmic factorial of ``x``
+   计算 ``x`` 阶乘的对数。
 
 .. function:: digamma(x)
 
-   计算the digamma function of ``x`` (the logarithmic derivative of ``gamma(x)``)
+   计算 ``x`` 的双伽玛函数（ ``gamma(x)`` 自然对数的导数）
 
 .. function:: airy(x)
               airyai(x)
@@ -1768,7 +1792,7 @@ I/O
 
    提取浮点数或浮点数组的二进制表示的有效数字。
    
-   例如， ``significand(15.2)/15.2 == 0.125`` 与``significand(15.2)*8 == 15.2`` 。
+   例如， ``significand(15.2)/15.2 == 0.125`` 与 ``significand(15.2)*8 == 15.2`` 。
    
 .. function:: exponent(x) -> Int
 
@@ -1966,7 +1990,7 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: srand([rng], seed)
 
-   Seed the RNG with a ``seed``, which may be an unsigned integer or a vector of unsigned integers. ``seed`` can even be a filename, in which case the seed is read from a file. If the argument ``rng`` is not provided, the default global RNG is seeded.
+   使用 ``seed`` 为 RNG 的种子，可以是无符号整数或向量。 ``seed`` 也可以是文件名，此时从文件中读取种子。如果省略参数 ``rng`` ，则默认为全局 RNG 。
 
 .. function:: MersenneTwister([seed])
 
@@ -1978,11 +2002,11 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: rand!([rng], A)
 
-   Populate the array A with random number generated from the specified RNG.
+   向数组 ``A`` 中赋值由指定 RNG 生成的随机数。
 
 .. function:: rand(rng::AbstractRNG, [dims...])
 
-   使用指定的 RNG 对象，生成 ``Float64`` 类型的随机数或数组。目前仅提供 ``MersenneTwister`` 随机数生成器 RNG ，可由 srand 设置随机数种子。
+   使用指定的 RNG 对象，生成 ``Float64`` 类型的随机数或数组。目前仅提供 ``MersenneTwister`` 随机数生成器 RNG ，可由 ``srand`` 函数设置随机数种子。
 
 .. function:: rand(dims...)
 
@@ -1992,9 +2016,9 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
    生成指定整数类型的随机数。若指定维度，则生成对应类型的随机数组。
 
-.. function:: rand(r, [dims...])
+.. function:: rand(n, [dims...])
 
-   Generate a random integer from ``1``:``n`` inclusive. Optionally, generate a random integer array.
+   从 ``1:n`` 中产生随机整数，包括 1 和 n 。也可以生成随机整数数组。
 
 .. function:: randbool([dims...])
 
@@ -2002,11 +2026,11 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: randbool!(A)
 
-   Fill an array with random boolean values. A may be an ``Array`` or a ``BitArray``.   
+   将数组中的元素赋值为随机布尔值。 ``A`` 可以是 ``Array`` 或 ``BitArray`` 。
 
 .. function:: randn([dims...])
 
-   生成均值为 0 ，标准差为 1 的正态分布随机数。若指定维度，则生成正态分布的随机数组。
+   生成均值为 0 ，标准差为 1 的标准正态分布随机数。若指定维度，则生成标准正态分布的随机数组。
 
 数组
 ----
@@ -2016,19 +2040,19 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: ndims(A) -> Integer
 
-   返回 A 有几个维度。
+   返回 ``A`` 有几个维度。
 
 .. function:: size(A)
 
-   返回 A 的维度多元组。
+   返回 ``A`` 的维度多元组。
 
 .. function:: eltype(A)
 
-   返回 A 中元素的类型。
+   返回 ``A`` 中元素的类型。
 
 .. function:: length(A) -> Integer
 
-   返回the number of elements in A (note that this differs from MATLAB where ``length(A)`` is the largest dimension of ``A``)
+   返回 ``A`` 中所有元素的个数。（它与 MATLAB 中的定义不同。）
 
 .. function:: nnz(A)
 
@@ -2044,11 +2068,11 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: stride(A, k)
 
-   返回the distance in memory (in number of elements) between adjacent elements in dimension k
+   返回维度 k 上相邻的两个元素在内存中的距离（单位为元素个数）
 
 .. function:: strides(A)
 
-   返回a tuple of the memory strides in each dimension
+   返回每个维度上内存距离的多元组。
 
 构造函数
 ~~~~~~~~
@@ -2091,47 +2115,47 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: reshape(A, dims)
 
-   构造an array with the same data as the given array, but with different dimensions. An implementation for a particular type of array may choose whether the data is copied or shared.
+   构造与指定数组同样数据的新数组，但维度不同。特定类型数组的实现自动选择复制或共享数据。
 
 .. function:: copy(A)
 
    构造 ``A`` 的浅拷贝。
 
-.. function:: similar(array, element_type, dims)
+.. function:: similar(array, [element_type, dims])
 
-   构造an uninitialized array of the same type as the given array, but with the specified element type and dimensions. The second and third arguments are both optional. The ``dims`` argument may be a tuple or a series of integer arguments.
+   构造与指定数组相同类型的未初始化数组。可选择性指定指定了元素类型和维度。 ``dims`` 参数可以是整数参数的多元组或集合。
 
 .. function:: reinterpret(type, A)
 
-   构造an array with the same binary data as the given array, but with the specified element type
+   构造与指定数组同样二进制数据的新数组，但为指定的元素类型。
 
 .. function:: rand(dims)
 
-   构造a random array with Float64 random values in (0,1)
+   构造 Float64 类型的随机数组，在 (0,1) 内取值。
 
 .. function:: randf(dims)
 
-   构造a random array with Float32 random values in (0,1)
+   构造 Float32 类型的随机数组，在 (0,1) 内取值。
 
 .. function:: randn(dims)
 
-   构造a random array with Float64 normally-distributed random values with a mean of 0 and standard deviation of 1
+   构造 Float64 类型的标准正态分布随机数组，均值为 0 ，标准差为 1 。
 
 .. function:: eye(n)
 
-   n x n 单位矩阵。
+   ``n x n`` 单位矩阵。
 
 .. function:: eye(m, n)
 
-   m x n 单位矩阵。
+   ``m x n`` 单位矩阵。
 
 .. function:: linspace(start, stop, n)
 
-   构造从 ``start`` 到 ``stop`` 的 ``n`` 个元素的向量，元素之间为线性步长。
+   构造从 ``start`` 到 ``stop`` 的 ``n`` 个元素的向量，元素之间的步长为线性。
 
 .. function:: logspace(start, stop, n)
 
-   构造a vector of ``n`` logarithmically-spaced numbers from ``10^start`` to ``10^stop``.
+   构造从 ``10^start`` 到 ``10^stop`` 的 ``n`` 个元素的向量，元素之间的步长为对数。
 
 数学运算符和函数
 ~~~~~~~~~~~~~~~~
@@ -2147,23 +2171,23 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: getindex(A, ind)
 
-   返回a subset of ``A`` as specified by ``ind``, 结果可能是 ``Int``, ``Range``, 或 ``Vector`` 。
+   返回 ``ind`` 位置的 ``A`` 的子集，结果可能是 ``Int``, ``Range``, 或 ``Vector`` 。
 
 .. function:: sub(A, ind)
 
-   返回a SubArray, which stores the input ``A`` and ``ind`` rather than computing the result immediately. Calling ``getindex`` on a SubArray computes the indices on the fly.
+   返回 ``SubArray`` ，它存储 ``A`` 和 ``ind`` ，但不立即计算。对 ``SubArray`` 调用 ``getindex`` 时才计算。
 
 .. function:: slicedim(A, d, i)
 
-   返回all the data of ``A`` where the index for dimension ``d`` equals ``i``. Equivalent to ``A[:,:,...,i,:,:,...]`` where ``i`` is in position ``d``.
+   返回 ``A`` 中维度 ``d`` 上索引值为 ``i`` 的所有数据。等价于 ``A[:,:,...,i,:,:,...]`` ，其中 ``i`` 在位置 ``d`` 上。
 
 .. function:: setindex!(A, X, ind)
 
-   Store an input array ``X`` within some subset of ``A`` as specified by ``ind``.
+   在 ``ind`` 指定的 ``A`` 子集上存储 ``X`` 。
 
 .. function:: cat(dim, A...)
 
-   Concatenate the input arrays along the specified dimension
+   在指定维度上连接。
 
 .. function:: vcat(A...)
 
@@ -2175,11 +2199,11 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: hvcat
 
-   Horizontal and vertical concatenation in one call
+   在水平和垂直上连接。
 
 .. function:: flipdim(A, d)
 
-   Reverse ``A`` in dimension ``d``.
+   在维度 ``d`` 上翻转。
 
 .. function:: flipud(A)
 
@@ -2191,47 +2215,47 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: circshift(A,shifts)
 
-   Circularly shift the data in an array. The second argument is a vector giving the amount to shift in each dimension.
+   循环移位数组中的数据。第二个参数为每个维度上移位数值的向量。
 
 .. function:: find(A)
 
-   返回a vector of the linear indexes of the non-zeros in ``A``.
+   返回数组 ``A`` 中非零值的线性索引值向量。
 
 .. function:: findn(A)
 
-   返回a vector of indexes for each dimension giving the locations of the non-zeros in ``A``.
+   返回数组 ``A`` 中每个维度上非零值的索引值向量。
    
 .. function:: nonzeros(A)
 
-   Return a vector of the non-zero values in array ``A``.
+   返回数组 ``A`` 中非零值的向量。
 
 .. function:: findfirst(A)
 
-   Return the index of the first non-zero value in ``A``.
+   返回数组 ``A`` 中第一个非零值的索引值。
 
 .. function:: findfirst(A,v)
 
-   Return the index of the first element equal to ``v`` in ``A``.
+   返回数组 ``A`` 中第一个等于 ``v`` 的元素的索引值。
 
 .. function:: findfirst(predicate, A)
 
-   Return the index of the first element that satisfies the given predicate in ``A``.
+   返回数组 ``A`` 中第一个满足指定断言的元素的索引值。
 
 .. function:: permutedims(A,perm)
 
-   Permute the dimensions of array ``A``. ``perm`` is a vector specifying a permutation of length ``ndims(A)``. This is a generalization of transpose for multi-dimensional arrays. Transpose is equivalent to ``permute(A,[2,1])``.
+   重新排列数组 ``A`` 的维度。 ``perm`` 为长度为 ``ndims(A)`` 的向量，它指明如何排列。此函数是多维数组的广义转置。转置等价于 ``permute(A,[2,1])`` 。
 
 .. function:: ipermutedims(A,perm)
 
-   Like :func:`permutedims`, except the inverse of the given permutation is applied.
+   类似 :func:`permutedims` ，但它使用指定排列的逆排列。
 
 .. function:: squeeze(A, dims)
 
-   移除the dimensions specified by ``dims`` from array ``A``
+   移除 ``A`` 中 ``dims`` 指定的维度。此维度大小应为 1 。
 
 .. function:: vec(Array) -> Vector
 
-   Vectorize an array using column-major convention.
+   以列序为主序将数组向量化。
 
 数组函数
 ~~~~~~~~
@@ -2287,11 +2311,11 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: sparse(I,J,V,[m,n,combine])
 
-   构造 ``m x n`` 的稀疏矩阵 ``S`` ，满足 ``S[I[k], J[k]] = V[k]`` 。使用 ``combine`` 函数来 combine duplicates 。如果未指明 ``m`` 和 ``n`` ，则默认为 ``max(I)`` 和 ``max(J)`` 。如果未提供 ``combine`` 函数，duplicates are added by default.
+   构造 ``m x n`` 的稀疏矩阵 ``S`` ，满足 ``S[I[k], J[k]] = V[k]`` 。使用 ``combine`` 函数来处理坐标重复的元素。如果未指明 ``m`` 和 ``n`` ，则默认为 ``max(I)`` 和 ``max(J)`` 。如果省略 ``combine`` 函数，默认对坐标重复的元素求和。
 
 .. function:: sparsevec(I, V, [m, combine])
 
-   构造 ``m x 1`` 的稀疏矩阵 ``S`` ，满足 ``S[I[k]] = V[k]`` 。使用 ``combine`` 函数来 combine duplicates ，如果未提供，则默认为 `+` 。在 Julia 中，稀疏向量是只有一列的稀疏矩阵。由于 Julia 使用列压缩（CSC）存储格式，只有一列的稀疏列矩阵是稀疏的，但只有一行的稀疏行矩阵是稠密的。
+   构造 ``m x 1`` 的稀疏矩阵 ``S`` ，满足 ``S[I[k]] = V[k]`` 。使用 ``combine`` 函数来处理坐标重复的元素，如果它被省略，则默认为 `+` 。在 Julia 中，稀疏向量是只有一列的稀疏矩阵。由于 Julia 使用列压缩（CSC）存储格式，只有一列的稀疏列矩阵是稀疏的，但只有一行的稀疏行矩阵是稠密的。
 
 .. function:: sparsevec(D::Dict, [m])
 
@@ -2385,7 +2409,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: lufact!(A) -> LUDense
 
-   ``lufact!`` 与 ``lufact`` 相同，但它覆写输入 A ，而非构造浅拷贝。
+   ``lufact!`` 与 ``lufact`` 类似，但它覆写输入 A ，而非构造浅拷贝。
 
 .. function:: chol(A, [LU]) -> F
 
@@ -2397,7 +2421,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function: cholfact!(A, [LU]) -> CholeskyDense
 
-   ``cholfact!`` 与 ``cholfact`` 相同，但它覆写输入 A ，而非构造浅拷贝。
+   ``cholfact!`` 与 ``cholfact`` 类似，但它覆写输入 A ，而非构造浅拷贝。
 
 ..  function:: cholpfact(A, [LU]) -> CholeskyPivotedDense
 
@@ -2405,7 +2429,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: cholpfact!(A, [LU]) -> CholeskyPivotedDense
 
-   ``cholpfact!`` 与 ``cholpfact`` 相同，但它覆写输入 A ，而非构造浅拷贝。
+   ``cholpfact!`` 与 ``cholpfact`` 类似，但它覆写输入 A ，而非构造浅拷贝。
 
 .. function:: qr(A) -> Q, R
 
@@ -2417,7 +2441,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: qrfact!(A)
 
-   ``qrfact!`` 与 ``qrfact`` 相同，但它覆写输入 A ，而非构造浅拷贝。
+   ``qrfact!`` 与 ``qrfact`` 类似，但它覆写输入 A ，而非构造浅拷贝。
 
 .. function:: qrp(A) -> Q, R, P
 
@@ -2429,7 +2453,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: qrpfact!(A) -> QRPivotedDense
 
-   ``qrpfact!`` 与 ``qrpfact`` 相同，但它覆写 A 以节约空间，而非构造浅拷贝。
+   ``qrpfact!`` 与 ``qrpfact`` 类似，但它覆写 A 以节约空间，而非构造浅拷贝。
 
 .. function:: qmulQR(QR, A)
    
@@ -2457,7 +2481,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: svdfact!(A, [thin]) -> SVDDense
 
-   ``svdfact!`` 与 ``svdfact`` 相同，但它覆写 A 以节约空间，而非构造浅拷贝。如果 ``thin`` 为 ``true`` ，则做节约模式分解。
+   ``svdfact!`` 与 ``svdfact`` 类似，但它覆写 A 以节约空间，而非构造浅拷贝。如果 ``thin`` 为 ``true`` ，则做节约模式分解。
 
 .. function:: svd(A, [thin]) -> U, S, V
 
@@ -2505,9 +2529,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: diagmm(matrix, vector)
 
-   Multiply matrices, interpreting the vector argument as a diagonal matrix.
-   The arguments may occur in the other order to multiply with the diagonal
-   matrix on the left.
+   矩阵与向量相乘。此函数也可以做向量与矩阵相乘。
 
 .. function:: Tridiagonal(dl, d, du)
 
@@ -2515,7 +2537,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: Woodbury(A, U, C, V)
 
-   构造a matrix in a form suitable for applying the Woodbury matrix identity
+   构造 Woodbury matrix identity 格式的矩阵。
 
 .. function:: rank(M)
 
@@ -2730,7 +2752,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: fft!(A [, dims])
 
-   与 :func:`fft` 相同，但在原地对 ``A`` 运算， ``A`` 必须是复数浮点数数组。
+   与 :func:`fft` 类似，但在原地对 ``A`` 运算， ``A`` 必须是复数浮点数数组。
 
 .. function:: ifft(A [, dims])
 
@@ -2743,7 +2765,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: ifft!(A [, dims])
 
-   与 :func:`ifft` 相同，但在原地对 ``A`` 进行运算。
+   与 :func:`ifft` 类似，但在原地对 ``A`` 进行运算。
 
 .. function:: bfft(A [, dims])
 
@@ -2751,95 +2773,71 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: bfft!(A [, dims])
 
-   与 :func:`bfft` 相同，但在原地对 ``A`` 进行运算。
+   与 :func:`bfft` 类似，但在原地对 ``A`` 进行运算。
 
 .. function:: plan_fft(A [, dims [, flags [, timelimit]]])
 
-   Pre-plan an optimized FFT along given dimensions (``dims``) of arrays
-   matching the shape and type of ``A``. （前两个参数的意义参见 :func:`fft` 。）返回可快速计算 ``fft(A, dims)`` 的函数。
+   在数组 ``A`` 的指定维度上（ ``dims`` ）制定优化 FFT 的方案。（前两个参数的意义参见 :func:`fft` 。）返回可快速计算 ``fft(A, dims)`` 的函数。
 
-   The ``flags`` argument is a bitwise-or of FFTW planner flags, defaulting
-   to ``FFTW.ESTIMATE``.  e.g. passing ``FFTW.MEASURE`` or ``FFTW.PATIENT``
-   will instead spend several seconds (or more) benchmarking different
-   possible FFT algorithms and picking the fastest one; see the FFTW manual
-   for more information on planner flags.  The optional ``timelimit`` argument
-   specifies a rough upper bound on the allowed planning time, in seconds.
-   Passing ``FFTW.MEASURE`` or ``FFTW.PATIENT`` may cause the input array ``A``
-   to be overwritten with zeros during plan creation.
+   ``flags`` 参数时按位或的 FFTW 方案标志位，默认为 ``FFTW.ESTIMATE`` 。如果使用 ``FFTW.MEASURE`` 或 ``FFTW.PATIENT`` 会先花几秒钟（或更久）来对不同的 FFT 算法进行分析，选取最快的。有关方案标志位，详见 FFTW 手册。可选参数 ``timelimit`` 指明制定方案时间的粗略上界，单位为秒。如果使用 ``FFTW.MEASURE`` 或 ``FFTW.PATIENT`` 会在制定方案时覆写输入数组 ``A`` 。
 
-   :func:`plan_fft!` 与 :func:`plan_fft` 相同，but creates a plan
-   that operates in-place on its argument (which must be an array of
-   complex floating-point numbers).  :func:`plan_ifft` and so on
-   are similar but produce plans that perform the equivalent of
-   the inverse transforms :func:`ifft` and so on.
+   :func:`plan_fft!` 与 :func:`plan_fft` 类似，但它在参数的原地制定方案（参数应为复浮点数数组）。 :func:`plan_ifft` 等类似，但它们指定逆变换  :func:`ifft`  等的方案。
 
 .. function:: plan_ifft(A [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_fft` 相同，but produces a plan that performs an inverse transforms :func:`ifft`.
+   与 :func:`plan_fft` 类似，但产生逆变换 :func:`ifft` 的方案。
 
 .. function:: plan_bfft(A [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_fft` 相同，but produces a plan that performs an unnormalized backwards transform :func:`bfft`.
+   与 :func:`plan_fft` 类似，但产生反向变换 :func:`bfft` 的方案。
 
 .. function:: plan_fft!(A [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_fft` 相同，但在原地对 ``A`` 进行运算。
+   与 :func:`plan_fft` 类似，但在原地对 ``A`` 进行运算。
 
 .. function:: plan_ifft!(A [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_ifft` 相同，但在原地对 ``A`` 进行运算。
+   与 :func:`plan_ifft` 类似，但在原地对 ``A`` 进行运算。
 
 .. function:: plan_bfft!(A [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_bfft` 相同，但在原地对 ``A`` 进行运算。
+   与 :func:`plan_bfft` 类似，但在原地对 ``A`` 进行运算。
 
 .. function:: rfft(A [, dims])
 
-   对实数数组 ``A`` 做多维 FFT ，exploiting the fact that
-   the transform has conjugate symmetry in order to save roughly half
-   the computational time and storage costs compared with :func:`fft`.
-   如果 ``A`` 的大小为 ``(n_1, ..., n_d)`` ，结果的大小为 ``(floor(n_1/2)+1, ..., n_d)`` 。
+   对实数数组 ``A`` 做多维 FFT 。由于转换具有共轭对称性，相比 :func:`fft` ，可节约将近一半的计算时间和存储空间。如果 ``A`` 的大小为 ``(n_1, ..., n_d)`` ，结果的大小为 ``(floor(n_1/2)+1, ..., n_d)`` 。
 
-   与 :func:`fft` 相同，可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、多元组、数组）。
-   Instead of (roughly) halving the first dimension of ``A`` in the result, the
-   ``dims[1]`` dimension is (roughly) halved in the same way.
+   与 :func:`fft` 类似，可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、多元组、数组）。但结果中 ``dims[1]`` 维度大约只有一半。
 
 .. function:: irfft(A, d [, dims])
 
-   Inverse of :func:`rfft`: for a complex array ``A``, gives the
-   corresponding real array whose FFT yields ``A`` in the first half.
-   As for :func:`rfft`, ``dims`` is an optional subset of dimensions
-   to transform, defaulting to ``1:ndims(A)``.
+   对复数组 ``A`` 做 :func:`rfft`: 的逆运算，它给出 FFT 后可生成 ``A`` 的对应的实数数组的前半部分。与 :func:`rfft` 类似， ``dims`` 是可选项，默认为 ``1:ndims(A)`` 。
 
-   ``d`` is the length of the transformed real array along the ``dims[1]``
-   dimension, which must satisfy ``d == floor(size(A,dims[1])/2)+1``.
-   (This parameter cannot be inferred from ``size(A)`` due to the 
-   possibility of rounding by the ``floor`` function here.)
+   ``d`` 是转换后的实数数组在 ``dims[1]`` 维度上的长度，必须满足 ``d == floor(size(A,dims[1])/2)+1`` 。（此参数不能从 ``size(A)`` 推导出来，因为使用了 ``floor`` 函数。）
 
 .. function:: brfft(A, d [, dims])
 
-   类似 :func:`irfft` but computes an unnormalized inverse transform
-   (similar to :func:`bfft`), which must be divided by the product
-   of the sizes of the transformed dimensions (of the real output array)
-   in order to obtain the inverse transform.
+   与 :func:`irfft` 类似，但它计算非归一化逆变换（与 :func:`bfft` 类似）。要得到逆变换，需将结果除以除以（实数输出矩阵）所运算的维度大小的积。
 
 .. function:: plan_rfft(A [, dims [, flags [, timelimit]]])
 
-   Pre-plan an optimized real-input FFT, similar to :func:`plan_fft`
-   except for :func:`rfft` instead of :func:`fft`.前两个参数及变换后的大小，都与 :func:`rfft` 相同。
+   制定优化实数输入 FFT 的方案。与 :func:`plan_fft` 类似，但它对应于 :func:`rfft` 。前两个参数及变换后的大小，都与 :func:`rfft` 相同。
 
 .. function:: plan_irfft(A, d [, dims [, flags [, timelimit]]])
 
-   Pre-plan an optimized inverse real-input FFT, similar to :func:`plan_rfft`
-   except for :func:`irfft` and :func:`brfft`, respectively. 前三个参数的意义与 :func:`irfft` 相同。
+   制定优化实数输入 FFT 的方案。与 :func:`plan_rfft` 类似，但它对应于 :func:`irfft` 。前三个参数的意义与 :func:`irfft` 相同。
+   
+.. function:: plan_brfft(A, d [, dims [, flags [, timelimit]]])
+
+   制定优化实数输入 FFT 的方案。与 :func:`plan_rfft` 类似，但它对应于 :func:`brfft` 。前三个参数的意义与 :func:`brfft` 相同。
 
 .. function:: dct(A [, dims])
 
-   对数组 ``A`` 做第二类离散余弦变换（DCT），使用归一化的 DCT 。与 :func:`fft` 相同，可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、多元组、数组）。如果 ``A`` 要运算的维度上的长度是较小的质数的积，算法会比较高效；详见 :func:`nextprod` 。另见高效的 :func:`plan_dct` 。
+   对数组 ``A`` 做第二类离散余弦变换（DCT），使用归一化的 DCT 。与 :func:`fft` 类似，可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、多元组、数组）。如果 ``A`` 要运算的维度上的长度是较小的质数的积，算法会比较高效；详见 :func:`nextprod` 。另见高效的 :func:`plan_dct` 。
 
 .. function:: dct!(A [, dims])
 
-   与 :func:`dct!` 相同，但在原地对 ``A`` 进行运算。 ``A`` 必须是实数或复数的浮点数数组。
+   与 :func:`dct!` 类似，但在原地对 ``A`` 进行运算。 ``A`` 必须是实数或复数的浮点数数组。
 
 .. function:: idct(A [, dims])
 
@@ -2847,61 +2845,43 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: idct!(A [, dims])
 
-   与 :func:`idct!` 相同，但在原地对 ``A`` 进行运算。
+   与 :func:`idct!` 类似，但在原地对 ``A`` 进行运算。
 
 .. function:: plan_dct(A [, dims [, flags [, timelimit]]])
 
-   Pre-plan an optimized discrete cosine transform (DCT), similar to
-   :func:`plan_fft` except producing a function that computes :func:`dct`.
-   前两个参数的意义与 :func:`dct` 相同。
+   制定优化 DCT 的方案。与 :func:`plan_fft` 类似，但对应于 :func:`dct` 。前两个参数的意义与 :func:`dct` 相同。
 
 .. function:: plan_dct!(A [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_dct` 相同，但在原地对 ``A`` 进行运算。
+   与 :func:`plan_dct` 类似，但在原地对 ``A`` 进行运算。
 
 .. function:: plan_idct(A [, dims [, flags [, timelimit]]])
 
-   Pre-plan an optimized inverse discrete cosine transform (DCT), similar to
-   :func:`plan_fft` except producing a function that computes :func:`idct`.
-   前两个参数的意义与 :func:`idct` 相同。
+   制定优化 IDCT 的方案。与 :func:`plan_fft` 类似，但对应于 :func:`idct` 。前两个参数的意义与 :func:`idct` 相同。
 
 .. function:: plan_idct!(A [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_idct` 相同，但在原地对 ``A`` 进行运算。
+   与 :func:`plan_idct` 类似，但在原地对 ``A`` 进行运算。
 
 .. function:: FFTW.r2r(A, kind [, dims])
 
-   Performs a multidimensional real-input/real-output (r2r) transform
-   of type ``kind`` of the array ``A`` .
-   ``kind`` specifies either a discrete cosine transform of various types
-   (``FFTW.REDFT00``, ``FFTW.REDFT01``, ``FFTW.REDFT10``, or
-   ``FFTW.REDFT11``), a discrete sine transform of various types 
-   (``FFTW.RODFT00``, ``FFTW.RODFT01``, ``FFTW.RODFT10``, or
-   ``FFTW.RODFT11``), a real-input DFT with halfcomplex-format output
-   (``FFTW.R2HC`` and its inverse ``FFTW.HC2R``), or a discrete
-   Hartley transform (``FFTW.DHT``).  The ``kind`` argument may be
-   an array or tuple in order to specify different transform types
-   along the different dimensions of ``A``; ``kind[end]`` is used
-   for any unspecified dimensions.  有关这些变换类型的精确定义，详见 FFTW 手册 `<http://www.fftw.org/doc>`.
+   对数组 ``A`` 做种类为 ``kind`` 的多维实数输入实数输出（r2r）变换。 ``kind`` 指明各类离散余弦变换 （ ``FFTW.REDFT00``, ``FFTW.REDFT01``, ``FFTW.REDFT10``, 或 ``FFTW.REDFT11`` ）、各类离散正弦变换（ ``FFTW.RODFT00``, ``FFTW.RODFT01``, ``FFTW.RODFT10``, 或 ``FFTW.RODFT11`` ）、实数输入半复数输出的 DFT （ ``FFTW.R2HC`` 及它的逆 ``FFTW.HC2R``)，或离散 Hartley 变换（ ``FFTW.DHT`` ）。参数 ``kind`` 可以为数组或多元组，可用来指明在 ``A`` 的不同维度上做不同种类的变换；对未指明的维度使用 ``kind[end]`` 。有关这些变换类型的精确定义，详见 `FFTW 手册 <http://www.fftw.org/doc>`_ 。
 
-   可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、多元组、数组）。 ``kind[i]`` is then the transform type for ``dims[i]``,
-   with ``kind[end]`` being used for ``i > length(kind)``.
+   可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、多元组、数组）。 ``kind[i]`` 是对维度 ``dims[i]`` 的变换种类。当 ``i > length(kind)`` 时使用 ``kind[end]`` 。
 
-   另见 :func:`FFTW.plan_r2r` to pre-plan optimized r2r transforms.
+   另见 :func:`FFTW.plan_r2r` ，它制定优化 r2r 的方案。
 
-.. function:: FFTW.r2r!
+.. function:: FFTW.r2r!(A, kind [, dims])
 
-   :func:`FFTW.r2r!` 与 :func:`FFTW.r2r` 相同，但在原地对 ``A`` 进行运算。 ``A`` 必须是实数或复数的浮点数数组。
+   :func:`FFTW.r2r!` 与 :func:`FFTW.r2r` 类似，但在原地对 ``A`` 进行运算。 ``A`` 必须是实数或复数的浮点数数组。
 
 .. function:: FFTW.plan_r2r(A, kind [, dims [, flags [, timelimit]]])
 
-   Pre-plan an optimized r2r transform, similar to :func:`plan_fft`
-   except that the transforms (and the first three arguments)
-   correspond to :func:`FFTW.r2r` and :func:`FFTW.r2r!`, respectively.
+   制定优化 r2r 的方案。与 :func:`plan_fft` 类似，但它对应于 :func:`FFTW.r2r` 。
 
-.. function:: FFTW.plan_r2r!
+.. function:: FFTW.plan_r2r!(A, kind [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_fft` 相同，但它对应于 :func:`FFTW.r2r!` 。
+   与 :func:`plan_fft` 类似，但它对应于 :func:`FFTW.r2r!` 。
 
 .. function:: fftshift(x)
 
@@ -2917,7 +2897,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: filt(b,a,x)
 
-   Apply filter described by vectors ``a`` and ``b`` to vector ``x``.
+   对向量 ``x`` 使用由向量 ``a`` 和 ``b`` 描述的过滤器。
 
 .. function:: deconv(b,a)
 
