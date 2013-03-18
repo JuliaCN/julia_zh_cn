@@ -15,6 +15,8 @@
    :maxdepth: 1
 
    base
+   sparse
+   linalg
    constants
    file
    punctuation
@@ -27,13 +29,4 @@
    :maxdepth: 1
 
    sort
-
-**********
-数学和数值
-**********
-
-.. toctree::
-   :maxdepth: 1
-
-   blas
 
