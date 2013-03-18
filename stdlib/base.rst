@@ -400,10 +400,6 @@
 
    删除集合中指定键的映射，返回被删的键的值。
 
-.. function:: empty!(collection)
-
-   删除集合中所有的键。
-
 .. function:: keys(collection)
 
    返回集合中所有键组成的数组。
@@ -563,10 +559,6 @@
 
    字符串 ``s`` 中的字符数。
 
-.. function:: collect(string)
-
-   返回 ``string`` 中的字符数组。
-
 .. function:: *(s, t)
 
    连接字符串。
@@ -579,11 +571,7 @@
 
    **例子** ： ``"Julia "^3 == "Julia Julia Julia "``
 
-.. function:: string(char...)
-
-   使用指定字符构造字符串。
-
-.. function:: string(x)
+.. function:: string(xs...)
 
    使用 ``print`` 函数的值构造字符串。
 
@@ -627,10 +615,6 @@
 
    如果指定的字符或整数是有效的 Unicode 码位，则返回真。
 
-.. function:: search(string, char, [i])
-
-   返回 ``string`` 中 ``char`` 的索引值；如果没找到，则返回 0 。第二个参数也可以是字符向量或集合。第三个参数是可选的，它指明起始索引值。
-
 .. function:: ismatch(r::Regex, s::String)
 
    判断字符串是否匹配指定的正则表达式。
@@ -649,11 +633,7 @@
 
 .. function:: replace(string, pat, r[, n])
 
-   查找指定模式 ``pat`` ，并替换为 ``r`` 。如果提供 ``n`` ，则最多替换 ``n`` 次。搜索时，第二个参数可以是单字符、字符向量或集合、字符串、或正则表达式。
-
-.. function:: replace(string, pat, f[, n])
-
-   查找指定模式 ``pat`` ，并替换为 ``f(pat)`` 。如果提供 ``n`` ，则最多替换 ``n`` 次。搜索时，第二个参数可以是单字符、字符向量或集合、字符串、或正则表达式。
+   查找指定模式 ``pat`` ，并替换为 ``r`` 。如果提供 ``n`` ，则最多替换 ``n`` 次。搜索时，第二个参数可以是单字符、字符向量或集合、字符串、或正则表达式。如果 ``r`` 为函数，替换后的结果为 ``r(s)`` ，其中 ``s`` 是匹配的子字符串。
 
 .. function:: split(string, [chars, [limit,] [include_empty]])
 
@@ -815,18 +795,13 @@ I/O
    另一种打开文件的语法，它使用字符串样式的标识符：
 
    ==== =================================
-    r    读
+    r    读（默认）
     r+   读、写
     w    写、新建、清空重写
     w+   读写、新建、清空重写
     a    写、新建、追加
     a+   读、写、新建、追加
    ==== =================================
-
-
-.. function:: open(file_name) -> IOStream
-
-   以只读模式打开文件。
 
 .. function:: open(f::function, args...)
 
@@ -838,8 +813,7 @@ I/O
 
    构造内存中 I/O 流，可选择性指明需要多少初始化空间。
 
-.. function:: fdio(fd::Integer, [own::Bool]) -> IOStream
-              fdio(name::String, fd::Integer, [own::Bool]]) -> IOStream
+.. function:: fdio([name::String, ]fd::Integer[, own::Bool]) -> IOStream
 
    用整数文件描述符构造 ``IOStream`` 对象。如果 ``own`` 为真，关闭对象时会关闭底层的描述符。默认垃圾回收时 ``IOStream`` 是关闭的。 ``name`` 用文件描述符关联已命名的文件。
 
@@ -1576,12 +1550,18 @@ I/O
    计算 ``x`` 的双伽玛函数（ ``gamma(x)`` 自然对数的导数）
 
 .. function:: airy(x)
-              airyai(x)
+
+   艾里函数的 k 阶导数 :math:`\operatorname{Ai}(x)` 。
+
+.. function:: airyai(x)
 
    艾里函数 :math:`\operatorname{Ai}(x)` 。
 
 .. function:: airyprime(x)
-              airyaiprime(x)
+
+   艾里函数的导数 :math:`\operatorname{Ai}'(x)` 。
+
+.. function:: airyaiprime(x)
 
    艾里函数的导数 :math:`\operatorname{Ai}'(x)` 。
 
@@ -1998,7 +1978,7 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: rand()
 
-   生成 (0,1) 内的 ``Float64`` 随机数。
+   生成 [0,1) 内均匀分布的 ``Float64`` 随机数。
 
 .. function:: rand!([rng], A)
 
@@ -2008,7 +1988,7 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
    使用指定的 RNG 对象，生成 ``Float64`` 类型的随机数或数组。目前仅提供 ``MersenneTwister`` 随机数生成器 RNG ，可由 ``srand`` 函数设置随机数种子。
 
-.. function:: rand(dims...)
+.. function:: rand(dims 或 [dims...])
 
    生成指定维度的 ``Float64`` 类型的随机数组。
 
@@ -2016,9 +1996,9 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
    生成指定整数类型的随机数。若指定维度，则生成对应类型的随机数组。
 
-.. function:: rand(n, [dims...])
+.. function:: rand(r, [dims...])
 
-   从 ``1:n`` 中产生随机整数，包括 1 和 n 。也可以生成随机整数数组。
+   从 ``Range1`` r 的范围中产生随机整数（如 ``1:n`` ，包括 1 和 n）。也可以生成随机整数数组。
 
 .. function:: randbool([dims...])
 
@@ -2028,7 +2008,7 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
    将数组中的元素赋值为随机布尔值。 ``A`` 可以是 ``Array`` 或 ``BitArray`` 。
 
-.. function:: randn([dims...])
+.. function:: randn(dims 或 [dims...])
 
    生成均值为 0 ，标准差为 1 的标准正态分布随机数。若指定维度，则生成标准正态分布的随机数组。
 
@@ -2056,11 +2036,11 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: nnz(A)
 
-   A 中非零元素的个数。
+   数组 ``A`` 中非零元素的个数。可适用于稠密或稀疏数组。
 
 .. function:: scale!(A, k)
 
-   原地将数组 A 的内容乘以 k 。
+   原地将数组 ``A`` 的内容乘以 k 。
    
 .. function:: conj!(A)
 
@@ -2081,7 +2061,7 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
    构造一个未初始化的稠密数组。 ``dims`` 可以是整数参数的多元组或集合。
 
-.. function:: getindex(type)
+.. function:: getindex(type[, elements...])
 
    构造指定类型的一维数组。它常被 ``Type[]`` 语法调用。元素值可由 ``Type[a,b,c,...]`` 指明。
 
@@ -2117,10 +2097,6 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
    构造与指定数组同样数据的新数组，但维度不同。特定类型数组的实现自动选择复制或共享数据。
 
-.. function:: copy(A)
-
-   构造 ``A`` 的浅拷贝。
-
 .. function:: similar(array, [element_type, dims])
 
    构造与指定数组相同类型的未初始化数组。可选择性指定指定了元素类型和维度。 ``dims`` 参数可以是整数参数的多元组或集合。
@@ -2128,18 +2104,6 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 .. function:: reinterpret(type, A)
 
    构造与指定数组同样二进制数据的新数组，但为指定的元素类型。
-
-.. function:: rand(dims)
-
-   构造 Float64 类型的随机数组，在 (0,1) 内取值。
-
-.. function:: randf(dims)
-
-   构造 Float32 类型的随机数组，在 (0,1) 内取值。
-
-.. function:: randn(dims)
-
-   构造 Float64 类型的标准正态分布随机数组，均值为 0 ，标准差为 1 。
 
 .. function:: eye(n)
 
@@ -2171,7 +2135,7 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: getindex(A, ind)
 
-   返回 ``ind`` 位置的 ``A`` 的子集，结果可能是 ``Int``, ``Range``, 或 ``Vector`` 。
+   返回 ``ind`` 位置的数组 ``A`` 的子集，结果可能是 ``Int``, ``Range``, 或 ``Vector`` 。
 
 .. function:: sub(A, ind)
 
@@ -2183,7 +2147,7 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: setindex!(A, X, ind)
 
-   在 ``ind`` 指定的 ``A`` 子集上存储 ``X`` 。
+   在 ``ind`` 指定的 ``A`` 子集上存储 ``X`` 的值。
 
 .. function:: cat(dim, A...)
 
@@ -2197,9 +2161,9 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
    在维度 2 上连接。
 
-.. function:: hvcat
+.. function:: hvcat(rows::(Int...), values...)
 
-   在水平和垂直上连接。
+   在水平和垂直上连接。此函数用于块矩阵语法。第一个参数多元组指明每行要连接的参数个数。例如， ``[a b;c d e]`` 调用 ``hvcat((2,3),a,b,c,d,e)`` 。
 
 .. function:: flipdim(A, d)
 
@@ -2324,10 +2288,6 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 .. function:: issparse(S)
 
    如果 ``S`` 为稀疏矩阵，返回 ``true`` ；否则为 ``false`` 。
-
-.. function:: nnz(S)
-
-   返回 ``S`` 中非零元素的个数。
 
 .. function:: sparse(A)
 
@@ -3126,7 +3086,6 @@ C 接口
 ------
 
 .. function:: ccall( (symbol, library), RetType, (ArgType1, ...), ArgVar1, ...)
-              ccall( fptr::Ptr{Void}, RetType, (ArgType1, ...), ArgVar1, ...)
 
    调用从 C 导出的共享库的函数，它由 (函数名, 共享库名) 多元组（字符串或 :Symbol ）指明。 ccall 也可用来调用由 dlsym 返回的函数指针，但由于将来想实现静态编译，不提倡这种用法。
 
@@ -3180,7 +3139,6 @@ C 接口
 ----
 
 .. function:: error(message::String)
-              error(Exception)
 
    报错，并显示指定信息。
 
