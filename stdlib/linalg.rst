@@ -1,7 +1,7 @@
 线性代数
 --------
 
-Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netlib.org/lapack/>`_ 中的函数。
+Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netlib.org/lapack/>`_ 中的函数。稀疏分解则调用  `SuiteSparse <http:://www.suitesparse.com/>`_ 中的函数。
 
 .. function:: *(A, B)
 
@@ -9,7 +9,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: \\(A, B)
 
-   使用 polyalgorithm 做矩阵除法。对输入矩阵 ``A`` 和 ``B`` ，输出 ``X`` 满足 ``A*X == B`` 。对长方矩阵 ``A`` 使用 QR 分解。对三角矩阵 ``A`` 使用三角求解。对方阵 ``A`` ，如果输是对称矩阵且对角线附近值较大时，尝试使用 Cholesky 分解。当 Cholesky 分解失败时或对普通输入方阵时，使用 LU 分解。如果 ``size(A,1) > size(A,2)`` ，结果为使用奇异值分解的 ``A*X+eps=B`` 最小二乘法的解。 ``A`` 不需要为满秩。
+   使用 polyalgorithm 做矩阵除法。对输入矩阵 ``A`` 和 ``B`` ，当 ``A`` 为方阵时，输出 ``X`` 满足 ``A*X == B`` 。由 ``A`` 的结构确定使用哪种求解器。对上三角矩阵和下三角矩阵 ``A`` ，直接求解。对 Hermitian 矩阵 ``A`` （它等价于实对称矩阵）时，使用 BunchKaufman 分解。其他情况使用 LU 分解。对长方矩阵 ``A`` ，通过将 ``A`` 约简到双对角线形式，然后使用最小范数最小二乘法来求解双对角线最小二乘问题。对稀疏矩阵 ``A`` ，使用 UMFPACK 中的 LU 分解。
 
 .. function:: dot(x, y)
 
@@ -27,13 +27,13 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
    对 ``A`` 做 LU 分解，满足 ``A[P,:] = L*U`` 。
 
-.. function:: lufact(A) -> LUDense
+.. function:: lufact(A) -> LUDense 或 UmfpackLU
 
-   对 ``A`` 做 LU 分解，返回 ``LUDense`` 对象。分解结果 ``F`` 的独立分量是可以被索引的： ``F[:L]``, ``F[:U]``, 及 ``F[:P]`` （置换矩阵）或 ``F[:p]`` （置换向量）。 ``LUDense`` 对象可使用下列函数： ``size``, ``\``, ``inv``, ``det`` 。
+   对 ``A`` 做 LU 分解。若 ``A`` 为稠密矩阵，返回 ``LUDense`` 对象；若 ``A`` 为稀疏矩阵，返回 ``UmfpackLU`` 对象；。分解结果 ``F`` 的独立分量是可以被索引的： ``F[:L]``, ``F[:U]``, 及 ``F[:P]`` （置换矩阵）或 ``F[:p]`` （置换向量）。 ``UmfpackLU`` 对象还有额外的 ``F[:q]`` 分量（ left 置换向量）及缩放因子 ``F[:Rs]`` 向量。 ``LUDense`` 对象和 ``UmfpackLU`` 对象可使用下列函数： ``size``, ``\`` 和 ``det`` 。 ``LUDense`` 对象还可以使用 ``inv`` 方法。稀疏 LU 分解中， ``L*U`` 等价于 ``diagmm(Rs,A)[p,q]`` 。
 
 .. function:: lufact!(A) -> LUDense
 
-   ``lufact!`` 与 ``lufact`` 类似，但它覆写输入 A ，而非构造浅拷贝。
+   ``lufact!`` 与 ``lufact`` 类似，但它覆写输入 A ，而非构造浅拷贝。对稀疏矩阵 ``A`` ，它并不覆写 ``nzval`` 域，仅覆写索引值域， ``colptr`` 和 ``rowval`` 在原地缩减，使得从 1 开始的索引改为从 0 开始的索引。
 
 .. function:: chol(A, [LU]) -> F
 
@@ -41,7 +41,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: cholfact(A, [LU]) -> CholeskyDense
 
-   计算对称正定矩阵 ``A`` 的 Cholesky 分解，返回 ``CholeskyDense`` 对象。 ``LU`` 若为 'L' 则使用下三角，若为 'U' 则使用上三角。默认使用 'U' 。可从分解结果 ``F`` 中获取三角矩阵： ``F[:L]`` 和 ``F[:U]`` 。 ``CholeskyDense`` 对象可使用下列函数： ``size``, ``\``, ``inv``, ``det`` 。如果矩阵不是正定，会抛出 ``LAPACK.PosDefException`` 错误。
+   计算稠密对称正定矩阵 ``A`` 的 Cholesky 分解，返回 ``CholeskyDense`` 对象。 ``LU`` 若为 'L' 则使用下三角，若为 'U' 则使用上三角。默认使用 'U' 。可从分解结果 ``F`` 中获取三角矩阵： ``F[:L]`` 和 ``F[:U]`` 。 ``CholeskyDense`` 对象可使用下列函数： ``size``, ``\``, ``inv``, ``det`` 。如果矩阵不是正定，会抛出 ``LAPACK.PosDefException`` 错误。
 
 .. function: cholfact!(A, [LU]) -> CholeskyDense
 

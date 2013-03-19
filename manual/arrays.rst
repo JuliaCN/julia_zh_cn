@@ -242,7 +242,7 @@ Julia 的基础数组类型是抽象类型 ``AbstractArray{T,n}`` ，其中维�
 
 ``StridedVector`` 和 ``StridedMatrix`` 是为了方便而定义的别名。通过给他们传递 ``Array`` 或 ``SubArray`` 对象，可以使 Julia 大范围调用 BLAS 和 LAPACK 函数，提高索引和申请内存的效率。
 
-下面的例子计算大数组中的一个小块儿的QR分解，无需构造临时变量，直接调用合适的 LAPACK 函数：
+下面的例子计算大数组中的一个小块儿的 QR 分解，无需构造临时变量，直接调用合适的 LAPACK 函数：
 
 .. code-block:: jlcon
 

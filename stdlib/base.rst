@@ -872,13 +872,13 @@ I/O
 
    使用 :func:`print` 打印 ``x`` ，并接一个换行符。
 
-.. function:: @printf("%Fmt", args...)
+.. function:: @printf([io::IOStream], "%Fmt", args...)
 
-   使用 C 中 ``printf()`` 的样式来打印。
+   使用 C 中 ``printf()`` 的样式来打印。第一个参数可选择性指明 IOStream 来重定向输出。
 
-.. function:: @sprintf(stream::IOStream, "%Fmt", args...)
+.. function:: @sprintf("%Fmt", args...)
     
-   按 ``@printf`` 的样式输出到流。
+   按 ``@printf`` 的样式输出为字符串。
 
 .. function:: showall(x)
 
