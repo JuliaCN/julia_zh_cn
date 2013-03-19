@@ -25,7 +25,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: lu(A) -> L, U, P
 
-   对 ``A`` 做 LU 分解，满足 ``A[P,:] = L*U`` 。
+   对 ``A`` 做 LU 分解，满足 ``P*A = L*U`` 。
 
 .. function:: lufact(A) -> LUDense 或 UmfpackLU
 
@@ -57,7 +57,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: qr(A) -> Q, R
 
-   对 ``A`` 做 QR 分解，满足 ``A = Q*R`` 。也可参见 ``qrd`` 。
+   对 ``A`` 做 QR 分解，满足 ``A = Q*R`` 。也可参见 ``qrfact`` 。
 
 .. function:: qrfact(A)
 
@@ -69,7 +69,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: qrp(A) -> Q, R, P
 
-   对 ``A`` 做主元 QR 分解，满足 ``A*I[:,P] = Q*R``, 其中 ``I`` 为单位矩阵。另见 ``qrpfact`` 。
+   对 ``A`` 做主元 QR 分解，满足 ``A*P = Q*R`` 。另见 ``qrpfact`` 。
 
 .. function:: qrpfact(A) -> QRPivotedDense
 
@@ -93,7 +93,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: eigfact(A)
 
-   对 ``A`` 做特征分解，返回 ``EigenDense`` 对象。可从分解结果 ``F`` 中获取分量：特征值为 ``F[:values]`` ，特征向量为 ``F[:vectors]`` 。 ``EigenDense`` 对象可使用下列函数： ``chol``, ``det`` 。
+   对 ``A`` 做特征分解，返回 ``EigenDense`` 对象。可从分解结果 ``F`` 中获取分量：特征值为 ``F[:values]`` ，特征向量为 ``F[:vectors]`` 。 ``EigenDense`` 对象可使用下列函数： ``inv``, ``det`` 。
 
 .. function:: eigfact!(A)
 
@@ -109,7 +109,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: svdfact(A, [thin]) -> SVDDense
 
-   对 ``A`` 做奇异值分解（SVD），返回 ``SVDDense`` 对象。分解结果 ``F`` 的 ``U``, ``S``, 和 ``Vt`` 可分别通过 ``F[:U]``, ``F[:S]``, 和 ``F[:V]`` 来获得，它们满足 ``A = U*diagm(S)*Vt`` 。如果 ``thin`` 为 ``true`` ，则做节约模式分解。
+   对 ``A`` 做奇异值分解（SVD），返回 ``SVDDense`` 对象。分解结果 ``F`` 的 ``U``, ``S``, ``V`` 和 ``Vt`` 可分别通过 ``F[:U]``, ``F[:S]``, ``F[:V]`` 和 ``F[:Vt]`` 来获得，它们满足 ``A = U*diagm(S)*Vt`` 。如果 ``thin`` 为 ``true`` ，则做节约模式分解。此算法先计算 ``Vt`` ，即 ``V`` 的转置，后者是由前者转置得到的。
 
 .. function:: svdfact!(A, [thin]) -> SVDDense
 
@@ -118,10 +118,6 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 .. function:: svd(A, [thin]) -> U, S, V
 
    对 ``A`` 做奇异值分解，返回 ``U`` ，向量 ``S`` ，及 ``V`` ，满足 ``A == U*diagm(S)*V'`` 。如果 ``thin`` 为 ``true`` ，则做节约模式分解。
-
-.. function:: svdt(A, [thin]) -> U, S, Vt
-
-   对 ``A`` 做奇异值分解，返回 ``U`` ，向量 ``S`` ，及 ``Vt`` ，满足 ``A = U*diagm(S)*Vt`` 。如果 ``thin`` 为 ``true`` ，则做节约模式分解。
 
 .. function:: svdvals(A)
 
