@@ -1,7 +1,7 @@
 .. _man-conversion-and-promotion:
 
 ********************
- 类型转换和类型提升  
+ 类型转换和类型提升
 ********************
 
 Julia 可以将数学运算符的参数提升为同一个类型，这些参数的类型曾经在 :ref:`man-integers-and-floating-point-numbers` ， :ref:`man-mathematical-operations` ， :ref:`man-types` ，及 :ref:`man-methods` 中提到过。
@@ -45,7 +45,7 @@ Julia 可以将数学运算符的参数提升为同一个类型，这些参数�
 
     convert(::Type{Bool}, x::Number) = (x!=0)
 
-此方法第一个参数的类型是 :ref:`单态类型 <man-singleton-types>` ， ``Type{Bool}`` 是 ``Bool`` 的唯一实例。此方法仅在第一个参数是 ``Bool`` 才调用： ::
+此方法第一个参数的类型是 :ref:`单态类型 <man-singleton-types>` ， ``Bool`` 是 ``Type{Bool}`` 的唯一实例。此方法仅在第一个参数是 ``Bool`` 才调用： ::
 
     julia> convert(Bool, 1)
     true
@@ -77,7 +77,7 @@ Julia 可以将数学运算符的参数提升为同一个类型，这些参数�
 
     convert{T<:Int}(::Type{Rational{T}}, x::Rational) = Rational(convert(T,x.num),convert(T,x.den))
     convert{T<:Int}(::Type{Rational{T}}, x::Int) = Rational(convert(T,x), convert(T,1))
-	
+
 	## tol 是 tolerance 的简写，表示许可的误差 ##
     function convert{T<:Int}(::Type{Rational{T}}, x::FloatingPoint, tol::Real)
         if isnan(x); return zero(T)//zero(T); end
@@ -179,4 +179,3 @@ Julia 使用 ``promote`` 函数来做类型提升，它有任意个数的参数�
     promote_rule{T<:Int,S<:Int}(::Type{Rational{T}}, ::Type{S}) = Rational{promote_type(T,S)}
     promote_rule{T<:Int,S<:Int}(::Type{Rational{T}}, ::Type{Rational{S}}) = Rational{promote_type(T,S)}
     promote_rule{T<:Int,S<:FloatingPoint}(::Type{Rational{T}}, ::Type{S}) = promote_type(T,S)
-

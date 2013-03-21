@@ -1,7 +1,7 @@
 .. _man-mathematical-operations:
 
 **********
- 数学运算  
+ 数学运算
 **********
 
 Julia 为它所有的基础数值类型，提供了整套的基础算术和位运算，也提供了一套高效的标准数学函数。
@@ -40,7 +40,7 @@ Julia 为它所有的基础数值类型，提供了整套的基础算术和位�
     0.5
 
 （习惯上，优先级低的运算，前后多补些空格。这是个人喜好，没有强制标准。）
-	
+
 Julia 的类型提升系统使得参数类型混杂的算术运算也很简单自然。详见 :ref:`man-conversion-and-promotion` 。
 
 位运算的例子： ::
@@ -63,7 +63,7 @@ Julia 的类型提升系统使得参数类型混杂的算术运算也很简单�
     julia> ~uint8(123)
     0x84
 
-二进制算术和位运算都有对应的复合赋值运算符： ::
+二元算术和位运算都有对应的复合赋值运算符： ::
 
       julia> x = 1
       1
@@ -200,21 +200,21 @@ Julia 提供了一系列数学函数和运算符：
 -  ``flipsign(x,y)`` — 返回一个数，它具有 ``x`` 的幅值， ``x*y`` 的符号位
 -  ``sqrt(x)`` — ``x`` 的平方根
 -  ``cbrt(x)`` — ``x`` 的立方根
--  ``hypot(x,y)`` — 精确计算 ``sqrt(x^2 + y^2)`` 
+-  ``hypot(x,y)`` — 精确计算 ``sqrt(x^2 + y^2)``
 -  ``pow(x,y)`` — ``x`` 的 ``y`` 次幂
 -  ``exp(x)`` — 自然指数 ``e`` 的 ``x`` 次幂
--  ``expm1(x)`` — 当 ``x`` 接近 0 时，精确计算 ``exp(x)-1`` 
--  ``ldexp(x,n)`` — 当 ``n`` 为整数时，高效计算``x*2^n`` 
+-  ``expm1(x)`` — 当 ``x`` 接近 0 时，精确计算 ``exp(x)-1``
+-  ``ldexp(x,n)`` — 当 ``n`` 为整数时，高效计算``x*2^n``
 -  ``log(x)`` — ``x`` 的自然对数
 -  ``log(b,x)`` — 以 ``b`` 为底 ``x`` 的对数
 -  ``log2(x)`` — 以 2 为底 ``x`` 的对数
 -  ``log10(x)`` — 以 10 为底 ``x`` 的对数
--  ``log1p(x)`` — 当 ``x`` 接近 0 时，精确计算 ``log(1+x)`` 
+-  ``log1p(x)`` — 当 ``x`` 接近 0 时，精确计算 ``log(1+x)``
 -  ``logb(x)`` — ``trunc(log2(x))``
--  ``erf(x)`` — ``x`` 处的 `误差函数 <http://zh.wikipedia.org/zh-cn/%E8%AF%AF%E5%B7%AE%E5%87%BD%E6%95%B0>`_ 
+-  ``erf(x)`` — ``x`` 处的 `误差函数 <http://zh.wikipedia.org/zh-cn/%E8%AF%AF%E5%B7%AE%E5%87%BD%E6%95%B0>`_
 -  ``erfc(x)`` — 对于大 ``x`` ，精确计算 ``1-erf(x)``
--  ``gamma(x)`` — ``x`` 处的 `Γ函数 <http://zh.wikipedia.org/zh-cn/%CE%93%E5%87%BD%E6%95%B0>`_ 
--  ``lgamma(x)`` — 对于大 ``x`` ，精确计算 ``log(gamma(x))`` 
+-  ``gamma(x)`` — ``x`` 处的 `Γ函数 <http://zh.wikipedia.org/zh-cn/%CE%93%E5%87%BD%E6%95%B0>`_
+-  ``lgamma(x)`` — 对于大 ``x`` ，精确计算 ``log(gamma(x))``
 
 为什么要有 ``hypot``, ``expm1``, ``log1p``, ``erfc`` 等函数，参见 John D. Cook 的博客： `expm1, log1p, erfc <http://www.johndcook.com/blog/2010/06/07/math-library-functions-that-seem-unnecessary/>`_ 和 `hypot <http://www.johndcook.com/blog/2010/06/02/whats-so-hard-about-finding-a-hypotenuse/>`_ 。
 
@@ -229,8 +229,8 @@ Julia 提供了一系列数学函数和运算符：
 
 为了好记， ``rem`` 和 ``pow`` 函数有等价运算符：
 
--  ``x % y`` 等价于 ``rem(x,y)`` 
--  ``x ^ y`` 等价于 ``pow(x,y)`` 
+-  ``x % y`` 等价于 ``rem(x,y)``
+-  ``x ^ y`` 等价于 ``pow(x,y)``
 
 前者中 ``rem`` 较“正式”， ``%`` 是为了与其它系统保持兼容性。后者中 ``^`` 更正式， ``pow`` 函数是为了保持兼容性。 ``%`` 和 ``^`` 也有对应的赋值运算符。 ``x %= y`` 等价于 ``x = x % y`` ， ``x ^= y`` 等价于 ``x = x^y`` ： ::
 
@@ -239,4 +239,3 @@ Julia 提供了一系列数学函数和运算符：
 
     julia> x = 7; x %= 4; x
     3
-
