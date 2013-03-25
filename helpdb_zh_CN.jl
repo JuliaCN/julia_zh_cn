@@ -29,7 +29,7 @@
 ("杂项","Base","require","require(file::String...)
 
    在 \"Main\" 模块的上下文中，对每个活动的节点，通过系统的 \"LOAD_PATH\"
-   查找文件，并只载入一次。``require`` 是顶层操作，因此它设置当前的 \"include\"
+   查找文件，并只载入一次。\"require\" 是顶层操作，因此它设置当前的 \"include\"
    路径，但并不使用它来查找文件（详见 \"include\" ）。此函数常用来载入库代码； \"using\"
    函数隐含使用它来载入扩展包。
 
@@ -1204,15 +1204,15 @@
 
 "),
 
-("文本 I/O","Base","@printf","@printf(\"%Fmt\", args...)
+("文本 I/O","Base","@printf","@printf([io::IOStream], \"%Fmt\", args...)
 
-   使用 C 中 \"printf()\" 的样式来打印。
+   使用 C 中 \"printf()\" 的样式来打印。第一个参数可选择性指明 IOStream 来重定向输出。
 
 "),
 
-("文本 I/O","Base","@sprintf","@sprintf(stream::IOStream, \"%Fmt\", args...)
+("文本 I/O","Base","@sprintf","@sprintf(\"%Fmt\", args...)
 
-   按 \"@printf\" 的样式输出到流。
+   按 \"@printf\" 的样式输出为字符串。
 
 "),
 
@@ -2375,9 +2375,10 @@
 
 "),
 
-("数据格式","Base","base","base(b, n[, pad])
+("数据格式","Base","base","base(base, n[, pad])
 
-   将整数 \"n\" 转换为指定进制 \"b\" 的字符串，可选择性指明空白补位后的位数。
+   将整数 \"n\" 转换为指定进制 \"base\" 的字符串，可选择性指明空白补位后的位数。进制 \"base\"
+   可以为整数，也可以是用于表征数字符号的字符值所对应的 \"Uint8\" 数组。
 
 "),
 
@@ -3241,495 +3242,18 @@
 
 "),
 
+("数组","Base","mapslices","mapslices(f, A, dims)
+
+   在 \"A\" 的指定维度上应用函数 \"f\" 。  \"A\" 的每个切片 \"A[...,:,...,:,...]\"
+   上都调用函数 \"f\" 。整数向量 \"dims\" 指明了维度信息。结果将沿着未指明的维度进行连接。例如，如果 \"dims\"
+   为 \"[1,2]\" ， \"A\" 是四维数组，此函数将对每个 \"i\" 和 \"`j` 调用 ``f\" 处理
+   \"A[:,:,i,j]\" 。
+
+"),
+
 ("数组","Base","sum_kbn","sum_kbn(A)
 
    返回数组中所有元素的总和。使用 Kahan-Babuska-Neumaier 的加法补偿算法来提高精度。
-
-"),
-
-("稀疏矩阵","Base","sparse","sparse(I, J, V[, m, n, combine])
-
-   构造 \"m x n\" 的稀疏矩阵 \"S\" ，满足 \"S[I[k], J[k]] = V[k]\" 。使用
-   \"combine\" 函数来处理坐标重复的元素。如果未指明 \"m\" 和 \"n\" ，则默认为 \"max(I)\" 和
-   \"max(J)\" 。如果省略 \"combine\" 函数，默认对坐标重复的元素求和。
-
-"),
-
-("稀疏矩阵","Base","sparsevec","sparsevec(I, V[, m, combine])
-
-   构造 \"m x 1\" 的稀疏矩阵 \"S\" ，满足 \"S[I[k]] = V[k]\" 。使用 \"combine\"
-   函数来处理坐标重复的元素，如果它被省略，则默认为 *+* 。在 Julia 中，稀疏向量是只有一列的稀疏矩阵。由于 Julia
-   使用列压缩（CSC）存储格式，只有一列的稀疏列矩阵是稀疏的，但只有一行的稀疏行矩阵是稠密的。
-
-"),
-
-("稀疏矩阵","Base","sparsevec","sparsevec(D::Dict[, m])
-
-   构造 \"m x 1\" 大小的稀疏矩阵，其行值为字典中的键，非零值为字典中的值。
-
-"),
-
-("稀疏矩阵","Base","issparse","issparse(S)
-
-   如果 \"S\" 为稀疏矩阵，返回 \"true\" ；否则为 \"false\" 。
-
-"),
-
-("稀疏矩阵","Base","sparse","sparse(A)
-
-   将稠密矩阵 \"A\" 转换为稀疏矩阵。
-
-"),
-
-("稀疏矩阵","Base","sparsevec","sparsevec(A)
-
-   将稠密矩阵 \"A\" 转换为 \"m x 1\" 的稀疏矩阵。在 Julia 中，稀疏向量是只有一列的稀疏矩阵。
-
-"),
-
-("稀疏矩阵","Base","dense","dense(S)
-
-   将稀疏矩阵 \"S\" 转换为稠密矩阵。
-
-"),
-
-("稀疏矩阵","Base","full","full(S)
-
-   将稀疏矩阵 \"S\" 转换为稠密矩阵。
-
-"),
-
-("稀疏矩阵","Base","spzeros","spzeros(m, n)
-
-   构造 \"m x n\" 的空稀疏矩阵。
-
-"),
-
-("稀疏矩阵","Base","speye","speye(type, m[, n])
-
-   构造指定类型、大小为 \"m x m\" 的稀疏单位矩阵。如果提供了 \"n\" 则构建大小为 \"m x n\" 的稀疏单位矩阵。
-
-"),
-
-("稀疏矩阵","Base","spones","spones(S)
-
-   构造与 \"S\" 同样结构的稀疏矩阵，但非零元素值为 \"1.0\" 。
-
-"),
-
-("稀疏矩阵","Base","sprand","sprand(m, n, density[, rng])
-
-   构造指定密度的随机稀疏矩阵。非零样本满足由 \"rng\" 指定的分布。默认为均匀分布。
-
-"),
-
-("稀疏矩阵","Base","sprandn","sprandn(m, n, density)
-
-   构造指定密度的随机稀疏矩阵，非零样本满足正态分布。
-
-"),
-
-("稀疏矩阵","Base","sprandbool","sprandbool(m, n, density)
-
-   构造指定密度的随机稀疏布尔值矩阵。
-
-"),
-
-("线性代数","Base","*","*(A, B)
-
-   矩阵乘法。
-
-"),
-
-("线性代数","Base","\\","\\(A, B)
-
-   使用 polyalgorithm 做矩阵除法。对输入矩阵 \"A\" 和 \"B\" ，输出 \"X\" 满足 \"A*X ==
-   B\" 。对长方矩阵 \"A\" 使用 QR 分解。对三角矩阵 \"A\" 使用三角求解。对方阵 \"A\"
-   ，如果输是对称矩阵且对角线附近值较大时，尝试使用 Cholesky 分解。当 Cholesky 分解失败时或对普通输入方阵时，使用
-   LU 分解。如果 \"size(A,1) > size(A,2)\" ，结果为使用奇异值分解的 \"A*X+eps=B\"
-   最小二乘法的解。 \"A\" 不需要为满秩。
-
-"),
-
-("线性代数","Base","dot","dot(x, y)
-
-   计算点积。
-
-"),
-
-("线性代数","Base","cross","cross(x, y)
-
-   计算三维向量的向量积。
-
-"),
-
-("线性代数","Base","norm","norm(a)
-
-   计算 \"Vector\" 或 \"Matrix\" 的模。
-
-"),
-
-("线性代数","Base","factors","factors(F)
-
-   返回 \"F\" 分解的因子。如对 A 进行 LU 分解，factors(lufact(A)) -> L, U, P 。
-
-"),
-
-("线性代数","Base","lu","lu(A) -> L, U, P
-
-   计算 \"A\" 的 LU 分解，满足 \"A[P,:] = L*U\" 。
-
-"),
-
-("线性代数","Base","lufact","lufact(A) -> LUDense
-
-   计算 \"A\" 的 LU 分解，返回 \"LUDense\" 对象。 \"factors(lufact(A))\"
-   返回包含分解的三角矩阵。 \"LUDense\" 对象可使用下列函数： \"size\", \"factors\", \"\\\",
-   \"inv\", \"det\" 。
-
-"),
-
-("线性代数","Base","lufact!","lufact!(A) -> LUDense
-
-   \"lufact!\" 与 \"lufact\" 类似，但它覆写输入 A ，而非构造浅拷贝。
-
-"),
-
-("线性代数","Base","chol","chol(A[, LU]) -> F
-
-   计算对称正定矩阵 \"A\" 的 Cholesky 分解，返回 \"F\" 矩阵。如果 \"LU\" 为 \"L\" （下三角），
-   \"A = L*L'\" 。如果 \"LU\" 为 \"U\" （下三角）， \"A = R'*R\" 。
-
-"),
-
-("线性代数","Base","cholfact","cholfact(A[, LU]) -> CholeskyDense
-
-   计算对称正定矩阵 \"A\" 的 Cholesky 分解，返回 \"CholeskyDense\" 对象。 \"LU\" 若为 'L'
-   则使用下三角，若为 'U' 则使用上三角。默认使用 'U' 。 \"factors(cholfact(A))\"
-   返回包含分解的三角矩阵。 \"CholeskyDense\" 对象可使用下列函数： \"size\", \"factors\",
-   \"\\\", \"inv\", \"det\" 。如果矩阵不是正定，会抛出 \"LAPACK.PosDefException\"
-   错误。
-
-"),
-
-("线性代数","Base","cholpfact","cholpfact(A[, LU]) -> CholeskyPivotedDense
-
-   计算对称正定矩阵 \"A\" 的主元 Cholesky 分解，返回 \"CholeskyDensePivoted\" 对象。
-   \"LU\" 若为 'L' 则使用下三角，若为 'U' 则使用上三角。默认使用 'U' 。
-   \"factors(cholpfact(A))\" 返回包含分解的三角矩阵。 \"CholeskyDensePivoted\"
-   对象可使用下列函数： \"size\", \"factors\", \"\\\", \"inv\", \"det\"
-   。如果矩阵不是满秩，会抛出 \"LAPACK.RankDeficientException\" 错误。
-
-"),
-
-("线性代数","Base","cholpfact!","cholpfact!(A[, LU]) -> CholeskyPivotedDense
-
-   \"cholpfact!\" 与 \"cholpfact\" 类似，但它覆写输入 A ，而非构造浅拷贝。
-
-"),
-
-("线性代数","Base","qr","qr(A) -> Q, R
-
-   计算 \"A\" 的 QR 分解，满足 \"A = Q*R\" 。也可参见 \"qrd\" 。
-
-"),
-
-("线性代数","Base","qrfact","qrfact(A)
-
-   计算 \"A\" 的 QR 分解，返回 \"QRDense\" 对象。 \"factors(qrfact(A))\" 返回 \"Q\"
-   和 \"R\" 。 \"QRDense\" 对象可使用下列函数： \"size\", \"factors\", \"qmulQR\",
-   \"qTmulQR\", \"\\\" 。
-
-"),
-
-("线性代数","Base","qrfact!","qrfact!(A)
-
-   \"qrfact!\" 与 \"qrfact\" 类似，但它覆写输入 A ，而非构造浅拷贝。
-
-"),
-
-("线性代数","Base","qrp","qrp(A) -> Q, R, P
-
-   计算 \"A\" 的主元 QR 分解，满足 \"A*I[:,P] = Q*R\", 其中 \"I\" 为单位矩阵。另见
-   \"qrpfact\" 。
-
-"),
-
-("线性代数","Base","qrpfact","qrpfact(A) -> QRPivotedDense
-
-   计算 \"A\" 的主元 QR 分解，返回 \"QRDensePivoted\" 对象。
-   \"factors(qrpfact(A))\" 返回 \"Q\" 和 \"R\" 。 \"QRDensePivoted\"
-   对象可使用下列函数： \"size\", \"factors\", \"qmulQR\", \"qTmulQR\", \"\\\" 。
-
-"),
-
-("线性代数","Base","qrpfact!","qrpfact!(A) -> QRPivotedDense
-
-   \"qrpfact!\" 与 \"qrpfact\" 类似，但它覆写 A 以节约空间，而非构造浅拷贝。
-
-"),
-
-("线性代数","Base","qmulQR","qmulQR(QR, A)
-
-   高效计算 \"Q*A\" 。其中 Q 为使用豪斯霍尔德变换的 QR 分解中得到的正交矩阵。
-
-"),
-
-("线性代数","Base","qTmulQR","qTmulQR(QR, A)
-
-   高效计算 \"Q'*A\" 。其中 Q 为使用豪斯霍尔德变换的 QR 分解中得到的正交矩阵。
-
-"),
-
-("线性代数","Base","sqrtm","sqrtm(A)
-
-   计算 \"A\" 的矩阵平方根。如果 \"B = sqrtm(A)\" ，则在误差范围内 \"B*B == A\" 。
-
-"),
-
-("线性代数","Base","eig","eig(A) -> D, V
-
-   计算 \"A\" 的特征值和特征向量。
-
-"),
-
-("线性代数","Base","eigvals","eigvals(A)
-
-   返回  \"A\" 的特征值。
-
-"),
-
-("线性代数","Base","svdfact","svdfact(A[, thin]) -> SVDDense
-
-   计算 \"A\" 的奇异值分解（SVD），返回 \"SVDDense\" 对象。 \"factors(svdfact(A))\" 返回
-   \"U\", \"S\", 和 \"Vt\" ，满足 \"A = U*diagm(S)*Vt\" 。如果 \"thin\" 为
-   \"true\" ，则做节约模式分解。
-
-"),
-
-("线性代数","Base","svdfact!","svdfact!(A[, thin]) -> SVDDense
-
-   \"svdfact!\" 与 \"svdfact\" 类似，但它覆写 A 以节约空间，而非构造浅拷贝。如果 \"thin\" 为
-   \"true\" ，则做节约模式分解。
-
-"),
-
-("线性代数","Base","svd","svd(A[, thin]) -> U, S, V
-
-   计算 \"A\" 做奇异值分解，返回 \"U\" ，向量 \"S\" ，及 \"V\" ，满足 \"A ==
-   U*diagm(S)*V'\" 。如果 \"thin\" 为 \"true\" ，则做节约模式分解。
-
-"),
-
-("线性代数","Base","svdt","svdt(A[, thin]) -> U, S, Vt
-
-   计算 \"A\" 做奇异值分解，返回 \"U\" ，向量 \"S\" ，及 \"Vt\" ，满足 \"A =
-   U*diagm(S)*Vt\" 。如果 \"thin\" 为 \"true\" ，则做节约模式分解。
-
-"),
-
-("线性代数","Base","svdvals","svdvals(A)
-
-   返回 \"A\" 的奇异值。
-
-"),
-
-("线性代数","Base","svdvals!","svdvals!(A)
-
-   返回 \"A\" 的奇异值，将结果覆写到输入上以节约空间。
-
-"),
-
-("线性代数","Base","svdfact","svdfact(A, B) -> GSVDDense
-
-   计算 \"A\" 和 \"B\" 的广义 SVD ，返回 \"GSVDDense\" 分解对象。
-   \"factors(svdfact(A,b))\" 返回 \"U\", \"V\", \"Q\", \"D1\", \"D2\", 和
-   \"R0\" 满足 \"A = U*D1*R0*Q'\" 及 \"B = V*D2*R0*Q'\" 。
-
-"),
-
-("线性代数","Base","svd","svd(A, B) -> U, V, Q, D1, D2, R0
-
-   计算 \"A\" 和 \"B\" 的广义 SVD ，返回 \"U\", \"V\", \"Q\", \"D1\", \"D2\", 和
-   \"R0\" ，满足 \"A = U*D1*R0*Q'\" 及 \"B = V*D2*R0*Q'\" 。
-
-"),
-
-("线性代数","Base","svdvals","svdvals(A, B)
-
-   仅返回 \"A\" 和 \"B\" 广义 SVD 中的奇异值。
-
-"),
-
-("线性代数","Base","triu","triu(M)
-
-   矩阵上三角。
-
-"),
-
-("线性代数","Base","tril","tril(M)
-
-   矩阵下三角。
-
-"),
-
-("线性代数","Base","diag","diag(M[, k])
-
-   矩阵的第 \"k\" 条对角线，结果为向量。 \"k\" 从 0 开始。
-
-"),
-
-("线性代数","Base","diagm","diagm(v[, k])
-
-   构造 \"v\" 为第 \"k\" 条对角线的对角矩阵。 \"k\" 从 0 开始。
-
-"),
-
-("线性代数","Base","diagmm","diagmm(matrix, vector)
-
-   矩阵与向量相乘。此函数也可以做向量与矩阵相乘。
-
-"),
-
-("线性代数","Base","Tridiagonal","Tridiagonal(dl, d, du)
-
-   由下对角线、主对角线、上对角线来构造三对角矩阵
-
-"),
-
-("线性代数","Base","Woodbury","Woodbury(A, U, C, V)
-
-   构造 Woodbury matrix identity 格式的矩阵。
-
-"),
-
-("线性代数","Base","rank","rank(M)
-
-   计算矩阵的秩。
-
-"),
-
-("线性代数","Base","norm","norm(A[, p])
-
-   计算向量或矩阵的 \"p\" 范数。 \"p\" 默认为 2 。如果 \"A\" 是向量， \"norm(A, p)\" 计算
-   \"p\" 范数。 \"norm(A, Inf)\" 返回 \"abs(A)\" 中的最大值， \"norm(A, -Inf)\"
-   返回最小值。如果 \"A\" 是矩阵， \"p\" 的有效值为 \"1\", \"2\", 和 \"Inf\" 。要计算
-   Frobenius 范数，应使用 \"normfro\" 。
-
-"),
-
-("线性代数","Base","normfro","normfro(A)
-
-   计算矩阵 \"A\" 的 Frobenius 范数。
-
-"),
-
-("线性代数","Base","cond","cond(M[, p])
-
-   使用 p 范数计算矩阵条件数。 \"p\" 如果省略，默认为 2 。 \"p\" 的有效值为 \"1\", \"2\", 和
-   \"Inf\".
-
-"),
-
-("线性代数","Base","trace","trace(M)
-
-   矩阵的迹。
-
-"),
-
-("线性代数","Base","det","det(M)
-
-   矩阵的行列式。
-
-"),
-
-("线性代数","Base","inv","inv(M)
-
-   矩阵的逆。
-
-"),
-
-("线性代数","Base","pinv","pinv(M)
-
-   矩阵的 Moore-Penrose （广义）逆
-
-"),
-
-("线性代数","Base","null","null(M)
-
-   矩阵 M 的零空间的基。
-
-"),
-
-("线性代数","Base","repmat","repmat(A, n, m)
-
-   重复矩阵 \"A\" 来构造新数组，在第一维度上重复 \"n\" 次，第二维度上重复 \"m\" 次。
-
-"),
-
-("线性代数","Base","kron","kron(A, B)
-
-   两个向量或两个矩阵的 Kronecker 张量积。
-
-"),
-
-("线性代数","Base","linreg","linreg(x, y)
-
-   最小二乘法线性回归来计算参数 \"[a, b]\" ，使 \"y\" 逼近 \"a+b*x\" 。
-
-"),
-
-("线性代数","Base","linreg","linreg(x, y, w)
-
-   带权最小二乘法线性回归。
-
-"),
-
-("线性代数","Base","expm","expm(A)
-
-   矩阵指数。
-
-"),
-
-("线性代数","Base","issym","issym(A)
-
-   判断是否为对称矩阵。
-
-"),
-
-("线性代数","Base","isposdef","isposdef(A)
-
-   判断是否为正定矩阵。
-
-"),
-
-("线性代数","Base","istril","istril(A)
-
-   判断是否为下三角矩阵。
-
-"),
-
-("线性代数","Base","istriu","istriu(A)
-
-   判断是否为上三角矩阵。
-
-"),
-
-("线性代数","Base","ishermitian","ishermitian(A)
-
-   判断是否为 Hamilton 矩阵。
-
-"),
-
-("线性代数","Base","transpose","transpose(A)
-
-   转置运算符（ \".'\" ）。
-
-"),
-
-("线性代数","Base","ctranspose","ctranspose(A)
-
-   共轭转置运算符（ \"'\" ）。
 
 "),
 
@@ -4535,7 +4059,7 @@
 
 ("C 接口","Base","c_free","c_free(addr::Ptr)
 
-   调用 C 标准库中的 ·``free()`` 。
+   调用 C 标准库中的 ·\"free()\" 。
 
 "),
 
@@ -4658,123 +4182,6 @@
 ("任务","Base","tls","tls(symbol, value)
 
    给当前任务的本地任务存储中的 \"symbol\" 赋值 \"value\" 。
-
-"),
-
-("BLAS","BLAS","copy!","copy!(n, X, incx, Y, incy)
-
-   Copy \"n\" elements of array \"X\" with stride \"incx\" to array
-   \"Y\" with stride \"incy\".返回 \"Y\" 。
-
-"),
-
-("BLAS","BLAS","dot","dot(n, X, incx, Y, incy)
-
-   Dot product of two vectors consisting of \"n\" elements of array
-   \"X\" with stride \"incx\" and \"n\" elements of array \"Y\" with
-   stride \"incy\".  There are no \"dot\" methods for \"Complex\"
-   arrays.
-
-"),
-
-("BLAS","BLAS","nrm2","nrm2(n, X, incx)
-
-   2-norm of a vector consisting of \"n\" elements of array \"X\" with
-   stride \"incx\".
-
-"),
-
-("BLAS","BLAS","axpy!","axpy!(n, a, X, incx, Y, incy)
-
-   将 \"a*X + Y\" 赋值给 \"Y\" 并返回。
-
-"),
-
-("BLAS","BLAS","syrk!","syrk!(uplo, trans, alpha, A, beta, C)
-
-   Rank-k update of the symmetric matrix \"C\" as \"alpha*A*A.' +
-   beta*C\" or \"alpha*A.'*A + beta*C\" according to whether \"trans\"
-   is 'N' or 'T'.  When \"uplo\" is 'U' the upper triangle of \"C\" is
-   updated ('L' for lower triangle).返回 \"C\" 。
-
-"),
-
-("BLAS","BLAS","syrk","syrk(uplo, trans, alpha, A)
-
-   返回either the upper triangle or the lower triangle, according to
-   \"uplo\" ('U' or 'L'), of \"alpha*A*A.'\" or \"alpha*A.'*A\",
-   according to \"trans\" ('N' or 'T').
-
-"),
-
-("BLAS","BLAS","herk!","herk!(uplo, trans, alpha, A, beta, C)
-
-   Methods for complex arrays only.  Rank-k update of the Hermitian
-   matrix \"C\" as \"alpha*A*A' + beta*C\" or \"alpha*A'*A + beta*C\"
-   according to whether \"trans\" is 'N' or 'T'.  When \"uplo\" is 'U'
-   the upper triangle of \"C\" is updated ('L' for lower triangle). 返回
-   \"C\" 。
-
-"),
-
-("BLAS","BLAS","herk","herk(uplo, trans, alpha, A)
-
-   Methods for complex arrays only.  返回either the upper triangle or
-   the lower triangle, according to \"uplo\" ('U' or 'L'), of
-   \"alpha*A*A'\" or \"alpha*A'*A\", according to \"trans\" ('N' or
-   'T').
-
-"),
-
-("BLAS","BLAS","gbmv!","gbmv!(trans, m, kl, ku, alpha, A, x, beta, y)
-
-   Update vector \"y\" as \"alpha*A*x + beta*y\" or \"alpha*A'*x +
-   beta*y\" according to \"trans\" ('N' or 'T').  The matrix \"A\" is
-   a general band matrix of dimension \"m\" by \"size(A,2)\" with
-   \"kl\" sub-diagonals and \"ku\" super-diagonals. 返回更新后的 \"y\" 。
-
-"),
-
-("BLAS","BLAS","gbmv","gbmv(trans, m, kl, ku, alpha, A, x, beta, y)
-
-   返回 \"alpha*A*x\" or \"alpha*A'*x\" according to \"trans\" ('N' or
-   'T'). The matrix \"A\" is a general band matrix of dimension \"m\"
-   by \"size(A,2)\" with \"kl\" sub-diagonals and \"ku\" super-
-   diagonals.
-
-"),
-
-("BLAS","BLAS","sbmv!","sbmv!(uplo, k, alpha, A, x, beta, y)
-
-   Update vector \"y\" as \"alpha*A*x + beta*y\" where \"A\" is a a
-   symmetric band matrix of order \"size(A,2)\" with \"k\" super-
-   diagonals stored in the argument \"A\".  The storage layout for
-   \"A\" is described the reference BLAS module, level-2 BLAS at
-   *<http://www.netlib.org/lapack/explore-html/>*.
-
-   返回更新后的 \"y\" 。
-
-"),
-
-("BLAS","BLAS","sbmv","sbmv(uplo, k, alpha, A, x)
-
-   返回 \"alpha*A*x\" where \"A\" is a symmetric band matrix of order
-   \"size(A,2)\" with \"k\" super-diagonals stored in the argument
-   \"A\".
-
-"),
-
-("BLAS","BLAS","gemm!","gemm!(tA, tB, alpha, A, B, beta, C)
-
-   Update \"C\" as \"alpha*A*B + beta*C\" or the other three variants
-   according to \"tA\" (transpose \"A\") and \"tB\".返回更新后的 \"C\" 。
-
-"),
-
-("BLAS","BLAS","gemm","gemm(tA, tB, alpha, A, B)
-
-   返回 \"alpha*A*B\" or the other three variants according to \"tA\"
-   (transpose \"A\") and \"tB\".
 
 "),
 
@@ -4904,6 +4311,513 @@
 
 "),
 
+
+("线性代数","","*","*(A, B)
+
+   矩阵乘法。
+
+"),
+
+("线性代数","","\\","\\(A, B)
+
+   使用 polyalgorithm 做矩阵除法。对输入矩阵 \"A\" 和 \"B\" ，当 \"A\" 为方阵时，输出 \"X\"
+   满足 \"A*X == B\" 。由 \"A\" 的结构确定使用哪种求解器。对上三角矩阵和下三角矩阵 \"A\" ，直接求解。对
+   Hermitian 矩阵 \"A\" （它等价于实对称矩阵）时，使用 BunchKaufman 分解。其他情况使用 LU
+   分解。对长方矩阵 \"A\" ，通过将 \"A\"
+   约简到双对角线形式，然后使用最小范数最小二乘法来求解双对角线最小二乘问题。对稀疏矩阵 \"A\" ，使用 UMFPACK 中的 LU
+   分解。
+
+"),
+
+("线性代数","","dot","dot(x, y)
+
+   计算点积。
+
+"),
+
+("线性代数","","cross","cross(x, y)
+
+   计算三维向量的向量积。
+
+"),
+
+("线性代数","","norm","norm(a)
+
+   计算 \"Vector\" 或 \"Matrix\" 的模。
+
+"),
+
+("线性代数","","lu","lu(A) -> L, U, P
+
+   对 \"A\" 做 LU 分解，满足 \"P*A = L*U\" 。
+
+"),
+
+("线性代数","","lufact","lufact(A) -> LUDense 或 UmfpackLU
+
+   对 \"A\" 做 LU 分解。若 \"A\" 为稠密矩阵，返回 \"LUDense\" 对象；若 \"A\" 为稀疏矩阵，返回
+   \"UmfpackLU\" 对象；。分解结果 \"F\" 的独立分量是可以被索引的： \"F[:L]\", \"F[:U]\", 及
+   \"F[:P]\" （置换矩阵）或 \"F[:p]\" （置换向量）。 \"UmfpackLU\" 对象还有额外的 \"F[:q]\"
+   分量（ left 置换向量）及缩放因子 \"F[:Rs]\" 向量。 \"LUDense\" 对象和 \"UmfpackLU\"
+   对象可使用下列函数： \"size\", \"\\\" 和 \"det\" 。 \"LUDense\" 对象还可以使用 \"inv\"
+   方法。稀疏 LU 分解中， \"L*U\" 等价于 \"diagmm(Rs,A)[p,q]\" 。
+
+"),
+
+("线性代数","","lufact!","lufact!(A) -> LUDense
+
+   \"lufact!\" 与 \"lufact\" 类似，但它覆写输入 A ，而非构造浅拷贝。对稀疏矩阵 \"A\" ，它并不覆写
+   \"nzval\" 域，仅覆写索引值域， \"colptr\" 和 \"rowval\" 在原地缩减，使得从 1 开始的索引改为从 0
+   开始的索引。
+
+"),
+
+("线性代数","","chol","chol(A[, LU]) -> F
+
+   计算对称正定矩阵 \"A\" 的 Cholesky 分解，返回 \"F\" 矩阵。如果 \"LU\" 为 \"L\" （下三角），
+   \"A = L*L'\" 。如果 \"LU\" 为 \"U\" （下三角）， \"A = R'*R\" 。
+
+"),
+
+("线性代数","","cholfact","cholfact(A[, LU]) -> CholeskyDense
+
+   计算稠密对称正定矩阵 \"A\" 的 Cholesky 分解，返回 \"CholeskyDense\" 对象。 \"LU\" 若为
+   'L' 则使用下三角，若为 'U' 则使用上三角。默认使用 'U' 。可从分解结果 \"F\" 中获取三角矩阵： \"F[:L]\"
+   和 \"F[:U]\" 。 \"CholeskyDense\" 对象可使用下列函数： \"size\", \"\\\",
+   \"inv\", \"det\" 。如果矩阵不是正定，会抛出 \"LAPACK.PosDefException\" 错误。
+
+"),
+
+("线性代数","","cholpfact","cholpfact(A[, LU]) -> CholeskyPivotedDense
+
+   计算对称正定矩阵 \"A\" 的主元 Cholesky 分解，返回 \"CholeskyDensePivoted\" 对象。
+   \"LU\" 若为 'L' 则使用下三角，若为 'U' 则使用上三角。默认使用 'U' 。可从分解结果 \"F\" 中获取三角分量：
+   \"F[:L]\" 和 \"F[:U]\" ，置换矩阵和置换向量分布为 \"F[:P]\" 和 \"F[:p]\" 。
+   \"CholeskyDensePivoted\" 对象可使用下列函数： \"size\", \"\\\", \"inv\",
+   \"det\" 。如果矩阵不是满秩，会抛出 \"LAPACK.RankDeficientException\" 错误。
+
+"),
+
+("线性代数","","cholpfact!","cholpfact!(A[, LU]) -> CholeskyPivotedDense
+
+   \"cholpfact!\" 与 \"cholpfact\" 类似，但它覆写输入 A ，而非构造浅拷贝。
+
+"),
+
+("线性代数","","qr","qr(A) -> Q, R
+
+   对 \"A\" 做 QR 分解，满足 \"A = Q*R\" 。也可参见 \"qrfact\" 。
+
+"),
+
+("线性代数","","qrfact","qrfact(A)
+
+   对 \"A\" 做 QR 分解，返回 \"QRDense\" 对象。 \"factors(qrfact(A))\" 返回 \"Q\"
+   和 \"R\" 。 \"QRDense\" 对象可使用下列函数： \"size\", \"factors\", \"qmulQR\",
+   \"qTmulQR\", \"\\\" 。
+
+"),
+
+("线性代数","","qrfact!","qrfact!(A)
+
+   \"qrfact!\" 与 \"qrfact\" 类似，但它覆写输入 A ，而非构造浅拷贝。
+
+"),
+
+("线性代数","","qrp","qrp(A) -> Q, R, P
+
+   对 \"A\" 做主元 QR 分解，满足 \"A*P = Q*R\" 。另见 \"qrpfact\" 。
+
+"),
+
+("线性代数","","qrpfact","qrpfact(A) -> QRPivotedDense
+
+   对 \"A\" 做主元 QR 分解，返回 \"QRDensePivoted\" 对象。可从分解结果 \"F\" 中获取分量：正交矩阵
+   \"Q\" 为 \"F[:Q]\" ，三角矩阵 \"R\" 为 \"F[:R]\" ，置换矩阵和置换向量分布为 \"F[:P]\" 和
+   \"F[:p]\" 。 \"QRDensePivoted\" 对象可使用下列函数： \"size\", \"\\\" 。提取的
+   \"Q\" 是 \"QRDenseQ\" 对象，且为了支持 \"Q\" 与 \"Q'\" 的高效乘法，重载了 \"*\"
+   运算符。可以使用 \"full\" 函数将 \"QRDenseQ\" 矩阵转换为普通矩阵。
+
+"),
+
+("线性代数","","qrpfact!","qrpfact!(A) -> QRPivotedDense
+
+   \"qrpfact!\" 与 \"qrpfact\" 类似，但它覆写 A 以节约空间，而非构造浅拷贝。
+
+"),
+
+("线性代数","","sqrtm","sqrtm(A)
+
+   计算 \"A\" 的矩阵平方根。如果 \"B = sqrtm(A)\" ，满足在误差范围内 \"B*B == A\" 。
+
+"),
+
+("线性代数","","eig","eig(A) -> D, V
+
+   计算 \"A\" 的特征值和特征向量。
+
+"),
+
+("线性代数","","eigvals","eigvals(A)
+
+   返回  \"A\" 的特征值。
+
+"),
+
+("线性代数","","eigfact","eigfact(A)
+
+   对 \"A\" 做特征分解，返回 \"EigenDense\" 对象。可从分解结果 \"F\" 中获取分量：特征值为
+   \"F[:values]\" ，特征向量为 \"F[:vectors]\" 。 \"EigenDense\" 对象可使用下列函数：
+   \"inv\", \"det\" 。
+
+"),
+
+("线性代数","","eigfact!","eigfact!(A)
+
+   \"eigfact!\" 与 \"eigfact\" 类似，但它覆写输入 A ，而非构造浅拷贝。
+
+"),
+
+("线性代数","","hessfact","hessfact(A)
+
+   对 \"A\" 做 Hessenberg 分解，返回 \"HessenbergDense\" 对象。If \"F\" is the
+   factorization object, 酉矩阵为 \"F[:Q]\" ， Hessenberg 矩阵为 \"F[:H]\"
+   。提取的 \"Q\" 是 \"HessenbergDenseQ\" 对象，可以使用 \"full\" 函数将其转换为普通矩阵。
+
+"),
+
+("线性代数","","hessfact!","hessfact!(A)
+
+   \"hessfact!\" 与 \"hessfact\" 类似，但它覆写输入 A ，而非构造浅拷贝。
+
+"),
+
+("线性代数","","svdfact","svdfact(A[, thin]) -> SVDDense
+
+   对 \"A\" 做奇异值分解（SVD），返回 \"SVDDense\" 对象。分解结果 \"F\" 的 \"U\", \"S\",
+   \"V\" 和 \"Vt\" 可分别通过 \"F[:U]\", \"F[:S]\", \"F[:V]\" 和 \"F[:Vt]\"
+   来获得，它们满足 \"A = U*diagm(S)*Vt\" 。如果 \"thin\" 为 \"true\"
+   ，则做节约模式分解。此算法先计算 \"Vt\" ，即 \"V\" 的转置，后者是由前者转置得到的。
+
+"),
+
+("线性代数","","svdfact!","svdfact!(A[, thin]) -> SVDDense
+
+   \"svdfact!\" 与 \"svdfact\" 类似，但它覆写 A 以节约空间，而非构造浅拷贝。如果 \"thin\" 为
+   \"true\" ，则做节约模式分解。
+
+"),
+
+("线性代数","","svd","svd(A[, thin]) -> U, S, V
+
+   对 \"A\" 做奇异值分解，返回 \"U\" ，向量 \"S\" ，及 \"V\" ，满足 \"A ==
+   U*diagm(S)*V'\" 。如果 \"thin\" 为 \"true\" ，则做节约模式分解。
+
+"),
+
+("线性代数","","svdvals","svdvals(A)
+
+   返回 \"A\" 的奇异值。
+
+"),
+
+("线性代数","","svdvals!","svdvals!(A)
+
+   返回 \"A\" 的奇异值，将结果覆写到输入上以节约空间。
+
+"),
+
+("线性代数","","svdfact","svdfact(A, B) -> GSVDDense
+
+   计算 \"A\" 和 \"B\" 的广义 SVD ，返回 \"GSVDDense\" 分解对象。 满足 \"A =
+   U*D1*R0*Q'\" 及 \"B = V*D2*R0*Q'\" 。
+
+"),
+
+("线性代数","","svd","svd(A, B) -> U, V, Q, D1, D2, R0
+
+   计算 \"A\" 和 \"B\" 的广义 SVD ，返回 \"U\", \"V\", \"Q\", \"D1\", \"D2\", 和
+   \"R0\" ，满足 \"A = U*D1*R0*Q'\" 及 \"B = V*D2*R0*Q'\" 。
+
+"),
+
+("线性代数","","svdvals","svdvals(A, B)
+
+   仅返回 \"A\" 和 \"B\" 广义 SVD 中的奇异值。
+
+"),
+
+("线性代数","","triu","triu(M)
+
+   矩阵上三角。
+
+"),
+
+("线性代数","","tril","tril(M)
+
+   矩阵下三角。
+
+"),
+
+("线性代数","","diag","diag(M[, k])
+
+   矩阵的第 \"k\" 条对角线，结果为向量。 \"k\" 从 0 开始。
+
+"),
+
+("线性代数","","diagm","diagm(v[, k])
+
+   构造 \"v\" 为第 \"k\" 条对角线的对角矩阵。 \"k\" 从 0 开始。
+
+"),
+
+("线性代数","","diagmm","diagmm(matrix, vector)
+
+   矩阵与向量相乘。此函数也可以做向量与矩阵相乘。
+
+"),
+
+("线性代数","","Tridiagonal","Tridiagonal(dl, d, du)
+
+   由下对角线、主对角线、上对角线来构造三对角矩阵
+
+"),
+
+("线性代数","","Woodbury","Woodbury(A, U, C, V)
+
+   构造 Woodbury matrix identity 格式的矩阵。
+
+"),
+
+("线性代数","","rank","rank(M)
+
+   计算矩阵的秩。
+
+"),
+
+("线性代数","","norm","norm(A[, p])
+
+   计算向量或矩阵的 \"p\" 范数。 \"p\" 默认为 2 。如果 \"A\" 是向量， \"norm(A, p)\" 计算
+   \"p\" 范数。 \"norm(A, Inf)\" 返回 \"abs(A)\" 中的最大值， \"norm(A, -Inf)\"
+   返回最小值。如果 \"A\" 是矩阵， \"p\" 的有效值为 \"1\", \"2\", 和 \"Inf\" 。要计算
+   Frobenius 范数，应使用 \"normfro\" 。
+
+"),
+
+("线性代数","","normfro","normfro(A)
+
+   计算矩阵 \"A\" 的 Frobenius 范数。
+
+"),
+
+("线性代数","","cond","cond(M[, p])
+
+   使用 p 范数计算矩阵条件数。 \"p\" 如果省略，默认为 2 。 \"p\" 的有效值为 \"1\", \"2\", 和
+   \"Inf\".
+
+"),
+
+("线性代数","","trace","trace(M)
+
+   矩阵的迹。
+
+"),
+
+("线性代数","","det","det(M)
+
+   矩阵的行列式。
+
+"),
+
+("线性代数","","inv","inv(M)
+
+   矩阵的逆。
+
+"),
+
+("线性代数","","pinv","pinv(M)
+
+   矩阵的 Moore-Penrose （广义）逆
+
+"),
+
+("线性代数","","null","null(M)
+
+   矩阵 M 的零空间的基。
+
+"),
+
+("线性代数","","repmat","repmat(A, n, m)
+
+   重复矩阵 \"A\" 来构造新数组，在第一维度上重复 \"n\" 次，第二维度上重复 \"m\" 次。
+
+"),
+
+("线性代数","","kron","kron(A, B)
+
+   两个向量或两个矩阵的 Kronecker 张量积。
+
+"),
+
+("线性代数","","linreg","linreg(x, y)
+
+   最小二乘法线性回归来计算参数 \"[a, b]\" ，使 \"y\" 逼近 \"a+b*x\" 。
+
+"),
+
+("线性代数","","linreg","linreg(x, y, w)
+
+   带权最小二乘法线性回归。
+
+"),
+
+("线性代数","","expm","expm(A)
+
+   矩阵指数。
+
+"),
+
+("线性代数","","issym","issym(A)
+
+   判断是否为对称矩阵。
+
+"),
+
+("线性代数","","isposdef","isposdef(A)
+
+   判断是否为正定矩阵。
+
+"),
+
+("线性代数","","istril","istril(A)
+
+   判断是否为下三角矩阵。
+
+"),
+
+("线性代数","","istriu","istriu(A)
+
+   判断是否为上三角矩阵。
+
+"),
+
+("线性代数","","ishermitian","ishermitian(A)
+
+   判断是否为 Hamilton 矩阵。
+
+"),
+
+("线性代数","","transpose","transpose(A)
+
+   转置运算符（ \".'\" ）。
+
+"),
+
+("线性代数","","ctranspose","ctranspose(A)
+
+   共轭转置运算符（ \"'\" ）。
+
+"),
+
+("BLAS 函数","","copy!","copy!(n, X, incx, Y, incy)
+
+   将内存邻接距离为 \"incx\" 的数组 \"X\" 的 \"n\" 个元素复制到内存邻接距离为 \"incy\" 的数组
+   \"Y\" 中。返回 \"Y\" 。
+
+"),
+
+("BLAS 函数","","dot","dot(n, X, incx, Y, incy)
+
+   内存邻接距离为 \"incx\" 的数组 \"X\" 的 \"n\" 个元素组成的向量，与 内存邻接距离为 \"incy\" 的数组
+   \"Y\" 的 \"n\" 个元素组成的向量，做点积。 \"Complex\" 数组没有 \"dot\" 方法。
+
+"),
+
+("BLAS 函数","","nrm2","nrm2(n, X, incx)
+
+   内存邻接距离为 \"incx\" 的数组 \"X\" 的 \"n\" 个元素组成的向量的 2 范数。
+
+"),
+
+("BLAS 函数","","axpy!","axpy!(n, a, X, incx, Y, incy)
+
+   将 \"a*X + Y\" 赋值给 \"Y\" 并返回。
+
+"),
+
+("BLAS 函数","","syrk!","syrk!(uplo, trans, alpha, A, beta, C)
+
+   由参数 \"trans\" （ 'N' 或 'T' ）确定，计算 \"alpha*A*A.' + beta*C\" 或
+   \"alpha*A.'*A + beta*C\" ，由参数 \"uplo\" （ 'U' 或 'L' ）确定，用计算的结果更新对称矩阵
+   \"C\" 的上三角矩阵或下三角矩阵。返回 \"C\" 。
+
+"),
+
+("BLAS 函数","","syrk","syrk(uplo, trans, alpha, A)
+
+   由参数 \"trans\" （ 'N' 或 'T' ）确定，计算 \"alpha*A*A.'\" 或 \"alpha*A.'*A\"
+   ，由参数 \"uplo\" （ 'U' 或 'L' ）确定，返回计算结果的上三角矩阵或下三角矩阵。
+
+"),
+
+("BLAS 函数","","herk!","herk!(uplo, trans, alpha, A, beta, C)
+
+   此方法只适用于复数数组。由参数 \"trans\" （ 'N' 或 'T' ）确定，计算 \"alpha*A*A' +
+   beta*C\" 或 \"alpha*A'*A + beta*C\" ，由参数 \"uplo\" （ 'U' 或 'L'
+   ）确定，用计算的结果更新对称矩阵 \"C\" 的上三角矩阵或下三角矩阵。返回 \"C\" 。
+
+"),
+
+("BLAS 函数","","herk","herk(uplo, trans, alpha, A)
+
+   此方法只适用于复数数组。由参数 \"trans\" （ 'N' 或 'T' ）确定，计算 \"alpha*A*A'\" 或
+   \"alpha*A'*A\" ，由参数 \"uplo\" （ 'U' 或 'L' ）确定，返回计算结果的上三角矩阵或下三角矩阵。
+
+"),
+
+("BLAS 函数","","gbmv!","gbmv!(trans, m, kl, ku, alpha, A, x, beta, y)
+
+   由参数 \"trans\" （ 'N' 或 'T' ）确定，计算 \"alpha*A*x\" 或 \"alpha*A'*x\"
+   ，将结果赋值给 \"y\" 并返回。矩阵 \"A\" 为普通带矩阵 ，其维度 \"m\" 为 \"size(A,2)\" ，
+   子对角线为 \"kl\" ，超对角线为 \"ku\" 。
+
+"),
+
+("BLAS 函数","","gbmv","gbmv(trans, m, kl, ku, alpha, A, x, beta, y)
+
+   由参数 \"trans\" （ 'N' 或 'T' ）确定，计算 \"alpha*A*x\" 或 \"alpha*A'*x\" 。矩阵
+   \"A\" 为普通带矩阵 ，其维度 \"m\" 为 \"size(A,2)\" ， 子对角线为 \"kl\" ，超对角线为
+   \"ku\" 。
+
+"),
+
+("BLAS 函数","","sbmv!","sbmv!(uplo, k, alpha, A, x, beta, y)
+
+   将 \"alpha*A*x + beta*y\" 赋值给 \"y\" 并返回。其中 \"A\" 是对称带矩阵，维度为
+   \"size(A,2)\" ，超对角线为 \"k\" 。关于 A 是如何存储的，详见
+   http://www.netlib.org/lapack/explore-html/ 的 level-2 BLAS 。
+
+"),
+
+("BLAS 函数","","sbmv","sbmv(uplo, k, alpha, A, x)
+
+   返回 \"alpha*A*x\" 。其中 \"A\" 是对称带矩阵，维度为 \"size(A,2)\" ，超对角线为 \"k\" 。
+
+"),
+
+("BLAS 函数","","gemm!","gemm!(tA, tB, alpha, A, B, beta, C)
+
+   由 \"tA\" （ \"A\" 做转置）和 \"tB\" 确定，计算 \"alpha*A*B + beta*C\"
+   或其它对应的三个表达式，将结果赋值给 \"C\" 并返回。
+
+"),
+
+("BLAS 函数","","gemm","gemm(tA, tB, alpha, A, B)
+
+   由 \"tA\" （ \"A\" 做转置）和 \"tB\" 确定，计算 \"alpha*A*B + beta*C\"
+   或其它对应的三个表达式。
+
+"),
 
 ("标点符号","","punctuation","punctuation
 
@@ -5049,6 +4963,94 @@
 ("Base.Sort","Base.Sort","select!","select!(v, k[, ord])
 
    \"select\" 的原地版本
+
+"),
+
+("稀疏矩阵","","sparse","sparse(I, J, V[, m, n, combine])
+
+   构造 \"m x n\" 的稀疏矩阵 \"S\" ，满足 \"S[I[k], J[k]] = V[k]\" 。使用
+   \"combine\" 函数来处理坐标重复的元素。如果未指明 \"m\" 和 \"n\" ，则默认为 \"max(I)\" 和
+   \"max(J)\" 。如果省略 \"combine\" 函数，默认对坐标重复的元素求和。
+
+"),
+
+("稀疏矩阵","","sparsevec","sparsevec(I, V[, m, combine])
+
+   构造 \"m x 1\" 的稀疏矩阵 \"S\" ，满足 \"S[I[k]] = V[k]\" 。使用 \"combine\"
+   函数来处理坐标重复的元素，如果它被省略，则默认为 *+* 。在 Julia 中，稀疏向量是只有一列的稀疏矩阵。由于 Julia
+   使用列压缩（CSC）存储格式，只有一列的稀疏列矩阵是稀疏的，但只有一行的稀疏行矩阵是稠密的。
+
+"),
+
+("稀疏矩阵","","sparsevec","sparsevec(D::Dict[, m])
+
+   构造 \"m x 1\" 大小的稀疏矩阵，其行值为字典中的键，非零值为字典中的值。
+
+"),
+
+("稀疏矩阵","","issparse","issparse(S)
+
+   如果 \"S\" 为稀疏矩阵，返回 \"true\" ；否则为 \"false\" 。
+
+"),
+
+("稀疏矩阵","","sparse","sparse(A)
+
+   将稠密矩阵 \"A\" 转换为稀疏矩阵。
+
+"),
+
+("稀疏矩阵","","sparsevec","sparsevec(A)
+
+   将稠密矩阵 \"A\" 转换为 \"m x 1\" 的稀疏矩阵。在 Julia 中，稀疏向量是只有一列的稀疏矩阵。
+
+"),
+
+("稀疏矩阵","","dense","dense(S)
+
+   将稀疏矩阵 \"S\" 转换为稠密矩阵。
+
+"),
+
+("稀疏矩阵","","full","full(S)
+
+   将稀疏矩阵 \"S\" 转换为稠密矩阵。
+
+"),
+
+("稀疏矩阵","","spzeros","spzeros(m, n)
+
+   构造 \"m x n\" 的空稀疏矩阵。
+
+"),
+
+("稀疏矩阵","","speye","speye(type, m[, n])
+
+   构造指定类型、大小为 \"m x m\" 的稀疏单位矩阵。如果提供了 \"n\" 则构建大小为 \"m x n\" 的稀疏单位矩阵。
+
+"),
+
+("稀疏矩阵","","spones","spones(S)
+
+   构造与 \"S\" 同样结构的稀疏矩阵，但非零元素值为 \"1.0\" 。
+
+"),
+
+("稀疏矩阵","","sprand","sprand(m, n, density[, rng])
+
+   构造指定密度的随机稀疏矩阵。非零样本满足由 \"rng\" 指定的分布。默认为均匀分布。
+
+"),
+
+("稀疏矩阵","","sprandn","sprandn(m, n, density)
+
+   构造指定密度的随机稀疏矩阵，非零样本满足正态分布。
+
+"),
+
+("稀疏矩阵","","sprandbool","sprandbool(m, n, density)
+
+   构造指定密度的随机稀疏布尔值矩阵。
 
 "),
 
