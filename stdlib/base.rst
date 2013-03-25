@@ -2264,6 +2264,10 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
    沿 ``A`` 的某个维度使用 ``f`` 函数进行约简。 ``dims`` 指明了约简的维度， ``initial`` 为约简的初始值。
    
+.. function:: mapslices(f, A, dims)
+
+   在 ``A`` 的指定维度上应用函数 ``f`` 。  ``A`` 的每个切片 ``A[...,:,...,:,...]`` 上都调用函数 ``f`` 。整数向量 ``dims`` 指明了维度信息。结果将沿着未指明的维度进行连接。例如，如果 ``dims`` 为 ``[1,2]`` ， ``A`` 是四维数组，此函数将对每个 ``i`` 和 ```j` 调用 ``f`` 处理 ``A[:,:,i,j]`` 。
+
 .. function:: sum_kbn(A)
 
    返回数组中所有元素的总和。使用 Kahan-Babuska-Neumaier 的加法补偿算法来提高精度。
