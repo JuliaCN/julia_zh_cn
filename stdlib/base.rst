@@ -55,9 +55,9 @@
 
    显示 ``f`` 的所有方法及其对应的参数类型。
    
-.. function:: methodswith(t)
+.. function:: methodswith(typ[, showparents])
 
-   显示 ``t`` 类型的所有方法。
+   显示 ``typ`` 类型的所有方法。若可选项 ``showparents`` 为 ``true`` ，则额外显示 ``typ`` 除 ``Any`` 类型之外的父类型的方法。
    
 
 所有对象
