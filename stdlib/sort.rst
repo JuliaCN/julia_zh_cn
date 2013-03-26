@@ -87,7 +87,9 @@ Timsort 是 O(n log n) 稳定自适应排序算法。它对两种情况混合（
 --------
 .. function:: sort(v[, alg[, ord]])
 
-   按升序对向量排序。 ``alg`` 为特定的排序算法（ ``Sort.InsertionSort``, ``Sort.QuickSort``, ``Sort.MergeSort``, 或 ``Sort.TimSort`` ）， ``ord`` 为自定义的排序顺序（如 Sort.Reverse 或一个比较函数）。
+   按升序对向量排序。 ``alg`` 为特定的排序算法（ ``Sort.InsertionSort``,
+   ``Sort.QuickSort``, ``Sort.MergeSort``, 或 ``Sort.TimSort`` ），
+   ``ord`` 为自定义的排序顺序（如 Sort.Reverse 或一个比较函数）。
 
 .. function:: sort!(...)
 
@@ -95,7 +97,8 @@ Timsort 是 O(n log n) 稳定自适应排序算法。它对两种情况混合（
 
 .. function:: sortby(v, by[, alg])
 
-   根据 ``by(v)`` 对向量排序。 ``alg`` 为特定的排序算法（ ``Sort.InsertionSort``, ``Sort.QuickSort``, ``Sort.MergeSort``, 或 ``Sort.TimSort`` ）。
+   根据 ``by(v)`` 对向量排序。 ``alg`` 为特定的排序算法
+   （ ``Sort.InsertionSort``, ``Sort.QuickSort``, ``Sort.MergeSort``, 或 ``Sort.TimSort`` ）。
 
 .. function:: sortby!(...)
 
@@ -103,7 +106,10 @@ Timsort 是 O(n log n) 稳定自适应排序算法。它对两种情况混合（
 
 .. function:: sortperm(v, [alg[, ord]])
 
-   返回排序向量，可用它对输入向量 ``v`` 进行排序。 ``alg`` 为特定的排序算法（ ``Sort.InsertionSort``, ``Sort.QuickSort``, ``Sort.MergeSort``, 或 ``Sort.TimSort`` ）， ``ord`` 为自定义的排序顺序（如 Sort.Reverse 或一个比较函数）。
+   返回排序向量，可用它对输入向量 ``v`` 进行排序。 
+   ``alg`` 为特定的排序算法（ ``Sort.InsertionSort``, 
+   ``Sort.QuickSort``, ``Sort.MergeSort``, 或 ``Sort.TimSort`` ）， 
+   ``ord`` 为自定义的排序顺序（如 Sort.Reverse 或一个比较函数）。
 
 ----------------
 与排序相关的函数
@@ -115,21 +121,25 @@ Timsort 是 O(n log n) 稳定自适应排序算法。它对两种情况混合（
 
 .. function:: searchsorted(a, x[, ord])
 
-   返回 ``a`` 中排序顺序不小于 ``x`` 的第一个值的索引值， ``ord`` 为自定义的排序顺序（默认为 ``Sort.Forward`` ）。
+   返回 ``a`` 中排序顺序不小于 ``x`` 的第一个值的索引值，
+   ``ord`` 为自定义的排序顺序（默认为 ``Sort.Forward`` ）。
 
    ``searchsortedfirst()`` 的别名
 
 .. function:: searchsortedfirst(a, x[, ord])
 
-   返回 ``a`` 中排序顺序不小于 ``x`` 的第一个值的索引值， ``ord`` 为自定义的排序顺序（默认为 ``Sort.Forward`` ）。
+   返回 ``a`` 中排序顺序不小于 ``x`` 的第一个值的索引值，
+   ``ord`` 为自定义的排序顺序（默认为 ``Sort.Forward`` ）。
 
 .. function:: searchsortedlast(a, x[, ord])
 
-   返回 ``a`` 中排序顺序不大于 ``x`` 的最后一个值的索引值， ``ord`` 为自定义的排序顺序（默认为 ``Sort.Forward`` ）。
+   返回 ``a`` 中排序顺序不大于 ``x`` 的最后一个值的索引值，
+   ``ord`` 为自定义的排序顺序（默认为 ``Sort.Forward`` ）。
 
 .. function:: select(v, k[, ord])
 
-   找到排序好的向量 ``v`` 中第 ``k`` 个位置的元素，在未排序时的索引值。 ``ord`` 为自定义的排序顺序（默认为 ``Sort.Forward`` ）。
+   找到排序好的向量 ``v`` 中第 ``k`` 个位置的元素，在未排序时的索引值。
+   ``ord`` 为自定义的排序顺序（默认为 ``Sort.Forward`` ）。
 
 .. function:: select!(v, k[, ord])
 
