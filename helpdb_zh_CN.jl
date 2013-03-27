@@ -4406,18 +4406,17 @@
 
 "),
 
-("线性代数","","qr","qr(A) -> Q, R
+("线性代数","","qr","qr(A[, thin]) -> Q, R
 
-   对 \"A\" 做 QR 分解，满足 \"A = Q*R\" 。也可参见 \"qrfact\" 。
+   对 \"A\" 做 QR 分解，满足 \"A = Q*R\" 。也可参见 \"qrfact\" 。 默认做 \"thin\" 分解。
 
 "),
 
 ("线性代数","","qrfact","qrfact(A)
 
-      对 \"A\" 做 QR 分解，返回 \"QRDense\" 对象。
-
-   \"factors(qrfact(A))\" 返回 \"Q\" 和 \"R\" 。 \"QRDense\" 对象可使用下列函数：
-   \"size\", \"factors\", \"qmulQR\", \"qTmulQR\", \"\\\" 。
+   对 \"A\" 做 QR 分解，返回 \"QRDense\" 对象。 \"factors(qrfact(A))\" 返回 \"Q\"
+   和 \"R\" 。 \"QRDense\" 对象可使用下列函数： \"size\", \"factors\", \"qmulQR\",
+   \"qTmulQR\", \"\\\" 。
 
 "),
 
@@ -4427,9 +4426,10 @@
 
 "),
 
-("线性代数","","qrp","qrp(A) -> Q, R, P
+("线性代数","","qrp","qrp(A[, thin]) -> Q, R, P
 
-   对 \"A\" 做主元 QR 分解，满足 \"A*P = Q*R\" 。另见 \"qrpfact\" 。
+   对 \"A\" 做主元 QR 分解，满足 \"A*P = Q*R\" 。另见 \"qrpfact\" 。 默认做 \"thin\"
+   分解。
 
 "),
 
@@ -4469,11 +4469,10 @@
 
 ("线性代数","","eigvecs","eigvecs(A[, eigvals])
 
-      返回  \"A\" 的特征向量。
+   返回  \"A\" 的特征向量。
 
-      如果指明了可选项 \"eigvals\" 特征值，返回对应的特征向量。
-
-   （现在，此可选项只适用于对称三对角线矩阵 SymTridiagonal ）
+   如果指明了可选项 \"eigvals\" 特征值，返回对应的特征向量。 现在，此可选项只适用于对称三对角线矩阵
+   SymTridiagonal 。
 
 "),
 
@@ -4510,14 +4509,14 @@
    对 \"A\" 做奇异值分解（SVD），返回 \"SVDDense\" 对象。 分解结果 \"F\" 的 \"U\", \"S\",
    \"V\" 和 \"Vt\" 可分别通过 \"F[:U]\", \"F[:S]\", \"F[:V]\" 和 \"F[:Vt]\"
    来获得，它们满足 \"A = U*diagm(S)*Vt\" 。 如果 \"thin\" 为 \"true\" ，则做节约模式分解。
-   此算法先计算 \"Vt\" ，即 \"V\" 的转置，后者是由前者转置得到的。
+   此算法先计算 \"Vt\" ，即 \"V\" 的转置，后者是由前者转置得到的。 默认做 \"thin\" 分解。
 
 "),
 
 ("线性代数","","svdfact!","svdfact!(A[, thin]) -> SVDDense
 
    \"svdfact!\" 与 \"svdfact\" 类似，但它覆写 A 以节约空间，而非构造浅拷贝。 如果 \"thin\" 为
-   \"true\" ，则做节约模式分解。
+   \"true\" ，则做 \"thin\" 分解。默认做 \"thin\" 分解。
 
 "),
 
