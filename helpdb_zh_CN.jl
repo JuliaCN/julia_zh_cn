@@ -1899,7 +1899,7 @@
 
 ("数学函数","Base","round","round(x[, digits[, base]]) -> FloatingPoint
 
-   \"round(x)\" 返回离 \"x\" 最近的整数   \"round(x, digits)\" 若 \"digits\"
+   \"round(x)\" 返回离 \"x\" 最近的整数 \"round(x, digits)\" 若 \"digits\"
    为正数时舍入到小数点后对应位数，若为负数， 舍入到小数点前对应位数，例子 \"round(pi,2) == 3.14\" 。
    \"round(x, digits, base)\" 使用指定的进制来舍入，默认进制为 10， 例如 \"round(pi, 3,
    2) == 3.125\" 。
@@ -4414,9 +4414,10 @@
 
 ("线性代数","","qrfact","qrfact(A)
 
-   对 \"A\" 做 QR 分解，返回 \"QRDense\" 对象。 \"factors(qrfact(A))\" 返回 \"Q\"
-   和 \"R\" 。 \"QRDense\" 对象可使用下列函数： \"size\", \"factors\", \"qmulQR\",
-   \"qTmulQR\", \"\\\" 。
+      对 \"A\" 做 QR 分解，返回 \"QRDense\" 对象。
+
+   \"factors(qrfact(A))\" 返回 \"Q\" 和 \"R\" 。 \"QRDense\" 对象可使用下列函数：
+   \"size\", \"factors\", \"qmulQR\", \"qTmulQR\", \"\\\" 。
 
 "),
 
@@ -4463,6 +4464,16 @@
 ("线性代数","","eigvals","eigvals(A)
 
    返回  \"A\" 的特征值。
+
+"),
+
+("线性代数","","eigvecs","eigvecs(A[, eigvals])
+
+      返回  \"A\" 的特征向量。
+
+      如果指明了可选项 \"eigvals\" 特征值，返回对应的特征向量。
+
+   （现在，此可选项只适用于对称三对角线矩阵 SymTridiagonal ）
 
 "),
 
@@ -4780,7 +4791,7 @@
 ("BLAS 函数","","gbmv!","gbmv!(trans, m, kl, ku, alpha, A, x, beta, y)
 
    由参数 \"trans\" （ 'N' 或 'T' ）确定，计算 \"alpha*A*x\" 或 \"alpha*A'*x\"
-   ，将结果赋值给 \"y\" 并返回。矩阵 \"A\" 为普通带矩阵 ， 其维度 \"m\" 为 \"size(A,2)\" ，
+   ，将结果赋值给 \"y\" 并返回。矩阵 \"A\" 为普通带矩阵， 其维度 \"m\" 为 \"size(A,2)\" ，
    子对角线为 \"kl\" ，超对角线为 \"ku\" 。
 
 "),
@@ -4788,7 +4799,7 @@
 ("BLAS 函数","","gbmv","gbmv(trans, m, kl, ku, alpha, A, x, beta, y)
 
    由参数 \"trans\" （ 'N' 或 'T' ）确定，计算 \"alpha*A*x\" 或 \"alpha*A'*x\" 。矩阵
-   \"A\" 为普通带矩阵 ， 其维度 \"m\" 为 \"size(A,2)\" ， 子对角线为 \"kl\" ， 超对角线为
+   \"A\" 为普通带矩阵， 其维度 \"m\" 为 \"size(A,2)\" ， 子对角线为 \"kl\" ， 超对角线为
    \"ku\" 。
 
 "),
@@ -4964,7 +4975,7 @@
 
 ("Base.Sort","Base.Sort","select!","select!(v, k[, ord])
 
-   \"select\" 的原地版本
+   \"select\" 的原地版本。
 
 "),
 

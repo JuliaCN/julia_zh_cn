@@ -13,19 +13,19 @@
 
 .. function:: edit(file::String, [line])
 
-   编辑文件；可选择性地提供要编辑的行号。退出编辑器后返回 Julia 会话。
+   编辑文件；可选择性地提供要编辑的行号。退出编辑器后返回 Julia 会话。 
    如果文件后缀名为 ".jl" ，关闭文件后会重载该文件。
 
 .. function:: edit(function, [types])
 
-   编辑函数定义，可选择性地提供一个类型多元组以指明要编辑哪个方法。
+   编辑函数定义，可选择性地提供一个类型多元组以指明要编辑哪个方法。 
    退出编辑器后，包含定义的源文件会被重载。
 
 .. function:: require(file::String...)
 
    在 ``Main`` 模块的上下文中，对每个活动的节点，通过系统的 ``LOAD_PATH`` 
-   查找文件，并只载入一次。``require`` 是顶层操作，因此它设置当前的
-   ``include`` 路径，但并不使用它来查找文件（详见 ``include`` ）。
+   查找文件，并只载入一次。``require`` 是顶层操作，因此它设置当前的 
+   ``include`` 路径，但并不使用它来查找文件（详见 ``include`` ）。 
    此函数常用来载入库代码； ``using`` 函数隐含使用它来载入扩展包。
 
 .. function:: reload(file::String)
@@ -35,20 +35,20 @@
 
 .. function:: include(path::String)
 
-   在当前上下文中，对源文件的内容求值。在包含的过程中，它将本地任务
-   包含的路径设置为包含文件的文件夹。嵌套调用 ``include`` 时会搜索
-   那个路径的   相关路径。并行运行时，所有的路径都指向节点 1 上文件，
-   并从节点 1 上获取文件。此函数常用来交互式地载入源文件，或将分散为
+   在当前上下文中，对源文件的内容求值。在包含的过程中，它将本地任务 
+   包含的路径设置为包含文件的文件夹。嵌套调用 ``include`` 时会搜索 
+   那个路径的   相关路径。并行运行时，所有的路径都指向节点 1 上文件， 
+   并从节点 1 上获取文件。此函数常用来交互式地载入源文件，或将分散为 
    多个源文件的扩展包结合起来。
 
 .. function:: include_string(code::String)
 
-   类似 ``include`` ，但它从指定的字符串读取代码，而不是从文件中。
+   类似 ``include`` ，但它从指定的字符串读取代码，而不是从文件中。 
    由于没有涉及到文件路径，不会进行路径处理或从节点 1 获取文件。
 
 .. function:: evalfile(path::String)
 
-   对指定文件的所有表达式求值，并返回最后一个表达式的值。
+   对指定文件的所有表达式求值，并返回最后一个表达式的值。 
    不会进行其他处理（搜索路径，从节点 1 获取文件等）。
 
 .. function:: help(name)
@@ -69,7 +69,7 @@
    
 .. function:: methodswith(typ[, showparents])
 
-   显示 ``typ`` 类型的所有方法。若可选项 ``showparents`` 为 ``true`` ，
+   显示 ``typ`` 类型的所有方法。若可选项 ``showparents`` 为 ``true`` ， 
    则额外显示 ``typ`` 除 ``Any`` 类型之外的父类型的方法。
    
 
@@ -91,8 +91,8 @@
 
 .. function:: isless(x, y)
 
-   判断 ``x`` 是否比 ``y`` 小。它具有与 ``isequal`` 一致的整体排序。
-   不能正常排序的值如 ``NaN`` ，会按照任意顺序排序，但其排序方式会保持一致。
+   判断 ``x`` 是否比 ``y`` 小。它具有与 ``isequal`` 一致的整体排序。 
+   不能正常排序的值如 ``NaN`` ，会按照任意顺序排序，但其排序方式会保持一致。 
    它是 ``sort`` 默认使用的比较函数。可进行排序的非数值类型，应当实现此方法。
 
 .. function:: typeof(x)
@@ -123,20 +123,20 @@
 
 .. function:: copy(x)
 
-   构造 ``x`` 的浅拷贝：仅复制外层结构，不复制内部值。如，复制数组时，
+   构造 ``x`` 的浅拷贝：仅复制外层结构，不复制内部值。如，复制数组时， 
    会生成一个元素与原先完全相同的新数组。
 
 .. function:: deepcopy(x)
 
-   构造 ``x`` 的深拷贝：递归复制所有的东西，返回一个完全独立的对象。
+   构造 ``x`` 的深拷贝：递归复制所有的东西，返回一个完全独立的对象。 
    如，深拷贝数组时，会生成一个元素为原先元素深拷贝的新数组。
 
-   作为特例，匿名函数只能深拷贝，非匿名函数则为浅拷贝。它们的区别仅与闭包有关，
+   作为特例，匿名函数只能深拷贝，非匿名函数则为浅拷贝。它们的区别仅与闭包有关， 
    例如含有隐藏的内部引用的函数。
 
-   正常情况都不必这么做：自定义类型可通过定义特殊版本的
-   ``deepcopy_internal(x::T, dict::ObjectIdDict)`` 函数（此函数其它情况下
-   不应使用）来覆盖默认的 ``deepcopy`` 行为，其中 ``T`` 是要指明的类型，
+   正常情况都不必这么做：自定义类型可通过定义特殊版本的 
+   ``deepcopy_internal(x::T, dict::ObjectIdDict)`` 函数（此函数其它情况下 
+   不应使用）来覆盖默认的 ``deepcopy`` 行为，其中 ``T`` 是要指明的类型， 
    ``dict`` 记录迄今为止递归中复制的对象。在定义中， ``deepcopy_internal`` 
    应当用来代替 ``deepcopy`` ， ``dict`` 变量应当在返回前正确的更新。
 
@@ -153,7 +153,7 @@
 
 .. function:: subtype(type1, type2)
 
-   仅在 ``type1`` 的所有值都是 ``type2`` 时为真。也可使用 ``<:`` 中缀运算符，
+   仅在 ``type1`` 的所有值都是 ``type2`` 时为真。也可使用 ``<:`` 中缀运算符， 
    写为 ``type1 <: type2`` 。
 
 .. function:: typemin(type)
@@ -182,7 +182,7 @@
 
 .. function:: eps([type])
 
-   1.0 与下一个稍大的 ``type`` 类型可表示的浮点数之间的距离。有效的类型为
+   1.0 与下一个稍大的 ``type`` 类型可表示的浮点数之间的距离。有效的类型为 
    ``Float32`` 和 ``Float64`` 。如果省略 ``type`` ，则返回 ``eps(Float64)`` 。
 
 .. function:: eps(x)
@@ -191,8 +191,8 @@
 
 .. function:: promote_type(type1, type2)
 
-   如果可能的话，给出可以无损表示每个参数类型值的类型。若不存在无损表示时，
-   可以容忍有损；如 ``promote_type(Int64,Float64)`` 返回 ``Float64`` ，
+   如果可能的话，给出可以无损表示每个参数类型值的类型。若不存在无损表示时， 
+   可以容忍有损；如 ``promote_type(Int64,Float64)`` 返回 ``Float64`` ， 
    尽管严格来说，并非所有的 ``Int64`` 值都可以由 ``Float64`` 无损表示。
 
 通用函数
@@ -210,9 +210,9 @@
 
 .. function:: invoke(f, (types...), args...)
 
-   对指定的参数，为匹配指定类型（多元组）的通用函数指定要调用的方法。
-   参数应与指定的类型兼容。它允许在最匹配的方法之外，指定一个方法。
-   这对明确需要一个更通用的定义的行为时非常有用
+   对指定的参数，为匹配指定类型（多元组）的通用函数指定要调用的方法。 
+   参数应与指定的类型兼容。它允许在最匹配的方法之外，指定一个方法。 
+   这对明确需要一个更通用的定义的行为时非常有用 
    （通常作为相同函数的更特殊的方法实现的一部分）。
 
 .. function:: |(x, f)
@@ -254,14 +254,14 @@
 
 .. function:: zip(iters...)
 
-   对一组迭代对象，返回一组可迭代多元组，其中第 ``i`` 个多元组
+   对一组迭代对象，返回一组可迭代多元组，其中第 ``i`` 个多元组 
    包含每个可迭代输入的第 ``i`` 个分量。
 
    注意 ``zip`` 是它自己的逆操作： ``[zip(zip(a...)...)...] == [a...]`` 。
    
 .. function:: enumerate(iter)
 
-   返回生成 ``(i, x)`` 的迭代器，其中 ``i`` 是从 1 开始的索引，
+   返回生成 ``(i, x)`` 的迭代器，其中 ``i`` 是从 1 开始的索引， 
    ``x`` 是指定迭代器的第 ``i`` 个值。
 
 完全实现的有： ``Range``, ``Range1``, ``NDRange``, ``Tuple``, ``Real``, ``AbstractArray``, ``IntSet``, ``ObjectIdDict``, ``Dict``, ``WeakKeyDict``, ``EachLine``, ``String``, ``Set``, ``Task``.
@@ -279,7 +279,7 @@
 
 .. function:: length(collection) -> Integer
 
-   对可排序、可索引的集合，用于 ``getindex(collection, i)`` 最大索引值
+   对可排序、可索引的集合，用于 ``getindex(collection, i)`` 最大索引值 
    ``i`` 是有效的。对不可排序的集合，结果为元素个数。
 
 .. function:: endof(collection) -> Integer
@@ -307,7 +307,7 @@
 
 .. function:: reduce(op, v0, itr)
 
-   使用指定的运算符约简指定集合， ``v0`` 为约简的初始值。一些常用运算符的缩减，
+   使用指定的运算符约简指定集合， ``v0`` 为约简的初始值。一些常用运算符的缩减， 
    有更简便的单参数格式： ``max(itr)``, ``min(itr)``, ``sum(itr)``, 
    ``prod(itr)``, ``any(itr)``, ``all(itr)``.
 
@@ -396,12 +396,12 @@
 
 .. function:: getindex(collection, key...)
 
-   取回集合中存储在指定键或索引值内的值。
+   取回集合中存储在指定键或索引值内的值。 
    语法 ``a[i,j,...]`` 由编译器转换为 ``getindex(a, i, j, ...)`` 。
 
 .. function:: setindex!(collection, value, key...)
 
-   将指定值存储在集合的指定键或索引值内。
+   将指定值存储在集合的指定键或索引值内。 
    语法 ``a[i,j,...] = x`` 由编译器转换为 ``setindex!(a, x, i, j, ...)`` 。
 
 完全实现的有： ``Array``, ``DArray``, ``AbstractArray``, ``SubArray``, ``ObjectIdDict``, ``Dict``, ``WeakKeyDict``, ``String``.
@@ -528,7 +528,7 @@
 
 .. function:: symdiff!(s1, s2)
 
-   构造由 ``IntSets`` 类型的 ``s1`` 和 ``s2`` 中不同的元素构成的集，
+   构造由 ``IntSets`` 类型的 ``s1`` 和 ``s2`` 中不同的元素构成的集， 
    结果保存在 ``s1`` 中。
 
 .. function:: complement(s)
@@ -545,7 +545,7 @@
 
 .. function:: intersect!(s1, s2)
 
-   构造 `Inset` s1 和 s2 的交集，并将结果覆写到 s1 。
+   构造 `Inset` s1 和 s2 的交集，并将结果覆写到 s1 。 
    s1 根据需要来决定是否扩展到 s2 的大小。
 
 完全实现的有： ``IntSet``, ``Set``.
@@ -622,7 +622,7 @@
 
 .. function:: bytestring(::Ptr{Uint8})
 
-   从 C （以 0 结尾的）格式字符串的地址构造一个字符串。
+   从 C （以 0 结尾的）格式字符串的地址构造一个字符串。 
    它使用了浅拷贝；可以安全释放指针。
 
 .. function:: bytestring(s)
@@ -671,10 +671,10 @@
 
 .. function:: search(string, chars, [start])
 
-   在指定字符串中查找指定字符。第二个参数可以是单字符、字符向量或集合、
-   字符串、或正则表达式（但正则表达式仅用来处理连续字符串，如 ASCII 或
-   UTF-8 字符串）。第三个参数是可选的，它指明起始索引值。
-   返回值为所找到的匹配序列的索引值范围，它满足 ``s[search(s,x)] == x`` 。
+   在指定字符串中查找指定字符。第二个参数可以是单字符、字符向量或集合、 
+   字符串、或正则表达式（但正则表达式仅用来处理连续字符串，如 ASCII 或 
+   UTF-8 字符串）。第三个参数是可选的，它指明起始索引值。 
+   返回值为所找到的匹配序列的索引值范围，它满足 ``s[search(s,x)] == x`` 。 
    如果没有匹配，则返回值为 ``0:-1`` 。
 
 .. function:: replace(string, pat, r[, n])
@@ -686,10 +686,10 @@
 
 .. function:: split(string, [chars, [limit,] [include_empty]])
 
-   返回由指定字符分割符所分割的指定字符串的字符串数组。
-   分隔符可由 ``search`` 的第二个参数所允许的任何格式所指明（如单字符、
-   字符集合、字符串、或正则表达式）。如果省略 ``chars`` ，
-   则它默认为整个空白字符集，且 ``include_empty`` 默认为假。
+   返回由指定字符分割符所分割的指定字符串的字符串数组。 
+   分隔符可由 ``search`` 的第二个参数所允许的任何格式所指明（如单字符、 
+   字符集合、字符串、或正则表达式）。如果省略 ``chars`` ， 
+   则它默认为整个空白字符集，且 ``include_empty`` 默认为假。 
    最后两个参数是可选的：它们是结果的最大长度，且由标志位决定是否在结果中包括空域。
 
 .. function:: strip(string, [chars])
@@ -704,7 +704,7 @@
 
 .. function:: rstrip(string, [chars])
 
-   返回去除尾部空白的 ``string`` 。如果提供了字符串 ``chars`` ，
+   返回去除尾部空白的 ``string`` 。如果提供了字符串 ``chars`` ， 
    则去除字符串中包含的字符。
 
 .. function:: begins_with(string, prefix)
@@ -749,7 +749,7 @@
 
 .. function:: nextind(str, i)
 
-   获取索引值 ``i`` 处之后的有效字符的索引值。如果在字符串末尾，
+   获取索引值 ``i`` 处之后的有效字符的索引值。如果在字符串末尾， 
    则返回 ``endof(str)+1`` 。
 
 .. function:: prevind(str, i)
@@ -845,7 +845,7 @@ I/O
 
 .. function:: open(file_name, [read, write, create, truncate, append]) -> IOStream
 
-   按五个布尔值参数指明的模式打开文件。默认以只读模式打开文件。
+   按五个布尔值参数指明的模式打开文件。默认以只读模式打开文件。 
    返回操作文件的流。
 
 .. function:: open(file_name, [mode]) -> IOStream
@@ -873,8 +873,8 @@ I/O
 
 .. function:: fdio([name::String, ]fd::Integer[, own::Bool]) -> IOStream
 
-   用整数文件描述符构造 ``IOStream`` 对象。如果 ``own`` 为真，
-   关闭对象时会关闭底层的描述符。默认垃圾回收时 ``IOStream`` 是关闭的。
+   用整数文件描述符构造 ``IOStream`` 对象。如果 ``own`` 为真， 
+   关闭对象时会关闭底层的描述符。默认垃圾回收时 ``IOStream`` 是关闭的。 
    ``name`` 用文件描述符关联已命名的文件。
 
 .. function:: flush(stream)
@@ -895,7 +895,7 @@ I/O
 
 .. function:: read(stream, type, dims)
 
-   从标准二进制表示的流中读出指定类型的一组值。
+   从标准二进制表示的流中读出指定类型的一组值。 
    ``dims`` 可以是整数参数的多元组或集合，它指明要返还 ``Array`` 的大小。
 
 .. function:: position(s)
@@ -916,7 +916,7 @@ I/O
 
 .. function:: eof(stream)
 
-   判断 I/O 流是否到达文件尾。如果流还没被耗尽，函数会阻塞并继续等待数据，
+   判断 I/O 流是否到达文件尾。如果流还没被耗尽，函数会阻塞并继续等待数据， 
    然后返回 ``false`` 。因此当 ``eof`` 返回 ``false`` 后，可以很安全地读取一个字节。
 
 文本 I/O
@@ -924,7 +924,7 @@ I/O
 
 .. function:: show(x)
 
-   向当前输出流写入值的信息型文本表示。
+   向当前输出流写入值的信息型文本表示。 
    新构造的类型应重载 ``show(io, x)`` ，其中 ``io`` 为流。
 
 .. function:: print(x)
@@ -937,7 +937,7 @@ I/O
 
 .. function:: @printf([io::IOStream], "%Fmt", args...)
 
-   使用 C 中 ``printf()`` 的样式来打印。
+   使用 C 中 ``printf()`` 的样式来打印。 
    第一个参数可选择性指明 IOStream 来重定向输出。
 
 .. function:: @sprintf("%Fmt", args...)
@@ -974,13 +974,13 @@ I/O
 
 .. function:: readdlm(filename, delim::Char)
 
-   从文本文件中读取矩阵，文本中的每一行是矩阵的行，元素由指定的分隔符隔开。
-   如果所有的数据都是数值，结果为数值矩阵。如果有些元素不能被解析为数，
+   从文本文件中读取矩阵，文本中的每一行是矩阵的行，元素由指定的分隔符隔开。 
+   如果所有的数据都是数值，结果为数值矩阵。如果有些元素不能被解析为数， 
    将返回由数和字符串构成的元胞数组。
 
 .. function:: readdlm(filename, delim::Char, T::Type)
 
-   从文本文件中读取指定元素类型的矩阵。如果 ``T`` 是数值类型，结果为此类型的数组：
+   从文本文件中读取指定元素类型的矩阵。如果 ``T`` 是数值类型，结果为此类型的数组： 
    若为浮点数类型，非数值的元素变为 ``NaN`` ；其余类型为 0 。 
    ``T`` 的类型还有 ``ASCIIString``, ``String``, 和 ``Any`` 。
 
@@ -1001,14 +1001,14 @@ I/O
 
 .. function:: mmap_array(type, dims, stream, [offset])
 
-   使用内存映射构造数组，数组的值连接到文件。
+   使用内存映射构造数组，数组的值连接到文件。 
    它提供了处理对计算机内存来说过于庞大数据的简便方法。
 
-   ``type`` 决定了如何解释数组中的字节（不使用格式转换）。
+   ``type`` 决定了如何解释数组中的字节（不使用格式转换）。 
    ``dims`` 是包含字节大小的多元组。
 
-   文件是由 ``stream`` 指明的。初始化流时，对“只读”数组使用 “r” ，
-   使用 "w+" 新建用于向硬盘写入值的数组。可以选择指明偏移值
+   文件是由 ``stream`` 指明的。初始化流时，对“只读”数组使用 “r” ， 
+   使用 "w+" 新建用于向硬盘写入值的数组。可以选择指明偏移值 
    （单位为字节），用来跳过文件头等。
 
    **例子** ：  A = mmap_array(Int64, (25,30000), s)
@@ -1017,8 +1017,8 @@ I/O
 
 .. function:: msync(array)
 
-   对内存映射数组的内存中的版本和硬盘上的版本强制同步。
-   程序员可能不需要调用此函数，因为操作系统在休息时自动同步。但是，
+   对内存映射数组的内存中的版本和硬盘上的版本强制同步。 
+   程序员可能不需要调用此函数，因为操作系统在休息时自动同步。但是， 
    如果你担心丢失一个需要很长时间来运算的结果，就可以直接调用此函数。
 
 .. function:: mmap(len, prot, flags, fd, offset)
@@ -1027,7 +1027,7 @@ I/O
 
 .. function:: munmap(pointer, len)
 
-   取消内存映射的低级接口。对于 mmap_array 则不需要直接调用此函数；
+   取消内存映射的低级接口。对于 mmap_array 则不需要直接调用此函数； 
    当数组离开作用域时，会自动取消内存映射。
 
 标准数值类型
@@ -1421,9 +1421,9 @@ I/O
 
 .. function:: round(x, [digits, [base]]) -> FloatingPoint
 
-   ``round(x)`` 返回离 ``x`` 最近的整数   ``round(x, digits)`` 
-   若 ``digits`` 为正数时舍入到小数点后对应位数，若为负数，
-   舍入到小数点前对应位数，例子 ``round(pi,2) == 3.14`` 。
+   ``round(x)`` 返回离 ``x`` 最近的整数 ``round(x, digits)`` 
+   若 ``digits`` 为正数时舍入到小数点后对应位数，若为负数， 
+   舍入到小数点前对应位数，例子 ``round(pi,2) == 3.14`` 。 
    ``round(x, digits, base)`` 使用指定的进制来舍入，默认进制为 10，
    例如 ``round(pi, 3, 2) == 3.125`` 。
 
@@ -1457,8 +1457,8 @@ I/O
 
 .. function:: signif(x, digits, [base]) -> FloatingPoint
 
-   将 ``x`` 舍入（使用 ``round`` 函数）到指定的有效位数。
-   ``digits`` 与 ``base`` 的解释参见 :func:`round` 。
+   将 ``x`` 舍入（使用 ``round`` 函数）到指定的有效位数。 
+   ``digits`` 与 ``base`` 的解释参见 :func:`round` 。 
    例如 ``signif(123.456, 2) == 120.0`` ， ``signif(357.913, 4, 2) == 352.0`` 。 
 
 .. function:: min(x, y)
@@ -1514,12 +1514,12 @@ I/O
 
 .. function:: erfc(x)
 
-   计算 ``x`` 的互补误差函数，
+   计算 ``x`` 的互补误差函数， 
    其定义为 :math:`1 - \operatorname{erf}(x) = \frac{2}{\sqrt{\pi}} \int_x^{\infty} e^{-t^2} dt` 。
 
 .. function:: erfcx(x)
 
-   计算 ``x`` 的缩放互补误差函数，其定义为 :math:`e^{x^2} \operatorname{erfc}(x)` 。
+   计算 ``x`` 的缩放互补误差函数，其定义为 :math:`e^{x^2} \operatorname{erfc}(x)` 。 
    注意 :math:`\operatorname{erfcx}(-ix)` 即为 Faddeeva 函数 :math:`w(x)` 。
 
 .. function:: erfi(x)
@@ -1528,7 +1528,7 @@ I/O
 
 .. function:: dawson(x)
 
-   计算 ``x`` 的 Dawson 函数（缩放虚误差函数），
+   计算 ``x`` 的 Dawson 函数（缩放虚误差函数）， 
    其定义为 :math:`\frac{\sqrt{\pi}}{2} e^{-x^2} \operatorname{erfi}(x)`.
 
 .. function:: real(z)
@@ -1553,7 +1553,7 @@ I/O
 
 .. function:: cis(z)
 
-   如果 ``z`` 是实数，返回 ``cos(z) + i*sin(z)`` 。如果 ``z`` 是实数，
+   如果 ``z`` 是实数，返回 ``cos(z) + i*sin(z)`` 。如果 ``z`` 是实数， 
    返回 ``(cos(real(z)) + i*sin(real(z)))/exp(imag(z))`` 。
 
 .. function:: binomial(n,k)
@@ -1570,8 +1570,8 @@ I/O
 
 .. function:: factor(n)
 
-   对 ``n`` 分解质因数，返回一个字典。
-   字典的键对应于质因数，与 ``n`` 类型相同。
+   对 ``n`` 分解质因数，返回一个字典。 
+   字典的键对应于质因数，与 ``n`` 类型相同。 
    每个键的值显示因式分解中这个质因数出现的次数。
 
    **例子** ： :math:`100=2*2*5*5` ，因此 ``factor(100) -> [5=>2,2=>2]`` 
@@ -1610,12 +1610,12 @@ I/O
 
 .. function:: nextprod([a,b,c], n)
 
-   不小于 ``n`` 的数，存在整数 ``i1``, ``i2``, ``i3`` ，
+   不小于 ``n`` 的数，存在整数 ``i1``, ``i2``, ``i3`` ， 
    使这个数等于 ``a^i1 * b^i2 * c^i3`` 。
 
 .. function:: prevprod([a,b,c], n)
 
-   不大于 ``n`` 的数，存在整数 ``i1``, ``i2``, ``i3`` ，
+   不大于 ``n`` 的数，存在整数 ``i1``, ``i2``, ``i3`` ， 
    使这个数等于 ``a^i1 * b^i2 * c^i3`` 。
 
 .. function:: invmod(n,m)
@@ -1708,7 +1708,7 @@ I/O
 
 .. function:: beta(x, y)
 
-   第一型欧拉积分
+   第一型欧拉积分 
    :math:`\operatorname{B}(x,y) = \Gamma(x)\Gamma(y)/\Gamma(x+y)` 。
 
 .. function:: lbeta(x, y)
@@ -1752,8 +1752,8 @@ I/O
 
 .. function:: base(base, n, [pad])
 
-   将整数 ``n`` 转换为指定进制 ``base`` 的字符串。
-   可选择性指明空白补位后的位数。进制 ``base`` 可以为整数，
+   将整数 ``n`` 转换为指定进制 ``base`` 的字符串。 
+   可选择性指明空白补位后的位数。进制 ``base`` 可以为整数， 
    也可以是用于表征数字符号的字符值所对应的 ``Uint8`` 数组。
 
 .. function:: bits(n)
@@ -1790,17 +1790,17 @@ I/O
 
 .. function:: int(x)
 
-   将数或数组转换为所使用电脑上默认的整数类型。
+   将数或数组转换为所使用电脑上默认的整数类型。 
    ``x`` 也可以是字符串，使用此函数时会将其解析为整数。
 
 .. function:: uint(x)
 
-   将数或数组转换为所使用电脑上默认的无符号整数类型。
+   将数或数组转换为所使用电脑上默认的无符号整数类型。 
    ``x`` 也可以是字符串，使用此函数时会将其解析为无符号整数。
 
 .. function:: integer(x)
 
-   将数或数组转换为整数类型。如果 ``x`` 已经是整数类型，则不处理；
+   将数或数组转换为整数类型。如果 ``x`` 已经是整数类型，则不处理； 
    否则将其转换为所使用电脑上默认的整数类型。
 
 .. function:: isinteger(x)
@@ -1865,8 +1865,8 @@ I/O
 
 .. function:: float(x)
 
-   将数、数组、或字符串转换为 ``FloatingPoint`` 数据类型。
-   对数值数据，使用最小的恰当 ``FloatingPoint`` 类型。
+   将数、数组、或字符串转换为 ``FloatingPoint`` 数据类型。 
+   对数值数据，使用最小的恰当 ``FloatingPoint`` 类型。 
    对字符串，它将被转换为 ``Float64`` 类型。
 
 .. function:: significand(x)
@@ -1925,12 +1925,12 @@ I/O
 
 .. function:: one(x)
 
-   获取与 x 同类型的乘法单位元（ x 也可为类型），即用该类型表示数值 1 。
+   获取与 x 同类型的乘法单位元（ x 也可为类型），即用该类型表示数值 1 。 
    对于矩阵，返回与之大小、类型相匹配的的单位矩阵。
 
 .. function:: zero(x)
 
-   获取与 x 同类型的加法单位元（ x 也可为类型），即用该类型表示数值 0 。
+   获取与 x 同类型的加法单位元（ x 也可为类型），即用该类型表示数值 0 。 
    对于矩阵，返回与之大小、类型相匹配的的全零矩阵。
 
 .. data:: pi
@@ -2004,13 +2004,13 @@ I/O
 .. function:: BigInt(x)
 
    构造任意精度的整数。
-   ``x`` 可以是 ``Int`` （或可以被转换为 ``Int`` 的）或 ``String`` 。
+   ``x`` 可以是 ``Int`` （或可以被转换为 ``Int`` 的）或 ``String`` 。 
    可以对其使用常用的数学运算符，结果被提升为 ``BigInt`` 类型。
 
 .. function:: BigFloat(x)
 
    构造任意精度的浮点数。
-   ``x`` 可以是 ``Integer``, ``Float64``, ``String`` 或 ``BigInt`` 。
+   ``x`` 可以是 ``Integer``, ``Float64``, ``String`` 或 ``BigInt`` 。 
    可以对其使用常用的数学运算符，结果被提升为 ``BigFloat`` 类型。
 
 整数
@@ -2078,13 +2078,13 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: srand([rng], seed)
 
-   使用 ``seed`` 为 RNG 的种子，可以是无符号整数或向量。
-   ``seed`` 也可以是文件名，此时从文件中读取种子。
+   使用 ``seed`` 为 RNG 的种子，可以是无符号整数或向量。 
+   ``seed`` 也可以是文件名，此时从文件中读取种子。 
    如果省略参数 ``rng`` ，则默认为全局 RNG 。
 
 .. function:: MersenneTwister([seed])
 
-   构造一个 ``MersenneTwister`` RNG 对象。
+   构造一个 ``MersenneTwister`` RNG 对象。 
    不同的 RNG 对象可以有不同的种子，这对于生成不同的随机数流非常有用。
 
 .. function:: rand()
@@ -2097,8 +2097,8 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: rand(rng::AbstractRNG, [dims...])
 
-   使用指定的 RNG 对象，生成 ``Float64`` 类型的随机数或数组。
-   目前仅提供 ``MersenneTwister`` 随机数生成器 RNG ，
+   使用指定的 RNG 对象，生成 ``Float64`` 类型的随机数或数组。 
+   目前仅提供 ``MersenneTwister`` 随机数生成器 RNG ， 
    可由 ``srand`` 函数设置随机数种子。
 
 .. function:: rand(dims 或 [dims...])
@@ -2124,7 +2124,7 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: randn(dims 或 [dims...])
 
-   生成均值为 0 ，标准差为 1 的标准正态分布随机数。
+   生成均值为 0 ，标准差为 1 的标准正态分布随机数。 
    若指定维度，则生成标准正态分布的随机数组。
 
 数组
@@ -2178,7 +2178,7 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: getindex(type[, elements...])
 
-   构造指定类型的一维数组。它常被 ``Type[]`` 语法调用。
+   构造指定类型的一维数组。它常被 ``Type[]`` 语法调用。 
    元素值可由 ``Type[a,b,c,...]`` 指明。
 
 .. function:: cell(dims)
@@ -2211,12 +2211,12 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: reshape(A, dims)
 
-   构造与指定数组同样数据的新数组，但维度不同。
+   构造与指定数组同样数据的新数组，但维度不同。 
    特定类型数组的实现自动选择复制或共享数据。
 
 .. function:: similar(array, [element_type, dims])
 
-   构造与指定数组相同类型的未初始化数组。可选择性指定指定了元素类型和维度。
+   构造与指定数组相同类型的未初始化数组。可选择性指定指定了元素类型和维度。 
    ``dims`` 参数可以是整数参数的多元组或集合。
 
 .. function:: reinterpret(type, A)
@@ -2257,12 +2257,12 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: sub(A, ind)
 
-   返回 ``SubArray`` ，它存储 ``A`` 和 ``ind`` ，但不立即计算。
+   返回 ``SubArray`` ，它存储 ``A`` 和 ``ind`` ，但不立即计算。 
    对 ``SubArray`` 调用 ``getindex`` 时才计算。
 
 .. function:: slicedim(A, d, i)
 
-   返回 ``A`` 中维度 ``d`` 上索引值为 ``i`` 的所有数据。
+   返回 ``A`` 中维度 ``d`` 上索引值为 ``i`` 的所有数据。 
    等价于 ``A[:,:,...,i,:,:,...]`` ，其中 ``i`` 在位置 ``d`` 上。
 
 .. function:: setindex!(A, X, ind)
@@ -2283,8 +2283,8 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: hvcat(rows::(Int...), values...)
 
-   在水平和垂直上连接。此函数用于块矩阵语法。
-   第一个参数多元组指明每行要连接的参数个数。
+   在水平和垂直上连接。此函数用于块矩阵语法。 
+   第一个参数多元组指明每行要连接的参数个数。 
    例如， ``[a b;c d e]`` 调用 ``hvcat((2,3),a,b,c,d,e)`` 。
 
 .. function:: flipdim(A, d)
@@ -2329,8 +2329,8 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: permutedims(A,perm)
 
-   重新排列数组 ``A`` 的维度。
-   ``perm`` 为长度为 ``ndims(A)`` 的向量，它指明如何排列。
+   重新排列数组 ``A`` 的维度。 
+   ``perm`` 为长度为 ``ndims(A)`` 的向量，它指明如何排列。 
    此函数是多维数组的广义转置。转置等价于 ``permute(A,[2,1])`` 。
 
 .. function:: ipermutedims(A,perm)
@@ -2386,20 +2386,20 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: reducedim(f, A, dims, initial)
 
-   沿 ``A`` 的某个维度使用 ``f`` 函数进行约简。
+   沿 ``A`` 的某个维度使用 ``f`` 函数进行约简。 
    ``dims`` 指明了约简的维度， ``initial`` 为约简的初始值。
    
 .. function:: mapslices(f, A, dims)
 
-   在 ``A`` 的指定维度上应用函数 ``f`` 。
-   ``A`` 的每个切片 ``A[...,:,...,:,...]`` 上都调用函数 ``f`` 。
-   整数向量 ``dims`` 指明了维度信息。结果将沿着未指明的维度进行连接。
-   例如，如果 ``dims`` 为 ``[1,2]`` ， ``A`` 是四维数组，
+   在 ``A`` 的指定维度上应用函数 ``f`` 。 
+   ``A`` 的每个切片 ``A[...,:,...,:,...]`` 上都调用函数 ``f`` 。 
+   整数向量 ``dims`` 指明了维度信息。结果将沿着未指明的维度进行连接。 
+   例如，如果 ``dims`` 为 ``[1,2]`` ， ``A`` 是四维数组， 
    此函数将对每个 ``i`` 和 ```j` 调用 ``f`` 处理 ``A[:,:,i,j]`` 。
 
 .. function:: sum_kbn(A)
 
-   返回数组中所有元素的总和。
+   返回数组中所有元素的总和。 
    使用 Kahan-Babuska-Neumaier 的加法补偿算法来提高精度。
 
 排列组合
@@ -2457,23 +2457,23 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: combinations(array, n)
 
-   从指定数组生成 ``n`` 个元素的所有组合。
-   由于组合的个数很多，这个函数应在 Task 内部使用。
-   写成 ``c = @task combinations(a,n)`` 的形式，
+   从指定数组生成 ``n`` 个元素的所有组合。 
+   由于组合的个数很多，这个函数应在 Task 内部使用。 
+   写成 ``c = @task combinations(a,n)`` 的形式， 
    然后迭代 ``c`` 或对其调用 ``consume`` 。
 
 .. function:: integer_partitions(n, m)
 
-   生成由 ``m`` 个整数加起来等于 ``n`` 的所有数组。
-   由于组合的个数很多，这个函数应在 Task 内部使用。
-   写成 ``c = @task integer_partitions(n,m)`` 的形式，
+   生成由 ``m`` 个整数加起来等于 ``n`` 的所有数组。 
+   由于组合的个数很多，这个函数应在 Task 内部使用。 
+   写成 ``c = @task integer_partitions(n,m)`` 的形式， 
    然后迭代 ``c`` 或对其调用 ``consume`` 。
 
 .. function:: partitions(array)
 
-   生成数组中元素所有可能的组合，表示为数组的数组。
-   由于组合的个数很多，这个函数应在 Task 内部使用。
-   写成 ``c = @task partitions(a)`` 的形式，
+   生成数组中元素所有可能的组合，表示为数组的数组。 
+   由于组合的个数很多，这个函数应在 Task 内部使用。 
+   写成 ``c = @task partitions(a)`` 的形式， 
    然后迭代 ``c`` 或对其调用 ``consume`` 。
 
 统计
@@ -2485,9 +2485,9 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: std(v[, region])
 
-   计算向量或数组 ``v`` 的样本标准差，可选择按 ``region`` 中列出的维度计算。
-   算法在 ``v`` 中的每个元素都是从某个生成分布中独立同分布地取得的假设下，
-   返回一个此生成分布标准差的估计。
+   计算向量或数组 ``v`` 的样本标准差，可选择按 ``region`` 中列出的维度计算。 
+   算法在 ``v`` 中的每个元素都是从某个生成分布中独立同分布地取得的假设下， 
+   返回一个此生成分布标准差的估计。 
    它等价于 ``sqrt(sum((v - mean(v)).^2) / (length(v) - 1))`` 。
 
 .. function:: stdm(v, m)
@@ -2496,9 +2496,9 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: var(v[, region])
 
-   计算向量或数组 ``v`` 的样本方差，可选择按 ``region`` 中列出的维度计算。
-   算法在 ``v`` 中的每个元素都是从某个生成分布中独立同分布地取得的假设下，
-   返回一个此生成分布方差的估计。
+   计算向量或数组 ``v`` 的样本方差，可选择按 ``region`` 中列出的维度计算。 
+   算法在 ``v`` 中的每个元素都是从某个生成分布中独立同分布地取得的假设下， 
+   返回一个此生成分布方差的估计。 
    它等价于 ``sum((v - mean(v)).^2) / (length(v) - 1)`` 。
 
 .. function:: varm(v, m)
@@ -2527,12 +2527,12 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
 .. function:: cov(v1[, v2])
 
-   计算两个向量 ``v1`` 和 ``v2`` 的协方差。
+   计算两个向量 ``v1`` 和 ``v2`` 的协方差。 
    如果调用时只有 ``v`` 这一个参数，它计算 ``v`` 中列的协方差。
 
 .. function:: cor(v1[, v2])
 
-   计算两个向量 ``v1`` 和 ``v2`` 的 Pearson 相关系数。
+   计算两个向量 ``v1`` 和 ``v2`` 的 Pearson 相关系数。 
    如果调用时只有 ``v`` 这一个参数，它计算 ``v`` 中列的相关系数。
 
 信号处理
@@ -2542,13 +2542,13 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: fft(A [, dims])
 
-   对数组 ``A`` 做多维 FFT 。可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、
-   范围、多元组、数组）。如果 ``A`` 要运算的维度上的长度是较小的质数的积，
+   对数组 ``A`` 做多维 FFT 。可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、 
+   范围、多元组、数组）。如果 ``A`` 要运算的维度上的长度是较小的质数的积， 
    算法会比较高效；详见 :func:`nextprod` 。另见高效的 :func:`plan_fft` 。
    
-   一维 FFT 计算一维离散傅里叶变换（DFT），其定义为
+   一维 FFT 计算一维离散傅里叶变换（DFT），其定义为 
    :math:`\operatorname{DFT}[k] = \sum_{n=1}^{\operatorname{length}(A)} 
-   \exp\left(-i\frac{2\pi (n-1)(k-1)}{\operatorname{length}(A)} \right) A[n]` 。
+   \exp\left(-i\frac{2\pi (n-1)(k-1)}{\operatorname{length}(A)} \right) A[n]` 。 
    多维 FFT 对 ``A`` 的多个维度做此运算。
 
 .. function:: fft!(A [, dims])
@@ -2559,10 +2559,10 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
    多维 IFFT 。
 
-   一维反向 FFT 计算
+   一维反向 FFT 计算 
    :math:`\operatorname{BDFT}[k] =
    \sum_{n=1}^{\operatorname{length}(A)} \exp\left(+i\frac{2\pi
-   (n-1)(k-1)}{\operatorname{length}(A)} \right) A[n]` 。
+   (n-1)(k-1)}{\operatorname{length}(A)} \right) A[n]` 。 
    多维反向 FFT 对 ``A`` 的多个维度做此运算。IFFT 将其结果除以所运算的维度大小的积。
 
 .. function:: ifft!(A [, dims])
@@ -2571,9 +2571,9 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: bfft(A [, dims])
 
-   类似 :func:`ifft` ，但计算非归一化的（即反向）变换。
-   它的结果需要除以所运算的维度大小的积，才是 IFFT 的结果。
-   （它比 :func:`ifft` 稍微高效一点儿，因为它省略了归一化的步骤；
+   类似 :func:`ifft` ，但计算非归一化的（即反向）变换。 
+   它的结果需要除以所运算的维度大小的积，才是 IFFT 的结果。 
+   （它比 :func:`ifft` 稍微高效一点儿，因为它省略了归一化的步骤； 
    有时归一化的步骤可以与其它地方的其它计算合并在一起做。）
 
 .. function:: bfft!(A [, dims])
@@ -2582,18 +2582,18 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: plan_fft(A [, dims [, flags [, timelimit]]])
 
-   在数组 ``A`` 的指定维度上（ ``dims`` ）制定优化 FFT 的方案。
-   （前两个参数的意义参见 :func:`fft` 。）
+   在数组 ``A`` 的指定维度上（ ``dims`` ）制定优化 FFT 的方案。 
+   （前两个参数的意义参见 :func:`fft` 。） 
    返回可快速计算 ``fft(A, dims)`` 的函数。
 
-   ``flags`` 参数时按位或的 FFTW 方案标志位，默认为 ``FFTW.ESTIMATE`` 。
-   如果使用 ``FFTW.MEASURE`` 或 ``FFTW.PATIENT`` 会先花几秒钟（或更久）
-   来对不同的 FFT 算法进行分析，选取最快的。有关方案标志位，详见 FFTW 手册。
-   可选参数 ``timelimit`` 指明制定方案时间的粗略上界，单位为秒。
+   ``flags`` 参数时按位或的 FFTW 方案标志位，默认为 ``FFTW.ESTIMATE`` 。 
+   如果使用 ``FFTW.MEASURE`` 或 ``FFTW.PATIENT`` 会先花几秒钟（或更久） 
+   来对不同的 FFT 算法进行分析，选取最快的。有关方案标志位，详见 FFTW 手册。 
+   可选参数 ``timelimit`` 指明制定方案时间的粗略上界，单位为秒。 
    如果使用 ``FFTW.MEASURE`` 或 ``FFTW.PATIENT`` 会在制定方案时覆写输入数组 ``A`` 。
 
-   :func:`plan_fft!` 与 :func:`plan_fft` 类似，但它在参数的原地制定方案
-   （参数应为复浮点数数组）。 :func:`plan_ifft` 等类似，
+   :func:`plan_fft!` 与 :func:`plan_fft` 类似，但它在参数的原地制定方案 
+   （参数应为复浮点数数组）。 :func:`plan_ifft` 等类似， 
    但它们指定逆变换  :func:`ifft`  等的方案。
 
 .. function:: plan_ifft(A [, dims [, flags [, timelimit]]])
@@ -2618,65 +2618,65 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: rfft(A [, dims])
 
-   对实数数组 ``A`` 做多维 FFT 。由于转换具有共轭对称性，相比 :func:`fft` ，
-   可节约将近一半的计算时间和存储空间。
-   如果 ``A`` 的大小为 ``(n_1, ..., n_d)`` ，
+   对实数数组 ``A`` 做多维 FFT 。由于转换具有共轭对称性，相比 :func:`fft` ， 
+   可节约将近一半的计算时间和存储空间。 
+   如果 ``A`` 的大小为 ``(n_1, ..., n_d)`` ， 
    结果的大小为 ``(floor(n_1/2)+1, ..., n_d)`` 。
 
-   与 :func:`fft` 类似，可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、
+   与 :func:`fft` 类似，可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、 
    多元组、数组）。但结果中 ``dims[1]`` 维度大约只有一半。
 
 .. function:: irfft(A, d [, dims])
 
-   对复数组 ``A`` 做 :func:`rfft`: 的逆运算。
-   它给出 FFT 后可生成 ``A`` 的对应的实数数组的前半部分。
+   对复数组 ``A`` 做 :func:`rfft`: 的逆运算。 
+   它给出 FFT 后可生成 ``A`` 的对应的实数数组的前半部分。 
    与 :func:`rfft` 类似， ``dims`` 是可选项，默认为 ``1:ndims(A)`` 。
 
-   ``d`` 是转换后的实数数组在 ``dims[1]`` 维度上的长度，
-   必须满足 ``d == floor(size(A,dims[1])/2)+1`` 。
+   ``d`` 是转换后的实数数组在 ``dims[1]`` 维度上的长度， 
+   必须满足 ``d == floor(size(A,dims[1])/2)+1`` 。 
    （此参数不能从 ``size(A)`` 推导出来，因为使用了 ``floor`` 函数。）
 
 .. function:: brfft(A, d [, dims])
 
-   与 :func:`irfft` 类似，但它计算非归一化逆变换（与 :func:`bfft` 类似）。
+   与 :func:`irfft` 类似，但它计算非归一化逆变换（与 :func:`bfft` 类似）。 
    要得到逆变换，需将结果除以除以（实数输出矩阵）所运算的维度大小的积。
 
 .. function:: plan_rfft(A [, dims [, flags [, timelimit]]])
 
-   制定优化实数输入 FFT 的方案。
-   与 :func:`plan_fft` 类似，但它对应于 :func:`rfft` 。
+   制定优化实数输入 FFT 的方案。 
+   与 :func:`plan_fft` 类似，但它对应于 :func:`rfft` 。 
    前两个参数及变换后的大小，都与 :func:`rfft` 相同。
 
 .. function:: plan_irfft(A, d [, dims [, flags [, timelimit]]])
 
-   制定优化实数输入 FFT 的方案。
-   与 :func:`plan_rfft` 类似，但它对应于 :func:`irfft` 。
+   制定优化实数输入 FFT 的方案。 
+   与 :func:`plan_rfft` 类似，但它对应于 :func:`irfft` 。 
    前三个参数的意义与 :func:`irfft` 相同。
    
 .. function:: plan_brfft(A, d [, dims [, flags [, timelimit]]])
 
-   制定优化实数输入 FFT 的方案。
-   与 :func:`plan_rfft` 类似，但它对应于 :func:`brfft` 。
+   制定优化实数输入 FFT 的方案。 
+   与 :func:`plan_rfft` 类似，但它对应于 :func:`brfft` 。 
    前三个参数的意义与 :func:`brfft` 相同。
 
 .. function:: dct(A [, dims])
 
-   对数组 ``A`` 做第二类离散余弦变换（DCT），使用归一化的 DCT 。
-   与 :func:`fft` 类似，可选参数 ``dims`` 指明了关于维度的可迭代集合
-   （如整数、范围、多元组、数组）。
-   如果 ``A`` 要运算的维度上的长度是较小的质数的积，算法会比较高效；
+   对数组 ``A`` 做第二类离散余弦变换（DCT），使用归一化的 DCT 。 
+   与 :func:`fft` 类似，可选参数 ``dims`` 指明了关于维度的可迭代集合 
+   （如整数、范围、多元组、数组）。 
+   如果 ``A`` 要运算的维度上的长度是较小的质数的积，算法会比较高效； 
    详见 :func:`nextprod` 。另见高效的 :func:`plan_dct` 。
 
 .. function:: dct!(A [, dims])
 
-   与 :func:`dct!` 类似，但在原地对 ``A`` 进行运算。
+   与 :func:`dct!` 类似，但在原地对 ``A`` 进行运算。 
    ``A`` 必须是实数或复数的浮点数数组。
 
 .. function:: idct(A [, dims])
 
-   对数组 ``A`` 做多维逆离散余弦变换（IDCT）（即归一化的第三类 DCT）。
-   可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、
-   多元组、数组）。如果 ``A`` 要运算的维度上的长度是较小的质数的积，
+   对数组 ``A`` 做多维逆离散余弦变换（IDCT）（即归一化的第三类 DCT）。 
+   可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、 
+   多元组、数组）。如果 ``A`` 要运算的维度上的长度是较小的质数的积， 
    算法会比较高效；详见 :func:`nextprod` 。另见高效的 :func:`plan_idct` 。
 
 .. function:: idct!(A [, dims])
@@ -2685,8 +2685,8 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: plan_dct(A [, dims [, flags [, timelimit]]])
 
-   制定优化 DCT 的方案。
-   与 :func:`plan_fft` 类似，但对应于 :func:`dct` 。
+   制定优化 DCT 的方案。 
+   与 :func:`plan_fft` 类似，但对应于 :func:`dct` 。 
    前两个参数的意义与 :func:`dct` 相同。
 
 .. function:: plan_dct!(A [, dims [, flags [, timelimit]]])
@@ -2695,8 +2695,8 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: plan_idct(A [, dims [, flags [, timelimit]]])
 
-   制定优化 IDCT 的方案。
-   与 :func:`plan_fft` 类似，但对应于 :func:`idct` 。
+   制定优化 IDCT 的方案。 
+   与 :func:`plan_fft` 类似，但对应于 :func:`idct` 。 
    前两个参数的意义与 :func:`idct` 相同。
 
 .. function:: plan_idct!(A [, dims [, flags [, timelimit]]])
@@ -2705,35 +2705,35 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: FFTW.r2r(A, kind [, dims])
 
-   对数组 ``A`` 做种类为 ``kind`` 的多维实数输入实数输出（r2r）变换。
-   ``kind`` 指明各类离散余弦变换 （ ``FFTW.REDFT00``, ``FFTW.REDFT01``,
-   ``FFTW.REDFT10``, 或 ``FFTW.REDFT11`` ）、各类离散正弦变换
-   （ ``FFTW.RODFT00``, ``FFTW.RODFT01``, ``FFTW.RODFT10``, 或
+   对数组 ``A`` 做种类为 ``kind`` 的多维实数输入实数输出（r2r）变换。 
+   ``kind`` 指明各类离散余弦变换 （ ``FFTW.REDFT00``, ``FFTW.REDFT01``, 
+   ``FFTW.REDFT10``, 或 ``FFTW.REDFT11`` ）、各类离散正弦变换 
+   （ ``FFTW.RODFT00``, ``FFTW.RODFT01``, ``FFTW.RODFT10``, 或 
    ``FFTW.RODFT11`` ）、实数输入半复数输出的 DFT （ ``FFTW.R2HC`` 
-   及它的逆 ``FFTW.HC2R``)，或离散 Hartley 变换（ ``FFTW.DHT`` ）。
-   参数 ``kind`` 可以为数组或多元组，
-   可用来指明在 ``A`` 的不同维度上做不同种类的变换；
-   对未指明的维度使用 ``kind[end]`` 。
+   及它的逆 ``FFTW.HC2R``)，或离散 Hartley 变换（ ``FFTW.DHT`` ）。 
+   参数 ``kind`` 可以为数组或多元组， 
+   可用来指明在 ``A`` 的不同维度上做不同种类的变换； 
+   对未指明的维度使用 ``kind[end]`` 。 
    有关这些变换类型的精确定义，详见 `FFTW 手册 <http://www.fftw.org/doc>`_ 。
 
-   可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、多元组、数组）。
-   ``kind[i]`` 是对维度 ``dims[i]`` 的变换种类。
+   可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、多元组、数组）。 
+   ``kind[i]`` 是对维度 ``dims[i]`` 的变换种类。 
    当 ``i > length(kind)`` 时使用 ``kind[end]`` 。
 
    另见 :func:`FFTW.plan_r2r` ，它制定优化 r2r 的方案。
 
 .. function:: FFTW.r2r!(A, kind [, dims])
 
-   :func:`FFTW.r2r!` 与 :func:`FFTW.r2r` 类似，但在原地对 ``A`` 进行运算。
+   :func:`FFTW.r2r!` 与 :func:`FFTW.r2r` 类似，但在原地对 ``A`` 进行运算。 
    ``A`` 必须是实数或复数的浮点数数组。
 
 .. function:: FFTW.plan_r2r(A, kind [, dims [, flags [, timelimit]]])
 
-   制定优化 r2r 的方案。与 :func:`plan_fft` 类似，但它对应于 :func:`FFTW.r2r` 。
+   制定优化 r2r 的方案。与 :func:`plan_fft` 类似，但它对应于 :func:`FFTW.r2r` 。 
 
 .. function:: FFTW.plan_r2r!(A, kind [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_fft` 类似，但它对应于 :func:`FFTW.r2r!` 。
+   与 :func:`plan_fft` 类似，但它对应于 :func:`FFTW.r2r!` 。 
 
 .. function:: fftshift(x)
 
@@ -2772,7 +2772,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: addprocs_ssh({"host1","host2",...})
 
-   通过 SSH 在远程机器上添加进程。需要在每个节点的相同位置安装 Julia ，
+   通过 SSH 在远程机器上添加进程。需要在每个节点的相同位置安装 Julia ， 
    或者通过共享文件系统可以使用 Julia 。
 
 .. function:: addprocs_sge(n)
@@ -2813,7 +2813,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: put(RemoteRef, value)
 
-   把值存储在 ``RemoteRef`` 中。它的实现符合“共享长度为 1 的队列”：
+   把值存储在 ``RemoteRef`` 中。它的实现符合“共享长度为 1 的队列”： 
    如果现在有一个值，除非值由 ``take`` 函数移除，否则一直阻塞。
 
 .. function:: take(RemoteRef)
@@ -2833,10 +2833,10 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: DArray(init, dims, [procs, dist])
 
-   构造分布式数组。 ``init`` 函数接收索引值范围多元组为参数，
-   此函数为指定的索引值返回分布式数组中对应的块。
-   ``dims`` 为整个分布式数组的大小。
-   ``procs`` 为要使用的处理器 ID 的向量。
+   构造分布式数组。 ``init`` 函数接收索引值范围多元组为参数， 
+   此函数为指定的索引值返回分布式数组中对应的块。 
+   ``dims`` 为整个分布式数组的大小。 
+   ``procs`` 为要使用的处理器 ID 的向量。 
    ``dist`` 是整数向量，指明分布式数组在每个维度上需要划分为多少块。
 
 .. function:: dzeros(dims, ...)
@@ -2880,7 +2880,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: run(command)
 
-   执行命令对象。如果出错或进程退出时为非零状态，将报错。
+   执行命令对象。如果出错或进程退出时为非零状态，将报错。 
    命令是由倒引号引起来的。
 
 .. function:: spawn(command)
@@ -2893,17 +2893,17 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: readsfrom(command)
 
-   异步运行命令，返回 (stream,process) 多元组。
+   异步运行命令，返回 (stream,process) 多元组。 
    第一个值是从进程的标准输出读出的流。
 
 .. function:: writesto(command)
 
-   异步运行命令，返回 (stream,process) 多元组。
+   异步运行命令，返回 (stream,process) 多元组。 
    第一个值是向进程的标准输入写入的流。
 
 .. function:: readandwrite(command)
 
-   异步运行命令，返回 (stdout,stdin,process) 多元组，
+   异步运行命令，返回 (stdout,stdin,process) 多元组， 
    分别为进程的输出流、输入流，及进程本身。
 
 .. function:: >
@@ -2946,7 +2946,7 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: mkdir(path, [mode])
 
-   新建名为 ``path`` 的文件夹，其权限为 ``mode`` 。 ``mode`` 默认为 0o777 ，
+   新建名为 ``path`` 的文件夹，其权限为 ``mode`` 。 ``mode`` 默认为 0o777 ， 
    可通过当前文件创建掩码来修改。
 
 .. function:: rmdir(path)
@@ -2959,17 +2959,17 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
 .. function:: time()
 
-   获取系统自 1970-01-01 00:00:00 UTC 起至今的秒数。
+   获取系统自 1970-01-01 00:00:00 UTC 起至今的秒数。 
    结果是高解析度（一般为微秒 :math:`10^{-6}` ）的。
 
 .. function:: time_ns()
 
-   获取时间，单位为纳秒 :math:`10^{-9}` 。
+   获取时间，单位为纳秒 :math:`10^{-9}` 。 
    对应于 0 的时间是未定义的，计时时间 5.8 年为最长周期。
 
 .. function:: tic()
 
-   设置计时器， :func:`toc` 或 :func:`toq` 会调用它所计时的时间。
+   设置计时器， :func:`toc` 或 :func:`toq` 会调用它所计时的时间。 
    也可以使用 ``@time expr`` 宏来计算时间。
 
 .. function:: toc()
@@ -2993,8 +2993,8 @@ C 接口
 
 .. function:: ccall( (symbol, library), RetType, (ArgType1, ...), ArgVar1, ...)
 
-   调用从 C 导出的共享库的函数，它由 (函数名, 共享库名) 多元组
-   （字符串或 :Symbol ）指明。 ccall 也可用来调用由 dlsym 返回的函数指针，
+   调用从 C 导出的共享库的函数，它由 (函数名, 共享库名) 多元组 
+   （字符串或 :Symbol ）指明。 ccall 也可用来调用由 dlsym 返回的函数指针， 
    但由于将来想实现静态编译，不提倡这种用法。
 
 .. function:: cfunction(fun::Function, RetType::Type, (ArgTypes...))
@@ -3005,12 +3005,12 @@ C 接口
 
    载入共享库，返回不透明句柄。
 
-   可选参数为 0 或者是 RTLD_LOCAL, RTLD_GLOBAL, RTLD_LAZY, RTLD_NOW,
-   RTLD_NODELETE, RTLD_NOLOAD, RTLD_DEEPBIND, RTLD_FIRST 等参数的位或。
-   它们被转换为对应的 POSIX dlopen 命令的标志位；
-   如果当前平台不支持某个特性，则忽略。
-   默认值为 RTLD_LAZY|RTLD_DEEPBIND|RTLD_LOCAL 。
-   在 POSIX 平台上，这些标志位的重要用途是当共享库之间有依赖关系时，
+   可选参数为 0 或者是 RTLD_LOCAL, RTLD_GLOBAL, RTLD_LAZY, RTLD_NOW, 
+   RTLD_NODELETE, RTLD_NOLOAD, RTLD_DEEPBIND, RTLD_FIRST 等参数的位或。 
+   它们被转换为对应的 POSIX dlopen 命令的标志位； 
+   如果当前平台不支持某个特性，则忽略。 
+   默认值为 RTLD_LAZY|RTLD_DEEPBIND|RTLD_LOCAL 。 
+   在 POSIX 平台上，这些标志位的重要用途是当共享库之间有依赖关系时， 
    指明 RTLD_LAZY|RTLD_DEEPBIND|RTLD_GLOBAL 来使库的符号可被其它共享库使用。
 
 .. function:: dlsym(handle, sym)
@@ -3047,8 +3047,8 @@ C 接口
 
 .. function:: pointer_to_array(p, dims[, own])
 
-   将原生指针封装为 Julia 数组对象。指针元素的类型决定了数组元素的类型。
-   ``own`` 可选项指明 Julia 是否可以控制内存，
+   将原生指针封装为 Julia 数组对象。指针元素的类型决定了数组元素的类型。 
+   ``own`` 可选项指明 Julia 是否可以控制内存， 
    当数组不再被引用时调用 ``free`` 释放指针。
 
 错误
@@ -3083,7 +3083,7 @@ C 接口
 
 .. function:: yieldto(task, args...)
 
-   跳转到指定的任务。第一次跳转到某任务时，使用 ``args`` 参数来调用任务的函数。
+   跳转到指定的任务。第一次跳转到某任务时，使用 ``args`` 参数来调用任务的函数。 
    在后续的跳转时， ``args`` 被任务的最后一个调用返回到 ``yieldto`` 。
 
 .. function:: current_task()
