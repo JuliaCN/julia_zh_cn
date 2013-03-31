@@ -29,5 +29,6 @@
    parallel-computing
    running-external-programs
    calling-c-and-fortran-code
+   packages
    performance-tips
 

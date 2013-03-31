@@ -221,6 +221,10 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
    由下对角线、主对角线、上对角线来构造三对角矩阵
 
+.. function:: Bidiagonal(dv, ev, isupper)
+
+   Constructs an upper (isupper=true) or lower (isupper=false) bidiagonal matrix using the given diagonal (dv) and off-diagonal (ev) vectors
+
 .. function:: Woodbury(A, U, C, V)
 
    构造 Woodbury matrix identity 格式的矩阵。
