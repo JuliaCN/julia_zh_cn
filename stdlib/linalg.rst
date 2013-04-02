@@ -128,12 +128,19 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
    返回  ``A`` 的特征值。
 
+.. function:: eigmax(A)
+
+   Returns the largest eigenvalue of ``A``.
+
+.. function:: eigmin(A)
+
+   Returns the smallest eigenvalue of ``A``.
+
 .. function:: eigvecs(A, [eigvals])
 
    返回  ``A`` 的特征向量。
 
-   如果指明了可选项 ``eigvals`` 特征值，返回对应的特征向量。 
-   现在，此可选项只适用于对称三对角线矩阵 SymTridiagonal 。
+   对于对称三对角线矩阵 SymTridiagonal, 如果指明了可选项 ``eigvals`` 特征值，返回对应的特征向量。
 
 .. function:: eigfact(A)
 
