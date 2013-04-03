@@ -3395,15 +3395,32 @@
 
 "),
 
-("统计","Base","hist","hist(v[, n])
+("统计","Base","hist","hist(v[, n]) -> e, counts
 
-   计算 \"v\" 的直方图，可以指定划分为 \"n\" 个区间。
+   计算 \"v\" 的直方图，可以指定划大致分为 \"n\" 个区间。 返回值为范围 \"e\" ，对应于区间的边缘，
+   \"counts\" 为每个区间中 \"v\" 的元素个数。
 
 "),
 
-("统计","Base","hist","hist(v, e)
+("统计","Base","hist","hist(v, e) -> e, counts
 
-   计算 \"v\" 的直方图，使用向量 \"e\" 指定区间的边界。
+   结果为长为 \"length(e)-1\" 的向量，且第 \"i\" 个元素满足 \"sum(e[i] .< v .<=
+   e[i+1])\"
+
+"),
+
+("统计","Base","histrange","histrange(v, n)
+
+   Compute *nice* bin ranges for the edges of a histogram of \"v\",
+   using approximately \"n\" bins. The resulting step sizes will be 1,
+   2 or 5 multiplied by a power of 10.
+
+"),
+
+("统计","Base","midpoints","midpoints(e)
+
+   Compute the midpoints of the bins with edges \"e\". The result is a
+      vector/range of length \"length(e) - 1\".
 
 "),
 
