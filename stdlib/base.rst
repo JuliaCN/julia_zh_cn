@@ -737,11 +737,11 @@
 
 .. function:: ind2chr(string, i)
 
-   给出字符串中递增至索引值 i 的字符数。
+   给出字符串中索引值为 i 的字节所在的字符的索引值。
 
 .. function:: chr2ind(string, i)
 
-   给出字符串中第 i 个字符的索引值。
+   给出字符串中索引为 i 的字符对应的（第一个）字节的索引值。
 
 .. function:: isvalid(str, i)
 
