@@ -195,6 +195,12 @@
 
 "),
 
+("类型","Base","<:","<:(T1, T2)
+
+   子类型运算符，等价于 \"subtype(T1,T2)\" 。
+
+"),
+
 ("类型","Base","typemin","typemin(type)
 
    指定（实数）数值类型可表示的最小值。
@@ -254,9 +260,8 @@
 
 ("类型","Base","getfield","getfield(value, name::Symbol)
 
-   Extract a named field from a value of composite type. The syntax
-   \"a.b\" calls \"getfield(a, :b)\", and the syntax \"a.(b)\" calls
-   \"getfield(a, b)\".
+   从复合类型的 value 中提取命名域。 \"a.b\" 语法调用 \"getfield(a, :b)\" ， \"a.(b)\"
+   语法调用 \"getfield(a, b)\" 。
 
 "),
 
@@ -1490,6 +1495,25 @@
 ("数学函数","Base",">>",">>(x, n)
 
    右移运算符。
+
+"),
+
+("数学函数","Base",">>>",">>>(x, n)
+
+   无符号右移运算符。
+
+"),
+
+("数学函数","Base",":",":(start[, step], stop)
+
+   范围运算符。 \"a:b\" 构造一个步长为 1 ，从 \"a\" 到 \"b\" 的范围。 \"a:s:b\" 构造步长为
+   \"s\" 的范围。此语法调用函数 \"colon\" 。 冒号也用于索引来选定全部维度。
+
+"),
+
+("数学函数","Base","colon","colon(start[, step], stop)
+
+   由 \":\" 语法调用，用于构造范围。
 
 "),
 
@@ -3984,6 +4008,13 @@
 
 "),
 
+("系统","Base","mkpath","mkpath(path[, mode])
+
+   创建指定路径 \"path\" 中的所有文件夹，其权限为 \"mode\" 。 \"mode\" 默认为 0o777
+   ，可通过当前文件创建掩码来修改。
+
+"),
+
 ("系统","Base","rmdir","rmdir(path)
 
    删除 \"path\" 文件夹。
@@ -4334,6 +4365,64 @@
 ("文件系统","Base","iswriteable","iswriteable(path) -> Bool
 
    如果当前用户对 \"path\" 有写权限，则返回 \"true\" ；否则返回 \"false\" 。
+
+"),
+
+("文件系统","Base","dirname","dirname(path::String) -> String
+
+   获取路径的目录部分。
+
+"),
+
+("文件系统","Base","basename","basename(path::String) -> String
+
+   获取路径的文件名部分。
+
+"),
+
+("文件系统","Base","isabspath","isabspath(path::String) -> Bool
+
+   Determines whether a path is absolute (begins at the root
+   directory).
+
+"),
+
+("文件系统","Base","joinpath","joinpath(parts...) -> String
+
+   Join path components into a full path. If some argument is an
+   absolute path, then prior components are dropped.
+
+"),
+
+("文件系统","Base","abspath","abspath(path::String) -> String
+
+   Convert a path to an absolute path by adding the current directory
+   if necessary.
+
+"),
+
+("文件系统","Base","tempname","tempname()
+
+   生成唯一的临时文件名。
+
+"),
+
+("文件系统","Base","tempdir","tempdir()
+
+   Obtain the path of a temporary directory.
+
+"),
+
+("文件系统","Base","mktemp","mktemp()
+
+   Returns \"(path, io)\", where \"path\" is the path of a new
+   temporary file and \"io\" is an open file object for this path.
+
+"),
+
+("文件系统","Base","mktempdir","mktempdir()
+
+   Create a temporary directory and return its path.
 
 "),
 

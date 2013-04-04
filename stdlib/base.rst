@@ -156,6 +156,10 @@
    仅在 ``type1`` 的所有值都是 ``type2`` 时为真。也可使用 ``<:`` 中缀运算符， 
    写为 ``type1 <: type2`` 。
 
+.. function:: <:(T1, T2)
+
+   子类型运算符，等价于 ``subtype(T1,T2)`` 。
+
 .. function:: typemin(type)
 
    指定（实数）数值类型可表示的最小值。
@@ -197,8 +201,8 @@
 
 .. function:: getfield(value, name::Symbol)
 
-   Extract a named field from a value of composite type. The syntax ``a.b`` calls
-   ``getfield(a, :b)``, and the syntax ``a.(b)`` calls ``getfield(a, b)``.
+   从复合类型的 value 中提取命名域。 ``a.b`` 语法调用 ``getfield(a, :b)`` ，
+   ``a.(b)`` 语法调用 ``getfield(a, b)`` 。
 
 .. function:: setfield(value, name::Symbol, x)
 
@@ -1149,6 +1153,20 @@ I/O
 .. function:: >>(x, n)
 
    右移运算符。
+
+.. function:: >>>(x, n)
+
+   无符号右移运算符。
+
+.. function:: :(start, [step], stop)
+
+   范围运算符。 ``a:b`` 构造一个步长为 1 ，从 ``a`` 到 ``b`` 的范围。
+   ``a:s:b`` 构造步长为 ``s`` 的范围。此语法调用函数 ``colon`` 。
+   冒号也用于索引来选定全部维度。
+
+.. function:: colon(start, [step], stop)
+
+   由 ``:`` 语法调用，用于构造范围。
 
 .. function:: ==(x, y)
 
@@ -2968,6 +2986,11 @@ Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ �
 
    新建名为 ``path`` 的文件夹，其权限为 ``mode`` 。 ``mode`` 默认为 0o777 ， 
    可通过当前文件创建掩码来修改。
+
+.. function:: mkpath(path, [mode])
+
+   创建指定路径 ``path`` 中的所有文件夹，其权限为 ``mode`` 。
+   ``mode`` 默认为 0o777 ，可通过当前文件创建掩码来修改。
 
 .. function:: rmdir(path)
 
