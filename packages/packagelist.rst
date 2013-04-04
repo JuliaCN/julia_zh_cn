@@ -471,6 +471,7 @@ _________________________________________
   依赖关系： ::
 
       BinDeps        任意版本
+      julia          [v"0.1.0-"]
 
   贡献者：
 
@@ -545,7 +546,7 @@ ________________________________________________
 
   依赖关系： ::
 
-      无
+      Iterators      任意版本
 
   贡献者：
 
@@ -615,11 +616,11 @@ ________________________________________________
         :alt: Daniel Jones
         :target: https://github.com/dcjones
 
-    .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+    .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: Stefan Karpinski
-        :target: https://github.com/StefanKarpinski
+        :alt: Tim Holy
+        :target: https://github.com/timholy
 
     .. image:: https://secure.gravatar.com/avatar/b4b8db23d8096b722483a57d21b7d65d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -627,11 +628,11 @@ ________________________________________________
         :alt: Jeff Bezanson
         :target: https://github.com/JeffBezanson
 
-    .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+    .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: Tim Holy
-        :target: https://github.com/timholy
+        :alt: Stefan Karpinski
+        :target: https://github.com/StefanKarpinski
 
 ----
 
@@ -1517,6 +1518,38 @@ ___________________________________________________________
 
 ----
 
+`GLFW <https://github.com/jayschwa/GLFW.jl>`_
+_____________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/805857de807ffc1b543e807f727d05c6?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Jay Weisskopf
+     :target: https://github.com/jayschwa
+
+  当前版本： ``0.0.0``
+
+  GLFW bindings for Julia. GLFW is a multi-platform library for opening a window, creating an OpenGL context, and managing input. 
+
+  维护者： `Jay Weisskopf <https://github.com/jayschwa>`_
+
+  文档： `<http://www.glfw.org/>`_ 
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/805857de807ffc1b543e807f727d05c6?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Jay Weisskopf
+        :target: https://github.com/jayschwa
+
+----
+
 `GLM <https://github.com/JuliaStats/GLM.jl>`_
 _____________________________________________
 
@@ -1832,6 +1865,39 @@ ______________________________________________
         :width: 40px
         :alt: Robert Ennis
         :target: https://github.com/rennis250
+
+----
+
+`GoogleCharts <https://github.com/jverzani/GoogleCharts.jl>`_
+_____________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/8f514187144b1b19b0205fce41284d32?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: john verzani
+     :target: https://github.com/jverzani
+
+  当前版本： ``0.0.0``
+
+  Julia interface to Google Chart Tools 
+
+  维护者： `john verzani <https://github.com/jverzani>`_
+
+  依赖关系： ::
+
+      Calendar       任意版本
+      DataFrames     任意版本
+      JSON           任意版本
+      Mustache       任意版本
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/8f514187144b1b19b0205fce41284d32?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: john verzani
+        :target: https://github.com/jverzani
 
 ----
 
@@ -2216,6 +2282,48 @@ ________________________________________________
 
 ----
 
+`ImmutableArrays <https://github.com/twadleigh/ImmutableArrays.jl>`_
+____________________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/9553bee3aa95ce13310db4f5f70acc62?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Tracy Wadleigh
+     :target: https://github.com/twadleigh
+
+  当前版本： ``0.0.0``
+
+  Statically-sized immutable vectors and matrices. 
+
+  维护者： `Tracy Wadleigh <https://github.com/twadleigh>`_
+
+  依赖关系： ::
+
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/9553bee3aa95ce13310db4f5f70acc62?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tracy Wadleigh
+        :target: https://github.com/twadleigh
+
+    .. image:: https://secure.gravatar.com/avatar/805857de807ffc1b543e807f727d05c6?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Jay Weisskopf
+        :target: https://github.com/jayschwa
+
+    .. image:: https://secure.gravatar.com/avatar/cd90bb9515507b0f998f7e5dbccbd238?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Olli Wilkman
+        :target: https://github.com/dronir
+
+----
+
 `IniFile <https://github.com/JuliaLang/IniFile.jl>`_
 ____________________________________________________
 
@@ -2426,6 +2534,36 @@ __________________________________________
         :width: 40px
         :alt: Daniel Jones
         :target: https://github.com/dcjones
+
+----
+
+`JudyDicts <https://github.com/tanmaykm/JudyDicts.jl>`_
+_______________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/eea0b193dae8ac47946202ee404a6d7a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Tanmay Mohapatra
+     :target: https://github.com/tanmaykm
+
+  当前版本： ``0.0.0``
+
+  Judy Array for Julia 
+
+  维护者： `Tanmay Mohapatra <https://github.com/tanmaykm>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/eea0b193dae8ac47946202ee404a6d7a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tanmay Mohapatra
+        :target: https://github.com/tanmaykm
 
 ----
 
@@ -2884,7 +3022,7 @@ ___________________________________________________
 
       Clp            任意版本
       CoinMP         任意版本
-      julia          [v"0.1.0-"]
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -2893,6 +3031,36 @@ ___________________________________________________
         :width: 40px
         :alt: Iain Dunning
         :target: https://github.com/IainNZ
+
+    .. image:: https://secure.gravatar.com/avatar/b0cf54b8431443687735cb486599ea9c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Miles Lubin
+        :target: https://github.com/mlubin
+
+----
+
+`MathProgBase <https://github.com/mlubin/MathProgBase.jl>`_
+___________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/b0cf54b8431443687735cb486599ea9c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Miles Lubin
+     :target: https://github.com/mlubin
+
+  当前版本： ``0.0.0``
+
+  Provides standard interface to linear programming solvers, including linprog function. 
+
+  维护者： `Miles Lubin <https://github.com/mlubin>`_
+
+  依赖关系： ::
+
+      julia          [v"0.1.0-"]
+
+  贡献者：
 
     .. image:: https://secure.gravatar.com/avatar/b0cf54b8431443687735cb486599ea9c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -2958,6 +3126,7 @@ __________________________________________________________
 
       Distributions  任意版本
       NLopt          任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -3715,6 +3884,12 @@ _____________________________________________________________
         :alt: dmbates
         :target: https://github.com/dmbates
 
+    .. image:: https://secure.gravatar.com/avatar/62df30beab9c2a6f3fe3f86995e94387?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: David de Laat
+        :target: https://github.com/daviddelaat
+
 ----
 
 `RNGTest <https://github.com/andreasnoackjensen/RNGTest.jl>`_
@@ -3979,6 +4154,36 @@ ________________________________________________________________________________
 
 ----
 
+`SimJulia <https://github.com/BenLauwens/SimJulia.jl>`_
+_______________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/d90d902f9f64a30155b8a87441615cc2?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Ben Lauwens
+     :target: https://github.com/BenLauwens
+
+  当前版本： ``0.0.0``
+
+  Process oriented simulation library written in Julia 
+
+  维护者： `Ben Lauwens <https://github.com/BenLauwens>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/d90d902f9f64a30155b8a87441615cc2?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Ben Lauwens
+        :target: https://github.com/BenLauwens
+
+----
+
 `Sims <https://github.com/tshort/Sims.jl>`_
 ___________________________________________
 
@@ -4074,6 +4279,12 @@ ______________________________________________
         :width: 40px
         :alt: Patrick O'Leary
         :target: https://github.com/pao
+
+    .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Keno Fischer
+        :target: https://github.com/loladiro
 
     .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -4590,7 +4801,7 @@ ______________________________________________
      :alt: Daniel Casimiro
      :target: https://github.com/dancasimiro
 
-  当前版本： ``0.0.0``
+  当前版本： ``0.1.0``
 
   Julia package for working with WAV files 
 
@@ -4599,6 +4810,7 @@ ______________________________________________
   依赖关系： ::
 
       Options        任意版本
+      julia          [v"0.1.0-", v"0.2.0-"]
 
   贡献者：
 
@@ -4781,4 +4993,4 @@ _________________________________________________
 
 ----
 
-.. footer: 126 packages, generated 31 Mar 2013 10:28:32 GMT+01:00 
+.. footer: 132 packages, generated 3 Apr 2013 11:25:16 GMT+01:00 

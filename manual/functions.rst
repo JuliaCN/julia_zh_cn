@@ -257,6 +257,75 @@ Julia 支持简单的多元组“析构”来给变量赋值： ::
 
 但如果输入的参数个数不对，函数调用会失败。
 
+Optional Arguments
+------------------
+
+In many cases, function arguments have sensible default values and therefore
+might not need to be passed explicitly in every call. For example, the
+library function ``parseint(num,base)`` interprets a string as a number
+in some base. The ``base`` argument defaults to ``10``. This behavior can be
+expressed concisely as::
+
+    function parseint(num, base=10)
+        ###
+    end
+
+With this definition, the function can be called with either one or two
+arguments, and ``10`` is automatically passed when a second argument is not
+specified::
+
+    julia> parseint("12",10)
+    12
+
+    julia> parseint("12",3)
+    5
+
+    julia> parseint("12")
+    12
+
+Optional arguments are actually just a convenient syntax for writing
+multiple method definitions with different numbers of arguments
+(see :ref:`man-methods`).
+
+
+Named Arguments
+---------------
+
+Some functions need a large number of arguments, or have a large number of
+behaviors. Remembering how to call such functions can be difficult. Named
+arguments, also called keyword arguments, can make these complex interfaces
+easier to use and extend by allowing arguments to be identified by name
+instead of only by position.
+
+For example, consider a function ``plot`` that
+plots a line. This function might have many options, for controlling line
+style, width, color, and so on. If it accepts named arguments, a possible
+call might look like ``plot(x, y, width=2)``, where we have chosen to
+specify only line width. Notice that this serves two purposes. The call is
+easier to read, since we can label an argument with its meaning. It also
+becomes possible to pass any subset of a large number of arguments, in
+any order.
+
+Functions with named arguments are defined using a semicolon in the
+signature::
+
+    function plot(x, y; style="solid", width=1, color="black")
+        ###
+    end
+
+Extra named arguments can be collected using ``...``, as in varargs
+functions::
+
+    function f(x; args...)
+        ###
+    end
+
+Inside ``f``, ``args`` will be a collection of ``(key,value)`` tuples,
+where each ``key`` is a symbol. Such collections can be passed as named
+arguments using a semicolon in a call, ``f(x; k...)``. Dictionaries
+can be used for this purpose.
+
+
 函数参数的块儿语法
 ------------------
 
@@ -294,9 +363,3 @@ Julia 提供了保留字 ``do`` 来重写这种代码，使之更清晰： ::
     end
 
 ``cd`` 函数的参数不需要任何参数，而是一块儿代码。 ``open`` 的函数参数接收打开文件的句柄。
-
-
-命名的函数参数（可选参数）
---------------------------
-
-一些复杂函数可能有很多参数。这种情况下，按照指定顺序提供很长的参数列表，很不方便。这种情况下可以通过 :mod:`options.jl` 模块处理。

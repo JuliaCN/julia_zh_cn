@@ -2,11 +2,11 @@
 
 这是 `Julia` 语言的中文文档，可以 [在线阅读](http://julia_zh_cn.readthedocs.org) 。
 
-翻译已完工，欢迎大伙儿来修订。扩展包部分就暂时不翻译了，反正大家如果要使用，也得看英文文档。
+欢迎大伙儿来修订文档。扩展包部分就暂时不翻译了，反正大家如果要使用，也得看英文文档。
 
 需要翻译的就是 `manual/` 及 `stdlib/` 下的所有文档。仅翻译的话，什么都不用安装，直接找到要修改的文件，点击 `Edit` ，编辑好后提交即可。对 git 熟悉的请使用 git 。
 
-本翻译项目追随 [Julia 源代码](https://github.com/JuliaLang/julia) 的 master 分支。对其余分支（如已发行版的维护分支）的支持，暂不能保证（总是忘记 fork ）。
+本翻译项目追随 [Julia 源代码](https://github.com/JuliaLang/julia) 的 master 分支。对其余分支（如已发行版的维护分支）的支持，暂不能保证（总是忘记 git checkout ）。
 
 ## 文件布局
 

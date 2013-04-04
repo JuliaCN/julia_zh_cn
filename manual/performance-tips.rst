@@ -49,6 +49,27 @@
 
 假如我们知道 ``a`` 的一个元素是 ``Int32`` 类型的，那就添加上这样的类型声明吧。如果这个元素不是这个类型，在运行时就会报错，这有助于调试代码。
 
+Declare types of named arguments
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Named arguments can have declared types::
+
+    function with_named(x; name::Int = 1)
+        ...
+    end
+
+Functions are specialized on the types of named arguments, so these
+declarations will not affect performance of code inside the function.
+However, they will reduce the overhead of calls to the function that
+include named arguments.
+
+Functions with named arguments have near-zero overhead for call sites
+that pass only positional arguments.
+
+Passing dynamic lists of named arguments, as in ``f(x; names...)``,
+can be slow and should be avoided in performance-sensitive code.
+
+
 把函数变为多个定义
 ------------------
 
@@ -119,7 +140,7 @@ Julia 中还有 ``one`` 函数，以及更通用的 ``oftype(x,y)`` 函数，它
 应该写成::
 
     function fill_twos!(a)
-        for i=1:numel(a)
+        for i=1:length(a)
             a[i] = 2
         end
     end

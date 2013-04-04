@@ -195,6 +195,22 @@
    可以容忍有损；如 ``promote_type(Int64,Float64)`` 返回 ``Float64`` ， 
    尽管严格来说，并非所有的 ``Int64`` 值都可以由 ``Float64`` 无损表示。
 
+.. function:: getfield(value, name::Symbol)
+
+   Extract a named field from a value of composite type. The syntax ``a.b`` calls
+   ``getfield(a, :b)``, and the syntax ``a.(b)`` calls ``getfield(a, b)``.
+
+.. function:: setfield(value, name::Symbol, x)
+
+   Assign ``x`` to a named field in ``value`` of composite type.
+   The syntax ``a.b = c`` calls ``setfield(a, :b, c)``, and the syntax ``a.(b) = c``
+   calls ``setfield(a, b, c)``.
+
+.. function:: fieldtype(value, name::Symbol)
+
+   Determine the declared type of a named field in a value of composite type.
+
+   
 通用函数
 --------
 
@@ -707,11 +723,11 @@
    返回去除尾部空白的 ``string`` 。如果提供了字符串 ``chars`` ， 
    则去除字符串中包含的字符。
 
-.. function:: begins_with(string, prefix)
+.. function:: beginswith(string, prefix)
 
    如果 ``string`` 以 ``prefix`` 开始，则返回 ``true`` 。
 
-.. function:: ends_with(string, suffix)
+.. function:: endswith(string, suffix)
 
    如果 ``string`` 以 ``suffix`` 结尾，则返回 ``true`` 。
 
@@ -1356,11 +1372,13 @@ I/O
 
 .. function:: sinc(x)
 
-   计算 :math:`\sin(\pi x) / x` 。
+   当 :math:`x \neq 0` 时为 :math:`\sin(\pi x) / (\pi x)` ；
+   当 :math:`x = 0` 时为 :math:`1` 。
 
 .. function:: cosc(x)
 
-   计算 :math:`\cos(\pi x) / x` 。
+   当 :math:`x \neq 0` 时为 :math:`\cos(\pi x) / x - \sin(\pi x) / (\pi x^2)` ；
+   当 :math:`x = 0` 时为 :math:`0` 。此函数由 ``sinc(x)`` 而得。
 
 .. function:: degrees2radians(x)
 
@@ -1760,23 +1778,11 @@ I/O
 
    用二进制字符串文本表示一个数。
 
-.. function:: parse_int(type, str, [base])
+.. function:: parseint([type], str, [base])
 
-   将字符串解析为指定类型、指定进制（默认为 10 ）的整数。
+   将字符串解析为指定类型（默认为 ``Int`` ）、指定进制（默认为 10 ）的整数。
 
-.. function:: parse_bin(type, str)
-
-   将字符串解析为指定类型的二进制整数。
-
-.. function:: parse_oct(type, str)
-
-   将字符串解析为指定类型的八进制整数。
-
-.. function:: parse_hex(type, str)
-
-   将字符串解析为指定类型的十六进制整数。
-
-.. function:: parse_float(type, str)
+.. function:: parsefloat([type], str)
 
    将字符串解析为指定类型的十进制浮点数。
 

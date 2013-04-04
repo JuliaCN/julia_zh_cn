@@ -252,6 +252,29 @@
 
 "),
 
+("类型","Base","getfield","getfield(value, name::Symbol)
+
+   Extract a named field from a value of composite type. The syntax
+   \"a.b\" calls \"getfield(a, :b)\", and the syntax \"a.(b)\" calls
+   \"getfield(a, b)\".
+
+"),
+
+("类型","Base","setfield","setfield(value, name::Symbol, x)
+
+   Assign \"x\" to a named field in \"value\" of composite type. The
+   syntax \"a.b = c\" calls \"setfield(a, :b, c)\", and the syntax
+   \"a.(b) = c\" calls \"setfield(a, b, c)\".
+
+"),
+
+("类型","Base","fieldtype","fieldtype(value, name::Symbol)
+
+   Determine the declared type of a named field in a value of
+   composite type.
+
+"),
+
 ("通用函数","Base","method_exists","method_exists(f, tuple) -> Bool
 
    判断指定的通用函数是否有匹配参数类型多元组的方法。
@@ -880,13 +903,13 @@
 
 "),
 
-("字符串","Base","begins_with","begins_with(string, prefix)
+("字符串","Base","beginswith","beginswith(string, prefix)
 
    如果 \"string\" 以 \"prefix\" 开始，则返回 \"true\" 。
 
 "),
 
-("字符串","Base","ends_with","ends_with(string, suffix)
+("字符串","Base","endswith","endswith(string, suffix)
 
    如果 \"string\" 以 \"suffix\" 结尾，则返回 \"true\" 。
 
@@ -924,13 +947,13 @@
 
 ("字符串","Base","ind2chr","ind2chr(string, i)
 
-   给出字符串中递增至索引值 i 的字符数。
+   给出字符串中索引值为 i 的字节所在的字符的索引值。
 
 "),
 
 ("字符串","Base","chr2ind","chr2ind(string, i)
 
-   给出字符串中第 i 个字符的索引值。
+   给出字符串中索引为 i 的字符对应的（第一个）字节的索引值。
 
 "),
 
@@ -1802,13 +1825,14 @@
 
 ("数学函数","Base","sinc","sinc(x)
 
-   计算 \\sin(\\pi x) / x 。
+   当 x \\neq 0 时为 \\sin(\\pi x) / (\\pi x) ； 当 x = 0 时为 1 。
 
 "),
 
 ("数学函数","Base","cosc","cosc(x)
 
-   计算 \\cos(\\pi x) / x 。
+   当 x \\neq 0 时为 \\cos(\\pi x) / x - \\sin(\\pi x) / (\\pi x^2) ； 当 x
+   = 0 时为 0 。此函数由 \"sinc(x)\" 而得。
 
 "),
 
@@ -2390,31 +2414,13 @@
 
 "),
 
-("数据格式","Base","parse_int","parse_int(type, str[, base])
+("数据格式","Base","parseint","parseint([type], str[, base])
 
-   将字符串解析为指定类型、指定进制（默认为 10 ）的整数。
-
-"),
-
-("数据格式","Base","parse_bin","parse_bin(type, str)
-
-   将字符串解析为指定类型的二进制整数。
+   将字符串解析为指定类型（默认为 \"Int\" ）、指定进制（默认为 10 ）的整数。
 
 "),
 
-("数据格式","Base","parse_oct","parse_oct(type, str)
-
-   将字符串解析为指定类型的八进制整数。
-
-"),
-
-("数据格式","Base","parse_hex","parse_hex(type, str)
-
-   将字符串解析为指定类型的十六进制整数。
-
-"),
-
-("数据格式","Base","parse_float","parse_float(type, str)
+("数据格式","Base","parsefloat","parsefloat([type], str)
 
    将字符串解析为指定类型的十进制浮点数。
 
