@@ -260,22 +260,17 @@ Julia 的所有标准函数和运算符，如前面提到的 ``+`` 函数，都�
 
 ``same_type_numeric`` 函数与 ``same_type`` 大致相同，但只应用于数对儿。
 
-Note on Optional and Named Arguments
-------------------------------------
+关于可选参数和命名参数
+----------------------
 
-As mentioned briefly in :ref:`man-functions`, optional arguments are
-implemented as syntax for multiple method definitions. For example,
-this definition::
+:ref:`man-functions` 中曾简略提到，可选参数是可由多方法定义语法的实现。例如： ::
 
     f(a=1,b=2) = a+2b
 
-translates to the following three methods:
+可以翻译为下面三个方法： ::
 
     f(a,b) = a+2b
     f(a) = f(a,2)
     f() = f(1,2)
 
-Named arguments behave quite differently from ordinary positional arguments.
-In particular, they do not participate in method dispatch. Methods are
-dispatched based only on positional arguments, with named arguments processed
-after the matching method is identified.
+命名参数则与普通的与位置有关的参数不同。它们不用于方法重载。方法重载仅基于位置参数，选取了匹配的方法后，才处理命名参数。

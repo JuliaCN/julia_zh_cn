@@ -206,13 +206,13 @@
 
 .. function:: setfield(value, name::Symbol, x)
 
-   Assign ``x`` to a named field in ``value`` of composite type.
-   The syntax ``a.b = c`` calls ``setfield(a, :b, c)``, and the syntax ``a.(b) = c``
-   calls ``setfield(a, b, c)``.
+   为复合类型的 ``value`` 中的命名域赋值 ``x`` 。
+   ``a.b = c`` 语法调用 ``setfield(a, :b, c)`` ，
+   ``a.(b) = c`` 语法调用 ``setfield(a, b, c)``.
 
 .. function:: fieldtype(value, name::Symbol)
 
-   Determine the declared type of a named field in a value of composite type.
+   返回复合类型的 ``value`` 中的命名域 ``name`` 的类型。
 
    
 通用函数

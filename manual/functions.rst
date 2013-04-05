@@ -257,22 +257,16 @@ Julia 支持简单的多元组“析构”来给变量赋值： ::
 
 但如果输入的参数个数不对，函数调用会失败。
 
-Optional Arguments
-------------------
+可选参数
+--------
 
-In many cases, function arguments have sensible default values and therefore
-might not need to be passed explicitly in every call. For example, the
-library function ``parseint(num,base)`` interprets a string as a number
-in some base. The ``base`` argument defaults to ``10``. This behavior can be
-expressed concisely as::
+很多时候，函数参数都有默认值。例如，库函数 ``parseint(num,base)`` 把字符串解析为某个进制的数。 ``base`` 参数默认为 ``10`` 。这种情形可以写为： ::
 
     function parseint(num, base=10)
         ###
     end
 
-With this definition, the function can be called with either one or two
-arguments, and ``10`` is automatically passed when a second argument is not
-specified::
+这时，调用函数时，参数可以是一个或两个。当第二个参数未指明时，自动传递 ``10`` ： ::
 
     julia> parseint("12",10)
     12
@@ -283,47 +277,29 @@ specified::
     julia> parseint("12")
     12
 
-Optional arguments are actually just a convenient syntax for writing
-multiple method definitions with different numbers of arguments
-(see :ref:`man-methods`).
+可选参数很方便参数个数不同的多方法定义（详见 :ref:`man-methods` ）。
 
 
-Named Arguments
----------------
+命名参数
+--------
 
-Some functions need a large number of arguments, or have a large number of
-behaviors. Remembering how to call such functions can be difficult. Named
-arguments, also called keyword arguments, can make these complex interfaces
-easier to use and extend by allowing arguments to be identified by name
-instead of only by position.
+有些函数的参数个数很多，或者有很多行为。很难记住如何调用这种函数。命名参数，也称为关键词参数，允许通过参数名来区分参数，便于使用、扩展这些复杂接口。
 
-For example, consider a function ``plot`` that
-plots a line. This function might have many options, for controlling line
-style, width, color, and so on. If it accepts named arguments, a possible
-call might look like ``plot(x, y, width=2)``, where we have chosen to
-specify only line width. Notice that this serves two purposes. The call is
-easier to read, since we can label an argument with its meaning. It also
-becomes possible to pass any subset of a large number of arguments, in
-any order.
+例如，函数 ``plot`` 用于画出一条线。此函数有许多可选项，控制线的类型、宽度、颜色等。如果它接收命名参数，我们要指明线的宽度时，可以调用 ``plot(x, y, width=2)`` 之类的形式。这样的调用方法给参数添加了标签，便于阅读；也可以按任何顺序传递部分参数。
 
-Functions with named arguments are defined using a semicolon in the
-signature::
+使用命名参数的函数，在函数签名中使用分号来定义： ::
 
     function plot(x, y; style="solid", width=1, color="black")
         ###
     end
 
-Extra named arguments can be collected using ``...``, as in varargs
-functions::
+额外的命名参数，可以像变参函数中一样，使用 ``...`` 来匹配： ::
 
     function f(x; args...)
         ###
     end
 
-Inside ``f``, ``args`` will be a collection of ``(key,value)`` tuples,
-where each ``key`` is a symbol. Such collections can be passed as named
-arguments using a semicolon in a call, ``f(x; k...)``. Dictionaries
-can be used for this purpose.
+在 ``f`` 内部， ``args`` 可以是 ``(key,value)`` 多元组的集合，其中 ``key`` 是符号。可以在函数调用时使用分号来传递这个集合,如 ``f(x; k...)`` 。也可以使用字典。
 
 
 函数参数的块儿语法

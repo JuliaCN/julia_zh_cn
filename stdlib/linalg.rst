@@ -130,17 +130,18 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: eigmax(A)
 
-   Returns the largest eigenvalue of ``A``.
+   返回 ``A`` 的最大的特征值。
 
 .. function:: eigmin(A)
 
-   Returns the smallest eigenvalue of ``A``.
+   返回 ``A`` 的最小的特征值。
 
 .. function:: eigvecs(A, [eigvals])
 
    返回  ``A`` 的特征向量。
 
-   对于对称三对角线矩阵 SymTridiagonal, 如果指明了可选项 ``eigvals`` 特征值，返回对应的特征向量。
+   对于对称三对角线矩阵 SymTridiagonal, 
+   如果指明了可选项 ``eigvals`` 特征值，返回对应的特征向量。
 
 .. function:: eigfact(A)
 
@@ -230,7 +231,8 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: Bidiagonal(dv, ev, isupper)
 
-   Constructs an upper (isupper=true) or lower (isupper=false) bidiagonal matrix using the given diagonal (dv) and off-diagonal (ev) vectors
+   使用指定的对角线 (dv) 和非对角线 (ev) 向量，
+   构造上(isupper=true)或下(isupper=false) 双对角线矩阵。
 
 .. function:: Woodbury(A, U, C, V)
 
