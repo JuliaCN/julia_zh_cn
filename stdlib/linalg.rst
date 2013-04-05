@@ -33,19 +33,19 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
    对 ``A`` 做 LU 分解，满足 ``P*A = L*U`` 。
 
-.. function:: lufact(A) -> LUDense 或 UmfpackLU
+.. function:: lufact(A) -> LU
 
-   对 ``A`` 做 LU 分解。若 ``A`` 为稠密矩阵，返回 ``LUDense`` 对象； 
+   对 ``A`` 做 LU 分解。若 ``A`` 为稠密矩阵，返回 ``LU`` 对象； 
    若 ``A`` 为稀疏矩阵，返回 ``UmfpackLU`` 对象。 
    分解结果 ``F`` 的独立分量是可以被索引的： ``F[:L]``, ``F[:U]``, 
    及 ``F[:P]`` （置换矩阵）或 ``F[:p]`` （置换向量）。 
    ``UmfpackLU`` 对象还有额外的 ``F[:q]`` 分量（ left 置换向量） 
    及缩放因子 ``F[:Rs]`` 向量。 
-   ``LUDense`` 对象和 ``UmfpackLU`` 对象可使用下列函数： 
+   ``LU`` 对象和 ``UmfpackLU`` 对象可使用下列函数： 
    ``size``, ``\`` 和 ``det`` 。 ``LUDense`` 对象还可以使用 ``inv`` 方法。 
    稀疏 LU 分解中， ``L*U`` 等价于 ``diagmm(Rs,A)[p,q]`` 。
 
-.. function:: lufact!(A) -> LUDense
+.. function:: lufact!(A) -> LU
 
    ``lufact!`` 与 ``lufact`` 类似，但它覆写输入 A ，而非构造浅拷贝。 
    对稀疏矩阵 ``A`` ，它并不覆写 ``nzval`` 域，仅覆写索引值域， 
@@ -58,28 +58,28 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
    如果 ``LU`` 为 ``L`` （下三角）， ``A = L*L'`` 。 
    如果 ``LU`` 为 ``U`` （下三角）， ``A = R'*R`` 。
 
-.. function:: cholfact(A, [LU]) -> CholeskyDense
+.. function:: cholfact(A, [LU]) -> Cholesky
 
-   计算稠密对称正定矩阵 ``A`` 的 Cholesky 分解，返回 ``CholeskyDense`` 对象。 
+   计算稠密对称正定矩阵 ``A`` 的 Cholesky 分解，返回 ``Cholesky`` 对象。 
    ``LU`` 若为 'L' 则使用下三角，若为 'U' 则使用上三角。默认使用 'U' 。 
    可从分解结果 ``F`` 中获取三角矩阵： ``F[:L]`` 和 ``F[:U]`` 。 
-   ``CholeskyDense`` 对象可使用下列函数： ``size``, ``\``, ``inv``, ``det`` 。 
+   ``Cholesky`` 对象可使用下列函数： ``size``, ``\``, ``inv``, ``det`` 。 
    如果矩阵不是正定，会抛出 ``LAPACK.PosDefException`` 错误。
 
-.. function: cholfact!(A, [LU]) -> CholeskyDense
+.. function: cholfact!(A, [LU]) -> Cholesky
 
    ``cholfact!`` 与 ``cholfact`` 类似，但它覆写输入 A ，而非构造浅拷贝。
 
-..  function:: cholpfact(A, [LU]) -> CholeskyPivotedDense
+..  function:: cholpfact(A, [LU]) -> CholeskyPivoted
 
-   计算对称正定矩阵 ``A`` 的主元 Cholesky 分解，返回 ``CholeskyDensePivoted`` 对象。 
+   计算对称正定矩阵 ``A`` 的主元 Cholesky 分解，返回 ``CholeskyPivoted`` 对象。 
    ``LU`` 若为 'L' 则使用下三角，若为 'U' 则使用上三角。默认使用 'U' 。 
    可从分解结果 ``F`` 中获取三角分量： ``F[:L]`` 和 ``F[:U]`` ， 
    置换矩阵和置换向量分布为 ``F[:P]`` 和 ``F[:p]`` 。 
-   ``CholeskyDensePivoted`` 对象可使用下列函数： ``size``, ``\``, ``inv``, ``det`` 。 
+   ``CholeskyPivoted`` 对象可使用下列函数： ``size``, ``\``, ``inv``, ``det`` 。 
    如果矩阵不是满秩，会抛出 ``LAPACK.RankDeficientException`` 错误。
 
-.. function:: cholpfact!(A, [LU]) -> CholeskyPivotedDense
+.. function:: cholpfact!(A, [LU]) -> CholeskyPivoted
 
    ``cholpfact!`` 与 ``cholpfact`` 类似，但它覆写输入 A ，而非构造浅拷贝。
 
@@ -90,9 +90,11 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: qrfact(A)
 
-   对 ``A`` 做 QR 分解，返回 ``QRDense`` 对象。 
+   对 ``A`` 做 QR 分解，返回 ``QR`` 对象。 
    ``factors(qrfact(A))`` 返回 ``Q`` 和 ``R`` 。
-   ``QRDense`` 对象可使用下列函数： ``size``, ``factors``, ``qmulQR``, ``qTmulQR``, ``\`` 。
+   ``QR`` 对象可使用下列函数： ``size``, ``factors``, ``qmulQR``, ``qTmulQR``, ``\`` 。
+   提取的 ``Q`` 是 ``QRPackedQ`` 对象，且为了支持 ``Q`` 与 ``Q'`` 的高效乘法， 
+   重载了 ``*`` 运算符。
 
 .. function:: qrfact!(A)
 
@@ -103,16 +105,16 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
    对 ``A`` 做主元 QR 分解，满足 ``A*P = Q*R`` 。另见 ``qrpfact`` 。
    默认做 ``thin`` 分解。
 
-.. function:: qrpfact(A) -> QRPivotedDense
+.. function:: qrpfact(A) -> QRPivoted
 
-   对 ``A`` 做主元 QR 分解，返回 ``QRDensePivoted`` 对象。 
+   对 ``A`` 做主元 QR 分解，返回 ``QRPivoted`` 对象。 
    可从分解结果 ``F`` 中获取分量：正交矩阵 ``Q`` 为 ``F[:Q]`` ， 
    三角矩阵 ``R`` 为 ``F[:R]`` ，置换矩阵和置换向量分布为 ``F[:P]`` 和 ``F[:p]`` 。 
-   ``QRDensePivoted`` 对象可使用下列函数： ``size``, ``\`` 。 
-   提取的 ``Q`` 是 ``QRDenseQ`` 对象，且为了支持 ``Q`` 与 ``Q'`` 的高效乘法， 
-   重载了 ``*`` 运算符。可以使用 ``full`` 函数将 ``QRDenseQ`` 矩阵转换为普通矩阵。
+   ``QRPivoted`` 对象可使用下列函数： ``size``, ``\`` 。 
+   提取的 ``Q`` 是 ``QRPivotedQ`` 对象，且为了支持 ``Q`` 与 ``Q'`` 的高效乘法， 
+   重载了 ``*`` 运算符。可以使用 ``full`` 函数将 ``QRPivotedQ`` 矩阵转换为普通矩阵。
 
-.. function:: qrpfact!(A) -> QRPivotedDense
+.. function:: qrpfact!(A) -> QRPivoted
 
    ``qrpfact!`` 与 ``qrpfact`` 类似，但它覆写 A 以节约空间，而非构造浅拷贝。
 
@@ -145,35 +147,60 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: eigfact(A)
 
-   对 ``A`` 做特征分解，返回 ``EigenDense`` 对象。可从分解结果 ``F`` 中获取分量： 
+   对 ``A`` 做特征分解，返回 ``Eigen`` 对象。可从分解结果 ``F`` 中获取分量： 
    特征值为 ``F[:values]`` ，特征向量为 ``F[:vectors]`` 。 
-   ``EigenDense`` 对象可使用下列函数： ``inv``, ``det`` 。
+   ``Eigen`` 对象可使用下列函数： ``inv``, ``det`` 。
 
 .. function:: eigfact!(A)
 
    ``eigfact!`` 与 ``eigfact`` 类似，但它覆写输入 A ，而非构造浅拷贝。
-
+   
 .. function:: hessfact(A)
 
-   对 ``A`` 做 Hessenberg 分解，返回 ``HessenbergDense`` 对象。 
+   对 ``A`` 做 Hessenberg 分解，返回 ``Hessenberg`` 对象。 
    如果分解后的结果为 ``F`` ，酉矩阵为 ``F[:Q]`` ， Hessenberg 矩阵为 ``F[:H]`` 。 
-   提取的 ``Q`` 是 ``HessenbergDenseQ`` 对象， 
+   提取的 ``Q`` 是 ``HessenbergQ`` 对象， 
    可以使用 ``full`` 函数将其转换为普通矩阵。
-
+   
 .. function:: hessfact!(A)
 
    ``hessfact!`` 与 ``hessfact`` 类似，但它覆写输入 A ，而非构造浅拷贝。
 
-.. function:: svdfact(A, [thin]) -> SVDDense
+.. function:: schurfact(A) -> Schur
 
-   对 ``A`` 做奇异值分解（SVD），返回 ``SVDDense`` 对象。 
+   对 ``A`` 做 Schur 分解。
+   分解结果 ``Schur`` 对象 ``F`` 的（近似）三角 Schur 因子为 ``F[:Schur]`` 或 ``F[:T]`` ，
+   正交 Schur 向量为 ``F[:vectors]`` 或 ``F[:Z]`` 。
+   满足 ``A=F[:vectors]*F[:Schur]*F[:vectors]'`` 。
+   ``A`` 的特征值为 ``F[:values]`` 。
+
+.. function:: schur(A) -> Schur[:T], Schur[:Z], Schur[:values]
+
+   详见 :func:`schurfact` 。
+
+.. function:: schurfact(A, B) -> GeneralizedSchur
+
+   计算 ``A`` 和 ``B`` 做广义 Schur （或 QZ ）分解。
+   分解结果 ``Schur`` 对象 ``F`` 的（近似）三角 Schur 因子为 ``F[:S]`` 和 ``F[:T]`` ，
+   左正交 Schur 向量为 ``F[:left]`` 或 ``F[:Q]`` ，
+   左正交 Schur 向量为 ``F[:right]`` 或 ``F[:Z]`` 。
+   满足 ``A=F[:left]*F[:S]*F[:right]'`` 及 ``B=F[:left]*F[:T]*F[:right]'`` 。
+   ``A`` 和 ``B`` 做广义特征值为 ``F[:alpha]./F[:beta]`` 。
+
+.. function:: schur(A,B) -> GeneralizedSchur[:S], GeneralizedSchur[:T], GeneralizedSchur[:Q], GeneralizedSchur[:Z]
+
+   详见 :func:`schurfact` 。
+
+.. function:: svdfact(A, [thin]) -> SVD
+
+   对 ``A`` 做奇异值分解（SVD），返回 ``SVD`` 对象。 
    分解结果 ``F`` 的 ``U``, ``S``, ``V`` 和 ``Vt`` 可分别通过 ``F[:U]``, 
    ``F[:S]``, ``F[:V]`` 和 ``F[:Vt]`` 来获得，它们满足 ``A = U*diagm(S)*Vt`` 。 
    如果 ``thin`` 为 ``true`` ，则做节约模式分解。 
    此算法先计算 ``Vt`` ，即 ``V`` 的转置，后者是由前者转置得到的。
    默认做 ``thin`` 分解。
 
-.. function:: svdfact!(A, [thin]) -> SVDDense
+.. function:: svdfact!(A, [thin]) -> SVD
 
    ``svdfact!`` 与 ``svdfact`` 类似，但它覆写 A 以节约空间，而非构造浅拷贝。 
    如果 ``thin`` 为 ``true`` ，则做 ``thin`` 分解。默认做 ``thin`` 分解。
@@ -193,7 +220,7 @@ Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netli
 
 .. function:: svdfact(A, B) -> GSVDDense
 
-   计算 ``A`` 和 ``B`` 的广义 SVD ，返回 ``GSVDDense`` 分解对象。  
+   计算 ``A`` 和 ``B`` 的广义 SVD ，返回 ``GeneralizedSVD`` 分解对象。  
    满足 ``A = U*D1*R0*Q'`` 及 ``B = V*D2*R0*Q'`` 。
    
 .. function:: svd(A, B) -> U, V, Q, D1, D2, R0
