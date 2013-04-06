@@ -60,9 +60,7 @@ Julia 的 `Pkg` 模块提供了安装、管理第三方扩展包的工具。它�
     cd $HOME/.julia/MY_PACKAGE_NAME
     git remote add github https://github.com/MY_GITHUB_USER/MY_PACKAGE_NAME.jl
  
-6. 至少添加一个 git commit ，并把它提交到远程仓库。
-
-.. code:: bash
+6. 至少添加一个 git commit ，并把它提交到远程仓库： ::
 
     # Do some stuff
     git add #new files
@@ -84,6 +82,13 @@ Julia 的 `Pkg` 模块提供了安装、管理第三方扩展包的工具。它�
 
 分发新扩展包或扩展包的新版本
 ----------------------------
+0. 确认在 Github 上 fork 了 METADATA.jl ，且本地也有 METADATA 仓库。后者应切换到 `devel` 分支： ::
+
+    cd $HOME/.julia/METADATA
+    git fetch --all
+    git checkout devel
+    git rebase origin/devel
+    git push github devel
 
 1. 在 Julia 中定位本地 METADATA ： ::
 
