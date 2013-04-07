@@ -187,6 +187,42 @@ Julia `类型系统 <http://zh.wikipedia.org/zh-cn/%E9%A1%9E%E5%9E%8B%E7%B3%BB%E
 
 有关复合类型如何实例化，需要 `参数化类型 <#man-parametric-types>`_ 和 :ref:`man-methods` 这两个背景知识。将在 :ref:`man-constructors` 中详细介绍构造实例。
 
+Immutable Composite Types
+-------------------------
+
+可以使用关键词 ``immutable`` 替代 ``type`` 来定义 *不可变* 复合类型：::
+
+    immutable Complex
+      real::Float64
+      imag::Float64
+    end
+
+Such types behave just like other composite types, except that instances
+of them cannot be modified. Immutable types have several advantages:
+
+- They are more efficient in some cases. Types like the ``Complex``
+  example above can be packed efficiently into arrays, and in some
+  cases the compiler is able to avoid allocating immutable objects
+  entirely.
+- It is not possible to violate the invariants provided by the
+  type's constructors.
+- Code using immutable objects can be easier to reason about.
+
+An immutable object might contain mutable objects, such as arrays, as
+fields. Those contained objects will remain mutable; only the fields of the
+immutable object itself cannot be changed to point to different objects.
+
+A useful way to think about immutable composites is that each instance is
+associated with specific field values --- the field values alone tell
+you everything about the object. In contrast, a mutable object is like a
+little container that might contain different values over time, and so is
+not identified with specific field values. In deciding whether to make a
+type immutable, ask whether two instances with the same field values
+would be considered identical, or if they might need to change independently
+over time. If they would be considered identical, the type should probably
+be immutable.
+
+
 类型共用体
 ----------
 
