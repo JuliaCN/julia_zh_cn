@@ -410,6 +410,10 @@
 .. function:: last(coll)
 
    获取可排序集合的最后一个元素。
+
+.. function:: collect(collection)
+
+   返回集合中的所有项的数组。对关联性集合，返回 (key, value) 多元组。
    
 可索引集合
 ----------

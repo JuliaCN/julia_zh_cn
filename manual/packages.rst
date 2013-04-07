@@ -63,9 +63,11 @@ Julia 的 `Pkg` 模块提供了安装、管理第三方扩展包的工具。它�
 6. 至少添加一个 git commit ，并把它提交到远程仓库： ::
 
     # Do some stuff
-    git add #new files
+    git add -A . #添加文件
     git commit
-    git push remote github
+    git push -u github master
+
+7. 如果前面的命令不太懂，找个时间学学 git 吧。
 
 分发 Julia 扩展包
 ~~~~~~~~~~~~~~~~~
