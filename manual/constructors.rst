@@ -69,6 +69,10 @@
 
 所有的外部构造方法，最终都会调用内部构造方法。
 
+Of course, if the type is declared as ``immutable``, then its
+constructor-provided invariants are fully enforced. This is an important
+consideration when deciding whether a type should be immutable.
+
 如果定义了内部构造方法，Julia 将不再提供默认的构造方法。默认的构造方法等价于一个自定义内部构造方法，它将对象的所有域作为参数（如果对应域有类型，应为具体类型），传递给 ``new`` ，最后返回结果对象： ::
 
     type Foo
