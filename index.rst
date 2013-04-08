@@ -16,3 +16,8 @@
 * :ref:`genindex`
 * :ref:`search`
 
+多语言版本
+==========
+
+* `English <http://julia.readthedocs.org/en/latest/>`_
+* `Português brasileiro <https://julia_pt-br.readthedocs.org/en/latest/>`_
