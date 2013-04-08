@@ -2213,6 +2213,16 @@ Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat
 
    返回每个维度上内存距离的多元组。
 
+.. function:: ind2sub(dims, index) -> subscripts
+
+   Returns a tuple of subscripts into an array with dimensions ``dims``, corresponding to the linear index ``index``
+
+   **例子** ``i, j, ... = ind2sub(size(A), indmax(A))`` provides the indices of the maximum element
+
+.. function:: sub2ind(dims, i, j, k...) -> index
+
+   The inverse of ``ind2sub``, returns the linear index corresponding to the provided subscripts
+
 构造函数
 ~~~~~~~~
 
