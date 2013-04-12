@@ -1,6 +1,6 @@
 # Julia 中文文档说明
 
-这是 `Julia` 语言的中文文档，可以 [在线阅读](http://julia_zh_cn.readthedocs.org) 。
+这是 `Julia` 语言的中文文档，可以 [在线阅读](http://julia-zh-cn.readthedocs.org) 。
 
 欢迎大伙儿来修订文档。扩展包部分就暂时不翻译了，反正大家如果要使用，也得看英文文档。
 
