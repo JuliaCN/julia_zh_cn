@@ -3586,6 +3586,25 @@ dims...])
 
 "),
 
+("数组","Base","ind2sub","ind2sub(dims, index) -> subscripts
+
+
+   Returns a tuple of subscripts into an array with dimensions
+   \"dims\", corresponding to the linear index \"index\"
+
+   **例子** \"i, j, ... = ind2sub(size(A), indmax(A))\" provides the
+   indices of the maximum element
+
+"),
+
+("数组","Base","sub2ind","sub2ind(dims, i, j, k...) -> index
+
+
+   The inverse of \"ind2sub\", returns the linear index corresponding
+   to the provided subscripts
+
+"),
+
 ("数组","Base","Array","Array(type, dims)
 
 
