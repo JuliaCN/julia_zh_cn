@@ -1445,7 +1445,14 @@ append]) -> IOStream
 
 "),
 
-("I/O","Base","seek_end","seek_end(s)
+("I/O","Base","seekstart","seekstart(s)
+
+
+   将流定位到开头.
+
+"),
+
+("I/O","Base","seekend","seekend(s)
 
 
    将流定位到尾端。

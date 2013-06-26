@@ -930,7 +930,11 @@ I/O
 
    将流定位到指定位置。
 
-.. function:: seek_end(s)
+.. function:: seekstart(s)
+
+   将流定位到开头.
+
+.. function:: seekend(s)
 
    将流定位到尾端。
 
