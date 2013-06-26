@@ -185,4 +185,4 @@ of the next section.::
     git pull --rebase       #Update local METADATA
 
 9. 如果 ``MY_PACKAGE_NAME`` 是新近提交的并且被接纳, 列表 
-   :ref:`available-packages` 会在一周之内自动更新. 
+   :ref:`available-packages` 会在一周左右自动更新. 
