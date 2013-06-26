@@ -2,6 +2,8 @@
 Julia 扩展包
 ============
 
+Julia 拥有丰富的扩展包, 大大扩展了其功能.
+
 到哪儿找 Julia 扩展包
 ---------------------
 
@@ -32,6 +34,18 @@ Julia 的 `Pkg` 模块提供了安装、管理第三方扩展包的工具。它�
 文件夹将会清除包管理器的所有内容. 执行上面的步骤, 可以将 Julia 重置到一
 个干净的状态.
 
+.. _contrib_existing:
+
+对已有的扩展包做贡献
+--------------------
+
+:ref:`available-packages` 列表包含了每个扩展包主页的链接, 从而可以找到如
+何给这些扩展包做贡献. 你或许对特定的扩展包的存在的问题有兴趣, 或者, 可以
+直接贡献你已经写好的代码.
+
+对于在 Github 上的扩展包, 请一定向扩展包仓库发送请求(pull-requests), 而
+不是Julia 仓库 (repository).
+
 发布新 Julia 扩展包
 -------------------
 
@@ -59,7 +73,12 @@ for its package management.
 新建 Julia 扩展包
 ~~~~~~~~~~~~~~~~~
 
-1. 在 Julia 中初始化你的扩展包： ::
+1. 请检查 :ref:`available-packages` 列表, 以确定你的扩展包不会和已有的扩
+   展包竞争. 如果你的扩展包和已有的扩展包功能雷同, 我们希望你和已有的软
+   件包维护者合作, 一起改进已有的扩展包, 而不是创造一个新的, 互相竞争的
+   扩展包. 参见 ref:`contrib-existing`_.
+
+2. 在 Julia 中初始化你的扩展包： ::
 
     Pkg.new("MY_PACKAGE_NAME")
 
@@ -68,24 +87,24 @@ for its package management.
 .. note::
    此命令会覆盖 ``$HOME/.julia/MY_PACKAGE_NAME`` 中的所有已存在的文件和 git 仓库。
 
-2. 如果已经为你的扩展包创建了仓库，可以使用复制或符号链接来覆盖这个框架。如： ::
+3. 如果已经为你的扩展包创建了仓库，可以使用复制或符号链接来覆盖这个框架。如： ::
 
     rm -r $HOME/.julia/MY_PACKAGE_NAME
     ln -s /path/to/existing/repo/MY_PACKAGE_NAME $HOME/.julia/MY_PACKAGE_NAME
 
-3. 在 ``REQUIRE`` 文件中，列出你的新扩展包所依赖的所有扩展包的名字。每个扩展包一行。
+4. 在 ``REQUIRE`` 文件中，列出你的新扩展包所依赖的所有扩展包的名字。每个扩展包一行。
 
-4. 在扩展包里添加帮助文档 ``README.md`` 和许可协议 ``LICENSE.md`` ，把源代码放在 ``src/`` 中，测试放在 ``test/`` 中。确保每个测试文档的开头都包含这两行： ::
+5. 在扩展包里添加帮助文档 ``README.md`` 和许可协议 ``LICENSE.md`` ，把源代码放在 ``src/`` 中，测试放在 ``test/`` 中。确保每个测试文档的开头都包含这两行： ::
 
     using Test
     using MY_PACKAGE_NAME
 
-5. 为扩展包添加公开访问远程仓库 URL 。如，在 Github 上新建一个仓库，名为 ``MY_PACKAGE_NAME.jl`` ，然后运行： ::
+6. 为扩展包添加公开访问远程仓库 URL 。如，在 Github 上新建一个仓库，名为 ``MY_PACKAGE_NAME.jl`` ，然后运行： ::
 
     cd $HOME/.julia/MY_PACKAGE_NAME
     git remote add github https://github.com/MY_GITHUB_USER/MY_PACKAGE_NAME.jl
  
-6. 至少添加一个 git commit ，并把它提交到远程仓库： ::
+7. 至少添加一个 git commit ，并把它提交到远程仓库： ::
 
     # Do some stuff
     git add #要追踪的文件
