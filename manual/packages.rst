@@ -7,7 +7,7 @@ Julia 扩展包
 
 - 官方列表详见 :ref:`available-packages` 。
 
-- 新扩展包的声明也可以去 `julia-users Google Groups <https://groups.google.com/forum/?fromgroups=#!forum/julia-users>`_ 找。
+- 新扩展包的发布也可以去 `julia-users Google Groups <https://groups.google.com/forum/?fromgroups=#!forum/julia-users>`_ 找。
 
 .. _pkg-install:
 
@@ -28,7 +28,9 @@ Julia 的 `Pkg` 模块提供了安装、管理第三方扩展包的工具。它�
 
    Pkg.rm("MY_PACKAGE_NAME")
 
-
+包管理系统仍然处在快速开发中. 因此有时会出现错误. 删除 ``$HOME/.julia``
+文件夹将会清除包管理器的所有内容. 执行上面的步骤, 可以将 Julia 重置到一
+个干净的状态.
 
 发布新 Julia 扩展包
 -------------------
