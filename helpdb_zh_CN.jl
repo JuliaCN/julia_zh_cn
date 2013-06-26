@@ -766,7 +766,8 @@
 
 
    使用指定元素来构造 \"IntSet\" 。它是由位字符串实现的，因而适合构造
-   稠密整数集。
+   稠密整数集。如果为稀疏集合(例如集合内容为几个非常大的整数), 请使用
+   \"Set\".
 
 "),
 
@@ -6179,6 +6180,27 @@ GeneralizedSchur[:T], GeneralizedSchur[:Q], GeneralizedSchur[:Z]
    序算法（ \"Sort.InsertionSort\", \"Sort.QuickSort\",
    \"Sort.MergeSort\", 或 \"Sort.TimSort\" ）， \"ord\" 为自定义的排序
    顺序（如 Sort.Reverse 或一个比较函数）。
+
+"),
+
+("Base.Sort","Base.Sort","sort","sort(A, dim[, alg[, ord]])
+
+
+   多维矩阵根据指定维度排序.
+
+"),
+
+("Base.Sort","Base.Sort","sortrows","sortrows(A[, alg[, ord]])
+
+
+   对矩阵行进行字典排序.
+
+"),
+
+("Base.Sort","Base.Sort","sortcols","sortcols(A[, alg[, ord]])
+
+
+   对矩阵列进行字典排序.
 
 "),
 
