@@ -155,10 +155,22 @@
     julia> 2.5e-4
     0.00025
 
-上述结果均为 ``Float64`` 值。不存在 ``Float32`` 的文本化格式，但可以把一个值转换为 ``Float32`` ： ::
+上述结果均为 ``Float64`` 值. 文本化的``Float32`` 值也可以直接输入, 这时
+使用``f`` 而不是 ``e`` ::
+    
+    julia> 0.5f0
+    0.5f0
+
+    julia> typeof(ans)
+    Float32
+
+    julia> 2.5f-4
+    0.00025f0
+
+浮点数也可以很容易地转换为 ``Float32`` ： ::
 
     julia> float32(-1.5)
-    -1.5
+    -1.5f0
 
     julia> typeof(ans)
     Float32
