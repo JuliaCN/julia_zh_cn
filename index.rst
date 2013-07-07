@@ -20,4 +20,5 @@
 ==========
 
 * `English <http://julia.readthedocs.org/en/latest/>`_
-* `Português brasileiro <https://julia_pt-br.readthedocs.org/en/latest/>`_
+* `Português brasileiro <http://julia-pt-br.readthedocs.org/en/latest/>`_
+* `Español latino <http://julia-es-la.readthedocs.org/>`_

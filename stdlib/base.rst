@@ -520,7 +520,7 @@
 
 .. function:: IntSet(i...)
 
-   使用指定元素来构造 ``IntSet`` 。它是由位字符串实现的，因而适合构造稠密整数集。
+   使用指定元素来构造 ``IntSet`` 。它是由位字符串实现的，因而适合构造稠密整数集。如果为稀疏集合(例如集合内容为几个非常大的整数), 请使用 ``Set``.
 
 .. function:: union(s1,s2...)
 
@@ -930,7 +930,11 @@ I/O
 
    将流定位到指定位置。
 
-.. function:: seek_end(s)
+.. function:: seekstart(s)
+
+   将流定位到开头.
+
+.. function:: seekend(s)
 
    将流定位到尾端。
 

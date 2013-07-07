@@ -766,7 +766,8 @@
 
 
    使用指定元素来构造 \"IntSet\" 。它是由位字符串实现的，因而适合构造
-   稠密整数集。
+   稠密整数集。如果为稀疏集合(例如集合内容为几个非常大的整数), 请使用
+   \"Set\".
 
 "),
 
@@ -1445,7 +1446,14 @@ append]) -> IOStream
 
 "),
 
-("I/O","Base","seek_end","seek_end(s)
+("I/O","Base","seekstart","seekstart(s)
+
+
+   将流定位到开头.
+
+"),
+
+("I/O","Base","seekend","seekend(s)
 
 
    将流定位到尾端。
@@ -3583,6 +3591,25 @@ dims...])
 
 
    返回每个维度上内存距离的多元组。
+
+"),
+
+("数组","Base","ind2sub","ind2sub(dims, index) -> subscripts
+
+
+   Returns a tuple of subscripts into an array with dimensions
+   \"dims\", corresponding to the linear index \"index\"
+
+   **例子** \"i, j, ... = ind2sub(size(A), indmax(A))\" provides the
+   indices of the maximum element
+
+"),
+
+("数组","Base","sub2ind","sub2ind(dims, i, j, k...) -> index
+
+
+   The inverse of \"ind2sub\", returns the linear index corresponding
+   to the provided subscripts
 
 "),
 
@@ -6153,6 +6180,27 @@ GeneralizedSchur[:T], GeneralizedSchur[:Q], GeneralizedSchur[:Z]
    序算法（ \"Sort.InsertionSort\", \"Sort.QuickSort\",
    \"Sort.MergeSort\", 或 \"Sort.TimSort\" ）， \"ord\" 为自定义的排序
    顺序（如 Sort.Reverse 或一个比较函数）。
+
+"),
+
+("Base.Sort","Base.Sort","sort","sort(A, dim[, alg[, ord]])
+
+
+   多维矩阵根据指定维度排序.
+
+"),
+
+("Base.Sort","Base.Sort","sortrows","sortrows(A[, alg[, ord]])
+
+
+   对矩阵行进行字典排序.
+
+"),
+
+("Base.Sort","Base.Sort","sortcols","sortcols(A[, alg[, ord]])
+
+
+   对矩阵列进行字典排序.
 
 "),
 

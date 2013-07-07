@@ -111,6 +111,18 @@ Timsort 是 O(n log n) 稳定自适应排序算法。它对两种情况混合（
    ``Sort.QuickSort``, ``Sort.MergeSort``, 或 ``Sort.TimSort`` ），  
    ``ord`` 为自定义的排序顺序（如 Sort.Reverse 或一个比较函数）。
 
+.. function:: sort(A, dim, [alg[, ord]])
+
+    多维矩阵根据指定维度排序.
+
+.. function:: sortrows(A, [alg[, ord]])
+
+    对矩阵行进行字典排序.
+
+.. function:: sortcols(A, [alg[, ord]])
+
+    对矩阵列进行字典排序.
+
 ----------------
 与排序相关的函数
 ----------------
