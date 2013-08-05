@@ -6363,5 +6363,51 @@ ord])
 
 "),
 
+("宏","","@test ex","@test ex
+
+
+   测试表达式 *ex*, 然后调用当前管理程序处理结果.
+
+"),
+
+("宏","","@test_fails ex","@test_fails ex
+
+
+   测试表达式 *ex*, 然后调用当前管理程序依照下面的方式处理结果:
+
+   * 如果测试没有抛出异常, 返回 *Failure*.
+
+   * 如果测试抛出异常, 返回 *Success*.
+
+"),
+
+("宏","","@test_approx_eq a b","@test_approx_eq a b
+
+
+   测试两个浮点数, *a* 和 *b*, 在考虑微小误差的情况下是否相等.
+
+"),
+
+("宏","","@test_approx_eq a b c","@test_approx_eq a b c
+
+
+   测试两个浮点数, *a* 和 *b*, 在考虑到最大误差 *c* 的情况下是否相等.
+
+"),
+
+("Base.Test","Base.Test","registerhandler","registerhandler(handler)
+
+
+   修改全局管理函数为 *handler*
+
+"),
+
+("Base.Test","Base.Test","withhandler","withhandler(f, handler)
+
+
+   使用 *hander* 当作管理函数来运行函数 *f*.
+
+"),
+
 
 }
