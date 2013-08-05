@@ -9,7 +9,7 @@
    stdlib/index
    packages/packagelist
    note/index
-   
+
 索引和表格
 ==========
 
@@ -20,5 +20,5 @@
 ==========
 
 * `English <http://julia.readthedocs.org/en/latest/>`_
-* `Português brasileiro <http://julia-pt-br.readthedocs.org/en/latest/>`_
+* `Português brasileiro <http://julia-pt-br.readthedocs.org/>`_
 * `Español latino <http://julia-es-la.readthedocs.org/>`_
