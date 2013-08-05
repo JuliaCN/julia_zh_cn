@@ -258,4 +258,7 @@ Julia 自动调用 ``convert`` 函数，将参数转换为指定类型。例如�
 C++
 ---
 
-`Cpp` 扩展包仅提供有限的 C++ 支持。
+`Cpp <http://github.com/timholy/Cpp.jl>`_
+和
+`Clang <https://github.com/ihnorton/Clang.jl>`_
+扩展包提供了有限的 C++ 调用支持。
