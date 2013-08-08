@@ -1,7 +1,7 @@
 .. _man-complex-and-rational-numbers:
 
 ************
- 复数和分数  
+ 复数和分数
 ************
 
 Julia 提供复数和分数类型，并支持对这两个类型进行所有 :ref:`man-mathematical-operations` 所述的数学运算。
@@ -132,7 +132,7 @@ Julia 提供复数和分数类型，并支持对这两个类型进行所有 :ref
     julia> complex(a,b)
     1 + 2im
 
-``Inf`` 和 ``NaN`` 也可以遵从 IEEE-754 参与构造复数： ::
+``Inf`` 和 ``NaN`` 也可以参与构造复数 (参考 :ref:`man-special-floats` 部分)： ::
 
     julia> 1 + Inf*im
     complex(1.0,Inf)
@@ -259,4 +259,3 @@ Julia 有分数类型。使用 ``//`` 运算符构造分数： ::
 
     julia> 1//3 - 0.33
     0.0033333333333332993
-

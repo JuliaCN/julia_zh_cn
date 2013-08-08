@@ -75,6 +75,7 @@ Julia 的安装，不管是使用编译好的程序，还是自己从源代码�
 
 - `Forio 的 Julia 教程 <http://forio.com/julia/tutorials-list>`_
 - `MIT 讲师 Homer Reid 数值分析课的教程 <http://homerreid.ath.cx/teaching/18.330/JuliaProgramming.shtml>`_
+- `来自 MIT 的 Julia 视频教程 <http://julialang.org/blog/2013/03/julia-tutorial-MIT/>`_
 
 与 MATLAB 的区别
 ----------------

@@ -35,7 +35,7 @@ Julia 中处理 `ASCII <http://zh.wikipedia.org/zh-cn/ASCII>`_ 文本简洁高�
     julia> typeof(ans)
     Int64
 
-在 32 位架构上， ``typeof(ans)`` 的类型为 Int32 。也可以把整数值转换为 ``Char`` ： ::
+在 32 位架构上， ``typeof(ans)`` 的类型为 ``Int32`` 。也可以把整数值转换为 ``Char`` ： ::
 
     julia> char(120)
     'x'
@@ -334,7 +334,7 @@ Julia 提供了 *非标准字符串文本* 。它在正常的双引号括起来�
 正则表达式
 ~~~~~~~~~~
 
-Julia 的正则表达式与 Perl 兼容，由 `PCRE <http://www.pcre.org/>`_ 库提供。它也是一种非标准字符串文本，前缀为 ``r`` ，后面可跟一些标识符。最基础的正则表达式仅为 ``r"..."`` 的形式： ::
+Julia 的正则表达式 (regexp) 与 Perl 兼容，由 `PCRE <http://www.pcre.org/>`_ 库提供。它也是一种非标准字符串文本，前缀为 ``r`` ，后面可跟一些标识符。最基础的正则表达式仅为 ``r"..."`` 的形式： ::
 
     julia> r"^\s*(?:#|$)"
     r"^\s*(?:#|$)"

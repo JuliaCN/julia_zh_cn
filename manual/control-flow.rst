@@ -1,17 +1,17 @@
 .. _man-control-flow:
 
 ********
- 控制流  
+ 控制流
 ********
 
 Julia 提供一系列控制流：
 
--  :ref:`man-compound-expressions` ： ``begin`` 和 ``(;)`` 
+-  :ref:`man-compound-expressions` ： ``begin`` 和 ``(;)``
 -  :ref:`man-conditional-evaluation` ： ``if``-``elseif``-``else`` 和 ``?:`` （三重运算符）
 -  :ref:`man-short-circuit-evaluation` ： ``&&`` 、 ``||`` 和链式比较
--  :ref:`man-loops` ： ``while`` 和 ``for`` 
--  :ref:`man-exception-handling` ： ``try``-``catch`` 、 ``error`` 和 ``throw`` 
--  :ref:`man-tasks` ： ``yieldto`` 
+-  :ref:`man-loops` ： ``while`` 和 ``for``
+-  :ref:`man-exception-handling` ： ``try``-``catch`` 、 ``error`` 和 ``throw``
+-  :ref:`man-tasks` ： ``yieldto``
 
 前五个控制流机制是高级编程语言的标准。任务则不是：它提供了非本地的控制流，便于在临时暂停的计算中进行切换。在 Julia 中，异常处理和协同多任务都是使用的这个机制。
 
@@ -142,8 +142,8 @@ Julia 提供一系列控制流：
 
  ``&&`` 和 ``||`` 布尔运算符被称为短路求值，它们连接一系列布尔表达式，仅计算最少的表达式来确定整个链的布尔值。这意味着：
 
--  在表达式 ``a && b`` 中，只有 ``a`` 为 ``true`` 时才计算子表达式 ``b`` 
--  在表达式 ``a || b`` 中，只有 ``a`` 为 ``false`` 时才计算子表达式 ``b`` 
+-  在表达式 ``a && b`` 中，只有 ``a`` 为 ``true`` 时才计算子表达式 ``b``
+-  在表达式 ``a || b`` 中，只有 ``a`` 为 ``false`` 时才计算子表达式 ``b``
 
 ``&&`` 和 ``||`` 都与右侧结合，但 ``&&`` 比 ``||`` 优先级高： ::
 
@@ -418,7 +418,7 @@ finally 语句
 关键字 ``finally`` 可以解决这样的问题, 无论程序是怎样退出的, ``finally``
 语句总是会被执行.
 
-例如, 下面的程序说明了怎样保证打开的文件总是会被关闭:
+例如, 下面的程序说明了怎样保证打开的文件总是会被关闭::
 
     f = open("file")
     try
@@ -499,4 +499,3 @@ Julia 提供了 ``produce`` 和 ``consume`` 函数来解决这个问题。生产
     taskHdl = @task mytask(7)
 
 ``produce`` 和 ``consume`` 适用于多任务，但它并不在不同的 CPU 发起线程。将在 :ref:`man-parallel-computing` 中，讨论真正的内核线程。
-
