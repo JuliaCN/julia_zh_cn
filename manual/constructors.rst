@@ -1,10 +1,10 @@
 .. _man-constructors:
 
 **********
- 构造方法  
+ 构造方法
 **********
 
-构造函数是构造新对象，即新 :ref:`man-composite-types` 实例的函数。构造类型对象： ::
+构造函数[#]_ 是构造新对象，即新 :ref:`man-composite-types` 实例的函数。构造类型对象： ::
 
     type Foo
       bar
@@ -21,6 +21,10 @@
     2
 
 `递归数据结构 <http://en.wikipedia.org/wiki/Recursion_%28computer_science%29#Recursive_data_structures_.28structural_recursion.29>`_ ，尤其是自引用的数据结构，常需要先构造为非完整状态，再按步骤将其完善。
+
+.. [#] 关于命名: 尽管 "构造函数" 通常被用来描述创建新对象的函数, 它也经常被滥
+   用于特定的构造方法. 通常情况下, 可以很容易地从上下文推断出到底是 "构造函数"
+   还是 "构造方法".
 
 外部构造方法
 ------------
@@ -101,11 +105,9 @@ consideration when deciding whether a type should be immutable.
 
     julia> T1(1.0)
     no method T1(Float64,)
-     in method_missing at /Users/stefan/projects/julia/base/base.jl:58
 
     julia> T2(1.0)
     no method T2(Float64,)
-     in method_missing at /Users/stefan/projects/julia/base/base.jl:58
 
 内部构造方法能不写就不写。提供默认值之类的事儿，应该写成外部构造方法，由它们调用内部构造方法。
 
@@ -190,7 +192,6 @@ consideration when deciding whether a type should be immutable.
 
     julia> Point(1,2.5)
     no method Point(Int64,Float64)
-     in method_missing at /Users/stefan/projects/julia/base/base.jl:58
 
     ## 指明 T ##
 
@@ -199,14 +200,12 @@ consideration when deciding whether a type should be immutable.
 
     julia> Point{Int64}(1.0,2.5)
     no method Point(Float64,Float64)
-     in method_missing at /Users/stefan/projects/julia/base/base.jl:58
 
     julia> Point{Float64}(1.0,2.5)
     Point(1.0,2.5)
 
     julia> Point{Float64}(1,2)
     no method Point(Int64,Int64)
-     in method_missing at /Users/stefan/projects/julia/base/base.jl:58
 
 上面的参数化构造方法等价于下面的声明： ::
 
@@ -298,4 +297,3 @@ consideration when deciding whether a type should be immutable.
 
     julia> ans <: Complex{Rational}
     true
-

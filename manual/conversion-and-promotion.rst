@@ -101,6 +101,8 @@ Julia 可以将数学运算符的参数提升为同一个类型，这些参数�
 
 前四个定义可确保 ``a//b == convert(Rational{Int64}, a/b)`` 。
 
+.. _man-promotion:
+
 类型提升
 --------
 

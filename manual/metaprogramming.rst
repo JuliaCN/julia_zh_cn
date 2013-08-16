@@ -1,7 +1,7 @@
 .. _man-metaprogramming:
 
 ********
- 元编程  
+ 元编程
 ********
 
 类似 Lisp ， Julia 也是 `同像性 <http://en.wikipedia.org/wiki/Homoiconicity>`_ 的：它 自身的代码也是语言本身的数据结构。由于代码是由这门语言本身所构造和处理的对象所表示的，因此程序也可以转换并生成自身语言的代码。元编程的另一个功能是反射，它可以在程序运行时动态展现程序本身的特性。
@@ -35,10 +35,10 @@ Julia 代码表示为由 Julia 的 ``Expr`` 类型的数据结构而构成的语
 
     julia> ex.args
     4-element Any Array:
-      +        
-      a        
+      +
+      a
       :(*(b,c))
-     1         
+     1
 
     julia> typeof(ex.args[1])
     Symbol
@@ -66,6 +66,9 @@ Julia 代码表示为由 Julia 的 ``Expr`` 类型的数据结构而构成的语
       +(x,y)
     end
 
+Symbols
+~~~~~~~
+
 ``:`` 的参数为符号时，结果为 ``Symbol`` 对象，而不是 ``Expr`` ： ::
 
     julia> :foo
@@ -74,7 +77,25 @@ Julia 代码表示为由 Julia 的 ``Expr`` 类型的数据结构而构成的语
     julia> typeof(ans)
     Symbol
 
-在表达式的上下文中，符号用来指示对变量的读取。当表达式被求值时，符号的值受限于符号的作用域（详见 :ref:`man-variables-and-scoping` ）。
+在表达式的上下文中，符号用来指示对变量的读取。当表达式被求值时，符号的值受限于
+符号的作用域（详见 :ref:`man-variables-and-scoping` ）。
+
+有时, 为了防止解析时产生歧义, ``:`` 的参数需要添加额外的括号 ::
+
+    julia> :(:)
+    :(:)
+
+    julia> :(::)
+    :(::)
+
+``Symbol`` 也可以使用 ``symbol`` 函数来创建, 参数为一个字符或者字符串 ::
+
+    julia> symbol('\'')
+    :'
+
+    julia> symbol("'")
+    :'
+
 
 求值和内插
 ~~~~~~~~~~
@@ -270,6 +291,8 @@ Julia 宏展开机制是这样解决命名冲突的。首先，宏结果的变�
 
 应审慎使用这种操作。
 
+.. _man-non-standard-string-literals2:
+
 非标准字符串文本
 ~~~~~~~~~~~~~~~~
 
@@ -318,4 +341,3 @@ Julia 宏展开机制是这样解决命名冲突的。首先，宏结果的变�
 
 反射
 ----
-

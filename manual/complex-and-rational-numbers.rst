@@ -4,7 +4,9 @@
  复数和分数
 ************
 
-Julia 提供复数和分数类型，并支持对这两个类型进行所有 :ref:`man-mathematical-operations` 所述的数学运算。
+Julia 提供复数和分数类型，并支持所有的 :ref:`标准数学运算
+<man-mathematical-operations>` 。 当不同的数据类型, 无论是基础的还是合成的, 进
+行混合运算时, 会自动使用 :ref:`类型转换系统 <man-promotions>` .
 
 .. _man-complex-numbers:
 
@@ -122,15 +124,19 @@ Julia 提供复数和分数类型，并支持对这两个类型进行所有 :ref
     julia> sqrt(-1 + 0im)
     0.0 + 1.0im
 
-可以如下构造复数（不推荐）： ::
+:ref:`直接系数表示 <numeric-literal-coefficients>` 也适用于复数变量. 但是, 乘
+法必须显示的表示出来::
 
     julia> a = 1; b = 2; a + b*im
     1 + 2im
 
-推荐使用 ``complex`` 函数构造复数，这个构造方法效率高： ::
+但是, *不* 推荐使用上面的方法; 推荐使用 ``complex`` 函数构造复数. ::
 
     julia> complex(a,b)
     1 + 2im
+
+这种构造方式避免了乘法和加法操作, 并且避免了之前的做法由于特殊的 ``b`` 可能造
+成的问题.
 
 ``Inf`` 和 ``NaN`` 也可以参与构造复数 (参考 :ref:`man-special-floats` 部分)： ::
 
@@ -204,7 +210,7 @@ Julia 有分数类型。使用 ``//`` 运算符构造分数： ::
     julia> float(3//4)
     0.75
 
-分数到浮点数的转换——对任意整数 ``a`` 和 ``b`` ，若不满足 ``a == 0`` 及 ``b == 0``，则有： ::
+分数到浮点数的转换——对任意整数 ``a`` 和 ``b`` ，若不满足 ``a == 0`` 及 ``b == 0`` ，则有： ::
 
     julia> isequal(float(a//b), a/b)
     true
