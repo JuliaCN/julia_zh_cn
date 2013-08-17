@@ -395,8 +395,8 @@ Julia 提供了函数 ``eps``, 可以用来检查 ``1.0`` 和下一个浮点数�
 - 推荐 Bruce Dawson 的 `关于浮点数的博客
   <http://randomascii.wordpress.com/2012/05/20/thats-not-normalthe-performance-of-odd-floats/>`_
   .
-- David Goldberg 的, `每个计算机科学家都需要了解的浮点数算术计算
-  http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.102.244&rep=rep1&type=pdf`_
+- David Goldberg 的 `每个计算机科学家都需要了解的浮点数算术计算
+  <http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.102.244&rep=rep1&type=pdf>`_
   , 是一篇非常精彩的文章, 深入讨论了浮点数和浮点数的精度问题.
 - 更深入的文档, 请参考 "浮点数之父" `William Kahan
   <http://en.wikipedia.org/wiki/William_Kahan>`_ 的 `collected writings
