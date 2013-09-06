@@ -74,7 +74,7 @@ for its package management.
 
 Note: this documentation is out of date pending further development of version 2 of Julia's package management system – specifically its tools for package developers. For the time being, using Pkg1 (i.e. the first version of the package manager) tools for package development work.
 
-1. 请检查 :ref:`available-packages` 列表，确保你的扩展包不会和已有的扩展包重名。如果你的扩展包和已有的扩展包功能有不少重合，我们希望你和那个软   件包的维护者合作，一起改进。参见 ref:`contrib-existing`_ 。
+1. 请检查 :ref:`available-packages` 列表，确保你的扩展包不会和已有的扩展包重名。如果你的扩展包和已有的扩展包功能有不少重合，我们希望你和那个软   件包的维护者合作，一起改进。参见 :ref:`contrib-existing` 。
 
 2. 在 Julia 中初始化你的扩展包： ::
 
