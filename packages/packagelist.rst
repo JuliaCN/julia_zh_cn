@@ -16,7 +16,7 @@ _______________________________________________________________
 
   Generate simple plots as ASCII art in Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-07-26) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-26) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -48,7 +48,7 @@ _____________________________________________
 
   Julia interface to AWS 
 
-  当前版本： ``0.0.0``  (updated: 2013-07-09) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-09) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -90,7 +90,7 @@ _______________________________________________________
 
   Julia IFun Implementation 
 
-  当前版本： ``0.0.0``  (updated: 2013-07-15) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-15) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -128,7 +128,7 @@ __________________________________________________________
 
   Package for parsing command-line arguments to Julia programs. 
 
-  当前版本： ``0.2.4``  (updated: 2013-06-18) 
+  当前版本： ``0.2.4``  (更新于： 2013-06-18) 
 
   Master 状态： |ArgParse_build|
 
@@ -177,7 +177,7 @@ _________________________________________________
 
    
 
-  当前版本： ``0.0.0``  (updated: 2013-04-11) 
+  当前版本： ``0.0.0``  (更新于： 2013-04-11) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -209,7 +209,7 @@ _____________________________________________________________
 
   A package for benchmarking code and packages 
 
-  当前版本： ``0.0.1``  (updated: 2013-06-23) 
+  当前版本： ``0.0.1``  (更新于： 2013-06-23) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -254,7 +254,7 @@ ___________________________________________________
 
   Tool for building binary dependencies for Julia modules 
 
-  当前版本： ``0.2.2``  (updated: 2013-07-31) 
+  当前版本： ``0.2.2``  (更新于： 2013-07-31) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -317,7 +317,7 @@ _________________________________________________
 
   Julia's package for working on Bioinformatics with DNA, RNA and Protein Sequences 
 
-  当前版本： ``0.2.1``  (updated: 2013-05-25) 
+  当前版本： ``0.2.1``  (更新于： 2013-05-25) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -355,7 +355,7 @@ _________________________________________________
 
   A framework to represent chunks of entities and parallel methods on them. 
 
-  当前版本： ``0.0.0``  (updated: 2013-08-02) 
+  当前版本： ``0.0.0``  (更新于： 2013-08-02) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -389,7 +389,7 @@ ___________________________________________________________________
 
   Bloom filters in Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-02-03) 
+  当前版本： ``0.0.0``  (更新于： 2013-02-03) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -421,7 +421,7 @@ __________________________________________
 
   32-bit cyclic redundancy check (CRC-32) checksum implementation for Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-07-21) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-21) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -453,7 +453,7 @@ ________________________________________________
 
   Bindings to the Cairo graphics library. 
 
-  当前版本： ``0.2.5``  (updated: 2013-08-01) 
+  当前版本： ``0.2.5``  (更新于： 2013-08-01) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -559,7 +559,7 @@ ___________________________________________________________
 
   Calculus functions in Julia 
 
-  当前版本： ``0.1.1``  (updated: 2013-04-27) 
+  当前版本： ``0.1.1``  (更新于： 2013-04-27) 
 
   Master 状态： |Calculus_build|
 
@@ -618,7 +618,7 @@ __________________________________________________
 
   Calendar time package for Julia 
 
-  当前版本： ``0.3.3``  (updated: 2013-07-15) 
+  当前版本： ``0.3.3``  (更新于： 2013-07-15) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -663,7 +663,7 @@ ______________________________________________________
 
   Fast multidimensional iteration 
 
-  当前版本： ``0.0.0``  (updated: 2013-05-28) 
+  当前版本： ``0.0.0``  (更新于： 2013-05-28) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -695,7 +695,7 @@ ___________________________________________________
 
   Catalan: a combinatorics library for Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-05-07) 
+  当前版本： ``0.0.0``  (更新于： 2013-05-07) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -739,7 +739,7 @@ _________________________________________________________________
 
   Few utility types over Julia Vector type 
 
-  当前版本： ``0.0.0``  (updated: 2013-05-25) 
+  当前版本： ``0.0.0``  (更新于： 2013-05-25) 
 
   Master 状态： |ChainedVectors_build|
 
@@ -774,7 +774,7 @@ ___________________________________________________________________
 
   Simulation, Bayesian inference and Bayesian model selection for chemical kinetics in Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-07-07) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-07) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -808,7 +808,7 @@ _______________________________________________
 
   Julia interface to libclang and C wrapper generator 
 
-  当前版本： ``0.0.0``  (updated: 2013-06-09) 
+  当前版本： ``0.0.0``  (更新于： 2013-06-09) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -871,7 +871,7 @@ _________________________________________
 
   Interface to the Coin-OR Linear Programming solver (CLP) 
 
-  当前版本： ``0.0.3``  (updated: 2013-06-24) 
+  当前版本： ``0.0.3``  (更新于： 2013-06-24) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -911,7 +911,7 @@ ___________________________________________________________________
 
    
 
-  当前版本： ``0.0.0``  (updated: 2013-07-10) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-10) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -949,7 +949,7 @@ _______________________________________________________________
 
   Basic functions for clustering data: k-means, dp-means, etc. 
 
-  当前版本： ``0.2.1``  (updated: 2013-06-21) 
+  当前版本： ``0.2.1``  (更新于： 2013-06-21) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -1002,7 +1002,7 @@ ________________________________________________
 
   Common data encoding algorithms 
 
-  当前版本： ``0.0.0``  (updated: 2013-06-23) 
+  当前版本： ``0.0.0``  (更新于： 2013-06-23) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -1040,7 +1040,7 @@ _______________________________________________
 
   Interface to the Coin-OR CBC solver for mixed-integer programming 
 
-  当前版本： ``0.0.2``  (updated: 2013-05-21) 
+  当前版本： ``0.0.2``  (更新于： 2013-05-21) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -1080,7 +1080,7 @@ ________________________________________________
 
   Basic color manipulation utilities. 
 
-  当前版本： ``0.2.4``  (updated: 2013-07-27) 
+  当前版本： ``0.2.4``  (更新于： 2013-07-27) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -1142,7 +1142,7 @@ __________________________________________________
 
   Declarative vector graphics 
 
-  当前版本： ``0.1.6``  (updated: 2013-07-17) 
+  当前版本： ``0.1.6``  (更新于： 2013-07-17) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -1230,7 +1230,7 @@ _______________________________________________________________________________
 
   Types and functions for working with continued fractions in Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-02-07) 
+  当前版本： ``0.0.0``  (更新于： 2013-02-07) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -1262,7 +1262,7 @@ __________________________________________
 
   Utilities for calling C++ from Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-03-15) 
+  当前版本： ``0.0.0``  (更新于： 2013-03-15) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -1294,7 +1294,7 @@ _____________________________________________________
 
   One- and multi-dimensional adaptive integration routines for the Julia language 
 
-  当前版本： ``1.0.0``  (updated: 2013-07-15) 
+  当前版本： ``1.0.0``  (更新于： 2013-07-15) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -1321,7 +1321,7 @@ __________________________________________
 
   a Julia HTTP curl library 
 
-  当前版本： ``0.0.1``  (updated: 2013-05-29) 
+  当前版本： ``0.0.1``  (更新于： 2013-05-29) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -1359,7 +1359,7 @@ _______________________________________________
 
   DICOM for Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-03-01) 
+  当前版本： ``0.0.0``  (更新于： 2013-03-01) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -1421,7 +1421,7 @@ _______________________________________________
 
   Julia Package for parsing the DWARF file format 
 
-  当前版本： ``0.0.0``  (updated: 2013-06-17) 
+  当前版本： ``0.0.0``  (更新于： 2013-06-17) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -1455,7 +1455,7 @@ ___________________________________________________________
 
   library for working with tabular data in Julia 
 
-  当前版本： ``0.3.8``  (updated: 2013-07-26) 
+  当前版本： ``0.3.8``  (更新于： 2013-07-26) 
 
   Master 状态： |DataFrames_build|
 
@@ -1660,7 +1660,7 @@ _________________________________________________________________
 
   Julia implementation of Data structures 
 
-  当前版本： ``0.2.4``  (updated: 2013-07-27) 
+  当前版本： ``0.2.4``  (更新于： 2013-07-27) 
 
   Master 状态： |DataStructures_build|
 
@@ -1701,7 +1701,7 @@ ______________________________________________________
 
   A Date and DateTime implementation for Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-07-27) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-27) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -1739,7 +1739,7 @@ _____________________________________________
 
   Prototype interactive debugger for Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-07-20) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-20) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -1789,7 +1789,7 @@ _______________________________________________________________
 
   Decision Tree Classifier in Julia 
 
-  当前版本： ``0.1.0``  (updated: 2013-06-11) 
+  当前版本： ``0.1.0``  (更新于： 2013-06-11) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -1821,7 +1821,7 @@ ___________________________________________________________
 
   A Julia framework for delayed expression evaluation 
 
-  当前版本： ``0.2.1``  (updated: 2013-04-15) 
+  当前版本： ``0.2.1``  (更新于： 2013-04-15) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -1853,7 +1853,7 @@ _______________________________________________________
 
   Utility functions for manipulating Dicts in Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-05-14) 
+  当前版本： ``0.0.0``  (更新于： 2013-05-14) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -1885,7 +1885,7 @@ __________________________________________________________
 
   KeysView and ValuesView types for dynamic low-overhead views into the entries of dictionaries 
 
-  当前版本： ``0.0.0``  (updated: 2013-02-23) 
+  当前版本： ``0.0.0``  (更新于： 2013-02-23) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -1917,7 +1917,7 @@ ________________________________________________________________________________
 
   Methods for dimensionality reduction: PCA, ICA, NMF 
 
-  当前版本： ``0.0.0``  (updated: 2013-01-17) 
+  当前版本： ``0.0.0``  (更新于： 2013-01-17) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -1949,7 +1949,7 @@ _______________________________________________________________
 
   Discrete factor and its operations in Probabilistic Graphical Models 
 
-  当前版本： ``0.0.0``  (updated: 2013-06-06) 
+  当前版本： ``0.0.0``  (更新于： 2013-06-06) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -1981,7 +1981,7 @@ _____________________________________________________
 
   Julia module for Distance evaluation 
 
-  当前版本： ``0.2.1``  (updated: 2013-04-15) 
+  当前版本： ``0.2.1``  (更新于： 2013-04-15) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -2014,7 +2014,7 @@ _________________________________________________________________
 
   A Julia package for probability distributions and associated functions. 
 
-  当前版本： ``0.2.3``  (updated: 2013-07-29) 
+  当前版本： ``0.2.3``  (更新于： 2013-07-29) 
 
   Master 状态： |Distributions_build|
 
@@ -2122,7 +2122,7 @@ _________________________________________________________
 
   Julia package for representing dual numbers and for performing dual algebra 
 
-  当前版本： ``0.0.0``  (updated: 2013-04-21) 
+  当前版本： ``0.0.0``  (更新于： 2013-04-21) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -2154,7 +2154,7 @@ ___________________________________________
 
   Julia Package for working with ELF files 
 
-  当前版本： ``0.0.0``  (updated: 2013-05-28) 
+  当前版本： ``0.0.0``  (更新于： 2013-05-28) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -2187,7 +2187,7 @@ __________________________________________________
 
   Elliptic integral and Jacobi elliptic special functions 
 
-  当前版本： ``0.0.0``  (updated: 2013-03-13) 
+  当前版本： ``0.0.0``  (更新于： 2013-03-13) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -2219,7 +2219,7 @@ ____________________________________________________
 
   Example Julia package repo. 
 
-  当前版本： ``0.0.0``  (updated: 2012-11-22) 
+  当前版本： ``0.0.0``  (更新于： 2012-11-22) 
 
   Master 状态： |Example_build|
 
@@ -2284,7 +2284,7 @@ _____________________________________________________________________
 
   Utilities for working with the Julia `Expr` type 
 
-  当前版本： ``0.0.0``  (updated: 2013-04-30) 
+  当前版本： ``0.0.0``  (更新于： 2013-04-30) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -2316,7 +2316,7 @@ ______________________________________________
 
   FITS file package for Julia 
 
-  当前版本： ``0.0.0``  (updated: 2012-12-09) 
+  当前版本： ``0.0.0``  (更新于： 2012-12-09) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -2348,7 +2348,7 @@ _________________________________________________________
 
   Midje-like testing for Julia 
 
-  当前版本： ``0.1.0``  (updated: 2013-07-02) 
+  当前版本： ``0.1.0``  (更新于： 2013-07-02) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -2386,7 +2386,7 @@ ________________________________________________________
 
   Utilities to read/write FASTA format files in Julia 
 
-  当前版本： ``0.1.1``  (updated: 2013-06-28) 
+  当前版本： ``0.1.1``  (更新于： 2013-06-28) 
 
   Master 状态： |FastaIO_build|
 
@@ -2422,7 +2422,7 @@ ____________________________________________________________
 
   [DEPRECATED PACKAGE. USE FastaIO INSTEAD] 
 
-  当前版本： ``0.2.1``  (updated: 2013-05-22) 
+  当前版本： ``0.2.1``  (更新于： 2013-05-22) 
 
   Master 状态： |FastaRead_build|
 
@@ -2464,7 +2464,7 @@ ___________________________________________________________
 
   File::Find implementation in Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-01-19) 
+  当前版本： ``0.0.0``  (更新于： 2013-01-19) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -2496,7 +2496,7 @@ ________________________________________________________________________________
 
   Functional and and persistent data structures for Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-05-16) 
+  当前版本： ``0.0.0``  (更新于： 2013-05-16) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -2540,7 +2540,7 @@ _____________________________________________________________________
 
   Functional Julia – based on fogus/lemonad 
 
-  当前版本： ``0.0.0``  (updated: 2013-04-30) 
+  当前版本： ``0.0.0``  (更新于： 2013-04-30) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -2572,7 +2572,7 @@ __________________________________________________
 
   Julia GARCH package 
 
-  当前版本： ``0.0.0``  (updated: 2013-07-29) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-29) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -2598,7 +2598,7 @@ _____________________________________________
 
   GLFW bindings for Julia. GLFW is a multi-platform library for opening a window, creating an OpenGL context, and managing input. 
 
-  当前版本： ``0.0.0``  (updated: 2013-04-02) 
+  当前版本： ``0.0.0``  (更新于： 2013-04-02) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -2632,7 +2632,7 @@ _____________________________________________
 
   Generalized linear models in Julia 
 
-  当前版本： ``0.2.0``  (updated: 2013-07-30) 
+  当前版本： ``0.2.0``  (更新于： 2013-07-30) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -2685,7 +2685,7 @@ __________________________________________________
 
   GLPK wrapper module for Julia 
 
-  当前版本： ``0.2.4``  (updated: 2013-06-18) 
+  当前版本： ``0.2.4``  (更新于： 2013-06-18) 
 
   Master 状态： |GLPK_build|
 
@@ -2727,7 +2727,7 @@ ________________________________________________________________________________
 
   Interface between the GLPK.jl wrapper and MathProgBase.jl 
 
-  当前版本： ``0.0.0``  (updated: 2013-06-07) 
+  当前版本： ``0.0.0``  (更新于： 2013-06-07) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -2761,7 +2761,7 @@ ______________________________________________
 
   Julia interface to GLUT 
 
-  当前版本： ``0.0.0``  (updated: 2013-01-18) 
+  当前版本： ``0.0.0``  (更新于： 2013-01-18) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -2794,7 +2794,7 @@ _________________________________________
 
   Julia interface to the GNU Scientific Library (GSL) 
 
-  当前版本： ``0.0.0``  (updated: 2013-04-04) 
+  当前版本： ``0.0.0``  (更新于： 2013-04-04) 
 
   Master 状态： |GSL_build|
 
@@ -2835,7 +2835,7 @@ _____________________________________________
 
   A Julia interface for gzip functions in zlib 
 
-  当前版本： ``0.2.4``  (updated: 2013-06-25) 
+  当前版本： ``0.2.4``  (更新于： 2013-06-25) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -2875,7 +2875,7 @@ ________________________________________________
 
   Crafty statistical graphics for Julia. 
 
-  当前版本： ``0.1.7``  (updated: 2013-07-09) 
+  当前版本： ``0.1.7``  (更新于： 2013-07-09) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -2970,7 +2970,7 @@ _____________________________________________
 
   A julia front-end for gnuplot. 
 
-  当前版本： ``0.0.0``  (updated: 2013-05-05) 
+  当前版本： ``0.0.0``  (更新于： 2013-05-05) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -3014,7 +3014,7 @@ _____________________________________________________
 
   A Julia package to estimate the geographic location of IP addresses 
 
-  当前版本： ``0.0.0``  (updated: 2013-06-24) 
+  当前版本： ``0.0.0``  (更新于： 2013-06-24) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -3046,7 +3046,7 @@ _____________________________________________________________
 
   Geometric MCMC algorithms and zero-variance (ZV) Monte Carlo Bayesian routines 
 
-  当前版本： ``0.0.0``  (updated: 2013-04-12) 
+  当前版本： ``0.0.0``  (更新于： 2013-04-12) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -3078,7 +3078,7 @@ ______________________________________________
 
   Minimal implementation of Jasper's Julia FFI 
 
-  当前版本： ``0.0.0``  (updated: 2013-01-15) 
+  当前版本： ``0.0.0``  (更新于： 2013-01-15) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -3116,7 +3116,7 @@ _________________________________________________
 
   Transport Level Security for Julia Streams provided by GnuTLS 
 
-  当前版本： ``0.0.0``  (updated: 2013-07-26) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-26) 
 
   Master 状态： |GnuTLS_build|
 
@@ -3152,7 +3152,7 @@ _____________________________________________________________
 
   Julia interface to Google Chart Tools 
 
-  当前版本： ``0.0.0``  (updated: 2013-05-14) 
+  当前版本： ``0.0.0``  (更新于： 2013-05-14) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -3187,7 +3187,7 @@ __________________________________________________
 
   Working with graphs in Julia 
 
-  当前版本： ``0.2.3``  (updated: 2013-06-20) 
+  当前版本： ``0.2.3``  (更新于： 2013-06-20) 
 
   Master 状态： |Graphs_build|
 
@@ -3283,7 +3283,7 @@ ____________________________________________
 
   Interpolation and related operations on grids 
 
-  当前版本： ``0.2.3``  (updated: 2013-08-01) 
+  当前版本： ``0.2.3``  (更新于： 2013-08-01) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -3321,7 +3321,7 @@ __________________________________________
 
   Julia interface to Gtk windowing toolkit. 
 
-  当前版本： ``0.2.0``  (updated: 2013-07-24) 
+  当前版本： ``0.2.0``  (更新于： 2013-07-24) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -3354,7 +3354,7 @@ _________________________________________________
 
   Julia Port of Gurobi Optimizer 
 
-  当前版本： ``0.0.0``  (updated: 2013-06-13) 
+  当前版本： ``0.0.0``  (更新于： 2013-06-13) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -3399,7 +3399,7 @@ ____________________________________________
 
   HDF5 interface for the Julia language 
 
-  当前版本： ``0.2.5``  (updated: 2013-07-27) 
+  当前版本： ``0.2.5``  (更新于： 2013-07-27) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -3449,7 +3449,7 @@ _____________________________________________
 
   HDFS interface for Julia as a wrapper over Hadoop HDFS library. 
 
-  当前版本： ``0.0.0``  (updated: 2013-07-24) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-24) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -3483,7 +3483,7 @@ _________________________________________
 
   HTTP library (server, client, parser) for the Julia language 
 
-  当前版本： ``0.0.2``  (updated: 2013-03-06) 
+  当前版本： ``0.0.2``  (更新于： 2013-03-06) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -3515,7 +3515,7 @@ ___________________________________________________________
 
    
 
-  当前版本： ``0.0.0``  (updated: 2013-07-06) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-06) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -3548,7 +3548,7 @@ _____________________________________________________
 
   Fast Walsh-Hadamard transforms for the Julia language 
 
-  当前版本： ``0.0.0``  (updated: 2013-02-13) 
+  当前版本： ``0.0.0``  (更新于： 2013-02-13) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -3574,7 +3574,7 @@ ___________________________________________________________________
 
   Hopfield networks in Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-07-28) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-28) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -3606,7 +3606,7 @@ _____________________________________________________________
 
    
 
-  当前版本： ``0.0.1``  (updated: 2013-07-18) 
+  当前版本： ``0.0.1``  (更新于： 2013-07-18) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -3656,7 +3656,7 @@ _____________________________________________________________
 
    
 
-  当前版本： ``0.0.2``  (updated: 2013-07-26) 
+  当前版本： ``0.0.2``  (更新于： 2013-07-26) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -3718,7 +3718,7 @@ _____________________________________________________________
 
    
 
-  当前版本： ``0.0.1``  (updated: 2013-07-18) 
+  当前版本： ``0.0.1``  (更新于： 2013-07-18) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -3781,7 +3781,7 @@ ____________________________________________________________________
 
   T-tests, Wilcoxon rank sum (Mann-Whitney U), signed rank, and circular statistics in Julia 
 
-  当前版本： ``0.2.0``  (updated: 2013-04-16) 
+  当前版本： ``0.2.0``  (更新于： 2013-04-16) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -3815,7 +3815,7 @@ ________________________________________
 
   Julia wrapper for the International Components for Unicode (ICU) library 
 
-  当前版本： ``0.0.0``  (updated: 2013-07-03) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-03) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -3865,7 +3865,7 @@ ______________________________________________________
 
   Interactive display of images and movies 
 
-  当前版本： ``0.0.2``  (updated: 2013-07-25) 
+  当前版本： ``0.0.2``  (更新于： 2013-07-25) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -3906,7 +3906,7 @@ ________________________________________________
 
   An image library for Julia 
 
-  当前版本： ``0.2.7``  (updated: 2013-07-19) 
+  当前版本： ``0.2.7``  (更新于： 2013-07-19) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -3957,7 +3957,7 @@ ____________________________________________________________________
 
   Statically-sized immutable vectors and matrices. 
 
-  当前版本： ``0.0.0``  (updated: 2013-04-09) 
+  当前版本： ``0.0.0``  (更新于： 2013-04-09) 
 
   Master 状态： |ImmutableArrays_build|
 
@@ -4010,7 +4010,7 @@ ____________________________________________________
 
   Reading and writing Windows-style INI files (writing not yet implemented). 
 
-  当前版本： ``0.2.1``  (updated: 2013-06-29) 
+  当前版本： ``0.2.1``  (更新于： 2013-06-29) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -4066,7 +4066,7 @@ ________________________________________________________
 
   Common functional iterator patterns. 
 
-  当前版本： ``0.1.1``  (updated: 2013-06-29) 
+  当前版本： ``0.1.1``  (更新于： 2013-06-29) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -4116,7 +4116,7 @@ ________________________________________
 
   A Julia package for quantitative finance 
 
-  当前版本： ``0.0.0``  (updated: 2013-01-03) 
+  当前版本： ``0.0.0``  (更新于： 2013-01-03) 
 
   Master 状态： |Ito_build|
 
@@ -4160,7 +4160,7 @@ ______________________________________________
 
   JSON parsing and printing 
 
-  当前版本： ``0.1.1``  (updated: 2013-07-12) 
+  当前版本： ``0.1.1``  (更新于： 2013-07-12) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -4252,7 +4252,7 @@ ___________________________________________
 
   Modelling language for Linear, Integer, and Quadratic Programming 
 
-  当前版本： ``0.0.0``  (updated: 2013-07-20) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-20) 
 
   Master 状态： |JuMP_build|
 
@@ -4296,7 +4296,7 @@ _______________________________________________________
 
   Judy Array for Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-05-26) 
+  当前版本： ``0.0.0``  (更新于： 2013-05-26) 
 
   Master 状态： |JudyDicts_build|
 
@@ -4331,7 +4331,7 @@ ____________________________________________________________
 
    
 
-  当前版本： ``0.0.0``  (updated: 2013-04-08) 
+  当前版本： ``0.0.0``  (更新于： 2013-04-08) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -4364,7 +4364,7 @@ ___________________________________________________________________
 
   KL-divergence estimation in Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-01-17) 
+  当前版本： ``0.0.0``  (更新于： 2013-01-17) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -4396,7 +4396,7 @@ __________________________________________________
 
   LIBSVM bindings for Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-04-15) 
+  当前版本： ``0.0.0``  (更新于： 2013-04-15) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -4428,7 +4428,7 @@ _____________________________________________________________
 
   A package for working with human languages 
 
-  当前版本： ``0.0.1``  (updated: 2013-05-24) 
+  当前版本： ``0.0.1``  (更新于： 2013-05-24) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -4460,7 +4460,7 @@ ______________________________________________________________
 
   Lazy sequences. 
 
-  当前版本： ``0.1.0``  (updated: 2013-06-20) 
+  当前版本： ``0.1.0``  (更新于： 2013-06-20) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -4492,7 +4492,7 @@ _____________________________________________________
 
   Thin Julia wrapper of libCURL 
 
-  当前版本： ``0.0.0``  (updated: 2013-07-06) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-06) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -4524,7 +4524,7 @@ _______________________________________________________
 
   Julia interface to libexpat 
 
-  当前版本： ``0.0.0``  (updated: 2013-07-05) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-05) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -4562,7 +4562,7 @@ ________________________________________________________________
 
   [DEPRECATED PACKAGE - SUPERSEDED BY MathProgBase] 
 
-  当前版本： ``0.2.1``  (updated: 2013-05-23) 
+  当前版本： ``0.2.1``  (更新于： 2013-05-23) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -4595,7 +4595,7 @@ ___________________________________________________
 
   Loss functions 
 
-  当前版本： ``0.0.0``  (updated: 2012-12-23) 
+  当前版本： ``0.0.0``  (更新于： 2012-12-23) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -4627,7 +4627,7 @@ ____________________________________________
 
   Julia module for reading MATLAB files 
 
-  当前版本： ``0.2.1``  (updated: 2013-06-29) 
+  当前版本： ``0.2.1``  (更新于： 2013-06-29) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -4679,7 +4679,7 @@ _________________________________________________
 
   Calling MATLAB in Julia through MATLAB Engine 
 
-  当前版本： ``0.0.0``  (updated: 2013-05-10) 
+  当前版本： ``0.0.0``  (更新于： 2013-05-10) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -4717,7 +4717,7 @@ ___________________________________________
 
   MCMC tools for Julia 
 
-  当前版本： ``0.0.0``  (updated: 2012-11-23) 
+  当前版本： ``0.0.0``  (更新于： 2012-11-23) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -4761,7 +4761,7 @@ _____________________________________________
 
   fast modified discrete cosine transform (MDCT and IMDCT) for the Julia language 
 
-  当前版本： ``0.0.0``  (updated: 2013-04-05) 
+  当前版本： ``0.0.0``  (更新于： 2013-04-05) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -4787,7 +4787,7 @@ _________________________________________________
 
   A set of functions to support the development of machine learning algorithms 
 
-  当前版本： ``0.2.3``  (updated: 2013-07-20) 
+  当前版本： ``0.2.3``  (更新于： 2013-07-20) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -4819,7 +4819,7 @@ _____________________________________________________
 
   Tools for working with the MNIST data set 
 
-  当前版本： ``0.0.0``  (updated: 2013-04-12) 
+  当前版本： ``0.0.0``  (更新于： 2013-04-12) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -4851,7 +4851,7 @@ _______________________________________________________________________
 
   Technical analysis of financial time series in Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-03-02) 
+  当前版本： ``0.0.0``  (更新于： 2013-03-02) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -4888,7 +4888,7 @@ ___________________________________________________________
 
   Provides standard interface to linear/mixed-integer/++ optimization solvers, including linprog and mixintprog functions. 
 
-  当前版本： ``0.0.0``  (updated: 2013-06-24) 
+  当前版本： ``0.0.0``  (更新于： 2013-06-24) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -4932,7 +4932,7 @@ _____________________________________________________
 
    
 
-  当前版本： ``0.0.1``  (updated: 2013-07-18) 
+  当前版本： ``0.0.1``  (更新于： 2013-07-18) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -4988,7 +4988,7 @@ ____________________________________________________
 
   @memoize macro for Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-06-13) 
+  当前版本： ``0.0.0``  (更新于： 2013-06-13) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -5020,7 +5020,7 @@ __________________________________________________
 
   Generation and manipulation of triangular meshes. 
 
-  当前版本： ``0.0.0``  (updated: 2013-03-03) 
+  当前版本： ``0.0.0``  (更新于： 2013-03-03) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -5058,7 +5058,7 @@ ______________________________________________
 
   Julia interface to Metis graph partitioning 
 
-  当前版本： ``0.0.0``  (updated: 2013-04-30) 
+  当前版本： ``0.0.0``  (更新于： 2013-04-30) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -5091,7 +5091,7 @@ __________________________________________________________
 
   A Julia package for fitting (statistical) mixed-effects models 
 
-  当前版本： ``0.0.0``  (updated: 2013-06-19) 
+  当前版本： ``0.0.0``  (更新于： 2013-06-19) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -5125,7 +5125,7 @@ _______________________________________________________________
 
   A Julia package for probabilistic mixture models 
 
-  当前版本： ``0.1.1``  (updated: 2013-07-23) 
+  当前版本： ``0.1.1``  (更新于： 2013-07-23) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -5160,7 +5160,7 @@ ____________________________________________
 
   Monadic expressions and sequences for Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-03-05) 
+  当前版本： ``0.0.0``  (更新于： 2013-03-05) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -5194,7 +5194,7 @@ ____________________________________________
 
   Mongo bindings for the Julia programming language 
 
-  当前版本： ``0.0.0``  (updated: 2013-03-14) 
+  当前版本： ``0.0.0``  (更新于： 2013-03-14) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -5226,7 +5226,7 @@ __________________________________________________
 
   Mongrel2 handlers in Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-01-26) 
+  当前版本： ``0.0.0``  (更新于： 2013-01-26) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -5271,7 +5271,7 @@ _____________________________________________________
 
   Sinatra-like micro framework for web programming in Julia 
 
-  当前版本： ``0.0.1``  (updated: 2013-07-18) 
+  当前版本： ``0.0.1``  (更新于： 2013-07-18) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -5345,7 +5345,7 @@ _____________________________________________________
 
   Port of mustache.js to julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-07-09) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-09) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -5401,7 +5401,7 @@ ___________________________________________________
 
   Null hypothesis significance tests 
 
-  当前版本： ``0.0.1``  (updated: 2013-05-28) 
+  当前版本： ``0.0.1``  (更新于： 2013-05-28) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -5434,7 +5434,7 @@ ________________________________________________
 
   Julia module for reading NIfTI MRI files 
 
-  当前版本： ``0.0.0``  (updated: 2013-05-12) 
+  当前版本： ``0.0.0``  (更新于： 2013-05-12) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -5467,7 +5467,7 @@ _______________________________________________
 
   Package to call the NLopt nonlinear-optimization library from the Julia language 
 
-  当前版本： ``0.0.0``  (updated: 2013-03-28) 
+  当前版本： ``0.0.0``  (更新于： 2013-03-28) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -5493,7 +5493,7 @@ ______________________________________
 
   A Julia package that provides support for reading and writing Numpy .npy and .npz files 
 
-  当前版本： ``0.0.0``  (updated: 2013-07-24) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-24) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -5525,7 +5525,7 @@ ______________________________________________
 
   Julia named index and named vector types 
 
-  当前版本： ``0.0.0``  (updated: 2012-11-17) 
+  当前版本： ``0.0.0``  (更新于： 2012-11-17) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -5557,7 +5557,7 @@ ________________________________________________
 
   NetCDF support for the julia programming language 
 
-  当前版本： ``0.0.0``  (updated: 2013-05-07) 
+  当前版本： ``0.0.0``  (更新于： 2013-05-07) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -5589,7 +5589,7 @@ _______________________________________________________________________
 
   Julia extensions to provide high performance computational support 
 
-  当前版本： ``0.2.12``  (updated: 2013-07-29) 
+  当前版本： ``0.2.12``  (更新于： 2013-07-29) 
 
   Master 状态： |NumericExtensions_build|
 
@@ -5636,7 +5636,7 @@ ______________________________________________
 
   A low-level ODBC interface for the Julia programming language 
 
-  当前版本： ``0.2.0``  (updated: 2013-07-26) 
+  当前版本： ``0.2.0``  (更新于： 2013-07-26) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -5682,7 +5682,7 @@ __________________________________________
 
   Assorted basic Ordinary Differential Equation solvers 
 
-  当前版本： ``0.0.0``  (updated: 2013-03-01) 
+  当前版本： ``0.0.0``  (更新于： 2013-03-01) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -5714,7 +5714,7 @@ __________________________________________________
 
   Julia interface to OpenGL 
 
-  当前版本： ``0.0.0``  (updated: 2013-01-18) 
+  当前版本： ``0.0.0``  (更新于： 2013-01-18) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -5746,7 +5746,7 @@ _______________________________________________
 
   WIP OpenSSL bindings for Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-03-06) 
+  当前版本： ``0.0.0``  (更新于： 2013-03-06) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -5778,7 +5778,7 @@ _____________________________________________________
 
   Optimization functions for Julia 
 
-  当前版本： ``0.1.6``  (updated: 2013-07-15) 
+  当前版本： ``0.1.6``  (更新于： 2013-07-15) 
 
   Master 状态： |Optim_build|
 
@@ -5848,7 +5848,7 @@ ____________________________________________________
 
   A framework for providing optional arguments to functions. 
 
-  当前版本： ``0.2.1``  (updated: 2013-06-06) 
+  当前版本： ``0.2.1``  (更新于： 2013-06-06) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -5904,7 +5904,7 @@ ____________________________________________
 
   Julia module for reading Plexon PLX files 
 
-  当前版本： ``0.0.0``  (updated: 2013-04-02) 
+  当前版本： ``0.0.0``  (更新于： 2013-04-02) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -5936,7 +5936,7 @@ ___________________________________________________
 
   Collection of utilities for parallel processing in Julia  
 
-  当前版本： ``0.0.0``  (updated: 2013-07-11) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-11) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -5974,7 +5974,7 @@ _________________________________________________________________
 
   Method dispatch based on pattern matching for Julia 
 
-  当前版本： ``0.0.1``  (updated: 2013-05-01) 
+  当前版本： ``0.0.1``  (更新于： 2013-05-01) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6012,7 +6012,7 @@ _______________________________________________________________
 
   The Julia package for analysis of evolution and phylogeny 
 
-  当前版本： ``0.0.0``  (updated: 2013-06-29) 
+  当前版本： ``0.0.0``  (更新于： 2013-06-29) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6044,7 +6044,7 @@ ________________________________________________________
 
   Polynomial manipulations 
 
-  当前版本： ``0.0.0``  (updated: 2013-03-01) 
+  当前版本： ``0.0.0``  (更新于： 2013-03-01) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6076,7 +6076,7 @@ __________________________________________________
 
   Profilers for Julia 
 
-  当前版本： ``0.2.3``  (updated: 2013-07-26) 
+  当前版本： ``0.2.3``  (更新于： 2013-07-26) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6138,7 +6138,7 @@ __________________________________________________________
 
   Visualization of Julia profiling data 
 
-  当前版本： ``0.0.0``  (updated: 2013-08-01) 
+  当前版本： ``0.0.0``  (更新于： 2013-08-01) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6174,7 +6174,7 @@ ______________________________________________________________
 
   Progress meter for long-running computations 
 
-  当前版本： ``0.0.0``  (updated: 2013-06-07) 
+  当前版本： ``0.0.0``  (更新于： 2013-06-07) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6212,7 +6212,7 @@ _________________________________________________________________________
 
   ProjectTemplate for Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-01-19) 
+  当前版本： ``0.0.0``  (更新于： 2013-01-19) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6245,7 +6245,7 @@ _________________________________________________
 
   Package to call Python functions from the Julia language 
 
-  当前版本： ``0.0.0``  (updated: 2013-07-18) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-18) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6301,7 +6301,7 @@ _________________________________________________
 
   Graphics solution for Julia based on pyplot 
 
-  当前版本： ``0.0.0``  (updated: 2013-06-19) 
+  当前版本： ``0.0.0``  (更新于： 2013-06-19) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6341,7 +6341,7 @@ _________________________________________________
 
   julia interface for accessing Qt via PyCall and PySide 
 
-  当前版本： ``0.0.0``  (updated: 2013-07-18) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-18) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6376,7 +6376,7 @@ ___________________________________________________
 
   Julia api to Quandl open source financial, economic and social datasets 
 
-  当前版本： ``0.0.1``  (updated: 2013-04-09) 
+  当前版本： ``0.0.1``  (更新于： 2013-04-09) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6409,7 +6409,7 @@ ____________________________________________________
 
   QuickCheck specification-based testing for Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-02-22) 
+  当前版本： ``0.0.0``  (更新于： 2013-02-22) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6443,7 +6443,7 @@ _____________________________________________________________
 
   Julia package for loading many of the data sets available in R 
 
-  当前版本： ``0.0.1``  (updated: 2013-06-23) 
+  当前版本： ``0.0.1``  (更新于： 2013-06-23) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6488,7 +6488,7 @@ _____________________________________________
 
   Pure-julia REPL implementation 
 
-  当前版本： ``0.0.0``  (updated: 2013-06-17) 
+  当前版本： ``0.0.0``  (更新于： 2013-06-17) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6527,7 +6527,7 @@ _____________________________________________________________
 
   Code for testing of Julia's random numbers 
 
-  当前版本： ``0.0.0``  (updated: 2013-02-25) 
+  当前版本： ``0.0.0``  (更新于： 2013-02-25) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6565,7 +6565,7 @@ ______________________________________________
 
   RPM-md processing library 
 
-  当前版本： ``0.0.3``  (updated: 2013-07-07) 
+  当前版本： ``0.0.3``  (更新于： 2013-07-07) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6607,7 +6607,7 @@ _______________________________________________________________
 
   Random matrices package for Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-03-28) 
+  当前版本： ``0.0.0``  (更新于： 2013-03-28) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6648,7 +6648,7 @@ _________________________________________________
 
    
 
-  当前版本： ``0.0.0``  (updated: 2013-07-18) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-18) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6680,7 +6680,7 @@ _____________________________________________________
 
   Julia readline-like library 
 
-  当前版本： ``0.0.0``  (updated: 2013-06-17) 
+  当前版本： ``0.0.0``  (更新于： 2013-06-17) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6713,7 +6713,7 @@ _________________________________________________________
 
   Algorithms for regression analysis (e.g. linear regression and logistic regression) 
 
-  当前版本： ``0.0.0``  (updated: 2013-07-06) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-06) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6747,7 +6747,7 @@ _______________________________________________________________
 
   Tools for resampling data in Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-01-19) 
+  当前版本： ``0.0.0``  (更新于： 2013-01-19) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6779,7 +6779,7 @@ ___________________________________________
 
   Julia-to-R interface 
 
-  当前版本： ``0.0.0``  (updated: 2013-02-05) 
+  当前版本： ``0.0.0``  (更新于： 2013-02-05) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6817,7 +6817,7 @@ ______________________________________________
 
   Archive of functions that emulate R's d-p-q-r functions for probability distributions 
 
-  当前版本： ``0.0.0``  (updated: 2013-03-04) 
+  当前版本： ``0.0.0``  (更新于： 2013-03-04) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6849,7 +6849,7 @@ ___________________________________________________________
 
   A collection of robust statistical tests 
 
-  当前版本： ``0.0.0``  (updated: 2013-06-30) 
+  当前版本： ``0.0.0``  (更新于： 2013-06-30) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6886,7 +6886,7 @@ _____________________________________________
 
   Root finding functions for Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-04-11) 
+  当前版本： ``0.0.0``  (更新于： 2013-04-11) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6918,7 +6918,7 @@ ___________________________________________
 
   Simulation and inference for Ito processes and diffusions. 
 
-  当前版本： ``0.1.0``  (updated: 2013-06-21) 
+  当前版本： ``0.1.0``  (更新于： 2013-06-21) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6951,7 +6951,7 @@ ____________________________________________
 
   Julia interface to SDL 
 
-  当前版本： ``0.0.0``  (updated: 2013-01-18) 
+  当前版本： ``0.0.0``  (更新于： 2013-01-18) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -6984,7 +6984,7 @@ __________________________________________________
 
   A Julia interface to the Sqlite library and support for operations on DataFrames 
 
-  当前版本： ``0.1.0``  (updated: 2013-06-20) 
+  当前版本： ``0.1.0``  (更新于： 2013-06-20) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -7023,7 +7023,7 @@ _________________________________________________
 
   SVM's for Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-04-14) 
+  当前版本： ``0.0.0``  (更新于： 2013-04-14) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -7055,7 +7055,7 @@ ________________________________________________________________________________
 
   Interface to semidefinite programming libraries. 
 
-  当前版本： ``0.0.0``  (updated: 2013-03-08) 
+  当前版本： ``0.0.0``  (更新于： 2013-03-08) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -7087,7 +7087,7 @@ _______________________________________________________
 
   Process oriented simulation library written in Julia 
 
-  当前版本： ``0.1.2``  (updated: 2013-05-03) 
+  当前版本： ``0.1.2``  (更新于： 2013-05-03) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -7119,7 +7119,7 @@ ____________________________________________________________
 
   basic mcmc sampler implemented in Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-07-01) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-01) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -7151,7 +7151,7 @@ ___________________________________________
 
   Experiments with non-causal, equation-based modeling in Julia 
 
-  当前版本： ``0.0.0``  (updated: 2012-11-23) 
+  当前版本： ``0.0.0``  (更新于： 2012-11-23) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -7183,7 +7183,7 @@ ___________________________________________________
 
   Julia wrapper for libsodium 
 
-  当前版本： ``0.0.0``  (updated: 2013-04-24) 
+  当前版本： ``0.0.0``  (更新于： 2013-04-24) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -7215,7 +7215,7 @@ _________________________________________________________
 
   The Soundex algorithm in Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-07-08) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-08) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -7247,7 +7247,7 @@ _________________________________________________
 
   Basic statistics for Julia 
 
-  当前版本： ``0.2.6``  (updated: 2013-07-22) 
+  当前版本： ``0.2.6``  (更新于： 2013-07-22) 
 
   Master 状态： |Stats_build|
 
@@ -7312,7 +7312,7 @@ ______________________________________________
 
   Swiss Army Knife for encoding and decoding binary streams 
 
-  当前版本： ``0.0.0``  (updated: 2013-05-23) 
+  当前版本： ``0.0.0``  (更新于： 2013-05-23) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -7370,7 +7370,7 @@ ___________________________________________________
 
   Julia interface to Sundials, including a nonlinear solver (KINSOL), ODE's (CVODE), and DAE's (IDA). 
 
-  当前版本： ``0.0.0``  (updated: 2013-05-07) 
+  当前版本： ``0.0.0``  (更新于： 2013-05-07) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -7396,7 +7396,7 @@ _______________________________________________
 
   Start of Julia interface to SymPy via PyCall 
 
-  当前版本： ``0.2.0``  (updated: 2013-07-22) 
+  当前版本： ``0.2.0``  (更新于： 2013-07-22) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -7442,7 +7442,7 @@ _________________________________________
 
   A TOML parser for Julia. 
 
-  当前版本： ``0.0.0``  (updated: 2013-03-06) 
+  当前版本： ``0.0.0``  (更新于： 2013-03-06) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -7475,7 +7475,7 @@ _______________________________________________________
 
   Terminal Interfaces for Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-06-17) 
+  当前版本： ``0.0.0``  (更新于： 2013-06-17) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -7507,7 +7507,7 @@ ___________________________________________________________________
 
   Julia package for text analysis 
 
-  当前版本： ``0.0.1``  (updated: 2013-05-24) 
+  当前版本： ``0.0.1``  (更新于： 2013-05-24) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -7541,7 +7541,7 @@ __________________________________________________________
 
   Package for wrapping text into paragraphs. 
 
-  当前版本： ``0.1.1``  (updated: 2013-06-28) 
+  当前版本： ``0.1.1``  (更新于： 2013-06-28) 
 
   Master 状态： |TextWrap_build|
 
@@ -7582,7 +7582,7 @@ ___________________________________________________________
 
   Modeling time series in Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-06-14) 
+  当前版本： ``0.0.0``  (更新于： 2013-06-14) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -7625,7 +7625,7 @@ ___________________________________________________________
 
   Time series toolkit for Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-04-10) 
+  当前版本： ``0.0.0``  (更新于： 2013-04-10) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -7667,7 +7667,7 @@ __________________________________________
 
   Julia interface to Tk windowing toolkit. 
 
-  当前版本： ``0.2.4``  (updated: 2013-08-01) 
+  当前版本： ``0.2.4``  (更新于： 2013-08-01) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -7766,7 +7766,7 @@ ___________________________________________________________
 
   TopicModels for Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-03-17) 
+  当前版本： ``0.0.0``  (更新于： 2013-03-17) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -7798,7 +7798,7 @@ _________________________________________________________________________
 
   Downloading financial time series data and providing financial asset types in Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-03-01) 
+  当前版本： ``0.0.0``  (更新于： 2013-03-01) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -7835,7 +7835,7 @@ ______________________________________________
 
   Implementation of the trie data structure. 
 
-  当前版本： ``0.0.0``  (updated: 2012-11-13) 
+  当前版本： ``0.0.0``  (更新于： 2012-11-13) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -7867,7 +7867,7 @@ _______________________________________________________
 
   Pure julia URI parser 
 
-  当前版本： ``0.0.0``  (updated: 2013-07-12) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-12) 
 
   Master 状态： |URIParser_build|
 
@@ -7908,7 +7908,7 @@ ___________________________________________________________
 
   RFC6570 URI templates for Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-07-15) 
+  当前版本： ``0.0.0``  (更新于： 2013-07-15) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -7940,7 +7940,7 @@ _____________________________________________________
 
   Parse URL strings into components and re-create the URL string back from components. 
 
-  当前版本： ``0.0.0``  (updated: 2013-06-24) 
+  当前版本： ``0.0.0``  (更新于： 2013-06-24) 
 
   Master 状态： |URLParse_build|
 
@@ -7975,7 +7975,7 @@ ____________________________________________
 
   UTF16 string type for Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-01-14) 
+  当前版本： ``0.0.0``  (更新于： 2013-01-14) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -8013,7 +8013,7 @@ ______________________________________________
 
   Infrastructure for handling physical units for the Julia programming language 
 
-  当前版本： ``0.2.0``  (updated: 2013-07-29) 
+  当前版本： ``0.2.0``  (更新于： 2013-07-29) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -8045,7 +8045,7 @@ _________________________________________________________________
 
   Function dispatch on values 
 
-  当前版本： ``0.0.0``  (updated: 2013-04-30) 
+  当前版本： ``0.0.0``  (更新于： 2013-04-30) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -8077,7 +8077,7 @@ ______________________________________________
 
   Julia package for working with WAV files 
 
-  当前版本： ``0.1.0``  (updated: 2013-01-16) 
+  当前版本： ``0.1.0``  (更新于： 2013-01-16) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -8110,7 +8110,7 @@ _____________________________________________________________
 
    
 
-  当前版本： ``0.0.1``  (updated: 2013-07-18) 
+  当前版本： ``0.0.1``  (更新于： 2013-07-18) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -8166,7 +8166,7 @@ ________________________________________________
 
   2D plotting for Julia 
 
-  当前版本： ``0.3.0``  (updated: 2013-07-15) 
+  当前版本： ``0.3.0``  (更新于： 2013-07-15) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -8262,7 +8262,7 @@ ____________________________________________
 
   parse yer yamls 
 
-  当前版本： ``0.1.3``  (updated: 2013-07-22) 
+  当前版本： ``0.1.3``  (更新于： 2013-07-22) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -8297,7 +8297,7 @@ ____________________________________________
 
   Julia interface to ZMQ 
 
-  当前版本： ``0.0.0``  (updated: 2013-04-13) 
+  当前版本： ``0.0.0``  (更新于： 2013-04-13) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -8359,7 +8359,7 @@ ______________________________________________
 
   Read/Write ZIP file archives in Julia 
 
-  当前版本： ``0.1.0``  (updated: 2013-07-24) 
+  当前版本： ``0.1.0``  (更新于： 2013-07-24) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -8392,7 +8392,7 @@ ____________________________________________
 
   zlib bindings for Julia 
 
-  当前版本： ``0.1.1``  (updated: 2013-07-22) 
+  当前版本： ``0.1.1``  (更新于： 2013-07-22) 
 
   Master 状态： 无 Travis-CI 状态
 
@@ -8436,7 +8436,7 @@ _________________________________________________
 
   The k-nearest neighbors algorithm in Julia 
 
-  当前版本： ``0.0.0``  (updated: 2013-04-12) 
+  当前版本： ``0.0.0``  (更新于： 2013-04-12) 
 
   Master 状态： 无 Travis-CI 状态
 

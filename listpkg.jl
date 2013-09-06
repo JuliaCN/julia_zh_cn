@@ -64,7 +64,7 @@ function gen_listpkg()
 		print(io, "  $(desc) \n\n")
 		print(io, "  当前版本： ``$(maxv.version)``"); 
 		if date != nothing
-			print(io, "  (updated: $(date[1:10])) \n\n")
+			print(io, "  (更新于： $(date[1:10])) \n\n")
 		end
 		if (get(travis, "file", nothing) != "not found" && get(travis, "last_build_status", nothing) != nothing)
 			print(io, "  Master 状态： |$(pkg)_build|\n\n")

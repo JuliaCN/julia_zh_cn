@@ -1,75 +1,47 @@
 .. _man-functions:
 
-***********
- Functions  
-***********
+******
+ 函数
+******
 
-In Julia, a function is an object that maps a tuple of argument values
-to a return value. Julia functions are not pure mathematical functions,
-in the sense that functions can alter and be affected by the global
-state of the program. The basic syntax for defining functions in Julia
-is::
+Julia 中的函数是将一系列参数组成的元组映设到一个返回值的对象，Julia 的函数不是纯的数学式函数，有些函数可以改变或者影响程序的全局状态。Julia 中定义函数的基本语法为：::
 
     function f(x,y)
       x + y
     end
 
-This syntax is similar to MATLAB, but there are some significant
-differences:
 
--  In MATLAB, this definition must be saved in a file, named ``f.m``,
-   whereas in Julia, this expression can appear anywhere, including in
-   an interactive session.
--  In MATLAB, the closing ``end`` is optional, being implied by the end
-   of the file. In Julia, the terminating ``end`` is required.
--  In MATLAB, this function would print the value ``x + y`` but would
-   not return any value, whereas in Julia, the last expression evaluated
-   is a function's return value.
--  Expression values are never printed automatically except in
-   interactive sessions. Semicolons are only required to separate
-   expressions on the same line.
+与 MATLAB 很像，但也有不同：
 
-In general, while the function definition syntax is reminiscent of
-MATLAB, the similarity is largely superficial. Therefore, rather than
-continually comparing the two, in what follows, we will simply describe
-the behavior of functions in Julia directly.
+-  在 MATLAB 中，函数需要保存在一个文件中，命名为 ``f.m`` 。在 Julia 中，表达式可以在任何地方，包括交互式会话中。
+-  在 MATLAB 中，最后的 ``end`` 可省略，由文件结束来暗示结束。在 Julia 中，最后的 ``end`` 是必须的。
+-  在 MATLAB 中，这个函数会打印 ``x + y`` 的值而不返回。在 Julia 中，最后计算的表达式，就是函数的返回值。
+-  除非在交互式会话中，将不会自动打印表达式的值。分号仅用来分隔同一行的表达式。
 
-There is a second, more terse syntax for defining a function in Julia.
-The traditional function declaration syntax demonstrated above is
-equivalent to the following compact "assignment form"::
+Julia 中可以精炼地定义函数。上述传统的声明语法，等价于下列紧凑的“赋值形式”： ::
 
     f(x,y) = x + y
 
-In the assignment form, the body of the function must be a single
-expression, although it can be a compound expression (see
-:ref:`man-compound-expressions`). Short, simple
-function definitions are common in Julia. The short function syntax is
-accordingly quite idiomatic, considerably reducing both typing and
-visual noise.
+对于赋值形式，函数体通常是单表达式，但也可以为复合表达式（详见 :ref:`man-compound-expressions` ）。Julia 中常见这种短小简单的函数定义。短函数语法相对而言更方便输入和阅读。
 
-A function is called using the traditional parenthesis syntax::
+使用圆括号来调用函数： ::
 
     julia> f(2,3)
     5
 
-Without parentheses, the expression ``f`` refers to the function object,
-and can be passed around like any value::
+没有圆括号时， ``f`` 表达式指向的是函数对象，这个函数对象可以像值一样被传递： ::
 
     julia> g = f;
 
     julia> g(2,3)
     5
 
-There are two other ways that functions can be applied: using special
-operator syntax for certain function names (see `Operators Are
-Functions <#operators-are-functions>`_ below), or with the ``apply``
-function::
+调用函数有两种方法：使用特定函数名的特殊运算符语法（详见后面 `函数运算符 <#operators-are-functions>`_ ），或者使用 ``apply`` 函数： ::
 
     julia> apply(f,2,3)
     5
 
-The ``apply`` function applies its first argument — a function object —
-to its remaining arguments.
+``apply`` 函数把第一个参数当做函数对象，应用在后面的参数上。
 
 Argument Passing Behavior
 -------------------------
@@ -84,24 +56,17 @@ Lisps, Python, Ruby and Perl, among other dynamic languages.
 
 .. _man-return-keyword:
 
-The ``return`` Keyword
-----------------------
+``return`` 关键字
+-----------------
 
-The value returned by a function is the value of the last expression
-evaluated, which, by default, is the last expression in the body of the
-function definition. In the example function, ``f``, from the previous
-section this is the value of the expression ``x + y``. As in C and most
-other imperative or functional languages, the ``return`` keyword causes
-a function to return immediately, providing an expression whose value is
-returned::
+函数返回值通常是函数体中最后一个表达式的值。上一节中 ``f`` 是表达式 ``x + y`` 的值。在 C 和大部分命令式语言或函数式语言中， ``return`` 关键字使得函数在计算完该表达式的值后立即返回： ::
 
     function g(x,y)
       return x * y
       x + y
     end
 
-Since functions definitions can be entered into interactive sessions, it
-is easy to compare these definitions::
+对比下列两个函数： ::
 
     f(x,y) = x + y
 
@@ -116,13 +81,7 @@ is easy to compare these definitions::
     julia> g(2,3)
     6
 
-Of course, in a purely linear function body like ``g``, the usage of
-``return`` is pointless since the expression ``x + y`` is never
-evaluated and we could simply make ``x * y`` the last expression in the
-function and omit the ``return``. In conjunction with other control
-flow, however, ``return`` is of real use. Here, for example, is a
-function that computes the hypotenuse length of a right triangle with
-sides of length *x* and *y*, avoiding overflow::
+在纯线性函数体，比如 ``g`` 中，不需要使用 ``return`` ，它不会计算表达式 ``x + y`` 。可以把 ``x * y`` 作为函数的最后一个表达式，并省略 ``return`` 。只有涉及其它控制流时， ``return`` 才有用。下例计算直角三角形的斜边长度，其中直角边为 *x* 和 *y* ，为避免溢出： ::
 
     function hypot(x,y)
       x = abs(x)
@@ -138,21 +97,12 @@ sides of length *x* and *y*, avoiding overflow::
       return y*sqrt(1+r*r)
     end
 
-There are three possible points of return from this function, returning
-the values of three different expressions, depending on the values of
-*x* and *y*. The ``return`` on the last line could be omitted since it
-is the last expression.
+最后一行的 ``return`` 可以省略。
 
-Operators Are Functions
------------------------
+函数运算符
+----------
 
-In Julia, most operators are just functions with support for special
-syntax. The exceptions are operators with special evaluation semantics
-like ``&&`` and ``||``. These operators cannot be functions since
-:ref:`short circuit evaluation <man-short-circuit-evaluation>` requires that
-their operands are not evaluated before evaluation of the operator.
-Accordingly, you can also apply them using parenthesized argument lists,
-just as you would any other function::
+Julia 中，大多数运算符都是支持特定语法的函数。 ``&&`` 、 ``||`` 等短路运算是例外，它们不是函数，因为 :ref:`短路求值 <man-short-circuit-evaluation>` 先算前面的值，再算后面的值。 对于函数运算符，可以像其它函数一样，把参数列表用圆括号括起来，作为函数运算符的参数： ::
 
     julia> 1 + 2 + 3
     6
@@ -160,18 +110,14 @@ just as you would any other function::
     julia> +(1,2,3)
     6
 
-The infix form is exactly equivalent to the function application form —
-in fact the former is parsed to produce the function call internally.
-This also means that you can assign and pass around operators such as
-``+`` and ``*`` just like you would with other function values::
+中缀形式与函数形式完全等价，事实上，前者被内部解析为函数调用的形式。可以像对其它函数一样，对 ``+`` 、 ``*`` 等运算符进行赋值、传递： ::
 
     julia> f = +;
 
     julia> f(1,2,3)
     6
 
-Under the name ``f``, the function does not support infix notation,
-however.
+但是，这时 ``f`` 函数不支持中缀表达式。
 
 Operators With Special Names
 ----------------------------
@@ -197,25 +143,15 @@ though they do not have operator-like names.
 
 .. _man-anonymous-functions:
 
-Anonymous Functions
--------------------
+匿名函数
+--------
 
-Functions in Julia are `first-class objects
-<http://en.wikipedia.org/wiki/First-class_citizen>`_: they can be assigned to
-variables, called using the standard function call syntax from the
-variable they have been assigned to. They can be used as arguments, and
-they can be returned as values. They can also be created anonymously,
-without being given a name::
+Julia 中函数是 `第一类对象 <http://zh.wikipedia.org/zh-cn/%E7%AC%AC%E4%B8%80%E9%A1%9E%E7%89%A9%E4%BB%B6>`_ ，可以被赋值给变量，可以通过赋值后的变量来调用函数, 还可以当做参数和返回值，甚至可以被匿名构造： ::
 
     julia> x -> x^2 + 2x - 1
     #<function>
 
-This creates an unnamed function taking one argument *x* and returning the
-value of the polynomial *x*\ ^2 + 2\ *x* - 1 at that value. The primary
-use for anonymous functions is passing them to functions which take
-other functions as arguments. A classic example is the ``map`` function,
-which applies a function to each value of an array and returns a new
-array containing the resulting values::
+上例构造了一个匿名函数，输入一个参数 *x* ，返回多项式 *x*\ ^2 + 2\ *x* - 1 的值。匿名函数的主要作用是把它传递给接受其它函数作为参数的函数。最经典的例子是 ``map`` 函数，它将函数应用在数组的每个值上，返回结果数组： ::
 
     julia> map(round, [1.2,3.5,1.7])
     3-element Float64 Array:
@@ -223,11 +159,7 @@ array containing the resulting values::
      4.0
      2.0
 
-This is fine if a named function effecting the transform one wants
-already exists to pass as the first argument to ``map``. Often, however,
-a ready-to-use, named function does not exist. In these situations, the
-anonymous function construct allows easy creation of a single-use
-function object without needing a name::
+``map`` 的第一个参数可以是非匿名函数。但是大多数情况，不存在这样的函数时，匿名函数就可以简单地构造单用途的函数对象，而不需要名字： ::
 
     julia> map(x -> x^2 + 2x - 1, [1,3,-1])
     3-element Int64 Array:
@@ -235,35 +167,23 @@ function object without needing a name::
      14
      -2
 
-An anonymous function accepting multiple arguments can be written using
-the syntax ``(x,y,z)->2x+y-z``. A zero-argument anonymous function is
-written as ``()->3``. The idea of a function with no arguments may seem
-strange, but is useful for "delaying" a computation. In this usage, a
-block of code is wrapped in a zero-argument function, which is later
-invoked by calling it as ``f()``.
+匿名函数可以通过类似 ``(x,y,z)->2x+y-z`` 的语法接收多个参数。无参匿名函数则类似于 ``()->3`` 。无参匿名函数可以“延迟”计算，做这个用处时，代码被封装进无参函数，以后可以通过把它命名为 ``f()`` 来引入。
 
-Multiple Return Values
-----------------------
+多返回值
+--------
 
-In Julia, one returns a tuple of values to simulate returning multiple
-values. However, tuples can be created and destructured without needing
-parentheses, thereby providing an illusion that multiple values are
-being returned, rather than a single tuple value. For example, the
-following function returns a pair of values::
+Julia 中可以通过返回多元组来模拟返回多值。但是，多元组并不需要圆括号来构造和析构，因此造成了可以返回多值的假象。下例返回一对儿值： ::
 
     function foo(a,b)
       a+b, a*b
     end
 
-If you call it in an interactive session without assigning the return
-value anywhere, you will see the tuple returned::
+如果在交互式会话中调用这个函数，但不将返回值赋值出去，会看到返回的是多元组： ::
 
     julia> foo(2,3)
     (5,6)
 
-A typical usage of such a pair of return values, however, extracts each
-value into a variable. Julia supports simple tuple "destructuring" that
-facilitates this::
+Julia 支持简单的多元组“析构”来给变量赋值： ::
 
     julia> x, y = foo(2,3);
 
@@ -273,29 +193,22 @@ facilitates this::
     julia> y
     6
 
-You can also return multiple values via an explicit usage of the
-``return`` keyword::
+也可以通过 ``return`` 来返回： ::
 
     function foo(a,b)
       return a+b, a*b
     end
 
-This has the exact same effect as the previous definition of ``foo``.
+这与之前定义的 ``foo`` 结果相同。
 
-Varargs Functions
------------------
+变参函数
+--------
 
-It is often convenient to be able to write functions taking an arbitrary
-number of arguments. Such functions are traditionally known as "varargs"
-functions, which is short for "variable number of arguments". You can
-define a varargs function by following the last argument with an
-ellipsis::
+函数的参数列表如果可以为任意个数，有时会非常方便。这种函数被称为“变参”函数，是“参数个数可变”的简称。可以在最后一个参数后紧跟省略号 ``...`` 来定义变参函数： ::
 
     bar(a,b,x...) = (a,b,x)
 
-The variables ``a`` and ``b`` are bound to the first two argument values
-as usual, and the variable ``x`` is bound to an iterable collection of
-the zero or more values passed to ``bar`` after its first two arguments::
+变量 ``a`` 和 ``b`` 是前两个普通的参数，变量 ``x`` 是尾随的可迭代的参数集合，其参数个数为 0 或多个： ::
 
     julia> bar(1,2)
     (1,2,())
@@ -309,12 +222,9 @@ the zero or more values passed to ``bar`` after its first two arguments::
     julia> bar(1,2,3,4,5,6)
     (1,2,(3,4,5,6))
 
-In all these cases, ``x`` is bound to a tuple of the trailing values
-passed to ``bar``.
+上述例子中， ``x`` 是传递给 ``bar`` 的尾随的值多元组。
 
-On the flip side, it is often handy to "splice" the values contained in
-an iterable collection into a function call as individual arguments. To
-do this, one also uses ``...`` but in the function call instead::
+函数调用时，也可以使用 ``...`` ： ::
 
     julia> x = (3,4)
     (3,4)
@@ -322,9 +232,7 @@ do this, one also uses ``...`` but in the function call instead::
     julia> bar(1,2,x...)
     (1,2,(3,4))
 
-In this case a tuple of values is spliced into a varargs call precisely
-where the variable number of arguments go. This need not be the case,
-however::
+上例中，多元组的值完全按照变参函数的定义进行内插，也可以不完全遵守其函数定义来调用： ::
 
     julia> x = (2,3,4)
     (2,3,4)
@@ -338,8 +246,7 @@ however::
     julia> bar(x...)
     (1,2,(3,4))
 
-Furthermore, the iterable object spliced into a function call need not
-be a tuple::
+被内插的对象也可以不是多元组： ::
 
     julia> x = [3,4]
     2-element Int64 Array:
@@ -359,8 +266,7 @@ be a tuple::
     julia> bar(x...)
     (1,2,(3,4))
 
-Also, the function that arguments are spliced into need not be a varargs
-function (although it often is)::
+原函数也可以不是变参函数（大多数情况下，应该写成变参函数）： ::
 
     baz(a,b) = a + b
 
@@ -381,26 +287,18 @@ function (although it often is)::
     julia> baz(args...)
     no method baz(Int64,Int64,Int64)
 
-As you can see, if the wrong number of elements are in the spliced
-container, then the function call will fail, just as it would if too
-many arguments were given explicitly.
+但如果输入的参数个数不对，函数调用会失败。
 
-Optional Arguments
-------------------
+可选参数
+--------
 
-In many cases, function arguments have sensible default values and therefore
-might not need to be passed explicitly in every call. For example, the
-library function ``parseint(num,base)`` interprets a string as a number
-in some base. The ``base`` argument defaults to ``10``. This behavior can be
-expressed concisely as::
+很多时候，函数参数都有默认值。例如，库函数 ``parseint(num,base)`` 把字符串解析为某个进制的数。 ``base`` 参数默认为 ``10`` 。这种情形可以写为： ::
 
     function parseint(num, base=10)
         ###
     end
 
-With this definition, the function can be called with either one or two
-arguments, and ``10`` is automatically passed when a second argument is not
-specified::
+这时，调用函数时，参数可以是一个或两个。当第二个参数未指明时，自动传递 ``10`` ： ::
 
     julia> parseint("12",10)
     12
@@ -411,56 +309,35 @@ specified::
     julia> parseint("12")
     12
 
-Optional arguments are actually just a convenient syntax for writing
-multiple method definitions with different numbers of arguments
-(see :ref:`man-methods`).
+可选参数很方便参数个数不同的多方法定义（详见 :ref:`man-methods` ）。
 
 
-Named Arguments
----------------
+命名参数
+--------
 
-Some functions need a large number of arguments, or have a large number of
-behaviors. Remembering how to call such functions can be difficult. Named
-arguments, also called keyword arguments, can make these complex interfaces
-easier to use and extend by allowing arguments to be identified by name
-instead of only by position.
+有些函数的参数个数很多，或者有很多行为。很难记住如何调用这种函数。命名参数，也称为关键词参数，允许通过参数名来区分参数，便于使用、扩展这些复杂接口。
 
-For example, consider a function ``plot`` that
-plots a line. This function might have many options, for controlling line
-style, width, color, and so on. If it accepts named arguments, a possible
-call might look like ``plot(x, y, width=2)``, where we have chosen to
-specify only line width. Notice that this serves two purposes. The call is
-easier to read, since we can label an argument with its meaning. It also
-becomes possible to pass any subset of a large number of arguments, in
-any order.
+例如，函数 ``plot`` 用于画出一条线。此函数有许多可选项，控制线的类型、宽度、颜色等。如果它接收命名参数，我们要指明线的宽度时，可以调用 ``plot(x, y, width=2)`` 之类的形式。这样的调用方法给参数添加了标签，便于阅读；也可以按任何顺序传递部分参数。
 
-Functions with named arguments are defined using a semicolon in the
-signature::
+使用命名参数的函数，在函数签名中使用分号来定义： ::
 
     function plot(x, y; style="solid", width=1, color="black")
         ###
     end
 
-Extra named arguments can be collected using ``...``, as in varargs
-functions::
+额外的命名参数，可以像变参函数中一样，使用 ``...`` 来匹配： ::
 
     function f(x; args...)
         ###
     end
 
-Inside ``f``, ``args`` will be a collection of ``(key,value)`` tuples,
-where each ``key`` is a symbol. Such collections can be passed as named
-arguments using a semicolon in a call, ``f(x; k...)``. Dictionaries
-can be used for this purpose.
+在 ``f`` 内部， ``args`` 可以是 ``(key,value)`` 多元组的集合，其中 ``key`` 是符号。可以在函数调用时使用分号来传递这个集合,如 ``f(x; k...)`` 。也可以使用字典。
 
 
-Block Syntax for Function Arguments
------------------------------------
+函数参数的块语法
+------------------
 
-Passing functions as arguments to other functions is a powerful technique,
-but the syntax for it is not always convenient. Such calls are especially
-awkward to write when the function argument requires multiple lines. As
-an example, consider calling ``map`` on a function with several cases::
+将函数作为参数传递给其它函数，当行数较多时，有时不太方便。下例在多行函数中调用 ``map`` ： :::
 
     map(x->begin
                if x < 0 && iseven(x)
@@ -473,7 +350,7 @@ an example, consider calling ``map`` on a function with several cases::
            end,
         [A, B, C])
 
-Julia provides a reserved word ``do`` for rewriting this code more clearly::
+Julia 提供了保留字 ``do`` 来重写这种代码，使之更清晰： ::
 
     map([A, B, C]) do x
         if x < 0 && iseven(x)
@@ -485,16 +362,8 @@ Julia provides a reserved word ``do`` for rewriting this code more clearly::
         end
     end
 
-The ``do x`` syntax creates an anonymous function with argument ``x`` and
-passes it as the first argument to ``map``. This syntax makes it easier to
-use functions to effectively extend the language, since calls look like
-normal code blocks. There are many possible uses quite different from ``map``,
-such as managing system state. For example, the standard library provides
-a function ``cd`` for running code in a given directory, and switching back
-to the previous directory when the code finishes or aborts. There is also
-a definition of ``open`` that runs code ensuring that the opened file is
-eventually closed. We can combine these functions to safely write a file
-in a certain directory::
+``do x`` 语法构造了参数为 ``x`` 的匿名函数，将其传递给第一个参数 ``map`` 。这种语法拓展了 Julia 。例如，标准库中提供了 ``cd`` 函数来进入某个目录，运行完或终止一段代码后再返回原先目录； ``open`` 函数打开某个文件后确保文件最后关闭。我们可以将两个函数结合起来，来安全地向一个指定目录的文件执行写操作： ::
+
 
     cd("data") do
         open("outfile", "w") do f
@@ -502,19 +371,4 @@ in a certain directory::
         end
     end
 
-The function argument to ``cd`` takes no arguments; it is just a block of
-code. The function argument to ``open`` receives a handle to the opened
-file.
-
-
-Further Reading
----------------
-
-We should mention here that this is far from a complete picture of
-defining functions. Julia has a sophisticated type system and allows
-multiple dispatch on argument types. None of the examples given here
-provide any type annotations on their arguments, meaning that they are
-applicable to all types of arguments. The type system is described in
-:ref:`man-types` and defining a function in terms of methods chosen
-by multiple dispatch on run-time argument types is described in
-:ref:`man-methods`.
+``cd`` 函数的参数不需要任何参数，而是一块儿代码。 ``open`` 的函数参数接收打开文件的句柄。
