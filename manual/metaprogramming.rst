@@ -1,33 +1,15 @@
 .. _man-metaprogramming:
 
-*****************
- Metaprogramming  
-*****************
+********
+ 元编程
+********
 
-The strongest legacy of Lisp in the Julia language is its
-metaprogramming support. Like Lisp, Julia is
-`homoiconic <http://en.wikipedia.org/wiki/Homoiconicity>`_: it
-represents its own code as a data structure of the language itself.
-Since code is represented by objects that can be created and manipulated
-from within the language, it is possible for a program to transform and
-generate its own code. This allows sophisticated code generation without
-extra build steps, and also allows true Lisp-style macros, as compared
-to preprocessor "macro" systems, like that of C and C++, that perform
-superficial textual manipulation as a separate pass before any real
-parsing or interpretation occurs. Another aspect of metaprogramming is
-reflection: the ability of a running program to dynamically discover
-properties of itself. Reflection emerges naturally from the fact that
-all data types and code are represented by normal Julia data structures,
-so the structure of the program and its types can be explored
-programmatically just like any other data.
+类似 Lisp ， Julia 也是 `同像性 <http://en.wikipedia.org/wiki/Homoiconicity>`_ 的：它 自身的代码也是语言本身的数据结构。由于代码是由这门语言本身所构造和处理的对象所表示的，因此程序也可以转换并生成自身语言的代码。元编程的另一个功能是反射，它可以在程序运行时动态展现程序本身的特性。
 
-Expressions and Eval
---------------------
+表达式和求值
+------------
 
-Julia code is represented as a syntax tree built out of Julia data
-structures of type ``Expr``. This makes it easy to construct and
-manipulate Julia code from within Julia, without generating or parsing
-source text. Here is the definition of the ``Expr`` type::
+Julia 代码表示为由 Julia 的 ``Expr`` 类型的数据结构而构成的语法树。下面是 ``Expr`` 类型的定义： ::
 
     type Expr
       head::Symbol
@@ -35,19 +17,9 @@ source text. Here is the definition of the ``Expr`` type::
       typ
     end
 
-The ``head`` is a symbol identifying the kind of expression, and
-``args`` is an array of subexpressions, which may be symbols referencing
-the values of variables at evaluation time, may be nested ``Expr``
-objects, or may be actual values of objects. The ``typ`` field is used
-by type inference to store type annotations, and can generally be
-ignored.
+``head`` 是标明表达式种类的符号； ``args`` 是子表达式数组，它可能是求值时引用变量值的符号，也可能是嵌套的 ``Expr`` 对象，还可能是真实的对象值。 ``typ`` 域被类型推断用来做类型注释，通常可以被忽略。
 
-There is special syntax for "quoting" code (analogous to quoting
-strings) that makes it easy to create expression objects without
-explicitly constructing ``Expr`` objects. There are two forms: a short
-form for inline expressions using ``:`` followed by a single expression,
-and a long form for blocks of code, enclosed in ``quote ... end``. Here
-is an example of the short form used to quote an arithmetic expression::
+有两种“引用”代码的方法，它们可以简单地构造表达式对象，而不需要显式构造 ``Expr`` 对象。第一种是内联表达式，使用 ``:`` ，后面跟单表达式；第二种是代码块儿，放在 ``quote ... end`` 内部。下例是第一种方法，引用一个算术表达式： ::
 
     julia> ex = :(a+b*c+1)
     +(a,*(b,c),1)
@@ -80,13 +52,7 @@ is an example of the short form used to quote an arithmetic expression::
     julia> typeof(ex.args[4])
     Int64
 
-Expressions provided by the parser generally only have symbols, other
-expressions, and literal values as their args, whereas expressions
-constructed by Julia code can easily have arbitrary run-time values
-without literal forms as args. In this specific example, ``+`` and ``a``
-are symbols, ``*(b,c)`` is a subexpression, and ``1`` is a literal
-64-bit signed integer. Here's an example of the longer expression
-quoting form::
+下例是第二种方法： ::
 
     julia> quote
          x = 1
@@ -103,8 +69,7 @@ quoting form::
 Symbols
 ~~~~~~~
 
-When the argument to ``:`` is just a symbol, a ``Symbol`` object results
-instead of an ``Expr``::
+``:`` 的参数为符号时，结果为 ``Symbol`` 对象，而不是 ``Expr`` ： ::
 
     julia> :foo
     foo
@@ -112,13 +77,9 @@ instead of an ``Expr``::
     julia> typeof(ans)
     Symbol
 
-In the context of an expression, symbols are used to indicate access to
-variables, and when an expression is evaluated, a symbol evaluates to
-the value bound to that symbol in the appropriate :ref:`scope
-<man-variables-and-scoping>`.
+在表达式的上下文中，符号用来指示对变量的读取。当表达式被求值时，符号的值受限于符号的作用域（详见 :ref:`man-variables-and-scoping` ）。
 
-Sometimes extra parentheses around the argument to ``:`` are needed to avoid
-ambiguity in parsing.::
+有时, 为了防止解析时产生歧义， ``:`` 的参数需要添加额外的括号： ::
 
     julia> :(:)
     :(:)
@@ -126,8 +87,7 @@ ambiguity in parsing.::
     julia> :(::)
     :(::)
 
-``Symbol``\ s can also be created using the ``symbol`` function, which takes
-a character or string as its argument::
+``Symbol`` 也可以使用 ``symbol`` 函数来创建，参数为一个字符或者字符串： ::
 
     julia> symbol('\'')
     :'
@@ -135,12 +95,10 @@ a character or string as its argument::
     julia> symbol("'")
     :'
 
-``eval`` and Interpolation
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+求值和内插
+~~~~~~~~~~
 
-Given an expression object, one can cause Julia to evaluate (execute) it
-at the *top level* scope — i.e. in effect like loading from a file or
-typing at the interactive prompt — using the ``eval`` function::
+指定一个表达式，Julia 可以使用 ``eval`` 函数在 *顶层* 作用域对其求值。这有点儿像在交互式会话中载入文件或输入命令： ::
 
     julia> :(1 + 2)
     +(1,2)
@@ -159,9 +117,7 @@ typing at the interactive prompt — using the ``eval`` function::
     julia> eval(ex)
     3
 
-Expressions passed to ``eval`` are not limited to returning values
-— they can also have side-effects that alter the state of the top-level
-evaluation environment::
+传递给 ``eval`` 的表达式可以不仅返回值，也可以带有改变顶层求值环境状态的副作用： ::
 
     julia> ex = :(x = 1)
     x = 1
@@ -175,13 +131,7 @@ evaluation environment::
     julia> x
     1
 
-Here, the evaluation of an expression object causes a value to be
-assigned to the top-level variable ``x``.
-
-Since expressions are just ``Expr`` objects which can be constructed
-programmatically and then evaluated, one can, from within Julia code,
-dynamically generate arbitrary code which can then be run using
-``eval``. Here is a simple example::
+表达式仅仅是一个 ``Expr`` 对象，它可以通过编程构造，然后对其求值： ::
 
     julia> a = 1;
 
@@ -193,28 +143,12 @@ dynamically generate arbitrary code which can then be run using
     julia> eval(ex)
     3
 
-The value of ``a`` is used to construct the expression ``ex`` which
-applies the ``+`` function to the value 1 and the variable ``b``. Note
-the important distinction between the way ``a`` and ``b`` are used:
+注意上例中 ``a`` 与 ``b`` 使用时的区别：
 
--  The value of the *variable* ``a`` at expression construction time is
-   used as an immediate value in the expression. Thus, the value of
-   ``a`` when the expression is evaluated no longer matters: the value
-   in the expression is already ``1``, independent of whatever the value
-   of ``a`` might be.
--  On the other hand, the *symbol* ``:b`` is used in the expression
-   construction, so the value of the variable ``b`` at that time is
-   irrelevant — ``:b`` is just a symbol and the variable ``b`` need not
-   even be defined. At expression evaluation time, however, the value of
-   the symbol ``:b`` is resolved by looking up the value of the variable
-   ``b``.
+-  表达式构造时，直接使用 *变量* ``a`` 的值。因此，对表达式求值时 ``a`` 的值没有任何影响：表达式中的值为 ``1`` ，与现在 ``a`` 的值无关
+-  表达式构造时，使用的是 *符号* ``:b`` 。因此，构造时变量 ``b`` 的值是无关的—— ``:b`` 仅仅是个符号，此时变量 ``b`` 还未定义。对表达式求值时，通过查询变量 ``b`` 的值来解析符号 ``:b`` 的值
 
-Constructing ``Expr`` objects like this is powerful, but somewhat
-tedious and ugly. Since the Julia parser is already excellent at
-producing expression objects, Julia allows "splicing" or interpolation
-of expression objects, prefixed with ``$``, into quoted expressions,
-written using normal syntax. The above example can be written more
-clearly and concisely using interpolation::
+这样构造 ``Expr`` 对象太丑了。Julia 允许对表达式对象内插。因此上例可写为： ::
 
     julia> a = 1;
     1
@@ -222,24 +156,12 @@ clearly and concisely using interpolation::
     julia> ex = :($a + b)
     :(+(1,b))
 
-This syntax is automatically rewritten to the form above where we
-explicitly called ``Expr``. The use of ``$`` for expression
-interpolation is intentionally reminiscent of
-:ref:`string interpolation <man-string-interpolation>` and
-:ref:`command interpolation <man-command-interpolation>`.
-Expression interpolation allows convenient, readable programmatic construction
-of complex Julia expressions.
+编译器自动将这个语法翻译成上面带 ``Expr`` 的语法。
 
-Code Generation
-~~~~~~~~~~~~~~~
+代码生成
+~~~~~~~~
 
-When a significant amount of repetitive boilerplate code is required, it
-is common to generate it programmatically to avoid redundancy. In most
-languages, this requires an extra build step, and a separate program to
-generate the repetitive code. In Julia, expression interpolation and
-eval allow such code generation to take place in the normal course of
-program execution. For example, the following code defines a series of
-operators on three arguments in terms of their 2-argument forms::
+Julia 使用表达式内插和求值来生成重复的代码。下例定义了一组操作三个参数的运算符： ::
 
     for op = (:+, :*, :&, :|, :$)
       eval(quote
@@ -247,32 +169,25 @@ operators on three arguments in terms of their 2-argument forms::
       end)
     end
 
-In this manner, Julia acts as its own preprocessor, and allows code
-generation from inside the language. The above code could be written
-slightly more tersely using the ``:`` prefix quoting form::
+上例可用 ``:`` 前缀引用格式写的更精简： ::
 
     for op = (:+, :*, :&, :|, :$)
       eval(:(($op)(a,b,c) = ($op)(($op)(a,b),c)))
     end
 
-This sort of in-language code generation, however, using the
-``eval(quote(...))`` pattern, is common enough that Julia comes with a
-macro to abbreviate this pattern::
+使用 ``eval(quote(...))`` 模式进行语言内的代码生成，这种方式太常见了。Julia 用宏来简写这个模式： ::
 
     for op = (:+, :*, :&, :|, :$)
       @eval ($op)(a,b,c) = ($op)(($op)(a,b),c)
     end
 
-The ``@eval`` macro rewrites this call to be precisely equivalent to the
-above longer versions. For longer blocks of generated code, the
-expression argument given to ``@eval`` can be a block::
+``@eval`` 宏重写了这个调用，使得代码更精简。 ``@eval`` 的参数也可以是块代码： ::
 
     @eval begin
       # multiple lines
     end
 
-Interpolating into an unquoted expression is not supported and will
-cause a compile-time error::
+对非引用表达式进行内插，会引发编译时错误： ::
 
     julia> $a + b
     unsupported or misplaced expression $
@@ -282,87 +197,52 @@ cause a compile-time error::
 Macros
 ------
 
-Macros are the analogue of functions for expression generation at
-compile time: they allow the programmer to automatically generate
-expressions by transforming zero or more argument expressions into a
-single result expression, which then takes the place of the macro call
-in the final syntax tree. Macros are invoked with the following general
-syntax::
+宏
+--
+
+宏有点儿像编译时的表达式生成函数：它允许程序员，通过把零参或多个参数的表达式转换为单个结果表达式，来自动生成表达式。调用宏的语法为： ::
 
     @name expr1 expr2 ...
     @name(expr1, expr2, ...)
 
-Note the distinguishing ``@`` before the macro name and the lack of
-commas between the argument expressions in the first form, and the
-lack of whitespace after ``@name`` in the second form. The two styles
-should not be mixed. For example, the following syntax is different
-from the examples above; it passes the tuple ``(expr1, expr2, ...)`` as
-one argument to the macro::
+注意，宏名前有 ``@`` 符号。第一种形式，参数表达式之间没有逗号；第二种形式，宏名后没有空格。这两种形式不要记混。例如，下面的写法的结果就与上例不同，它只向宏传递了一个参数，此参数为多元组 ``(expr1, expr2, ...)`` ：  ::
 
     @name (expr1, expr2, ...)
 
-Before the program runs, this statement will be replaced with the
-result of calling an expander function for ``name`` on the expression
-arguments. Expanders are defined with the ``macro`` keyword::
+程序运行前， ``name`` 展开函数会对表达式参数处理，用结果替代这个表达式。使用关键字 ``macro`` 来定义展开函数： ::
 
     macro name(expr1, expr2, ...)
         ...
     end
 
-Here, for example, is the definition of Julia's ``@assert``
-macro (see
-`error.jl <https://github.com/JuliaLang/julia/blob/master/base/error.jl>`_)::
+下例是 Julia 中 ``@assert`` 宏的定义（详见 `error.jl <https://github.com/JuliaLang/julia/blob/master/base/error.jl>`_ ）： ::
 
     macro assert(ex)
         :($ex ? nothing : error("Assertion failed: ", $(string(ex))))
     end
 
-This macro can be used like this::
+这个宏可如下使用： ::
 
     julia> @assert 1==1.0
 
     julia> @assert 1==0
     Assertion failed: 1==0
 
-Macro calls are expanded so that the above calls are precisely
-equivalent to writing::
+宏调用时被展开，因此上面调用等价于： ::
 
     1==1.0 ? nothing : error("Assertion failed: ", "1==1.0")
     1==0 ? nothing : error("Assertion failed: ", "1==0")
 
-That is, in the first call, the expression ``:(1==1.0)`` is spliced into
-the test condition slot, while the value of ``string(:(1==1.0))`` is
-spliced into the assertion message slot. The entire expression, thus
-constructed, is placed into the syntax tree where the ``@assert`` macro
-call occurs. Therefore, if the test expression is true when evaluated,
-the entire expression evaluates to nothing, whereas if the test
-expression is false, an error is raised indicating the asserted
-expression that was false. Notice that it would not be possible to write
-this as a function, since only the *value* of the condition and not the
-expression that computed it would be available.
+上例没法写成函数，因为只知道结果 *值* ，不知道要求值的表达式是什么。
 
-The ``@assert`` example also shows how macros can include a ``quote``
-block, which allows for convenient manipulation of expressions inside
-the macro body.
+``@assert`` 的例子也演示了如何在宏中使用 ``@quote`` 块儿。这种特性允许我们在宏内部方便地操作表达式。
 
+卫生宏
+~~~~~~
 
-Hygiene
-~~~~~~~
+`卫生宏 <http://en.wikipedia.org/wiki/Hygienic_macro>`_ 是个更复杂的宏。Julia 需要确保宏引入和使用的变量不会与代码内插进宏的变量冲突。宏也可能在不是它所定义的模块中被调用。我们需要确保所有的全局变量都解析到正确的模块中。
 
-An issue that arises in more complex macros is that of
-`hygiene <http://en.wikipedia.org/wiki/Hygienic_macro>`_. In short, Julia
-must ensure that variables introduced and used by macros do not
-accidentally clash with the variables used in code interpolated into
-those macros. Another concern arises from the fact that a macro may be called
-in a different module from where it was defined. In this case we need to
-ensure that all global variables are resolved to the correct module.
-
-To demonstrate these issues,
-let us consider writing a ``@time`` macro that takes an expression as
-its argument, records the time, evaluates the expression, records the
-time again, prints the difference between the before and after times,
-and then has the value of the expression as its final value.
-The macro might look like this::
+来看一下 ``@time`` 宏，它的参数是一个表达式。它先记录下时间，运行表达式，再记录下时间，打印出这两次之间的时间差，它的最终值是表达式的值： ::
 
     macro time(ex)
       quote
@@ -374,26 +254,11 @@ The macro might look like this::
       end
     end
 
-Here, we want ``t0``, ``t1``, and ``val`` to be private temporary variables,
-and we want ``time`` to refer to the ``time`` function in the standard library,
-not to any ``time`` variable the user might have (the same applies to
-``println``). Imagine the problems that could occur if the user expression
-``ex`` also contained assignments to a variable called ``t0``, or defined
-its own ``time`` variable. We might get errors, or mysteriously incorrect
-behavior.
+``t0``, ``t1``, 及 ``val`` 应为私有临时变量，而 ``time`` 是标准库中的 ``time`` 函数，而不是用户可能使用的某个叫 ``time`` 的变量（ ``println`` 函数也如此）。
 
-Julia's macro expander solves these problems in the following way. First,
-variables within a macro result are classified as either local or global.
-A variable is considered local if it is assigned to (and not declared
-global), declared local, or used as a function argument name. Otherwise,
-it is considered global. Local variables are then renamed to be unique
-(using the ``gensym`` function, which generates new symbols), and global
-variables are resolved within the macro definition environment. Therefore
-both of the above concerns are handled; the macro's locals will not conflict
-with any user variables, and ``time`` and ``println`` will refer to the
-standard library definitions.
+Julia 宏展开机制是这样解决命名冲突的。首先，宏结果的变量被分类为本地变量或全局变量。如果变量被赋值（且未被声明为全局变量）、被声明为本地变量、或被用作函数参数名，则它被认为是本地变量；否则，它被认为是全局变量。本地变量被重命名为一个独一无二的名字（使用 ``gensym`` 函数产生新符号），全局变量被解析到宏定义环境中。
 
-One problem remains however. Consider the following use of this macro::
+但还有个问题没解决。考虑下例： ::
 
     module MyModule
     import Base.@time
@@ -403,11 +268,7 @@ One problem remains however. Consider the following use of this macro::
     @time time()
     end
 
-Here the user expression ``ex`` is a call to ``time``, but not the same
-``time`` function that the macro uses. It clearly refers to ``MyModule.time``.
-Therefore we must arrange for the code in ``ex`` to be resolved in the
-macro call environment. This is done by "escaping" the expression with
-the ``esc`` function::
+此例中， ``ex`` 是对 ``time`` 的调用，但它并不是宏使用的 ``time`` 函数。它实际指向的是 ``MyModule.time`` 。因此我们应对要解析到宏调用环境中的 ``ex`` 代码做修改。这是通过 ``esc`` 函数的对表达式“转义”完成的： ::
 
     macro time(ex)
         ...
@@ -415,13 +276,9 @@ the ``esc`` function::
         ...
     end
 
-An expression wrapped in this manner is left alone by the macro expander
-and simply pasted into the output verbatim. Therefore it will be
-resolved in the macro call environment.
+这样，封装的表达式就不会被宏展开机制处理，能够正确的在宏调用环境中解析。
 
-This escaping mechanism can be used to "violate" hygiene when necessary,
-in order to introduce or manipulate user variables. For example, the
-following macro sets ``x`` to zero in the call environment::
+必要时这个转义机制可以用来“破坏”卫生，从而引入或操作自定义变量。下例在调用环境中宏将 ``x`` 设置为 0 ： ::
 
     macro zerox()
       esc(:(x = 0))
@@ -433,48 +290,29 @@ following macro sets ``x`` to zero in the call environment::
       x  # is zero
     end
 
-This kind of manipulation of variables should be used judiciously, but
-is occasionally quite handy.
+应审慎使用这种操作。
 
 .. _man-non-standard-string-literals2:
 
-Non-Standard String Literals
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+非标准字符串文本
+~~~~~~~~~~~~~~~~
 
-Recall from :ref:`Strings <man-non-standard-string-literals>` that
-string literals prefixed by an identifier are called non-standard string
-literals, and can have different semantics than un-prefixed string
-literals. For example:
+:ref:`字符串 <man-non-standard-string-literals>` 中曾讨论过带标识符前缀的字符串文本被称为非标准字符串文本，它们有特殊的语义。例如：
 
--  ``r"^\s*(?:#|$)"`` produces a regular expression object rather than a
-   string
--  ``b"DATA\xff\u2200"`` is a byte array literal for
-   ``[68,65,84,65,255,226,136,128]``.
+-  ``r"^\s*(?:#|$)"`` 生成正则表达式对象而不是字符串
+-  ``b"DATA\xff\u2200"`` 是字节数组文本 ``[68,65,84,65,255,226,136,128]`` 
 
-Perhaps surprisingly, these behaviors are not hard-coded into the Julia
-parser or compiler. Instead, they are custom behaviors provided by a
-general mechanism that anyone can use: prefixed string literals are
-parsed as calls to specially-named macros. For example, the regular
-expression macros is just the following::
+事实上，这些行为不是 Julia 解释器或编码器内置的，它们调用的是特殊名字的宏。例如，正则表达式宏的定义如下： ::
 
     macro r_str(p)
       Regex(p)
     end
 
-That's all. This macro says that the literal contents of the string
-literal ``r"^\s*(?:#|$)"`` should be passed to the ``@r_str`` macro and
-the result of that expansion should be placed in the syntax tree where
-the string literal occurs. In other words, the expression
-``r"^\s*(?:#|$)"`` is equivalent to placing the following object
-directly into the syntax tree::
+因此，表达式 ``r"^\s*(?:#|$)"`` 等价于把下列对象直接放入语法树： ::
 
     Regex("^\\s*(?:#|\$)")
 
-Not only is the string literal form shorter and far more convenient, but
-it is also more efficient: since the regular expression is compiled and
-the ``Regex`` object is actually created *when the code is compiled*,
-the compilation occurs only once, rather than every time the code is
-executed. Consider if the regular expression occurs in a loop::
+这么写不仅字符串文本短，而且效率高：正则表达式需要被编译，而 ``Regex`` 仅在 *代码编译时* 才构造，因此仅编译一次，而不是每次执行都编译。下例中循环中有一个正则表达式： ::
 
     for line = lines
       m = match(r"^\s*(?:#|$)", line)
@@ -485,11 +323,7 @@ executed. Consider if the regular expression occurs in a loop::
       end
     end
 
-Since the regular expression ``r"^\s*(?:#|$)"`` is compiled and inserted
-into the syntax tree when this code is parsed, the expression is only
-compiled once instead of each time the loop is executed. In order to
-accomplish this without macros, one would have to write this loop like
-this::
+如果不想使用宏，要使上例只编译一次，需要如下改写： ::
 
     re = Regex("^\\s*(?:#|\$)")
     for line = lines
@@ -501,37 +335,18 @@ this::
       end
     end
 
-Moreover, if the compiler could not determine that the regex object was
-constant over all loops, certain optimizations might not be possible,
-making this version still less efficient than the more convenient
-literal form above. Of course, there are still situations where the
-non-literal form is more convenient: if one needs to interpolate a
-variable into the regular expression, has to take this more verbose
-approach; in cases where the regular expression pattern itself is
-dynamic, potentially changing upon each loop iteration, a new regular
-expression object must be constructed on each iteration. The vast
-majority of use cases, however, one does not construct regular
-expressions dynamically, depending on run-time data. In this majority of
-cases, the ability to write regular expressions as compile-time values
-is, well, invaluable.
+由于编译器优化的原因，上例依然不如使用宏高效。但有时，不使用宏可能更方便：要对正则表达式内插时；正则表达式模式本身是动态的，每次循环迭代都会改变，生成新的正则表达式。
 
-The mechanism for user-defined string literals is deeply, profoundly
-powerful. Not only are Julia's non-standard literals implemented using
-it, but also the command literal syntax (```echo "Hello, $person"```)
-is implemented with the following innocuous-looking macro::
+不止非标准字符串文本，命令文本语法（ ```echo "Hello, $person"``` ）也是用宏实现的： ::
 
     macro cmd(str)
       :(cmd_gen($shell_parse(str)))
     end
 
-Of course, a large amount of complexity is hidden in the functions used
-in this macro definition, but they are just functions, written
-entirely in Julia. You can read their source and see precisely what they
-do — and all they do is construct expression objects to be inserted into
-your program's syntax tree.
+当然，大量复杂的工作被这个宏定义中的函数隐藏了，但是这些函数也是用 Julia 写的。你可以阅读源代码，看看它如何工作。它所做的事儿就是构造一个表达式对象，用于插入到你的程序的语法树中。
 
-Reflection
-----------
+反射
+----
 
 In addition to the syntax-level introspection utilized in metaprogramming,
 Julia provides several other runtime reflection capabilities.

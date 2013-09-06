@@ -8,7 +8,7 @@
 
 Julia 提供了丰富的基础数值类型，全部的算数运算符和位运算符，以及标准数学函数。这些数据和操作直接对应于现代计算机支持的操作。因此, Julia 能充分利用硬件的计算资源。另外, Julia 还从软件层面支持 :ref:`man-arbitrary-precision-arithmetic` ，可以用于表示硬件不能原生支持的数值，当然，这牺牲了部分运算效率。
 
-Julia 提供的基础数值类型有： ::
+Julia 提供的基础数值类型有：
 
 -  **整数类型：**
 
@@ -36,14 +36,14 @@ Julia 提供的基础数值类型有： ::
 =========== ========= ==============
 类型        精度      位数
 ----------- --------- --------------
-``Float16`` _half      16
-``Float32`` _single    32
-``Float64`` _double    64
+``Float16`` 半精度_      16
+``Float32`` 单精度_    32
+``Float64`` 双精度_    64
 =========== ========= ==============
 
-.. _half: http://en.wikipedia.org/wiki/Half-precision_floating-point_format
-.. _single: http://zh.wikipedia.org/zh-cn/%E5%96%AE%E7%B2%BE%E5%BA%A6%E6%B5%AE%E9%BB%9E%E6%95%B8
-.. _double: http://zh.wikipedia.org/zh-cn/%E9%9B%99%E7%B2%BE%E5%BA%A6%E6%B5%AE%E9%BB%9E%E6%95%B8
+.. _半精度: http://en.wikipedia.org/wiki/Half-precision_floating-point_format
+.. _单精度: http://zh.wikipedia.org/zh-cn/%E5%96%AE%E7%B2%BE%E5%BA%A6%E6%B5%AE%E9%BB%9E%E6%95%B8
+.. _双精度: http://zh.wikipedia.org/zh-cn/%E9%9B%99%E7%B2%BE%E5%BA%A6%E6%B5%AE%E9%BB%9E%E6%95%B8
 
 另外, 对 :ref:`man-complex-and-rational-numbers` 的支持建立在这些基础数据类型之上。所有的基础数据类型通过灵活用户可扩展的 :ref:`类型提升系统 <man-conversion-and-promotion>` ，不需显式类型转换，就可以互相运算。
 
