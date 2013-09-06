@@ -1,76 +1,81 @@
-:mod:`Base.Test` --- 与测试相关的例程
--------------------------------------
+Unit and Functional Testing
+===========================
 
 .. module:: Base.Test
-    :synopsis: 测试和相关例程
 
-`Test` 模块包含了一些与测试相关的函数和宏. 模块提供了运行测试的默认管理程序,
-个人定制的管理程序可以通过函数 :func:`registerhandler` 提供.
+The ``Test`` module contains macros and functions related to testing.
+A default handler is provided to run the tests, and a custom one can be
+provided by the user by using the :func:`registerhandler` function.
 
-概述
-----
 
-默认的管理程序, :func:`\@test`, 可以直接运行::
+Overview
+________
+
+To use the default handler, the macro :func:`@test` can be used directly::
 
   # Julia code
   julia> @test 1 == 1
 
   julia> @test 1 == 0
   ERROR: test failed: :((1==0))
-    in default_handle at test.jl:20
-    in do_test at test.jl:37
+   in default_handler at test.jl:20
+   in do_test at test.jl:37
 
   julia> @test error("This is what happens when a test fails")
-  ERROR: test error during :(error("This is what happens when a fails"))
+  ERROR: test error during :(error("This is what happens when a test fails"))
   This is what happens when a test fails
-    in error at error.jl:21
-    in anonymous at test.jl:62
-    in do_test at test.jl:35
+   in error at error.jl:21
+   in anonymous at test.jl:62
+   in do_test at test.jl:35
 
-从上面的例子可以看到, 失败或错误都会导致程序打印导致问题表达式的抽象语法树.
+As seen in the examples above, failures or errors will print the abstract
+syntax tree of the expression in question.
 
-另外一个宏, :func:`@test_fails`, 用以检查表达式是否抛出错误::
+Another macro is provided to check if the given expression throws an error,
+:func:`@test_throws`::
 
-  julia> @test_fails error("An error")
+  julia> @test_throws error("An error")
 
-  julia> @test_fails 1 == 1
+  julia> @test_throws 1 == 1
   ERROR: test failed: :((1==1))
-    in default_handler at test.jl:20
-    in default_fails at test.jl:46
+   in default_handler at test.jl:20
+   in do_test_throws at test.jl:46
 
-  julia> @test_fails 1 != 1
+  julia> @test_throws 1 != 1
   ERROR: test failed: :((1!=1))
-    in default_handler at test.jl:20
-    in do_test_fails at test.jl:46
+   in default_handler at test.jl:20
+   in do_test_throws at test.jl:46
 
-考虑到浮点数的比较可能不准确, 另有两个宏用于处理浮点数的微小误差::
+As floating point comparisons can be imprecise, two additional macros exist taking in account small numerical errors::
 
-  juila> @test_approx_eq 1. 0.999999999
-  ERROR: assertion failed:. |1.0 - 0.999999999| < 2.220446049250313e-12
+  julia> @test_approx_eq 1. 0.999999999
+  ERROR: assertion failed: |1.0 - 0.999999999| < 2.220446049250313e-12
     1.0 = 1.0
     0.999999999 = 0.999999999
    in test_approx_eq at test.jl:75
    in test_approx_eq at test.jl:80
 
-  julia> @test_approx_eq 1. 0.999 e-2
+  julia> @test_approx_eq 1. 0.9999999999999
 
-  julia> @test_approx_eq 1. 0.999 e-3
+  julia> @test_approx_eq_eps 1. 0.999 e-2
+
+  julia> @test_approx_eq_eps 1. 0.999 e-3
   ERROR: assertion failed: |1.0 - 0.999| < -0.2817181715409549
     1.0 = 1.0
     0.999 = 0.999
    in test_approx_eq at test.jl:75
 
-管理程序
--------
+Handlers
+________
 
-一个管理程序可以接受三种不同的参数, `Success`, `Failure`, `Error`::
+A handler is a function defined for three kinds of arguments: ``Success``, ``Failure``, ``Error``::
 
-  # 默认管理程序的定义
+  # The definition of the default handler
   default_handler(r::Success) = nothing
   default_handler(r::Failure) = error("test failed: $(r.expr)")
-  default_handler(r::Error) = rethrow(r)
+  default_handler(r::Error)   = rethrow(r)
 
-在一个程序块内, 其它的管理程序也可以被使用(通过函数 :func:`withhandler`)::
+A different handler can be used for a block (with :func:`withhandler`)::
 
   julia> handler(r::Success) = println("Success on $(r.expr)")
   # methods for generic function handler
@@ -81,7 +86,7 @@
   handler(r::Success) at none:1
   handler(r::Failure) at none:1
 
-  julia> handler(r::Error) = rethrow(r)
+  julia> handler(r::Error)   = rethrow(r)
   # methods for generic function handler
   handler(r::Success) at none:1
   handler(r::Failure) at none:1
@@ -93,14 +98,14 @@
          end
   Success on :((1==1))
   ERROR: Error on custom handler: :((1!=1))
-    in handler at none:1
-    in do_test at test.jl:38
-    in anonymous at no file:3
-    in withhandler at test.jl:57
+   in handler at none:1
+   in do_test at test.jl:38
+   in anonymous at no file:3
+   in withhandler at test.jl:57
 
-或者重新定义全局的管理程序 (通过函数 :func:`registerhandler`)::
+or globally redefined (with :func:`registerhandler`)::
 
-  julia> registerhander(handler)
+  julia> registerhandler(handler)
   # methods for generic function handler
   handler(r::Success) at none:1
   handler(r::Failure) at none:1
@@ -109,35 +114,37 @@
   julia> @test 1 == 1
   Success on :((1==1))
 
-宏
---
+Macros
+______
 
-.. function:: @test ex
+.. function:: @test(ex)
 
-  测试表达式 `ex`, 然后调用当前管理程序处理结果.
+   Test the expression ``ex`` and calls the current handler to handle the result.
 
-.. function:: @test_fails ex
+.. function:: @test_throws(ex)
 
-  测试表达式 `ex`, 然后调用当前管理程序依照下面的方式处理结果:
+   Test the expression ``ex`` and calls the current handler to handle the result in the following manner:
 
-  * 如果测试没有抛出异常, 返回 `Failure`.
-  * 如果测试抛出异常, 返回 `Success`.
+   * If the test doesn't throw an error, the ``Failure`` case is called.
+   * If the test throws an error, the ``Success`` case is called.
 
-.. function:: @test_approx_eq a b
+.. function:: @test_approx_eq(a, b)
 
-  测试两个浮点数, `a` 和 `b`, 在考虑微小误差的情况下是否相等.
+   Test two floating point numbers ``a`` and ``b`` for equality taking in account
+   small numerical errors.
 
-.. function:: @test_approx_eq a b c
+.. function:: @test_approx_eq_eps(a, b, tol)
 
-  测试两个浮点数, `a` 和 `b`, 在考虑到最大误差 `c` 的情况下是否相等.
+   Test two floating point numbers ``a`` and ``b`` for equality taking in account
+   a margin of tolerance given by ``tol``.
 
-函数
-----
+Functions
+_________
 
 .. function:: registerhandler(handler)
 
-  修改全局管理函数为 `handler`
+   Change the handler function used globally to ``handler``.
 
 .. function:: withhandler(f, handler)
 
-  使用 `hander` 当作管理函数来运行函数 `f`.
+   Run the function ``f`` using the ``handler`` as the handler.

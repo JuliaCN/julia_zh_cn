@@ -4,9 +4,7 @@
  复数和分数
 ************
 
-Julia 提供复数和分数类型，并支持所有的 :ref:`标准数学运算
-<man-mathematical-operations>` 。 当不同的数据类型, 无论是基础的还是合成的, 进
-行混合运算时, 会自动使用 :ref:`类型转换系统 <man-promotions>` .
+Julia 提供复数和分数类型，并对其支持所有的 :ref:`标准数学运算 <man-mathematical-operations>` 。对不同的数据类型进行混合运算时，无论是基础的还是复合的，都会自动使用 :ref:`man-conversion-and-promotion` .
 
 .. _man-complex-numbers:
 
@@ -18,7 +16,7 @@ Julia 提供复数和分数类型，并支持所有的 :ref:`标准数学运算
     julia> 1 + 2im
     1 + 2im
 
-复数可以做标准算术运算： ::
+可以对复数做标准算术运算： ::
 
     julia> (1 + 2im)*(2 - 3im)
     8 + 1im
@@ -98,7 +96,7 @@ Julia 提供复数和分数类型，并支持所有的 :ref:`标准数学运算
     julia> abs2(1 + 2im)
     5
 
-其它函数也可以应用在复数上： ::
+所有的 :ref:`man-elementary-functions` 也可以应用在复数上： ::
 
     julia> sqrt(im)
     0.7071067811865476 + 0.7071067811865475im
@@ -124,19 +122,18 @@ Julia 提供复数和分数类型，并支持所有的 :ref:`标准数学运算
     julia> sqrt(-1 + 0im)
     0.0 + 1.0im
 
-:ref:`直接系数表示 <numeric-literal-coefficients>` 也适用于复数变量. 但是, 乘
-法必须显示的表示出来::
+:ref:`代数系数 <numeric-literal-coefficients>` 也适用于复数变量。但是，乘法必须显式的写出来： ::
 
     julia> a = 1; b = 2; a + b*im
     1 + 2im
 
-但是, *不* 推荐使用上面的方法; 推荐使用 ``complex`` 函数构造复数. ::
+但是， *不* 推荐使用上面的方法。推荐使用 ``complex`` 函数构造复数： ::
 
     julia> complex(a,b)
     1 + 2im
 
-这种构造方式避免了乘法和加法操作, 并且避免了之前的做法由于特殊的 ``b`` 可能造
-成的问题.
+This construction avoids the multiplication and addition operations.
+这种构造方式避免了乘法和加法操作。
 
 ``Inf`` 和 ``NaN`` 也可以参与构造复数 (参考 :ref:`man-special-floats` 部分)： ::
 
@@ -157,7 +154,7 @@ Julia 有分数类型。使用 ``//`` 运算符构造分数： ::
     julia> 2//3
     2//3
 
-如果分子、分母有公约数，将约简至最简分数，并满足分母为非负数： ::
+如果分子、分母有公约数，将自动约简至最简分数，且分母为非负数： ::
 
     julia> 6//9
     2//3
@@ -179,7 +176,7 @@ Julia 有分数类型。使用 ``//`` 运算符构造分数： ::
     julia> den(2//3)
     3
 
-其实并不需要直接比较分数和分母，我们已经为分数定义了算术和比较运算： ::
+其实并不需要比较分数和分母，我们已经为分数定义了标准算术和比较运算： ::
 
     julia> 2//3 == 6//9
     true
@@ -210,7 +207,7 @@ Julia 有分数类型。使用 ``//`` 运算符构造分数： ::
     julia> float(3//4)
     0.75
 
-分数到浮点数的转换——对任意整数 ``a`` 和 ``b`` ，若不满足 ``a == 0`` 及 ``b == 0`` ，则有： ::
+分数到浮点数的转换遵循，对任意整数 ``a`` 和 ``b`` ，除 ``a == 0`` 及 ``b == 0`` 之外，有： ::
 
     julia> isequal(float(a//b), a/b)
     true

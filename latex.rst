@@ -1,11 +1,11 @@
 
-%%%%%%%%%%%
+%%%%%%%%%%%%
  Julia 文档
-%%%%%%%%%%%
+%%%%%%%%%%%%
 
 .. toctree::
-    :maxdepth: 1
+   :maxdepth: 1
 
-    manual/index
-    stdlib/index
+   manual/index
+   stdlib/index
 

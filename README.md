@@ -14,11 +14,8 @@
     stdlib/                         Julia 标准库文档
 	packages/packagelist.rst        扩展包文档（由 listpkg.jl 生成）
 	helpdb_zh_CN.jl                 REPL 帮助文档数据库 （由 stdlib/ 中的文档解析生成，不需要手动修改）
-	
+						
 	conf.py                         Sphinx 配置文件
-    _themes/                        Sphinx html 主题
-    sphinx/                         Sphinx 扩展和插件
-    sphinx/jlhelp.py                Sphinx 插件，用于生成 helpdb_zh_CN.jl
 	listpkg.jl                      生成 packages/packagelist.rst
 	
 	note/                           暂时存放一些笔记之类的东西，将来很有可能移走
@@ -73,7 +70,7 @@
 
 ### 生成 PDF 文档
 
-`readthedocs.org` 网站没有中文字体（丫是一老外网站，没有是必然的），因此不能生成 pdf 文件。在找到更好的托管方式以前，我们暂时会不定期上传和更新编译好的中文 PDF 文档，[点此下载](https://www.dropbox.com/s/0x936am75jyz9a8/JuliaLanguage.pdf) 。
+`readthedocs.org` 网站没有中文字体（它是一老外网站，没有是必然的），因此不能生成 pdf 文件。
 
 要在 `Ubuntu` 上生成 `pdf` 需要下面几个组件：
 
@@ -97,4 +94,3 @@
             \DeclareUnicodeCharacter{27FA}{\ensuremath{\Longleftrightarrow}}
 
 语句删去，替换为 `\usepackage[adobefonts]{ctex}` 并保存（使用选项 `adobefonts` 需要在系统中安装 Adobe 的四个简体中文字体，也可使用 ctex 宏包的相应命令自定义中文字体，ctex 宏包说明可以在终端使用命令 `texdoc ctex` 查看）。然后在此目录下执行 `xelatex JuliaLanguage.tex` 两次即可生成中文 PDF 文档。编译过程如果遇到警告，使用回车跳过即可。
-

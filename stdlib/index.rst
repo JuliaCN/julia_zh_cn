@@ -1,15 +1,13 @@
+
 .. _stdlib-index:
 
-##############
- Julia 标准库
-##############
+############################
+ The Julia Standard Library
+############################
 
-:版本: |version|
-:日期: |today|
-
-****
-内建
-****
+*********
+Built-ins
+*********
 
 .. toctree::
    :maxdepth: 1
@@ -20,13 +18,18 @@
    constants
    file
    punctuation
+   sort
 
-********
-内建模块
-********
+.. _built-in-modules:
+
+****************
+Built-in Modules
+****************
 
 .. toctree::
    :maxdepth: 1
 
-   sort
+   collections
+   graphics
    test
+   profile

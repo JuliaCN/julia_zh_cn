@@ -1,41 +1,111 @@
 .. _man-types:
 
-******
- 类型
-******
+*********
+ Types    
+*********
 
-Julia 中，如果类型被省略，则值可以是任意类型。添加类型会显著提高性能和系统稳定性。
+Type systems have traditionally fallen into two quite different camps:
+static type systems, where every program expression must have a type
+computable before the execution of the program, and dynamic type
+systems, where nothing is known about types until run time, when the
+actual values manipulated by the program are available. Object
+orientation allows some flexibility in statically typed languages by
+letting code be written without the precise types of values being known
+at compile time. The ability to write code that can operate on different
+types is called polymorphism. All code in classic dynamically typed
+languages is polymorphic: only by explicitly checking types, or when
+objects fail to support operations at run-time, are the types of any
+values ever restricted.
 
-Julia `类型系统 <http://zh.wikipedia.org/zh-cn/%E9%A1%9E%E5%9E%8B%E7%B3%BB%E7%B5%B1>`_ 的特性是，具体类型不能作为具体类型的子类型，所有的具体类型都是最终的，其子类型只能是抽象类型。其它高级特性有：
+Julia's type system is dynamic, but gains some of the advantages of
+static type systems by making it possible to indicate that certain
+values are of specific types. This can be of great assistance in
+generating efficient code, but even more significantly, it allows method
+dispatch on the types of function arguments to be deeply integrated with
+the language. Method dispatch is explored in detail in
+:ref:`man-methods`, but is rooted in the type system presented
+here.
 
--  不区分对象和非对象值：Julia 中的所有值都是一个有类型的对象，这个类型属于一个单一、全连接图，图中的每个节点都是类型
--  没有“编译时类型”：程序运行时仅有其实际类型，这在面向对象编程语言中被称为“运行时类型”
--  值有类型，变量没有类型——变量仅仅是绑定了值得名字而已
--  抽象类型和具体类型都可以被其它类型和整数参数化
+The default behavior in Julia when types are omitted is to allow values
+to be of any type. Thus, one can write many useful Julia programs
+without ever explicitly using types. When additional expressiveness is
+needed, however, it is easy to gradually introduce explicit type
+annotations into previously "untyped" code. Doing so will typically
+increase both the performance and robustness of these systems, and
+perhaps somewhat counterintuitively, often significantly simplify them.
 
+Describing Julia in the lingo of `type
+systems <http://en.wikipedia.org/wiki/Type_system>`_, it is: dynamic,
+nominative, parametric and dependent. Generic types can be parameterized,
+and the hierarchical relationships
+between types are explicitly declared, rather than implied by compatible
+structure. One particularly distinctive feature of Julia's type system
+is that concrete types may not subtype each other: all concrete types
+are final and may only have abstract types as their supertypes. While
+this might at first seem unduly restrictive, it has many beneficial
+consequences with surprisingly few drawbacks. It turns out that being
+able to inherit behavior is much more important than being able to
+inherit structure, and inheriting both causes significant difficulties
+in traditional object-oriented languages. Other high-level aspects of
+Julia's type system that should be mentioned up front are:
 
-类型声明
---------
+-  There is no division between object and non-object values: all values
+   in Julia are true objects having a type that belongs to a single,
+   fully connected type graph, all nodes of which are equally
+   first-class as types.
+-  There is no meaningful concept of a "compile-time type": the only
+   type a value has is its actual type when the program is running. This
+   is called a "run-time type" in object-oriented languages where the
+   combination of static compilation with polymorphism makes this
+   distinction significant.
+-  Only values, not variables, have types — variables are simply names
+   bound to values.
+-  Both abstract and concrete types can be paramaterized by other types
+   and by certain other values (currently integers and symbols).
+   Type parameters may be completely omitted when they
+   do not need to be referenced or restricted.
 
-``::`` 运算符可以用来在程序中给表达式和变量附加类型注释。这样做有两个理由：
+Julia's type system is designed to be powerful and expressive, yet
+clear, intuitive and unobtrusive. Many Julia programmers may never feel
+the need to write code that explicitly uses types. Some kinds of
+programming, however, become clearer, simpler, faster and more robust
+with declared types.
 
-1. 作为断言，帮助确认程序是否正常运行
-2. 给编译器提供额外类型信息，帮助提升性能
+Type Declarations
+-----------------
 
-``::`` 运算符读作“前者是后者的实例”，它用来断言左侧表达式是否为右侧表达式的
-实例。如果右侧是具体类型，左侧也必须是同样类型。如果右侧是抽象类型，左侧应是一
-个具体类型的实例，该具体类型是这个抽象类型的子类型。如果断言为假，将抛出异常，
-否则，返回左值::
+The ``::`` operator can be used to attach type annotations to
+expressions and variables in programs. There are two primary reasons to
+do this:
+
+1. As an assertion to help confirm that your program works the way you
+   expect,
+2. To provide extra type information to the compiler, which can then
+   improve performance in some cases
+
+The ``::`` operator is read as "is an instance of" and can be used
+anywhere to assert that the value of the expression on the left is an
+instance of the type on the right. When the type on the right is
+concrete, the value on the left must have that type as its
+implementation — recall that all concrete types are final, so no
+implementation is a subtype of any other. When the type is abstract, it
+suffices for the value to be implemented by a concrete type that is a
+subtype of the abstract type. If the type assertion is not true, an
+exception is thrown, otherwise, the left-hand value is returned::
 
     julia> (1+2)::FloatingPoint
-    type error: typeassert: expected FloatingPoint, got Int64
+    ERROR: type: typeassert: expected FloatingPoint, got Int64
 
     julia> (1+2)::Int
     3
 
-可以在任何表达式的位置做类型断言。
+This allows a type assertion to be attached to any expression in-place.
 
-``::`` 运算符跟在变量名后时，它声明变量应该是某个类型，有点儿类似于 C 等静态语言中的类型声明。赋给这个变量的值会被 ``convert`` 函数转换为所声明的类型： ::
+When attached to a variable, the ``::`` operator means something a bit
+different: it declares the variable to always have the specified type,
+like a type declaration in a statically-typed language such as C. Every
+value assigned to the variable will be converted to the declared type
+using the ``convert`` function::
 
     julia> function foo()
              x::Int8 = 1000
@@ -48,34 +118,72 @@ Julia `类型系统 <http://zh.wikipedia.org/zh-cn/%E9%A1%9E%E5%9E%8B%E7%B3%BB%E
     julia> typeof(ans)
     Int8
 
-这个特性用于避免性能陷阱，即给一个变量赋值时意外更改了类型。
+This feature is useful for avoiding performance "gotchas" that could
+occur if one of the assignments to a variable changed its type
+unexpectedly.
 
-“声明”仅发生在特定的上下文中： ::
+The "declaration" behavior only occurs in specific contexts::
 
-    x::Int8        # 仅变量自己
-    local x::Int8  # 本地变量声明in a local declaration
-    x::Int8 = 10   # 作为赋值语句左侧
+    x::Int8        # a variable by itself
+    local x::Int8  # in a local declaration
+    x::Int8 = 10   # as the left-hand side of an assignment
 
-在值的上下文，如 ``f(x::Int8)`` 中， ``::`` 是类型断言而不是声明。现在还不能在
-全局作用域或 REPL 中做这种声明，因为 Julia 现在还没有常量类型的全局变量。
+In value contexts, such as ``f(x::Int8)``, the ``::`` is a type
+assertion again and not a declaration. Note that these declarations
+cannot be used in global scope currently, in the REPL, since Julia
+does not yet have constant-type globals.
 
 .. _man-abstract-types:
 
-抽象类型
---------
+Abstract Types
+--------------
 
-抽象类型不能被实例化，它组织了类型等级关系，方便程序员编程。如，编程时可针对任意整数类型，而不需指明是哪种具体的整数类型。
+Abstract types cannot be instantiated, and serve only as nodes in the
+type graph, thereby describing sets of related concrete types: those
+concrete types which are their descendants. We begin with abstract types
+even though they have no instantiation because they are the backbone of
+the type system: they form the conceptual hierarchy which makes Julia's
+type system more than just a collection of object implementations.
 
-使用 ``abstract`` 关键字声明抽象类型： ::
+Recall that in :ref:`man-integers-and-floating-point-numbers`, we introduced a
+variety of concrete types of numeric values: ``Int8``, ``Uint8``,
+``Int16``, ``Uint16``, ``Int32``, ``Uint32``, ``Int64``, ``Uint64``,
+``Float32``, and ``Float64``. Although they have different
+representation sizes, ``Int8``, ``Int16``, ``Int32`` and ``Int64`` all
+have in common that they are signed integer types. Likewise ``Uint8``,
+``Uint16``, ``Uint32`` and ``Uint64`` are all unsigned integer types,
+while ``Float32`` and ``Float64`` are distinct in being floating-point
+types rather than integers. It is common for a piece of code to make
+sense, for example, only if its arguments are some kind of integer, but
+not really depend on what particular *kind* of integer.
+For example, the greatest common denominator algorithm works for all
+kinds of integers, but will not work for floating-point numbers.
+Abstract types allow the construction of a hierarchy of types,
+providing a context into which concrete types can fit. This allows you,
+for example, to easily program to any type that is an integer, without
+restricting an algorithm to a specific type of integer.
+
+Abstract types are declared using the ``abstract`` keyword. The general
+syntaxes for declaring an abstract type are::
 
     abstract «name»
     abstract «name» <: «supertype»
 
-``abstract`` 关键字引入了新的抽象类型，类型名为 ``«name»`` 。类型名后可跟 ``<:`` 及已存在的类型，表明新声明的抽象类型是这个“父”类型的子类型。
+The ``abstract`` keyword introduces a new abstract type, whose name is
+given by ``«name»``. This name can be optionally followed by ``<:`` and
+an already-existing type, indicating that the newly declared abstract
+type is a subtype of this "parent" type.
 
-如果没有指明父类型，则父类型默认为 ``Any`` ——所有对象和类型都是这个抽象类型的子类型。在类型理论中， ``Any`` 位于类型图的顶峰，被称为“顶”。Julia 也有预定义的抽象“底”类型，它位于类型图的最底处，被称为 ``None`` ；它与 ``Any`` 对立：任何对象都不是 ``None`` 的实例，所有的类型都是 ``None`` 的父类型。
+When no supertype is given, the default supertype is ``Any`` — a
+predefined abstract type that all objects are instances of and all types
+are subtypes of. In type theory, ``Any`` is commonly called "top"
+because it is at the apex of the type graph. Julia also has a predefined
+abstract "bottom" type, at the nadir of the type graph, which is called
+``None``. It is the exact opposite of ``Any``: no object is an instance
+of ``None`` and all types are supertypes of ``None``.
 
-下面是构造 Julia 数值体系的抽象类型子集的具体例子： ::
+Let's consider some of the abstract types that make up Julia's numerical
+hierarchy::
 
     abstract Number
     abstract Real     <: Number
@@ -84,8 +192,22 @@ Julia `类型系统 <http://zh.wikipedia.org/zh-cn/%E9%A1%9E%E5%9E%8B%E7%B3%BB%E
     abstract Signed   <: Integer
     abstract Unsigned <: Integer
 
-``<:`` 运算符意思为“前者是后者的子类型”，它声明右侧是左侧新声明类型的直接父
-类型。也可以用来判断左侧是不是右侧的子类型： ::
+The ``Number`` type is a direct child type of ``Any``, and ``Real`` is
+its child. In turn, ``Real`` has two children (it has more, but only two
+are shown here; we'll get to the others later): ``Integer`` and
+``FloatingPoint``, separating the world into representations of integers and
+representations of real numbers. Representations of real numbers
+include, of course, floating-point types, but also include other types,
+such as rationals. Hence, ``FloatingPoint`` is a proper subtype of
+``Real``, including only floating-point representations of real numbers.
+Integers are further subdivided into ``Signed`` and ``Unsigned``
+varieties.
+
+The ``<:`` operator in general means "is a subtype of", and, used in
+declarations like this, declares the right-hand type to be an immediate
+supertype of the newly declared type. It can also be used in expressions
+as a subtype operator which returns ``true`` when its left operand is a
+subtype of its right operand::
 
     julia> Integer <: Number
     true
@@ -93,12 +215,19 @@ Julia `类型系统 <http://zh.wikipedia.org/zh-cn/%E9%A1%9E%E5%9E%8B%E7%B3%BB%E
     julia> Integer <: FloatingPoint
     false
 
-.. _bits-types:
+Since abstract types have no instantiations and serve as no more than
+nodes in the type graph, there is not much more to say about them until
+we introduce parametric abstract types later on in `Parametric
+Types <#man-parametric-types>`_.
 
-位类型
-------
+Bits Types
+----------
 
-位类型是具体类型，它的数据是由位构成的。整数和浮点数都是位类型。标准的位类型是用 Julia 语言本身定义的： ::
+A bits type is a concrete type whose data consists of plain old bits.
+Classic examples of bits types are integers and floating-point values.
+Unlike most languages, Julia lets you declare your own bits types,
+rather than providing only a fixed set of built-in bits types. In fact,
+the standard bits types are all defined in the language itself::
 
     bitstype 32 Float32 <: FloatingPoint
     bitstype 64 Float64 <: FloatingPoint
@@ -115,23 +244,70 @@ Julia `类型系统 <http://zh.wikipedia.org/zh-cn/%E9%A1%9E%E5%9E%8B%E7%B3%BB%E
     bitstype 64 Int64  <: Signed
     bitstype 64 Uint64 <: Unsigned
 
-声明位类型的通用语法是： ::
+The general syntaxes for declaration of a ``bitstype`` are::
 
     bitstype «bits» «name»
     bitstype «bits» «name» <: «supertype»
 
-``«bits»`` 表明类型需要多少空间来存储，``«name»`` 为新类型的名字。目前，位类型的声明的位数只支持 8 的倍数。
+The number of bits indicates how much storage the type requires and the
+name gives the new type a name. A bits type can optionally be declared
+to be a subtype of some supertype. If a supertype is omitted, then the
+type defaults to having ``Any`` as its immediate supertype. The
+declaration of ``Bool`` above therefore means that a boolean value takes
+eight bits to store, and has ``Integer`` as its immediate supertype.
+Currently, only sizes that are multiples of 8 bits are supported.
+Therefore, boolean values, although they really need just a single bit,
+cannot be declared to be any smaller than eight bits.
 
-``Bool``, ``Int8`` 及 ``Uint8`` 类型的声明是完全相同的，都占用了 8 位内存，但它们是互相独立的。
+The types ``Bool``, ``Int8`` and ``Uint8`` all have identical
+representations: they are eight-bit chunks of memory. Since Julia's type
+system is nominative, however, they are not interchangeable despite
+having identical structure. Another fundamental difference between them
+is that they have different supertypes: ``Bool``'s direct supertype is
+``Integer``, ``Int8``'s is ``Signed``, and ``Uint8``'s is ``Unsigned``.
+All other differences between ``Bool``, ``Int8``, and ``Uint8`` are
+matters of behavior — the way functions are defined to act when given
+objects of these types as arguments. This is why a nominative type
+system is necessary: if structure determined type, which in turn
+dictates behavior, then it would be impossible to make ``Bool`` behave any
+differently than ``Int8`` or ``Uint8``.
 
 .. _man-composite-types:
 
-复合类型
---------
+Composite Types
+---------------
 
-`复合类型 <http://zh.wikipedia.org/zh-cn/%E8%A4%87%E5%90%88%E5%9E%8B%E5%88%A5>`_ 也被称为记录、结构、或者对象。复合类型是变量名域的集合。它是 Julia 中最常用的自定义类型。在 Julia 中，所有的值都是对象，但函数并不与它们所操作的对象绑定。Julia 重载时，根据函数 *所有* 参数的类型，而不仅仅是第一个参数的类型，来选取调用哪个方法（详见 :ref:`man-methods` ）。
+`Composite types <http://en.wikipedia.org/wiki/Composite_data_type>`_
+are called records, structures (``structs`` in C), or objects in various
+languages. A composite type is a collection of named fields, an instance
+of which can be treated as a single value. In many languages, composite
+types are the only kind of user-definable type, and they are by far the
+most commonly used user-defined type in Julia as well.
 
-使用 ``type`` 关键字来定义复合类型： ::
+In mainstream
+object oriented languages, such as C++, Java, Python and Ruby, composite
+types also have named functions associated with them, and the
+combination is called an "object". In purer object-oriented languages,
+such as Python and Ruby, all values are objects whether they are
+composites or not. In less pure object oriented languages, including C++
+and Java, some values, such as integers and floating-point values, are
+not objects, while instances of user-defined composite types are true
+objects with associated methods. In Julia, all values are objects,
+but functions are not bundled with the objects they
+operate on. This is necessary since Julia chooses which method of a
+function to use by multiple dispatch, meaning that the types of *all* of
+a function's arguments are considered when selecting a method, rather
+than just the first one (see :ref:`man-methods` for more
+information on methods and dispatch). Thus, it would be inappropriate
+for functions to "belong" to only their first argument. Organizing
+methods into function objects rather than having
+named bags of methods "inside" each object ends up being a highly
+beneficial aspect of the language design.
+
+Since composite types are the most common form of user-defined concrete
+type, they are simply introduced with the ``type`` keyword followed by a
+block of field names, optionally annotated with types using the ``::``
+operator::
 
     type Foo
       bar
@@ -139,7 +315,11 @@ Julia `类型系统 <http://zh.wikipedia.org/zh-cn/%E9%A1%9E%E5%9E%8B%E7%B3%BB%E
       qux::Float64
     end
 
-构建复合类型 ``Foo`` 的对象： ::
+Fields with no type annotation default to ``Any``, and can accordingly
+hold any type of value.
+
+New objects of composite type ``Foo`` are created by applying the
+``Foo`` type object like a function to values for its fields::
 
     julia> foo = Foo("Hello, world.", 23, 1.5)
     Foo("Hello, world.",23,1.5)
@@ -147,12 +327,17 @@ Julia `类型系统 <http://zh.wikipedia.org/zh-cn/%E9%A1%9E%E5%9E%8B%E7%B3%BB%E
     julia> typeof(foo)
     Foo
 
-由于没有约束 ``bar`` 类型，它可以被赋任意值， ``baz`` 则必须是 ``Int`` ， ``qux`` 必须是 ``Float64`` 。参数必须与构造类型签名 ``(Any,Int,Float64)`` 相匹配： ::
+Since the ``bar`` field is unconstrained in type, any value will do; the
+value for ``baz`` must be an ``Int`` and ``qux`` must be a ``Float64``.
+The signature of the default constructor is taken directly from the
+field type declarations ``(Any,Int,Float64)``, so arguments must match
+this implied type signature::
 
     julia> Foo((), 23.5, 1)
     no method Foo((),Float64,Int64)
 
-获取复合对象域的值： ::
+You can access the field values of a composite object using the
+traditional ``foo.bar`` notation::
 
     julia> foo.bar
     "Hello, world."
@@ -163,7 +348,7 @@ Julia `类型系统 <http://zh.wikipedia.org/zh-cn/%E9%A1%9E%E5%9E%8B%E7%B3%BB%E
     julia> foo.qux
     1.5
 
-修改复合对象域的值： ::
+You can also change the values as one would expect::
 
     julia> foo.qux = 2
     2.0
@@ -171,7 +356,8 @@ Julia `类型系统 <http://zh.wikipedia.org/zh-cn/%E9%A1%9E%E5%9E%8B%E7%B3%BB%E
     julia> foo.bar = 1//2
     1//2
 
-没有域的复合类型是单态类型，这种类型只能有一个实例： ::
+Composite types with no fields are singletons; there can be only one
+instance of such types::
 
     type NoFields
     end
@@ -179,21 +365,30 @@ Julia `类型系统 <http://zh.wikipedia.org/zh-cn/%E9%A1%9E%E5%9E%8B%E7%B3%BB%E
     julia> is(NoFields(), NoFields())
     true
 
-``is`` 函数验证 ``NoFields`` 的“两个”实例是否为同一个。
+The ``is`` function confirms that the "two" constructed instances of
+``NoFields`` are actually one and the same. Singleton types are
+described in further detail `below <#man-singleton-types>`_.
 
-有关复合类型如何实例化，需要 `参数化类型 <#man-parametric-types>`_ 和 :ref:`man-methods` 这两个背景知识。将在 :ref:`man-constructors` 中详细介绍构造实例。
+There is much more to say about how instances of composite types are
+created, but that discussion depends on both `Parametric
+Types <#man-parametric-types>`_ and on :ref:`man-methods`, and is
+sufficiently important to be addressed in its own section:
+:ref:`man-constructors`.
+
+.. _man-immutable-composite-types:
 
 Immutable Composite Types
 -------------------------
 
-可以使用关键词 ``immutable`` 替代 ``type`` 来定义 *不可变* 复合类型：::
+It is also possible to define *immutable* composite types by using
+the keyword ``immutable`` instead of ``type``::
 
     immutable Complex
       real::Float64
       imag::Float64
     end
 
-Such types behave just like other composite types, except that instances
+Such types behave much like other composite types, except that instances
 of them cannot be modified. Immutable types have several advantages:
 
 - They are more efficient in some cases. Types like the ``Complex``
@@ -211,18 +406,96 @@ immutable object itself cannot be changed to point to different objects.
 A useful way to think about immutable composites is that each instance is
 associated with specific field values --- the field values alone tell
 you everything about the object. In contrast, a mutable object is like a
-little container that might contain different values over time, and so is
+little container that might hold different values over time, and so is
 not identified with specific field values. In deciding whether to make a
 type immutable, ask whether two instances with the same field values
 would be considered identical, or if they might need to change independently
 over time. If they would be considered identical, the type should probably
 be immutable.
 
+Declared Types
+--------------
 
-类型共用体
-----------
+The three kinds of types discussed in the previous three sections
+are actually all closely related. They share the same key properties:
 
-类型共用体是特殊的抽象类型，使用 ``Union`` 函数来声明： ::
+- They are explicitly declared.
+- They have names.
+- They have explicitly declared supertypes.
+- They may have parameters.
+
+Because of these shared properties, these types are internally
+represented as instances of the same concept, ``DataType``, which
+is the type of any of these types::
+
+    julia> typeof(Real)
+    DataType
+
+    julia> typeof(Int)
+    DataType
+
+A ``DataType`` may be abstract or concrete. If it is concrete, it
+has a specified size, storage layout, and (optionally) field names.
+Thus a bits type is a ``DataType`` with nonzero size, but no field
+names. A composite type is a ``DataType`` that has field names or
+is empty (zero size).
+
+Every concrete value in the system is either an instance of some
+``DataType``, or is a tuple.
+
+Tuple Types
+-----------
+
+Tuples are an abstraction of the arguments of a function — without the
+function itself. The salient aspects of a function's arguments are their
+order and their types. The type of a tuple of values is the tuple of
+types of values::
+
+    julia> typeof((1,"foo",2.5))
+    (Int64,ASCIIString,Float64)
+
+Accordingly, a tuple of types can be used anywhere a type is expected::
+
+    julia> (1,"foo",2.5) :: (Int64,String,Any)
+    (1,"foo",2.5)
+
+    julia> (1,"foo",2.5) :: (Int64,String,Float32)
+    ERROR: type: typeassert: expected (Int64,String,Float32), got (Int64,ASCIIString,Float64)
+
+If one of the components of the tuple is not a type, however, you will
+get an error::
+
+    julia> (1,"foo",2.5) :: (Int64,String,3)
+    ERROR: type: typeassert: expected Type{T<:Top}, got (DataType,DataType,Int64)
+
+Note that the empty tuple ``()`` is its own type::
+
+    julia> typeof(())
+    ()
+
+Tuple types are *covariant* in their constituent types, which means
+that one tuple type is a subtype of another if elements of the first
+are subtypes of the corresponding elements of the second. For
+example::
+
+    julia> (Int,String) <: (Real,Any)
+    true
+
+    julia> (Int,String) <: (Real,Real)
+    false
+
+    julia> (Int,String) <: (Real,)
+    false
+
+Intuitively, this corresponds to the type of a function's arguments
+being a subtype of the function's signature (when the signature matches).
+
+Type Unions
+-----------
+
+A type union is a special abstract type which includes as objects all
+instances of any of its argument types, constructed using the special
+``Union`` function::
 
     julia> IntOrString = Union(Int,String)
     Union(Int,String)
@@ -236,62 +509,70 @@ be immutable.
     julia> 1.0 :: IntOrString
     type error: typeassert: expected Union(Int,String), got Float64
 
-不含任何类型的类型共用体，是“底”类型 ``None`` ： ::
+The compilers for many languages have an internal union construct for
+reasoning about types; Julia simply exposes it to the programmer. The
+union of no types is the "bottom" type, ``None``::
 
     julia> Union()
     None
 
-抽象类型 ``None`` 是所有其它类型的子类型，且没有实例。零参的 ``Union`` 调用，将返回无实例对象 ``None`` 。
-
-.. _tuple-types:
-
-多元组类型
-----------
-
-多元组的类型是类型多元组： ::
-
-    julia> typeof((1,"foo",2.5))
-    (Int64,ASCIIString,Float64)
-
-类型多元组可以在任何需要类型的地方使用： ::
-
-    julia> (1,"foo",2.5) :: (Int64,String,Any)
-    (1,"foo",2.5)
-
-    julia> (1,"foo",2.5) :: (Int64,String,Float32)
-    type error: typeassert: expected (Int64,String,Float32), got (Int64,ASCIIString,Float64)
-
-如果类型多元组中有非类型出现，会报错： ::
-
-    julia> (1,"foo",2.5) :: (Int64,String,3)
-    type error: typeassert: expected Type{T}, got (BitsKind,AbstractKind,Int64)
-
-注意，空多元组 ``()`` 的类型是其本身： ::
-
-    julia> typeof(())
-    ()
+Recall from the `discussion above <#Any+and+None>`_ that ``None`` is the
+abstract type which is the subtype of all other types, and which no
+object is an instance of. Since a zero-argument ``Union`` call has no
+argument types for objects to be instances of, it should produce a
+type which no objects are instances of — i.e. ``None``.
 
 .. _man-parametric-types:
 
-参数化类型
-----------
+Parametric Types
+----------------
 
-Julia 的类型系统支持参数化：类型可以引入参数，这样类型声明为每种可能的参数组合声明一个新类型。
+An important and powerful feature of Julia's type system is that it is
+parametric: types can take parameters, so that type declarations
+actually introduce a whole family of new types — one for each possible
+combination of parameter values. There are many languages that support
+some version of `generic
+programming <http://en.wikipedia.org/wiki/Generic_programming>`_, wherein
+data structures and algorithms to manipulate them may be specified
+without specifying the exact types involved. For example, some form of
+generic programming exists in ML, Haskell, Ada, Eiffel, C++, Java, C#,
+F#, and Scala, just to name a few. Some of these languages support true
+parametric polymorphism (e.g. ML, Haskell, Scala), while others support
+ad-hoc, template-based styles of generic programming (e.g. C++, Java).
+With so many different varieties of generic programming and parametric
+types in various languages, we won't even attempt to compare Julia's
+parametric types to other languages, but will instead focus on
+explaining Julia's system in its own right. We will note, however, that
+because Julia is a dynamically typed language and doesn't need to make
+all type decisions at compile time, many traditional difficulties
+encountered in static parametric type systems can be relatively easily
+handled.
 
-抽象类型，位类型，和复合类型都可以使用同样的语法进行参数化。
+All declared types (the ``DataType`` variety) can be parameterized, with
+the same syntax in each case. We will discuss them in in the following
+order: first, parametric composite types, then parametric abstract
+types, and finally parametric bits types.
 
-参数化复合类型
-~~~~~~~~~~~~~~
+Parametric Composite Types
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-类型参数跟在类型名后，用花括号括起来： ::
+Type parameters are introduced immediately after the type name,
+surrounded by curly braces::
 
     type Point{T}
       x::T
       y::T
     end
 
-这个声明定义了新参数化类型 ``Point{T}`` ，它有两个 ``T`` 类型的“坐标系”。参数化类型可以使任何类型（或整数，此处作为类型）。具体类型 ``Point{Float64}`` 等价于将 ``Point`` 中的 ``T`` 替换为 ``Float64`` 后的类型。上例事实上声明了许多种类型： ``Point{Float64}``, ``Point{String}``,
-``Point{Int64}`` 等等，每个都是现在可用的具体类型： ::
+This declaration defines a new parametric type, ``Point{T}``, holding
+two "coordinates" of type ``T``. What, one may ask, is ``T``? Well,
+that's precisely the point of parametric types: it can be any type at
+all (or an integer, actually, although here it's clearly used as a
+type). ``Point{Float64}`` is a concrete type equivalent to the type
+defined by replacing ``T`` in the definition of ``Point`` with
+``Float64``. Thus, this single declaration actually declares an
+unlimited number of types: ``Point{Float64}``, ``Point{String}``,
+``Point{Int64}``, etc. Each of these is now a usable concrete type::
 
     julia> Point{Float64}
     Point{Float64}
@@ -299,12 +580,18 @@ Julia 的类型系统支持参数化：类型可以引入参数，这样类型�
     julia> Point{String}
     Point{String}
 
-``Point`` 本身也是个有效的类型对象： ::
+The type ``Point{Float64}`` is a point whose coordinates are 64-bit
+floating-point values, while the type ``Point{String}`` is a "point"
+whose "coordinates" are string objects (see :ref:`man-strings`).
+However, ``Point`` itself is also a valid type object::
 
     julia> Point
     Point{T}
 
-``Point`` 在这儿是包含所有 ``Point{Float64}``, ``Point{String}`` 等具体实例的抽象类型： ::
+Here the ``T`` is the dummy type symbol used in the original declaration
+of ``Point``. What does ``Point`` by itself mean? It is an abstract type
+that contains all the specific instances ``Point{Float64}``,
+``Point{String}``, etc.::
 
     julia> Point{Float64} <: Point
     true
@@ -312,7 +599,7 @@ Julia 的类型系统支持参数化：类型可以引入参数，这样类型�
     julia> Point{String} <: Point
     true
 
-其它类型则不是其子类型： ::
+Other types, of course, are not subtypes of it::
 
     julia> Float64 <: Point
     false
@@ -320,7 +607,8 @@ Julia 的类型系统支持参数化：类型可以引入参数，这样类型�
     julia> String <: Point
     false
 
-``Point`` 不同 ``T`` 值的具体类型之间，不能互相作为子类型： ::
+Concrete ``Point`` types with different values of ``T`` are never
+subtypes of each other::
 
     julia> Point{Float64} <: Point{Int64}
     false
@@ -328,20 +616,46 @@ Julia 的类型系统支持参数化：类型可以引入参数，这样类型�
     julia> Point{Float64} <: Point{Real}
     false
 
-后者非常重要：
+This last point is very important:
 
-    **虽然** ``Float64 <: Real`` **，但** ``Point{Float64} <: Point{Real}`` **不成立！**
+    **Even though** ``Float64 <: Real`` **we DO NOT have**
+    ``Point{Float64} <: Point{Real}``\ **.**
 
-换句话说，Julia 的类型参数是 *不相关* 的。尽管 ``Point{Float64}`` 的实例按照概念来说，应该是 ``Point{Real}`` 的实例，但两者在内存表示上有区别：
+In other words, in the parlance of type theory, Julia's type parameters
+are *invariant*, rather than being covariant (or even contravariant).
+This is for practical reasons: while any instance of ``Point{Float64}``
+may conceptually be like an instance of ``Point{Real}`` as well, the two
+types have different representations in memory:
 
--  ``Point{Float64}`` 的实例可以简便、有效地表示 64 位数对儿
--  ``Point{Real}`` 的实例可以表示任意 ``Real`` 实例的数对儿。由于 ``Real`` 的实例可以为任意大小、任意结构，因此 ``Point{Real}`` 实际上表示指向 ``Real`` 对象的指针对儿
+-  An instance of ``Point{Float64}`` can be represented compactly and
+   efficiently as an immediate pair of 64-bit values;
+-  An instance of ``Point{Real}`` must be able to hold any pair of
+   instances of ``Real``. Since objects that are instances of ``Real``
+   can be of arbitrary size and structure, in practice an instance of
+   ``Point{Real}`` must be represented as a pair of pointers to
+   individually allocated ``Real`` objects.
 
-上述区别在数组中更明显： ``Array{Float64}`` 可以在一块连续内存中存储 64 位浮点数，而 ``Array{Real}`` 则保存指向每个 ``Real`` 对象的指针数组。而每个 ``Real`` 对象的大小，可能比 64 位浮点数的大。
+The efficiency gained by being able to store ``Point{Float64}`` objects
+with immediate values is magnified enormously in the case of arrays: an
+``Array{Float64}`` can be stored as a contiguous memory block of 64-bit
+floating-point values, whereas an ``Array{Real}`` must be an array of
+pointers to individually allocated ``Real`` objects — which may well be
+`boxed <http://en.wikipedia.org/wiki/Object_type_%28object-oriented_programming%29#Boxing>`_
+64-bit floating-point values, but also might be arbitrarily large,
+complex objects, which are declared to be implementations of the
+``Real`` abstract type.
 
-:ref:`man-constructors` 中将介绍如何给复合类型自定义构造方法，但如果没有特殊构造声明时，默认有两种构造新复合对象的方法：一种是明确指明构造方法的类型参数；另一种是由对象构造方法的参数来隐含类型参数。
+How does one construct a ``Point`` object? It is possible to define
+custom constructors for composite types, which will be discussed in
+detail in :ref:`man-constructors`, but in the absence of any
+special constructor declarations, there are two default ways of creating
+new composite objects, one in which the type parameters are explicitly
+given and the other in which they are implied by the arguments to the
+object constructor.
 
-指明构造方法的类型参数： ::
+Since the type ``Point{Float64}`` is a concrete type equivalent to
+``Point`` declared with ``Float64`` in place of ``T``, it can be applied
+as a constructor accordingly::
 
     julia> Point{Float64}(1.0,2.0)
     Point(1.0,2.0)
@@ -349,7 +663,8 @@ Julia 的类型系统支持参数化：类型可以引入参数，这样类型�
     julia> typeof(ans)
     Point{Float64}
 
-参数个数应匹配： ::
+For the default constructor, exactly one argument must be supplied for
+each field::
 
     julia> Point{Float64}(1.0)
     no method Point(Float64,)
@@ -357,7 +672,15 @@ Julia 的类型系统支持参数化：类型可以引入参数，这样类型�
     julia> Point{Float64}(1.0,2.0,3.0)
     no method Point(Float64,Float64,Float64)
 
-大多数情况下不需要提供 ``Point`` 对象的类型，它可由参数类型来提供信息。因此，可以不提供 ``T`` 的值： ::
+The provided arguments need to match the field types exactly, in this
+case ``(Float64,Float64)``, as with all composite type default
+constructors.
+
+In many cases, it is redundant to provide the type of ``Point`` object
+one wants to construct, since the types of arguments to the constructor
+call already implicitly provide type information. For that reason, you
+can also apply ``Point`` itself as a constructor, provided that the
+implied value of the parameter type ``T`` is unambiguous::
 
     julia> Point(1.0,2.0)
     Point(1.0,2.0)
@@ -371,21 +694,28 @@ Julia 的类型系统支持参数化：类型可以引入参数，这样类型�
     julia> typeof(ans)
     Point{Int64}
 
-上例中， ``Point`` 的两个参数类型相同，因此可以 ``T`` 可以省略。但当参数类型不同时，会报错： ::
+In the case of ``Point``, the type of ``T`` is unambiguously implied if
+and only if the two arguments to ``Point`` have the same type. When this
+isn't the case, the constructor will fail with a no method error::
 
     julia> Point(1,2.5)
     no method Point(Int64,Float64)
 
-详见 :ref:`man-constructors` 。
+Constructor methods to appropriately handle such mixed cases can be
+defined, but that will not be discussed until later on in
+:ref:`man-constructors`.
 
-参数化抽象类型
-~~~~~~~~~~~~~~
+Parametric Abstract Types
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-类似地，参数化抽象类型声明一个抽象类型的集合： ::
+Parametric abstract type declarations declare a collection of abstract
+types, in much the same way::
 
     abstract Pointy{T}
 
-对每个类型或整数值 ``T`` ， ``Pointy{T}`` 都是一个不同的抽象类型。 ``Pointy`` 的每个实例都是它的子类型： ::
+With this declaration, ``Pointy{T}`` is a distinct abstract type for
+each type or integer value of ``T``. As with parametric composite types,
+each such instance is a subtype of ``Pointy``::
 
     julia> Pointy{Int64} <: Pointy
     true
@@ -393,7 +723,8 @@ Julia 的类型系统支持参数化：类型可以引入参数，这样类型�
     julia> Pointy{1} <: Pointy
     true
 
-参数化抽象类型也是不相关的： ::
+Parametric abstract types are invariant, much as parametric composite
+types are::
 
     julia> Pointy{Float64} <: Pointy{Real}
     false
@@ -401,14 +732,19 @@ Julia 的类型系统支持参数化：类型可以引入参数，这样类型�
     julia> Pointy{Real} <: Pointy{Float64}
     false
 
-可以如下声明 ``Point{T}`` 是 ``Pointy{T}`` 的子类型： ::
+Much as plain old abstract types serve to create a useful hierarchy of
+types over concrete types, parametric abstract types serve the same
+purpose with respect to parametric composite types. We could, for
+example, have declared ``Point{T}`` to be a subtype of ``Pointy{T}`` as
+follows::
 
     type Point{T} <: Pointy{T}
       x::T
       y::T
     end
 
-对每个 ``T`` ，都有 ``Point{T}`` 是 ``Pointy{T}`` 的子类型： ::
+Given such a declaration, for each choice of ``T``, we have ``Point{T}``
+as a subtype of ``Pointy{T}``::
 
     julia> Point{Float64} <: Pointy{Float64}
     true
@@ -419,24 +755,36 @@ Julia 的类型系统支持参数化：类型可以引入参数，这样类型�
     julia> Point{String} <: Pointy{String}
     true
 
-它们仍然是不相关的： ::
+This relationship is also invariant::
 
     julia> Point{Float64} <: Pointy{Real}
     false
 
-参数化抽象类型 ``Pointy`` 有什么用呢？假设我们要构造一个坐标点的实现，点都在对角线 *x = y* 上，因此我们只需要一个坐标： ::
+What purpose do parametric abstract types like ``Pointy`` serve?
+Consider if we create a point-like implementation that only requires a
+single coordinate because the point is on the diagonal line *x = y*::
 
     type DiagPoint{T} <: Pointy{T}
       x::T
     end
 
-``Point{Float64}`` 和 ``DiagPoint{Float64}`` 都是 ``Pointy{Float64}`` 抽象类型的实现，这对其它可选类型 ``T`` 也一样。 ``Pointy`` 可以作为它的子类型的公共接口。有关方法和重载，详见下一节 :ref:`man-methods` 。
+Now both ``Point{Float64}`` and ``DiagPoint{Float64}`` are
+implementations of the ``Pointy{Float64}`` abstraction, and similarly
+for every other possible choice of type ``T``. This allows programming
+to a common interface shared by all ``Pointy`` objects, implemented for
+both ``Point`` and ``DiagPoint``. This cannot be fully demonstrated,
+however, until we have introduced methods and dispatch in the next
+section, :ref:`man-methods`.
 
-有时需要对 ``T`` 的范围做限制： ::
+There are situations where it may not make sense for type parameters to
+range freely over all possible types. In such situations, one can
+constrain the range of ``T`` like so::
 
     abstract Pointy{T<:Real}
 
-此时， ``T`` 只能是 ``Real`` 的子类型： ::
+With such a declaration, it is acceptable to use any type that is a
+subtype of ``Real`` in place of ``T``, but not types that are not
+subtypes of ``Real``::
 
     julia> Pointy{Float64}
     Pointy{Float64}
@@ -445,31 +793,43 @@ Julia 的类型系统支持参数化：类型可以引入参数，这样类型�
     Pointy{Real}
 
     julia> Pointy{String}
-    type error: Pointy: in T, expected Real, got AbstractKind
+    ERROR: type: Pointy: in T, expected Real, got Type{String}
 
     julia> Pointy{1}
-    type error: Pointy: in T, expected Real, got Int64
+    ERROR: type: Pointy: in T, expected Real, got Int64
 
-参数化复合类型的类型参数，也可以同样被限制： ::
+Type parameters for parametric composite types can be restricted in the
+same manner::
 
     type Point{T<:Real} <: Pointy{T}
       x::T
       y::T
     end
 
-下面是 Julia 的 ``Rational`` 类型是如何定义的，这个类型表示分数： ::
+To give a couple of real-world examples of how all this parametric type
+machinery can be useful, here is the actual definition of Julia's
+``Rational`` type, representing an exact ratio of integers::
 
     type Rational{T<:Integer} <: Real
       num::T
       den::T
     end
 
+It only makes sense to take ratios of integer values, so the parameter
+type ``T`` is restricted to being a subtype of ``Integer``, and a ratio
+of integers represents a value on the real number line, so any
+``Rational`` is an instance of the ``Real`` abstraction.
+
 .. _man-singleton-types:
 
-单态类型
-^^^^^^^^
+Singleton Types
+^^^^^^^^^^^^^^^
 
-单态类型是一种特殊的抽象参数化类型。对每个类型 ``T`` ，抽象类型“单态” ``Type{T}`` 的实例为对象 ``T`` 。来看些例子::
+There is a special kind of abstract parametric type that must be
+mentioned here: singleton types. For each type, ``T``, the "singleton
+type" ``Type{T}`` is an abstract type whose only instance is the object
+``T``. Since the definition is a little difficult to parse, let's look
+at some examples::
 
     julia> isa(Float64, Type{Float64})
     true
@@ -483,7 +843,10 @@ Julia 的类型系统支持参数化：类型可以引入参数，这样类型�
     julia> isa(Float64, Type{Real})
     false
 
-换句话说，仅当 ``A`` 和 ``B`` 是同一个对象，且这个对象是类型时， ``isa(A,Type{B})`` 返回真。没有参数时， ``Type`` 仅是抽象类型，所有的类型都是它的实例，包括单态类型： ::
+In other words, ``isa(A,Type{B})`` is true if and only if ``A`` and
+``B`` are the same object and that object is a type. Without the
+parameter, ``Type`` is simply an abstract type which has all type
+objects as its instances, including, of course, singleton types::
 
     julia> isa(Type{Float64},Type)
     true
@@ -494,7 +857,7 @@ Julia 的类型系统支持参数化：类型可以引入参数，这样类型�
     julia> isa(Real,Type)
     true
 
-只有对象是类型时，才是 ``Type`` 的实例： ::
+Any object that is not a type is not an instance of ``Type``::
 
     julia> isa(1,Type)
     false
@@ -502,20 +865,42 @@ Julia 的类型系统支持参数化：类型可以引入参数，这样类型�
     julia> isa("foo",Type)
     false
 
-Julia 中只有类型对象才有单态类型，而其它有单态类型的编程语言中，每个对象都有单态。
+Until we discuss :ref:`man-parametric-methods`
+and :ref:`conversions <man-conversion>`, it is
+difficult to explain the utility of the singleton type construct, but in
+short, it allows one to specialize function behavior on specific type
+*values*. This is useful for writing
+methods (especially parametric ones) whose behavior depends on a type
+that is given as an explicit argument rather than implied by the type of
+one of its arguments.
 
-参数化位类型
-~~~~~~~~~~~~
+A few popular languages have singleton types, including Haskell, Scala
+and Ruby. In general usage, the term "singleton type" refers to a type
+whose only instance is a single value. This meaning applies to Julia's
+singleton types, but with that caveat that only type objects have
+singleton types.
 
-可以参数化地声明位类型。例如，Julia 中指针被定义为位类型： ::
+Parametric Bits Types
+~~~~~~~~~~~~~~~~~~~~~
 
-    # 32 位系统:
+Bits types can also be declared parametrically. For example, pointers
+are represented as boxed bits types which would be declared in Julia
+like this::
+
+    # 32-bit system:
     bitstype 32 Ptr{T}
 
-    # 64 位系统:
+    # 64-bit system:
     bitstype 64 Ptr{T}
 
-这儿的参数类型 ``T`` 不是用来做类型定义，而是个抽象标签，它定义了一组结构相同的类型，这些类型仅能由类型参数来区分。尽管 ``Ptr{Float64}`` 和 ``Ptr{Int64}`` 的表示是一样的，它们是不同的类型。所有的特定指针类型，都是 ``Ptr`` 类型的子类型： ::
+The slightly odd feature of these declarations as compared to typical
+parametric composite types, is that the type parameter ``T`` is not used
+in the definition of the type itself — it is just an abstract tag,
+essentially defining an entire family of types with identical structure,
+differentiated only by their type parameter. Thus, ``Ptr{Float64}`` and
+``Ptr{Int64}`` are distinct types, even though they have identical
+representations. And of course, all specific pointer types are subtype
+of the umbrella ``Ptr`` type::
 
     julia> Ptr{Float64} <: Ptr
     true
@@ -523,10 +908,13 @@ Julia 中只有类型对象才有单态类型，而其它有单态类型的编�
     julia> Ptr{Int64} <: Ptr
     true
 
-类型别名
---------
+Type Aliases
+------------
 
-Julia 提供 ``typealias`` 机制来实现类型别名。如， ``Uint`` 是 ``Uint32`` 或 ``Uint64`` 的类型别名，这取决于系统的指针大小： ::
+Sometimes it is convenient to introduce a new name for an already
+expressible type. For such occasions, Julia provides the ``typealias``
+mechanism. For example, ``Uint`` is type aliased to either ``Uint32`` or
+``Uint64`` as is appropriate for the size of pointers on the system::
 
     # 32-bit system:
     julia> Uint
@@ -536,7 +924,7 @@ Julia 提供 ``typealias`` 机制来实现类型别名。如， ``Uint`` 是 ``U
     julia> Uint
     Uint64
 
-它是通过 ``base/boot.jl`` 中的代码实现的： ::
+This is accomplished via the following code in ``base/boot.jl``::
 
     if is(Int,Int64)
         typealias Uint Uint64
@@ -544,26 +932,47 @@ Julia 提供 ``typealias`` 机制来实现类型别名。如， ``Uint`` 是 ``U
         typealias Uint Uint32
     end
 
-这取决于预定义中， ``Int`` 是 ``Int32`` 还是 ``Int64`` 的别名。
+Of course, this depends on what ``Int`` is aliased to — but that is
+pre-defined to be the correct type — either ``Int32`` or ``Int64``.
 
-对参数化类型， ``typealias`` 提供了简单的参数化类型名。Julia 的数组类型为 ``Array{T,n}`` ，其中 ``T`` 是元素类型， ``n`` 是数组维度的数值。为简单起见， ``Array{Float64}`` 可以只指明元素类型而不需指明维度： ::
+For parametric types, ``typealias`` can be convenient for providing
+names for cases where some of the parameter choices are fixed.
+Julia's arrays have type ``Array{T,N}`` where ``T`` is the element type
+and ``N`` is the number of array dimensions. For convenience, writing
+``Array{Float64}`` allows one to specify the element type without
+specifying the dimension::
 
     julia> Array{Float64,1} <: Array{Float64} <: Array
     true
 
-``Vector`` 和 ``Matrix`` 对象是如下定义的： ::
+However, there is no way to equally simply restrict just the dimension
+but not the element type. Yet, one often needs to ensure an object
+is a vector or a matrix (imposing restrictions on the number of dimensions).
+For that reason, the following type aliases are provided::
 
     typealias Vector{T} Array{T,1}
     typealias Matrix{T} Array{T,2}
 
-``Vector{Float64}`` 等价于 ``Array{Float64,1}`` 。 ``Vector`` 是 ``Array`` 的实例化对象，第二个参数为 1 ，元素可以是任意类型。
+Writing ``Vector{Float64}`` is equivalent to writing
+``Array{Float64,1}``, and the umbrella type ``Vector`` has as instances
+all ``Array`` objects where the second parameter — the number of array
+dimensions — is 1, regardless of what the element type is. In languages
+where parametric types must always be specified in full, this is not
+especially helpful, but in Julia, this allows one to write just
+``Matrix`` for the abstract type including all two-dimensional dense
+arrays of any element type.
 
-类型运算
---------
+Operations on Types
+-------------------
 
-Julia 中，类型本身也是对象，可以对其使用普通的函数。如 ``<:`` 运算符，可以判断左侧是否是右侧的子类型。
+Since types in Julia are themselves objects, ordinary functions can
+operate on them. Some functions that are particularly useful for working
+with or exploring types have already been introduced, such as the ``<:``
+operator, which indicates whether its left hand operand is a subtype of
+its right hand operand.
 
-``isa`` 函数检测对象是否属于某个指定的类型： ::
+The ``isa`` function tests if an object is of a given type and returns
+true or false::
 
     julia> isa(1,Int)
     true
@@ -571,63 +980,55 @@ Julia 中，类型本身也是对象，可以对其使用普通的函数。如 `
     julia> isa(1,FloatingPoint)
     false
 
-``typeof`` 函数返回参数的类型。类型也是对象，因此它也有类型： ::
-
-    julia> typeof(Real)
-    AbstractKind
-
-    julia> typeof(Float64)
-    BitsKind
+The ``typeof`` function, already used throughout the manual in examples,
+returns the type of its argument. Since, as noted above, types are
+objects, they also have types, and we can ask what their types are::
 
     julia> typeof(Rational)
-    CompositeKind
+    DataType
 
     julia> typeof(Union(Real,Float64,Rational))
-    UnionKind
+    UnionType
 
-    julia> typeof((Real,Float64,Rational,None))
-    (AbstractKind,BitsKind,CompositeKind,UnionKind)
+    julia> typeof((Rational,None))
+    (DataType,UnionType)
 
-类型的类型，按照惯例被称为“种类（kind）”：
+What if we repeat the process? What is the type of a type of a type?
+As it happens, types are all composite values and thus all have a type of
+``DataType``::
 
--  抽象类型的类型为 ``AbstractKind``
--  位类型的类型为 ``BitsKind``
--  复合类型的类型为 ``CompositeKind``
--  共用体的类型为 ``UnionKind``
--  多元组的类型为对应种类的多元组
+    julia> typeof(DataType)
+    DataType
 
-种类的类型都是 ``CompositeKind`` ： ::
+    julia> typeof(UnionType)
+    DataType
 
-    julia> typeof(AbstractKind)
-    CompositeKind
-
-    julia> typeof(BitsKind)
-    CompositeKind
-
-    julia> typeof(CompositeKind)
-    CompositeKind
-
-    julia> typeof(UnionKind)
-    CompositeKind
-
-注意到 ``CompositeKind`` 与空多元组相同（详见 `上文 <#tuple-types>`_ ），其类型为本身。递归使用 ``()`` 和 ``CompositeKind`` 所组成的多元组的类型，是该类型本身： ::
+The reader may note that ``DataType`` shares with the empty tuple
+(see `above <#tuple-types>`_), the distinction of being its own type
+(i.e. a fixed point of the ``typeof`` function). This leaves any number
+of tuple types recursively built with ``()`` and ``DataType`` as
+their only atomic values, which are their own type::
 
     julia> typeof(())
     ()
 
-    julia> typeof(CompositeKind)
-    CompositeKind
+    julia> typeof(DataType)
+    DataType
 
     julia> typeof(((),))
     ((),)
 
-    julia> typeof((CompositeKind,))
-    (CompositeKind,)
+    julia> typeof((DataType,))
+    (DataType,)
 
-    julia> typeof(((),CompositeKind))
-    ((),CompositeKind)
+    julia> typeof(((),DataType))
+    ((),DataType)
 
-只有抽象类型 ``AbstractKind`` ，位类型 ``BitsKind`` ，及复合类型 ``CompositeKind`` 有父类型， ``super`` 只能用在这些类型上： ::
+All fixed points of the ``typeof`` function are like this.
+
+Another operation that applies to some types is ``super``, which
+reveals a type's supertype.
+Only declared types (``DataType``) have unambiguous supertypes::
 
     julia> super(Float64)
     FloatingPoint
@@ -641,13 +1042,14 @@ Julia 中，类型本身也是对象，可以对其使用普通的函数。如 `
     julia> super(Any)
     Any
 
-对其它类型对象（或非类型对象）使用 ``super`` ，会引发 “no method” 错误： ::
+If you apply ``super`` to other type objects (or non-type objects), a
+"no method" error is raised::
 
     julia> super(Union(Float64,Int64))
-    no method super(UnionKind,)
+    no method super(UnionType,)
 
     julia> super(None)
-    no method super(UnionKind,)
+    no method super(UnionType,)
 
     julia> super((Float64,Int64))
-    no method super((BitsKind,BitsKind),)
+    no method super((DataType,DataType),)

@@ -1,3196 +1,4998 @@
 .. currentmodule:: Base
 
-杂项
-----
+Introduction
+------------
+
+The Julia standard library contains a range of functions and macros appropriate for performing scientific and numerical computing, but as broad as many general purpose programming languages.  Additional functionality is available from a growing collection of :ref:`available-packages`. Functions are grouped by topic below.  
+
+Some general notes:
+
+* Except for functions in :ref:`built-in-modules`, all functions documented here are directly available for use in programs.
+* To use module functions, use ``import Module`` to import the module, and ``Module.fn(x)`` to use the functions.
+* Alternatively, ``using ModuleName`` will import all exported ``Module`` functions into the current namespace.
+* By convention, function names ending with an exclamation point (``!``) modify their arguments.  Some functions have both modifying (e.g., ``sort!``) and non-modifying (``sort``) versions.
+
+Getting Around
+--------------
 
 .. function:: exit([code])
 
-   退出（或在会话中按下 control-D ）。默认退出代码为 0 ，表示进程正常结束。
+   Quit (or control-D at the prompt). The default exit code is zero, indicating that the processes completed successfully.
+
+.. function:: quit()
+
+   Calls ``exit(0)``.
+
+.. function:: atexit(f)
+
+   Register a zero-argument function to be called at exit.
+
+.. function:: isinteractive()
+
+   Determine whether Julia is running an interactive session.
 
 .. function:: whos([Module,] [pattern::Regex])
 
-   打印模块中全局变量的信息，可选择性地限制打印匹配 ``pattern`` 的变量。
+   Print information about global variables in a module, optionally restricted
+   to those matching ``pattern``.
 
 .. function:: edit(file::String, [line])
 
-   编辑文件；可选择性地提供要编辑的行号。退出编辑器后返回 Julia 会话。 
-   如果文件后缀名为 ".jl" ，关闭文件后会重载该文件。
+   Edit a file optionally providing a line number to edit at. Returns to the julia prompt when you quit the editor.
 
 .. function:: edit(function, [types])
 
-   编辑函数定义，可选择性地提供一个类型多元组以指明要编辑哪个方法。 
-   退出编辑器后，包含定义的源文件会被重载。
+   Edit the definition of a function, optionally specifying a tuple of types to indicate which method to edit.
+
+.. function:: less(file::String, [line])
+
+   Show a file using the default pager, optionally providing a starting line number. Returns to the julia prompt when you quit the pager.
+
+.. function:: less(function, [types])
+
+   Show the definition of a function using the default pager, optionally specifying a tuple of types to indicate which method to see.
 
 .. function:: require(file::String...)
 
-   在 ``Main`` 模块的上下文中，对每个活动的节点，通过系统的 ``LOAD_PATH`` 
-   查找文件，并只载入一次。``require`` 是顶层操作，因此它设置当前的 
-   ``include`` 路径，但并不使用它来查找文件（详见 ``include`` ）。 
-   此函数常用来载入库代码； ``using`` 函数隐含使用它来载入扩展包。
+   Load source files once, in the context of the ``Main`` module, on every active node, searching the system-wide ``LOAD_PATH`` for files. ``require`` is considered a top-level operation, so it sets the current ``include`` path but does not use it to search for files (see help for ``include``). This function is typically used to load library code, and is implicitly called by ``using`` to load packages.
 
 .. function:: reload(file::String)
 
-   类似 ``require`` ，但不管是否曾载入过，都要载入文件。
-   常在交互式地开发库时使用。
+   Like ``require``, except forces loading of files regardless of whether they have been loaded before. Typically used when interactively developing libraries.
 
 .. function:: include(path::String)
 
-   在当前上下文中，对源文件的内容求值。在包含的过程中，它将本地任务 
-   包含的路径设置为包含文件的文件夹。嵌套调用 ``include`` 时会搜索 
-   那个路径的   相关路径。并行运行时，所有的路径都指向节点 1 上文件， 
-   并从节点 1 上获取文件。此函数常用来交互式地载入源文件，或将分散为 
-   多个源文件的扩展包结合起来。
+   Evaluate the contents of a source file in the current context. During including, a task-local include path is set to the directory containing the file. Nested calls to ``include`` will search relative to that path. All paths refer to files on node 1 when running in parallel, and files will be fetched from node 1. This function is typically used to load source interactively, or to combine files in packages that are broken into multiple source files.
 
 .. function:: include_string(code::String)
 
-   类似 ``include`` ，但它从指定的字符串读取代码，而不是从文件中。 
-   由于没有涉及到文件路径，不会进行路径处理或从节点 1 获取文件。
-
-.. function:: evalfile(path::String)
-
-   对指定文件的所有表达式求值，并返回最后一个表达式的值。 
-   不会进行其他处理（搜索路径，从节点 1 获取文件等）。
+   Like ``include``, except reads code from the given string rather than from a file. Since there is no file path involved, no path processing or fetching from node 1 is done.
 
 .. function:: help(name)
 
-   获得函数帮助。 ``name`` 可以是对象或字符串。
+   Get help for a function. ``name`` can be an object or a string.
 
 .. function:: apropos(string)
 
-   查询文档中与 ``string`` 相关的函数。
+   Search documentation for functions related to ``string``.
 
 .. function:: which(f, args...)
 
-   对指定的参数，显示应调用 ``f`` 的哪个方法。
+   Show which method of ``f`` will be called for the given arguments.
+
+.. function:: @which
+
+   Evaluates the arguments to the function call, determines their types, and calls the ``which`` function on the resulting expression
 
 .. function:: methods(f)
 
-   显示 ``f`` 的所有方法及其对应的参数类型。
-   
+   Show all methods of ``f`` with their argument types.
+
 .. function:: methodswith(typ[, showparents])
 
-   显示 ``typ`` 类型的所有方法。若可选项 ``showparents`` 为 ``true`` ， 
-   则额外显示 ``typ`` 除 ``Any`` 类型之外的父类型的方法。
-   
+   Show all methods with an argument of type ``typ``. If optional
+   ``showparents`` is ``true``, also show arguments with a parent type
+   of ``typ``, excluding type ``Any``.
 
-所有对象
---------
+.. function:: @show
+
+   Show an expression and result, returning the result
+
+.. function:: versioninfo([verbose::Bool])
+
+   Print information about the version of Julia in use. If the ``verbose`` argument
+   is true, detailed system information is shown as well.
+
+All Objects
+-----------
 
 .. function:: is(x, y)
 
-   判断 ``x`` 与 ``y`` 是否相同，依据为程序不能区分它们。
+   Determine whether ``x`` and ``y`` are identical, in the sense that no program could distinguish them. Compares mutable objects by address in memory, and compares immutable objects (such as numbers) by contents at the bit level. This function is sometimes called ``egal``. The ``===`` operator is an alias for this function.
 
 .. function:: isa(x, type)
 
-   判断 ``x`` 是否为指定类型。
+   Determine whether ``x`` is of the given type.
 
 .. function:: isequal(x, y)
 
-   当且仅当 ``x`` 和 ``y`` 内容相同是为真。粗略地说，即打印出来的
-   ``x`` 和 ``y`` 看起来一模一样。
+   True if and only if ``x`` and ``y`` have the same contents. Loosely speaking, this means ``x`` and ``y`` would look the same when printed. This is the default comparison function used by hash tables (``Dict``).
+   New types with a notion of equality should implement this function, except for numbers, which should implement ``==`` instead. However, numeric types with special values might need to implement ``isequal`` as well. For example, floating point ``NaN`` values are not ``==``, but are all equivalent in the sense of ``isequal``. Numbers of different types are considered unequal.
+   Mutable containers should generally implement ``isequal`` by calling ``isequal`` recursively on all contents.
 
 .. function:: isless(x, y)
 
-   判断 ``x`` 是否比 ``y`` 小。它具有与 ``isequal`` 一致的整体排序。 
-   不能正常排序的值如 ``NaN`` ，会按照任意顺序排序，但其排序方式会保持一致。 
-   它是 ``sort`` 默认使用的比较函数。可进行排序的非数值类型，应当实现此方法。
+   Test whether ``x`` is less than ``y``. Provides a total order consistent with ``isequal``. Values that are normally unordered, such as ``NaN``, are ordered in an arbitrary but consistent fashion. This is the default comparison used by ``sort``. Non-numeric types that can be ordered should implement this function. Numeric types only need to implement it if they have special values such as ``NaN``.
 
 .. function:: typeof(x)
 
-   返回 ``x`` 的具体类型。
+   Get the concrete type of ``x``.
 
 .. function:: tuple(xs...)
 
-   构造指定对象的多元组。
+   Construct a tuple of the given objects.
 
 .. function:: ntuple(n, f::Function)
 
-   构造长度为 ``n`` 的多元组，每个元素为 ``f(i)`` ，其中 ``i`` 为元素的索引值。
+   Create a tuple of length ``n``, computing each element as ``f(i)``, where ``i`` is the index of the element.
 
 .. function:: object_id(x)
 
-   获取 ``x`` 唯一的整数值 ID 。当且仅当 ``is(x,y)`` 时，
-   ``object_id(x) == object_id(y)`` 。
+   Get a unique integer id for ``x``. ``object_id(x)==object_id(y)`` if and only if ``is(x,y)``.
 
 .. function:: hash(x)
 
-   计算整数哈希值。因而 ``isequal(x,y)`` 等价于 ``hash(x) == hash(y)`` 。
+   Compute an integer hash code such that ``isequal(x,y)`` implies ``hash(x)==hash(y)``.
 
 .. function:: finalizer(x, function)
 
-   当对 ``x`` 的引用处于程序不可用时，注册一个注册可调用的函数 ``f(x)`` 
-   来终结这个引用。当 ``x`` 为位类型时，此函数的行为不可预测。
+   Register a function ``f(x)`` to be called when there are no program-accessible references to ``x``. The behavior of this function is unpredictable if ``x`` is of a bits type.
 
 .. function:: copy(x)
 
-   构造 ``x`` 的浅拷贝：仅复制外层结构，不复制内部值。如，复制数组时， 
-   会生成一个元素与原先完全相同的新数组。
+   Create a shallow copy of ``x``: the outer structure is copied, but not all internal values. For example, copying an array produces a new array with identically-same elements as the original.
 
 .. function:: deepcopy(x)
 
-   构造 ``x`` 的深拷贝：递归复制所有的东西，返回一个完全独立的对象。 
-   如，深拷贝数组时，会生成一个元素为原先元素深拷贝的新数组。
+   Create a deep copy of ``x``: everything is copied recursively, resulting in a fully independent object. For example, deep-copying an array produces a new array whose elements are deep-copies of the original elements.
 
-   作为特例，匿名函数只能深拷贝，非匿名函数则为浅拷贝。它们的区别仅与闭包有关， 
-   例如含有隐藏的内部引用的函数。
+   As a special case, functions can only be actually deep-copied if they are anonymous, otherwise they are just copied. The difference is only relevant in the case of closures, i.e. functions which may contain hidden internal references.
 
-   正常情况都不必这么做：自定义类型可通过定义特殊版本的 
-   ``deepcopy_internal(x::T, dict::ObjectIdDict)`` 函数（此函数其它情况下 
-   不应使用）来覆盖默认的 ``deepcopy`` 行为，其中 ``T`` 是要指明的类型， 
-   ``dict`` 记录迄今为止递归中复制的对象。在定义中， ``deepcopy_internal`` 
-   应当用来代替 ``deepcopy`` ， ``dict`` 变量应当在返回前正确的更新。
+   While it isn't normally necessary, user-defined types can override the default ``deepcopy`` behavior by defining a specialized version of the function ``deepcopy_internal(x::T, dict::ObjectIdDict)`` (which shouldn't otherwise be used), where ``T`` is the type to be specialized for, and ``dict`` keeps track of objects copied so far within the recursion. Within the definition, ``deepcopy_internal`` should be used in place of ``deepcopy``, and the ``dict`` variable should be updated as appropriate before returning.
+
+.. function:: isdefined(object, index | symbol)
+
+   Tests whether an assignable location is defined. The arguments can be an
+   array and index, a composite object and field name (as a symbol), or a
+   module and a symbol.
 
 .. function:: convert(type, x)
 
-   试着将 ``x`` 转换为指定类型。
+   Try to convert ``x`` to the given type.
 
 .. function:: promote(xs...)
 
-   将所有参数转换为共同的提升类型（如果有的话），并将它们（作为多元组）返回。
+   Convert all arguments to their common promotion type (if any), and return them all (as a tuple).
 
-类型
-----
+.. function:: oftype(x, y)
 
-.. function:: subtype(type1, type2)
+   Convert ``y`` to the type of ``x``.
 
-   仅在 ``type1`` 的所有值都是 ``type2`` 时为真。也可使用 ``<:`` 中缀运算符， 
-   写为 ``type1 <: type2`` 。
+.. function:: identity(x)
+
+   The identity function. Returns its argument.
+
+Types
+-----
+
+.. function:: super(T::DataType)
+
+   Return the supertype of DataType T
+
+.. function:: issubtype(type1, type2)
+
+   True if and only if all values of ``type1`` are also of ``type2``. Can also be written using the ``<:`` infix operator as ``type1 <: type2``.
 
 .. function:: <:(T1, T2)
 
-   子类型运算符，等价于 ``subtype(T1,T2)`` 。
+   Subtype operator, equivalent to ``issubtype(T1,T2)``.
+
+.. function:: subtypes(T::DataType)
+
+   Return a list of immediate subtypes of DataType T.  Note that all currently loaded subtypes are included, including those not visible in the current module.
+
+.. function:: subtypetree(T::DataType)
+
+   Return a nested list of all subtypes of DataType T.  Note that all currently loaded subtypes are included, including those not visible in the current module.
 
 .. function:: typemin(type)
 
-   指定（实数）数值类型可表示的最小值。
+   The lowest value representable by the given (real) numeric type.
 
 .. function:: typemax(type)
 
-   指定（实数）数值类型可表示的最大值。
+   The highest value representable by the given (real) numeric type.
 
 .. function:: realmin(type)
 
-   指定的浮点数类型可表示的非反常值中，绝对值最小的数。
+   The smallest in absolute value non-subnormal value representable by the given floating-point type
 
 .. function:: realmax(type)
 
-   指定的浮点数类型可表示的最大的有穷数。
+   The highest finite value representable by the given floating-point type
 
 .. function:: maxintfloat(type)
 
-   指定的浮点数类型可无损表示的最大整数。
+   The largest integer losslessly representable by the given floating-point type
 
 .. function:: sizeof(type)
 
-   指定类型的权威二进制表示（如果有的话）所占的字节大小。
+   Size, in bytes, of the canonical binary representation of the given type, if any.
 
 .. function:: eps([type])
 
-   1.0 与下一个稍大的 ``type`` 类型可表示的浮点数之间的距离。有效的类型为 
-   ``Float32`` 和 ``Float64`` 。如果省略 ``type`` ，则返回 ``eps(Float64)`` 。
+   The distance between 1.0 and the next larger representable floating-point value of ``type``. The only types that are sensible arguments are ``Float32`` and ``Float64``. If ``type`` is omitted, then ``eps(Float64)`` is returned.
 
 .. function:: eps(x)
 
-   ``x`` 与下一个稍大的 ``x`` 同类型可表示的浮点数之间的距离。
+   The distance between ``x`` and the next larger representable floating-point value of the same type as ``x``.
 
 .. function:: promote_type(type1, type2)
 
-   如果可能的话，给出可以无损表示每个参数类型值的类型。若不存在无损表示时， 
-   可以容忍有损；如 ``promote_type(Int64,Float64)`` 返回 ``Float64`` ， 
-   尽管严格来说，并非所有的 ``Int64`` 值都可以由 ``Float64`` 无损表示。
+   Determine a type big enough to hold values of each argument type without loss, whenever possible. In some cases, where no type exists which to which both types can be promoted losslessly, some loss is tolerated; for example, ``promote_type(Int64,Float64)`` returns ``Float64`` even though strictly, not all ``Int64`` values can be represented exactly as ``Float64`` values.
+
+.. function:: promote_rule(type1, type2)
+
+   Specifies what type should be used by ``promote`` when given values of types
+   ``type1`` and ``type2``. This function should not be called directly, but
+   should have definitions added to it for new types as appropriate.
 
 .. function:: getfield(value, name::Symbol)
 
-   从复合类型的 value 中提取命名域。 ``a.b`` 语法调用 ``getfield(a, :b)`` ，
-   ``a.(b)`` 语法调用 ``getfield(a, b)`` 。
+   Extract a named field from a value of composite type. The syntax ``a.b`` calls
+   ``getfield(a, :b)``, and the syntax ``a.(b)`` calls ``getfield(a, b)``.
 
 .. function:: setfield(value, name::Symbol, x)
 
-   为复合类型的 ``value`` 中的命名域赋值 ``x`` 。
-   ``a.b = c`` 语法调用 ``setfield(a, :b, c)`` ，
-   ``a.(b) = c`` 语法调用 ``setfield(a, b, c)``.
+   Assign ``x`` to a named field in ``value`` of composite type.
+   The syntax ``a.b = c`` calls ``setfield(a, :b, c)``, and the syntax ``a.(b) = c``
+   calls ``setfield(a, b, c)``.
+
+.. function:: fieldoffsets(type)
+
+   The byte offset of each field of a type relative to the data start. For example, we could use it
+   in the following manner to summarize information about a struct type::
+
+        structinfo(T) = [zip(fieldoffsets(T),names(T),T.types)...]
+        structinfo(Stat)
 
 .. function:: fieldtype(value, name::Symbol)
 
-   返回复合类型的 ``value`` 中的命名域 ``name`` 的类型。
+   Determine the declared type of a named field in a value of composite type.
 
-   
-通用函数
---------
+.. function:: isimmutable(v)
+
+   True if value ``v`` is immutable.  See :ref:`man-immutable-composite-types` for a discussion of immutability.
+
+.. function:: isbits(T)
+
+   True if ``T`` is a "plain data" type, meaning it is immutable and contains no references to other values. Typical examples are numeric types such as ``Uint8``, ``Float64``, and ``Complex{Float64}``.
+
+.. function:: isleaftype(T)
+
+   Determine whether ``T`` is a concrete type that can have instances, meaning
+   its only subtypes are itself and ``None`` (but ``T`` itself is not
+   ``None``).
+
+.. function:: typejoin(T, S)
+
+   Compute a type that contains both ``T`` and ``S``.
+
+.. function:: typeintersect(T, S)
+
+   Compute a type that contains the intersection of ``T`` and ``S``. Usually this will be the smallest such type or one close to it.
+
+Generic Functions
+-----------------
 
 .. function:: method_exists(f, tuple) -> Bool
 
-   判断指定的通用函数是否有匹配参数类型多元组的方法。
+   Determine whether the given generic function has a method matching the given tuple of argument types.
 
-   **例子** ： ``method_exists(length, (Array,)) = true``
+   **Example**: ``method_exists(length, (Array,)) = true``
 
 .. function:: applicable(f, args...)
 
-   判断指定的通用函数是否有可用于指定参数的方法。
+   Determine whether the given generic function has a method applicable to the given arguments.
 
 .. function:: invoke(f, (types...), args...)
 
-   对指定的参数，为匹配指定类型（多元组）的通用函数指定要调用的方法。 
-   参数应与指定的类型兼容。它允许在最匹配的方法之外，指定一个方法。 
-   这对明确需要一个更通用的定义的行为时非常有用 
-   （通常作为相同函数的更特殊的方法实现的一部分）。
+   Invoke a method for the given generic function matching the specified types (as a tuple), on the specified arguments. The arguments must be compatible with the specified types. This allows invoking a method other than the most specific matching method, which is useful when the behavior of a more general definition is explicitly needed (often as part of the implementation of a more specific method of the same function).
 
-.. function:: |(x, f)
-   
-   对前面的参数应用一个函数，方便写链式函数。
+.. function:: |>(x, f)
 
-   **例子** ： ``[1:5] | x->x.^2 | sum | inv``
+   Applies a function to the preceding argument which allows for easy function chaining.
 
-迭代
-----
+   **Example**: ``[1:5] |> x->x.^2 |> sum |> inv``
 
-序贯迭代是通过 ``start``, ``done``, 及 ``next`` 方法实现的。通用 ``for`` 循环： ::
+
+Syntax
+------
+
+.. function:: eval(expr::Expr)
+
+   Evaluate an expression and return the value.
+
+.. function:: @eval
+
+   Evaluate an expression and return the value.
+
+.. function:: evalfile(path::String)
+
+   Evaluate all expressions in the given file, and return the value of the last one. No other processing (path searching, fetching from node 1, etc.) is performed.
+
+.. function:: esc(e::ANY)
+
+   Only valid in the context of an Expr returned from a macro. Prevents the macro hygine pass from turning embedded variables into gensym variables. See the :ref:`man-macros`
+   section of the Metaprogramming chapter of the manual for more details and examples.
+
+.. function:: gensym([tag])
+
+   Generates a symbol which will not conflict with other variable names.
+
+.. function:: @gensym
+
+   Generates a gensym symbol for a variable. For example, `@gensym x y` is transformed into `x = gensym("x"); y = gensym("y")`.
+
+.. function:: parse(str, [start, [greedy, [err]]])
+
+   Parse the expression string and return an expression (which could later be passed to eval for execution). Start is the index of the first character to start parsing (default is 1). If greedy is true (default), parse will try to consume as much input as it can; otherwise, it will stop as soon as it has parsed a valid token. If err is true (default), parse errors will raise an error; otherwise, it will return the error as a normal expression.
+
+Iteration
+---------
+
+Sequential iteration is implemented by the methods ``start``, ``done``, and
+``next``. The general ``for`` loop::
 
     for i = I
-      # 代码体
+      # body
     end
 
-可以重写为： ::
+is translated to::
 
     state = start(I)
     while !done(I, state)
       (i, state) = next(I, state)
-      # 代码体
+      # body
     end
 
-``state`` 对象可为任何东西，每个迭代类型都应选取与其相适应的。
+The ``state`` object may be anything, and should be chosen appropriately for each iterable type.
 
 .. function:: start(iter) -> state
 
-   获取可迭代对象的初始迭代状态。
+   Get initial iteration state for an iterable object
 
 .. function:: done(iter, state) -> Bool
 
-   判断迭代是否完成。
+   Test whether we are done iterating
 
 .. function:: next(iter, state) -> item, state
 
-   对指定的可迭代对象和迭代状态，返回当前项和下一个迭代状态。
+   For a given iterable object and iteration state, return the current item and the next iteration state
 
 .. function:: zip(iters...)
 
-   对一组迭代对象，返回一组可迭代多元组，其中第 ``i`` 个多元组 
-   包含每个可迭代输入的第 ``i`` 个分量。
+   For a set of iterable objects, returns an iterable of tuples, where the ``i``\ th tuple contains the ``i``\ th component of each input iterable.
 
-   注意 ``zip`` 是它自己的逆操作： ``[zip(zip(a...)...)...] == [a...]`` 。
-   
+   Note that ``zip`` is it's own inverse: ``[zip(zip(a...)...)...] == [a...]``.
+
 .. function:: enumerate(iter)
 
-   返回生成 ``(i, x)`` 的迭代器，其中 ``i`` 是从 1 开始的索引， 
-   ``x`` 是指定迭代器的第 ``i`` 个值。
+   Return an iterator that yields ``(i, x)`` where ``i`` is an index starting at 1,
+   and ``x`` is the ``ith`` value from the given iterator.
 
-完全实现的有： ``Range``, ``Range1``, ``NDRange``, ``Tuple``, ``Real``, ``AbstractArray``, ``IntSet``, ``ObjectIdDict``, ``Dict``, ``WeakKeyDict``, ``EachLine``, ``String``, ``Set``, ``Task``.
+Fully implemented by: ``Range``, ``Range1``, ``NDRange``, ``Tuple``, ``Real``, ``AbstractArray``, ``IntSet``, ``ObjectIdDict``, ``Dict``, ``WeakKeyDict``, ``EachLine``, ``String``, ``Set``, ``Task``.
 
-通用集合
---------
+General Collections
+-------------------
 
 .. function:: isempty(collection) -> Bool
 
-   判断集合是否为空（没有元素）。
+   Determine whether a collection is empty (has no elements).
 
 .. function:: empty!(collection) -> collection
 
-   移除集合中的所有元素。
+   Remove all elements from a collection.
 
 .. function:: length(collection) -> Integer
 
-   对可排序、可索引的集合，用于 ``getindex(collection, i)`` 最大索引值 
-   ``i`` 是有效的。对不可排序的集合，结果为元素个数。
+   For ordered, indexable collections, the maximum index ``i`` for which ``getindex(collection, i)`` is valid. For unordered collections, the number of elements.
 
 .. function:: endof(collection) -> Integer
 
-   返回集合的最后一个索引值。
+   Returns the last index of the collection.
+
+   **Example**: ``endof([1,2,4]) = 3``
+
+Fully implemented by: ``Range``, ``Range1``, ``Tuple``, ``Number``, ``AbstractArray``, ``IntSet``, ``Dict``, ``WeakKeyDict``, ``String``, ``Set``.
+
+Iterable Collections
+--------------------
+
+.. function:: in(item, collection) -> Bool
+
+   Determine whether an item is in the given collection, in the sense that it is
+   ``isequal`` to one of the values generated by iterating over the collection.
    
-   **例子** ： ``endof([1,2,4]) = 3``
+.. function:: indexin(a, b)
 
-完全实现的有： ``Range``, ``Range1``, ``Tuple``, ``Number``, ``AbstractArray``, ``IntSet``, ``Dict``, ``WeakKeyDict``, ``String``, ``Set``.
-
-可迭代集合
-----------
-
-.. function:: contains(itr, x) -> Bool
-
-   判断集合是否包含指定值 ``x`` 。
+   Returns a vector containing the highest index in ``b``
+   for each value in ``a`` that is a member of ``b`` .
+   The output vector contains 0 wherever ``a`` is not a member of ``b``.
 
 .. function:: findin(a, b)
 
-   返回曾在集合 ``b`` 中出现的，集合 ``a``  中元素的索引值。
+   Returns the indices of elements in collection ``a`` that appear in collection ``b``
 
 .. function:: unique(itr)
 
-   返回 ``itr`` 中去除多余重复元素的数组。
+   Returns an array containing only the unique elements of the iterable ``itr``, in
+   the order that the first of each set of equivalent elements originally appears.
 
 .. function:: reduce(op, v0, itr)
 
-   使用指定的运算符约简指定集合， ``v0`` 为约简的初始值。一些常用运算符的缩减， 
-   有更简便的单参数格式： ``max(itr)``, ``min(itr)``, ``sum(itr)``, 
-   ``prod(itr)``, ``any(itr)``, ``all(itr)``.
+   Reduce the given collection with the given operator, i.e. accumulate ``v = op(v,elt)`` for each element, where ``v`` starts as ``v0``. Reductions for certain commonly-used operators are available in a more convenient 1-argument form: ``max(itr)``, ``min(itr)``, ``sum(itr)``, ``prod(itr)``, ``any(itr)``, ``all(itr)``.
+
+   The associativity of the reduction is implementation-dependent; if you
+   need a particular associativity, e.g. left-to-right, you should write
+   your own loop.
 
 .. function:: max(itr)
 
-   返回集合中最大的元素。
+   Returns the largest element in a collection
 
 .. function:: min(itr)
 
-   返回集合中最小的元素。
+   Returns the smallest element in a collection
 
 .. function:: indmax(itr) -> Integer
 
-   返回集合中最大的元素的索引值。
+   Returns the index of the maximum element in a collection
 
 .. function:: indmin(itr) -> Integer
 
-   返回集合中最小的元素的索引值。
+   Returns the index of the minimum element in a collection
 
 .. function:: findmax(itr) -> (x, index)
 
-   返回最大的元素及其索引值。
+   Returns the maximum element and its index
 
 .. function:: findmin(itr) -> (x, index)
 
-   返回最小的元素及其索引值。
+   Returns the minimum element and its index
 
 .. function:: sum(itr)
 
-   返回集合中所有元素的和。
+   Returns the sum of all elements in a collection
+
+.. function:: sum(f, itr)
+
+   Sum the results of calling function ``f`` on each element of ``itr``.
 
 .. function:: prod(itr)
 
-   返回集合中所有元素的乘积。
+   Returns the product of all elements of a collection
 
 .. function:: any(itr) -> Bool
 
-   判断布尔值集合中是否有为真的元素。
+   Test whether any elements of a boolean collection are true
 
 .. function:: all(itr) -> Bool
 
-   判断布尔值集合中是否所有的元素都为真。
+   Test whether all elements of a boolean collection are true
 
-.. function:: count(itr) -> Integer
+.. function:: count(p, itr) -> Integer
 
-   ``itr`` 中为真的布尔值元素的个数。
-
-.. function:: countp(p, itr) -> Integer
-
-   ``itr`` 中断言 ``p`` 为真的布尔值元素的个数。
+   Count the number of elements in ``itr`` for which predicate ``p`` is true.
 
 .. function:: any(p, itr) -> Bool
 
-   判断 ``itr`` 中是否存在使指定断言为真的元素。
+   Determine whether any element of ``itr`` satisfies the given predicate.
 
 .. function:: all(p, itr) -> Bool
 
-   判断 ``itr`` 中是否所有元素都使指定断言为真。
+   Determine whether all elements of ``itr`` satisfy the given predicate.
 
 .. function:: map(f, c) -> collection
 
-   使用 ``f`` 遍历集合 ``c`` 的每个元素。
+   Transform collection ``c`` by applying ``f`` to each element.
 
-   **例子** ： ``map((x) -> x * 2, [1, 2, 3]) = [2, 4, 6]``
+   **Example**: ``map((x) -> x * 2, [1, 2, 3]) = [2, 4, 6]``
 
 .. function:: map!(function, collection)
 
-   :func:`map` 的原地版本。
+   In-place version of :func:`map`.
 
 .. function:: mapreduce(f, op, itr)
 
-   使用 ``f`` 遍历集合 ``c`` 的每个元素，然后使用二元函数 ``op`` 对结果进行约简。
+   Applies function ``f`` to each element in ``itr`` and then reduces the result using the binary function ``op``.
 
-   **例子** ： ``mapreduce(x->x^2, +, [1:3]) == 1 + 4 + 9 == 14``
+   **Example**: ``mapreduce(x->x^2, +, [1:3]) == 1 + 4 + 9 == 14``
+
+   The associativity of the reduction is implementation-dependent; if you
+   need a particular associativity, e.g. left-to-right, you should write
+   your own loop.
 
 .. function:: first(coll)
 
-   获取可排序集合的第一个元素。
+   Get the first element of an ordered collection.
 
 .. function:: last(coll)
 
-   获取可排序集合的最后一个元素。
+   Get the last element of an ordered collection.
+
+.. function:: step(r)
+
+   Get the step size of a ``Range`` object.
 
 .. function:: collect(collection)
 
-   返回集合中的所有项的数组。对关联性集合，返回 (key, value) 多元组。
-   
-可索引集合
-----------
+   Return an array of all items in a collection. For associative collections, returns (key, value) tuples.
+
+.. function:: issubset(a, b)
+
+   Determine whether every element of ``a`` is also in ``b``, using the
+   ``contains`` function.
+
+
+Indexable Collections
+---------------------
 
 .. function:: getindex(collection, key...)
 
-   取回集合中存储在指定键或索引值内的值。 
-   语法 ``a[i,j,...]`` 由编译器转换为 ``getindex(a, i, j, ...)`` 。
+   Retrieve the value(s) stored at the given key or index within a collection.
+   The syntax ``a[i,j,...]`` is converted by the compiler to
+   ``getindex(a, i, j, ...)``.
 
 .. function:: setindex!(collection, value, key...)
 
-   将指定值存储在集合的指定键或索引值内。 
-   语法 ``a[i,j,...] = x`` 由编译器转换为 ``setindex!(a, x, i, j, ...)`` 。
+   Store the given value at the given key or index within a collection.
+   The syntax ``a[i,j,...] = x`` is converted by the compiler to
+   ``setindex!(a, x, i, j, ...)``.
 
-完全实现的有： ``Array``, ``DArray``, ``AbstractArray``, ``SubArray``, ``ObjectIdDict``, ``Dict``, ``WeakKeyDict``, ``String``.
+Fully implemented by: ``Array``, ``DArray``, ``AbstractArray``, ``SubArray``, ``ObjectIdDict``, ``Dict``, ``WeakKeyDict``, ``String``.
 
-部分实现的有： ``Range``, ``Range1``, ``Tuple``.
+Partially implemented by: ``Range``, ``Range1``, ``Tuple``.
 
-关联性集合
-----------
+Associative Collections
+-----------------------
 
-字典 ``Dict`` 是标准关联性集合。它的实现中，键使用 ``hash(x)`` 作为其哈希函数，使用 ``isequal(x,y)`` 判断是否相等。为自定义类型定义这两个函数，可覆盖它们如何存储在哈希表中的细节。
+``Dict`` is the standard associative collection. Its implementation uses the ``hash(x)`` as the hashing function for the key, and ``isequal(x,y)`` to determine equality. Define these two functions for custom types to override how they are stored in a hash table.
 
-``ObjectIdDict`` 是个特殊的哈希表，它的键是对象的 ID 。 ``WeakKeyDict`` 是一种哈希表实现，它的键是对象的弱引用，因此即使在哈希表中被引用，它也可能被回收机制处理。
+``ObjectIdDict`` is a special hash table where the keys are always object identities. ``WeakKeyDict`` is a hash table implementation where the keys are weak references to objects, and thus may be garbage collected even when referenced in a hash table.
 
-字典可通过文本化语法构造： ``{"A"=>1, "B"=>2}`` 。使用花括号可以构造 ``Dict{Any,Any}`` 类型的 ``Dict`` 。使用方括号会尝试从键和值中推导类型信息（如 ``["A"=>1, "B"=>2]`` 可构造 ``Dict{ASCIIString, Int64}`` ）。使用 ``(KeyType=>ValueType)[...]`` 来指明类型。如 ``(ASCIIString=>Int32)["A"=>1, "B"=>2]`` 。
+Dicts can be created using a literal syntax: ``{"A"=>1, "B"=>2}``. Use of curly brackets will create a ``Dict`` of type ``Dict{Any,Any}``. Use of square brackets will attempt to infer type information from the keys and values (i.e. ``["A"=>1, "B"=>2]`` creates a ``Dict{ASCIIString, Int64}``). To explicitly specify types use the syntax: ``(KeyType=>ValueType)[...]``. For example, ``(ASCIIString=>Int32)["A"=>1, "B"=>2]``.
 
-至于数组， ``Dicts`` 可使用内涵式语法来构造。如 ``{i => f(i) for i = 1:10}`` 。
+As with arrays, ``Dicts`` may be created with comprehensions. For example,
+``{i => f(i) for i = 1:10}``.
 
 .. function:: Dict{K,V}()
 
-   使用 K 类型的键和 V 类型的值来构造哈希表。
+   Construct a hashtable with keys of type K and values of type V
 
-.. function:: has(collection, key)
+.. function:: haskey(collection, key)
 
-   判断集合是否含有指定键的映射。
+   Determine whether a collection has a mapping for a given key.
 
 .. function:: get(collection, key, default)
 
-   返回指定键存储的值；当前没有键的映射时，返回默认值。
+   Return the value stored for the given key, or the given default value if no mapping for the key is present.
 
 .. function:: getkey(collection, key, default)
 
-   如果参数 ``key`` 匹配 ``collection`` 中的键，将其返回；否在返回 ``default`` 。
+   Return the key matching argument ``key`` if one exists in ``collection``, otherwise return ``default``.
 
 .. function:: delete!(collection, key)
 
-   删除集合中指定键的映射，返回被删的键的值。
+   Delete the mapping for the given key in a collection, and return the colection.
+
+.. function:: pop!(collection, key[, default])
+
+   Delete and return the mapping for ``key`` if it exists in ``collection``, otherwise return ``default``, or throw an error if default is not specified.
 
 .. function:: keys(collection)
 
-   返回集合中所有键组成的数组。
+   Return an iterator over all keys in a collection. ``collect(keys(d))`` returns an array of keys.
 
 .. function:: values(collection)
 
-   返回集合中所有值组成的数组。
-
-.. function:: collect(collection)
-
-   返回集合中的所有项。对关联性集合，返回 (key, value) 多元组。
+   Return an iterator over all values in a collection. ``collect(values(d))`` returns an array of values.
 
 .. function:: merge(collection, others...)
 
-   使用指定的集合构造归并集合。
+   Construct a merged collection from the given collections.
 
 .. function:: merge!(collection, others...)
 
-   将其它集合中的对儿更新进 ``collection`` 。
+   Update collection with pairs from the other collections
 
 .. function:: filter(function, collection)
 
-   返回集合的浅拷贝，移除使 ``function`` 函数为假的 (key, value) 对儿。
+   Return a copy of collection, removing (key, value) pairs for which function is false.
 
 .. function:: filter!(function, collection)
 
-   更新集合，移除使 ``function`` 函数为假的 (key, value) 对儿。
+   Update collection, removing (key, value) pairs for which function is false.
 
 .. function:: eltype(collection)
 
-   返回集合中包含的 (key,value) 对儿的类型多元组。
+   Returns the type tuple of the (key,value) pairs contained in collection.
 
 .. function:: sizehint(s, n)
 
-   使集合 ``s`` 保留最少 ``n`` 个元素的容量。这样可提高性能。
-   
-完全实现的有： ``ObjectIdDict``, ``Dict``, ``WeakKeyDict``.
+   Suggest that collection ``s`` reserve capacity for at least ``n`` elements. This can improve performance.
 
-部分实现的有： ``IntSet``, ``Set``, ``EnvHash``, ``Array``.
+Fully implemented by: ``ObjectIdDict``, ``Dict``, ``WeakKeyDict``.
 
-类集集合
---------
+Partially implemented by: ``IntSet``, ``Set``, ``EnvHash``, ``Array``.
+
+Set-Like Collections
+--------------------
 
 .. function:: add!(collection, key)
 
-   向类集集合添加元素。
-
-.. function:: add_each!(collection, iterable)
-
-   向集合逐个添加 ``iterable`` 中的元素。
+   Add an element to a set-like collection.
 
 .. function:: Set(x...)
 
-   使用指定元素来构造 ``Set`` 。构造稀疏整数集时应使用此函数，而非 ``IntSet`` 。
+   Construct a ``Set`` with the given elements. Should be used instead of ``IntSet`` for sparse integer sets, or for sets of arbitrary objects.
 
 .. function:: IntSet(i...)
 
-   使用指定元素来构造 ``IntSet`` 。它是由位字符串实现的，因而适合构造稠密整数集。如果为稀疏集合(例如集合内容为几个非常大的整数), 请使用 ``Set``.
+   Construct a sorted set of the given integers. Implemented as a bit string, and therefore designed for dense integer sets. If the set will be sparse (for example holding a single very large integer), use ``Set`` instead.
 
 .. function:: union(s1,s2...)
 
-   构造两个及两个以上集的共用体。保持原数组中的顺序。
+   Construct the union of two or more sets. Maintains order with arrays.
 
-.. function:: union!(s1,s2)
+.. function:: union!(s, iterable)
 
-   构造 ``IntSet`` s1 和 s2 的共用体，将结果保存在 ``s1`` 中。
+   Union each element of ``iterable`` into set ``s`` in-place.
 
 .. function:: intersect(s1,s2...)
 
-   构造两个及两个以上集的交集。保持原数组中的顺序。
+   Construct the intersection of two or more sets. Maintains order and multiplicity of the first argument for arrays and ranges.
 
 .. function:: setdiff(s1,s2)
 
-   使用存在于 ``s1`` 且不在 ``s2`` 的元素来构造集合。保持原数组中的顺序。
+   Construct the set of elements in ``s1`` but not ``s2``. Maintains order with arrays.
+
+.. function:: setdiff!(s, iterable)
+
+   Remove each element of ``iterable`` from set ``s`` in-place.
 
 .. function:: symdiff(s1,s2...)
 
-   构造由集合或数组中不同的元素构成的集。保持原数组中的顺序。
+   Construct the symmetric difference of elements in the passed in sets or arrays. Maintains order with arrays.
 
 .. function:: symdiff!(s, n)
 
-   向 ``IntSet`` s 中插入整数元素 ``n`` 。
+   IntSet s is destructively modified to toggle the inclusion of integer ``n``.
 
 .. function:: symdiff!(s, itr)
 
-   向 set s 中插入 ``itr`` 中的元素。
+   For each element in ``itr``, destructively toggle its inclusion in set ``s``.
 
 .. function:: symdiff!(s1, s2)
 
-   构造由 ``IntSets`` 类型的 ``s1`` 和 ``s2`` 中不同的元素构成的集， 
-   结果保存在 ``s1`` 中。
+   Construct the symmetric difference of IntSets ``s1`` and ``s2``, storing the result in ``s1``.
 
 .. function:: complement(s)
 
-   返回 ``IntSet`` s 的补集。
+   Returns the set-complement of IntSet s.
 
 .. function:: complement!(s)
 
-   将 ``IntSet`` s 转换为它的补集。
-
-.. function:: del_each!(s, itr)
-
-   在原地将集合 s 中 itr 的元素删除。
+   Mutates IntSet s into its set-complement.
 
 .. function:: intersect!(s1, s2)
 
-   构造 `Inset` s1 和 s2 的交集，并将结果覆写到 s1 。 
-   s1 根据需要来决定是否扩展到 s2 的大小。
+   Intersects IntSets s1 and s2 and overwrites the set s1 with the result. If needed, s1 will be expanded to the size of s2.
 
-完全实现的有： ``IntSet``, ``Set``.
+.. function:: issubset(A, S) -> Bool
 
-部分实现的有： ``Array``.
+   True if ``A ⊆ S`` (A is a subset of or equal to S)
 
-双端队列
+Fully implemented by: ``IntSet``, ``Set``.
+
+Partially implemented by: ``Array``.
+
+Dequeues
 --------
 
 .. function:: push!(collection, item) -> collection
 
-   在集合尾端插入一项。
+   Insert an item at the end of a collection.
 
 .. function:: pop!(collection) -> item
 
-   移除集合的最后一项，并将其返回。
+   Remove the last item in a collection and return it.
 
 .. function:: unshift!(collection, item) -> collection
 
-   在集合首端插入一项。
+   Insert an item at the beginning of a collection.
 
 .. function:: shift!(collection) -> item
 
-   移除集合首项。
+   Remove the first item in a collection.
 
 .. function:: insert!(collection, index, item)
 
-   在指定索引值处插入一项。
+   Insert an item at the given index.
 
-.. function:: delete!(collection, index) -> item
+.. function:: splice!(collection, index, [replacement]) -> item
 
-   移除指定索引值处的项，返回删除项。
+   Remove the item at the given index, and return the removed item. Subsequent items
+   are shifted down to fill the resulting gap. If specified, replacement values from
+   an ordered collection will be spliced in place of the removed item.
 
-.. function:: delete!(collection, range) -> items
-   
-   移除指定范围内的项，返回包含删除项的集合。
+.. function:: splice!(collection, range, [replacement]) -> items
+
+   Remove items in the specified index range, and return a collection containing the
+   removed items. Subsequent items are shifted down to fill the resulting gap.
+   If specified, replacement values from an ordered collection will be spliced in place
+   of the removed items.
 
 .. function:: resize!(collection, n) -> collection
 
-   改变集合的大小，使其可包含 ``n`` 个元素。
+   Resize collection to contain ``n`` elements.
 
-.. function:: append!(collection, items) -> collection
+.. function:: append!(collection, items) -> collection.
 
-   将 ``items`` 元素附加到集合末尾。
+   Add the elements of ``items`` to the end of a collection. ``append!([1],[2,3]) => [1,2,3]``
 
-完全实现的有： ``Vector`` （即 1 维 ``Array`` ）
+.. function:: prepend!(collection, items) -> collection
 
-字符串
-------
+   Insert the elements of ``items`` to the beginning of a collection. ``prepend!([3],[1,2]) => [1,2,3]``
+
+Fully implemented by: ``Vector`` (aka 1-d ``Array``).
+
+
+Strings
+-------
 
 .. function:: length(s)
 
-   字符串 ``s`` 中的字符数。
+   The number of characters in string ``s``.
+   
+.. function:: sizeof(s::String)
+
+   The number of bytes in string ``s``.
 
 .. function:: *(s, t)
 
-   连接字符串。
+   Concatenate strings.
 
-   **例子** ： ``"Hello " * "world" == "Hello world"``
+   **Example**: ``"Hello " * "world" == "Hello world"``
 
 .. function:: ^(s, n)
 
-   将字符串 ``s`` 重复 ``n`` 次。
+   Repeat string ``s`` ``n`` times.
 
-   **例子** ： ``"Julia "^3 == "Julia Julia Julia "``
+   **Example**: ``"Julia "^3 == "Julia Julia Julia "``
 
 .. function:: string(xs...)
 
-   使用 ``print`` 函数的值构造字符串。
+   Create a string from any values using the ``print`` function.
 
 .. function:: repr(x)
 
-   使用 ``show`` 函数的值构造字符串。
+   Create a string from any value using the ``show`` function.
 
 .. function:: bytestring(::Ptr{Uint8})
 
-   从 C （以 0 结尾的）格式字符串的地址构造一个字符串。 
-   它使用了浅拷贝；可以安全释放指针。
+   Create a string from the address of a C (0-terminated) string. A copy is made; the ptr can be safely freed.
 
 .. function:: bytestring(s)
 
-   将字符串转换为连续的字节数组，从而可将它传递给 C 函数。
+   Convert a string to a contiguous byte array representation appropriate for passing it to C functions.
 
 .. function:: ascii(::Array{Uint8,1})
 
-   从字节数组构造 ASCII 字符串。
+   Create an ASCII string from a byte array.
 
 .. function:: ascii(s)
 
-   将字符串转换为连续的 ASCII 字符串（所有的字符都是有效的 ASCII 字符）。
+   Convert a string to a contiguous ASCII string (all characters must be valid ASCII characters).
 
 .. function:: utf8(::Array{Uint8,1})
 
-   从字节数组构造 UTF-8 字符串。
+   Create a UTF-8 string from a byte array.
 
 .. function:: utf8(s)
 
-   将字符串转换为连续的 UTF-8 字符串（所有的字符都是有效的 UTF-8 字符）。
+   Convert a string to a contiguous UTF-8 string (all characters must be valid UTF-8 characters).
 
 .. function:: is_valid_ascii(s) -> Bool
 
-   如果字符串或字节向量是有效的 ASCII ，返回真；否则返回假。
+   Returns true if the string or byte vector is valid ASCII, false otherwise.
 
 .. function:: is_valid_utf8(s) -> Bool
 
-   如果字符串或字节向量是有效的 UTF-8 ，返回真；否则返回假。
+   Returns true if the string or byte vector is valid UTF-8, false otherwise.
 
 .. function:: is_valid_char(c) -> Bool
 
-   如果指定的字符或整数是有效的 Unicode 码位，则返回真。
+   Returns true if the given char or integer is a valid Unicode code point.
 
-.. function:: ismatch(r::Regex, s::String)
+.. function:: ismatch(r::Regex, s::String) -> Bool
 
-   判断字符串是否匹配指定的正则表达式。
-   
+   Test whether a string contains a match of the given regular expression.
+
+.. function:: match(r::Regex, s::String[, idx::Integer[, addopts]])
+
+   Search for the first match of the regular expression ``r`` in ``s`` and return a RegexMatch object containing the match, or nothing if the match failed. The matching substring can be retrieved by accessing ``m.match`` and the captured sequences can be retrieved by accessing ``m.captures``
+
+.. function:: eachmatch(r::Regex, s::String[, overlap::Bool=false])
+
+   Search for all matches of a the regular expression ``r`` in ``s`` and return a iterator over the matches. If overlap is true, the matching sequences are allowed to overlap indices in the original string, otherwise they must be from distinct character ranges.
+
+.. function:: matchall(r::Regex, s::String[, overlap::Bool=false]) -> Vector{String}
+
+   Return a vector of the matching substrings from eachmatch.
+
 .. function:: lpad(string, n, p)
 
-   在字符串左侧填充一系列 ``p`` ，以保证字符串至少有 ``n`` 个字符。
+   Make a string at least ``n`` characters long by padding on the left with copies of ``p``.
 
 .. function:: rpad(string, n, p)
 
-   在字符串右侧填充一系列 ``p`` ，以保证字符串至少有 ``n`` 个字符。
+   Make a string at least ``n`` characters long by padding on the right with copies of ``p``.
 
 .. function:: search(string, chars, [start])
 
-   在指定字符串中查找指定字符。第二个参数可以是单字符、字符向量或集合、 
-   字符串、或正则表达式（但正则表达式仅用来处理连续字符串，如 ASCII 或 
-   UTF-8 字符串）。第三个参数是可选的，它指明起始索引值。 
-   返回值为所找到的匹配序列的索引值范围，它满足 ``s[search(s,x)] == x`` 。 
-   如果没有匹配，则返回值为 ``0:-1`` 。
+   Search for the first occurance of the given characters within the given string. The second argument may be a single character, a vector or a set of characters, a string, or a regular expression (though regular expressions are only allowed on contiguous strings, such as ASCII or UTF-8 strings). The third argument optionally specifies a starting index. The return value is a range of indexes where the matching sequence is found, such that ``s[search(s,x)] == x``. The return value is ``0:-1`` if there is no match.
+
+.. function:: rsearch(string, chars, [start])
+
+   Similar to ``search``, but returning the last occurance of the given characters within the given string, searching in reverse from ``start.''.
+
+.. function:: index(string, chars, [start])
+
+    Similar to ``search``, but return only the start index at which the characters were found, or 0 if they were not.
+
+.. function:: rindex(string, chars, [start])
+
+    Similar to ``rsearch``, but return only the start index at which the characters were found, or 0 if they were not.
+
+    Similar to ``search``, but return only the start index at which the
+    characters were found, or 0 if they were not.
+
+   Search for the given characters within the given string. The second argument may be a single character, a vector or a set of characters, a string, or a regular expression (though regular expressions are only allowed on contiguous strings, such as ASCII or UTF-8 strings). The third argument optionally specifies a starting index. The return value is a range of indexes where the matching sequence is found, such that ``s[search(s,x)] == x``. The return value is ``0:-1`` if there is no match.
+
+.. function:: rsearch(string, chars, [start])
+
+   Like ``search``, but starts at the end and moves towards the beginning of
+   ``string``.
+
+.. function:: contains(haystack, needle)
+
+   Determine whether the second argument is a substring of the first.
 
 .. function:: replace(string, pat, r[, n])
 
-   查找指定模式 ``pat`` ，并替换为 ``r`` 。如果提供 ``n`` ，
-   则最多替换 ``n`` 次。搜索时，第二个参数可以是单字符、字符向量或集合、
-   字符串、或正则表达式。如果 ``r`` 为函数，替换后的结果为 ``r(s)`` ，
-   其中 ``s`` 是匹配的子字符串。
+   Search for the given pattern ``pat``, and replace each occurrence with ``r``. If ``n`` is provided, replace at most ``n`` occurrences.  As with search, the second argument may be a single character, a vector or a set of characters, a string, or a regular expression. If ``r`` is a function, each occurrence is replaced with ``r(s)`` where ``s`` is the matched substring.
 
 .. function:: split(string, [chars, [limit,] [include_empty]])
 
-   返回由指定字符分割符所分割的指定字符串的字符串数组。 
-   分隔符可由 ``search`` 的第二个参数所允许的任何格式所指明（如单字符、 
-   字符集合、字符串、或正则表达式）。如果省略 ``chars`` ， 
-   则它默认为整个空白字符集，且 ``include_empty`` 默认为假。 
-   最后两个参数是可选的：它们是结果的最大长度，且由标志位决定是否在结果中包括空域。
+   Return an array of strings by splitting the given string on occurrences of the given character delimiters, which may be specified in any of the formats allowed by ``search``'s second argument (i.e. a single character, collection of characters, string, or regular expression). If ``chars`` is omitted, it defaults to the set of all space characters, and ``include_empty`` is taken to be false. The last two arguments are also optional: they are are a maximum size for the result and a flag determining whether empty fields should be included in the result.
+
+.. function:: rsplit(string, [chars, [limit,] [include_empty]])
+
+   Similar to ``split``, but starting from the end of the string.
 
 .. function:: strip(string, [chars])
 
-   返回去除头部、尾部空白的 ``string`` 。如果提供了字符串 ``chars`` ，
-   则去除字符串中包含的字符。
+   Return ``string`` with any leading and trailing whitespace removed. If a string ``chars`` is provided, instead remove characters contained in that string.
 
 .. function:: lstrip(string, [chars])
 
-   返回去除头部空白的 ``string`` 。如果提供了字符串 ``chars`` ，
-   则去除字符串中包含的字符。
+   Return ``string`` with any leading whitespace removed. If a string ``chars`` is provided, instead remove characters contained in that string.
 
 .. function:: rstrip(string, [chars])
 
-   返回去除尾部空白的 ``string`` 。如果提供了字符串 ``chars`` ， 
-   则去除字符串中包含的字符。
+   Return ``string`` with any trailing whitespace removed. If a string ``chars`` is provided, instead remove characters contained in that string.
 
 .. function:: beginswith(string, prefix)
 
-   如果 ``string`` 以 ``prefix`` 开始，则返回 ``true`` 。
+   Returns ``true`` if ``string`` starts with ``prefix``.
 
 .. function:: endswith(string, suffix)
 
-   如果 ``string`` 以 ``suffix`` 结尾，则返回 ``true`` 。
+   Returns ``true`` if ``string`` ends with ``suffix``.
 
 .. function:: uppercase(string)
 
-   返回所有字符转换为大写的 ``string`` 。
+   Returns ``string`` with all characters converted to uppercase.
 
 .. function:: lowercase(string)
 
-   返回所有字符转换为小写的 ``string`` 。
+   Returns ``string`` with all characters converted to lowercase.
+
+.. function:: ucfirst(string)
+
+   Returns ``string`` with the first character converted to uppercase.
+
+.. function:: lcfirst(string)
+
+   Returns ``string`` with the first character converted to lowercase.
 
 .. function:: join(strings, delim)
 
-   将字符串数组合并为一个字符串，在邻接字符串间添加分隔符 ``delim`` 。
+   Join an array of strings into a single string, inserting the given delimiter between adjacent strings.
 
 .. function:: chop(string)
 
-   移除字符串的最后一个字符。
+   Remove the last character from a string
 
 .. function:: chomp(string)
 
-   移除字符串最后的换行符。
+   Remove a trailing newline from a string
 
 .. function:: ind2chr(string, i)
 
-   给出字符串中索引值为 i 的字节所在的字符的索引值。
+   Convert a byte index to a character index
 
 .. function:: chr2ind(string, i)
 
-   给出字符串中索引为 i 的字符对应的（第一个）字节的索引值。
+   Convert a character index to a byte index
 
 .. function:: isvalid(str, i)
 
-   判断指定字符串的第 ``i`` 个索引值处是否是有效字符。
+   Tells whether index ``i`` is valid for the given string
 
 .. function:: nextind(str, i)
 
-   获取索引值 ``i`` 处之后的有效字符的索引值。如果在字符串末尾， 
-   则返回 ``endof(str)+1`` 。
+   Get the next valid string index after ``i``. Returns ``endof(str)+1`` at
+   the end of the string.
 
 .. function:: prevind(str, i)
 
-   获取索引值 ``i`` 处之前的有效字符的索引值。如果在字符串开头，则返回 ``0`` 。
-
-.. function:: thisind(str, i)
-
-   返回索引值 ``i`` 处所在的有效字符的索引值。
+   Get the previous valid string index before ``i``. Returns ``0`` at
+   the beginning of the string.
 
 .. function:: randstring(len)
 
-   构造长度为 ``len`` 的随机 ASCII 字符串。有效的字符为大小写字母和数字 0-9 。
+   Create a random ASCII string of length ``len``, consisting of upper- and lower-case letters and the digits 0-9
 
 .. function:: charwidth(c)
 
-   给出需要多少列来打印此字符。
+   Gives the number of columns needed to print a character.
 
 .. function:: strwidth(s)
 
-   给出需要多少列来打印此字符串。
-   
-.. function:: isalnum(c::Char)
+   Gives the number of columns needed to print a string.
 
-   判断字符是否为字母或数字。
+.. function:: isalnum(c::Union(Char,String))
 
-.. function:: isalpha(c::Char)
+   Tests whether a character is alphanumeric, or whether this
+   is true for all elements of a string.
 
-   判断字符是否为字母。
+.. function:: isalpha(c::Union(Char,String))
 
-.. function:: isascii(c::Char)
+   Tests whether a character is alphabetic, or whether this
+   is true for all elements of a string.
 
-   判断字符是否属于 ASCII 字符集。
+.. function:: isascii(c::Union(Char,String))
 
-.. function:: isblank(c::Char)
+   Tests whether a character belongs to the ASCII character set, or whether this
+   is true for all elements of a string.
 
-   判断字符是否为 tab 或空格。
+.. function:: isblank(c::Union(Char,String))
 
-.. function:: iscntrl(c::Char)
+   Tests whether a character is a tab or space, or whether this
+   is true for all elements of a string.
 
-   判断字符是否为控制字符。
+.. function:: iscntrl(c::Union(Char,String))
 
-.. function:: isdigit(c::Char)
+   Tests whether a character is a control character, or whether this
+   is true for all elements of a string.
 
-   判断字符是否为一位数字（0-9）。
+.. function:: isdigit(c::Union(Char,String))
 
-.. function:: isgraph(c::Char)
+   Tests whether a character is a numeric digit (0-9), or whether this
+   is true for all elements of a string.
 
-   判断字符是否可打印，且不是空白字符。
+.. function:: isgraph(c::Union(Char,String))
 
-.. function:: islower(c::Char)
+   Tests whether a character is printable, and not a space, or whether this
+   is true for all elements of a string.
 
-   判断字符是否为小写字母。
+.. function:: islower(c::Union(Char,String))
 
-.. function:: isprint(c::Char)
+   Tests whether a character is a lowercase letter, or whether this
+   is true for all elements of a string.
 
-   判断字符是否可打印，包括空白字符。
+.. function:: isprint(c::Union(Char,String))
 
-.. function:: ispunct(c::Char)
+   Tests whether a character is printable, including space, or whether this
+   is true for all elements of a string.
 
-   判断字符是否可打印，且既非空白字符也非字母或数字。
+.. function:: ispunct(c::Union(Char,String))
 
-.. function:: isspace(c::Char)
+   Tests whether a character is printable, and not a space or
+   alphanumeric, or whether this is true for all elements of a string.
 
-   判断字符是否为任意空白字符。
+.. function:: isspace(c::Union(Char,String))
 
-.. function:: isupper(c::Char)
+   Tests whether a character is any whitespace character, or whether this
+   is true for all elements of a string.
 
-   判断字符是否为大写字母。
+.. function:: isupper(c::Union(Char,String))
 
-.. function:: isxdigit(c::Char)
+   Tests whether a character is an uppercase letter, or whether this
+   is true for all elements of a string.
 
-   判断字符是否为有效的十六进制字符。
+.. function:: isxdigit(c::Union(Char,String))
+
+   Tests whether a character is a valid hexadecimal digit, or whether this
+   is true for all elements of a string.
+
+.. function:: symbol(str)
+
+   Convert a string to a ``Symbol``.
+
+.. function:: escape_string(str::String) -> String
+
+   General escaping of traditional C and Unicode escape sequences. See :func:`print_escaped` for more general escaping.
+
+.. function:: unescape_string(s::String) -> String
+
+   General unescaping of traditional C and Unicode escape sequences. Reverse of :func:`escape_string`. See also :func:`print_unescaped`.
+
 
 I/O
 ---
 
 .. data:: STDOUT
 
-   指向标准输出流的全局变量。
+   Global variable referring to the standard out stream.
 
 .. data:: STDERR
 
-   指向标准错误流的全局变量。
+   Global variable referring to the standard error stream.
 
 .. data:: STDIN
 
-   指向标准输入流的全局变量。
-
-.. data:: OUTPUT_STREAM
-
-   用于文本输出的默认流，如在 ``print`` 和 ``show`` 函数中的流。
+   Global variable referring to the standard input stream.
 
 .. function:: open(file_name, [read, write, create, truncate, append]) -> IOStream
 
-   按五个布尔值参数指明的模式打开文件。默认以只读模式打开文件。 
-   返回操作文件的流。
+   Open a file in a mode specified by five boolean arguments. The default is to open files for reading only. Returns a stream for accessing the file.
 
 .. function:: open(file_name, [mode]) -> IOStream
 
-   另一种打开文件的语法，它使用字符串样式的标识符：
+   Alternate syntax for open, where a string-based mode specifier is used instead of the five booleans. The values of ``mode`` correspond to those from ``fopen(3)`` or Perl ``open``, and are equivalent to setting the following boolean groups:
 
    ==== =================================
-    r    读（默认）
-    r+   读、写
-    w    写、新建、清空重写
-    w+   读写、新建、清空重写
-    a    写、新建、追加
-    a+   读、写、新建、追加
+    r    read
+    r+   read, write
+    w    write, create, truncate
+    w+   read, write, create, truncate
+    a    write, create, append
+    a+   read, write, create, append
    ==== =================================
+
 
 .. function:: open(f::function, args...)
 
-   将函数 ``f`` 映射到 ``open(args...)`` 的返回值上，完成后关闭文件描述符。
+   Apply the function ``f`` to the result of ``open(args...)`` and close the resulting file descriptor upon completion.
 
-   **例子** ： ``open(readall, "file.txt")``
+   **Example**: ``open(readall, "file.txt")``
 
-.. function:: memio([size[, finalize::Bool]]) -> IOStream
+.. function:: IOBuffer() -> IOBuffer
 
-   构造内存中 I/O 流，可选择性指明需要多少初始化空间。
+   Create an in-memory I/O stream.
+
+.. function:: IOBuffer(size::Int)
+
+   Create a fixed size IOBuffer. The buffer will not grow dynamically.
+
+.. function:: IOBuffer(string)
+
+   Create a read-only IOBuffer on the data underlying the given string
+
+.. function:: IOBuffer([data,],[readable,writable,[maxsize]])
+
+   Create an IOBuffer, which may optionally operate on a pre-existing array. If the readable/writable arguments are given, 
+   they restrict whether or not the buffer may be read from or written to respectively. By default the buffer is readable
+   but not writable. The last argument optionally specifies a size beyond which the buffer may not be grown.
+
+.. function:: takebuf_array(b::IOBuffer)
+
+   Obtain the contents of an ``IOBuffer`` as an array, without copying.
+
+.. function:: takebuf_string(b::IOBuffer)
+
+   Obtain the contents of an ``IOBuffer`` as a string, without copying.
 
 .. function:: fdio([name::String, ]fd::Integer[, own::Bool]) -> IOStream
 
-   用整数文件描述符构造 ``IOStream`` 对象。如果 ``own`` 为真， 
-   关闭对象时会关闭底层的描述符。默认垃圾回收时 ``IOStream`` 是关闭的。 
-   ``name`` 用文件描述符关联已命名的文件。
+   Create an ``IOStream`` object from an integer file descriptor. If ``own`` is true, closing this object will close the underlying descriptor. By default, an ``IOStream`` is closed when it is garbage collected. ``name`` allows you to associate the descriptor with a named file.
 
 .. function:: flush(stream)
 
-   将当前所有的缓冲写入指定流。
+   Commit all currently buffered writes to the given stream.
+
+.. function:: flush_cstdio()
+
+   Flushes the C ``stdout`` and ``stderr`` streams (which may have been
+   written to by external C code).
 
 .. function:: close(stream)
 
-   关闭 I/O 流。它将在关闭前先做一次 ``flush`` 。
+   Close an I/O stream. Performs a ``flush`` first.
 
 .. function:: write(stream, x)
 
-   将值的标准二进制表示写入指定流。
+   Write the canonical binary representation of a value to the given stream.
 
 .. function:: read(stream, type)
 
-   从标准二进制表示的流中读出指定类型的值。
+   Read a value of the given type from a stream, in canonical binary representation.
 
 .. function:: read(stream, type, dims)
 
-   从标准二进制表示的流中读出指定类型的一组值。 
-   ``dims`` 可以是整数参数的多元组或集合，它指明要返还 ``Array`` 的大小。
+   Read a series of values of the given type from a stream, in canonical binary representation. ``dims`` is either a tuple or a series of integer arguments specifying the size of ``Array`` to return.
+
+.. function:: readbytes!(stream, b::Vector{Uint8}, nb=length(b))
+
+   Read at most ``nb`` bytes from the stream into ``b``, returning the
+   number of bytes read (increasing the size of ``b`` as needed).
+
+.. function:: readbytes(stream, nb=typemax(Int))
+
+   Read at most ``nb`` bytes from the stream, returning a
+   ``Vector{Uint8}`` of the bytes read.
 
 .. function:: position(s)
 
-   获取流的当前位置。
+   Get the current position of a stream.
 
 .. function:: seek(s, pos)
 
-   将流定位到指定位置。
+   Seek a stream to the given position.
 
 .. function:: seekstart(s)
 
-   将流定位到开头.
+   Seek a stream to its beginning.
 
 .. function:: seekend(s)
 
-   将流定位到尾端。
+   Seek a stream to its end.
 
 .. function:: skip(s, offset)
 
-   相对于当前位置定位流。
+   Seek a stream relative to the current position.
 
 .. function:: eof(stream)
 
-   判断 I/O 流是否到达文件尾。如果流还没被耗尽，函数会阻塞并继续等待数据， 
-   然后返回 ``false`` 。因此当 ``eof`` 返回 ``false`` 后，可以很安全地读取一个字节。
-   
+   Tests whether an I/O stream is at end-of-file. If the stream is not yet
+   exhausted, this function will block to wait for more data if necessary, and
+   then return ``false``. Therefore it is always safe to read one byte after
+   seeing ``eof`` return ``false``.
+
+.. function:: isreadonly(stream)
+
+   Determine whether a stream is read-only.
+
+.. function:: isopen(stream)
+
+   Determine whether a stream is open (i.e. has not been closed yet).
+
 .. function:: ntoh(x)
 
-   将值的字节序从网络序（大端序）转换为本机字节序。
+   Converts the endianness of a value from Network byte order (big-endian) to
+   that used by the Host.
 
 .. function:: hton(x)
 
-   将值的字节序从本机字节序转换为网络序（大端序）。
+   Converts the endianness of a value from that used by the Host to Network
+   byte order (big-endian).
 
 .. function:: ltoh(x)
 
-   将值的字节序从小端序转换为本机字节序。
+   Converts the endianness of a value from Little-endian to that used by the
+   Host.
 
 .. function:: htol(x)
 
-   将值的字节序从本机字节序转换为小端序。
+   Converts the endianness of a value from that used by the Host to
+   Little-endian.
 
-文本 I/O
+.. data:: ENDIAN_BOM
+
+   The 32-bit byte-order-mark indicates the native byte order of the host machine. Little-endian machines will contain the value 0x04030201. Big-endian machines will contain the value 0x01020304.
+
+.. function:: serialize(stream, value)
+
+   Write an arbitrary value to a stream in an opaque format, such that it can
+   be read back by ``deserialize``. The read-back value will be as identical as
+   possible to the original. In general, this process will not work if the
+   reading and writing are done by different versions of Julia, or
+   an instance of Julia with a different system image.
+
+.. function:: deserialize(stream)
+
+   Read a value written by ``serialize``.
+   
+.. function:: print_escaped(io, str::String, esc::String)
+
+   General escaping of traditional C and Unicode escape sequences, plus any characters in esc are also escaped (with a backslash).
+
+.. function:: print_unescaped(io, s::String)
+
+   General unescaping of traditional C and Unicode escape sequences. Reverse of :func:`print_escaped`.
+
+.. function:: print_joined(io, items, delim, [last])
+
+   Print elements of ``items`` to ``io`` with ``delim`` between them. If ``last`` is specified, it is used as the final delimiter instead of ``delim``.
+
+.. function:: print_shortest(io, x)
+
+   Print the shortest possible representation of number ``x`` as a floating point number, ensuring that it would parse to the exact same number.
+
+.. function:: fd(stream)
+
+   Returns the file descriptor backing the stream or file. Note that this function only applies to synchronous `File`'s and `IOStream`'s
+   not to any of the asynchronous streams.
+
+.. function:: redirect_stdout()
+
+   Create a pipe to which all C and Julia level STDOUT output will be redirected. Returns a tuple (rd,wr) 
+   representing the pipe ends. Data written to STDOUT may now be read from the rd end of the pipe. The 
+   wr end is given for convenience in case the old STDOUT object was cached by the user and needs to be
+   replaced elsewhere. 
+
+.. function:: redirect_stdout(stream)
+
+   Replace STDOUT by stream for all C and julia level output to STDOUT. Note that `stream` must be a TTY, a Pipe or a
+   TcpSocket.
+
+.. function:: redirect_stderr([stream])
+
+   Like redirect_stdout, but for STDERR
+
+.. function:: redirect_stdin([stream])
+
+   Like redirect_stdout, but for STDIN. Note that the order of the return tuple is still (rd,wr), i.e. data to be read
+   from STDIN, may be written to wr.
+
+.. function:: readchomp(x)
+
+   Read the entirety of x as a string but remove trailing newlines. Equivalent to chomp(readall(x)).
+
+.. function:: readdir([dir]) -> Vector{ByteString}
+
+   Returns the files and directories in the directory `dir` (or the current working directory if not given).
+
+.. function:: truncate(file,n)
+
+   Resize the file or buffer given by the first argument to exactly `n` bytes, filling previously unallocated space with '\0'
+   if the file or buffer is grown
+
+.. function:: skipchars(stream, predicate; linecomment::Char)
+
+   Advance the stream until before the first character for which ``predicate`` returns false. For example ``skipchars(stream, isspace)`` will skip all whitespace. If keyword argument ``linecomment`` is specified, characters from that character through the end of a line will also be skipped.
+
+.. function:: countlines(io,[eol::Char])
+
+   Read io until the end of the stream/file and count the number of non-empty lines. To specify a file pass the filename as the first
+   argument. EOL markers other than '\n' are supported by passing them as the second argument.
+
+.. function:: PipeBuffer()
+
+   An IOBuffer that allows reading and performs writes by appending. Seeking and truncating are not supported. See IOBuffer for the available constructors. 
+
+.. function:: PipeBuffer(data::Vector{Uint8},[maxsize])
+
+   Create a PipeBuffer to operate on a data vector, optionally specifying a size beyond which the underlying Array may not be grown.
+
+.. function:: readavailable(stream)
+
+   Read all available data on the stream, blocking the task only if no data is available. 
+
+.. function:: stat(file)
+
+   Returns a structure whose fields contain information about the file. The fields of the structure are:
+
+   ========= ======================================================================
+    size      The size (in bytes) of the file
+    device    ID of the device that contains the file 
+    inode     The inode number of the file
+    mode      The protection mode of the file
+    nlink     The number of hard links to the file
+    uid       The user id of the owner of the file
+    gid       The group id of the file owner
+    rdev      If this file refers to a device, the ID of the device it refers to 
+    blksize   The file-system preffered block size for the file
+    blocks    The number of such blocks allocated
+    mtime     Unix timestamp of when the file was last modified
+    ctime     Unix timestamp of when the file was created
+   ========= ======================================================================
+
+.. function:: lstat(file)
+
+   Like stat, but for symbolic links gets the info for the link itself rather than the file it refers to. This function must be called on a file path rather than a file object or a file descriptor. 
+
+.. function:: ctime(file)
+
+   Equivalent to stat(file).ctime
+
+.. function:: mtime(file)
+
+   Equivalent to stat(file).mtime
+
+.. function:: filemode(file)
+
+   Equivalent to stat(file).mode
+
+.. function:: filesize(path...)
+
+   Equivalent to stat(file).size
+
+.. function:: uperm(file)
+
+   Gets the permissions of the owner of the file as a bitfield of
+
+   ==== =====================
+    01   Execute Permission
+    02   Write Permission
+    04   Read Permission
+   ==== =====================
+
+   For allowed arguments, see the stat method.
+
+.. function:: gperm(file)
+
+   Like uperm but gets the permissions of the group owning the file
+
+.. function:: operm(file)
+
+   Like uperm but gets the permissions for people who neither own the file nor are a 
+   member of the group owning the file
+
+.. function:: cp(src::String,dst::String)
+
+   Copy a file from `src` to `dest`.
+
+.. function:: download(url,[localfile])
+
+   Download a file from the given url, optionally renaming it to the given local file name.
+   Note that this function relies on the availability of external tools such as ``curl``, 
+   ``wget`` or ``fetch`` to download the file and is provided for convenience. For production
+   use or situations in which more options are need, please use a package that provides the
+   desired functionality instead. 
+
+.. function:: mv(src::String,dst::String)
+
+   Move a file from `src` to `dst`.
+
+.. function:: rm(path::String)
+
+   Delete the file at the given path. Note that this does not work on directories.
+
+.. function:: touch(path::String)
+
+   Update the last-modified timestamp on a file to the current time.
+
+
+Network I/O
+-----------
+
+.. function:: connect([host],port) -> TcpSocket
+
+   Connect to the host ``host`` on port ``port``
+
+.. function:: connect(path) -> Pipe
+
+   Connect to the Named Pipe/Domain Socket at ``path``
+
+.. function:: listen([addr,]port) -> TcpServer
+
+   Listen on port on the address specified by ``addr``. By default this listens on localhost only.
+   To listen on all interfaces pass, ``IPv4(0)`` or ``IPv6(0)`` as appropriate.
+
+.. function:: listen(path) -> PipeServer
+
+   Listens on/Creates a Named Pipe/Domain Socket 
+
+.. function:: getaddrinfo(host)
+
+   Gets the IP address of the ``host`` (may have to do a DNS lookup)
+
+.. function:: parseip(addr)
+
+   Parse a string specifying an IPv4 or IPv6 ip address. 
+
+.. function:: nb_available(stream)
+
+   Returns the number of bytes available for reading before a read from this stream or buffer will block.
+
+.. function:: accept(server[,client])
+
+   Accepts a connection on the given server and returns a connection to the client. An uninitialized client 
+   stream may be provided, in which case it will be used instead of creating a new stream.
+
+.. function:: listenany(port_hint) -> (Uint16,TcpServer)
+
+   Create a TcpServer on any port, using hint as a starting point. Returns a tuple of the actual port that the server
+   was created on and the server itself. 
+
+.. function:: poll_fd(fd, seconds::Real; readable=false, writable=false)
+
+   Poll a file descriptor fd for changes in the read or write availability and with a timeout given by the second argument.
+   If the timeout is not needed, use `wait(fd)` instead. The keyword arguments determine which of read and/or write status
+   should be monitored and at least one of them needs to be set to true. The return code is 0 on timeout and an OR'd bitfield
+   of UV_READABLE and UV_WRITABLE otherwise, indicating which event was triggered. 
+
+.. function:: poll_file(s, interval_seconds::Real, seconds::Real)
+   
+   Monitor a file for changes by polling every `interval_seconds` seconds for `seconds` seconds. A return value of true indicates
+   the file changed, a return value of false indicates a timeout. 
+
+Text I/O
 --------
 
 .. function:: show(x)
 
-   向当前输出流写入值的信息型文本表示。 
-   新构造的类型应重载 ``show(io, x)`` ，其中 ``io`` 为流。
+   Write an informative text representation of a value to the current output stream. New types should overload ``show(io, x)`` where the first argument is a stream.
+   The representation used by ``show`` generally includes Julia-specific formatting and type information.
 
-.. function:: print(x)
+.. function:: showcompact(x)
 
-   如果值有标准（未修饰）的文本表示，则将其写入默认输出流；否则调用 ``show`` 。
-
-.. function:: println(x)
-
-   使用 :func:`print` 打印 ``x`` ，并接一个换行符。
-
-.. function:: @printf([io::IOStream], "%Fmt", args...)
-
-   使用 C 中 ``printf()`` 的样式来打印。 
-   第一个参数可选择性指明 IOStream 来重定向输出。
-
-.. function:: @sprintf("%Fmt", args...)
-    
-   按 ``@printf`` 的样式输出为字符串。
+   Show a more compact representation of a value. This is used for printing
+   array elements. If a new type has a different compact representation, it
+   should overload ``showcompact(io, x)`` where the first argument is a stream.
 
 .. function:: showall(x)
 
-   打印数组的所有元素。
+   Similar to ``show``, except shows all elements of arrays.
+
+.. function:: summary(x)
+
+   Return a string giving a brief description of a value. By default returns
+   ``string(typeof(x))``. For arrays, returns strings like "2x2 Float64 Array".
+
+.. function:: print(x)
+
+   Write (to the default output stream) a canonical (un-decorated) text representation of a value if there is one, otherwise call ``show``.
+   The representation used by ``print`` includes minimal formatting and tries to avoid Julia-specific details.
+
+.. function:: println(x)
+
+   Print (using :func:`print`) ``x`` followed by a newline.
+
+.. function:: print_with_color(color::Symbol, [io], strings...)
+
+   Print strings in a color specified as a symbol, for example ``:red`` or ``:blue``.
+
+.. function:: info(msg)
+
+   Display an informational message.
+
+.. function:: warn(msg)
+
+   Display a warning.
+
+.. function:: @printf([io::IOStream], "%Fmt", args...)
+
+   Print arg(s) using C ``printf()`` style format specification string. Optionally, an IOStream may be passed as the first argument to redirect output.
+
+.. function:: @sprintf("%Fmt", args...)
+
+   Return ``@printf`` formatted output as string.
+
+.. function:: sprint(f::Function, args...)
+
+   Call the given function with an I/O stream and the supplied extra arguments.
+   Everything written to this I/O stream is returned as a string.
+
+.. function:: showerror(io, e)
+
+   Show a descriptive representation of an exception object.
 
 .. function:: dump(x)
 
-   向当前输出流写入值的完整文本表示。
+   Show all user-visible structure of a value.
+
+.. function:: xdump(x)
+
+   Show all structure of a value, including all fields of objects.
 
 .. function:: readall(stream)
 
-   按照字符串读取 I/O 流的所有内容。
+   Read the entire contents of an I/O stream as a string.
 
 .. function:: readline(stream)
 
-   读取一行文本，包括末尾的换行符（不管输入是否结束，遇到换行符就返回）。
+   Read a single line of text, including a trailing newline character (if one is reached before the end of the input).
 
 .. function:: readuntil(stream, delim)
 
-   读取字符串，直到指定的分隔符为止。字符串包括此分隔符。
+   Read a string, up to and including the given delimiter byte.
 
 .. function:: readlines(stream)
 
-   将读入的所有行返回为数组。
+   Read all lines as an array.
 
 .. function:: eachline(stream)
 
-   构造可迭代对象，它从流中生成每一行文本。
+   Create an iterable object that will yield each line from a stream.
 
-.. function:: readdlm(filename, delim::Char)
+.. function:: readdlm(source, delim::Char; has_header=false, use_mmap=false, ignore_invalid_chars=false)
 
-   从文本文件中读取矩阵，文本中的每一行是矩阵的行，元素由指定的分隔符隔开。 
-   如果所有的数据都是数值，结果为数值矩阵。如果有些元素不能被解析为数， 
-   将返回由数和字符串构成的元胞数组。
+   Read a matrix from the source where each line gives one row, with elements separated by the given delimeter. The source can be a text file, stream or byte array. Memory mapped filed can be used by passing the byte array representation of the mapped segment as source. 
 
-.. function:: readdlm(filename, delim::Char, T::Type)
+   If ``has_header`` is ``true`` the first row of data would be read as headers and the tuple ``(data_cells, header_cells)`` is returned instead of only ``data_cells``.
 
-   从文本文件中读取指定元素类型的矩阵。如果 ``T`` 是数值类型，结果为此类型的数组： 
-   若为浮点数类型，非数值的元素变为 ``NaN`` ；其余类型为 0 。 
-   ``T`` 的类型还有 ``ASCIIString``, ``String``, 和 ``Any`` 。
+   If ``use_mmap`` is ``true`` the file specified by ``source`` is memory mapped for potential speedups.
+
+   If ``ignore_invalid_chars`` is ``true`` bytes in ``source`` with invalid character encoding will be ignored. Otherwise an error is thrown indicating the offending character position.
+
+   If all data is numeric, the result will be a numeric array. If some elements cannot be parsed as numbers, a cell array of numbers and strings is returned.
+
+
+.. function:: readdlm(source, delim::Char, T::Type; options...)
+
+   Read a matrix from the source with a given element type. If ``T`` is a numeric type, the result is an array of that type, with any non-numeric elements as ``NaN`` for floating-point types, or zero. Other useful values of ``T`` include ``ASCIIString``, ``String``, and ``Any``.
 
 .. function:: writedlm(filename, array, delim::Char)
 
-   使用指定的分隔符（默认为逗号）将数组写入到文本文件。
+   Write an array to a text file using the given delimeter (defaults to comma).
 
-.. function:: readcsv(filename, [T::Type])
+.. function:: readcsv(source, [T::Type]; options...)
 
-   等价于 ``delim`` 为逗号的 ``readdlm`` 函数。
+   Equivalent to ``readdlm`` with ``delim`` set to comma.
 
 .. function:: writecsv(filename, array)
 
-   等价于 ``delim`` 为逗号的 ``writedlm`` 函数。
+   Equivalent to ``writedlm`` with ``delim`` set to comma.
 
-内存映射 I/O
-------------
+.. function:: Base64Pipe(ostream)
+
+   Returns a new write-only I/O stream, which converts any bytes written
+   to it into base64-encoded ASCII bytes written to ``ostream``.  Calling
+   ``close`` on the ``Base64Pipe`` stream is necessary to complete the
+   encoding (but does not close ``ostream``).
+
+.. function:: base64(writefunc, args...)
+              base64(args...)
+
+   Given a ``write``-like function ``writefunc``, which takes an I/O
+   stream as its first argument, ``base64(writefunc, args...)``
+   calls ``writefunc`` to write ``args...`` to a base64-encoded string,
+   and returns the string.  ``base64(args...)`` is equivalent to
+   ``base64(write, args...)``: it converts its arguments into bytes
+   using the standard ``write`` functions and returns the base64-encoded
+   string.
+
+Multimedia I/O
+--------------
+
+Just as text output is performed by ``print`` and user-defined types
+can indicate their textual representation by overloading ``show``,
+Julia provides a standardized mechanism for rich multimedia output
+(such as images, formatted text, or even audio and video), consisting
+of three parts:
+
+* A function ``display(x)`` to request the richest available multimedia
+  display of a Julia object ``x`` (with a plain-text fallback).
+* Overloading ``writemime`` allows one to indicate arbitrary multimedia
+  representations (keyed by standard MIME types) of user-defined types.
+* Multimedia-capable display backends may be registered by subclassing
+  a generic ``Display`` type and pushing them onto a stack of display
+  backends via ``pushdisplay``.
+
+The base Julia runtime provides only plain-text display, but richer
+displays may be enabled by loading external modules or by using graphical
+Julia environments (such as the IPython-based IJulia notebook).
+
+.. function:: display(x)
+              display(d::Display, x)
+              display(mime, x)
+              display(d::Display, mime, x)
+
+   Display ``x`` using the topmost applicable display in the display stack,
+   typically using the richest supported multimedia output for ``x``, with
+   plain-text ``STDOUT`` output as a fallback.  The ``display(d, x)`` variant
+   attempts to display ``x`` on the given display ``d`` only, throwing
+   a ``MethodError`` if ``d`` cannot display objects of this type.
+
+   There are also two variants with a ``mime`` argument (a MIME type
+   string, such as ``"image/png"``), which attempt to display ``x`` using the
+   requesed MIME type *only*, throwing a ``MethodError`` if this type
+   is not supported by either the display(s) or by ``x``.   With these
+   variants, one can also supply the "raw" data in the requested MIME
+   type by passing ``x::String`` (for MIME types with text-based storage,
+   such as text/html or application/postscript) or ``x::Vector{Uint8}``
+   (for binary MIME types).
+
+.. function:: redisplay(x)
+              redisplay(d::Display, x)
+              redisplay(mime, x)
+              redisplay(d::Display, mime, x)
+
+   By default, the ``redisplay`` functions simply call ``display``.  However,
+   some display backends may override ``redisplay`` to modify an existing
+   display of ``x`` (if any).   Using ``redisplay`` is also a hint to the
+   backend that ``x`` may be redisplayed several times, and the backend
+   may choose to defer the display until (for example) the next interactive
+   prompt.
+
+.. function:: displayable(mime)
+              displayable(d::Display, mime)
+
+   Returns a boolean value indicating whether the given ``mime`` type (string)
+   is displayable by any of the displays in the current display stack, or
+   specifically by the display ``d`` in the second variant.
+
+.. function:: writemime(stream, mime, x)
+
+   The ``display`` functions ultimately call ``writemime`` in order to
+   write an object ``x`` as a given ``mime`` type to a given I/O
+   ``stream`` (usually a memory buffer), if possible.  In order to
+   provide a rich multimedia representation of a user-defined type
+   ``T``, it is only necessary to define a new ``writemime`` method for
+   ``T``, via: ``writemime(stream, ::MIME"mime", x::T) = ...``, where
+   ``mime`` is a MIME-type string and the function body calls
+   ``write`` (or similar) to write that representation of ``x`` to
+   ``stream``. (Note that the ``MIME""`` notation only supports literal
+   strings; to construct ``MIME`` types in a more flexible manner use
+   ``MIME{symbol("")}``.)
+
+   For example, if you define a ``MyImage`` type and know how to write
+   it to a PNG file, you could define a function ``writemime(stream,
+   ::MIME"image/png", x::MyImage) = ...``` to allow your images to
+   be displayed on any PNG-capable ``Display`` (such as IJulia).
+   As usual, be sure to ``import Base.writemime`` in order to add
+   new methods to the built-in Julia function ``writemime``.
+
+   Technically, the ``MIME"mime"`` macro defines a singleton type for
+   the given ``mime`` string, which allows us to exploit Julia's
+   dispatch mechanisms in determining how to display objects of any
+   given type.
+
+.. function:: mimewritable(mime, T::Type)
+
+   Returns a boolean value indicating whether or not objects of type
+   ``T`` can be written as the given ``mime`` type.  (By default, this
+   is determined automatically by the existence of the corresponding
+   ``writemime`` function.)
+
+.. function:: reprmime(mime, x)
+
+   Returns a ``String`` or ``Vector{Uint8}`` containing the
+   representation of ``x`` in the requested ``mime`` type, as written
+   by ``writemime`` (throwing a ``MethodError`` if no appropriate
+   ``writemime`` is available).  A ``String`` is returned for MIME
+   types with textual representations (such as ``"text/html"`` or
+   ``"application/postscript"``), whereas binary data is returned as
+   ``Vector{Uint8}``.  (The function ``istext(mime)`` returns whether
+   or not Julia treats a given ``mime`` type as text.)
+
+   As a special case, if ``x`` is a ``String`` (for textual MIME types)
+   or a ``Vector{Uint8}`` (for binary MIME types), the ``reprmime`` function
+   assumes that ``x`` is already in the requested ``mime`` format and
+   simply returns ``x``.
+
+.. function:: stringmime(mime, x)
+
+   Returns a ``String`` containing the representation of ``x`` in the
+   requested ``mime`` type.  This is similar to ``reprmime`` except
+   that binary data is base64-encoded as an ASCII string.
+
+As mentioned above, one can also define new display backends. For
+example, a module that can display PNG images in a window can register
+this capability with Julia, so that calling ``display(x)`` on types
+with PNG representations will automatically display the image using
+the module's window.
+
+In order to define a new display backend, one should first create a
+subtype ``D`` of the abstract class ``Display``.  Then, for each MIME
+type (``mime`` string) that can be displayed on ``D``, one should
+define a function ``display(d::D, ::MIME"mime", x) = ...`` that
+displays ``x`` as that MIME type, usually by calling ``reprmime(mime,
+x)``.  A ``MethodError`` should be thrown if ``x`` cannot be displayed
+as that MIME type; this is automatic if one calls ``reprmime``.
+Finally, one should define a function ``display(d::D, x)`` that
+queries ``mimewritable(mime, x)`` for the ``mime`` types supported by
+``D`` and displays the "best" one; a ``MethodError`` should be thrown
+if no supported MIME types are found for ``x``.  Similarly, some
+subtypes may wish to override ``redisplay(d::D, ...)``.  (Again, one
+should ``import Base.display`` to add new methods to ``display``.)
+The return values of these functions are up to the implementation
+(since in some cases it may be useful to return a display "handle" of
+some type).  The display functions for ``D`` can then be called
+directly, but they can also be invoked automatically from
+``display(x)`` simply by pushing a new display onto the display-backend
+stack with:
+
+.. function:: pushdisplay(d::Display)
+
+   Pushes a new display ``d`` on top of the global display-backend
+   stack.  Calling ``display(x)`` or ``display(mime, x)`` will display
+   ``x`` on the topmost compatible backend in the stack (i.e., the
+   topmost backend that does not throw a ``MethodError``).
+
+.. function:: popdisplay()
+   	      popdisplay(d::Display)
+
+   Pop the topmost backend off of the display-backend stack, or the
+   topmost copy of ``d`` in the second variant.
+
+.. function:: TextDisplay(stream)
+
+   Returns a ``TextDisplay <: Display``, which can display any object
+   as the text/plain MIME type (only), writing the text representation
+   to the given I/O stream.  (The text representation is the same
+   as the way an object is printed in the Julia REPL.)
+
+.. function:: istext(m::MIME)
+
+   Determine whether a MIME type is text data.
+
+Memory-mapped I/O
+-----------------
 
 .. function:: mmap_array(type, dims, stream, [offset])
 
-   使用内存映射构造数组，数组的值连接到文件。 
-   它提供了处理对计算机内存来说过于庞大数据的简便方法。
+   Create an ``Array`` whose values are linked to a file, using memory-mapping. This provides a convenient way of working with data too large to fit in the computer's memory.
 
-   ``type`` 决定了如何解释数组中的字节（不使用格式转换）。 
-   ``dims`` 是包含字节大小的多元组。
+   The type determines how the bytes of the array are interpreted (no format conversions are possible), and dims is a tuple containing the size of the array.
 
-   文件是由 ``stream`` 指明的。初始化流时，对“只读”数组使用 “r” ， 
-   使用 "w+" 新建用于向硬盘写入值的数组。可以选择指明偏移值 
-   （单位为字节），用来跳过文件头等。
+   The file is specified via the stream.  When you initialize the stream, use ``"r"`` for a "read-only" array, and ``"w+"`` to create a new array used to write values to disk. Optionally, you can specify an offset (in bytes) if, for example, you want to skip over a header in the file.
 
-   **例子** ：  A = mmap_array(Int64, (25,30000), s)
+   **Example**:  ``A = mmap_array(Int64, (25,30000), s)``
 
-   它将构造一个 25 x 30000 的 Int64 类型的数列，它链接到与流 s 有关的文件上。
+   This would create a 25-by-30000 ``Array{Int64}``, linked to the file associated with stream ``s``.
+
+.. function:: mmap_bitarray([type,] dims, stream, [offset])
+
+   Create a ``BitArray`` whose values are linked to a file, using memory-mapping; it has the same purpose, works in the same way, and has the same arguments, as :func:`mmap_array`, but the byte representation is different. The ``type`` parameter is optional, and must be ``Bool`` if given.
+
+   **Example**:  ``B = mmap_bitarray((25,30000), s)``
+
+   This would create a 25-by-30000 ``BitArray``, linked to the file associated with stream ``s``.
 
 .. function:: msync(array)
 
-   对内存映射数组的内存中的版本和硬盘上的版本强制同步。 
-   程序员可能不需要调用此函数，因为操作系统在休息时自动同步。但是， 
-   如果你担心丢失一个需要很长时间来运算的结果，就可以直接调用此函数。
+   Forces synchronization between the in-memory version of a memory-mapped ``Array`` or ``BitArray`` and the on-disk version.
+
+.. function:: msync(ptr, len, [flags])
+
+   Forces synchronization of the mmap'd memory region from ptr to ptr+len. Flags defaults to MS_SYNC, but can be a combination of MS_ASYNC, MS_SYNC, or MS_INVALIDATE. See your platform man page for specifics. The flags argument is not valid on Windows.
+ 
+   You may not need to call ``msync``, because synchronization is performed at intervals automatically by the operating system. However, you can call this directly if, for example, you are concerned about losing the result of a long-running calculation.
+
+.. data:: MS_ASYNC
+
+   Enum constant for msync. See your platform man page for details. (not available on Windows).
+
+.. data:: MS_SYNC
+
+   Enum constant for msync. See your platform man page for details. (not available on Windows).
+
+.. data:: MS_INVALIDATE
+
+   Enum constant for msync. See your platform man page for details. (not available on Windows).
 
 .. function:: mmap(len, prot, flags, fd, offset)
 
-   mmap 系统调用的低级接口。
+   Low-level interface to the mmap system call. See the man page.
 
 .. function:: munmap(pointer, len)
 
-   取消内存映射的低级接口。对于 mmap_array 则不需要直接调用此函数； 
-   当数组离开作用域时，会自动取消内存映射。
+   Low-level interface for unmapping memory (see the man page). With mmap_array you do not need to call this directly; the memory is unmapped for you when the array goes out of scope.
 
-标准数值类型
-------------
+Standard Numeric Types
+----------------------
 
 ``Bool`` ``Int8`` ``Uint8`` ``Int16`` ``Uint16`` ``Int32`` ``Uint32`` ``Int64`` ``Uint64`` ``Float32`` ``Float64`` ``Complex64`` ``Complex128``
 
-数学函数
---------
+.. _mathematical-operators:
+
+Mathematical Operators
+----------------------
 
 .. function:: -(x)
 
-   一元减运算符。
+   Unary minus operator.
 
+.. _+:
 .. function:: +(x, y)
 
-   二元加运算符。
+   Binary addition operator.
 
+.. _-:
 .. function:: -(x, y)
 
-   二元减运算符。
+   Binary subtraction operator.
 
+.. _*:
 .. function:: *(x, y)
 
-   二元乘运算符。
+   Binary multiplication operator.
 
+.. _/:
 .. function:: /(x, y)
 
-   二元左除运算符。
+   Binary left-division operator.
 
+.. _\\:
 .. function:: \\(x, y)
 
-   二元右除运算符。
+   Binary right-division operator.
 
+.. _^:
 .. function:: ^(x, y)
 
-   二元指数运算符。
+   Binary exponentiation operator.
 
+.. _.+:
 .. function:: .+(x, y)
 
-   逐元素二元加运算符。
+   Element-wise binary addition operator.
 
+.. _.-:
 .. function:: .-(x, y)
 
-   逐元素二元减运算符。
+   Element-wise binary subtraction operator.
 
+.. _.*:
 .. function:: .*(x, y)
 
-   逐元素二元乘运算符。
+   Element-wise binary multiplication operator.
 
+.. _./:
 .. function:: ./(x, y)
 
-   逐元素二元左除运算符。
+   Element-wise binary left division operator.
 
+.. _.\\:
 .. function:: .\\(x, y)
 
-   逐元素二元右除运算符。
+   Element-wise binary right division operator.
 
+.. _.^:
 .. function:: .^(x, y)
 
-   逐元素二元指数运算符。
+   Element-wise binary exponentiation operator.
 
 .. function:: div(a,b)
 
-   截断取整除法；商向 0 舍入。
+   Compute a/b, truncating to an integer
 
 .. function:: fld(a,b)
 
-   向下取整除法；商向 -Inf 舍入。
+   Largest integer less than or equal to a/b
 
 .. function:: mod(x,m)
 
-   取模余数；满足 x == fld(x,m)*m + mod(x,m) ，与 m 同号，返回值范围 [0,m) 。
+   Modulus after division, returning in the range [0,m)
 
-.. function:: rem(x,m)
+.. function:: rem(x, m)
 
-   除法余数；满足 x == div(x,m)*m + rem(x,m) ，与 x 同号。
-   
+   Remainder after division
+
+.. function:: divrem(x, y)
+
+   Compute ``x/y`` and ``x%y`` at the same time
+
+.. _%:
 .. function:: %(x, m)
 
-   除法余数。 ``rem`` 的运算符形式。
+   Remainder after division. The operator form of ``rem``.
 
 .. function:: mod1(x,m)
 
-   整除后取模，返回值范围为 (0,m] 。
+   Modulus after division, returning in the range (0,m]
 
+.. function:: rem1(x,m)
+
+   Remainder after division, returning in the range (0,m]
+
+.. _//:
 .. function:: //(num, den)
 
-   分数除法。
+   Rational division
+
+.. function:: rationalize([Type,] x)
+
+   Approximate the number x as a rational fraction
 
 .. function:: num(x)
 
-   分数 ``x`` 的分子。
+   Numerator of the rational representation of ``x``
 
 .. function:: den(x)
 
-   分数 ``x`` 的分母。
+   Denominator of the rational representation of ``x``
 
+.. _<<:
 .. function:: <<(x, n)
 
-   左移运算符。
+   Left shift operator.
 
+.. _>>:
 .. function:: >>(x, n)
 
-   右移运算符。
+   Right shift operator.
 
+.. _>>>:
 .. function:: >>>(x, n)
 
-   无符号右移运算符。
+   Unsigned right shift operator.
 
-.. function:: :(start, [step], stop)
+.. _\::
+.. function:: \:(start, [step], stop)
 
-   范围运算符。 ``a:b`` 构造一个步长为 1 ，从 ``a`` 到 ``b`` 的范围。
-   ``a:s:b`` 构造步长为 ``s`` 的范围。此语法调用函数 ``colon`` 。
-   冒号也用于索引来选定全部维度。
+   Range operator. ``a:b`` constructs a range from ``a`` to ``b`` with a step size of 1,
+   and ``a:s:b`` is similar but uses a step size of ``s``. These syntaxes call the
+   function ``colon``.
+   The colon is also used in indexing to select whole dimensions.
 
 .. function:: colon(start, [step], stop)
 
-   由 ``:`` 语法调用，用于构造范围。
+   Called by ``:`` syntax for constructing ranges.
 
+.. _==:
 .. function:: ==(x, y)
 
-   相等运算符。
+   Numeric equality operator. Compares numbers and number-like values (e.g. arrays) by numeric value. True for numbers of different types that represent the same value (e.g. ``2`` and ``2.0``). Follows IEEE semantics for floating-point numbers.
+   New numeric types should implement this function for two arguments of the new type.
 
+.. _!=:
 .. function:: !=(x, y)
 
-   不等运算符。
+   Not-equals comparison operator. Always gives the opposite answer as ``==``.
+   New types should generally not implement this, and rely on the fallback
+   definition ``!=(x,y) = !(x==y)`` instead.
 
+.. _===:
+.. function:: ===(x, y)
+
+   See the :func:`is` operator
+
+.. _!==:
+.. function:: !==(x, y)
+
+   Equivalent to ``!is(x, y)``
+
+.. _<:
 .. function:: <(x, y)
 
-   小于运算符。
+   Less-than comparison operator. New numeric types should implement this function
+   for two arguments of the new type.
 
+.. _<=:
 .. function:: <=(x, y)
 
-   小于等于运算符。
+   Less-than-or-equals comparison operator.
 
+.. _>:
 .. function:: >(x, y)
 
-   大于运算符。
+   Greater-than comparison operator. Generally, new types should implement ``<``
+   instead of this function, and rely on the fallback definition ``>(x,y) = y<x``.
 
+.. _>=:
 .. function:: >=(x, y)
 
-   大于等于运算符。
+   Greater-than-or-equals comparison operator.
 
+.. _.==:
 .. function:: .==(x, y)
 
-   逐元素相等运算符。
+   Element-wise equality comparison operator.
 
+.. _.!=:
 .. function:: .!=(x, y)
 
-   逐元素不等运算符。
+   Element-wise not-equals comparison operator.
 
+.. _.<:
 .. function:: .<(x, y)
 
-   逐元素小于运算符。
+   Element-wise less-than comparison operator.
 
+.. _.<=:
 .. function:: .<=(x, y)
 
-   逐元素小于等于运算符。
+   Element-wise less-than-or-equals comparison operator.
 
+.. _.>:
 .. function:: .>(x, y)
 
-   逐元素大于运算符。
+   Element-wise greater-than comparison operator.
 
+.. _.>=:
 .. function:: .>=(x, y)
 
-   逐元素大于等于运算符。
+   Element-wise greater-than-or-equals comparison operator.
 
 .. function:: cmp(x,y)
 
-   根据 ``x<y``, ``x==y``, 或 ``x>y`` 三种情况，对应返回 -1, 0, 或 1 。
+   Return -1, 0, or 1 depending on whether ``x<y``, ``x==y``, or ``x>y``, respectively
 
-.. function:: !(x)
-
-   逻辑非。
-
+.. _~:
 .. function:: ~(x)
 
-   按位取反。
+   Bitwise not
 
+.. _&:
 .. function:: &(x, y)
 
-   逻辑与。
+   Bitwise and
 
+.. _|:
 .. function:: |(x, y)
 
-   逻辑或。
+   Bitwise or
 
+.. _$:
 .. function:: $(x, y)
 
-   按位异或。
+   Bitwise exclusive or
+
+.. _!:
+.. function:: !(x)
+
+   Boolean not
+
+.. _&&:
+.. function:: &&(x, y)
+
+   Boolean and
+
+.. _||:
+.. function:: ||(x, y)
+
+   Boolean or
+
+.. function:: A_ldiv_Bc(a,b)
+
+   Matrix operator A \\ B\ :sup:`H`
+
+.. function:: A_ldiv_Bt(a,b)
+
+   Matrix operator A \\ B\ :sup:`T`
+
+.. function:: A_mul_B(...)
+
+   Matrix operator A B
+
+.. function:: A_mul_Bc(...)
+
+   Matrix operator A B\ :sup:`H`
+
+.. function:: A_mul_Bt(...)
+
+   Matrix operator A B\ :sup:`T`
+
+.. function:: A_rdiv_Bc(...)
+
+   Matrix operator A / B\ :sup:`H`
+
+.. function:: A_rdiv_Bt(a,b)
+
+   Matrix operator A / B\ :sup:`T`
+
+.. function:: Ac_ldiv_B(...)
+
+   Matrix operator A\ :sup:`H` \\ B
+
+.. function:: Ac_ldiv_Bc(...)
+
+   Matrix operator A\ :sup:`H` \\ B\ :sup:`H`
+
+.. function:: Ac_mul_B(...)
+
+   Matrix operator A\ :sup:`H` B
+
+.. function:: Ac_mul_Bc(...)
+
+   Matrix operator A\ :sup:`H` B\ :sup:`H`
+
+.. function:: Ac_rdiv_B(a,b)
+
+   Matrix operator A\ :sup:`H` / B
+
+.. function:: Ac_rdiv_Bc(a,b)
+
+   Matrix operator A\ :sup:`H` / B\ :sup:`H`
+
+.. function:: At_ldiv_B(...)
+
+   Matrix operator A\ :sup:`T` \\ B
+
+.. function:: At_ldiv_Bt(...)
+
+   Matrix operator A\ :sup:`T` \\ B\ :sup:`T`
+
+.. function:: At_mul_B(...)
+
+   Matrix operator A\ :sup:`T` B
+
+.. function:: At_mul_Bt(...)
+
+   Matrix operator A\ :sup:`T` B\ :sup:`T`
+
+.. function:: At_rdiv_B(a,b)
+
+   Matrix operator A\ :sup:`T` / B
+
+.. function:: At_rdiv_Bt(a,b)
+
+   Matrix operator A\ :sup:`T` / B\ :sup:`T`
+
+
+Mathematical Functions
+----------------------
+
+.. function:: isapprox(x::Number, y::Number; rtol::Real=cbrt(maxeps), atol::Real=sqrt(maxeps))
+
+   Inexact equality comparison - behaves slightly different depending on types of input args:
+
+   * For ``FloatingPoint`` numbers, ``isapprox`` returns ``true`` if ``abs(x-y) <= atol + rtol*max(abs(x), abs(y))``.
+
+   * For ``Integer`` and ``Rational`` numbers, ``isapprox`` returns ``true`` if ``abs(x-y) <= atol``. The `rtol` argument is ignored. If one of ``x`` and ``y`` is ``FloatingPoint``, the other is promoted, and the method above is called instead.
+
+   * For ``Complex`` numbers, the distance in the complex plane is compared, using the same criterion as above.
+
+   For default tolerance arguments, ``maxeps = max(eps(abs(x)), eps(abs(y)))``.
 
 .. function:: sin(x)
 
-   计算 ``x`` 的正弦值，其中 ``x`` 的单位为弧度。
+   Compute sine of ``x``, where ``x`` is in radians
 
 .. function:: cos(x)
 
-   计算 ``x`` 的余弦值，其中 ``x`` 的单位为弧度。
+   Compute cosine of ``x``, where ``x`` is in radians
 
 .. function:: tan(x)
 
-   计算 ``x`` 的正切值，其中 ``x`` 的单位为弧度。
+   Compute tangent of ``x``, where ``x`` is in radians
 
 .. function:: sind(x)
 
-   计算 ``x`` 的正弦值，其中 ``x`` 的单位为度数。
+   Compute sine of ``x``, where ``x`` is in degrees
 
 .. function:: cosd(x)
 
-   计算 ``x`` 的余弦值，其中 ``x`` 的单位为度数。
+   Compute cosine of ``x``, where ``x`` is in degrees
 
 .. function:: tand(x)
 
-   计算 ``x`` 的正切值，其中 ``x`` 的单位为度数。
+   Compute tangent of ``x``, where ``x`` is in degrees
+
+.. function:: sinpi(x)
+
+   Compute :math:`\sin(\pi x)` more accurately than ``sin(pi*x)``, especially for large ``x``.
+
+.. function:: cospi(x)
+
+   Compute :math:`\cos(\pi x)` more accurately than ``cos(pi*x)``, especially for large ``x``.
 
 .. function:: sinh(x)
 
-   计算 ``x`` 的双曲正弦值。
+   Compute hyperbolic sine of ``x``
 
 .. function:: cosh(x)
 
-   计算 ``x`` 的双曲余弦值。
+   Compute hyperbolic cosine of ``x``
 
 .. function:: tanh(x)
 
-   计算 ``x`` 的双曲正切值。
+   Compute hyperbolic tangent of ``x``
 
 .. function:: asin(x)
 
-   计算 ``x`` 的反正弦值，结果的单位为弧度。
+   Compute the inverse sine of ``x``, where the output is in radians
 
 .. function:: acos(x)
 
-   计算 ``x`` 的反余弦值，结果的单位为弧度。
+   Compute the inverse cosine of ``x``, where the output is in radians
 
 .. function:: atan(x)
 
-   计算 ``x`` 的反正切值，结果的单位为弧度。
+   Compute the inverse tangent of ``x``, where the output is in radians
 
 .. function:: atan2(y, x)
 
-   计算 ``y/x`` 的反正切值，由 ``x`` 和 ``y`` 的正负号来确定返回值的象限。
+   Compute the inverse tangent of ``y/x``, using the signs of both ``x`` and ``y`` to determine the quadrant of the return value.
 
 .. function:: asind(x)
 
-   计算 ``x`` 的反正弦值，结果的单位为度数。
+   Compute the inverse sine of ``x``, where the output is in degrees
 
 .. function:: acosd(x)
 
-   计算 ``x`` 的反余弦值，结果的单位为度数。
+   Compute the inverse cosine of ``x``, where the output is in degrees
 
 .. function:: atand(x)
 
-   计算 ``x`` 的反正切值，结果的单位为度数。
+   Compute the inverse tangent of ``x``, where the output is in degrees
 
 .. function:: sec(x)
 
-   计算 ``x`` 的正割值，其中 ``x`` 的单位为弧度。
+   Compute the secant of ``x``, where ``x`` is in radians
 
 .. function:: csc(x)
 
-   计算 ``x`` 的余割值，其中 ``x`` 的单位为弧度。
+   Compute the cosecant of ``x``, where ``x`` is in radians
 
 .. function:: cot(x)
 
-   计算 ``x`` 的余切值，其中 ``x`` 的单位为弧度。
+   Compute the cotangent of ``x``, where ``x`` is in radians
 
 .. function:: secd(x)
 
-   计算 ``x`` 的正割值，其中 ``x`` 的单位为度数。
+   Compute the secant of ``x``, where ``x`` is in degrees
 
 .. function:: cscd(x)
 
-   计算 ``x`` 的余割值，其中 ``x`` 的单位为度数。
+   Compute the cosecant of ``x``, where ``x`` is in degrees
 
 .. function:: cotd(x)
 
-   计算 ``x`` 的余切值，其中 ``x`` 的单位为度数。
+   Compute the cotangent of ``x``, where ``x`` is in degrees
 
 .. function:: asec(x)
 
-   计算 ``x`` 的反正割值，结果的单位为弧度。
+   Compute the inverse secant of ``x``, where the output is in radians
 
 .. function:: acsc(x)
 
-   计算 ``x`` 的反余割值，结果的单位为弧度。
+   Compute the inverse cosecant of ``x``, where the output is in radians
 
 .. function:: acot(x)
 
-   计算 ``x`` 的反余切值，结果的单位为弧度。
+   Compute the inverse cotangent of ``x``, where the output is in radians
 
 .. function:: asecd(x)
 
-   计算 ``x`` 的反正割值，结果的单位为度数。
+   Compute the inverse secant of ``x``, where the output is in degrees
 
 .. function:: acscd(x)
 
-   计算 ``x`` 的反余割值，结果的单位为度数。
+   Compute the inverse cosecant of ``x``, where the output is in degrees
 
 .. function:: acotd(x)
 
-   计算 ``x`` 的反余切值，结果的单位为度数。
+   Compute the inverse cotangent of ``x``, where the output is in degrees
 
 .. function:: sech(x)
 
-   计算 ``x`` 的双曲正割值。
+   Compute the hyperbolic secant of ``x``
 
 .. function:: csch(x)
 
-   计算 ``x`` 的双曲余割值。
+   Compute the hyperbolic cosecant of ``x``
 
 .. function:: coth(x)
 
-   计算 ``x`` 的双曲余切值。
+   Compute the hyperbolic cotangent of ``x``
 
 .. function:: asinh(x)
 
-   计算 ``x`` 的反双曲正弦值。
+   Compute the inverse hyperbolic sine of ``x``
 
 .. function:: acosh(x)
 
-   计算 ``x`` 的反双曲余弦值。
+   Compute the inverse hyperbolic cosine of ``x``
 
 .. function:: atanh(x)
 
-   计算 ``x`` 的反双曲正切值。
+   Compute the inverse hyperbolic cotangent of ``x``
 
 .. function:: asech(x)
 
-   计算 ``x`` 的反双曲正割值。
+   Compute the inverse hyperbolic secant of ``x``
 
 .. function:: acsch(x)
 
-   计算 ``x`` 的反双曲余割值。
+   Compute the inverse hyperbolic cosecant of ``x``
 
 .. function:: acoth(x)
 
-   计算 ``x`` 的反双曲余切值。
+   Compute the inverse hyperbolic cotangent of ``x``
 
 .. function:: sinc(x)
 
-   当 :math:`x \neq 0` 时为 :math:`\sin(\pi x) / (\pi x)` ；
-   当 :math:`x = 0` 时为 :math:`1` 。
+   Compute :math:`\sin(\pi x) / (\pi x)` if :math:`x \neq 0`, and :math:`1` if :math:`x = 0`.
 
 .. function:: cosc(x)
 
-   当 :math:`x \neq 0` 时为 :math:`\cos(\pi x) / x - \sin(\pi x) / (\pi x^2)` ；
-   当 :math:`x = 0` 时为 :math:`0` 。此函数由 ``sinc(x)`` 而得。
+   Compute :math:`\cos(\pi x) / x - \sin(\pi x) / (\pi x^2)` if :math:`x \neq 0`, and :math:`0`
+   if :math:`x = 0`. This is the derivative of ``sinc(x)``.
 
 .. function:: degrees2radians(x)
 
-   将 ``x`` 度数转换为弧度。
+   Convert ``x`` from degrees to radians
 
 .. function:: radians2degrees(x)
 
-   将 ``x`` 弧度转换为度数。
+   Convert ``x`` from radians to degrees
 
 .. function:: hypot(x, y)
 
-   计算 :math:`\sqrt{x^2+y^2}` ，计算过程不会出现上溢、下溢。
+   Compute the :math:`\sqrt{x^2+y^2}` without undue overflow or underflow
 
 .. function:: log(x)
-   
-   计算 ``x`` 的自然对数。
+
+   Compute the natural logarithm of ``x``
 
 .. function:: log2(x)
 
-   计算 ``x`` 以 2 为底的对数。
+   Compute the natural logarithm of ``x`` to base 2
 
 .. function:: log10(x)
 
-   计算 ``x`` 以 10 为底的对数。
+   Compute the natural logarithm of ``x`` to base 10
 
 .. function:: log1p(x)
 
-   ``1+x`` 自然对数的精确值。
+   Accurate natural logarithm of ``1+x``
 
 .. function:: frexp(val, exp)
 
-   返回数 ``x`` ，满足 ``x`` 的取值范围为 ``[1/2, 1)`` 或 0 ，
-   且 val = :math:`x \times 2^{exp}` 。
+   Return a number ``x`` such that it has a magnitude in the interval ``[1/2, 1)`` or 0,
+   and val = :math:`x \times 2^{exp}`.
 
 .. function:: exp(x)
 
-   计算 :math:`e^x` 。
+   Compute :math:`e^x`
 
 .. function:: exp2(x)
 
-   计算 :math:`2^x` 。
+   Compute :math:`2^x`
+
+.. function:: exp10(x)
+
+   Compute :math:`10^x`
 
 .. function:: ldexp(x, n)
 
-   计算 :math:`x \times 2^n` 。
+   Compute :math:`x \times 2^n`
 
 .. function:: modf(x)
 
-   返回一个数的小数部分和整数部分的多元组。两部分都与参数同正负号。
+   Return a tuple (fpart,ipart) of the fractional and integral parts of a
+   number. Both parts have the same sign as the argument.
 
 .. function:: expm1(x)
 
-   :math:`e^x-1` 的精确值。
+   Accurately compute :math:`e^x-1`
 
-.. function:: square(x)
+.. function:: round(x, [digits, [base]])
 
-   计算 :math:`x^2` 。
+   ``round(x)`` returns the nearest integral value of the same type as ``x`` to ``x``. ``round(x, digits)`` rounds to the specified number of digits after the decimal place, or before if negative, e.g., ``round(pi,2)`` is ``3.14``. ``round(x, digits, base)`` rounds using a different base, defaulting to 10, e.g., ``round(pi, 3, 2)`` is ``3.125``.
 
-.. function:: round(x, [digits, [base]]) -> FloatingPoint
+.. function:: ceil(x, [digits, [base]])
 
-   ``round(x)`` 返回离 ``x`` 最近的整数 ``round(x, digits)`` 
-   若 ``digits`` 为正数时舍入到小数点后对应位数，若为负数， 
-   舍入到小数点前对应位数，例子 ``round(pi,2) == 3.14`` 。 
-   ``round(x, digits, base)`` 使用指定的进制来舍入，默认进制为 10，
-   例如 ``round(pi, 3, 2) == 3.125`` 。
+   Returns the nearest integral value of the same type as ``x`` not less than ``x``. ``digits`` and ``base`` work as above.
 
-.. function:: ceil(x, [digits, [base]]) -> FloatingPoint
+.. function:: floor(x, [digits, [base]])
 
-   将 ``x`` 向 +Inf 取整。 ``digits`` 与 ``base`` 的解释参见 :func:`round` 。
+   Returns the nearest integral value of the same type as ``x`` not greater than ``x``. ``digits`` and ``base`` work as above.
 
-.. function:: floor(x, [digits, [base]]) -> FloatingPoint
+.. function:: trunc(x, [digits, [base]])
 
-   将 ``x`` 向 -Inf 取整。 ``digits`` 与 ``base`` 的解释参见 :func:`round` 。
-
-.. function:: trunc(x, [digits, [base]]) -> FloatingPoint
-
-   将 ``x`` 向 0 取整。 ``digits`` 与 ``base`` 的解释参见 :func:`round` 。
+   Returns the nearest integral value of the same type as ``x`` not greater in magnitude than ``x``. ``digits`` and ``base`` work as above.
 
 .. function:: iround(x) -> Integer
 
-   结果为整数类型的 :func:`round` 。
+   Returns the nearest integer to ``x``.
 
 .. function:: iceil(x) -> Integer
 
-   结果为整数类型的 :func:`ceil` 。
+   Returns the nearest integer not less than ``x``.
 
 .. function:: ifloor(x) -> Integer
 
-   结果为整数类型的 :func:`floor` 。
+   Returns the nearest integer not greater than ``x``.
 
 .. function:: itrunc(x) -> Integer
 
-   结果为整数类型的 :func:`trunc` 。
+   Returns the nearest integer not greater in magnitude than ``x``.
 
-.. function:: signif(x, digits, [base]) -> FloatingPoint
+.. function:: signif(x, digits, [base])
 
-   将 ``x`` 舍入（使用 ``round`` 函数）到指定的有效位数。 
-   ``digits`` 与 ``base`` 的解释参见 :func:`round` 。 
-   例如 ``signif(123.456, 2) == 120.0`` ， ``signif(357.913, 4, 2) == 352.0`` 。 
+   Rounds (in the sense of ``round``) ``x`` so that there are ``digits`` significant digits, under a base ``base`` representation, default 10. E.g., ``signif(123.456, 2)`` is ``120.0``, and ``signif(357.913, 4, 2)`` is ``352.0``.
 
 .. function:: min(x, y)
 
-   返回 ``x`` 和 ``y`` 的最小值。
+   Return the minimum of ``x`` and ``y``
 
 .. function:: max(x, y)
 
-   返回 ``x`` 和 ``y`` 的最大值。
+   Return the maximum of ``x`` and ``y``
 
 .. function:: clamp(x, lo, hi)
 
-   如果 ``lo <= x <= y`` 则返回 x 。如果 ``x < lo`` ，返回 ``lo`` 。
-   如果 ``x > hi`` ，返回 ``hi`` 。
+   Return x if ``lo <= x <= hi``. If ``x < lo``, return ``lo``. If ``x > hi``, return ``hi``.
 
 .. function:: abs(x)
 
-   ``x`` 的绝对值。
+   Absolute value of ``x``
 
 .. function:: abs2(x)
 
-   ``x`` 绝对值的平方。
+   Squared absolute value of ``x``
 
 .. function:: copysign(x, y)
 
-   返回 ``x`` ，但其正负号与 ``y`` 相同。
+   Return ``x`` such that it has the same sign as ``y``
 
 .. function:: sign(x)
 
-   如果 ``x`` 是正数时返回 ``+1`` ， ``x == 0`` 时返回 ``0`` ，
-   ``x`` 是负数时返回 ``-1`` 。
+   Return ``+1`` if ``x`` is positive, ``0`` if ``x == 0``, and ``-1`` if ``x`` is negative.
 
 .. function:: signbit(x)
 
-   如果 ``x`` 是负数时返回 ``1`` ，否则返回 ``0`` 。
+   Returns ``1`` if the value of the sign of ``x`` is negative, otherwise ``0``.
 
 .. function:: flipsign(x, y)
 
-   如果 ``y`` 为复数，返回 ``x`` 的相反数，否则返回 ``x`` 。
-   如 ``abs(x) = flipsign(x,x)`` 。
+   Return ``x`` with its sign flipped if ``y`` is negative. For example ``abs(x) = flipsign(x,x)``.
 
 .. function:: sqrt(x)
-   
-   返回 :math:`\sqrt{x}` 。
+
+   Return :math:`\sqrt{x}`
+
+.. function:: isqrt(x)
+
+   Integer square root.
 
 .. function:: cbrt(x)
 
-   返回 :math:`x^{1/3}` 。
+   Return :math:`x^{1/3}`
 
 .. function:: erf(x)
 
-   计算 ``x`` 的误差函数，其定义为 :math:`\frac{2}{\sqrt{\pi}} \int_0^x e^{-t^2} dt` 。
+   Compute the error function of ``x``, defined by
+   :math:`\frac{2}{\sqrt{\pi}} \int_0^x e^{-t^2} dt`
+   for arbitrary complex ``x``.
 
 .. function:: erfc(x)
 
-   计算 ``x`` 的互补误差函数， 
-   其定义为 :math:`1 - \operatorname{erf}(x) = \frac{2}{\sqrt{\pi}} \int_x^{\infty} e^{-t^2} dt` 。
+   Compute the complementary error function of ``x``,
+   defined by :math:`1 - \operatorname{erf}(x)`.
 
 .. function:: erfcx(x)
 
-   计算 ``x`` 的缩放互补误差函数，其定义为 :math:`e^{x^2} \operatorname{erfc}(x)` 。 
-   注意 :math:`\operatorname{erfcx}(-ix)` 即为 Faddeeva 函数 :math:`w(x)` 。
+   Compute the scaled complementary error function of ``x``,
+   defined by :math:`e^{x^2} \operatorname{erfc}(x)`.  Note
+   also that :math:`\operatorname{erfcx}(-ix)` computes the
+   Faddeeva function :math:`w(x)`.
 
 .. function:: erfi(x)
 
-   计算 ``x`` 的虚误差函数，其定义为 :math:`-i \operatorname{erf}(ix)`.
+   Compute the imaginary error function of ``x``,
+   defined by :math:`-i \operatorname{erf}(ix)`.
 
 .. function:: dawson(x)
 
-   计算 ``x`` 的 Dawson 函数（缩放虚误差函数）， 
-   其定义为 :math:`\frac{\sqrt{\pi}}{2} e^{-x^2} \operatorname{erfi}(x)`.
+   Compute the Dawson function (scaled imaginary error function) of ``x``,
+   defined by :math:`\frac{\sqrt{\pi}}{2} e^{-x^2} \operatorname{erfi}(x)`.
+
+.. function:: erfinv(x)
+
+   Compute the inverse error function of a real ``x``,
+   defined by :math:`\operatorname{erf}(\operatorname{erfinv}(x)) = x`.
+
+.. function:: erfcinv(x)
+
+   Compute the inverse error complementary function of a real ``x``,
+   defined by :math:`\operatorname{erfc}(\operatorname{erfcinv}(x)) = x`.
 
 .. function:: real(z)
 
-   返回复数 ``z`` 的实数部分。
+   Return the real part of the complex number ``z``
 
 .. function:: imag(z)
 
-   返回复数 ``z`` 的虚数部分。
+   Return the imaginary part of the complex number ``z``
 
 .. function:: reim(z)
 
-   返回复数 ``z`` 的整数部分和虚数部分。
+   Return both the real and imaginary parts of the complex number ``z``
 
 .. function:: conj(z)
 
-   计算复数 ``z`` 的共轭。
+   Compute the complex conjugate of a complex number ``z``
 
 .. function:: angle(z)
 
-   计算复数 ``z`` 的相位角。
+   Compute the phase angle of a complex number ``z``
 
 .. function:: cis(z)
 
-   如果 ``z`` 是实数，返回 ``cos(z) + i*sin(z)`` 。如果 ``z`` 是实数， 
-   返回 ``(cos(real(z)) + i*sin(real(z)))/exp(imag(z))`` 。
+   Return ``cos(z) + i*sin(z)`` if z is real. Return ``(cos(real(z)) + i*sin(real(z)))/exp(imag(z))`` if ``z`` is complex
 
 .. function:: binomial(n,k)
 
-   从  ``n`` 项中选取 ``k`` 项，有多少种方法。
+   Number of ways to choose ``k`` out of ``n`` items
 
 .. function:: factorial(n)
 
-   n 的阶乘。
+   Factorial of n
 
 .. function:: factorial(n,k)
 
-   计算 ``factorial(n)/factorial(k)``
+   Compute ``factorial(n)/factorial(k)``
 
 .. function:: factor(n)
 
-   对 ``n`` 分解质因数，返回一个字典。 
-   字典的键对应于质因数，与 ``n`` 类型相同。 
-   每个键的值显示因式分解中这个质因数出现的次数。
+   Compute the prime factorization of an integer ``n``. Returns a dictionary. The keys of the dictionary correspond to the factors, and hence are of the same type as ``n``. The value associated with each key indicates the number of times the factor appears in the factorization.
 
-   **例子** ： :math:`100=2*2*5*5` ，因此 ``factor(100) -> [5=>2,2=>2]`` 
+   **Example**: :math:`100=2*2*5*5`; then, ``factor(100) -> [5=>2,2=>2]``
 
 .. function:: gcd(x,y)
 
-   最大公因数。
+   Greatest common divisor
 
 .. function:: lcm(x,y)
 
-   最小公倍数。
+   Least common multiple
 
 .. function:: gcdx(x,y)
 
-   最大公因数，同时返回整数因子 ``u`` 和 ``v`` ，满足 ``u*x+v*y == gcd(x,y)`` 。
+   Greatest common divisor, also returning integer coefficients ``u`` and ``v`` that solve ``ux+vy == gcd(x,y)``
 
 .. function:: ispow2(n)
 
-   判断 ``n`` 是否为 2 的幂。
+   Test whether ``n`` is a power of two
 
 .. function:: nextpow2(n)
 
-   不小于 ``n`` 的值为 2 的幂的数。
+   Next power of two not less than ``n``
 
 .. function:: prevpow2(n)
 
-   不大于 ``n`` 的值为 2 的幂的数。
+   Previous power of two not greater than ``n``
 
 .. function:: nextpow(a, n)
 
-   不小于 ``n`` 的值为 ``a`` 的幂的数。
+   Next power of ``a`` not less than ``n``
 
 .. function:: prevpow(a, n)
 
-   不大于 ``n`` 的值为 ``a`` 的幂的数。
+   Previous power of ``a`` not greater than ``n``
 
 .. function:: nextprod([a,b,c], n)
 
-   不小于 ``n`` 的数，存在整数 ``i1``, ``i2``, ``i3`` ， 
-   使这个数等于 ``a^i1 * b^i2 * c^i3`` 。
+   Next integer not less than ``n`` that can be written ``a^i1 * b^i2 * c^i3`` for integers ``i1``, ``i2``, ``i3``.
 
 .. function:: prevprod([a,b,c], n)
 
-   不大于 ``n`` 的数，存在整数 ``i1``, ``i2``, ``i3`` ， 
-   使这个数等于 ``a^i1 * b^i2 * c^i3`` 。
+   Previous integer not greater than ``n`` that can be written ``a^i1 * b^i2 * c^i3`` for integers ``i1``, ``i2``, ``i3``.
 
-.. function:: invmod(n,m)
+.. function:: invmod(x,m)
 
-   ``n``的关于模 ``m`` 的逆，即求满足 ``(x * n ) % m == 1`` 的数 ``x`` 。
+   Inverse of ``x``, modulo ``m``
 
 .. function:: powermod(x, p, m)
 
-   计算 ``mod(x^p, m)`` 。
+   Compute ``mod(x^p, m)``
 
 .. function:: gamma(x)
 
-   计算 ``x`` 的 gamma 函数。
+   Compute the gamma function of ``x``
 
 .. function:: lgamma(x)
 
-   计算 ``gamma(x)`` 的对数。
+   Compute the logarithm of absolute value of ``gamma(x)``
 
 .. function:: lfact(x)
 
-   计算 ``x`` 阶乘的对数。
+   Compute the logarithmic factorial of ``x``
 
 .. function:: digamma(x)
 
-   计算 ``x`` 的双伽玛函数（ ``gamma(x)`` 自然对数的导数）
+   Compute the digamma function of ``x`` (the logarithmic derivative of ``gamma(x)``)
 
-.. function:: airy(x)
+.. function:: invdigamma(x)
 
-   艾里函数的 k 阶导数 :math:`\operatorname{Ai}(x)` 。
+   Compute the inverse digamma function of ``x``.
+
+.. function:: trigamma(x)
+
+   Compute the trigamma function of ``x`` (the logarithmic second derivative of ``gamma(x)``)
+
+.. function:: polygamma(m, x)
+
+   Compute the polygamma function of order ``m`` of argument ``x`` (the ``(m+1)th`` derivative of the logarithm of ``gamma(x)``)
+
+.. function:: airy(k,x)
+
+   kth derivative of the Airy function :math:`\operatorname{Ai}(x)`.
 
 .. function:: airyai(x)
 
-   艾里函数 :math:`\operatorname{Ai}(x)` 。
+   Airy function :math:`\operatorname{Ai}(x)`.
 
 .. function:: airyprime(x)
 
-   艾里函数的导数 :math:`\operatorname{Ai}'(x)` 。
+   Airy function derivative :math:`\operatorname{Ai}'(x)`.
 
 .. function:: airyaiprime(x)
 
-   艾里函数的导数 :math:`\operatorname{Ai}'(x)` 。
+   Airy function derivative :math:`\operatorname{Ai}'(x)`.
 
 .. function:: airybi(x)
 
-   艾里函数 :math:`\operatorname{Bi}(x)` 。
+   Airy function :math:`\operatorname{Bi}(x)`.
 
 .. function:: airybiprime(x)
 
-   艾里函数的导数 :math:`\operatorname{Bi}'(x)` 。
+   Airy function derivative :math:`\operatorname{Bi}'(x)`.
 
 .. function:: besselj0(x)
 
-   ``0`` 阶的第一类贝塞尔函数， :math:`J_0(x)` 。
+   Bessel function of the first kind of order 0, :math:`J_0(x)`.
 
 .. function:: besselj1(x)
 
-   ``1`` 阶的第一类贝塞尔函数， :math:`J_1(x)` 。
+   Bessel function of the first kind of order 1, :math:`J_1(x)`.
 
 .. function:: besselj(nu, x)
 
-   ``nu`` 阶的第一类贝塞尔函数， :math:`J_\nu(x)` 。
+   Bessel function of the first kind of order ``nu``, :math:`J_\nu(x)`.
 
 .. function:: bessely0(x)
 
-   ``0`` 阶的第二类贝塞尔函数， :math:`Y_0(x)` 。
+   Bessel function of the second kind of order 0, :math:`Y_0(x)`.
 
 .. function:: bessely1(x)
 
-   ``1`` 阶的第二类贝塞尔函数， :math:`Y_1(x)` 。
+   Bessel function of the second kind of order 1, :math:`Y_1(x)`.
 
 .. function:: bessely(nu, x)
 
-   ``nu`` 阶的第二类贝塞尔函数， :math:`Y_\nu(x)` 。
+   Bessel function of the second kind of order ``nu``, :math:`Y_\nu(x)`.
 
 .. function:: hankelh1(nu, x)
 
-   ``nu`` 阶的第三类贝塞尔函数， :math:`H^{(1)}_\nu(x)` 。
+   Bessel function of the third kind of order ``nu``, :math:`H^{(1)}_\nu(x)`.
 
 .. function:: hankelh2(nu, x)
 
-   ``nu`` 阶的第三类贝塞尔函数， :math:`H^{(2)}_\nu(x)` 。
+   Bessel function of the third kind of order ``nu``, :math:`H^{(2)}_\nu(x)`.
+
+.. function:: besselh(nu, k, x)
+
+   Bessel function of the third kind of order ``nu`` (Hankel function).
+   ``k`` is either 1 or 2, selecting ``hankelh1`` or ``hankelh2``, respectively.
 
 .. function:: besseli(nu, x)
 
-   ``nu`` 阶的变形第一类贝塞尔函数， :math:`I_\nu(x)` 。
+   Modified Bessel function of the first kind of order ``nu``, :math:`I_\nu(x)`.
 
 .. function:: besselk(nu, x)
 
-   ``nu`` 阶的变形第二类贝塞尔函数， :math:`K_\nu(x)` 。
+   Modified Bessel function of the second kind of order ``nu``, :math:`K_\nu(x)`.
 
 .. function:: beta(x, y)
 
-   第一型欧拉积分 
-   :math:`\operatorname{B}(x,y) = \Gamma(x)\Gamma(y)/\Gamma(x+y)` 。
+   Euler integral of the first kind :math:`\operatorname{B}(x,y) = \Gamma(x)\Gamma(y)/\Gamma(x+y)`.
 
 .. function:: lbeta(x, y)
 
-   贝塔函数的自然对数 :math:`\log(\operatorname{B}(x,y))` 。
+   Natural logarithm of the absolute value of the beta function :math:`\log(|\operatorname{B}(x,y)|)`.
 
 .. function:: eta(x)
 
-   狄利克雷 :math:`\eta` 函数 :math:`\eta(s) = \sum^\infty_{n=1}(-)^{n-1}/n^{s}` 。
+   Dirichlet eta function :math:`\eta(s) = \sum^\infty_{n=1}(-)^{n-1}/n^{s}`.
 
 .. function:: zeta(x)
 
-   黎曼 :math:`\zeta` 函数 :math:``\zeta(s)`` 。
+   Riemann zeta function :math:`\zeta(s)`.
 
 .. function:: bitmix(x, y)
 
-   将两个整数散列为一个整数。用于构造哈希函数。
+   Hash two integers into a single integer. Useful for constructing hash
+   functions.
 
 .. function:: ndigits(n, b)
 
-   计算用 ``b`` 进制表示 ``n`` 时的位数。
+   Compute the number of digits in number ``n`` written in base ``b``.
 
-数据格式
---------
+Data Formats
+------------
 
 .. function:: bin(n, [pad])
 
-   将整数转换为二进制字符串，可选择性指明空白补位后的位数。
+   Convert an integer to a binary string, optionally specifying a number of digits to pad to.
 
 .. function:: hex(n, [pad])
 
-   将整数转换为十六进制字符串，可选择性指明空白补位后的位数。
+   Convert an integer to a hexadecimal string, optionally specifying a number of digits to pad to.
 
 .. function:: dec(n, [pad])
 
-   将整数转换为十进制字符串，可选择性指明空白补位后的位数。
+   Convert an integer to a decimal string, optionally specifying a number of digits to pad to.
 
 .. function:: oct(n, [pad])
 
-   将整数转换为八进制字符串，可选择性指明空白补位后的位数。
+   Convert an integer to an octal string, optionally specifying a number of digits to pad to.
 
 .. function:: base(base, n, [pad])
 
-   将整数 ``n`` 转换为指定进制 ``base`` 的字符串。 
-   可选择性指明空白补位后的位数。进制 ``base`` 可以为整数， 
-   也可以是用于表征数字符号的字符值所对应的 ``Uint8`` 数组。
+   Convert an integer to a string in the given base, optionally specifying a number of digits to pad to. The base can be specified as either an integer, or as a ``Uint8`` array of character values to use as digit symbols.
+
+.. function:: digits(n, [base], [pad])
+
+   Returns an array of the digits of ``n`` in the given base, optionally padded with
+   zeros to a specified size. More significant digits are at higher indexes, such
+   that ``n == sum([digits[k]*base^(k-1) for k=1:length(digits)])``.
 
 .. function:: bits(n)
 
-   用二进制字符串文本表示一个数。
+   A string giving the literal bit representation of a number.
 
 .. function:: parseint([type], str, [base])
 
-   将字符串解析为指定类型（默认为 ``Int`` ）、指定进制（默认为 10 ）的整数。
+   Parse a string as an integer in the given base (default 10), yielding a number of the specified type (default ``Int``).
 
 .. function:: parsefloat([type], str)
 
-   将字符串解析为指定类型的十进制浮点数。
+   Parse a string as a decimal floating point number, yielding a number of the specified type.
+
+.. function:: big(x)
+
+   Convert a number to a maximum precision representation (typically ``BigInt`` or ``BigFloat``)
 
 .. function:: bool(x)
 
-   将数或数值数组转换为布尔值类型的。
-
-.. function:: isbool(x)
-
-   判断数或数组是否是布尔值类型的。
+   Convert a number or numeric array to boolean
 
 .. function:: int(x)
 
-   将数或数组转换为所使用电脑上默认的整数类型。 
-   ``x`` 也可以是字符串，使用此函数时会将其解析为整数。
+   Convert a number or array to the default integer type on your platform. Alternatively, ``x`` can be a string, which is parsed as an integer.
 
 .. function:: uint(x)
 
-   将数或数组转换为所使用电脑上默认的无符号整数类型。 
-   ``x`` 也可以是字符串，使用此函数时会将其解析为无符号整数。
+   Convert a number or array to the default unsigned integer type on your platform. Alternatively, ``x`` can be a string, which is parsed as an unsigned integer.
 
 .. function:: integer(x)
 
-   将数或数组转换为整数类型。如果 ``x`` 已经是整数类型，则不处理； 
-   否则将其转换为所使用电脑上默认的整数类型。
-
-.. function:: isinteger(x)
-
-   判断数或数组是否为整数类型的。
+   Convert a number or array to integer type. If ``x`` is already of integer type it is unchanged, otherwise it converts it to the default integer type on your platform.
 
 .. function:: signed(x)
 
-   将数转换为有符号整数。
+   Convert a number to a signed integer
 
 .. function:: unsigned(x)
 
-   将数转换为无符号整数。
+   Convert a number to an unsigned integer
 
 .. function:: int8(x)
 
-   将数或数组转换为 ``Int8`` 数据类型。
+   Convert a number or array to ``Int8`` data type
 
 .. function:: int16(x)
 
-   将数或数组转换为 ``Int16`` 数据类型。
+   Convert a number or array to ``Int16`` data type
 
 .. function:: int32(x)
 
-   将数或数组转换为 ``Int32`` 数据类型。
+   Convert a number or array to ``Int32`` data type
 
 .. function:: int64(x)
 
-   将数或数组转换为 ``Int64`` 数据类型。
+   Convert a number or array to ``Int64`` data type
 
 .. function:: int128(x)
 
-   将数或数组转换为 ``Int128`` 数据类型。
+   Convert a number or array to ``Int128`` data type
 
 .. function:: uint8(x)
 
-   将数或数组转换为 ``Uint8`` 数据类型。
+   Convert a number or array to ``Uint8`` data type
 
 .. function:: uint16(x)
 
-   将数或数组转换为 ``Uint16`` 数据类型。
+   Convert a number or array to ``Uint16`` data type
 
 .. function:: uint32(x)
 
-   将数或数组转换为 ``Uint32`` 数据类型。
+   Convert a number or array to ``Uint32`` data type
 
 .. function:: uint64(x)
 
-   将数或数组转换为 ``Uint64`` 数据类型。
+   Convert a number or array to ``Uint64`` data type
 
 .. function:: uint128(x)
 
-   将数或数组转换为 ``Uint128`` 数据类型。
+   Convert a number or array to ``Uint128`` data type
+
+.. function:: float16(x)
+
+   Convert a number or array to ``Float16`` data type
 
 .. function:: float32(x)
 
-   将数或数组转换为 ``Float32`` 数据类型。
+   Convert a number or array to ``Float32`` data type
 
 .. function:: float64(x)
 
-   将数或数组转换为 ``Float64`` 数据类型。
+   Convert a number or array to ``Float64`` data type
+
+.. function:: float32_isvalid(x, out::Vector{Float32}) -> Bool
+
+   Convert a number or array to ``Float32`` data type, returning true if successful. The result of the conversion is stored in ``out[1]``.
+
+.. function:: float64_isvalid(x, out::Vector{Float64}) -> Bool
+
+   Convert a number or array to ``Float64`` data type, returning true if successful. The result of the conversion is stored in ``out[1]``.
 
 .. function:: float(x)
 
-   将数、数组、或字符串转换为 ``FloatingPoint`` 数据类型。 
-   对数值数据，使用最小的恰当 ``FloatingPoint`` 类型。 
-   对字符串，它将被转换为 ``Float64`` 类型。
+   Convert a number, array, or string to a ``FloatingPoint`` data type. For numeric data, the smallest suitable ``FloatingPoint`` type is used. For strings, it converts to ``Float64``.
 
 .. function:: significand(x)
 
-   提取浮点数或浮点数组的二进制表示的有效数字。
-   
-   例如， ``significand(15.2)/15.2 == 0.125`` 
-   ``significand(15.2)*8 == 15.2`` 。
-   
+   Extract the significand(s) (a.k.a. mantissa), in binary representation, of a floating-point number or array.
+
+   For example, ``significand(15.2)/15.2 == 0.125``, and ``significand(15.2)*8 == 15.2``
+
 .. function:: exponent(x) -> Int
 
-   返回浮点数 ``trunc( log2( abs(x) ) )`` 。
-
-.. function:: float64_valued(x::Rational)
-
-   如果 ``x`` 能被无损地用 ``Float64`` 数据类型表示，返回真。
+   Get the exponent of a normalized floating-point number.
 
 .. function:: complex64(r,i)
 
-   构造值为 ``r+i*im`` 的 ``Complex64`` 数据类型。
+   Convert to ``r+i*im`` represented as a ``Complex64`` data type
 
 .. function:: complex128(r,i)
 
-   构造值为 ``r+i*im`` 的 ``Complex128`` 数据类型。
+   Convert to ``r+i*im`` represented as a ``Complex128`` data type
 
 .. function:: char(x)
 
-   将数或数组转换为 ``Char`` 数据类型。
+   Convert a number or array to ``Char`` data type
 
 .. function:: complex(r,i)
 
-   将实数或数组转换为复数。
-
-.. function:: iscomplex(x) -> Bool
-
-   判断数或数组是否为复数类型。
-
-.. function:: isreal(x) -> Bool
-
-   判断数或数组是否为实数类型。
+   Convert real numbers or arrays to complex
 
 .. function:: bswap(n)
 
-   给出将一个整数的字节翻转后所得的整数。
+   Byte-swap an integer
 
 .. function:: num2hex(f)
 
-   将浮点数的二进制表示转换为十六进制字符串。
+   Get a hexadecimal string of the binary representation of a floating point number
 
 .. function:: hex2num(str)
 
-   将十六进制字符串转换为它所表示的浮点数。
+   Convert a hexadecimal string to the floating point number it represents
 
-数
---
+.. function:: hex2bytes(s::ASCIIString)
+
+   Convert an arbitrarily long hexadecimal string to its binary representation. Returns an Array{Uint8, 1}, i.e. an array of bytes.
+
+.. function:: bytes2hex(bin_arr::Array{Uint8, 1})
+
+   Convert an array of bytes to its hexadecimal representation. All characters are in lower-case. Returns an ASCIIString.
+
+
+Numbers
+-------
 
 .. function:: one(x)
 
-   获取与 x 同类型的乘法单位元（ x 也可为类型），即用该类型表示数值 1 。 
-   对于矩阵，返回与之大小、类型相匹配的的单位矩阵。
+   Get the multiplicative identity element for the type of x (x can also specify the type itself). For matrices, returns an identity matrix of the appropriate size and type.
 
 .. function:: zero(x)
 
-   获取与 x 同类型的加法单位元（ x 也可为类型），即用该类型表示数值 0 。 
-   对于矩阵，返回与之大小、类型相匹配的的全零矩阵。
+   Get the additive identity element for the type of x (x can also specify the type itself).
 
 .. data:: pi
 
-   常量 pi 。
+   The constant pi
 
 .. data:: im
 
-   虚数单位。
+   The imaginary unit
 
 .. data:: e
 
-   常量 e 。
+   The constant e
+
+.. data:: catalan
+
+   Catalan's constant
 
 .. data:: Inf
 
-   正无穷，类型为 Float64 。
+   Positive infinity of type Float64
 
 .. data:: Inf32
 
-   正无穷，类型为 Float32 。
+   Positive infinity of type Float32
+
+.. data:: Inf16
+
+   Positive infinity of type Float16
 
 .. data:: NaN
 
-   表示“它不是数”的值，类型为 Float64 。
+   A not-a-number value of type Float64
 
 .. data:: NaN32
 
-   表示“它不是数”的值，类型为 Float32 。
+   A not-a-number value of type Float32
 
-.. function:: isdenormal(f) -> Bool
+.. data:: NaN16
 
-   判断浮点数是否为反常值。
+   A not-a-number value of type Float16
+
+.. function:: issubnormal(f) -> Bool
+
+   Test whether a floating point number is subnormal
 
 .. function:: isfinite(f) -> Bool
 
-   判断数是否有限。
+   Test whether a number is finite
 
 .. function:: isinf(f)
 
-   判断数是否为无穷大或无穷小。
+   Test whether a number is infinite
 
 .. function:: isnan(f)
 
-   判断浮点数是否为非数值（NaN）。
+   Test whether a floating point number is not a number (NaN)
 
 .. function:: inf(f)
 
-   返回与 ``f`` 相同浮点数类型的无穷大（ ``f`` 也可以为类型）。
+   Returns infinity in the same floating point type as ``f`` (or ``f`` can by the type itself)
 
 .. function:: nan(f)
 
-   返回与 ``f`` 相同浮点数类型的 NaN （ ``f`` 也可以为类型）。
+   Returns NaN in the same floating point type as ``f`` (or ``f`` can by the type itself)
 
 .. function:: nextfloat(f)
 
-   获取下一个绝对值稍大的同正负号的浮点数。
+   Get the next floating point number in lexicographic order
 
 .. function:: prevfloat(f) -> Float
 
-   获取下一个绝对值稍小的同正负号的浮点数。
+   Get the previous floating point number in lexicographic order
 
-.. function:: integer_valued(x)
+.. function:: isinteger(x)
 
-   判断 ``x`` 在数值上是否为整数。
+   Test whether ``x`` or all its elements are numerically equal to some integer
 
-.. function:: real_valued(x)
+.. function:: isreal(x)
 
-   判断 ``x`` 在数值上是否为实数。
+   Test whether ``x`` or all its elements are numerically equal to some real number
 
 .. function:: BigInt(x)
 
-   构造任意精度的整数。
-   ``x`` 可以是 ``Int`` （或可以被转换为 ``Int`` 的）或 ``String`` 。 
-   可以对其使用常用的数学运算符，结果被提升为 ``BigInt`` 类型。
+   Create an arbitrary precision integer. ``x`` may be an ``Int`` (or anything that can be converted to an ``Int``) or a ``String``.
+   The usual mathematical operators are defined for this type, and results are promoted to a ``BigInt``.
 
 .. function:: BigFloat(x)
 
-   构造任意精度的浮点数。
-   ``x`` 可以是 ``Integer``, ``Float64``, ``String`` 或 ``BigInt`` 。 
-   可以对其使用常用的数学运算符，结果被提升为 ``BigFloat`` 类型。
+   Create an arbitrary precision floating point number. ``x`` may be an ``Integer``, a ``Float64``, a ``String`` or a ``BigInt``. The
+   usual mathematical operators are defined for this type, and results are promoted to a ``BigFloat``.
 
-整数
-~~~~
+.. function:: get_rounding()
+
+   Get the current floating point rounding mode. Valid modes are ``RoundNearest``, ``RoundToZero``, ``RoundUp`` and ``RoundDown``.
+
+.. function:: set_rounding(mode)
+
+   Set the floating point rounding mode. See ``get_rounding`` for available modes
+
+.. function:: with_rounding(f::Function,mode)
+
+   Change the floating point rounding mode for the duration of ``f``. It is logically equivalent to::
+
+       old = get_rounding()
+       set_rounding(mode)
+       f()
+       set_rounding(old)
+
+   See ``get_rounding`` for available rounding modes.
+
+Integers
+~~~~~~~~
 
 .. function:: count_ones(x::Integer) -> Integer
 
-   ``x`` 的二进制表示中有多少个 1 。
-   
-   **例子** ： ``count_ones(7) -> 3``
+   Number of ones in the binary representation of ``x``.
+
+   **Example**: ``count_ones(7) -> 3``
 
 .. function:: count_zeros(x::Integer) -> Integer
 
-   ``x`` 的二进制表示中有多少个 0 。
-   
-   **例子** ： ``count_zeros(int32(2 ^ 16 - 1)) -> 16``
+   Number of zeros in the binary representation of ``x``.
+
+   **Example**: ``count_zeros(int32(2 ^ 16 - 1)) -> 16``
 
 .. function:: leading_zeros(x::Integer) -> Integer
 
-   ``x`` 的二进制表示中开头有多少个 0 。
-   
-   **例子** ： ``leading_zeros(int32(1)) -> 31``
+   Number of zeros leading the binary representation of ``x``.
+
+   **Example**: ``leading_zeros(int32(1)) -> 31``
 
 .. function:: leading_ones(x::Integer) -> Integer
 
-   ``x`` 的二进制表示中开头有多少个 1 。
-   
-   **例子** ： ``leading_ones(int32(2 ^ 32 - 2)) -> 31``
+   Number of ones leading the binary representation of ``x``.
+
+   **Example**: ``leading_ones(int32(2 ^ 32 - 2)) -> 31``
 
 .. function:: trailing_zeros(x::Integer) -> Integer
 
-   ``x`` 的二进制表示中末尾有多少个 0 。
-   
-   **例子** ： ``trailing_zeros(2) -> 1``
+   Number of zeros trailing the binary representation of ``x``.
+
+   **Example**: ``trailing_zeros(2) -> 1``
 
 .. function:: trailing_ones(x::Integer) -> Integer
 
-   ``x`` 的二进制表示中末尾有多少个 1 。
-   
-   **例子** ： ``trailing_ones(3) -> 2``
+   Number of ones trailing the binary representation of ``x``.
+
+   **Example**: ``trailing_ones(3) -> 2``
 
 .. function:: isprime(x::Integer) -> Bool
 
-   如果 ``x`` 是质数，返回 ``true`` ；否则为 ``false`` 。
+   Returns ``true`` if ``x`` is prime, and ``false`` otherwise.
 
-   **例子** ： ``isprime(3) -> true``
+   **Example**: ``isprime(3) -> true``
+
+.. function:: primes(n)
+
+   Returns a collection of the prime numbers <= ``n``.
 
 .. function:: isodd(x::Integer) -> Bool
 
-   如果 ``x`` 是奇数，返回 ``true`` ；否则为 ``false`` 。
+   Returns ``true`` if ``x`` is odd (that is, not divisible by 2), and ``false`` otherwise.
 
-   **例子** ： ``isodd(9) -> false``
+   **Example**: ``isodd(9) -> false``
 
 .. function:: iseven(x::Integer) -> Bool
 
-   如果 ``x`` 是偶数，返回 ``true`` ；否则为 ``false`` 。
+   Returns ``true`` is ``x`` is even (that is, divisible by 2), and ``false`` otherwise.
 
-   **例子** ： ``iseven(1) -> false``
+   **Example**: ``iseven(1) -> false``
 
+BigFloats
+---------
+The `BigFloat` type implements arbitrary-precision floating-point aritmetic using the `GNU MPFR library <http://www.mpfr.org/>`_.
 
-随机数
-------
+.. function:: precision(num::FloatingPoint)
 
-Julia 使用 `Mersenne Twister 库 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/#dSFMT>`_ 来生成随机数。Julia 默认使用全局随机数生成器 RNG 。可以使用 ``AbstractRNG`` 对象来插入多个 RNG ，用来生成多个随机数流。目前只支持 ``MersenneTwister`` 。
+   Get the precision of a floating point number, as defined by the effective number of bits in the mantissa.
+
+.. function:: get_bigfloat_precision()
+
+   Get the precision (in bits) currently used for BigFloat arithmetic.
+
+.. function:: set_bigfloat_precision(x::Int64)
+
+   Set the precision (in bits) to be used to BigFloat arithmetic.
+
+.. function:: with_bigfloat_precision(f::Function,precision::Integer)
+
+   Change the BigFloat arithmetic precision (in bits) for the duration of ``f``. It is logically equivalent to::
+
+       old = get_bigfloat_precision()
+       set_bigfloat_precision(precision)
+       f()
+       set_bigfloat_precision(old)
+
+.. function:: get_bigfloat_rounding()
+
+   Get the current BigFloat rounding mode. Valid modes are ``RoundNearest``, ``RoundToZero``, ``RoundUp``, ``RoundDown``, ``RoundFromZero``
+
+.. function:: set_bigfloat_rounding(mode)
+
+   Set the BigFloat rounding mode. See get_bigfloat_rounding for available modes
+
+.. function:: with_bigfloat_rounding(f::Function,mode)
+
+   Change the BigFloat rounding mode for the duration of ``f``. See ``get_bigfloat_rounding`` for available rounding modes; see also ``with_bigfloat_precision``.
+
+Random Numbers
+--------------
+
+Random number generateion in Julia uses the `Mersenne Twister library <http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/#dSFMT>`_. Julia has a global RNG, which is used by default. Multiple RNGs can be plugged in using the ``AbstractRNG`` object, which can then be used to have multiple streams of random numbers. Currently, only ``MersenneTwister`` is supported.
 
 .. function:: srand([rng], seed)
 
-   使用 ``seed`` 为 RNG 的种子，可以是无符号整数或向量。 
-   ``seed`` 也可以是文件名，此时从文件中读取种子。 
-   如果省略参数 ``rng`` ，则默认为全局 RNG 。
+   Seed the RNG with a ``seed``, which may be an unsigned integer or a vector of unsigned integers. ``seed`` can even be a filename, in which case the seed is read from a file. If the argument ``rng`` is not provided, the default global RNG is seeded.
 
 .. function:: MersenneTwister([seed])
 
-   构造一个 ``MersenneTwister`` RNG 对象。 
-   不同的 RNG 对象可以有不同的种子，这对于生成不同的随机数流非常有用。
+   Create a ``MersenneTwister`` RNG object. Different RNG objects can have their own seeds, which may be useful for generating different streams of random numbers.
 
 .. function:: rand()
 
-   生成 [0,1) 内均匀分布的 ``Float64`` 随机数。
+   Generate a ``Float64`` random number uniformly in [0,1)
 
 .. function:: rand!([rng], A)
 
-   向数组 ``A`` 中赋值由指定 RNG 生成的随机数。
+   Populate the array A with random number generated from the specified RNG.
 
 .. function:: rand(rng::AbstractRNG, [dims...])
 
-   使用指定的 RNG 对象，生成 ``Float64`` 类型的随机数或数组。 
-   目前仅提供 ``MersenneTwister`` 随机数生成器 RNG ， 
-   可由 ``srand`` 函数设置随机数种子。
+   Generate a random ``Float64`` number or array of the size specified by dims, using the specified RNG object. Currently, ``MersenneTwister`` is the only available Random Number Generator (RNG), which may be seeded using srand.
 
-.. function:: rand(dims 或 [dims...])
+.. function:: rand(dims or [dims...])
 
-   生成指定维度的 ``Float64`` 类型的随机数组。
+   Generate a random ``Float64`` array of the size specified by dims
 
 .. function:: rand(Int32|Uint32|Int64|Uint64|Int128|Uint128, [dims...])
 
-   生成指定整数类型的随机数。若指定维度，则生成对应类型的随机数组。
+   Generate a random integer of the given type. Optionally, generate an array of random integers of the given type by specifying dims.
 
 .. function:: rand(r, [dims...])
 
-   从 ``Range1`` r 的范围中产生随机整数（如 ``1:n`` ，包括 1 和 n）。
-   也可以生成随机整数数组。
+   Generate a random integer from the inclusive interval specified by ``Range1 r`` (for example, ``1:n``). Optionally, generate a random integer array.
 
 .. function:: randbool([dims...])
 
-   生成随机布尔值。若指定维度，则生成布尔值类型的随机数组。
+   Generate a random boolean value. Optionally, generate an array of random boolean values.
 
 .. function:: randbool!(A)
 
-   将数组中的元素赋值为随机布尔值。 ``A`` 可以是 ``Array`` 或 ``BitArray`` 。
+   Fill an array with random boolean values. A may be an ``Array`` or a ``BitArray``.
 
-.. function:: randn(dims 或 [dims...])
+.. function:: randn(dims or [dims...])
 
-   生成均值为 0 ，标准差为 1 的标准正态分布随机数。 
-   若指定维度，则生成标准正态分布的随机数组。
+   Generate a normally-distributed random number with mean 0 and standard deviation 1. Optionally generate an array of normally-distributed random numbers.
 
-数组
-----
+.. function:: randn!(A::Array{Float64,N})
 
-基础函数
-~~~~~~~~
+   Fill the array A with normally-distributed (mean 0, standard deviation 1) random numbers. Also see the rand function.
+
+.. function:: randsym(n)
+
+   Generate a ``nxn`` symmetric array of normally-distributed random numbers with mean 0 and standard deviation 1.
+
+Arrays
+------
+
+Basic functions
+~~~~~~~~~~~~~~~
 
 .. function:: ndims(A) -> Integer
 
-   返回 ``A`` 有几个维度。
+   Returns the number of dimensions of A
 
 .. function:: size(A)
 
-   返回 ``A`` 的维度多元组。
+   Returns a tuple containing the dimensions of A
 
 .. function:: eltype(A)
 
-   返回 ``A`` 中元素的类型。
+   Returns the type of the elements contained in A
+
+.. function:: iseltype(A,T)
+
+   Tests whether A or its elements are of type T
 
 .. function:: length(A) -> Integer
 
-   返回 ``A`` 中所有元素的个数。（它与 MATLAB 中的定义不同。）
+   Returns the number of elements in A (note that this differs from MATLAB where ``length(A)`` is the largest dimension of ``A``)
 
 .. function:: nnz(A)
 
-   数组 ``A`` 中非零元素的个数。可适用于稠密或稀疏数组。
+   Counts the number of nonzero values in array A (dense or sparse)
 
-.. function:: scale!(A, k)
-
-   原地将数组 ``A`` 的内容乘以 k 。
-   
 .. function:: conj!(A)
 
-   原地求数组的复数共轭。
+   Convert an array to its complex conjugate in-place
 
 .. function:: stride(A, k)
 
-   返回维度 k 上相邻的两个元素在内存中的距离（单位为元素个数）
+   Returns the distance in memory (in number of elements) between adjacent elements in dimension k
 
 .. function:: strides(A)
 
-   返回每个维度上内存距离的多元组。
+   Returns a tuple of the memory strides in each dimension
 
 .. function:: ind2sub(dims, index) -> subscripts
 
    Returns a tuple of subscripts into an array with dimensions ``dims``, corresponding to the linear index ``index``
 
-   **例子** ``i, j, ... = ind2sub(size(A), indmax(A))`` provides the indices of the maximum element
+   **Example** ``i, j, ... = ind2sub(size(A), indmax(A))`` provides the indices of the maximum element
 
 .. function:: sub2ind(dims, i, j, k...) -> index
 
    The inverse of ``ind2sub``, returns the linear index corresponding to the provided subscripts
 
-构造函数
-~~~~~~~~
+Constructors
+~~~~~~~~~~~~
 
 .. function:: Array(type, dims)
 
-   构造一个未初始化的稠密数组。 ``dims`` 可以是整数参数的多元组或集合。
+   Construct an uninitialized dense array. ``dims`` may be a tuple or a series of integer arguments.
 
 .. function:: getindex(type[, elements...])
 
-   构造指定类型的一维数组。它常被 ``Type[]`` 语法调用。 
-   元素值可由 ``Type[a,b,c,...]`` 指明。
+   Construct a 1-d array of the specified type. This is usually called with the syntax ``Type[]``. Element values can be specified using ``Type[a,b,c,...]``.
 
 .. function:: cell(dims)
 
-   构造未初始化的元胞数组（异构数组）。 ``dims`` 可以是整数参数的多元组或集合。
-   
+   Construct an uninitialized cell array (heterogeneous array). ``dims`` can be either a tuple or a series of integer arguments.
 .. function:: zeros(type, dims)
 
-   构造指定类型的全零数组。
+   Create an array of all zeros of specified type
 
 .. function:: ones(type, dims)
 
-   构造指定类型的全一数组。
+   Create an array of all ones of specified type
+
+.. function:: infs(type, dims)
+
+   Create an array where every element is infinite and of the specified type
+
+.. function:: nans(type, dims)
+
+   Create an array where every element is NaN of the specified type
 
 .. function:: trues(dims)
 
-   构造元素全为真的布尔值数组。
+   Create a Bool array with all values set to true
 
 .. function:: falses(dims)
 
-   构造元素全为假的布尔值数组。
+   Create a Bool array with all values set to false
 
 .. function:: fill(v, dims)
 
-   构造数组，元素都初始化为 ``v`` 。
+   Create an array filled with ``v``
 
 .. function:: fill!(A, x)
 
-   将数组 ``A`` 的元素都改为 ``x`` 。
+   Fill array ``A`` with value ``x``
 
 .. function:: reshape(A, dims)
 
-   构造与指定数组同样数据的新数组，但维度不同。 
-   特定类型数组的实现自动选择复制或共享数据。
+   Create an array with the same data as the given array, but with different dimensions. An implementation for a particular type of array may choose whether the data is copied or shared.
 
-.. function:: similar(array, [element_type, dims])
+.. function:: similar(array, element_type, dims)
 
-   构造与指定数组相同类型的未初始化数组。可选择性指定指定了元素类型和维度。 
-   ``dims`` 参数可以是整数参数的多元组或集合。
+   Create an uninitialized array of the same type as the given array, but with the specified element type and dimensions. The second and third arguments are both optional. The ``dims`` argument may be a tuple or a series of integer arguments.
 
 .. function:: reinterpret(type, A)
 
-   构造与指定数组同样二进制数据的新数组，但为指定的元素类型。
+   Change the type-interpretation of a block of memory. For example, ``reinterpret(Float32, uint32(7))`` interprets the 4 bytes corresponding to ``uint32(7)`` as a ``Float32``. For arrays, this constructs an array with the same binary data as the given array, but with the specified element type.
 
 .. function:: eye(n)
 
-   ``n x n`` 单位矩阵。
+   n-by-n identity matrix
 
 .. function:: eye(m, n)
 
-   ``m x n`` 单位矩阵。
+   m-by-n identity matrix
 
 .. function:: linspace(start, stop, n)
 
-   构造从 ``start`` 到 ``stop`` 的 ``n`` 个元素的向量，元素之间的步长为线性。
+   Construct a vector of ``n`` linearly-spaced elements from ``start`` to ``stop``.
 
 .. function:: logspace(start, stop, n)
 
-   构造从 ``10^start`` 到 ``10^stop`` 的 ``n`` 个元素的向量，元素之间的步长为对数。
+   Construct a vector of ``n`` logarithmically-spaced numbers from ``10^start`` to ``10^stop``.
 
-数学运算符和函数
-~~~~~~~~~~~~~~~~
+Mathematical operators and functions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-数组可以使用所有的数学运算和函数。
+All mathematical operations and functions are supported for arrays
 
-.. function:: bsxfun(fn, A, B[, C...])
+.. function:: broadcast(f, As...)
 
-   对两个或两个以上的数组使用二元函数 ``fn`` ，它会展开单态的维度。
+   Broadcasts the arrays ``As`` to a common size by expanding singleton dimensions, and returns an array of the results ``f(as...)`` for each position.
 
-索引，赋值和连接
-~~~~~~~~~~~~~~~~
+.. function:: broadcast!(f, dest, As...)
 
-.. function:: getindex(A, ind)
+   Like ``broadcast``, but store the result in the ``dest`` array.
 
-   返回 ``ind`` 位置的数组 ``A`` 的子集，结果可能是 ``Int``, ``Range``, 或 ``Vector`` 。
+.. function:: broadcast_function(f)
 
-.. function:: sub(A, ind)
+   Returns a function ``broadcast_f`` such that ``broadcast_function(f)(As...) === broadcast(f, As...)``. Most useful in the form ``const broadcast_f = broadcast_function(f)``.
 
-   返回 ``SubArray`` ，它存储 ``A`` 和 ``ind`` ，但不立即计算。 
-   对 ``SubArray`` 调用 ``getindex`` 时才计算。
+.. function:: broadcast!_function(f)
+
+   Like ``broadcast_function``, but for ``broadcast!``.
+
+Indexing, Assignment, and Concatenation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. function:: getindex(A, inds...)
+
+   Returns a subset of array ``A`` as specified by ``inds``, where each ``ind`` may be an ``Int``, a ``Range``, or a ``Vector``.
+
+.. function:: sub(A, inds...)
+
+   Returns a SubArray, which stores the input ``A`` and ``inds`` rather than computing the result immediately. Calling ``getindex`` on a SubArray computes the indices on the fly.
+
+.. function:: parent(A)
+
+   Returns the "parent array" of an array view type (e.g., SubArray), or the array itself if it is not a view
+
+.. function:: parentindexes(A)
+
+   From an array view ``A``, returns the corresponding indexes in the parent
 
 .. function:: slicedim(A, d, i)
 
-   返回 ``A`` 中维度 ``d`` 上索引值为 ``i`` 的所有数据。 
-   等价于 ``A[:,:,...,i,:,:,...]`` ，其中 ``i`` 在位置 ``d`` 上。
+   Return all the data of ``A`` where the index for dimension ``d`` equals ``i``. Equivalent to ``A[:,:,...,i,:,:,...]`` where ``i`` is in position ``d``.
 
-.. function:: setindex!(A, X, ind)
+.. function:: slice(A, inds...)
 
-   在 ``ind`` 指定的 ``A`` 子集上存储 ``X`` 的值。
+   Create a view of the given indexes of array ``A``, dropping dimensions indexed with
+   scalars.
+
+.. function:: setindex!(A, X, inds...)
+
+   Store values from array ``X`` within some subset of ``A`` as specified by ``inds``.
+
+.. function:: broadcast_getindex(A, inds...)
+
+   Broadcasts the ``inds`` arrays to a common size like ``broadcast``, and returns an array of the results ``A[ks...]``, where ``ks`` goes over the positions in the broadcast.
+
+.. function:: broadcast_setindex!(A, X, inds...)
+
+   Broadcasts the ``X`` and ``inds`` arrays to a common size and stores the value from each position in ``X`` at the indices given by the same positions in ``inds``.
 
 .. function:: cat(dim, A...)
 
-   在指定维度上连接。
+   Concatenate the input arrays along the specified dimension
 
 .. function:: vcat(A...)
 
-   在维度 1 上连接。
+   Concatenate along dimension 1
 
 .. function:: hcat(A...)
 
-   在维度 2 上连接。
+   Concatenate along dimension 2
 
 .. function:: hvcat(rows::(Int...), values...)
 
-   在水平和垂直上连接。此函数用于块矩阵语法。 
-   第一个参数多元组指明每行要连接的参数个数。 
-   例如， ``[a b;c d e]`` 调用 ``hvcat((2,3),a,b,c,d,e)`` 。
+   Horizontal and vertical concatenation in one call. This function is called for
+   block matrix syntax. The first argument specifies the number of arguments to
+   concatenate in each block row.
+   For example, ``[a b;c d e]`` calls ``hvcat((2,3),a,b,c,d,e)``.
 
 .. function:: flipdim(A, d)
 
-   在维度 ``d`` 上翻转。
+   Reverse ``A`` in dimension ``d``.
 
 .. function:: flipud(A)
 
-   等价于 ``flipdim(A,1)`` 。
+   Equivalent to ``flipdim(A,1)``.
 
 .. function:: fliplr(A)
 
-   等价于 ``flipdim(A,2)`` 。
+   Equivalent to ``flipdim(A,2)``.
 
 .. function:: circshift(A,shifts)
 
-   循环移位数组中的数据。第二个参数为每个维度上移位数值的向量。
+   Circularly shift the data in an array. The second argument is a vector giving the amount to shift in each dimension.
 
 .. function:: find(A)
 
-   返回数组 ``A`` 中非零值的线性索引值向量。
+   Return a vector of the linear indexes of the non-zeros in ``A``.
+
+.. function:: find(f,A)
+
+   Return a vector of the linear indexes of  ``A`` where ``f`` returns true.
 
 .. function:: findn(A)
 
-   返回数组 ``A`` 中每个维度上非零值的索引值向量。
-   
+   Return a vector of indexes for each dimension giving the locations of the non-zeros in ``A``.
+
+.. function:: findnz(A)
+
+   Return a tuple ``(I, J, V)`` where ``I`` and ``J`` are the row and column indexes of the non-zero values in matrix ``A``, and ``V`` is a vector of the non-zero values.
+
 .. function:: nonzeros(A)
 
-   返回数组 ``A`` 中非零值的向量。
+   Return a vector of the non-zero values in array ``A``.
 
 .. function:: findfirst(A)
 
-   返回数组 ``A`` 中第一个非零值的索引值。
+   Return the index of the first non-zero value in ``A``.
 
 .. function:: findfirst(A,v)
 
-   返回数组 ``A`` 中第一个等于 ``v`` 的元素的索引值。
+   Return the index of the first element equal to ``v`` in ``A``.
 
 .. function:: findfirst(predicate, A)
 
-   返回数组 ``A`` 中第一个满足指定断言的元素的索引值。
+   Return the index of the first element that satisfies the given predicate in ``A``.
+
+.. function:: findnext(A, i)
+
+   Find the next index >= ``i`` of a non-zero element of ``A``, or ``0`` if not found.
+
+.. function:: findnext(predicate, A, i)
+
+   Find the next index >= ``i`` of an element of ``A`` satisfying the given predicate,
+   or ``0`` if not found.
+
+.. function:: findnext(A, v, i)
+
+   Find the next index >= ``i`` of an element of ``A`` equal to ``v`` (using ``==``),
+   or ``0`` if not found.
 
 .. function:: permutedims(A,perm)
 
-   重新排列数组 ``A`` 的维度。 
-   ``perm`` 为长度为 ``ndims(A)`` 的向量，它指明如何排列。 
-   此函数是多维数组的广义转置。转置等价于 ``permute(A,[2,1])`` 。
+   Permute the dimensions of array ``A``. ``perm`` is a vector specifying a permutation of length ``ndims(A)``. This is a generalization of transpose for multi-dimensional arrays. Transpose is equivalent to ``permute(A,[2,1])``.
 
 .. function:: ipermutedims(A,perm)
 
-   类似 :func:`permutedims` ，但它使用指定排列的逆排列。
+   Like :func:`permutedims`, except the inverse of the given permutation is applied.
 
 .. function:: squeeze(A, dims)
 
-   移除 ``A`` 中 ``dims`` 指定的维度。此维度大小应为 1 。
+   Remove the dimensions specified by ``dims`` from array ``A``
 
 .. function:: vec(Array) -> Vector
 
-   以列序为主序将数组向量化。
+   Vectorize an array using column-major convention.
 
-数组函数
-~~~~~~~~
+.. function:: promote_shape(s1, s2)
+
+   Check two array shapes for compatibility, allowing trailing singleton dimensions,
+   and return whichever shape has more dimensions.
+
+.. function:: checkbounds(array, indexes...)
+
+   Throw an error if the specified indexes are not in bounds for the given array.
+
+Array functions
+~~~~~~~~~~~~~~~
 
 .. function:: cumprod(A, [dim])
 
-   沿某个维度的累积乘法。
+   Cumulative product along a dimension.
 
 .. function:: cumsum(A, [dim])
 
-   沿某个维度的累积加法。
-   
+   Cumulative sum along a dimension.
+
 .. function:: cumsum_kbn(A, [dim])
 
-   沿某个维度的累积加法。使用 Kahan-Babuska-Neumaier 的加法补偿算法来提高精度。
+   Cumulative sum along a dimension, using the Kahan-Babuska-Neumaier compensated summation algorithm for additional accuracy.
 
 .. function:: cummin(A, [dim])
 
-   沿某个维度的累积最小值。
+   Cumulative minimum along a dimension.
 
 .. function:: cummax(A, [dim])
 
-   沿某个维度的累积最大值。
+   Cumulative maximum along a dimension.
 
 .. function:: diff(A, [dim])
 
-   沿某个维度的差值（第 2 个减去第 1 个，... ，第 n 个减去第 n-1 个）。
+   Finite difference operator of matrix or vector.
+
+.. function:: gradient(F, [h])
+
+   Compute differences along vector ``F``, using ``h`` as the spacing between points.
+   The default spacing is one.
 
 .. function:: rot180(A)
 
-   将矩阵 ``A`` 旋转 180 度。
+   Rotate matrix ``A`` 180 degrees.
 
 .. function:: rotl90(A)
 
-   将矩阵 ``A`` 向左旋转 90 度。
+   Rotate matrix ``A`` left 90 degrees.
 
 .. function:: rotr90(A)
 
-   将矩阵 ``A`` 向右旋转 90 度。
+   Rotate matrix ``A`` right 90 degrees.
 
 .. function:: reducedim(f, A, dims, initial)
 
-   沿 ``A`` 的某个维度使用 ``f`` 函数进行约简。 
-   ``dims`` 指明了约简的维度， ``initial`` 为约简的初始值。
-   
+   Reduce 2-argument function ``f`` along dimensions of ``A``. ``dims`` is a
+   vector specifying the dimensions to reduce, and ``initial`` is the initial
+   value to use in the reductions.
+
+   The associativity of the reduction is implementation-dependent; if you
+   need a particular associativity, e.g. left-to-right, you should write
+   your own loop.
+
 .. function:: mapslices(f, A, dims)
 
-   在 ``A`` 的指定维度上应用函数 ``f`` 。 
-   ``A`` 的每个切片 ``A[...,:,...,:,...]`` 上都调用函数 ``f`` 。 
-   整数向量 ``dims`` 指明了维度信息。结果将沿着未指明的维度进行连接。 
-   例如，如果 ``dims`` 为 ``[1,2]`` ， ``A`` 是四维数组， 
-   此函数将对每个 ``i`` 和 ```j` 调用 ``f`` 处理 ``A[:,:,i,j]`` 。
+   Transform the given dimensions of array ``A`` using function ``f``. ``f``
+   is called on each slice of ``A`` of the form ``A[...,:,...,:,...]``.
+   ``dims`` is an integer vector specifying where the colons go in this
+   expression. The results are concatenated along the remaining dimensions.
+   For example, if ``dims`` is ``[1,2]`` and A is 4-dimensional, ``f`` is
+   called on ``A[:,:,i,j]`` for all ``i`` and ``j``.
 
 .. function:: sum_kbn(A)
 
-   返回数组中所有元素的总和。 
-   使用 Kahan-Babuska-Neumaier 的加法补偿算法来提高精度。
+   Returns the sum of all array elements, using the Kahan-Babuska-Neumaier compensated summation algorithm for additional accuracy.
 
-排列组合
---------
+.. function:: cartesianmap(f, dims)
+
+   Given a ``dims`` tuple of integers ``(m, n, ...)``, call ``f`` on all combinations of
+   integers in the ranges ``1:m``, ``1:n``, etc. Example::
+
+   julia> cartesianmap(println, (2,2))
+   11
+   21
+   12
+   22
+
+BitArrays
+~~~~~~~~~
+
+.. function:: bitpack(A::AbstractArray{T,N}) -> BitArray
+
+   Converts a numeric array to a packed boolean array
+
+.. function:: bitunpack(B::BitArray{N}) -> Array{Bool,N}
+
+   Converts a packed boolean array to an array of booleans
+
+.. function:: flipbits!(B::BitArray{N}) -> BitArray{N}
+
+   Performs a bitwise not operation on B. See :ref:`~ operator <~>`.
+
+.. function:: rol(B::BitArray{1},i::Integer) -> BitArray{1}
+
+   Left rotation operator.
+
+.. function:: ror(B::BitArray{1},i::Integer) -> BitArray{1}
+
+   Right rotation operator.
+
+
+Combinatorics
+-------------
 
 .. function:: nthperm(v, k)
 
-   按字典顺序返回向量的第 k 种排列。
+   Compute the kth lexicographic permutation of a vector.
 
 .. function:: nthperm!(v, k)
 
-   :func:`nthperm` 的原地版本。
+   In-place version of :func:`nthperm`.
 
 .. function:: randperm(n)
 
-   构造指定长度的随机排列。
+   Construct a random permutation of the given length.
 
 .. function:: invperm(v)
 
-   返回 v 的逆排列。
+   Return the inverse permutation of v.
 
 .. function:: isperm(v) -> Bool
 
-   如果 v 是有效排列，则返回 ``true`` 。
+   Returns true if v is a valid permutation.
 
 .. function:: permute!(v, p)
 
-   根据排列 ``p`` 对向量 ``v`` 进行原地排列。此函数不验证 ``p`` 是否为排列。
+   Permute vector ``v`` in-place, according to permutation ``p``.  No
+   checking is done to verify that ``p`` is a permutation.
 
-   使用 ``v[p]`` 返回新排列。对于大向量，它通常比 ``permute!(v,p)`` 快。
+   To return a new permutation, use ``v[p]``.  Note that this is
+   generally faster than ``permute!(v,p)`` for large vectors.
 
 .. function:: ipermute!(v, p)
 
-   类似 permute! ，但它使用指定排列的逆排列。
+   Like permute!, but the inverse of the given permutation is applied.
 
 .. function:: randcycle(n)
 
-   构造指定长度的随机循环排列。
+   Construct a random cyclic permutation of the given length.
 
 .. function:: shuffle(v)
 
-   随机重新排列向量中的元素。
+   Return a randomly permuted copy of ``v``.
 
 .. function:: shuffle!(v)
 
-   :func:`shuffle` 的原地版本。
+   In-place version of :func:`shuffle`.
 
-.. function:: reverse(v)
+.. function:: reverse(v [, start=1 [, stop=length(v) ]] )
 
-   逆序排列向量 ``v`` 。
+   Return a copy of ``v`` reversed from start to stop.
 
-.. function:: reverse!(v) -> v
+.. function:: reverse!(v [, start=1 [, stop=length(v) ]]) -> v
 
-   :func:`reverse` 的原地版本。
+   In-place version of :func:`reverse`.
 
-.. function:: combinations(array, n)
+.. function:: combinations(itr, n)
 
-   从指定数组生成 ``n`` 个元素的所有组合。 
-   由于组合的个数很多，这个函数应在 Task 内部使用。 
-   写成 ``c = @task combinations(a,n)`` 的形式， 
-   然后迭代 ``c`` 或对其调用 ``consume`` 。
+   Generate all combinations of ``n`` elements from a given iterable
+   object.  Because the number of combinations can be very large, this
+   function returns an iterator object. Use
+   ``collect(combinations(a,n))`` to get an array of all combinations.
 
-.. function:: integer_partitions(n, m)
+.. function:: permutations(itr)
 
-   生成由 ``m`` 个整数加起来等于 ``n`` 的所有数组。 
-   由于组合的个数很多，这个函数应在 Task 内部使用。 
-   写成 ``c = @task integer_partitions(n,m)`` 的形式， 
-   然后迭代 ``c`` 或对其调用 ``consume`` 。
+   Generate all permutations of a given iterable object.  Because the
+   number of permutations can be very large, this function returns an
+   iterator object. Use ``collect(permutations(a,n))`` to get an array
+   of all permutations.
+
+.. function:: partitions(n)
+
+   Generate all integer arrays that sum to ``n``. Because the number of
+   partitions can be very large, this function returns an iterator
+   object. Use ``collect(partitions(n))`` to get an array of all
+   partitions. The number of partitions to generete can be efficiently
+   computed using ``length(partitions(n))``.
+
+.. function:: partitions(n, m)
+
+   Generate all arrays of ``m`` integers that sum to ``n``. Because
+   the number of partitions can be very large, this function returns an
+   iterator object. Use ``collect(partitions(n,m))`` to get an array of
+   all partitions. The number of partitions to generete can be efficiently
+   computed using ``length(partitions(n,m))``.
 
 .. function:: partitions(array)
 
-   生成数组中元素所有可能的组合，表示为数组的数组。 
-   由于组合的个数很多，这个函数应在 Task 内部使用。 
-   写成 ``c = @task partitions(a)`` 的形式， 
-   然后迭代 ``c`` 或对其调用 ``consume`` 。
+   Generate all set partitions of the elements of an array,
+   represented as arrays of arrays. Because the number of partitions
+   can be very large, this function returns an iterator object. Use
+   ``collect(partitions(array))`` to get an array of all partitions.
+   The number of partitions to generete can be efficiently
+   computed using ``length(partitions(array))``.
 
-统计
-----
+Statistics
+----------
 
 .. function:: mean(v[, region])
 
-   计算整个数组 ``v`` 的均值，或按 ``region`` 中列出的维度计算（可选）。
+   Compute the mean of whole array ``v``, or optionally along the dimensions in ``region``.
 
 .. function:: std(v[, region])
 
-   计算向量或数组 ``v`` 的样本标准差，可选择按 ``region`` 中列出的维度计算。 
-   算法在 ``v`` 中的每个元素都是从某个生成分布中独立同分布地取得的假设下， 
-   返回一个此生成分布标准差的估计。 
-   它等价于 ``sqrt(sum((v - mean(v)).^2) / (length(v) - 1))`` 。
+   Compute the sample standard deviation of a vector or array ``v``, optionally along dimensions in ``region``. The algorithm returns an estimator of the generative distribution's standard deviation under the assumption that each entry of ``v`` is an IID draw from that generative distribution. This computation is equivalent to calculating ``sqrt(sum((v - mean(v)).^2) / (length(v) - 1))``.
 
 .. function:: stdm(v, m)
 
-   计算已知均值为 ``m`` 的向量 ``v`` 的样本标准差。
+   Compute the sample standard deviation of a vector ``v`` with known mean ``m``.
 
 .. function:: var(v[, region])
 
-   计算向量或数组 ``v`` 的样本方差，可选择按 ``region`` 中列出的维度计算。 
-   算法在 ``v`` 中的每个元素都是从某个生成分布中独立同分布地取得的假设下， 
-   返回一个此生成分布方差的估计。 
-   它等价于 ``sum((v - mean(v)).^2) / (length(v) - 1)`` 。
+   Compute the sample variance of a vector or array ``v``, optionally along dimensions in ``region``. The algorithm will return an estimator of the generative distribution's variance under the assumption that each entry of ``v`` is an IID draw from that generative distribution. This computation is equivalent to calculating ``sum((v - mean(v)).^2) / (length(v) - 1)``.
 
 .. function:: varm(v, m)
 
-   计算已知均值为 ``m`` 的向量 ``v`` 的样本方差。
+   Compute the sample variance of a vector ``v`` with known mean ``m``.
 
-.. function:: median(v)
+.. function:: median(v; checknan::Bool=true)
 
-   计算向量 ``v`` 的中位数。
+   Compute the median of a vector ``v``. If keyword argument ``checknan`` is true
+   (the default), an error is raised for data containing NaN values.
+
+.. function:: median!(v; checknan::Bool=true)
+
+   Like ``median``, but may overwrite the input vector.
 
 .. function:: hist(v[, n]) -> e, counts
 
-   计算 ``v`` 的直方图，可以指定划大致分为 ``n`` 个区间。
-   返回值为范围 ``e`` ，对应于区间的边缘，
-   ``counts`` 为每个区间中 ``v`` 的元素个数。
+   Compute the histogram of ``v``, optionally using approximately ``n``
+   bins. The return values are a range ``e``, which correspond to the
+   edges of the bins, and ``counts`` containing the number of elements of
+   ``v`` in each bin.
 
 .. function:: hist(v, e) -> e, counts
 
-   结果为长为 ``length(e)-1`` 的向量，且第 ``i`` 个元素满足
-   ``sum(e[i] .< v .<= e[i+1])``
+   Compute the histogram of ``v`` using a vector/range ``e`` as the edges for
+   the bins. The result will be a vector of length ``length(e) - 1``, such that the
+   element at location ``i`` satisfies ``sum(e[i] .< v .<= e[i+1])``.
+
+.. function:: hist2d(M, e1, e2) -> (edge1, edge2, counts)
+
+   Compute a "2d histogram" of a set of N points specified by N-by-2 matrix ``M``.
+   Arguments ``e1`` and ``e2`` are bins for each dimension, specified either as
+   integer bin counts or vectors of bin edges. The result is a tuple of
+   ``edge1`` (the bin edges used in the first dimension), ``edge2`` (the bin edges
+   used in the second dimension), and ``counts``, a histogram matrix of size
+   ``(length(edge1)-1, length(edge2)-1)``.
 
 .. function:: histrange(v, n)
 
-   Compute `nice` bin ranges for the edges of a histogram of ``v``, using
+   Compute *nice* bin ranges for the edges of a histogram of ``v``, using
    approximately ``n`` bins. The resulting step sizes will be 1, 2 or 5
    multiplied by a power of 10.
 
 .. function:: midpoints(e)
 
    Compute the midpoints of the bins with edges ``e``. The result is a
-    vector/range of length ``length(e) - 1``. 
- 
+   vector/range of length ``length(e) - 1``.
+
 .. function:: quantile(v, p)
 
-   计算向量 ``v`` 在指定概率值集合 ``p`` 处的分位数。
+   Compute the quantiles of a vector ``v`` at a specified set of probability values ``p``.
 
 .. function:: quantile(v)
 
-   计算向量 ``v`` 在概率值 ``[.0, .2, .4, .6, .8, 1.0]`` 处的分位数。
+   Compute the quantiles of a vector ``v`` at the probability values ``[.0, .2, .4, .6, .8, 1.0]``.
+
+.. function:: quantile!(v, [p])
+
+   Like ``quantile``, but overwrites the input vector.
 
 .. function:: cov(v1[, v2])
 
-   计算两个向量 ``v1`` 和 ``v2`` 的协方差。 
-   如果调用时只有 ``v`` 这一个参数，它计算 ``v`` 中列的协方差。
+   Compute the Pearson covariance between two vectors ``v1`` and ``v2``. If
+   called with a single element ``v``, then computes covariance of columns of
+   ``v``.
 
 .. function:: cor(v1[, v2])
 
-   计算两个向量 ``v1`` 和 ``v2`` 的 Pearson 相关系数。 
-   如果调用时只有 ``v`` 这一个参数，它计算 ``v`` 中列的相关系数。
+   Compute the Pearson correlation between two vectors ``v1`` and ``v2``. If
+   called with a single element ``v``, then computes correlation of columns of
+   ``v``.
 
-信号处理
---------
+Signal Processing
+-----------------
 
-Julia 中的 FFT 函数，大部分调用的是 `FFTW <http://www.fftw.org>`_ 中的函数。
+FFT functions in Julia are largely implemented by calling functions from `FFTW <http://www.fftw.org>`_
 
 .. function:: fft(A [, dims])
 
-   对数组 ``A`` 做多维 FFT 。可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、 
-   范围、多元组、数组）。如果 ``A`` 要运算的维度上的长度是较小的质数的积， 
-   算法会比较高效；详见 :func:`nextprod` 。另见高效的 :func:`plan_fft` 。
-   
-   一维 FFT 计算一维离散傅里叶变换（DFT），其定义为 
-   :math:`\operatorname{DFT}[k] = \sum_{n=1}^{\operatorname{length}(A)} 
-   \exp\left(-i\frac{2\pi (n-1)(k-1)}{\operatorname{length}(A)} \right) A[n]` 。 
-   多维 FFT 对 ``A`` 的多个维度做此运算。
+   Performs a multidimensional FFT of the array ``A``.  The optional ``dims``
+   argument specifies an iterable subset of dimensions (e.g. an integer,
+   range, tuple, or array) to transform along.  Most efficient if the
+   size of ``A`` along the transformed dimensions is a product of small
+   primes; see :func:`nextprod`.  See also :func:`plan_fft` for even
+   greater efficiency.
+
+   A one-dimensional FFT computes the one-dimensional discrete Fourier
+   transform (DFT) as defined by :math:`\operatorname{DFT}[k] = \sum_{n=1}^{\operatorname{length}(A)} \exp\left(-i\frac{2\pi (n-1)(k-1)}{\operatorname{length}(A)} \right) A[n]`.  A multidimensional FFT simply performs this operation
+   along each transformed dimension of ``A``.
 
 .. function:: fft!(A [, dims])
 
-   与 :func:`fft` 类似，但在原地对 ``A`` 运算， ``A`` 必须是复数浮点数数组。
+   Same as :func:`fft`, but operates in-place on ``A``,
+   which must be an array of complex floating-point numbers.
 
 .. function:: ifft(A [, dims])
 
-   多维 IFFT 。
+   Multidimensional inverse FFT.
 
-   一维反向 FFT 计算 
+   A one-dimensional backward FFT computes
    :math:`\operatorname{BDFT}[k] =
    \sum_{n=1}^{\operatorname{length}(A)} \exp\left(+i\frac{2\pi
-   (n-1)(k-1)}{\operatorname{length}(A)} \right) A[n]` 。 
-   多维反向 FFT 对 ``A`` 的多个维度做此运算。IFFT 将其结果除以所运算的维度大小的积。
+   (n-1)(k-1)}{\operatorname{length}(A)} \right) A[n]`.  A
+   multidimensional backward FFT simply performs this operation along
+   each transformed dimension of ``A``.  The inverse FFT computes
+   the same thing divided by the product of the transformed dimensions.
 
 .. function:: ifft!(A [, dims])
 
-   与 :func:`ifft` 类似，但在原地对 ``A`` 进行运算。
+   Same as :func:`ifft`, but operates in-place on ``A``.
 
 .. function:: bfft(A [, dims])
 
-   类似 :func:`ifft` ，但计算非归一化的（即反向）变换。 
-   它的结果需要除以所运算的维度大小的积，才是 IFFT 的结果。 
-   （它比 :func:`ifft` 稍微高效一点儿，因为它省略了归一化的步骤； 
-   有时归一化的步骤可以与其它地方的其它计算合并在一起做。）
+   Similar to :func:`ifft`, but computes an unnormalized inverse
+   (backward) transform, which must be divided by the product of the sizes
+   of the transformed dimensions in order to obtain the inverse.  (This is
+   slightly more efficient than :func:`ifft` because it omits a scaling
+   step, which in some applications can be combined with other
+   computational steps elsewhere.)
 
 .. function:: bfft!(A [, dims])
 
-   与 :func:`bfft` 类似，但在原地对 ``A`` 进行运算。
+   Same as :func:`bfft`, but operates in-place on ``A``.
 
 .. function:: plan_fft(A [, dims [, flags [, timelimit]]])
 
-   在数组 ``A`` 的指定维度上（ ``dims`` ）制定优化 FFT 的方案。 
-   （前两个参数的意义参见 :func:`fft` 。） 
-   返回可快速计算 ``fft(A, dims)`` 的函数。
+   Pre-plan an optimized FFT along given dimensions (``dims``) of arrays
+   matching the shape and type of ``A``.  (The first two arguments have
+   the same meaning as for :func:`fft`.)  Returns a function ``plan(A)``
+   that computes ``fft(A, dims)`` quickly.
 
-   ``flags`` 参数时按位或的 FFTW 方案标志位，默认为 ``FFTW.ESTIMATE`` 。 
-   如果使用 ``FFTW.MEASURE`` 或 ``FFTW.PATIENT`` 会先花几秒钟（或更久） 
-   来对不同的 FFT 算法进行分析，选取最快的。有关方案标志位，详见 FFTW 手册。 
-   可选参数 ``timelimit`` 指明制定方案时间的粗略上界，单位为秒。 
-   如果使用 ``FFTW.MEASURE`` 或 ``FFTW.PATIENT`` 会在制定方案时覆写输入数组 ``A`` 。
+   The ``flags`` argument is a bitwise-or of FFTW planner flags, defaulting
+   to ``FFTW.ESTIMATE``.  e.g. passing ``FFTW.MEASURE`` or ``FFTW.PATIENT``
+   will instead spend several seconds (or more) benchmarking different
+   possible FFT algorithms and picking the fastest one; see the FFTW manual
+   for more information on planner flags.  The optional ``timelimit`` argument
+   specifies a rough upper bound on the allowed planning time, in seconds.
+   Passing ``FFTW.MEASURE`` or ``FFTW.PATIENT`` may cause the input array ``A``
+   to be overwritten with zeros during plan creation.
 
-   :func:`plan_fft!` 与 :func:`plan_fft` 类似，但它在参数的原地制定方案 
-   （参数应为复浮点数数组）。 :func:`plan_ifft` 等类似， 
-   但它们指定逆变换  :func:`ifft`  等的方案。
+   :func:`plan_fft!` is the same as :func:`plan_fft` but creates a plan
+   that operates in-place on its argument (which must be an array of
+   complex floating-point numbers).  :func:`plan_ifft` and so on
+   are similar but produce plans that perform the equivalent of
+   the inverse transforms :func:`ifft` and so on.
 
 .. function:: plan_ifft(A [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_fft` 类似，但产生逆变换 :func:`ifft` 的方案。
+   Same as :func:`plan_fft`, but produces a plan that performs inverse transforms
+   :func:`ifft`.
 
 .. function:: plan_bfft(A [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_fft` 类似，但产生反向变换 :func:`bfft` 的方案。
+   Same as :func:`plan_fft`, but produces a plan that performs an unnormalized
+   backwards transform :func:`bfft`.
 
 .. function:: plan_fft!(A [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_fft` 类似，但在原地对 ``A`` 进行运算。
+   Same as :func:`plan_fft`, but operates in-place on ``A``.
 
 .. function:: plan_ifft!(A [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_ifft` 类似，但在原地对 ``A`` 进行运算。
+   Same as :func:`plan_ifft`, but operates in-place on ``A``.
 
 .. function:: plan_bfft!(A [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_bfft` 类似，但在原地对 ``A`` 进行运算。
+   Same as :func:`plan_bfft`, but operates in-place on ``A``.
 
 .. function:: rfft(A [, dims])
 
-   对实数数组 ``A`` 做多维 FFT 。由于转换具有共轭对称性，相比 :func:`fft` ， 
-   可节约将近一半的计算时间和存储空间。 
-   如果 ``A`` 的大小为 ``(n_1, ..., n_d)`` ， 
-   结果的大小为 ``(floor(n_1/2)+1, ..., n_d)`` 。
+   Multidimensional FFT of a real array A, exploiting the fact that
+   the transform has conjugate symmetry in order to save roughly half
+   the computational time and storage costs compared with :func:`fft`.
+   If ``A`` has size ``(n_1, ..., n_d)``, the result has size
+   ``(floor(n_1/2)+1, ..., n_d)``.
 
-   与 :func:`fft` 类似，可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、 
-   多元组、数组）。但结果中 ``dims[1]`` 维度大约只有一半。
+   The optional ``dims`` argument specifies an iterable subset of one or
+   more dimensions of ``A`` to transform, similar to :func:`fft`.  Instead
+   of (roughly) halving the first dimension of ``A`` in the result, the
+   ``dims[1]`` dimension is (roughly) halved in the same way.
 
 .. function:: irfft(A, d [, dims])
 
-   对复数组 ``A`` 做 :func:`rfft`: 的逆运算。 
-   它给出 FFT 后可生成 ``A`` 的对应的实数数组的前半部分。 
-   与 :func:`rfft` 类似， ``dims`` 是可选项，默认为 ``1:ndims(A)`` 。
+   Inverse of :func:`rfft`: for a complex array ``A``, gives the
+   corresponding real array whose FFT yields ``A`` in the first half.
+   As for :func:`rfft`, ``dims`` is an optional subset of dimensions
+   to transform, defaulting to ``1:ndims(A)``.
 
-   ``d`` 是转换后的实数数组在 ``dims[1]`` 维度上的长度， 
-   必须满足 ``d == floor(size(A,dims[1])/2)+1`` 。 
-   （此参数不能从 ``size(A)`` 推导出来，因为使用了 ``floor`` 函数。）
+   ``d`` is the length of the transformed real array along the ``dims[1]``
+   dimension, which must satisfy ``d == floor(size(A,dims[1])/2)+1``.
+   (This parameter cannot be inferred from ``size(A)`` due to the
+   possibility of rounding by the ``floor`` function here.)
 
 .. function:: brfft(A, d [, dims])
 
-   与 :func:`irfft` 类似，但它计算非归一化逆变换（与 :func:`bfft` 类似）。 
-   要得到逆变换，需将结果除以除以（实数输出矩阵）所运算的维度大小的积。
+   Similar to :func:`irfft` but computes an unnormalized inverse transform
+   (similar to :func:`bfft`), which must be divided by the product
+   of the sizes of the transformed dimensions (of the real output array)
+   in order to obtain the inverse transform.
 
 .. function:: plan_rfft(A [, dims [, flags [, timelimit]]])
 
-   制定优化实数输入 FFT 的方案。 
-   与 :func:`plan_fft` 类似，但它对应于 :func:`rfft` 。 
-   前两个参数及变换后的大小，都与 :func:`rfft` 相同。
+   Pre-plan an optimized real-input FFT, similar to :func:`plan_fft`
+   except for :func:`rfft` instead of :func:`fft`.  The first two
+   arguments, and the size of the transformed result, are the same as
+   for :func:`rfft`.
+
+.. function:: plan_brfft(A, d [, dims [, flags [, timelimit]]])
+
+   Pre-plan an optimized real-input unnormalized transform, similar to
+   :func:`plan_rfft` except for :func:`brfft` instead of :func:`rfft`.
+   The first two arguments and the size of the transformed result, are
+   the same as for :func:`brfft`.
 
 .. function:: plan_irfft(A, d [, dims [, flags [, timelimit]]])
 
-   制定优化实数输入 FFT 的方案。 
-   与 :func:`plan_rfft` 类似，但它对应于 :func:`irfft` 。 
-   前三个参数的意义与 :func:`irfft` 相同。
-   
-.. function:: plan_brfft(A, d [, dims [, flags [, timelimit]]])
-
-   制定优化实数输入 FFT 的方案。 
-   与 :func:`plan_rfft` 类似，但它对应于 :func:`brfft` 。 
-   前三个参数的意义与 :func:`brfft` 相同。
+   Pre-plan an optimized inverse real-input FFT, similar to :func:`plan_rfft`
+   except for :func:`irfft` and :func:`brfft`, respectively.  The first
+   three arguments have the same meaning as for :func:`irfft`.
 
 .. function:: dct(A [, dims])
 
-   对数组 ``A`` 做第二类离散余弦变换（DCT），使用归一化的 DCT 。 
-   与 :func:`fft` 类似，可选参数 ``dims`` 指明了关于维度的可迭代集合 
-   （如整数、范围、多元组、数组）。 
-   如果 ``A`` 要运算的维度上的长度是较小的质数的积，算法会比较高效； 
-   详见 :func:`nextprod` 。另见高效的 :func:`plan_dct` 。
+   Performs a multidimensional type-II discrete cosine transform (DCT)
+   of the array ``A``, using the unitary normalization of the DCT.
+   The optional ``dims`` argument specifies an iterable subset of
+   dimensions (e.g. an integer, range, tuple, or array) to transform
+   along.  Most efficient if the size of ``A`` along the transformed
+   dimensions is a product of small primes; see :func:`nextprod`.  See
+   also :func:`plan_dct` for even greater efficiency.
 
 .. function:: dct!(A [, dims])
 
-   与 :func:`dct!` 类似，但在原地对 ``A`` 进行运算。 
-   ``A`` 必须是实数或复数的浮点数数组。
+   Same as :func:`dct!`, except that it operates in-place
+   on ``A``, which must be an array of real or complex floating-point
+   values.
 
 .. function:: idct(A [, dims])
 
-   对数组 ``A`` 做多维逆离散余弦变换（IDCT）（即归一化的第三类 DCT）。 
-   可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、 
-   多元组、数组）。如果 ``A`` 要运算的维度上的长度是较小的质数的积， 
-   算法会比较高效；详见 :func:`nextprod` 。另见高效的 :func:`plan_idct` 。
+   Computes the multidimensional inverse discrete cosine transform (DCT)
+   of the array ``A`` (technically, a type-III DCT with the unitary
+   normalization).
+   The optional ``dims`` argument specifies an iterable subset of
+   dimensions (e.g. an integer, range, tuple, or array) to transform
+   along.  Most efficient if the size of ``A`` along the transformed
+   dimensions is a product of small primes; see :func:`nextprod`.  See
+   also :func:`plan_idct` for even greater efficiency.
 
 .. function:: idct!(A [, dims])
 
-   与 :func:`idct!` 类似，但在原地对 ``A`` 进行运算。
+   Same as :func:`idct!`, but operates in-place on ``A``.
 
 .. function:: plan_dct(A [, dims [, flags [, timelimit]]])
 
-   制定优化 DCT 的方案。 
-   与 :func:`plan_fft` 类似，但对应于 :func:`dct` 。 
-   前两个参数的意义与 :func:`dct` 相同。
+   Pre-plan an optimized discrete cosine transform (DCT), similar to
+   :func:`plan_fft` except producing a function that computes :func:`dct`.
+   The first two arguments have the same meaning as for :func:`dct`.
 
 .. function:: plan_dct!(A [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_dct` 类似，但在原地对 ``A`` 进行运算。
+   Same as :func:`plan_dct`, but operates in-place on ``A``.
 
 .. function:: plan_idct(A [, dims [, flags [, timelimit]]])
 
-   制定优化 IDCT 的方案。 
-   与 :func:`plan_fft` 类似，但对应于 :func:`idct` 。 
-   前两个参数的意义与 :func:`idct` 相同。
+   Pre-plan an optimized inverse discrete cosine transform (DCT), similar to
+   :func:`plan_fft` except producing a function that computes :func:`idct`.
+   The first two arguments have the same meaning as for :func:`idct`.
 
 .. function:: plan_idct!(A [, dims [, flags [, timelimit]]])
 
-   与 :func:`plan_idct` 类似，但在原地对 ``A`` 进行运算。
-
-.. function:: FFTW.r2r(A, kind [, dims])
-
-   对数组 ``A`` 做种类为 ``kind`` 的多维实数输入实数输出（r2r）变换。 
-   ``kind`` 指明各类离散余弦变换 （ ``FFTW.REDFT00``, ``FFTW.REDFT01``, 
-   ``FFTW.REDFT10``, 或 ``FFTW.REDFT11`` ）、各类离散正弦变换 
-   （ ``FFTW.RODFT00``, ``FFTW.RODFT01``, ``FFTW.RODFT10``, 或 
-   ``FFTW.RODFT11`` ）、实数输入半复数输出的 DFT （ ``FFTW.R2HC`` 
-   及它的逆 ``FFTW.HC2R``)，或离散 Hartley 变换（ ``FFTW.DHT`` ）。 
-   参数 ``kind`` 可以为数组或多元组， 
-   可用来指明在 ``A`` 的不同维度上做不同种类的变换； 
-   对未指明的维度使用 ``kind[end]`` 。 
-   有关这些变换类型的精确定义，详见 `FFTW 手册 <http://www.fftw.org/doc>`_ 。
-
-   可选参数 ``dims`` 指明了关于维度的可迭代集合（如整数、范围、多元组、数组）。 
-   ``kind[i]`` 是对维度 ``dims[i]`` 的变换种类。 
-   当 ``i > length(kind)`` 时使用 ``kind[end]`` 。
-
-   另见 :func:`FFTW.plan_r2r` ，它制定优化 r2r 的方案。
-
-.. function:: FFTW.r2r!(A, kind [, dims])
-
-   :func:`FFTW.r2r!` 与 :func:`FFTW.r2r` 类似，但在原地对 ``A`` 进行运算。 
-   ``A`` 必须是实数或复数的浮点数数组。
-
-.. function:: FFTW.plan_r2r(A, kind [, dims [, flags [, timelimit]]])
-
-   制定优化 r2r 的方案。与 :func:`plan_fft` 类似，但它对应于 :func:`FFTW.r2r` 。 
-
-.. function:: FFTW.plan_r2r!(A, kind [, dims [, flags [, timelimit]]])
-
-   与 :func:`plan_fft` 类似，但它对应于 :func:`FFTW.r2r!` 。 
+   Same as :func:`plan_idct`, but operates in-place on ``A``.
 
 .. function:: fftshift(x)
 
-   交换 ``x`` 每个维度的上半部分和下半部分。
+   Swap the first and second halves of each dimension of ``x``.
 
 .. function:: fftshift(x,dim)
 
-   交换 ``x`` 指定维度的上半部分和下半部分。
+   Swap the first and second halves of the given dimension of array ``x``.
 
 .. function:: ifftshift(x, [dim])
 
-   ``fftshift`` 的逆运算。
+   Undoes the effect of ``fftshift``.
 
 .. function:: filt(b,a,x)
 
-   对向量 ``x`` 使用由向量 ``a`` 和 ``b`` 描述的过滤器。
+   Apply filter described by vectors ``a`` and ``b`` to vector ``x``.
 
 .. function:: deconv(b,a)
 
-   构造向量 ``c`` ，满足 ``b = conv(a,c) + r`` 。等价于多项式除法。
+   Construct vector ``c`` such that ``b = conv(a,c) + r``. Equivalent to polynomial division.
 
 .. function:: conv(u,v)
 
-   计算两个向量的卷积。使用 FFT 算法。
+   Convolution of two vectors. Uses FFT algorithm.
+
+.. function:: conv2(u,v,A)
+
+   2-D convolution of the matrix ``A`` with the 2-D separable kernel generated by
+   the vectors ``u`` and ``v``.  Uses 2-D FFT algorithm
+
+.. function:: conv2(B,A)
+
+   2-D convolution of the matrix ``B`` with the matrix ``A``.  Uses 2-D FFT algorithm
 
 .. function:: xcorr(u,v)
 
-   计算两个向量的互相关。
+   Compute the cross-correlation of two vectors.
 
-并行计算
---------
+The following functions are defined within the ``Base.FFTW`` module.
 
-.. function:: addprocs_local(n)
+.. currentmodule:: Base.FFTW
 
-   在当前机器上添加一个进程。适用于多核。
+.. function:: r2r(A, kind [, dims])
 
-.. function:: addprocs_ssh({"host1","host2",...})
+   Performs a multidimensional real-input/real-output (r2r) transform
+   of type ``kind`` of the array ``A``, as defined in the FFTW manual.
+   ``kind`` specifies either a discrete cosine transform of various types
+   (``FFTW.REDFT00``, ``FFTW.REDFT01``, ``FFTW.REDFT10``, or
+   ``FFTW.REDFT11``), a discrete sine transform of various types
+   (``FFTW.RODFT00``, ``FFTW.RODFT01``, ``FFTW.RODFT10``, or
+   ``FFTW.RODFT11``), a real-input DFT with halfcomplex-format output
+   (``FFTW.R2HC`` and its inverse ``FFTW.HC2R``), or a discrete
+   Hartley transform (``FFTW.DHT``).  The ``kind`` argument may be
+   an array or tuple in order to specify different transform types
+   along the different dimensions of ``A``; ``kind[end]`` is used
+   for any unspecified dimensions.  See the FFTW manual for precise
+   definitions of these transform types, at http://www.fftw.org/doc.
 
-   通过 SSH 在远程机器上添加进程。需要在每个节点的相同位置安装 Julia ， 
-   或者通过共享文件系统可以使用 Julia 。
+   The optional ``dims`` argument specifies an iterable subset of
+   dimensions (e.g. an integer, range, tuple, or array) to transform
+   along. ``kind[i]`` is then the transform type for ``dims[i]``,
+   with ``kind[end]`` being used for ``i > length(kind)``.
 
-.. function:: addprocs_sge(n)
+   See also :func:`plan_r2r` to pre-plan optimized r2r transforms.
 
-   通过 Sun/Oracle Grid Engine batch queue 来添加进程，使用 ``qsub`` 。
+.. function:: r2r!(A, kind [, dims])
 
+   Same as :func:`r2r`, but operates in-place on ``A``, which must be
+   an array of real or complex floating-point numbers.
+
+.. function:: plan_r2r(A, kind [, dims [, flags [, timelimit]]])
+
+   Pre-plan an optimized r2r transform, similar to :func:`Base.plan_fft`
+   except that the transforms (and the first three arguments)
+   correspond to :func:`r2r` and :func:`r2r!`, respectively.
+
+.. function:: plan_r2r!(A, kind [, dims [, flags [, timelimit]]])
+
+   Similar to :func:`Base.plan_fft`, but corresponds to :func:`r2r!`.
+
+.. currentmodule:: Base
+
+Numerical Integration
+---------------------
+
+Although several external packages are available for numeric integration
+and solution of ordinary differential equations, we also provide
+some built-in integration support in Julia.
+
+.. function:: quadgk(f, a,b,c...; reltol=sqrt(eps), abstol=0, maxevals=10^7, order=7)
+
+   Numerically integrate the function ``f(x)`` from ``a`` to ``b``,
+   and optionally over additional intervals ``b`` to ``c`` and so on.
+   Keyword options include a relative error tolerance ``reltol`` (defaults
+   to ``sqrt(eps)`` in the precision of the endpoints), an absolute error
+   tolerance ``abstol`` (defaults to 0), a maximum number of function
+   evaluations ``maxevals`` (defaults to ``10^7``), and the ``order``
+   of the integration rule (defaults to 7).
+
+   Returns a pair ``(I,E)`` of the estimated integral ``I`` and an
+   estimated upper bound on the absolute error ``E``.  If ``maxevals``
+   is not exceeded then either ``E <= abstol`` or ``E <=
+   reltol*norm(I)`` will hold.  (Note that it is useful to specify a
+   positive ``abstol`` in cases where ``norm(I)`` may be zero.)
+
+   The endpoints ``a`` etcetera can also be complex (in which case the
+   integral is performed over straight-line segments in the complex
+   plane).  If the endpoints are ``BigFloat``, then the integration
+   will be performed in ``BigFloat`` precision as well (note: it is
+   advisable to increase the integration ``order`` in rough proportion
+   to the precision, for smooth integrands).  More generally, the
+   precision is set by the precision of the integration endpoints
+   (promoted to floating-point types).
+
+   The integrand ``f(x)`` can return any numeric scalar, vector, or matrix
+   type, or in fact any type supporting ``+``, ``-``, multiplication
+   by real values, and a ``norm`` (i.e., any normed vector space).
+
+   The algorithm is an adaptive Gauss-Kronrod integration technique:
+   the integral in each interval is estimated using a Kronrod rule
+   (``2*order+1`` points) and the error is estimated using an embedded
+   Gauss rule (``order`` points).   The interval with the largest
+   error is then subdivided into two intervals and the process is repeated
+   until the desired error tolerance is achieved.
+
+   These quadrature rules work best for smooth functions within each
+   interval, so if your function has a known discontinuity or other
+   singularity, it is best to subdivide your interval to put the
+   singularity at an endpoint.  For example, if ``f`` has a discontinuity
+   at ``x=0.7`` and you want to integrate from 0 to 1, you should use
+   ``quadgk(f, 0,0.7,1)`` to subdivide the interval at the point of
+   discontinuity.  The integrand is never evaluated exactly at the endpoints
+   of the intervals, so it is possible to integrate functions that diverge
+   at the endpoints as long as the singularity is integrable (for example,
+   a ``log(x)`` or ``1/sqrt(x)`` singularity).
+
+   For real-valued endpoints, the starting and/or ending points may be
+   infinite.  (A coordinate transformation is performed internally to
+   map the infinite interval to a finite one.)
+
+Parallel Computing
+------------------
+
+.. function:: addprocs(n) -> List of process identifiers
+
+   Add processes on the local machine. Can be used to take advantage of multiple cores.
+
+.. function:: addprocs({"host1","host2",...}; tunnel=false, dir=JULIA_HOME, sshflags::Cmd=``, cman::ClusterManager) -> List of process identifiers
+
+   Add processes on remote machines via SSH or a custom cluster manager. 
+   Requires julia to be installed in the same location on each node, or to be available via a shared file system.
+   
+   Keyword arguments:
+
+   ``tunnel`` : if ``true`` then SSH tunneling will be used to connect to the worker. 
+
+   ``dir`` :  specifies the location of the julia binaries on the worker nodes. 
+
+   ``sshflags`` : specifies additional ssh options, e.g. :literal:`sshflags=\`-i /home/foo/bar.pem\`` .
+
+   ``cman`` : Workers are started using the specified cluster manager. 
+
+   For example Beowulf clusters are  supported via a custom cluster manager implemented 
+   in  package ``ClusterManagers``.
+   
+   See the documentation for package ``ClusterManagers`` for more information on how to 
+   write a custom cluster manager.
+   
 .. function:: nprocs()
 
-   获取当前可用处理器的个数。
+   Get the number of available processors.
+
+.. function:: nworkers()
+
+   Get the number of available worker processors. This is one less than nprocs(). Equal to nprocs() if nprocs() == 1.
+
+.. function:: procs()
+
+   Returns a list of all process identifiers.
+
+.. function:: workers()
+
+   Returns a list of all worker process identifiers.
+
+.. function:: rmprocs(pids...)
+
+   Removes the specified workers. 
+
+.. function:: interrupt([pids...])
+
+   Interrupt the current executing task on the specified workers. This is
+   equivalent to pressing Ctrl-C on the local machine. If no arguments are given,
+   all workers are interrupted.
 
 .. function:: myid()
 
-   获取当前处理器的 ID 。
+   Get the id of the current processor.
 
-.. function:: pmap(f, c)
+.. function:: pmap(f, lsts...; err_retry=true, err_stop=false)
 
-   并行地将函数 ``f`` 映射到集合 ``c`` 的每个元素上。
+   Transform collections ``lsts`` by applying ``f`` to each element in parallel. 
+   If ``nprocs() > 1``, the calling process will be dedicated to assigning tasks. 
+   All other available processes will be used as parallel workers.
+   
+   If ``err_retry`` is true, it retries a failed application of ``f`` on a different worker.
+   If ``err_stop`` is true, it takes precedence over the value of ``err_retry`` and ``pmap`` stops execution on the first error.
+   
 
-.. function:: remote_call(id, func, args...)
+.. function:: remotecall(id, func, args...)
 
-   在指定的处理器上，对指定参数异步调用函数。返回 ``RemoteRef`` 。
+   Call a function asynchronously on the given arguments on the specified processor. Returns a ``RemoteRef``.
 
-.. function:: wait(RemoteRef)
+.. function:: wait(x)
 
-   等待指定的 ``RemoteRef`` 所需的值为可用。
+   Block the current task until some event occurs, depending on the type
+   of the argument:
+
+   * ``RemoteRef``: Wait for a value to become available for the specified remote reference.
+
+   * ``Condition``: Wait for ``notify`` on a condition.
+
+   * ``Process``: Wait for a process or process chain to exit. The ``exitcode`` field of a process can be used to determine success or failure.
+
+   * ``Task``: Wait for a ``Task`` to finish, returning its result value.
+
+   * ``RawFD``: Wait for changes on a file descriptor (see `poll_fd` for keyword arguments and return code)
 
 .. function:: fetch(RemoteRef)
 
-   等待并获取 ``RemoteRef`` 的值。
+   Wait for and get the value of a remote reference.
 
-.. function:: remote_call_wait(id, func, args...)
+.. function:: remotecall_wait(id, func, args...)
 
-   在一个信息内运行 ``wait(remote_call(...))`` 。
+   Perform ``wait(remotecall(...))`` in one message.
 
-.. function:: remote_call_fetch(id, func, args...)
+.. function:: remotecall_fetch(id, func, args...)
 
-   在一个信息内运行 ``fetch(remote_call(...))`` 。
+   Perform ``fetch(remotecall(...))`` in one message.
 
 .. function:: put(RemoteRef, value)
 
-   把值存储在 ``RemoteRef`` 中。它的实现符合“共享长度为 1 的队列”： 
-   如果现在有一个值，除非值由 ``take`` 函数移除，否则一直阻塞。
+   Store a value to a remote reference. Implements "shared queue of length 1" semantics: if a value is already present, blocks until the value is removed with ``take``.
 
 .. function:: take(RemoteRef)
 
-   取回 ``RemoteRef`` 的值，将其移除，从而清空 ``RemoteRef`` 。
+   Fetch the value of a remote reference, removing it so that the reference is empty again.
+
+.. function:: isready(RemoteRef)
+
+   Determine whether a ``RemoteRef`` has a value stored to it. Note that this function
+   can easily cause race conditions, since by the time you receive its result it may
+   no longer be true. It is recommended that this function only be used on a
+   ``RemoteRef`` that is assigned once.
 
 .. function:: RemoteRef()
 
-   在当前机器上生成一个未初始化的 ``RemoteRef`` 。
+   Make an uninitialized remote reference on the local machine.
 
 .. function:: RemoteRef(n)
 
-   在处理器 ``n`` 上生成一个未初始化的 ``RemoteRef`` 。
+   Make an uninitialized remote reference on processor ``n``.
 
-分布式数组
-----------
+.. function:: timedwait(testcb::Function, secs::Float64; pollint::Float64=0.1)
+
+   Waits till ``testcb`` returns ``true`` or for ``secs``` seconds, whichever is earlier.
+   ``testcb`` is polled every ``pollint`` seconds.
+   
+.. function:: @spawn
+
+   Execute an expression on an automatically-chosen processor, returning a
+   ``RemoteRef`` to the result.
+
+.. function:: @spawnat
+
+   Accepts two arguments, ``p`` and an expression, and runs the expression
+   asynchronously on processor ``p``, returning a ``RemoteRef`` to the result.
+
+.. function:: @fetch
+
+   Equivalent to ``fetch(@spawn expr)``.
+
+.. function:: @fetchfrom
+
+   Equivalent to ``fetch(@spawnat p expr)``.
+
+.. function:: @async
+
+   Schedule an expression to run on the local machine, also adding it to the
+   set of items that the nearest enclosing ``@sync`` waits for.
+
+.. function:: @sync
+
+   Wait until all dynamically-enclosed uses of ``@async``, ``@spawn``, and
+   ``@spawnat`` complete.
+
+Distributed Arrays
+------------------
 
 .. function:: DArray(init, dims, [procs, dist])
 
-   构造分布式数组。 ``init`` 函数接收索引值范围多元组为参数， 
-   此函数为指定的索引值返回分布式数组中对应的块。 
-   ``dims`` 为整个分布式数组的大小。 
-   ``procs`` 为要使用的处理器 ID 的向量。 
-   ``dist`` 是整数向量，指明分布式数组在每个维度上需要划分为多少块。
+   Construct a distributed array. ``init`` is a function that accepts a tuple of index ranges. This function should allocate a local chunk of the distributed array and initialize it for the specified indices. ``dims`` is the overall size of the distributed array. ``procs`` optionally specifies a vector of processor IDs to use. ``dist`` is an integer vector specifying how many chunks the distributed array should be divided into in each dimension.
+
+   For example, the ``dfill`` function that creates a distributed array and fills it with a value ``v`` is implemented as:
+
+   ``dfill(v, args...) = DArray(I->fill(v, map(length,I)), args...)``
 
 .. function:: dzeros(dims, ...)
 
-   构造全零的分布式数组。尾参数可参见 ``darray`` 。
+   Construct a distributed array of zeros. Trailing arguments are the same as those accepted by ``darray``.
 
 .. function:: dones(dims, ...)
 
-   构造全一的分布式数组。尾参数可参见 ``DArray`` 。
+   Construct a distributed array of ones. Trailing arguments are the same as those accepted by ``darray``.
 
 .. function:: dfill(x, dims, ...)
 
-   构造值全为 ``x`` 的分布式数组。尾参数可参见 ``DArray`` 。
+   Construct a distributed array filled with value ``x``. Trailing arguments are the same as those accepted by ``darray``.
 
 .. function:: drand(dims, ...)
 
-   构造均匀分布的随机分布式数组。尾参数可参见 ``DArray`` 。
+   Construct a distributed uniform random array. Trailing arguments are the same as those accepted by ``darray``.
 
 .. function:: drandn(dims, ...)
 
-   构造正态分布的随机分布式数组。尾参数可参见 ``DArray`` 。
+   Construct a distributed normal random array. Trailing arguments are the same as those accepted by ``darray``.
 
 .. function:: distribute(a)
 
-   将本地数组转换为分布式数组。
+   Convert a local array to distributed
 
-.. function:: localize(d)
+.. function:: localpart(d)
 
-   获取分布式数组 ``d`` 的本地部分。
+   Get the local piece of a distributed array
 
 .. function:: myindexes(d)
 
-   分布式数组 ``d`` 的本地部分所对应的索引值的多元组。
+   A tuple describing the indexes owned by the local processor
 
 .. function:: procs(d)
 
-   获取存储分布式数组 ``d`` 的处理器 ID 的向量。
+   Get the vector of processors storing pieces of ``d``
 
-系统
-----
+System
+------
 
 .. function:: run(command)
 
-   执行命令对象。如果出错或进程退出时为非零状态，将报错。 
-   命令是由倒引号引起来的。
+   Run a command object, constructed with backticks. Throws an error if anything goes wrong, including the process exiting with a non-zero status.
 
 .. function:: spawn(command)
 
-   异步运行命令，返回生成的 ``Process`` 对象。
+   Run a command object asynchronously, returning the resulting ``Process`` object.
+
+.. data:: DevNull
+
+   Used in a stream redirect to discard all data written to it. Essentially equivalent to /dev/null on Unix or NUL on Windows.
+   Usage: run(`cat test.txt` |> DevNull)
 
 .. function:: success(command)
 
-   执行命令对象，并判断是否成功（退出代码是否为 0 ）。命令是由倒引号引起来的。
+   Run a command object, constructed with backticks, and tell whether it was successful (exited with a code of 0). An exception is raised if the process cannot be started.
+
+.. function:: process_running(p::Process)
+
+   Determine whether a process is currently running.
+
+.. function:: process_exited(p::Process)
+
+   Determine whether a process has exited.
+
+.. function:: kill(p::Process, signum=SIGTERM)
+
+   Send a signal to a process. The default is to terminate the process.
 
 .. function:: readsfrom(command)
 
-   异步运行命令，返回 (stream,process) 多元组。 
-   第一个值是从进程的标准输出读出的流。
+   Starts running a command asynchronously, and returns a tuple (stream,process). The first value is a stream reading from the process' standard output.
 
 .. function:: writesto(command)
 
-   异步运行命令，返回 (stream,process) 多元组。 
-   第一个值是向进程的标准输入写入的流。
+   Starts running a command asynchronously, and returns a tuple (stream,process). The first value is a stream writing to the process' standard input.
 
 .. function:: readandwrite(command)
 
-   异步运行命令，返回 (stdout,stdin,process) 多元组， 
-   分别为进程的输出流、输入流，及进程本身。
+   Starts running a command asynchronously, and returns a tuple (stdout,stdin,process) of the output stream and input stream of the process, and the process object itself.
 
-.. function:: >
+.. function:: ignorestatus(command)
 
-   重定向进程的标准输出流。
+   Mark a command object so that running it will not throw an error if the
+   result code is non-zero.
 
-   **例子**: ``run(`ls` > "out.log")``
+.. function:: detach(command)
 
-.. function:: <
+   Mark a command object so that it will be run in a new process group,
+   allowing it to outlive the julia process, and not have Ctrl-C interrupts
+   passed to it.
 
-   重定向进程的标准输入流流。
+.. function:: setenv(command, env)
 
-.. function:: >>
+   Set environment variables to use when running the given command. ``env`` is either
+   a dictionary mapping strings to strings, or an array of strings of the form
+   ``"var=val"``.
 
-   重定向进程的标准输出流，添加到目标文件尾部。
+.. function:: |>(command, command)
+              |>(command, filename)
+              |>(filename, command)
 
-.. function:: .>
+   Redirect operator. Used for piping the output of a process into another (first form) or to redirect the standard output/input of a command to/from a file (second and third forms).
 
-   重定向进程的标准错误流。
+   **Examples**:
+     * ``run(`ls` |> `grep xyz`)``
+     * ``run(`ls` |> "out.txt")``
+     * ``run("out.txt" |> `grep xyz`)``
+
+.. function:: >>(command, filename)
+
+   Redirect standard output of a process, appending to the destination file.
+
+.. function:: .>(command, filename)
+
+   Redirect the standard error stream of a process.
 
 .. function:: gethostname() -> String
 
-   获取本机的主机名。
+   Get the local machine's host name.
 
 .. function:: getipaddr() -> String
 
-   获取本机的 IP 地址，形为 "x.x.x.x" 的字符串。
+   Get the IP address of the local machine, as a string of the form "x.x.x.x".
 
 .. function:: pwd() -> String
 
-   获取当前的工作目录。
+   Get the current working directory.
 
 .. function:: cd(dir::String)
 
-   设置当前工作文件夹。返回新的当前文件夹。
+   Set the current working directory. Returns the new current directory.
 
-.. function:: cd(f, ["dir"])
+.. function:: cd(f, [dir])
 
-   临时更改当前工作文件夹（未指明主文件夹），调用 f 函数，然后返回原文件夹。
+   Temporarily changes the current working directory (HOME if not specified) and applies function f before returning.
 
 .. function:: mkdir(path, [mode])
 
-   新建名为 ``path`` 的文件夹，其权限为 ``mode`` 。 ``mode`` 默认为 0o777 ， 
-   可通过当前文件创建掩码来修改。
+   Make a new directory with name ``path`` and permissions ``mode``.
+   ``mode`` defaults to 0o777, modified by the current file creation mask.
 
 .. function:: mkpath(path, [mode])
 
-   创建指定路径 ``path`` 中的所有文件夹，其权限为 ``mode`` 。
-   ``mode`` 默认为 0o777 ，可通过当前文件创建掩码来修改。
+   Create all directories in the given ``path``, with permissions ``mode``.
+   ``mode`` defaults to 0o777, modified by the current file creation mask.
 
 .. function:: rmdir(path)
 
-   删除 ``path`` 文件夹。
+   Remove the directory named ``path``.
 
 .. function:: getpid() -> Int32
 
-   获取 Julia 的进程 ID 。
+   Get julia's process ID.
 
-.. function:: time()
+.. function:: time([t::TmStruct])
 
-   获取系统自 1970-01-01 00:00:00 UTC 起至今的秒数。 
-   结果是高解析度（一般为微秒 :math:`10^{-6}` ）的。
+   Get the system time in seconds since the epoch, with fairly high (typically, microsecond) resolution. When passed a ``TmStruct``, converts it to a number of seconds since the epoch.
 
 .. function:: time_ns()
 
-   获取时间，单位为纳秒 :math:`10^{-9}` 。 
-   对应于 0 的时间是未定义的，计时时间 5.8 年为最长周期。
+   Get the time in nanoseconds. The time corresponding to 0 is undefined, and wraps every 5.8 years.
+
+.. function:: strftime([format], time)
+
+   Convert time, given as a number of seconds since the epoch or a ``TmStruct``, to a formatted string using the given format. Supported formats are the same as those in the standard C library.
+
+.. function:: strptime([format], timestr)
+
+   Parse a formatted time string into a ``TmStruct`` giving the seconds, minute, hour, date, etc. Supported formats are the same as those in the standard C library. On some platforms, timezones will not be parsed correctly. If the result of this function will be passed to ``time`` to convert it to seconds since the epoch, the ``isdst`` field should be filled in manually. Setting it to ``-1`` will tell the C library to use the current system settings to determine the timezone.
+
+.. function:: TmStruct([seconds])
+
+   Convert a number of seconds since the epoch to broken-down format, with fields ``sec``, ``min``, ``hour``, ``mday``, ``month``, ``year``, ``wday``, ``yday``, and ``isdst``.
 
 .. function:: tic()
 
-   设置计时器， :func:`toc` 或 :func:`toq` 会调用它所计时的时间。 
-   也可以使用 ``@time expr`` 宏来计算时间。
+   Set a timer to be read by the next call to :func:`toc` or :func:`toq`. The macro call ``@time expr`` can also be used to time evaluation.
 
 .. function:: toc()
 
-   打印并返回最后一个 :func:`tic` 计时器的时间。
+   Print and return the time elapsed since the last :func:`tic`.
 
 .. function:: toq()
 
-   返回但不打印最后一个 :func:`tic` 计时器的时间。
+   Return, but do not print, the time elapsed since the last :func:`tic`.
+
+.. function:: @time
+
+   A macro to execute and expression, printing time it took to execute and the total number of bytes its execution caused to be allocated, before returning the value of the expression.
+
+.. function:: @elapsed
+
+   A macro to evaluate an expression, discarding the resulting value, instead returning the number of seconds it took to execute as a floating-point number.
+
+.. function:: @allocated
+
+   A macro to evaluate an expression, discarding the resulting value, instead returning the total number of bytes allocated during evaluation of the expression.
 
 .. function:: EnvHash() -> EnvHash
 
-   给环境变量提供哈希表接口的单态。
+   A singleton of this type provides a hash table interface to environment variables.
 
 .. data:: ENV
 
-   对单态 ``EnvHash`` 的引用，提供系统环境变量的字典接口。
+   Reference to the singleton ``EnvHash``, providing a dictionary interface to system environment variables.
 
-C 接口
-------
+.. function:: @unix
 
-.. function:: ccall( (symbol, library), RetType, (ArgType1, ...), ArgVar1, ...)
+   Given ``@unix? a : b``, do ``a`` on Unix systems (including Linux and OS X) and ``b`` elsewhere. See documentation
+   for Handling Platform Variations in the Calling C and Fortran Code section of the manual.
 
-   调用从 C 导出的共享库的函数，它由 (函数名, 共享库名) 多元组 
-   （字符串或 :Symbol ）指明。 ccall 也可用来调用由 dlsym 返回的函数指针， 
-   但由于将来想实现静态编译，不提倡这种用法。
+.. function:: @osx
+
+   Given ``@osx? a : b``, do ``a`` on OS X and ``b`` elsewhere. See documentation for Handling Platform Variations 
+   in the Calling C and Fortran Code section of the manual.
+
+.. function:: @linux
+
+   Given ``@linux? a : b``, do ``a`` on Linux and ``b`` elsewhere. See documentation for Handling Platform Variations 
+   in the Calling C and Fortran Code section of the manual.
+
+.. function:: @windows
+
+   Given ``@windows? a : b``, do ``a`` on Windows and ``b`` elsewhere. See documentation for Handling Platform Variations
+   in the Calling C and Fortran Code section of the manual.
+
+C Interface
+-----------
+
+.. function:: ccall((symbol, library) or fptr, RetType, (ArgType1, ...), ArgVar1, ...)
+
+   Call function in C-exported shared library, specified by ``(function name, library)`` tuple, where each component is a String or :Symbol. Alternatively,
+   ccall may be used to call a function pointer returned by dlsym, but note that this usage is generally discouraged to facilitate future static compilation.
+   Note that the argument type tuple must be a literal tuple, and not a tuple-valued variable or expression.
+
+.. function:: cglobal((symbol, library) or ptr [, Type=Void])
+
+   Obtain a pointer to a global variable in a C-exported shared library, specified exactly as in ``ccall``.  Returns a ``Ptr{Type}``, defaulting to ``Ptr{Void}`` if no Type argument is supplied.  The values can be read or written by ``unsafe_load`` or ``unsafe_store!``, respectively.
 
 .. function:: cfunction(fun::Function, RetType::Type, (ArgTypes...))
-   
-   使用 Julia 函数生成 C 可调用的函数指针。
+
+   Generate C-callable function pointer from Julia function. Type annotation of the return value in the
+   callback function is a must for situations where Julia cannot infer the return type automatically.
+
+   For example::
+
+    function foo()
+      # body
+
+      retval::Float64
+    end
+
+    bar = cfunction(foo, Float64, ())
+
 
 .. function:: dlopen(libfile::String [, flags::Integer])
 
-   载入共享库，返回不透明句柄。
+   Load a shared library, returning an opaque handle.
 
-   可选参数为 0 或者是 RTLD_LOCAL, RTLD_GLOBAL, RTLD_LAZY, RTLD_NOW, 
-   RTLD_NODELETE, RTLD_NOLOAD, RTLD_DEEPBIND, RTLD_FIRST 等参数的位或。 
-   它们被转换为对应的 POSIX dlopen 命令的标志位； 
-   如果当前平台不支持某个特性，则忽略。 
-   默认值为 RTLD_LAZY|RTLD_DEEPBIND|RTLD_LOCAL 。 
-   在 POSIX 平台上，这些标志位的重要用途是当共享库之间有依赖关系时， 
-   指明 RTLD_LAZY|RTLD_DEEPBIND|RTLD_GLOBAL 来使库的符号可被其它共享库使用。
+   The optional flags argument is a bitwise-or of zero or more of
+   RTLD_LOCAL, RTLD_GLOBAL, RTLD_LAZY, RTLD_NOW, RTLD_NODELETE,
+   RTLD_NOLOAD, RTLD_DEEPBIND, and RTLD_FIRST.  These are converted to
+   the corresponding flags of the POSIX (and/or GNU libc and/or MacOS)
+   dlopen command, if possible, or are ignored if the specified
+   functionality is not available on the current platform.  The
+   default is RTLD_LAZY|RTLD_DEEPBIND|RTLD_LOCAL.  An important usage
+   of these flags, on POSIX platforms, is to specify
+   RTLD_LAZY|RTLD_DEEPBIND|RTLD_GLOBAL in order for the library's
+   symbols to be available for usage in other shared libraries, in
+   situations where there are dependencies between shared libraries.
+
+.. function:: dlopen_e(libfile::String [, flags::Integer])
+
+   Similar to ``dlopen``, except returns a NULL pointer instead of raising errors.
+
+.. data:: RTLD_DEEPBIND
+
+   Enum constant for dlopen. See your platform man page for details, if applicable.
+
+.. data:: RTLD_FIRST
+
+   Enum constant for dlopen. See your platform man page for details, if applicable.
+
+.. data:: RTLD_GLOBAL
+
+   Enum constant for dlopen. See your platform man page for details, if applicable.
+
+.. data:: RTLD_LAZY
+
+   Enum constant for dlopen. See your platform man page for details, if applicable.
+
+.. data:: RTLD_LOCAL
+
+   Enum constant for dlopen. See your platform man page for details, if applicable.
+
+.. data:: RTLD_NODELETE
+    
+   Enum constant for dlopen. See your platform man page for details, if applicable.
+
+.. data:: RTLD_NOLOAD
+
+   Enum constant for dlopen. See your platform man page for details, if applicable.
+
+.. data:: RTLD_NOW
+
+   Enum constant for dlopen. See your platform man page for details, if applicable.
 
 .. function:: dlsym(handle, sym)
 
-   在共享库句柄中查找符号。查找成功时返回可调用的函数指针。
+   Look up a symbol from a shared library handle, return callable function pointer on success.
 
 .. function:: dlsym_e(handle, sym)
-   
-   在共享库句柄中查找符号。如果查找失败，则安静地返回空指针。
+
+   Look up a symbol from a shared library handle, silently return NULL pointer on lookup failure.
 
 .. function:: dlclose(handle)
 
-   通过句柄来关闭共享库的引用。
+   Close shared library referenced by handle.
+
+.. function:: c_malloc(size::Integer)
+
+   Call ``malloc`` from the C standard library.
 
 .. function:: c_free(addr::Ptr)
-  
-   调用 C 标准库中的 ·``free()`` 。
 
-.. function:: unsafe_ref(p::Ptr{T},i::Integer)
+   Call ``free`` from the C standard library.
 
-   对指针解引用 ``p[i]`` 或 ``*p`` ，返回类型 T 的值的浅拷贝。
+.. function:: unsafe_load(p::Ptr{T},i::Integer)
 
-.. function:: unsafe_assign(p::Ptr{T},x,i::Integer)
+   Dereference the pointer ``p[i]`` or ``*p``, returning a copy of type T.
 
-   给指针赋值 ``p[i] = x`` 或 ``*p = x`` ，将对象 x 复制进 p 处的内存中。
+.. function:: unsafe_store!(p::Ptr{T},x,i::Integer)
+
+   Assign to the pointer ``p[i] = x`` or ``*p = x``, making a copy of object x into the memory at p.
+
+.. function:: unsafe_copy!(dest::Ptr{T}, src::Ptr{T}, N)
+
+   Copy ``N`` elements from a source pointer to a destination, with no checking. The
+   size of an element is determined by the type of the pointers.
+
+.. function:: unsafe_copy!(dest::Array, do, src::Array, so, N)
+
+   Copy ``N`` elements from a source array to a destination, starting at offset ``so``
+   in the source and ``do`` in the destination.
 
 .. function:: pointer(a[, index])
 
-   获取数组元素的原生地址。要确保使用指针时，必须存在 Julia 对 ``a`` 的引用。
+   Get the native address of an array element. Be careful to ensure that a julia
+   reference to ``a`` exists as long as this pointer will be used.
 
-.. function:: pointer(type, Uint)
+.. function:: pointer(type, int)
 
-   指向指定元素类型的指针，地址为该无符号整数。
+   Convert an integer to a pointer of the specified element type.
 
 .. function:: pointer_to_array(p, dims[, own])
 
-   将原生指针封装为 Julia 数组对象。指针元素的类型决定了数组元素的类型。 
-   ``own`` 可选项指明 Julia 是否可以控制内存， 
-   当数组不再被引用时调用 ``free`` 释放指针。
+   Wrap a native pointer as a Julia Array object. The pointer element type determines
+   the array element type. ``own`` optionally specifies whether Julia should take
+   ownership of the memory, calling ``free`` on the pointer when the array is no
+   longer referenced.
 
-错误
-----
+.. function:: pointer_from_objref(obj)
+
+   Get the memory address of a Julia object as a ``Ptr``. The existence of the resulting
+   ``Ptr`` will not protect the object from garbage collection, so you must ensure
+   that the object remains referenced for the whole time that the ``Ptr`` will be used.
+
+.. function:: unsafe_pointer_to_objref(p::Ptr)
+
+   Convert a ``Ptr`` to an object reference. Assumes the pointer refers to a
+   valid heap-allocated Julia object. If this is not the case, undefined behavior
+   results, hence this function is considered "unsafe" and should be used with care.
+
+.. function:: disable_sigint(f::Function)
+
+   Disable Ctrl-C handler during execution of a function, for calling
+   external code that is not interrupt safe. Intended to be called using ``do``
+   block syntax as follows::
+
+    disable_sigint() do
+        # interrupt-unsafe code
+        ...
+    end
+
+.. function:: reenable_sigint(f::Function)
+
+   Re-enable Ctrl-C handler during execution of a function. Temporarily
+   reverses the effect of ``disable_sigint``.
+
+.. function:: find_library(names, locations)
+
+   Searches for the first library in ``names`` in the paths in the ``locations`` list, ``DL_LOAD_PATH``, or system
+   library paths (in that order) which can successfully be dlopen'd. On success, the return value will be one of
+   the names (potentially prefixed by one of the paths in locations). This string can be assigned to a ``global const``
+   and used as the library name in future ``ccall``'s. On failure, it returns the empty string.
+
+.. data:: DL_LOAD_PATH
+
+   When calling ``dlopen``, the paths in this list will be searched first, in order, before searching the
+   system locations for a valid library handle.
+
+.. data:: Cchar
+
+   Equivalent to the native ``char`` c-type
+
+.. data:: Cuchar
+
+   Equivalent to the native ``unsigned char`` c-type (Uint8)
+
+.. data:: Cshort
+
+   Equivalent to the native ``signed short`` c-type (Int16)
+
+.. data:: Cushort
+
+   Equivalent to the native ``unsigned short`` c-type (Uint16)
+
+.. data:: Cint
+
+   Equivalent to the native ``signed int`` c-type (Int32)
+
+.. data:: Cuint
+
+   Equivalent to the native ``unsigned int`` c-type (Uint32)
+
+.. data:: Clong
+
+   Equivalent to the native ``signed long`` c-type
+
+.. data:: Culong
+
+   Equivalent to the native ``unsigned long`` c-type
+ 
+.. data:: Clonglong
+
+   Equivalent to the native ``signed long long`` c-type (Int64)
+
+.. data:: Culonglong
+
+   Equivalent to the native ``unsigned long long`` c-type (Uint64)
+
+.. data:: Csize_t
+
+   Equivalent to the native ``size_t`` c-type (Uint)
+
+.. data:: Cssize_t
+
+   Equivalent to the native ``ssize_t`` c-type
+
+.. data:: Cptrdiff_t
+
+   Equivalent to the native ``ptrdiff_t`` c-type (Int)
+
+.. data:: Coff_t
+
+   Equivalent to the native ``off_t`` c-type
+
+.. data:: Cwchar_t
+
+   Equivalent to the native ``wchar_t`` c-type (Int32)
+
+.. data:: Cfloat
+
+   Equivalent to the native ``float`` c-type (Float32)
+
+.. data:: Cdouble
+
+   Equivalent to the native ``double`` c-type (Float64)
+
+
+Errors
+------
 
 .. function:: error(message::String)
 
-   报错，并显示指定信息。
+   Raise an error with the given message
 
 .. function:: throw(e)
 
-   将一个对象作为异常抛出。
+   Throw an object as an exception
+
+.. function:: rethrow([e])
+
+   Throw an object without changing the current exception backtrace.
+   The default argument is the current exception (if called within a
+   ``catch`` block).
+
+.. function:: backtrace()
+
+   Get a backtrace object for the current program point.
+
+.. function:: catch_backtrace()
+
+   Get the backtrace of the current exception, for use within ``catch``
+   blocks.
 
 .. function:: errno()
 
-   获取 C 库 ``errno`` 的值。
+   Get the value of the C library's ``errno``
+
+.. function:: systemerror(sysfunc, iftrue)
+
+   Raises a ``SystemError`` for ``errno`` with the descriptive string ``sysfunc`` if ``bool`` is true
 
 .. function:: strerror(n)
 
-   将系统调用错误代码转换为描述字符串。
+   Convert a system call error code to a descriptive string
 
-.. function:: assert(cond)
+.. function:: assert(cond, [text])
 
-   如果 ``cond`` 为假则报错。也可以使用宏 ``@assert expr`` 。
+   Raise an error if ``cond`` is false. Also available as the macro ``@assert expr``.
 
-任务
-----
+.. function:: @assert
+
+   Raise an error if ``cond`` is false. Preferred syntax for writings assertions.
+
+.. data:: ArgumentError
+
+   The parameters given to a function call are not valid.
+
+.. data:: BoundsError
+
+   An indexing operation into an array tried to access an out-of-bounds element.
+
+.. data:: EOFError
+
+   No more data was available to read from a file or stream.
+
+.. data:: ErrorException
+
+   Generic error type. The error message, in the `.msg` field, may provide more specific details.
+
+.. data:: KeyError
+
+   An indexing operation into an ``Associative`` (``Dict``) or ``Set`` like object tried to access or delete a non-existent element.
+
+.. data:: LoadError
+
+   An error occurred while `including`, `requiring`, or `using` a file. The error specifics should be available in the `.error` field.
+
+.. data:: MethodError
+
+   A method with the required type signature does not exist in the given generic function.
+
+.. data:: ParseError
+
+   The expression passed to the `parse` function could not be interpreted as a valid Julia expression.
+
+.. data:: ProcessExitedException
+
+   After a client Julia process has exited, further attempts to reference the dead child will throw this exception.
+
+.. data:: SystemError
+
+   A system call failed with an error code (in the ``errno`` global variable).
+
+.. data:: TypeError
+
+   A type assertion failure, or calling an intrinsic function with an incorrect argument type.
+
+
+Tasks
+-----
 
 .. function:: Task(func)
 
-   构造 ``Task`` （如线程，协程）来执行指定程序。此函数返回时，任务自动退出。
+   Create a ``Task`` (i.e. thread, or coroutine) to execute the given function. The task exits when this function returns.
 
 .. function:: yieldto(task, args...)
 
-   跳转到指定的任务。第一次跳转到某任务时，使用 ``args`` 参数来调用任务的函数。 
-   在后续的跳转时， ``args`` 被任务的最后一个调用返回到 ``yieldto`` 。
+   Switch to the given task. The first time a task is switched to, the task's function is called with ``args``. On subsequent switches, ``args`` are returned from the task's last call to ``yieldto``.
 
 .. function:: current_task()
 
-   获取当前正在运行的任务。
+   Get the currently running Task.
 
 .. function:: istaskdone(task)
 
-   判断任务是否已退出。
+   Tell whether a task has exited.
 
 .. function:: consume(task)
 
-   接收由指定任务传递给 ``produce`` 的下一个值。
+   Receive the next value passed to ``produce`` by the specified task.
 
 .. function:: produce(value)
 
-   将指定值传递给最近的一次 ``consume`` 调用，然后跳转到消费者任务。
-
-.. function:: make_scheduled(task)
-
-   使用主事件循环来注册任务，任务会在允许的时候自动运行。
+   Send the given value to the last ``consume`` call, switching to the consumer task.
 
 .. function:: yield()
 
-   对安排好的任务，跳转到安排者来允许运行另一个安排好的任务。
+   For scheduled tasks, switch back to the scheduler to allow another scheduled task to run. A task that calls this function is still runnable, and will be restarted immediately if there are no other runnable tasks.
 
-.. function:: tls(symbol)
+.. function:: task_local_storage(symbol)
 
-   在当前任务的本地任务存储中查询 ``symbol`` 的值。
+   Look up the value of a symbol in the current task's task-local storage.
 
-.. function:: tls(symbol, value)
+.. function:: task_local_storage(symbol, value)
 
-   给当前任务的本地任务存储中的 ``symbol`` 赋值 ``value`` 。
+   Assign a value to a symbol in the current task's task-local storage.
+
+.. function:: Condition()
+
+   Create an edge-triggered event source that tasks can wait for. Tasks
+   that call ``wait`` on a ``Condition`` are suspended and queued.
+   Tasks are woken up when ``notify`` is later called on the ``Condition``.
+   Edge triggering means that only tasks waiting at the time ``notify`` is
+   called can be woken up. For level-triggered notifications, you must
+   keep extra state to keep track of whether a notification has happened.
+   The ``RemoteRef`` type does this, and so can be used for level-triggered
+   events.
+
+.. function:: notify(condition, val=nothing; all=true, error=false)
+
+   Wake up tasks waiting for a condition, passing them ``val``.
+   If ``all`` is true (the default), all waiting tasks are woken, otherwise
+   only one is. If ``error`` is true, the passed value is raised as an
+   exception in the woken tasks.
+
+.. function:: schedule(t::Task)
+
+   Add a task to the scheduler's queue. This causes the task to run constantly
+   when the system is otherwise idle, unless the task performs a blocking
+   operation such as ``wait``.
+
+.. function:: @schedule
+
+   Wrap an expression in a Task and add it to the scheduler's queue.
+
+.. function:: @task
+
+   Wrap an expression in a Task executing it, and return the Task. This
+   only creates a task, and does not run it.
+
+.. function:: sleep(seconds)
+
+   Block the current task for a specified number of seconds.
+
+Events
+------
+
+.. function:: Timer(f::Function)
+
+   Create a timer to call the given callback function. The callback
+   is passed two arguments: the timer object itself, and a status code,
+   which will be 0 unless an error occurs. The timer can be started and
+   stopped with ``start_timer`` and ``stop_timer``.
+
+.. function:: start_timer(t::Timer, delay, repeat)
+
+   Start invoking the callback for a ``Timer`` after the specified initial
+   delay, and then repeating with the given interval. Times are in seconds.
+   If ``repeat`` is ``0``, the timer is only triggered once.
+
+.. function:: stop_timer(t::Timer)
+
+   Stop invoking the callback for a timer.
+
+Reflection
+----------
+
+.. function:: module_name(m::Module) -> Symbol
+
+   Get the name of a module as a symbol.
+
+.. function:: module_parent(m::Module) -> Module
+
+   Get a module's enclosing module. ``Main`` is its own parent.
+
+.. function:: current_module() -> Module
+
+   Get the *dynamically* current module, which is the module code is currently being
+   read from. In general, this is not the same as the module containing the call to
+   this function.
+
+.. function:: fullname(m::Module)
+
+   Get the fully-qualified name of a module as a tuple of symbols. For example,
+   ``fullname(Base.Pkg)`` gives ``(:Base,:Pkg)``, and ``fullname(Main)`` gives ``()``.
+
+.. function:: names(x)
+
+   Get an array of the names exported by a module, or the fields of a data type.
+
+.. function:: isconst([m::Module], s::Symbol) -> Bool
+
+   Determine whether a global is declared ``const`` in a given module.
+
+.. function:: isgeneric(f::Function) -> Bool
+
+   Determine whether a function is generic.
+
+.. function:: function_name(f::Function) -> Symbol
+
+   Get the name of a generic function as a symbol, or ``:anonymous``.
+
+.. function:: function_module(f::Function, types) -> Module
+
+   Determine the module containing a given definition of a generic function.
+
+.. function:: functionloc(f::Function, types)
+
+   Returns a tuple ``(filename,line)`` giving the location of a method definition.
+
+.. function:: functionlocs(f::Function, types)
+
+   Returns an array of the results of ``functionloc`` for all matching definitions.
+
+Internals
+---------
+
+.. function:: gc()
+
+   Perform garbage collection. This should not generally be used.
+
+.. function:: gc_disable()
+
+   Disable garbage collection. This should be used only with extreme
+   caution, as it can cause memory use to grow without bound.
+
+.. function:: gc_enable()
+
+   Re-enable garbage collection after calling ``gc_disable``.
+
+.. function:: macroexpand(x)
+
+   Takes the expression x and returns an equivalent expression with all macros removed (expanded).
+
+.. function:: expand(x)
+
+   Takes the expression x and returns an equivalent expression in lowered form
+
+.. function:: code_lowered(f, types)
+
+   Returns an array of lowered ASTs for the methods matching the given generic function and type signature.
+
+.. function:: code_typed(f, types)
+
+   Returns an array of lowered and type-inferred ASTs for the methods matching the given generic function and type signature.
+
+.. function:: code_llvm(f, types)
+
+   Prints the LLVM bitcodes generated for running the method matching the given generic function and type signature to STDOUT.
+
+.. function:: code_native(f, types)
+
+   Prints the native assembly instructions generated for running the method matching the given generic function and type signature to STDOUT.
+
+.. function:: precompile(f,args::(Any...,))
+
+   Compile the given function `f` for the argument tuple (of types) `args`, but do not execute it. 

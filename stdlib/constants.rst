@@ -1,34 +1,34 @@
 
 .. currentmodule:: Base
 
-常量
-----
+Constants
+---------
 
 .. data:: OS_NAME
 
-   表示操作系统名的符号。可能的值有 ``:Linux``, ``:Darwin`` (OS X), 或 ``:Windows`` 。
+   A symbol representing the name of the operating system. Possible values
+   are ``:Linux``, ``:Darwin`` (OS X), or ``:Windows``.
 
 .. data:: ARGS
 
-   传递给 Julia 的命令行参数数组，它是个字符串数组。
+   An array of the command line arguments passed to Julia, as strings.
 
 .. data:: C_NULL
 
-   C 空指针常量，有时用于调用外部代码。
+   The C null pointer constant, sometimes used when calling external code.
 
 .. data:: CPU_CORES
 
-   系统中 CPU 内核的个数。
+   The number of CPU cores in the system.
 
 .. data:: WORD_SIZE
 
-   当前机器的标准字长，单位为位。
+   Standard word size on the current machine, in bits.
 
 .. data:: VERSION
 
-   描述 Julia 版本的对象。
+   An object describing which version of Julia is in use.
 
 .. data:: LOAD_PATH
 
-   路径的字符串数组， ``require`` 函数在这些路径下查找代码。
- 
+   An array of paths (as strings) where the ``require`` function looks for code.

@@ -1,159 +1,212 @@
-:mod:`Base.Sort` --- 有关排序的程序
-===================================
 
-.. module:: Base.Sort
-   :synopsis: 排序及相关程序
+.. currentmodule:: Base
 
-`Sort` 模块包含与排序有关的算法和其它函数。它提供了默认排序函数和各种排序算法的标准版本。可以通过 `import Sort` 来使用具体的排序算法，也可以使用完整的算法名，如： ::
+Sorting and Related Functions
+=============================
 
-  # Julia 代码
-  sort(v, Sort.TimSort)
+Julia has an extensive, flexible API for sorting and interacting with
+already-sorted arrays of values. For many users, sorting in standard
+ascending order, letting Julia pick reasonable default algorithms
+will be sufficient::
 
-将会使用 ``TimSort`` 对 ``v`` 排序。
-
-
-概述
-----
-
-大部分人只用默认排序算法，按升序或降序排列： ::
-
-  # Julia 代码
-  julia> sort([2,3,1]) == [1,2,3]
-  true
-
-  julia> sort([2,3,1], Sort.Reverse) == [3,2,1]
-  true
-
-返回排列顺序： ::
-
-  julia> v = [20,30,10]
+  julia> sort([2,3,1])
   3-element Int64 Array:
-   20
-   30
-   10
+   1
+   2
+   3
+
+You can easily sort in reverse order as well::
+
+  julia> sort([2,3,1], rev=true)
+  3-element Int64 Array:
+   3
+   2
+   1
+
+To sort an array in-place, use the "bang" version of the sort function::
+
+  julia> a = [2,3,1];
+
+  julia> sort!(a);
+
+  julia> a
+  3-element Int64 Array:
+   1
+   2
+   3
+
+Instead of directly sorting an array, you can compute a permutation of the array's indices that puts the array into sorted order::
+
+  julia> v = randn(5)
+  5-element Float64 Array:
+    0.587746
+   -0.870797
+   -0.111843
+    1.08793
+   -1.25061
 
   julia> p = sortperm(v)
-  [3, 1, 2]
+  5-element Int64 Array:
+   5
+   2
+   3
+   1
+   4
 
   julia> v[p]
-  3-element Int64 Array:
-   10
-   20
-   30
+  5-element Float64 Array:
+   -1.25061
+   -0.870797
+   -0.111843
+    0.587746
+    1.08793
 
-使用自定义提取函数来排序输出： ::
+Arrays can easily be sorted acording to an arbitrary transformation of their values::
 
-  julia> canonicalize(s) = filter(c -> ('A'<=c<='Z' || 'a'<=c<='z'), s) | uppercase
+  julia> sort(v, by=abs)
+  5-element Float64 Array:
+   -0.111843
+    0.587746
+   -0.870797
+    1.08793
+   -1.25061
 
-  julia> sortby(["New York", "New Jersey", "Nevada", "Nebraska", "Newark"], canonicalize)
-  5-element ASCIIString Array:
-   "Nebraska"  
-   "Nevada"    
-   "Newark"    
-   "New Jersey"
-   "New York"  
+Or in reverse order by a transformation::
 
-注意，上面的变体并不修改原数组。如果要原地排序（通常更高效）， :func:`sort` 和 :func:`sortby` 都有对应的修改数据的版本，它们函数名后都有感叹号（ :func:`sort!` 和 :func:`sortby!` ）。
+  julia> sort(v, by=abs, rev=true)
+  5-element Float64 Array:
+   -1.25061
+    1.08793
+   -0.870797
+    0.587746
+   -0.111843
 
-这些排序函数使用适当的默认算法，如果想更进一步，研究那种排序算法更适合处理你的数据，请继续阅读……
+Reasonable sorting algorithms are used by default, but you can choose
+other algorithms as well::
 
-
-排序算法
---------
-
-Julia 现在提供四个主要的排序算法： ::
-
-  InsertionSort
-  QuickSort
-  MergeSort
-  TimSort
-
-插入排序是 O(n^2) 稳定排序算法。 ``n`` 较小时比较高效。 ``QuickSort`` 和 ``TimSort`` 都使用插入排序。
-
-快速排序是 O(n log n) 排序算法。为了高效，它是不稳定排序。它属于最快的排序算法之列。
-
-归并排序是 O(n log n) 稳定排序算法。
-
-Timsort 是 O(n log n) 稳定自适应排序算法。它对两种情况混合（一会升序，一会降序）的输入处理比较好，这种数据集常见于现实生活中。
-
-排序算法根据目标数组的类型，选取适当的默认算法。要指明使用哪种排序算法，在参数列表后添加 ``Sort.<algorithm>`` （如 ``sort!(v, Sort.TimSort)`` 使用 Timsort 算法）。
+  julia> sort(v, alg=TimSort)
+  5-element Float64 Array:
+   -1.25061
+   -0.870797
+   -0.111843
+    0.587746
+    1.08793
 
 
-函数
-----
+Sorting Functions
+-----------------
 
---------
-排序函数
---------
-.. function:: sort(v[, alg[, ord]])
+.. function:: sort!(v, [dim,] [alg=<algorithm>,] [by=<transform>,] [lt=<comparison>,] [rev=false])
 
-   按升序对向量排序。 ``alg`` 为特定的排序算法（ ``Sort.InsertionSort``, 
-   ``Sort.QuickSort``, ``Sort.MergeSort``, 或 ``Sort.TimSort`` ）， 
-   ``ord`` 为自定义的排序顺序（如 Sort.Reverse 或一个比较函数）。
+   Sort the vector ``v`` in place. ``QuickSort`` is used by default for numeric arrays
+   while ``MergeSort`` is used for other arrays. You can specify an algorithm to use via
+   the ``alg`` keyword (see `Sorting Algorithms`_ for available algorithms). The ``by``
+   keyword lets you provide a function that will be applied to each element before
+   comparison; the ``lt`` keyword allows providing a custom "less than" function; use
+   ``rev=true`` to reverse the sorting order. These options are independent and can be
+   used together in all possible combinations: if both ``by`` and ``lt`` are specified,
+   the ``lt`` function is applied to the result of the ``by`` function; ``rev=true``
+   reverses whatever ordering specified via the ``by`` and ``lt`` keywords.
 
-.. function:: sort!(...)
+.. function:: sort(v, [alg=<algorithm>,] [by=<transform>,] [lt=<comparison>,] [rev=false])
 
-   原地排序。
+   Variant of ``sort!`` that returns a sorted copy of ``v`` leaving ``v`` itself unmodified.
 
-.. function:: sortby(v, by[, alg])
+.. function:: sort(A, dim, [alg=<algorithm>,] [by=<transform>,] [lt=<comparison>,] [rev=false])
 
-   根据 ``by(v)`` 对向量排序。 ``alg`` 为特定的排序算法 
-   （ ``Sort.InsertionSort``, ``Sort.QuickSort``, ``Sort.MergeSort``, 或 ``Sort.TimSort`` ）。
+   Sort a multidimensional array ``A`` along the given dimension.
 
-.. function:: sortby!(...)
+.. function:: sortperm(v, [alg=<algorithm>,] [by=<transform>,] [lt=<comparison>,] [rev=false])
 
-   ``sortby`` 的原地版本
+   Return a permutation vector of indices of ``v`` that puts it in sorted order.
+   Specify ``alg`` to choose a particular sorting algorithm (see `Sorting Algorithms`_).
+   ``MergeSort`` is used by default, and since it is stable, the resulting permutation
+   will be the lexicographically first one that puts the input array into sorted order –
+   i.e. indices of equal elements appear in ascending order. If you choose a non-stable
+   sorting algorithm such as ``QuickSort``, a different permutation that puts the array
+   into order may be returned. The order is specified using the same keywords as ``sort!``.
 
-.. function:: sortperm(v, [alg[, ord]])
+.. function:: sortrows(A, [alg=<algorithm>,] [by=<transform>,] [lt=<comparison>,] [rev=false])
 
-   返回排序向量，可用它对输入向量 ``v`` 进行排序。 
-   ``alg`` 为特定的排序算法（ ``Sort.InsertionSort``, 
-   ``Sort.QuickSort``, ``Sort.MergeSort``, 或 ``Sort.TimSort`` ），  
-   ``ord`` 为自定义的排序顺序（如 Sort.Reverse 或一个比较函数）。
+   Sort the rows of matrix ``A`` lexicographically.
 
-.. function:: sort(A, dim, [alg[, ord]])
+.. function:: sortcols(A, [alg=<algorithm>,] [by=<transform>,] [lt=<comparison>,] [rev=false])
 
-    多维矩阵根据指定维度排序.
+   Sort the columns of matrix ``A`` lexicographically.
 
-.. function:: sortrows(A, [alg[, ord]])
 
-    对矩阵行进行字典排序.
+Order-Related Functions
+-----------------------
 
-.. function:: sortcols(A, [alg[, ord]])
+.. function:: issorted(v, [by=<transform>,] [lt=<comparison>,] [rev=false])
 
-    对矩阵列进行字典排序.
+   Test whether a vector is in sorted order. The ``by``, ``lt`` and ``rev``
+   keywords modify what order is considered to be sorted just as they do for ``sort``.
 
-----------------
-与排序相关的函数
-----------------
+.. function:: searchsorted(a, x, [by=<transform>,] [lt=<comparison>,] [rev=false])
 
-.. function:: issorted(v[, ord])
+   Returns the range of indices of ``a`` which compare as equal to ``x`` according to the
+   order specified by the ``by``, ``lt`` and ``rev`` keywords, assuming that ``a`` is
+   already sorted in that order. Returns an empty range located at the insertion point if
+   ``a`` does not contain values equal to ``x``.
 
-   判断向量是否为已经为升序排列。 ``ord`` 为自定义的排序顺序。
+.. function:: searchsortedfirst(a, x, [by=<transform>,] [lt=<comparison>,] [rev=false])
 
-.. function:: searchsorted(a, x[, ord])
+   Returns the index of the first value in ``a`` greater than or equal to ``x``,
+   according to the specified order. Returns ``length(a)+1`` if ``x`` is greater
+   than all values in ``a``.
 
-   返回 ``a`` 中排序顺序不小于 ``x`` 的第一个值的索引值， 
-   ``ord`` 为自定义的排序顺序（默认为 ``Sort.Forward`` ）。
+.. function:: searchsortedlast(a, x, [by=<transform>,] [lt=<comparison>,] [rev=false])
 
-   ``searchsortedfirst()`` 的别名
+   Returns the index of the last value in ``a`` less than or equal to ``x``,
+   according to the specified order. Returns ``0`` if ``x`` is less than all
+   values in ``a``.
 
-.. function:: searchsortedfirst(a, x[, ord])
+.. function:: select!(v, k, [by=<transform>,] [lt=<comparison>,] [rev=false])
 
-   返回 ``a`` 中排序顺序不小于 ``x`` 的第一个值的索引值， 
-   ``ord`` 为自定义的排序顺序（默认为 ``Sort.Forward`` ）。
+   Partially sort the vector ``v`` in place, according to the order specified by ``by``,
+   ``lt`` and ``rev`` so that the value at index ``k`` (or range of adjacent values if
+   ``k`` is a range) occurs at the position where it would appear if the array were
+   fully sorted. If ``k`` is a single index, that values is returned; if ``k`` is a
+   range, an array of values at those indices is returned. Note that ``select!`` does
+   not fully sort the input array, but does leave the returned elements where they
+   would be if the array were fully sorted.
 
-.. function:: searchsortedlast(a, x[, ord])
+.. function:: select(v, k, [by=<transform>,] [lt=<comparison>,] [rev=false])
 
-   返回 ``a`` 中排序顺序不大于 ``x`` 的最后一个值的索引值， 
-   ``ord`` 为自定义的排序顺序（默认为 ``Sort.Forward`` ）。
+   Variant of ``select!`` which copies ``v`` before partially sorting it, thereby
+   returning the same thing as ``select!`` but leaving ``v`` unmodified.
 
-.. function:: select(v, k[, ord])
 
-   找到排序好的向量 ``v`` 中第 ``k`` 个位置的元素，在未排序时的索引值。 
-   ``ord`` 为自定义的排序顺序（默认为 ``Sort.Forward`` ）。
+Sorting Algorithms
+------------------
 
-.. function:: select!(v, k[, ord])
+There are currently four sorting algorithms available in base Julia:
 
-   ``select`` 的原地版本。
-   
+- ``InsertionSort``
+- ``QuickSort``
+- ``MergeSort``
+- ``TimSort``
+
+``InsertionSort`` is an O(n^2) stable sorting algorithm. It is efficient
+for very small ``n``, and is used internally by ``QuickSort`` and ``TimSort``.
+
+``QuickSort`` is an O(n log n) sorting algorithm which is in-place,
+very fast, but not stable – i.e. elements which are considered
+equal will not remain in the same order in which they originally
+appeared in the array to be sorted. ``QuickSort`` is the default
+algorithm for numeric values, including integers and floats.
+
+``MergeSort`` is an O(n log n) stable sorting algorithm but is not
+in-place – it requires a temporary array of equal size to the
+input array – and is typically not quite as fast as ``QuickSort``.
+It is the default algorithm for non-numeric data.
+
+``TimSort`` is an O(n log n) stable adaptive sorting algorithm which is used as
+the default sorting algorithm in Python and Java. It takes advantage of sorted
+runs which exist in many real world datasets.
+
+The sort functions select a reasonable default algorithm, depending on
+the type of the array to be sorted. To force a specific algorithm to be
+used for ``sort`` or other soring functions, supply ``alg=<algorithm>``
+as a keyword argument after the array to be sorted.

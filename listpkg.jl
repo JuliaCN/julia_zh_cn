@@ -3,12 +3,20 @@ require("JSON")
 require("Calendar")
 using Calendar
 
+try 
+	  global gh_auth
+		gh_auth = ENV["GH_AUTH"]
+catch e
+		error ("Please provide a Github OAuth Token as environment variable GH_AUTH")
+end
+
 function gen_listpkg()
 
 	Pkg.update()
 	io=open("packages/packagelist.rst","w+");
-	print(io, "************\n 可用扩展包  \n************\n\n")
-	cd(Pkg.dir()) do 
+	print(io, ".. _available-packages:\n\n")
+	print(io, "************\n 可用扩展包\n************\n\n")
+	cd(Pkg.dir()) do
 	for pkg in Pkg.Metadata.each_package()
 		print(" 正在处理 $(pkg)\n")
 		url = (Pkg.Metadata.pkg_url(pkg))
@@ -27,20 +35,45 @@ function gen_listpkg()
 			user=m2.captures[1]
 			repo=m2.captures[2]
 			u=get_user_details_gh(user)
-			gh_repo_url = "https://api.github.com/repos/$(user)/$(repo)"
-			gh_contrib_url = "https://api.github.com/repos/$(user)/$(repo)/contributors"
+			gh_repo_url = "https://api.github.com/repos/$(user)/$(repo)?access_token=$(gh_auth)"
+			gh_contrib_url = "https://api.github.com/repos/$(user)/$(repo)/contributors?access_token=$(gh_auth)"
+			travis_url= "https://api.travis-ci.org/repositories/$(user)/$(repo).json"
+			#print("processing $gh_repo_url")
 			gh_repo=JSON.parse(readall(download_file(gh_repo_url)))
+			#print("processing $gh_user_url")
 			gh_contrib=JSON.parse(readall(download_file(gh_contrib_url)))
+
+			travis = JSON.parse(readall(download_file(travis_url)))
 			
 			desc = get(gh_repo, "description", "No description provided")
 			homepage = get(gh_repo, "homepage", nothing)
 			html_url = gh_repo["html_url"]
+
+			sha1_file = "METADATA/$pkg/versions/$(maxv.version)/sha1"
+			if isfile(sha1_file)
+				sha1 = readchomp(sha1_file)
+				gh_update_url = "https://api.github.com/repos/$(user)/$(repo)/git/commits/$(sha1)?access_token=$(gh_auth)"
+				gh_update = JSON.parse(readall(download_file(gh_update_url)))
+				author = get(gh_update, "author", nothing)
+				date = author != nothing ? get(author, "date", nothing) : nothing
+			end
 		end
 		print(io, "`$(pkg) <$(html_url)>`_\n"); 
 		print(io, "_"^(length("`$(pkg) <$(html_url)>`_")) * "\n\n")
 		print(io, "  .. image:: $(u[:avatar])\n     :height: 80px\n     :width: 80px\n     :align: right\n     :alt: $(u[:fullname])\n     :target: $(u[:url])\n\n")
-		print(io, "  当前版本： ``$(maxv.version)``\n\n"); 
 		print(io, "  $(desc) \n\n")
+		print(io, "  当前版本： ``$(maxv.version)``"); 
+		if date != nothing
+			print(io, "  (updated: $(date[1:10])) \n\n")
+		end
+		if (get(travis, "file", nothing) != "not found" && get(travis, "last_build_status", nothing) != nothing)
+			print(io, "  Master 状态： |$(pkg)_build|\n\n")
+			print(io, "  .. |$(pkg)_build| image:: https://api.travis-ci.org/$(user)/$(repo).png\n")
+			print(io, "     :align: bottom\n\n")
+		else 
+			print(io, "  Master 状态： 无 Travis-CI 状态\n\n")
+		end
+
 		print(io, "  维护者： `$(u[:fullname]) <$(u[:url])>`_\n\n") 
 		
 		if homepage != nothing && length(chomp(homepage)) > 0
@@ -95,7 +128,7 @@ end
 function get_user_details_gh(user)
 
 	if !has(user_cache, user)
-		gh_user_url = "https://api.github.com/users/$(user)"
+		gh_user_url = "https://api.github.com/users/$(user)?access_token=$(gh_auth)"
 		gh_user=JSON.parse(readall(download_file(gh_user_url)))
 		fullname = get(gh_user, "name", user)
 		if fullname == nothing; fullname = user; end

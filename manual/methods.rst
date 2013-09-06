@@ -1,40 +1,91 @@
 .. _man-methods:
 
-******
- 方法
-******
+*********
+ Methods  
+*********
 
-:ref:`函数 <man-functions>` 中说到，函数是从参数多元组映射到返回值的对象，若没
-有合适返回值则抛出异常。实际中常需要对不同类型的参数做同样的运算，例如对整数做
-加法、对浮点数做加法、对整数与浮点数做加法，它们都是加法。在 Julia 中，它们都
-属于同一对象： ``+`` 函数。
+Recall from :ref:`man-functions` that a function is an object
+that maps a tuple of arguments to a return value, or throws an exception
+if no appropriate value can be returned. It is very common for the same
+conceptual function or operation to be implemented quite differently for
+different types of arguments: adding two integers is very different from
+adding two floating-point numbers, both of which are distinct from
+adding an integer to a floating-point number. Despite their
+implementation differences, these operations all fall under the general
+concept of "addition". Accordingly, in Julia, these behaviors all belong
+to a single object: the ``+`` function.
 
-对同一概念做一系列实现时，可以逐一定义特定参数类型、个数所对应的特定函数行为。
-*方法* 对函数中某一特定的行为定义。函数中可以定义多个方法。对一个特定的参数多
-元组调用函数时，最匹配此参数多元组的方法被调用。 [#]_ 函数调用时，选取调用哪个
-方法，被称为 `重载 <http://en.wikipedia.org/wiki/Multiple_dispatch>`_ 。Julia
-依据参数个数、类型来进行重载。
+To facilitate using many different implementations of the same concept
+smoothly, functions need not be defined all at once, but can rather be
+defined piecewise by providing specific behaviors for certain
+combinations of argument types and counts. A definition of one possible
+behavior for a function is called a *method*. Thus far, we have
+presented only examples of functions defined with a single method,
+applicable to all types of arguments. However, the signatures of method
+definitions can be annotated to indicate the types of arguments in
+addition to their number, and more than a single method definition may
+be provided. When a function is applied to a particular tuple of
+arguments, the most specific method applicable to those arguments is
+applied. Thus, the overall behavior of a function is a patchwork of the
+behaviors of its various method defintions. If the patchwork is well
+designed, even though the implementations of the methods may be quite
+different, the outward behavior of the function will appear seamless and
+consistent.
 
-.. [#] 在 C++ 或者 Java 中, 例如, 某个函数的调用方式为 ``obj.meth(arg1,
-   arg2)``, obj 对象 "接受" 了函数调用, 并且隐式地传递给函数关键字 ``this``,而
-   不是作为一个显示的函数参数. 如果当前对象即为函数调用的接受者, 可以写作
-   ``meth(arg1, arg2)``, 这时, ``this`` 是接受函数调用的对象.
+The choice of which method to execute when a function is applied is
+called *dispatch*. Julia allows the dispatch process to choose which of
+a function's methods to call based on the number of arguments given, and
+on the types of all of the function's arguments. This is different than
+traditional object-oriented languages, where dispatch occurs based only
+on the first argument, which often has a special argument syntax, and is
+sometimes implied rather than explicitly written as an
+argument. [#]_ Using all of a function's arguments to
+choose which method should be invoked, rather than just the first, is
+known as `multiple dispatch
+<http://en.wikipedia.org/wiki/Multiple_dispatch>`_. Multiple
+dispatch is particularly useful for mathematical code, where it makes
+little sense to artificially deem the operations to "belong" to one
+argument more than any of the others: does the addition operation in
+``x + y`` belong to ``x`` any more than it does to ``y``? The
+implementation of a mathematical operator generally depends on the types
+of all of its arguments. Even beyond mathematical operations, however,
+multiple dispatch ends up being a very powerful and convenient paradigm
+for structuring and organizing programs.
 
-定义方法
---------
+.. [#] In C++ or Java, for example, in a method call like
+  ``obj.meth(arg1,arg2)``, the object obj "receives" the method call and is
+  implicitly passed to the method via the ``this`` keyword, rather then as an
+  explicit method argument. When the current ``this`` object is the receiver of a
+  method call, it can be omitted altogether, writing just ``meth(arg1,arg2)``,
+  with this implied as the receiving object.
 
-Julia 的所有标准函数和运算符，如前面提到的 ``+`` 函数，都有许多针对各种参数类型组合和不同参数个数而定义的方法。
 
-定义函数时，可以像 :ref:`man-composite-types` 中介绍的那样，使用 ``::`` 类型断言运算符，选择性地对参数类型进行限制： ::
+Defining Methods
+----------------
+
+Until now, we have, in our examples, defined only functions with a
+single method having unconstrained argument types. Such functions behave
+just like they would in traditional dynamically typed languages.
+Nevertheless, we have used multiple dispatch and methods almost
+continually without being aware of it: all of Julia's standard functions
+and operators, like the aforementioned ``+`` function, have many methods
+defining their behavior over various possible combinations of argument
+type and count.
+
+When defining a function, one can optionally constrain the types of
+parameters it is applicable to, using the ``::`` type-assertion
+operator, introduced in the section on :ref:`man-composite-types`::
 
     f(x::Float64, y::Float64) = 2x + y
 
-此函数中参数 ``x`` 和 ``y`` 只能是 ``Float64`` 类型： ::
+This function definition applies only to calls where ``x`` and ``y`` are
+both values of type ``Float64``::
 
     julia> f(2.0, 3.0)
     7.0
 
-如果参数是其它类型，会引发 “no method” 错误： ::
+Applying it to any other types of arguments will result in a "no method"
+error::
 
     julia> f(2.0, 3)
     no method f(Float64,Int64)
@@ -48,14 +99,38 @@ Julia 的所有标准函数和运算符，如前面提到的 ``+`` 函数，都�
     julia> f("2.0", "3.0")
     no method f(ASCIIString,ASCIIString)
 
-有时需要写一些通用方法，这时应声明参数为抽象类型： ::
+As you can see, the arguments must be precisely of type ``Float64``.
+Other numeric types, such as integers or 32-bit floating-point values,
+are not automatically converted to 64-bit floating-point, nor are
+strings parsed as numbers. Because ``Float64`` is a concrete type and
+concrete types cannot be subclassed in Julia, such a definition can only
+be applied to arguments that are exactly of type ``Float64``. It may
+often be useful, however, to write more general methods where the
+declared parameter types are abstract::
 
     f(x::Number, y::Number) = 2x - y
 
     julia> f(2.0, 3)
     1.0
 
-要想给一个函数定义多个方法，只需要多次定义这个函数，每次定义的参数个数和类型需不同。函数调用时，最匹配的方法被重载： ::
+This method definition applies to any pair of arguments that are
+instances of ``Number``. They need not be of the same type, so long as
+they are each numeric values. The problem of handling disparate numeric
+types is delegated to the arithmetic operations in the expression
+``2x - y``.
+
+To define a function with multiple methods, one simply defines the
+function multiple times, with different numbers and types of arguments.
+The first method definition for a function creates the function object,
+and subsequent method definitions add new methods to the existing
+function object. The most specific method definition matching the number
+and types of the arguments will be executed when the function is
+applied. Thus, the two method definitions above, taken together, define
+the behavior for ``f`` over all pairs of instances of the abstract type
+``Number`` — but with a different behavior specific to pairs of
+``Float64`` values. If one of the arguments is a 64-bit float but the
+other one is not, then the ``f(Float64,Float64)`` method cannot be
+called and the more general ``f(Number,Number)`` method must be used::
 
     julia> f(2.0, 3.0)
     7.0
@@ -69,7 +144,16 @@ Julia 的所有标准函数和运算符，如前面提到的 ``+`` 函数，都�
     julia> f(2, 3)
     1
 
-对非数值的值，或参数个数少于 2 ， ``f`` 是未定义的，调用它会返回 “no method” 错误::
+The ``2x + y`` definition is only used in the first case, while the
+``2x - y`` definition is used in the others. No automatic casting or
+conversion of function arguments is ever performed: all conversion in
+Julia is non-magical and completely explicit. :ref:`man-conversion-and-promotion`, however, shows how clever
+application of sufficiently advanced technology can be indistinguishable
+from magic. [Clarke61]_
+
+For non-numeric values, and for fewer or more than two arguments, the
+function ``f`` remains undefined, and applying it will still result in a
+"no method" error::
 
     julia> f("foo", 3)
     no method f(ASCIIString,Int64)
@@ -77,23 +161,35 @@ Julia 的所有标准函数和运算符，如前面提到的 ``+`` 函数，都�
     julia> f()
     no method f()
 
-在交互式会话中输入函数对象本身，可以看到函数所存在的方法： ::
+You can easily see which methods exist for a function by entering the
+function object itself in an interactive session::
 
     julia> f
     Methods for generic function f
     f(Float64,Float64)
     f(Number,Number)
 
-定义类型时如果没使用 ``::`` ，则方法参数的类型默认为 ``Any`` 。对 ``f`` 定义一个总括匹配的方法： ::
+This output tells us that ``f`` is a function object with two methods:
+one taking two ``Float64`` arguments and one taking arguments of type
+``Number``.
+
+In the absence of a type declaration with ``::``, the type of a method
+parameter is ``Any`` by default, meaning that it is unconstrained since
+all values in Julia are instances of the abstract type ``Any``. Thus, we
+can define a catch-all method for ``f`` like so::
 
     julia> f(x,y) = println("Whoa there, Nelly.")
 
     julia> f("foo", 1)
     Whoa there, Nelly.
 
-总括匹配的方法，是重载时的最后选择。
+This catch-all is less specific than any other possible method
+definition for a pair of parameter values, so it is only be called on
+pairs of arguments to which no other method definition applies.
 
-重载是 Julia 最强大最核心的特性。核心运算一般都有好几十种方法： ::
+Although it seems a simple concept, multiple dispatch on the types of
+values is perhaps the single most powerful and central feature of the
+Julia language. Core operations typically have dozens of methods::
 
     julia> +
     Methods for generic function +
@@ -144,12 +240,17 @@ Julia 的所有标准函数和运算符，如前面提到的 ``+`` 函数，都�
     +(SparseMatrixCSC{Tv,Ti<:Integer},Union(Array{T,N},Number)) at sparse.jl:626
     +(Union(Array{T,N},Number),SparseMatrixCSC{Tv,Ti<:Integer}) at sparse.jl:627
 
-重载和灵活的参数化类型系统一起，使得 Julia 可以抽象表达高级算法，不许关注实现的具体细节，生成有效率、运行时专用的代码。
+Multiple dispatch together with the flexible parametric type system give
+Julia its ability to abstractly express high-level algorithms decoupled
+from implementation details, yet generate efficient, specialized code to
+handle each case at run time.
 
-方法歧义
---------
+Method Ambiguities
+------------------
 
-函数方法的适用范围可能会重叠： ::
+It is possible to define a set of function methods such that there is no
+unique most specific method applicable to some combinations of
+arguments::
 
     julia> g(x::Float64, y) = 2x + y
 
@@ -166,7 +267,12 @@ Julia 的所有标准函数和运算符，如前面提到的 ``+`` 函数，都�
     julia> g(2.0, 3.0)
     7.0
 
-此处 ``g(2.0, 3.0)`` 既可以调用 ``g(Float64, Any)`` ，也可以调用 ``g(Any, Float64)`` ，两种方法没有优先级。遇到这种情况，Julia会警告定义含糊，但仍会任选一个方法来继续执行。应避免含糊的方法： ::
+Here the call ``g(2.0, 3.0)`` could be handled by either the
+``g(Float64, Any)`` or the ``g(Any, Float64)`` method, and neither is
+more specific than the other. In such cases, Julia warns you about this
+ambiguity, but allows you to proceed, arbitrarily picking a method. You
+should avoid method ambiguities by specifying an appropriate method for
+the intersection case::
 
     julia> g(x::Float64, y::Float64) = 2x + 2y
 
@@ -183,19 +289,26 @@ Julia 的所有标准函数和运算符，如前面提到的 ``+`` 函数，都�
     julia> g(2.0, 3.0)
     10.0
 
-要消除 Julia 的警告，应先定义清晰的方法。
+To suppress Julia's warning, the disambiguating method must be defined
+first, since otherwise the ambiguity exists, if transiently, until the
+more specific method is defined.
 
 .. _man-parametric-methods:
 
-参数化方法
-----------
+Parametric Methods
+------------------
 
-构造参数化方法，应在方法名与参数多元组之间，添加类型参数： ::
+Method definitions can optionally have type parameters immediately after
+the method name and before the parameter tuple::
 
     same_type{T}(x::T, y::T) = true
     same_type(x,y) = false
 
-这两个方法定义了一个布尔函数，它检查两个参数是否为同一类型： ::
+The first method applies whenever both arguments are of the same
+concrete type, regardless of what type that is, while the second method
+acts as a catch-all, covering all other cases. Thus, overall, this
+defines a boolean function that checks whether its two arguments are of
+the same type::
 
     julia> same_type(1, 2)
     true
@@ -215,7 +328,13 @@ Julia 的所有标准函数和运算符，如前面提到的 ``+`` 函数，都�
     julia> same_type(int32(1), int64(2))
     false
 
-类型参数可用于函数定义或函数体的任何地方： ::
+This kind of definition of function behavior by dispatch is quite common
+— idiomatic, even — in Julia. Method type parameters are not restricted
+to being used as the types of parameters: they can be used anywhere a
+value would be in the signature of the function or body of the function.
+Here's an example where the method type parameter ``T`` is used as the
+type parameter to the parametric type ``Vector{T}`` in the method
+signature::
 
     julia> myappend{T}(v::Vector{T}, x::T) = [v..., x]
 
@@ -235,7 +354,10 @@ Julia 的所有标准函数和运算符，如前面提到的 ``+`` 函数，都�
     julia> myappend([1.0,2.0,3.0],4)
     no method myappend(Array{Float64,1},Int64)
 
-下例中，方法类型参数 ``T`` 被用作返回值： ::
+As you can see, the type of the appended element must match the element
+type of the vector it is appended to, or a "no method" error is raised.
+In the following example, the method type parameter ``T`` is used as the
+return value::
 
     julia> mytypeof{T}(x::T) = T
 
@@ -245,7 +367,9 @@ Julia 的所有标准函数和运算符，如前面提到的 ``+`` 函数，都�
     julia> mytypeof(1.0)
     Float64
 
-方法的类型参数也可以被限制范围： ::
+Just as you can put subtype constraints on type parameters in type
+declarations (see :ref:`man-parametric-types`), you
+can also constrain type parameters of methods::
 
     same_type_numeric{T<:Number}(x::T, y::T) = true
     same_type_numeric(x::Number, y::Number) = false
@@ -268,19 +392,28 @@ Julia 的所有标准函数和运算符，如前面提到的 ``+`` 函数，都�
     julia> same_type_numeric(int32(1), int64(2))
     false
 
-``same_type_numeric`` 函数与 ``same_type`` 大致相同，但只应用于数对儿。
+The ``same_type_numeric`` function behaves much like the ``same_type``
+function defined above, but is only defined for pairs of numbers.
 
-关于可选参数和命名参数
-----------------------
+Note on Optional and Named Arguments
+------------------------------------
 
-:ref:`man-functions` 中曾简略提到，可选参数是可由多方法定义语法的实现。例如： ::
+As mentioned briefly in :ref:`man-functions`, optional arguments are
+implemented as syntax for multiple method definitions. For example,
+this definition::
 
     f(a=1,b=2) = a+2b
 
-可以翻译为下面三个方法： ::
+translates to the following three methods::
 
     f(a,b) = a+2b
     f(a) = f(a,2)
     f() = f(1,2)
 
-命名参数则与普通的与位置有关的参数不同。它们不用于方法重载。方法重载仅基于位置参数，选取了匹配的方法后，才处理命名参数。
+Named arguments behave quite differently from ordinary positional arguments.
+In particular, they do not participate in method dispatch. Methods are
+dispatched based only on positional arguments, with named arguments processed
+after the matching method is identified.
+
+.. [Clarke61] Arthur C. Clarke, *Profiles of the Future* (1961): Clarke's Third Law.
+

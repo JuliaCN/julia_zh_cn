@@ -1,11 +1,9 @@
+
 .. _manual-index:
 
 ############
  Julia 手册
 ############
-
-:版本: |version|
-:日期: |today|
 
 .. toctree::
    :maxdepth: 1
@@ -28,8 +26,11 @@
    metaprogramming
    arrays
    linear-algebra
+   networking-and-streams
    parallel-computing
    running-external-programs
    calling-c-and-fortran-code
    packages
    performance-tips
+   style-guide
+   faq

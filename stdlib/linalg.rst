@@ -1,445 +1,654 @@
 .. _stdlib-linalg:
 
-线性代数
---------
+Linear Algebra
+--------------
 
-Julia 中的线性代数函数，大部分调用的是 `LAPACK <http://www.netlib.org/lapack/>`_ 中的函数。稀疏分解则调用  `SuiteSparse <http:://www.suitesparse.com/>`_ 中的函数。
+.. module:: Base.LinAlg
+
+.. currentmodule:: Base
+
+Linear algebra functions in Julia are largely implemented by calling functions from `LAPACK <http://www.netlib.org/lapack/>`_.  Sparse factorizations call functions from `SuiteSparse <http:://www.suitesparse.com/>`_.
 
 .. function:: *(A, B)
+   :noindex:
 
-   矩阵乘法。
+   Matrix multiplication
 
 .. function:: \\(A, B)
+   :noindex:
 
-   使用 polyalgorithm 做矩阵除法。对输入矩阵 ``A`` 和 ``B`` ，当 ``A`` 为方阵时， 
-   输出 ``X`` 满足 ``A*X == B`` 。由 ``A`` 的结构确定使用哪种求解器。 
-   对上三角矩阵和下三角矩阵 ``A`` ，直接求解。 
-   对 Hermitian 矩阵 ``A`` （它等价于实对称矩阵）时，使用 BunchKaufman 分解。 
-   其他情况使用 LU 分解。对长方矩阵 ``A`` ，通过将 ``A`` 约简到双对角线形式， 
-   然后使用最小范数最小二乘法来求解双对角线最小二乘问题。 
-   对稀疏矩阵 ``A`` ，使用 UMFPACK 中的 LU 分解。
+   Matrix division using a polyalgorithm. For input matrices ``A`` and ``B``, the result ``X`` is such that ``A*X == B`` when ``A`` is square.  The solver that is used depends upon the structure of ``A``.  A direct solver is used for upper- or lower triangular ``A``.  For Hermitian ``A`` (equivalent to symmetric ``A`` for non-complex ``A``) the BunchKaufman factorization is used.  Otherwise an LU factorization is used. For rectangular ``A`` the result is the minimum-norm least squares solution computed by reducing ``A`` to bidiagonal form and solving the bidiagonal least squares problem.  For sparse, square ``A`` the LU factorization (from UMFPACK) is used.
 
 .. function:: dot(x, y)
 
-   计算点积。
+   Compute the dot product
 
 .. function:: cross(x, y)
 
-   计算三维向量的向量积。
+   Compute the cross product of two 3-vectors
 
 .. function:: norm(a)
 
-   计算 ``Vector`` 或 ``Matrix`` 的模。
+   Compute the norm of a ``Vector`` or a ``Matrix``
+
+.. function:: rref(A)
+
+   Compute the reduced row echelon form of the matrix A.
+
+.. function:: factorize(A)
+
+   Compute a convenient factorization (including LU, Cholesky, Bunch Kaufman, Triangular) of A, based upon the type of the input matrix. The return value can then be reused for efficient solving of multiple systems. For example: ``A=factorize(A); x=A\\b; y=A\\C``.
+
+.. function:: factorize!(A)
+
+   ``factorize!`` is the same as :func:`factorize`, but saves space by overwriting the input A, instead of creating a copy.
 
 .. function:: lu(A) -> L, U, P
 
-   对 ``A`` 做 LU 分解，满足 ``P*A = L*U`` 。
+   Compute the LU factorization of ``A``, such that ``P*A = L*U``.
 
 .. function:: lufact(A) -> LU
 
-   对 ``A`` 做 LU 分解。若 ``A`` 为稠密矩阵，返回 ``LU`` 对象； 
-   若 ``A`` 为稀疏矩阵，返回 ``UmfpackLU`` 对象。 
-   分解结果 ``F`` 的独立分量是可以被索引的： ``F[:L]``, ``F[:U]``, 
-   及 ``F[:P]`` （置换矩阵）或 ``F[:p]`` （置换向量）。 
-   ``UmfpackLU`` 对象还有额外的 ``F[:q]`` 分量（ left 置换向量） 
-   及缩放因子 ``F[:Rs]`` 向量。 
-   ``LU`` 对象和 ``UmfpackLU`` 对象可使用下列函数： 
-   ``size``, ``\`` 和 ``det`` 。 ``LUDense`` 对象还可以使用 ``inv`` 方法。 
-   稀疏 LU 分解中， ``L*U`` 等价于 ``diagmm(Rs,A)[p,q]`` 。
+   Compute the LU factorization of ``A``, returning an ``LU`` object for dense ``A`` or an ``UmfpackLU`` object for sparse ``A``. The individual components of the factorization ``F`` can be accesed by indexing: ``F[:L]``, ``F[:U]``, and ``F[:P]`` (permutation matrix) or ``F[:p]`` (permutation vector). An ``UmfpackLU`` object has additional components ``F[:q]`` (the left permutation vector) and ``Rs`` the vector of scaling factors. The following functions are available for both ``LU`` and ``UmfpackLU`` objects: ``size``, ``\`` and ``det``.  For ``LU`` there is also an ``inv`` method.  The sparse LU factorization is such that ``L*U`` is equal to``scale(Rs,A)[p,q]``.
 
 .. function:: lufact!(A) -> LU
 
-   ``lufact!`` 与 ``lufact`` 类似，但它覆写输入 A ，而非构造浅拷贝。 
-   对稀疏矩阵 ``A`` ，它并不覆写 ``nzval`` 域，仅覆写索引值域， 
-   ``colptr`` 和 ``rowval`` 在原地缩减， 
-   使得从 1 开始的索引改为从 0 开始的索引。
+   ``lufact!`` is the same as :func:`lufact`, but saves space by overwriting the input A, instead of creating a copy.  For sparse ``A`` the ``nzval`` field is not overwritten but the index fields, ``colptr`` and ``rowval`` are decremented in place, converting from 1-based indices to 0-based indices.
 
 .. function:: chol(A, [LU]) -> F
 
-   计算对称正定矩阵 ``A`` 的 Cholesky 分解，返回 ``F`` 矩阵。 
-   如果 ``LU`` 为 ``L`` （下三角）， ``A = L*L'`` 。 
-   如果 ``LU`` 为 ``U`` （下三角）， ``A = R'*R`` 。
+   Compute Cholesky factorization of a symmetric positive-definite matrix ``A`` and return the matrix ``F``. If ``LU`` is ``L`` (Lower), ``A = L*L'``. If ``LU`` is ``U`` (Upper), ``A = R'*R``.
 
 .. function:: cholfact(A, [LU]) -> Cholesky
 
-   计算稠密对称正定矩阵 ``A`` 的 Cholesky 分解，返回 ``Cholesky`` 对象。 
-   ``LU`` 若为 'L' 则使用下三角，若为 'U' 则使用上三角。默认使用 'U' 。 
-   可从分解结果 ``F`` 中获取三角矩阵： ``F[:L]`` 和 ``F[:U]`` 。 
-   ``Cholesky`` 对象可使用下列函数： ``size``, ``\``, ``inv``, ``det`` 。 
-   如果矩阵不是正定，会抛出 ``LAPACK.PosDefException`` 错误。
+   Compute the Cholesky factorization of a dense symmetric positive-definite matrix ``A`` and return a ``Cholesky`` object. ``LU`` may be 'L' for using the lower part or 'U' for the upper part. The default is to use 'U'. The triangular matrix can be obtained from the factorization ``F`` with: ``F[:L]`` and ``F[:U]``. The following functions are available for ``Cholesky`` objects: ``size``, ``\``, ``inv``, ``det``. A ``LAPACK.PosDefException`` error is thrown in case the matrix is not positive definite.
 
-.. function: cholfact!(A, [LU]) -> Cholesky
+.. function:: cholfact(A, [ll]) -> CholmodFactor
 
-   ``cholfact!`` 与 ``cholfact`` 类似，但它覆写输入 A ，而非构造浅拷贝。
+   Compute the sparse Cholesky factorization of a sparse matrix ``A``.  If ``A`` is Hermitian its Cholesky factor is determined.  If ``A`` is not Hermitian the Cholesky factor of ``A*A'`` is determined. A fill-reducing permutation is used.  Methods for ``size``, ``solve``, ``\``, ``findn_nzs``, ``diag``, ``det`` and ``logdet``.  One of the solve methods includes an integer argument that can be used to solve systems involving parts of the factorization only.  The optional boolean argument, ``ll`` determines whether the factorization returned is of the ``A[p,p] = L*L'`` form, where ``L`` is lower triangular or ``A[p,p] = scale(L,D)*L'`` form where ``L`` is unit lower triangular and ``D`` is a non-negative vector.  The default is LDL.
 
-..  function:: cholpfact(A, [LU]) -> CholeskyPivoted
+.. function:: cholfact!(A, [LU]) -> Cholesky
 
-   计算对称正定矩阵 ``A`` 的主元 Cholesky 分解，返回 ``CholeskyPivoted`` 对象。 
-   ``LU`` 若为 'L' 则使用下三角，若为 'U' 则使用上三角。默认使用 'U' 。 
-   可从分解结果 ``F`` 中获取三角分量： ``F[:L]`` 和 ``F[:U]`` ， 
-   置换矩阵和置换向量分布为 ``F[:P]`` 和 ``F[:p]`` 。 
-   ``CholeskyPivoted`` 对象可使用下列函数： ``size``, ``\``, ``inv``, ``det`` 。 
-   如果矩阵不是满秩，会抛出 ``LAPACK.RankDeficientException`` 错误。
+   ``cholfact!`` is the same as :func:`cholfact`, but saves space by overwriting the input A, instead of creating a copy.
+
+.. function:: cholpfact(A, [LU]) -> CholeskyPivoted
+
+   Compute the pivoted Cholesky factorization of a symmetric positive semi-definite matrix ``A`` and return a ``CholeskyPivoted`` object. ``LU`` may be 'L' for using the lower part or 'U' for the upper part. The default is to use 'U'. The triangular factors containted in the factorization ``F`` can be obtained with ``F[:L]`` and ``F[:U]``, whereas the permutation can be obtained with ``F[:P]`` or ``F[:p]``. The following functions are available for ``CholeskyPivoted`` objects: ``size``, ``\``, ``inv``, ``det``. A ``LAPACK.RankDeficientException`` error is thrown in case the matrix is rank deficient.
 
 .. function:: cholpfact!(A, [LU]) -> CholeskyPivoted
 
-   ``cholpfact!`` 与 ``cholpfact`` 类似，但它覆写输入 A ，而非构造浅拷贝。
+   ``cholpfact!`` is the same as ``cholpfact``, but saves space by overwriting the input A, instead of creating a copy.
 
 .. function:: qr(A, [thin]) -> Q, R
 
-   对 ``A`` 做 QR 分解，满足 ``A = Q*R`` 。也可参见 ``qrfact`` 。
-   默认做 ``thin`` 分解。
+   Compute the QR factorization of ``A`` such that ``A = Q*R``. Also see ``qrfact``. The default is to compute a thin factorization.
 
 .. function:: qrfact(A)
 
-   对 ``A`` 做 QR 分解，返回 ``QR`` 对象。 
-   ``factors(qrfact(A))`` 返回 ``Q`` 和 ``R`` 。
-   ``QR`` 对象可使用下列函数： ``size``, ``factors``, ``qmulQR``, ``qTmulQR``, ``\`` 。
-   提取的 ``Q`` 是 ``QRPackedQ`` 对象，且为了支持 ``Q`` 与 ``Q'`` 的高效乘法， 
-   重载了 ``*`` 运算符。
+   Compute the QR factorization of ``A`` and return a ``QR`` object. The coomponents of the factorization ``F`` can be accessed as follows: the orthogonal matrix ``Q`` can be extracted with ``F[:Q]`` and the triangular matrix ``R`` with ``F[:R]``. The following functions are available for ``QR`` objects: ``size``, ``\``. When ``Q`` is extracted, the resulting type is the ``QRPackedQ`` object, and has the ``*`` operator overloaded to support efficient multiplication by ``Q`` and ``Q'``.
 
 .. function:: qrfact!(A)
 
-   ``qrfact!`` 与 ``qrfact`` 类似，但它覆写输入 A ，而非构造浅拷贝。
+   ``qrfact!`` is the same as :func:`qrfact`, but saves space by overwriting the input A, instead of creating a copy.
 
 .. function:: qrp(A, [thin]) -> Q, R, P
 
-   对 ``A`` 做主元 QR 分解，满足 ``A*P = Q*R`` 。另见 ``qrpfact`` 。
-   默认做 ``thin`` 分解。
+   Compute the QR factorization of ``A`` with pivoting, such that ``A*P = Q*R``, Also see ``qrpfact``. The default is to compute a thin factorization.
 
 .. function:: qrpfact(A) -> QRPivoted
 
-   对 ``A`` 做主元 QR 分解，返回 ``QRPivoted`` 对象。 
-   可从分解结果 ``F`` 中获取分量：正交矩阵 ``Q`` 为 ``F[:Q]`` ， 
-   三角矩阵 ``R`` 为 ``F[:R]`` ，置换矩阵和置换向量分布为 ``F[:P]`` 和 ``F[:p]`` 。 
-   ``QRPivoted`` 对象可使用下列函数： ``size``, ``\`` 。 
-   提取的 ``Q`` 是 ``QRPivotedQ`` 对象，且为了支持 ``Q`` 与 ``Q'`` 的高效乘法， 
-   重载了 ``*`` 运算符。可以使用 ``full`` 函数将 ``QRPivotedQ`` 矩阵转换为普通矩阵。
+   Compute the QR factorization of ``A`` with pivoting and return a ``QRPivoted`` object. The components of the factorization ``F`` can be accessed as follows: the orthogonal matrix ``Q`` can be extracted with ``F[:Q]``, the triangular matrix ``R`` with ``F[:R]``, and the permutation with ``F[:P]`` or ``F[:p]``. The following functions are available for ``QRPivoted`` objects: ``size``, ``\``. When ``Q`` is extracted, the resulting type is the ``QRPivotedQ`` object, and has the ``*`` operator overloaded to support efficient multiplication by ``Q`` and ``Q'``. A ``QRPivotedQ`` matrix can be converted into a regular matrix with ``full``.
 
 .. function:: qrpfact!(A) -> QRPivoted
 
-   ``qrpfact!`` 与 ``qrpfact`` 类似，但它覆写 A 以节约空间，而非构造浅拷贝。
+   ``qrpfact!`` is the same as :func:`qrpfact`, but saves space by overwriting the input A, instead of creating a copy.
+
+.. function:: bkfact(A) -> BunchKaufman
+
+   Compute the Bunch Kaufman factorization of a real symmetric or complex Hermitian matrix ``A`` and return a ``BunchKaufman`` object. The following functions are available for ``BunchKaufman`` objects: ``size``, ``\``, ``inv``, ``issym``, ``ishermitian``.
+
+.. function:: bkfact!(A) -> BunchKaufman
+
+   ``bkfact!`` is the same as :func:`bkfact`, but saves space by overwriting the input A, instead of creating a copy.
 
 .. function:: sqrtm(A)
 
-   计算 ``A`` 的矩阵平方根。如果 ``B = sqrtm(A)`` ，满足在误差范围内 ``B*B == A`` 。
+   Compute the matrix square root of ``A``. If ``B = sqrtm(A)``, then ``B*B == A`` within roundoff error.
 
 .. function:: eig(A) -> D, V
 
-   计算 ``A`` 的特征值和特征向量。
+   Compute eigenvalues and eigenvectors of A
+
+.. function:: eig(A, B) -> D, V
+
+   Compute generalized eigenvalues and vectors of A and B
 
 .. function:: eigvals(A)
 
-   返回  ``A`` 的特征值。
+   Returns the eigenvalues of ``A``.
 
 .. function:: eigmax(A)
 
-   返回 ``A`` 的最大的特征值。
+   Returns the largest eigenvalue of ``A``.
 
 .. function:: eigmin(A)
 
-   返回 ``A`` 的最小的特征值。
+   Returns the smallest eigenvalue of ``A``.
 
 .. function:: eigvecs(A, [eigvals])
 
-   返回  ``A`` 的特征向量。
+   Returns the eigenvectors of ``A``.
 
-   对于对称三对角线矩阵 SymTridiagonal, 
-   如果指明了可选项 ``eigvals`` 特征值，返回对应的特征向量。
+   For SymTridiagonal matrices, if the optional vector of eigenvalues ``eigvals`` is specified, returns the specific corresponding eigenvectors.
 
 .. function:: eigfact(A)
 
-   对 ``A`` 做特征分解，返回 ``Eigen`` 对象。可从分解结果 ``F`` 中获取分量： 
-   特征值为 ``F[:values]`` ，特征向量为 ``F[:vectors]`` 。 
-   ``Eigen`` 对象可使用下列函数： ``inv``, ``det`` 。
+   Compute the eigenvalue decomposition of ``A`` and return an ``Eigen`` object. If ``F`` is the factorization object, the eigenvalues can be accessed with ``F[:values]`` and the eigenvectors with ``F[:vectors]``. The following functions are available for ``Eigen`` objects: ``inv``, ``det``.
 
-.. function:: eigfact!(A)
+.. function:: eigfact(A, B)
 
-   ``eigfact!`` 与 ``eigfact`` 类似，但它覆写输入 A ，而非构造浅拷贝。
-   
+   Compute the generalized eigenvalue decomposition of ``A`` and ``B`` and return an ``GeneralizedEigen`` object. If ``F`` is the factorization object, the eigenvalues can be accessed with ``F[:values]`` and the eigenvectors with ``F[:vectors]``.
+
+.. function:: eigfact!(A, [B])
+
+   ``eigfact!`` is the same as :func:`eigfact`, but saves space by overwriting the input A (and B), instead of creating a copy.
+
 .. function:: hessfact(A)
 
-   对 ``A`` 做 Hessenberg 分解，返回 ``Hessenberg`` 对象。 
-   如果分解后的结果为 ``F`` ，酉矩阵为 ``F[:Q]`` ， Hessenberg 矩阵为 ``F[:H]`` 。 
-   提取的 ``Q`` 是 ``HessenbergQ`` 对象， 
-   可以使用 ``full`` 函数将其转换为普通矩阵。
-   
+   Compute the Hessenberg decomposition of ``A`` and return a ``Hessenberg`` object. If ``F`` is the factorization object, the unitary matrix can be accessed with ``F[:Q]`` and the Hessenberg matrix with ``F[:H]``. When ``Q`` is extracted, the resulting type is the ``HessenbergQ`` object, and may be converted to a regular matrix with ``full``.
+
 .. function:: hessfact!(A)
 
-   ``hessfact!`` 与 ``hessfact`` 类似，但它覆写输入 A ，而非构造浅拷贝。
+   ``hessfact!`` is the same as :func:`hessfact`, but saves space by overwriting the input A, instead of creating a copy.
 
 .. function:: schurfact(A) -> Schur
 
-   对 ``A`` 做 Schur 分解。
-   分解结果 ``Schur`` 对象 ``F`` 的（近似）三角 Schur 因子为 ``F[:Schur]`` 或 ``F[:T]`` ，
-   正交 Schur 向量为 ``F[:vectors]`` 或 ``F[:Z]`` 。
-   满足 ``A=F[:vectors]*F[:Schur]*F[:vectors]'`` 。
-   ``A`` 的特征值为 ``F[:values]`` 。
+   Computes the Schur factorization of the matrix ``A``. The (quasi) triangular Schur factor can be obtained from the ``Schur`` object ``F`` with either ``F[:Schur]`` or ``F[:T]`` and the unitary/orthogonal Schur vectors can be obtained with ``F[:vectors]`` or ``F[:Z]`` such that ``A=F[:vectors]*F[:Schur]*F[:vectors]'``. The eigenvalues of ``A`` can be obtained with ``F[:values]``.
+
+.. function:: schurfact!(A)
+
+   Computer the Schur factorization of A, overwriting A in the process. See :func:`schurfact`
 
 .. function:: schur(A) -> Schur[:T], Schur[:Z], Schur[:values]
 
-   详见 :func:`schurfact` 。
+   See schurfact
 
 .. function:: schurfact(A, B) -> GeneralizedSchur
 
-   计算 ``A`` 和 ``B`` 做广义 Schur （或 QZ ）分解。
-   分解结果 ``Schur`` 对象 ``F`` 的（近似）三角 Schur 因子为 ``F[:S]`` 和 ``F[:T]`` ，
-   左正交 Schur 向量为 ``F[:left]`` 或 ``F[:Q]`` ，
-   左正交 Schur 向量为 ``F[:right]`` 或 ``F[:Z]`` 。
-   满足 ``A=F[:left]*F[:S]*F[:right]'`` 及 ``B=F[:left]*F[:T]*F[:right]'`` 。
-   ``A`` 和 ``B`` 做广义特征值为 ``F[:alpha]./F[:beta]`` 。
+   Computes the Generalized Schur (or QZ) factorization of the matrices ``A`` and ``B``. The (quasi) triangular Schur factors can be obtained from the ``Schur`` object ``F`` with ``F[:S]`` and ``F[:T]``, the left unitary/orthogonal Schur vectors can be obtained with ``F[:left]`` or ``F[:Q]`` and the right unitary/orthogonal Schur vectors can be obtained with ``F[:right]`` or ``F[:Z]`` such that ``A=F[:left]*F[:S]*F[:right]'`` and ``B=F[:left]*F[:T]*F[:right]'``. The generalized eigenvalues of ``A`` and ``B`` can be obtained with ``F[:alpha]./F[:beta]``.
 
 .. function:: schur(A,B) -> GeneralizedSchur[:S], GeneralizedSchur[:T], GeneralizedSchur[:Q], GeneralizedSchur[:Z]
 
-   详见 :func:`schurfact` 。
+   See schurfact
 
 .. function:: svdfact(A, [thin]) -> SVD
 
-   对 ``A`` 做奇异值分解（SVD），返回 ``SVD`` 对象。 
-   分解结果 ``F`` 的 ``U``, ``S``, ``V`` 和 ``Vt`` 可分别通过 ``F[:U]``, 
-   ``F[:S]``, ``F[:V]`` 和 ``F[:Vt]`` 来获得，它们满足 ``A = U*diagm(S)*Vt`` 。 
-   如果 ``thin`` 为 ``true`` ，则做节约模式分解。 
-   此算法先计算 ``Vt`` ，即 ``V`` 的转置，后者是由前者转置得到的。
-   默认做 ``thin`` 分解。
+   Compute the Singular Value Decomposition (SVD) of ``A`` and return an ``SVD`` object. ``U``, ``S``, ``V`` and ``Vt`` can be obtained from the factorization ``F`` with ``F[:U]``, ``F[:S]``, ``F[:V]`` and ``F[:Vt]``, such that ``A = U*diagm(S)*Vt``. If ``thin`` is ``true``, an economy mode decomposition is returned. The algorithm produces ``Vt`` and hence ``Vt`` is more efficient to extract than ``V``. The default is to produce a thin decomposition.
 
 .. function:: svdfact!(A, [thin]) -> SVD
 
-   ``svdfact!`` 与 ``svdfact`` 类似，但它覆写 A 以节约空间，而非构造浅拷贝。 
-   如果 ``thin`` 为 ``true`` ，则做 ``thin`` 分解。默认做 ``thin`` 分解。
+   ``svdfact!`` is the same as :func:`svdfact`, but saves space by overwriting the input A, instead of creating a copy. If ``thin`` is ``true``, an economy mode decomposition is returned. The default is to produce a thin decomposition.
 
 .. function:: svd(A, [thin]) -> U, S, V
 
-   对 ``A`` 做奇异值分解，返回 ``U`` ，向量 ``S`` ，及 ``V`` ， 
-   满足 ``A == U*diagm(S)*V'`` 。如果 ``thin`` 为 ``true`` ，则做节约模式分解。
+   Compute the SVD of A, returning ``U``, vector ``S``, and ``V`` such that ``A == U*diagm(S)*V'``. If ``thin`` is ``true``, an economy mode decomposition is returned.
 
 .. function:: svdvals(A)
 
-   返回 ``A`` 的奇异值。
+   Returns the singular values of ``A``.
 
 .. function:: svdvals!(A)
 
-   返回 ``A`` 的奇异值，将结果覆写到输入上以节约空间。
+   Returns the singular values of ``A``, while saving space by overwriting the input.
 
-.. function:: svdfact(A, B) -> GSVDDense
+.. function:: svdfact(A, B) -> GeneralizedSVD
 
-   计算 ``A`` 和 ``B`` 的广义 SVD ，返回 ``GeneralizedSVD`` 分解对象。  
-   满足 ``A = U*D1*R0*Q'`` 及 ``B = V*D2*R0*Q'`` 。
-   
+   Compute the generalized SVD of ``A`` and ``B``, returning a ``GeneralizedSVD`` Factorization object, such that ``A = U*D1*R0*Q'`` and ``B = V*D2*R0*Q'``.
+
 .. function:: svd(A, B) -> U, V, Q, D1, D2, R0
 
-   计算 ``A`` 和 ``B`` 的广义 SVD ，返回 ``U``, ``V``, ``Q``, ``D1``, 
-   ``D2``, 和 ``R0`` ，满足 ``A = U*D1*R0*Q'`` 及 ``B = V*D2*R0*Q'`` 。
- 
+   Compute the generalized SVD of ``A`` and ``B``, returning ``U``, ``V``, ``Q``, ``D1``, ``D2``, and ``R0`` such that ``A = U*D1*R0*Q'`` and ``B = V*D2*R0*Q'``.
+
 .. function:: svdvals(A, B)
 
-   仅返回 ``A`` 和 ``B`` 广义 SVD 中的奇异值。
+   Return only the singular values from the generalized singular value decomposition of ``A`` and ``B``.
 
 .. function:: triu(M)
 
-   矩阵上三角。
+   Upper triangle of a matrix.
+
+.. function:: triu!(M)
+
+   Upper triangle of a matrix, overwriting M in the process.
 
 .. function:: tril(M)
 
-   矩阵下三角。
+   Lower triangle of a matrix.
 
-.. function:: diag(M, [k])
+.. function:: tril!(M)
 
-   矩阵的第 ``k`` 条对角线，结果为向量。 ``k`` 从 0 开始。
+   Lower triangle of a matrix, overwriting M in the process.
 
-.. function:: diagm(v, [k])
+.. function:: diagind(M[, k])
 
-   构造 ``v`` 为第 ``k`` 条对角线的对角矩阵。 ``k`` 从 0 开始。
+   A ``Range`` giving the indices of the ``k``-th diagonal of the matrix ``M``.
 
-.. function:: diagmm(matrix, vector)
+.. function:: diag(M[, k])
 
-   矩阵与向量相乘。此函数也可以做向量与矩阵相乘。
+   The ``k``-th diagonal of a matrix, as a vector.
+
+.. function:: diagm(v[, k])
+
+   Construct a diagonal matrix and place ``v`` on the ``k``-th diagonal.
+
+.. function:: scale(A, B)
+
+   ``scale(A::Array, B::Number)`` scales all values in ``A`` with ``B``.
+   Note: In cases where the array is big enough, ``scale`` can be much
+   faster than ``A .* B``, due to the use of BLAS.
+
+   ``scale(A::Matrix, B::Vector)`` is the same as multiplying with a
+   diagonal matrix on the right, and scales the columns of ``A`` with
+   the values in ``B``.
+
+   ``scale(A::Vector, B::Matrix)`` is the same as multiplying with a
+   diagonal matrix on the left, and scales the rows of ``B`` with the
+   values in ``A``.
+
+.. function:: scale!(A, B)
+
+   ``scale!(A,B)`` overwrites the input array with the scaled result.
+
+.. function:: symmetrize!(A[, UL::Char])
+
+   ``symmetrize!(A)`` converts from the BLAS/LAPACK symmetric storage
+   format, in which only the ``UL`` ('U'pper or 'L'ower, default 'U')
+   triangle is used, to a full symmetric matrix.
 
 .. function:: Tridiagonal(dl, d, du)
 
-   由下对角线、主对角线、上对角线来构造三对角矩阵
+   Construct a tridiagonal matrix from the lower diagonal, diagonal, and upper diagonal, respectively.  The result is of type ``Tridiagonal`` and provides efficient specialized linear solvers, but may be converted into a regular matrix with ``full``.
 
 .. function:: Bidiagonal(dv, ev, isupper)
 
-   使用指定的对角线 (dv) 和非对角线 (ev) 向量，
-   构造上(isupper=true)或下(isupper=false) 双对角线矩阵。
+   Constructs an upper (isupper=true) or lower (isupper=false) bidiagonal matrix
+   using the given diagonal (dv) and off-diagonal (ev) vectors.  The result is of type ``Bidiagonal`` and provides efficient specialized linear solvers, but may be converted into a regular matrix with ``full``.
+
+.. function:: SymTridiagonal(d, du)
+
+   Construct a real-symmetric tridiagonal matrix from the diagonal and upper diagonal, respectively. The result is of type ``SymTridiagonal`` and provides efficient specialized eigensolvers, but may be converted into a regular matrix with ``full``.
 
 .. function:: Woodbury(A, U, C, V)
 
-   构造 Woodbury matrix identity 格式的矩阵。
+   Construct a matrix in a form suitable for applying the Woodbury matrix identity
 
 .. function:: rank(M)
 
-   计算矩阵的秩。
+   Compute the rank of a matrix
 
 .. function:: norm(A, [p])
 
-   计算向量或矩阵的 ``p`` 范数。 ``p`` 默认为 2 。 
-   如果 ``A`` 是向量， ``norm(A, p)`` 计算 ``p`` 范数。 
-   ``norm(A, Inf)`` 返回 ``abs(A)`` 中的最大值， ``norm(A, -Inf)`` 返回最小值。 
-   如果 ``A`` 是矩阵， ``p`` 的有效值为 ``1``, ``2``, 和 ``Inf`` 。 
-   要计算 Frobenius 范数，应使用 ``normfro`` 。
+   Compute the ``p``-norm of a vector or a matrix. ``p`` is ``2`` by default, if not provided. If ``A`` is a vector, ``norm(A, p)`` computes the ``p``-norm. ``norm(A, Inf)`` returns the largest value in ``abs(A)``, whereas ``norm(A, -Inf)`` returns the smallest. If ``A`` is a matrix, valid values for ``p`` are ``1``, ``2``, or ``Inf``. In order to compute the Frobenius norm, use ``normfro``.
 
 .. function:: normfro(A)
 
-   计算矩阵 ``A`` 的 Frobenius 范数。
+   Compute the Frobenius norm of a matrix ``A``.
 
 .. function:: cond(M, [p])
 
-   使用 p 范数计算矩阵条件数。 ``p`` 如果省略，默认为 2 。 
-   ``p`` 的有效值为 ``1``, ``2``, 和 ``Inf``.
+   Matrix condition number, computed using the p-norm. ``p`` is 2 by default, if not provided. Valid values for ``p`` are ``1``, ``2``, or ``Inf``.
 
 .. function:: trace(M)
 
-   矩阵的迹。
+   Matrix trace
 
 .. function:: det(M)
 
-   矩阵的行列式。
+   Matrix determinant
+
+.. function:: logdet(M)
+
+   Log of Matrix determinant. Equivalent to ``log(det(M))``, but may provide increased accuracy and/or speed.
 
 .. function:: inv(M)
 
-   矩阵的逆。
+   Matrix inverse
 
 .. function:: pinv(M)
 
-   矩阵的 Moore-Penrose （广义）逆
+   Moore-Penrose inverse
 
 .. function:: null(M)
 
-   矩阵 M 的零空间的基。
+   Basis for null space of M.
 
 .. function:: repmat(A, n, m)
 
-   重复矩阵 ``A`` 来构造新数组，在第一维度上重复 ``n`` 次，第二维度上重复 ``m`` 次。
+   Construct a matrix by repeating the given matrix ``n`` times in dimension 1 and ``m`` times in dimension 2.
+
+.. function:: repeat(A, inner = Int[], outer = Int[])
+
+   Construct an array by repeating the entries of ``A``. The i-th element of ``inner`` specifies the number of times that the individual entries of the i-th dimension of ``A`` should be repeated. The i-th element of ``outer`` specifies the number of times that a slice along the i-th dimension of ``A` should be repeated.
 
 .. function:: kron(A, B)
 
-   两个向量或两个矩阵的 Kronecker 张量积。
+   Kronecker tensor product of two vectors or two matrices.
 
 .. function:: linreg(x, y)
 
-   最小二乘法线性回归来计算参数 ``[a, b]`` ，使 ``y`` 逼近 ``a+b*x`` 。
+   Determine parameters ``[a, b]`` that minimize the squared error between ``y`` and ``a+b*x``.
 
 .. function:: linreg(x, y, w)
 
-   带权最小二乘法线性回归。
+   Weighted least-squares linear regression.
 
 .. function:: expm(A)
 
-   矩阵指数。
+   Matrix exponential.
 
 .. function:: issym(A)
 
-   判断是否为对称矩阵。
+   Test whether a matrix is symmetric.
 
 .. function:: isposdef(A)
 
-   判断是否为正定矩阵。
+   Test whether a matrix is positive-definite.
+
+.. function:: isposdef!(A)
+
+   Test whether a matrix is positive-definite, overwriting A in the processes.
 
 .. function:: istril(A)
 
-   判断是否为下三角矩阵。
+   Test whether a matrix is lower-triangular.
 
 .. function:: istriu(A)
 
-   判断是否为上三角矩阵。
+   Test whether a matrix is upper-triangular.
 
 .. function:: ishermitian(A)
 
-   判断是否为 Hamilton 矩阵。
+   Test whether a matrix is hermitian.
 
 .. function:: transpose(A)
 
-   转置运算符（ ``.'`` ）。
+   The transpose operator (``.'``).
 
 .. function:: ctranspose(A)
 
-   共轭转置运算符（ ``'`` ）。
+   The conjugate transpose operator (``'``).
 
+.. function:: eigs(A; nev=6, which="LM", tol=0.0, maxiter=1000, ritzvec=true)
 
-BLAS 函数
----------
+   ``eigs`` computes the eigenvalues of A using Arnoldi factorization. The following keyword arguments are supported:
+    * ``nev``: Number of eigenvalues
+    * ``which``: type of eigenvalues ("LM", "SM")
+    * ``tol``: tolerance (:math:`tol \le 0.0` defaults to ``DLAMCH('EPS')``)
+    * ``maxiter``: Maximum number of iterations
+    * ``ritzvec``: Returns the Ritz vectors (eigenvectors) if ``true``
 
-此模块为线性代数提供一些 BLAS 函数的封装。覆写输入数组的 BLAS 函数名，都以感叹号 ``'!'`` 结尾。
+.. function:: svds(A; nev=6, which="LA", tol=0.0, maxiter=1000, ritzvec=true)
 
-通常每个函数有四个定义，分别适用于 ``Float64``, ``Float32``, ``Complex128`` 及 ``Complex64`` 数组。
+   ``svds`` computes the singular values of A using Arnoldi factorization. The following keyword arguments are supported:
+    * ``nsv``: Number of singular values
+    * ``which``: type of singular values ("LA")
+    * ``tol``: tolerance (:math:`tol \le 0.0` defaults to ``DLAMCH('EPS')``)
+    * ``maxiter``: Maximum number of iterations
+    * ``ritzvec``: Returns the singular vectors if ``true``
+
+.. function:: peakflops(n; parallel=false)
+
+   ``peakflops`` computes the peak flop rate of the computer by using BLAS dgemm. By default, if no arguments are specified, it multiplies a matrix of size ``n x n``, where ``n = 2000``. If the underlying BLAS is using multiple threads, higher flop rates are realized. The number of BLAS threads can be set with ``blas_set_num_threads(n)``.
+
+   If the keyword argument ``parallel`` is set to ``true``, ``peakflops`` is run in parallel on all the worker processors. The flop rate of the entire parallel computer is returned. When running in parallel, only 1 BLAS thread is used. The argument ``n`` still refers to the size of the problem that is solved on each processor.
+
+BLAS Functions
+--------------
+
+.. module:: Base.LinAlg.BLAS
+
+This module provides wrappers for some of the BLAS functions for
+linear algebra.  Those BLAS functions that overwrite one of the input
+arrays have names ending in ``'!'``.
+
+Usually a function has 4 methods defined, one each for ``Float64``,
+``Float32``, ``Complex128`` and ``Complex64`` arrays.
+
+.. currentmodule:: Base
 
 .. function:: copy!(n, X, incx, Y, incy)
 
-   将内存邻接距离为 ``incx`` 的数组 ``X`` 的 ``n`` 个元素复制到 
-   内存邻接距离为 ``incy`` 的数组 ``Y`` 中。返回 ``Y`` 。
+   Copy ``n`` elements of array ``X`` with stride ``incx`` to array
+   ``Y`` with stride ``incy``.  Returns ``Y``.
 
 .. function:: dot(n, X, incx, Y, incy)
 
-   内存邻接距离为 ``incx`` 的数组 ``X`` 的 ``n`` 个元素组成的向量，与 
-   内存邻接距离为 ``incy`` 的数组 ``Y`` 的 ``n`` 个元素组成的向量，做点积。
-   ``Complex`` 数组没有 ``dot`` 方法。
+   Dot product of two vectors consisting of ``n`` elements of array
+   ``X`` with stride ``incx`` and ``n`` elements of array ``Y`` with
+   stride ``incy``.  There are no ``dot`` methods for ``Complex``
+   arrays.
+
+The following functions are defined within the ``Base.LinAlg.BLAS`` module.
+
+.. currentmodule:: Base.LinAlg.BLAS
 
 .. function:: nrm2(n, X, incx)
 
-   内存邻接距离为 ``incx`` 的数组 ``X`` 的 ``n`` 个元素组成的向量的 2 范数。
+   2-norm of a vector consisting of ``n`` elements of array ``X`` with
+   stride ``incx``.
+
+.. function:: asum(n, X, incx)
+
+   sum of the absolute values of the first ``n`` elements of array ``X`` with
+   stride ``incx``.
 
 .. function:: axpy!(n, a, X, incx, Y, incy)
 
-   将 ``a*X + Y`` 赋值给 ``Y`` 并返回。
+   Overwrite ``Y`` with ``a*X + Y``.  Returns ``Y``.
+
+.. function:: scal!(n, a, X, incx)
+
+   Overwrite ``X`` with ``a*X``.  Returns ``X``.
+
+.. function:: scal(n, a, X, incx)
+
+   Returns ``a*X``.
 
 .. function:: syrk!(uplo, trans, alpha, A, beta, C)
 
-   由参数 ``trans`` （ 'N' 或 'T' ）确定，计算 ``alpha*A*A.' + beta*C`` 
-   或 ``alpha*A.'*A + beta*C`` ，由参数 ``uplo`` （ 'U' 或 'L' ）确定， 
-   用计算的结果更新对称矩阵 ``C`` 的上三角矩阵或下三角矩阵。返回 ``C`` 。
+   Rank-k update of the symmetric matrix ``C`` as ``alpha*A*A.' +
+   beta*C`` or ``alpha*A.'*A + beta*C`` according to whether ``trans``
+   is 'N' or 'T'.  When ``uplo`` is 'U' the upper triangle of ``C`` is
+   updated ('L' for lower triangle).  Returns ``C``.
 
 .. function:: syrk(uplo, trans, alpha, A)
 
-   由参数 ``trans`` （ 'N' 或 'T' ）确定，计算 ``alpha*A*A.'`` 
-   或 ``alpha*A.'*A`` ，由参数 ``uplo`` （ 'U' 或 'L' ）确定， 
-   返回计算结果的上三角矩阵或下三角矩阵。
+   Returns either the upper triangle or the lower triangle, according
+   to ``uplo`` ('U' or 'L'), of ``alpha*A*A.'`` or ``alpha*A.'*A``,
+   according to ``trans`` ('N' or 'T').
 
 .. function:: herk!(uplo, trans, alpha, A, beta, C)
 
-   此方法只适用于复数数组。由参数 ``trans`` （ 'N' 或 'T' ）确定， 
-   计算 ``alpha*A*A' + beta*C`` 或 ``alpha*A'*A + beta*C`` ， 
-   由参数 ``uplo`` （ 'U' 或 'L' ）确定， 
-   用计算的结果更新对称矩阵 ``C`` 的上三角矩阵或下三角矩阵。返回 ``C`` 。
-   
+   Methods for complex arrays only.  Rank-k update of the Hermitian
+   matrix ``C`` as ``alpha*A*A' + beta*C`` or ``alpha*A'*A + beta*C``
+   according to whether ``trans`` is 'N' or 'T'.  When ``uplo`` is 'U'
+   the upper triangle of ``C`` is updated ('L' for lower triangle).
+   Returns ``C``.
+
 .. function:: herk(uplo, trans, alpha, A)
 
-   此方法只适用于复数数组。由参数 ``trans`` （ 'N' 或 'T' ）确定， 
-   计算 ``alpha*A*A'`` 或 ``alpha*A'*A`` ， 
-   由参数 ``uplo`` （ 'U' 或 'L' ）确定，返回计算结果的上三角矩阵或下三角矩阵。
+   Methods for complex arrays only.  Returns either the upper triangle
+   or the lower triangle, according to ``uplo`` ('U' or 'L'), of
+   ``alpha*A*A'`` or ``alpha*A'*A``, according to ``trans`` ('N' or 'T').
 
 .. function:: gbmv!(trans, m, kl, ku, alpha, A, x, beta, y)
 
-   由参数 ``trans`` （ 'N' 或 'T' ）确定，计算 ``alpha*A*x`` 或 
-   ``alpha*A'*x`` ，将结果赋值给 ``y`` 并返回。矩阵 ``A`` 为普通带矩阵， 
-   其维度 ``m`` 为 ``size(A,2)`` ， 子对角线为 ``kl`` ，超对角线为 ``ku`` 。
+   Update vector ``y`` as ``alpha*A*x + beta*y`` or ``alpha*A'*x +
+   beta*y`` according to ``trans`` ('N' or 'T').  The matrix ``A`` is
+   a general band matrix of dimension ``m`` by ``size(A,2)`` with
+   ``kl`` sub-diagonals and ``ku`` super-diagonals. Returns the
+   updated ``y``.
 
 .. function:: gbmv(trans, m, kl, ku, alpha, A, x, beta, y)
 
-   由参数 ``trans`` （ 'N' 或 'T' ）确定，计算 ``alpha*A*x`` 或 
-   ``alpha*A'*x`` 。矩阵 ``A`` 为普通带矩阵， 
-   其维度 ``m`` 为 ``size(A,2)`` ， 子对角线为 ``kl`` ， 
-   超对角线为 ``ku`` 。
+   Returns ``alpha*A*x`` or ``alpha*A'*x`` according to ``trans`` ('N'
+   or 'T'). The matrix ``A`` is a general band matrix of dimension
+   ``m`` by ``size(A,2)`` with ``kl`` sub-diagonals and
+   ``ku`` super-diagonals.
 
 .. function:: sbmv!(uplo, k, alpha, A, x, beta, y)
 
-   将 ``alpha*A*x + beta*y`` 赋值给 ``y`` 并返回。 
-   其中 ``A`` 是对称带矩阵，维度为 ``size(A,2)`` ，超对角线为 ``k`` 。 
-   关于 A 是如何存储的，详见 `<http://www.netlib.org/lapack/explore-html/>`_ 的 level-2 BLAS 。
+   Update vector ``y`` as ``alpha*A*x + beta*y`` where ``A`` is a
+   a symmetric band matrix of order ``size(A,2)`` with
+   ``k`` super-diagonals stored in the argument ``A``.  The storage
+   layout for ``A`` is described the reference BLAS module, level-2
+   BLAS at http://www.netlib.org/lapack/explore-html/.
+
+   Returns the updated ``y``.
 
 .. function:: sbmv(uplo, k, alpha, A, x)
 
-   返回 ``alpha*A*x`` 。 
-   其中 ``A`` 是对称带矩阵，维度为 ``size(A,2)`` ，超对角线为 ``k`` 。
+   Returns ``alpha*A*x`` where ``A`` is a symmetric band matrix of
+   order ``size(A,2)`` with ``k`` super-diagonals stored in the
+   argument ``A``.
+
+.. function:: sbmv(uplo, k, A, x)
+
+   Returns ``A*x`` where ``A`` is a symmetric band matrix of
+   order ``size(A,2)`` with ``k`` super-diagonals stored in the
+   argument ``A``.
 
 .. function:: gemm!(tA, tB, alpha, A, B, beta, C)
 
-   由 ``tA`` （ ``A`` 做转置）和 ``tB`` 确定， 
-   计算 ``alpha*A*B + beta*C`` 或其它对应的三个表达式， 
-   将结果赋值给 ``C`` 并返回。
+   Update ``C`` as ``alpha*A*B + beta*C`` or the other three variants
+   according to ``tA`` (transpose ``A``) and ``tB``.  Returns the
+   updated ``C``.
 
 .. function:: gemm(tA, tB, alpha, A, B)
 
-   由 ``tA`` （ ``A`` 做转置）和 ``tB`` 确定， 
-   计算 ``alpha*A*B + beta*C`` 或其它对应的三个表达式。
+   Returns ``alpha*A*B`` or the other three variants
+   according to ``tA`` (transpose ``A``) and ``tB``.
 
+.. function:: gemm(tA, tB, alpha, A, B)
+
+   Returns ``alpha*A*B`` or the other three variants
+   according to ``tA`` (transpose ``A``) and ``tB``.
+
+.. function:: gemv!(tA, alpha, A, x, beta, y)
+
+   Update the vector ``y`` as ``alpha*A*x + beta*x`` or
+   ``alpha*A'x + beta*x`` according to ``tA`` (transpose ``A``).
+   Returns the updated ``y``.
+
+.. function:: gemv(tA, alpha, A, x)
+
+   Returns ``alpha*A*x`` or ``alpha*A'x`` according to ``tA``
+   (transpose ``A``).
+
+.. function:: gemv(tA, alpha, A, x)
+
+   Returns ``A*x`` or ``A'x`` according to ``tA`` (transpose ``A``).
+
+.. function:: symm!(side, ul, alpha, A, B, beta, C)
+
+   Update ``C`` as ``alpha*A*B + beta*C`` or ``alpha*B*A + beta*C``
+   according to ``side``. ``A`` is assumed to be symmetric.  Only the
+   ``ul`` triangle of ``A`` is used.  Returns the updated ``C``.
+
+.. function:: symm(side, ul, alpha, A, B)
+
+   Returns ``alpha*A*B`` or ``alpha*B*A`` according to ``side``.
+   ``A`` is assumed to be symmetric.  Only the ``ul`` triangle of
+   ``A`` is used.
+
+.. function:: symm(side, ul, A, B)
+
+   Returns ``A*B`` or ``B*A`` according to ``side``.  ``A`` is assumed
+   to be symmetric.  Only the ``ul`` triangle of ``A`` is used.
+
+.. function:: symm(tA, tB, alpha, A, B)
+
+   Returns ``alpha*A*B`` or the other three variants
+   according to ``tA`` (transpose ``A``) and ``tB``.
+
+.. function:: symv!(ul, alpha, A, x, beta, y)
+
+   Update the vector ``y`` as ``alpha*A*y + beta*y``. ``A`` is assumed
+   to be symmetric.  Only the ``ul`` triangle of ``A`` is used.
+   Returns the updated ``y``.
+
+.. function:: symv(ul, alpha, A, x)
+
+   Returns ``alpha*A*x``. ``A`` is assumed to be symmetric.  Only the
+   ``ul`` triangle of ``A`` is used.
+
+.. function:: symv(ul, A, x)
+
+   Returns ``A*x``.  ``A`` is assumed to be symmetric.  Only the
+   ``ul`` triangle of ``A`` is used.
+
+.. function:: trmm!(side, ul, tA, dA, alpha, A, B)
+
+   Update ``B`` as ``alpha*A*B`` or one of the other three variants
+   determined by ``side`` (A on left or right) and ``tA`` (transpose A).
+   Only the ``ul`` triangle of ``A`` is used.  ``dA`` indicates if
+   ``A`` is unit-triangular (the diagonal is assumed to be all ones).
+   Returns the updated ``B``.
+
+.. function:: trmm(side, ul, tA, dA, alpha, A, B)
+
+   Returns ``alpha*A*B`` or one of the other three variants
+   determined by ``side`` (A on left or right) and ``tA`` (transpose A).
+   Only the ``ul`` triangle of ``A`` is used.  ``dA`` indicates if
+   ``A`` is unit-triangular (the diagonal is assumed to be all ones).
+
+.. function:: trsm!(side, ul, tA, dA, alpha, A, B)
+
+   Overwrite ``B`` with the solution to ``A*X = alpha*B`` or one of
+   the other three variants determined by ``side`` (A on left or
+   right of ``X``) and ``tA`` (transpose A). Only the ``ul`` triangle
+   of ``A`` is used.  ``dA`` indicates if ``A`` is unit-triangular
+   (the diagonal is assumed to be all ones).  Returns the updated ``B``.
+
+.. function:: trsm(side, ul, tA, dA, alpha, A, B)
+
+   Returns the solution to ``A*X = alpha*B`` or one of
+   the other three variants determined by ``side`` (A on left or
+   right of ``X``) and ``tA`` (transpose A). Only the ``ul`` triangle
+   of ``A`` is used.  ``dA`` indicates if ``A`` is unit-triangular
+   (the diagonal is assumed to be all ones).
+
+.. function:: trmv!(side, ul, tA, dA, alpha, A, b)
+
+   Update ``b`` as ``alpha*A*b`` or one of the other three variants
+   determined by ``side`` (A on left or right) and ``tA`` (transpose A).
+   Only the ``ul`` triangle of ``A`` is used.  ``dA`` indicates if
+   ``A`` is unit-triangular (the diagonal is assumed to be all ones).
+   Returns the updated ``b``.
+
+.. function:: trmv(side, ul, tA, dA, alpha, A, b)
+
+   Returns ``alpha*A*b`` or one of the other three variants
+   determined by ``side`` (A on left or right) and ``tA`` (transpose A).
+   Only the ``ul`` triangle of ``A`` is used.  ``dA`` indicates if
+   ``A`` is unit-triangular (the diagonal is assumed to be all ones).
+
+.. function:: trsv!(side, ul, tA, dA, alpha, A, b)
+
+   Overwrite ``b`` with the solution to ``A*X = alpha*b`` or one of
+   the other three variants determined by ``side`` (A on left or
+   right of ``X``) and ``tA`` (transpose A). Only the ``ul`` triangle
+   of ``A`` is used.  ``dA`` indicates if ``A`` is unit-triangular
+   (the diagonal is assumed to be all ones).  Returns the updated ``b``.
+
+.. function:: trsv(side, ul, tA, dA, alpha, A, b)
+
+   Returns the solution to ``A*X = alpha*b`` or one of
+   the other three variants determined by ``side`` (A on left or
+   right of ``X``) and ``tA`` (transpose A). Only the ``ul`` triangle
+   of ``A`` is used.  ``dA`` indicates if ``A`` is unit-triangular
+   (the diagonal is assumed to be all ones).
+
+.. function:: blas_set_num_threads(n)
+
+   Set the number of threads the BLAS library should use.

@@ -1,0 +1,1 @@
+-e git+https://github.com/JuliaCN/JuliaDoc.git#egg=JuliaDoc

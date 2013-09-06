@@ -1,72 +1,74 @@
 .. _stdlib-sparse:
 
-稀疏矩阵
---------
+.. currentmodule:: Base
 
-稀疏矩阵支持大部分稠密矩阵的对应操作。下列函数仅适用于稀疏矩阵。
+Sparse Matrices
+---------------
+
+Sparse matrices support much of the same set of operations as dense matrices. The following functions are specific to sparse matrices.
 
 .. function:: sparse(I,J,V,[m,n,combine])
 
-   构造 ``m x n`` 的稀疏矩阵 ``S`` ，满足 ``S[I[k], J[k]] = V[k]`` 。 
-   使用 ``combine`` 函数来处理坐标重复的元素。 
-   如果未指明 ``m`` 和 ``n`` ，则默认为 ``max(I)`` 和 ``max(J)`` 。 
-   如果省略 ``combine`` 函数，默认对坐标重复的元素求和。
+   Create a sparse matrix ``S`` of dimensions ``m x n`` such that ``S[I[k], J[k]] = V[k]``. The ``combine`` function is used to combine duplicates. If ``m`` and ``n`` are not specified, they are set to ``max(I)`` and ``max(J)`` respectively. If the ``combine`` function is not supplied, duplicates are added by default.
 
 .. function:: sparsevec(I, V, [m, combine])
 
-   构造 ``m x 1`` 的稀疏矩阵 ``S`` ，满足 ``S[I[k]] = V[k]`` 。 
-   使用 ``combine`` 函数来处理坐标重复的元素，如果它被省略，则默认为 ``+`` 。 
-   在 Julia 中，稀疏向量是只有一列的稀疏矩阵。 
-   由于 Julia 使用列压缩（CSC）存储格式，只有一列的稀疏列矩阵是稀疏的， 
-   但只有一行的稀疏行矩阵是稠密的。
+   Create a sparse matrix ``S`` of size ``m x 1`` such that ``S[I[k]] = V[k]``. Duplicates are combined using the ``combine`` function, which defaults to ``+`` if it is not provided. In julia, sparse vectors are really just sparse matrices with one column. Given Julia's Compressed Sparse Columns (CSC) storage format, a sparse column matrix with one column is sparse, whereas a sparse row matrix with one row ends up being dense.
 
 .. function:: sparsevec(D::Dict, [m])
 
-   构造 ``m x 1`` 大小的稀疏矩阵，其行值为字典中的键，非零值为字典中的值。
+   Create a sparse matrix of size ``m x 1`` where the row values are keys from the dictionary, and the nonzero values are the values from the dictionary.
 
 .. function:: issparse(S)
 
-   如果 ``S`` 为稀疏矩阵，返回 ``true`` ；否则为 ``false`` 。
+   Returns ``true`` if ``S`` is sparse, and ``false`` otherwise.
 
 .. function:: sparse(A)
 
-   将稠密矩阵 ``A`` 转换为稀疏矩阵。
+   Convert a dense matrix ``A`` into a sparse matrix.
 
 .. function:: sparsevec(A)
 
-   将稠密矩阵 ``A`` 转换为 ``m x 1`` 的稀疏矩阵。 
-   在 Julia 中，稀疏向量是只有一列的稀疏矩阵。
+   Convert a dense vector ``A`` into a sparse matrix of size ``m x 1``. In julia, sparse vectors are really just sparse matrices with one column.
 
 .. function:: dense(S)
 
-   将稀疏矩阵 ``S`` 转换为稠密矩阵。
+   Convert a sparse matrix ``S`` into a dense matrix.
 
 .. function:: full(S)
 
-   将稀疏矩阵 ``S`` 转换为稠密矩阵。
+   Convert a sparse matrix ``S`` into a dense matrix.
 
 .. function:: spzeros(m,n)
 
-   构造 ``m x n`` 的空稀疏矩阵。
-
-.. function:: speye(type,m[,n])
-
-   构造指定类型、大小为 ``m x m`` 的稀疏单位矩阵。 
-   如果提供了 ``n`` 则构建大小为 ``m x n`` 的稀疏单位矩阵。
+   Create an empty sparse matrix of size ``m x n``.
 
 .. function:: spones(S)
 
-   构造与 ``S`` 同样结构的稀疏矩阵，但非零元素值为 ``1.0`` 。
+   Create a sparse matrix with the same structure as that of ``S``, but with every nonzero element having the value ``1.0``.
+
+.. function:: speye(type,m[,n])
+
+   Create a sparse identity matrix of specified type of size ``m x m``. In case ``n`` is supplied, create a sparse identity matrix of size ``m x n``.
+
+.. function:: spdiagm(v)
+
+   Construct a sparse diagonal matrix and place "v" on the diagonal.
 
 .. function:: sprand(m,n,density[,rng])
 
-   构造指定密度的随机稀疏矩阵。非零样本满足由 ``rng`` 指定的分布。默认为均匀分布。
+   Create a random sparse matrix with the specified density. Nonzeros are sampled from the distribution specified by ``rng``. The uniform distribution is used in case ``rng`` is not specified.
 
 .. function:: sprandn(m,n,density)
 
-   构造指定密度的随机稀疏矩阵，非零样本满足正态分布。
+   Create a random sparse matrix of specified density with nonzeros sampled from the normal distribution.
 
 .. function:: sprandbool(m,n,density)
 
-   构造指定密度的随机稀疏布尔值矩阵。
+   Create a random sparse boolean matrix with the specified density.
+
+.. function:: etree(A[, post])
+
+   Compute the elimination tree of a symmetric sparse matrix ``A`` from ``triu(A)`` and, optionally, its post-ordering permutation.
+
 

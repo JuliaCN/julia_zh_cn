@@ -1,55 +1,48 @@
 .. _man-mathematical-operations:
 
-******************
-数学运算和基本函数
-******************
+**************************************************
+ Mathematical Operations and Elementary Functions 
+**************************************************
 
-Julia 为它所有的基础数值类型，提供了整套的基础算术和位运算，也提供了一套高效的
-标准数学函数。
+Julia provides a complete collection of basic arithmetic and bitwise
+operators across all of its numeric primitive types, as well as
+providing portable, efficient implementations of a comprehensive
+collection of standard mathematical functions.
 
-算术运算符
-----------
+Arithmetic Operators
+--------------------
 
-下面的 `算术运算符
-<http://en.wikipedia.org/wiki/Arithmetic#Arithmetic_operations>`_ 适用于所有的
-基本数据类型:
+The following `arithmetic operators
+<http://en.wikipedia.org/wiki/Arithmetic#Arithmetic_operations>`_
+are supported on all primitive numeric types:
 
+==========  ============== ======================================
+Expression  Name           Description
+==========  ============== ======================================
+``+x``      unary plus     the identity operation
+``-x``      unary minus    maps values to their additive inverses
+``x + y``   binary plus    performs addition
+``x - y``   binary minus   performs subtraction
+``x * y``   times          performs multiplication
+``x / y``   divide         performs division
+``x \ y``   inverse divide equivalent to ``y / x``
+``x ^ y``   power          raises ``x`` to the ``y``\ th power
+``x % y``   remainder      equivalent to ``rem(x,y)``
+==========  ============== ======================================
 
-+-----------+----------+------------------------+
-| 表达式    | 名称     | 说明                   |
-+===========+==========+========================+
-| ``+x``    | 一元加法 | ``x`` 本身             |
-+-----------+----------+------------------------+
-| ``-x``    | 一元减法 | 相反数                 |
-+-----------+----------+------------------------+
-| ``x + y`` | 二元加法 | 做加法                 |
-+-----------+----------+------------------------+
-| ``x - y`` | 二元减法 | 做减法                 |
-+-----------+----------+------------------------+
-| ``x * y`` | 乘法     | 做乘法                 |
-+-----------+----------+------------------------+
-| ``x / y`` | 除法     | 做除法                 |
-+-----------+----------+------------------------+
-| ``x \ y`` | 反除     | 相当于 ``y / x``       |
-+-----------+----------+------------------------+
-| ``x ^ y`` | 乘方     | 将 ``x`` 自乘 ``y`` 次 |
-+-----------+----------+------------------------+
-| ``x % y`` | 取余     | 相当于 ``rem(x, y)``   |
-+-----------+----------+------------------------+
+as well as the negation on ``Bool`` types:
 
-以及作用于 ``Bool`` 类型的操作
+==========  ============== ============================================
+Expression  Name           Description
+==========  ============== ============================================
+``!x``      negation       changes ``true`` to ``false`` and vice versa
+==========  ============== ============================================
 
-+--------+------+-------------------------------------+
-| 表达式 | 名称 | 说明                                |
-+========+======+=====================================+
-| ``!x`` | 取反 | 如果 ``x`` 为真, 则返回假. 或者反之 |
-+--------+------+-------------------------------------+
+Julia's promotion system makes arithmetic operations on mixtures of argument
+types "just work" naturally and automatically. See :ref:`man-conversion-and-promotion`
+for details of the promotion system.
 
-Julia 的类型提升系统使得参数类型混杂的算术运算也很简单自然。详见
-:ref:`man-conversion-and-promotion` 。
-
-
-算术运算的例子： ::
+Here are some simple examples using arithmetic operators::
 
     julia> 1 + 2 + 3
     6
@@ -60,35 +53,29 @@ Julia 的类型提升系统使得参数类型混杂的算术运算也很简单�
     julia> 3*2/12
     0.5
 
-（习惯上，优先级低的运算，前后多补些空格。这是个人喜好，没有强制标准。）
+(By convention, we tend to space less tightly binding operators less
+tightly, but there are no syntactic constraints.)
 
-位运算符
---------
+Bitwise Operators
+-----------------
 
-下面的 `位运算符
-<http://en.wikipedia.org/wiki/Bitwise_operation#Bitwise_operators>`_ 适用于所
-有整数类型：
+The following `bitwise
+operators <http://en.wikipedia.org/wiki/Bitwise_operation#Bitwise_operators>`_
+are supported on all primitive integer types:
 
-+-------------+---------------------------------------------------------------------------------+
-| 表达式      | 名称                                                                            |
-+=============+=================================================================================+
-| ``~x``      | 取反                                                                            |
-+-------------+---------------------------------------------------------------------------------+
-| ``x & y``   | 按位与                                                                          |
-+-------------+---------------------------------------------------------------------------------+
-| ``x | y``   | 按位或                                                                          |
-+-------------+---------------------------------------------------------------------------------+
-| ``x $ y``   | 按位异或                                                                        |
-+-------------+---------------------------------------------------------------------------------+
-| ``x >>> y`` | 向右 `逻辑移位 <http://en.wikipedia.org/wiki/Logical_shift>`_ （高位补 0 ）     |
-+-------------+---------------------------------------------------------------------------------+
-| ``x >> y``  | 向右 `算术移位 <http://en.wikipedia.org/wiki/Arithmetic_shift>`_ （复制原高位） |
-+-------------+---------------------------------------------------------------------------------+
-| ``x << y``  | 向左逻辑/算术移位                                                               |
-+-------------+---------------------------------------------------------------------------------+
+===========  =========================================================================
+Expression   Name        
+===========  =========================================================================
+``~x``       bitwise not
+``x & y``    bitwise and
+``x | y``    bitwise or
+``x $ y``    bitwise xor (exclusive or)
+``x >>> y``  `logical shift <http://en.wikipedia.org/wiki/Logical_shift>`_ right
+``x >> y``   `arithmetic shift <http://en.wikipedia.org/wiki/Arithmetic_shift>`_ right
+``x << y``   logical/arithmetic shift left
+===========  =========================================================================
 
-
-位运算的例子： ::
+Here are some examples with bitwise operators::
 
     julia> ~123
     -124
@@ -108,12 +95,13 @@ Julia 的类型提升系统使得参数类型混杂的算术运算也很简单�
     julia> ~uint8(123)
     0x84
 
-复合赋值运算符
---------------
-
-二元算术和位运算都有对应的复合赋值运算符, 即运算的结果将会被赋值给左操作数. 在
-操作符的后面直接加上 ``=`` 就组成了复合赋值运算符. 例如, ``x += 3`` 相当于 ``x
-= x + 3`` ::
+Updating operators
+------------------
+Every binary arithmetic and bitwise operator also has an updating
+version that assigns the result of the operation back into its left
+operand. The updating version of the binary operator is formed by placing a
+``=`` immediately after the operator. For example, writing ``x += 3`` is
+equivalent to writing ``x = x + 3``::
 
       julia> x = 1
       1
@@ -124,35 +112,32 @@ Julia 的类型提升系统使得参数类型混杂的算术运算也很简单�
       julia> x
       4
 
-复合赋值运算符有： ::
+The updating versions of all the binary arithmetic and bitwise operators
+are::
 
-    +=  -=  *=  /=  \= %= ^= &=  |=  $=  >>>=  >>=  <<=
+    +=  -=  *=  /=  \=  %=  ^=  &=  |=  $=  >>>=  >>=  <<=
 
 
 .. _man-numeric-comparisons:
 
-数值比较
---------
+Numeric Comparisons
+-------------------
 
-所有的基础数值类型都可以使用比较运算符：
+Standard comparison operations are defined for all the primitive numeric
+types:
 
-+--------+----------+
-| 运算符 | 名称     |
-+========+==========+
-| ``==`` | 等于     |
-+--------+----------+
-| ``!=`` | 不等于   |
-+--------+----------+
-| ``<``  | 小于     |
-+--------+----------+
-| ``<=`` | 小于等于 |
-+--------+----------+
-| ``>``  | 大于     |
-+--------+----------+
-| ``>=`` | 大于等于 |
-+--------+----------+
+======== ========================
+Operator Name
+======== ========================
+``==``   equality
+``!=``   inequality
+``<``    less than
+``<=``   less than or equal to
+``>``    greater than
+``>=``   greater than or equal to
+======== ========================
 
-一些例子： ::
+Here are some simple examples::
 
     julia> 1 == 1
     true
@@ -187,15 +172,18 @@ Julia 的类型提升系统使得参数类型混杂的算术运算也很简单�
     julia> 3 < -0.5
     false
 
-整数是按位比较的。浮点数是按 `IEEE 754 标准 <http://zh.wikipedia.org/zh-cn/IEEE_754>`_ 比较的：
+Integers are compared in the standard manner — by comparison of bits.
+Floating-point numbers are compared according to the `IEEE 754
+standard <http://en.wikipedia.org/wiki/IEEE_754-2008>`_:
 
-- 有限数按照正常方式做比较.
-- 正数的零等于但不大于复数的零.
-- ``Inf`` 等于它本身，并且大于所有数, 除了 ``NaN``.
-- ``-Inf`` 等于它本身，并且小于所有数, 除了 ``NaN``.
-- ``NaN`` 不等于、不大于、不小于任何数，包括它本身.
+-  Finite numbers are ordered in the usual manner.
+-  Positive zero is equal but not greater than negative zero.
+-  ``Inf`` is equal to itself and greater than everything else except ``NaN``.
+-  ``-Inf`` is equal to itself and less then everything else except ``NaN``.
+-  ``NaN`` is not equal to, not less than, and not greater than anything,
+   including itself.
 
-有关 ``NaN`` 的性质，值得留意： ::
+The last point is potentially surprising and thus worth noting::
 
     julia> NaN == NaN
     false
@@ -209,50 +197,64 @@ Julia 的类型提升系统使得参数类型混杂的算术运算也很简单�
     julia> NaN > NaN
     false
 
-``NaN`` 在 :ref:`矩阵 <Arrays>` 使用时会带来些麻烦 ::
+and can cause especial headaches with :ref:`Arrays <man-arrays>`::
 
     julia> [1 NaN] == [1 NaN]
     false
 
-Julia 提供了额外的函数, 用以测试特殊值 ::
+Julia provides additional functions to test numbers for special values,
+which can be useful in situations like hash key comparisons:
 
-+--------------------+-------------------------------+
-| 函数               |                               |
-+====================+===============================+
-| ``isequal(x, y)``  |  测试 ``x`` 和 ``y`` 是否相等 |
-+--------------------+-------------------------------+
-| ``isfinite(x)``    |  测试 ``x`` 是否无限          |
-+--------------------+-------------------------------+
-| ``isinf(x)``       |  测试 ``x`` 是否有限          |
-+--------------------+-------------------------------+
-| ``isnan(x)``       |  测试 ``x`` 是否不是数        |
-+--------------------+-------------------------------+
+================= ==================================
+Function          Tests if
+================= ==================================
+``isequal(x, y)`` ``x`` and ``y`` are identical
+``isfinite(x)``   ``x`` is a finite number
+``isinf(x)``      ``x`` is infinite
+``isnan(x)``      ``x`` is not a number
+================= ==================================
 
-``isequal`` 函数，认为 ``NaN`` 等于它本身：::
+``isequal`` considers ``NaN``\ s equal to each other::
 
     julia> isequal(NaN,NaN)
     true
 
     julia> isequal([1 NaN], [1 NaN])
     true
-
-    julia> isequal(NaN, NaN32)
+    
+    julia> isequal(NaN,NaN32)
     false
 
-混合比较有符号整数, 无符号整数和浮点数非常棘手, 使用的时候需要特别小心.
+``isequal`` can also be used to distinguish signed zeros::
 
+    julia> -0.0 == 0.0
+    true
 
-链式比较
---------
+    julia> isequal(-0.0, 0.0)
+    false
 
-与大多数语言不同，Julia 支持 `Python链式比较 <http://en.wikipedia.org/wiki/Python_syntax_and_semantics#Comparison_operators>`_ ： ::
+Mixed-type comparisons between signed integers, unsigned integers, and
+floats can be very tricky. A great deal of care has been taken to ensure
+that Julia does them correctly.
+
+Chaining comparisons
+~~~~~~~~~~~~~~~~~~~~
+
+Unlike most languages, with the `notable exception of
+Python <http://en.wikipedia.org/wiki/Python_syntax_and_semantics#Comparison_operators>`_,
+comparisons can be arbitrarily chained::
 
     julia> 1 < 2 <= 2 < 3 == 3 > 2 >= 1 == 1 < 3 != 5
     true
 
-对标量的比较，链式比较使用 ``&&`` 运算符；对逐元素的比较使用 ``&`` 运算符，此运算符也可用于数组。例如， ``0 .< A .< 1`` 的结果是一个对应的布尔数组，满足条件的元素为 true 。
+Chaining comparisons is often quite convenient in numerical code.
+Chained comparisons use the ``&&`` operator for scalar comparisons,
+and the ``&`` operator for element-wise comparisons, which allows them to
+work on arrays. For example, ``0 .< A .< 1`` gives a boolean array whose
+entries are true where the corresponding elements of ``A`` are between 0
+and 1.
 
-注意链式比较的比较顺序： ::
+Note the evaluation behavior of chained comparisons::
 
     v(x) = (println(x); x)
 
@@ -267,134 +269,121 @@ Julia 提供了额外的函数, 用以测试特殊值 ::
     1
     false
 
-中间的值只计算了一次，而不是像 ``v(1) < v(2) && v(2) <= v(3)`` 一样计算了两次。链式比较的计算顺序是不确定的。不要在链式比较中使用带副作用（比如打印）的表达式。如果需要使用副作用表达式，推荐使用短路 ``&&`` 运算符（详见 :ref:`man-short-circuit-evaluation` ）。
+The middle expression is only evaluated once, rather than twice as it
+would be if the expression were written as
+``v(1) < v(2) && v(2) <= v(3)``. However, the order of evaluations in a
+chained comparison is undefined. It is strongly recommended not to use
+expressions with side effects (such as printing) in chained comparisons.
+If side effects are required, the short-circuit ``&&`` operator should
+be used explicitly (see :ref:`man-short-circuit-evaluation`).
 
-.. _man-elementrary-functions:
+.. _man-elementary-functions:
 
-基本函数
---------
+Elementary Functions
+--------------------
 
-Julia 提供了一系列数学函数和运算符：
+Julia provides a comprehensive collection of mathematical functions and
+operators. These mathematical operations are defined over as broad a
+class of numerical values as permit sensible definitions, including
+integers, floating-point numbers, rationals, and complexes, wherever
+such definitions make sense.
 
-舍入函数
-~~~~~~~~
-
-+---------------+---------------------------+----------+
-| 函数          | 说明                      | 返回类型 |
-+===============+===========================+==========+
-| ``round(x)``  | 把 ``x`` 舍入到最近的整数 | 浮点数   |
-+---------------+---------------------------+----------+
-| ``iround(x)`` | 把 ``x`` 舍入到最近的整数 | 整数     |
-+---------------+---------------------------+----------+
-| ``floor(x)``  | 把 ``x`` 向 ``-Inf`` 取整 | 浮点数   |
-+---------------+---------------------------+----------+
-| ``ifloor(x)`` | 把 ``x`` 向 ``-Inf`` 取整 | 整数     |
-+---------------+---------------------------+----------+
-| ``ceil(x)``   | 把 ``x`` 向 ``+Inf`` 取整 | 浮点数   |
-+---------------+---------------------------+----------+
-| ``iceil(x)``  | 把 ``x`` 向 ``+Inf`` 取整 | 整数     |
-+---------------+---------------------------+----------+
-| ``trunc(x)``  | 把 ``x`` 向 0 取整        | 浮点数   |
-+---------------+---------------------------+----------+
-| ``itrunc(x)`` | 把 ``x`` 向 0 取整        | 整数     |
-+---------------+---------------------------+----------+
-
-
-除法函数
-~~~~~~~~
-
-+-----------------+---------------------------------------------------------------+
-| 函数            | 说明                                                          |
-+=================+===============================================================+
-| ``div(x,y)``    | 截断取整除法；商向 0 舍入                                     |
-+-----------------+---------------------------------------------------------------+
-| ``fld(x,y)``    | 向下取整除法；商向 ``-Inf`` 舍入                              |
-+-----------------+---------------------------------------------------------------+
-| ``rem(x,y)``    | 除法余数；满足 ``x == div(x,y)*y + rem(x,y)`` ，与 ``x`` 同号 |
-+-----------------+---------------------------------------------------------------+
-| ``mod(x,y)``    | 取模余数；满足 ``x == fld(x,y)*y + mod(x,y)`` ，与 ``y`` 同号 |
-+-----------------+---------------------------------------------------------------+
-| ``gcd(x,y...)`` | ``x``, ``y``... 的最大公约数，与 ``x`` 同号                   |
-+-----------------+---------------------------------------------------------------+
-| ``lcm(x,y...)`` | ``x``, ``y``... 的最小公倍数，与 ``x`` 同号                   |
-+-----------------+---------------------------------------------------------------+
-
-
-符号和绝对值函数
-~~~~~~~~~~~~~~~~
-
-+-------------------+----------------------------------------------------+
-| 函数              | 说明                                               |
-+===================+====================================================+
-| ``abs(x)``        | ``x`` 的幅值                                       |
-+-------------------+----------------------------------------------------+
-| ``abs2(x)``       | ``x`` 的幅值的平方                                 |
-+-------------------+----------------------------------------------------+
-| ``sign(x)``       | ``x`` 的正负号，返回值为 -1, 0, 或 +1              |
-+-------------------+----------------------------------------------------+
-| ``signbit(x)``    | 是否有符号位，有 (1) 或者 无 (0)                   |
-+-------------------+----------------------------------------------------+
-| ``copysign(x,y)`` | 返回一个数，它具有 ``x`` 的幅值， ``y`` 的符号位   |
-+-------------------+----------------------------------------------------+
-| ``flipsign(x,y)`` | 返回一个数，它具有 ``x`` 的幅值， ``x*y`` 的符号位 |
-+-------------------+----------------------------------------------------+
-
-
-乘方, 对数和开方
-
-+----------------+------------------------------------------------------------------------+
-| 函数           | 说明                                                                   |
-+================+========================================================================+
-| ``sqrt(x)``    | ``x`` 的平方根                                                         |
-+----------------+------------------------------------------------------------------------+
-| ``cbrt(x)``    | ``x`` 的立方根                                                         |
-+----------------+------------------------------------------------------------------------+
-| ``hypot(x,y)`` | 精确计算 ``sqrt(x^2 + y^2)``                                           |
-+----------------+------------------------------------------------------------------------+
-| ``exp(x)``     | 自然指数 ``e`` 的 ``x`` 次幂                                           |
-+----------------+------------------------------------------------------------------------+
-| ``expm1(x)``   | 当 ``x`` 接近 0 时，精确计算 ``exp(x)-1``                              |
-+----------------+------------------------------------------------------------------------+
-| ``ldexp(x,n)`` | 当 ``n`` 为整数时，高效计算``x*2^n``                                   |
-+----------------+------------------------------------------------------------------------+
-| ``log(x)``     | ``x`` 的自然对数                                                       |
-+----------------+------------------------------------------------------------------------+
-| ``log(b,x)``   | 以 ``b`` 为底 ``x`` 的对数                                             |
-+----------------+------------------------------------------------------------------------+
-| ``log2(x)``    | 以 2 为底 ``x`` 的对数                                                 |
-+----------------+------------------------------------------------------------------------+
-| ``log10(x)``   | 以 10 为底 ``x`` 的对数                                                |
-+----------------+------------------------------------------------------------------------+
-| ``log1p(x)``   | 当 ``x`` 接近 0 时，精确计算 ``log(1+x)``                              |
-+----------------+------------------------------------------------------------------------+
-| ``logb(x)``    | ``trunc(log2(x))``                                                     |
-+----------------+------------------------------------------------------------------------+
-| ``erf(x)``     | ``x`` 处的 `误差函数 <http://en.wikipedia.org/wiki/Error_function>`_   |
-+----------------+------------------------------------------------------------------------+
-| ``erfc(x)``    | 对于大 ``x`` ，精确计算 ``1-erf(x)``                                   |
-+----------------+------------------------------------------------------------------------+
-| ``gamma(x)``   | ``x`` 处的 `gamma 函数 <http://en.wikipedia.org/wiki/Gamma_function>`_ |
-+----------------+------------------------------------------------------------------------+
-| ``lgamma(x)``  | 对于大 ``x`` ，精确计算 ``log(gamma(x))``                              |
-+----------------+------------------------------------------------------------------------+
-
-为什么要有 ``hypot``, ``expm1``, ``log1p``, ``erfc`` 等函数，参见 John D. Cook 的博客： `expm1, log1p, erfc <http://www.johndcook.com/blog/2010/06/07/math-library-functions-that-seem-unnecessary/>`_ 和 `hypot <http://www.johndcook.com/blog/2010/06/02/whats-so-hard-about-finding-a-hypotenuse/>`_ 。
-
-三角函数和双曲函数
+Rounding functions
 ~~~~~~~~~~~~~~~~~~
 
-Julia 内置了所有的标准三角函数和双曲函数 ::
+============= ==================================  =================
+Function      Description                         Return type
+============= ==================================  =================
+``round(x)``  round ``x`` to the nearest integer  ``FloatingPoint``
+``iround(x)`` round ``x`` to the nearest integer  ``Integer``
+``floor(x)``  round ``x`` towards ``-Inf``        ``FloatingPoint``
+``ifloor(x)`` round ``x`` towards ``-Inf``        ``Integer``
+``ceil(x)``   round ``x`` towards ``+Inf``        ``FloatingPoint``
+``iceil(x)``  round ``x`` towards ``+Inf``        ``Integer``
+``trunc(x)``  round ``x`` towards zero            ``FloatingPoint``
+``itrunc(x)`` round ``x`` towards zero            ``Integer``
+============= ==================================  =================
+
+Division functions
+~~~~~~~~~~~~~~~~~~
+
+=============== =======================================================================
+Function        Description
+=============== =======================================================================
+``div(x,y)``    truncated division; quotient rounded towards zero
+``fld(x,y)``    floored division; quotient rounded towards ``-Inf``
+``rem(x,y)``    remainder; satisfies ``x == div(x,y)*y + rem(x,y)``; sign matches ``x``
+``mod(x,y)``    modulus; satisfies ``x == fld(x,y)*y + mod(x,y)``; sign matches ``y``
+``gcd(x,y...)`` greatest common divisor of ``x``, ``y``,...; sign matches ``x``
+``lcm(x,y...)`` least common multiple of ``x``, ``y``,...; sign matches ``x``
+=============== =======================================================================
+
+Sign and absolute value functions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+================= ===========================================================
+Function          Description
+================= ===========================================================
+``abs(x)``        a positive value with the magnitude of ``x``
+``abs2(x)``       the squared magnitude of ``x``
+``sign(x)``       indicates the sign of ``x``, returning -1, 0, or +1
+``signbit(x)``    indicates whether the sign bit is on (1) or off (0)
+``copysign(x,y)`` a value with the magnitude of ``x`` and the sign of ``y``
+``flipsign(x,y)`` a value with the magnitude of ``x`` and the sign of ``x*y``
+================= ===========================================================
+
+Powers, logs and roots
+~~~~~~~~~~~~~~~~~~~~~~
+
+============== ==============================================================================
+Function       Description
+============== ==============================================================================
+``sqrt(x)``    the square root of ``x``
+``cbrt(x)``    the cube root of ``x``
+``hypot(x,y)`` hypotenuse of right-angled triangle with other sides of length ``x`` and ``y``
+``exp(x)``     the natural exponential function at ``x``
+``expm1(x)``   accurate ``exp(x)-1`` for ``x`` near zero
+``ldexp(x,n)`` ``x*2^n`` computed efficiently for integer values of ``n``
+``log(x)``     the natural logarithm of ``x``
+``log(b,x)``   the base ``b`` logarithm of ``x``
+``log2(x)``    the base 2 logarithm of ``x``
+``log10(x)``   the base 10 logarithm of ``x``
+``log1p(x)``   accurate ``log(1+x)`` for ``x`` near zero
+``logb(x)``    returns the binary exponent of ``x``
+``erf(x)``     the `error function <http://en.wikipedia.org/wiki/Error_function>`_ at ``x``
+``erfc(x)``    the complementary error function ``1-erf(x)``
+``gamma(x)``   the `gamma function <http://en.wikipedia.org/wiki/Gamma_function>`_ at ``x``
+``lgamma(x)``  accurate ``log(gamma(x))`` for large ``x``
+============== ==============================================================================
+
+For an overview of why functions like ``hypot``, ``expm1``, ``log1p``,
+and ``erfc`` are necessary and useful, see John D. Cook's excellent pair
+of blog posts on the subject: `expm1, log1p,
+erfc <http://www.johndcook.com/blog/2010/06/07/math-library-functions-that-seem-unnecessary/>`_,
+and
+`hypot <http://www.johndcook.com/blog/2010/06/02/whats-so-hard-about-finding-a-hypotenuse/>`_.
+
+Trigonometric and hyperbolic functions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+All the standard trigonometric and hyperbolic functions are also defined::
 
     sin    cos    tan    cot    sec    csc
     sinh   cosh   tanh   coth   sech   csch
     asin   acos   atan   acot   asec   acsc
-    acoth  asech  acsch  sinc   cosc   atan2
+    sinc   cosc   atan2  acoth  asech  acsch
 
-除了 `atan2 <http://zh.wikipedia.org/zh-cn/Atan2>`_ 之外，都是单参数函数。 ``atan2`` 给出了 *x* 轴，与由 *x* 、 *y* 确定的点之间的 `弧度 <http://zh.wikipedia.org/zh-cn/%E5%BC%A7%E5%BA%A6>`_ 。
+These are all single-argument functions, with the exception of
+`atan2 <http://en.wikipedia.org/wiki/Atan2>`_, which gives the angle
+in `radians <http://en.wikipedia.org/wiki/Radian>`_ between the *x*-axis
+and the point specified by its arguments, interpreted as *x* and *y*
+coordinates.
 
-如果想要以度为单位计算三角函数 (默认为弧度)，使用带 ``d`` 后缀的函数。例如，
-``sind(x)`` 计算 ``x`` 的正弦值， 这里``x`` 的单位是度。以下的列表是全部的以度
-为单位的三角函数 ::
+In order to compute trigonometric functions with degrees
+instead of radians, suffix the function with ``d``. For example, ``sind(x)``
+computes the sine of ``x`` where ``x`` is specified in degrees.
+The complete list of trigonometric functions with degree variants is::
 
-    sind  cosd  tand  cotd  secd  cscd
-    asind acosd atand acotd asecd ascsd
+    sind   cosd   tand   cotd   secd   cscd
+    asind  acosd  atand  acotd  asecd  acscd
+

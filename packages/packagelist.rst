@@ -4,6 +4,118 @@
  可用扩展包
 ************
 
+`ASCIIPlots <https://github.com/johnmyleswhite/ASCIIPlots.jl>`_
+_______________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: John Myles White
+     :target: https://github.com/johnmyleswhite
+
+  Generate simple plots as ASCII art in Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-07-26) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: John Myles White
+        :target: https://github.com/johnmyleswhite
+
+----
+
+`AWS <https://github.com/amitmurthy/AWS.jl>`_
+_____________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/313e7a578240d11c97a68c9c6918a90b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Amit Murthy
+     :target: https://github.com/amitmurthy
+
+  Julia interface to AWS 
+
+  当前版本： ``0.0.0``  (updated: 2013-07-09) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Amit Murthy <https://github.com/amitmurthy>`_
+
+  依赖关系： ::
+
+      Calendar       任意版本
+      Codecs         任意版本
+      HTTPClient     任意版本
+      LibExpat       任意版本
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/313e7a578240d11c97a68c9c6918a90b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Amit Murthy
+        :target: https://github.com/amitmurthy
+
+    .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Keno Fischer
+        :target: https://github.com/loladiro
+
+----
+
+`ApproxFun <https://github.com/dlfivefifty/ApproxFun>`_
+_______________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/69459897cbc341ab301fa1d7d2e3486a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: dlfivefifty
+     :target: https://github.com/dlfivefifty
+
+  Julia IFun Implementation 
+
+  当前版本： ``0.0.0``  (updated: 2013-07-15) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `dlfivefifty <https://github.com/dlfivefifty>`_
+
+  依赖关系： ::
+
+      Winston        任意版本
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/69459897cbc341ab301fa1d7d2e3486a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: dlfivefifty
+        :target: https://github.com/dlfivefifty
+
+    .. image:: https://secure.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: John Myles White
+        :target: https://github.com/johnmyleswhite
+
+----
+
 `ArgParse <https://github.com/carlobaldassi/ArgParse.jl>`_
 __________________________________________________________
 
@@ -14,16 +126,21 @@ __________________________________________________________
      :alt: Carlo Baldassi
      :target: https://github.com/carlobaldassi
 
-  当前版本： ``0.2.0``
-
   Package for parsing command-line arguments to Julia programs. 
+
+  当前版本： ``0.2.4``  (updated: 2013-06-18) 
+
+  Master 状态： |ArgParse_build|
+
+  .. |ArgParse_build| image:: https://api.travis-ci.org/carlobaldassi/ArgParse.jl.png
+     :align: bottom
 
   维护者： `Carlo Baldassi <https://github.com/carlobaldassi>`_
 
   依赖关系： ::
 
       Options        任意版本
-      TextWrap       任意版本
+      TextWrap       [v"0.1.0-"]
       julia          [v"0.2.0-"]
 
   贡献者：
@@ -48,6 +165,38 @@ __________________________________________________________
 
 ----
 
+`BSplines <https://github.com/gusl/BSplines.jl>`_
+_________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/25d0ed671b01595bb0a6c12bfa90c9b2?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: gusl
+     :target: https://github.com/gusl
+
+   
+
+  当前版本： ``0.0.0``  (updated: 2013-04-11) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `gusl <https://github.com/gusl>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/25d0ed671b01595bb0a6c12bfa90c9b2?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: gusl
+        :target: https://github.com/gusl
+
+----
+
 `Benchmark <https://github.com/johnmyleswhite/Benchmark.jl>`_
 _____________________________________________________________
 
@@ -58,15 +207,18 @@ _____________________________________________________________
      :alt: John Myles White
      :target: https://github.com/johnmyleswhite
 
-  当前版本： ``0.0.0``
-
   A package for benchmarking code and packages 
+
+  当前版本： ``0.0.1``  (updated: 2013-06-23) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
   依赖关系： ::
 
       DataFrames     任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -100,15 +252,18 @@ ___________________________________________________
      :alt: Keno Fischer
      :target: https://github.com/loladiro
 
-  当前版本： ``0.0.1``
-
   Tool for building binary dependencies for Julia modules 
+
+  当前版本： ``0.2.2``  (updated: 2013-07-31) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Keno Fischer <https://github.com/loladiro>`_
 
   依赖关系： ::
 
-      julia     [v"0.2.0-"]
+      URIParser      任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -118,11 +273,29 @@ ___________________________________________________
         :alt: Keno Fischer
         :target: https://github.com/loladiro
 
+    .. image:: https://secure.gravatar.com/avatar/55e277a715ee2afd0d29c309174eca02?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Viral B. Shah
+        :target: https://github.com/ViralBShah
+
     .. image:: https://secure.gravatar.com/avatar/8af4d5971a2308b86a94f58fb98129c5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Jameson Nash
         :target: https://github.com/vtjnash
+
+    .. image:: https://secure.gravatar.com/avatar/b0cf54b8431443687735cb486599ea9c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Miles Lubin
+        :target: https://github.com/mlubin
+
+    .. image:: https://secure.gravatar.com/avatar/80502de63c1b21d8f3ba663d72ba5be2?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Carlo Baldassi
+        :target: https://github.com/carlobaldassi
 
     .. image:: https://secure.gravatar.com/avatar/317e44562dcf11f5164d0a4936696fbc?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -142,15 +315,17 @@ _________________________________________________
      :alt: Diego Javier Zea
      :target: https://github.com/diegozea
 
-  当前版本： ``0.0.0``
-
   Julia's package for working on Bioinformatics with DNA, RNA and Protein Sequences 
+
+  当前版本： ``0.2.1``  (updated: 2013-05-25) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Diego Javier Zea <https://github.com/diegozea>`_
 
   依赖关系： ::
 
-      无
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -168,6 +343,40 @@ _________________________________________________
 
 ----
 
+`Blocks <https://github.com/tanmaykm/Blocks.jl>`_
+_________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/eea0b193dae8ac47946202ee404a6d7a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Tanmay Mohapatra
+     :target: https://github.com/tanmaykm
+
+  A framework to represent chunks of entities and parallel methods on them. 
+
+  当前版本： ``0.0.0``  (updated: 2013-08-02) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Tanmay Mohapatra <https://github.com/tanmaykm>`_
+
+  依赖关系： ::
+
+      DataFrames     任意版本
+      HDFS           任意版本
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/eea0b193dae8ac47946202ee404a6d7a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tanmay Mohapatra
+        :target: https://github.com/tanmaykm
+
+----
+
 `BloomFilters <https://github.com/johnmyleswhite/BloomFilters.jl>`_
 ___________________________________________________________________
 
@@ -178,9 +387,11 @@ ___________________________________________________________________
      :alt: John Myles White
      :target: https://github.com/johnmyleswhite
 
-  当前版本： ``0.0.0``
-
   Bloom filters in Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-02-03) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
@@ -198,6 +409,38 @@ ___________________________________________________________________
 
 ----
 
+`CRC32 <https://github.com/fhs/CRC32.jl>`_
+__________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/f11cd39050d2eb63ec494c0e7ae81d98?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Fazlul Shahriar
+     :target: https://github.com/fhs
+
+  32-bit cyclic redundancy check (CRC-32) checksum implementation for Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-07-21) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Fazlul Shahriar <https://github.com/fhs>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/f11cd39050d2eb63ec494c0e7ae81d98?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Fazlul Shahriar
+        :target: https://github.com/fhs
+
+----
+
 `Cairo <https://github.com/JuliaLang/Cairo.jl>`_
 ________________________________________________
 
@@ -208,9 +451,11 @@ ________________________________________________
      :alt: The Julia Language
      :target: https://github.com/JuliaLang
 
-  当前版本： ``0.0.1``
-
   Bindings to the Cairo graphics library. 
+
+  当前版本： ``0.2.5``  (updated: 2013-08-01) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `The Julia Language <https://github.com/JuliaLang>`_
 
@@ -222,11 +467,23 @@ ________________________________________________
 
   贡献者：
 
+    .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tim Holy
+        :target: https://github.com/timholy
+
     .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Keno Fischer
         :target: https://github.com/loladiro
+
+    .. image:: https://secure.gravatar.com/avatar/55e277a715ee2afd0d29c309174eca02?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Viral B. Shah
+        :target: https://github.com/ViralBShah
 
     .. image:: https://secure.gravatar.com/avatar/b4b8db23d8096b722483a57d21b7d65d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -240,6 +497,24 @@ ________________________________________________
         :alt: Mike Nolta
         :target: https://github.com/nolta
 
+    .. image:: https://secure.gravatar.com/avatar/8af4d5971a2308b86a94f58fb98129c5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Jameson Nash
+        :target: https://github.com/vtjnash
+
+    .. image:: https://secure.gravatar.com/avatar/fd97b03d16e1aa4c404391216d81c1d5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Daniel Jones
+        :target: https://github.com/dcjones
+
+    .. image:: https://secure.gravatar.com/avatar/afb7f86706c41da610daf216d60e59b9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Ron Rock
+        :target: https://github.com/rsrock
+
     .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
@@ -252,23 +527,17 @@ ________________________________________________
         :alt: Patrick O'Leary
         :target: https://github.com/pao
 
-    .. image:: https://secure.gravatar.com/avatar/55e277a715ee2afd0d29c309174eca02?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: Viral B. Shah
-        :target: https://github.com/ViralBShah
-
-    .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: Tim Holy
-        :target: https://github.com/timholy
-
     .. image:: https://secure.gravatar.com/avatar/42c8c4ab92de3390bcd2f637ef6ca16c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Kevin Squire
         :target: https://github.com/kmsquire
+
+    .. image:: https://secure.gravatar.com/avatar/002ccfd8ee9e135f0dfb5650c292052d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Elliot Saba
+        :target: https://github.com/staticfloat
 
     .. image:: https://secure.gravatar.com/avatar/dfc3b0fbb59c9444153823fd35dbd13b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -288,15 +557,20 @@ ___________________________________________________________
      :alt: John Myles White
      :target: https://github.com/johnmyleswhite
 
-  当前版本： ``0.1.0``
-
   Calculus functions in Julia 
+
+  当前版本： ``0.1.1``  (updated: 2013-04-27) 
+
+  Master 状态： |Calculus_build|
+
+  .. |Calculus_build| image:: https://api.travis-ci.org/johnmyleswhite/Calculus.jl.png
+     :align: bottom
 
   维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
   依赖关系： ::
 
-      julia         [v"0.1.0-", v"0.2.0-"]
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -311,6 +585,12 @@ ___________________________________________________________
         :width: 40px
         :alt: Tim Holy
         :target: https://github.com/timholy
+
+    .. image:: https://secure.gravatar.com/avatar/6453a62bda2e46cf7778a2b64a5a259b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Ivar Nesje
+        :target: https://github.com/ivarne
 
     .. image:: https://secure.gravatar.com/avatar/f5c61e85dfa465686adc24e0bffba42a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -336,9 +616,11 @@ __________________________________________________
      :alt: Mike Nolta
      :target: https://github.com/nolta
 
-  当前版本： ``0.2.0``
-
   Calendar time package for Julia 
+
+  当前版本： ``0.3.3``  (updated: 2013-07-15) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Mike Nolta <https://github.com/nolta>`_
 
@@ -369,6 +651,38 @@ __________________________________________________
 
 ----
 
+`Cartesian <https://github.com/timholy/Cartesian.jl>`_
+______________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Tim Holy
+     :target: https://github.com/timholy
+
+  Fast multidimensional iteration 
+
+  当前版本： ``0.0.0``  (updated: 2013-05-28) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Tim Holy <https://github.com/timholy>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tim Holy
+        :target: https://github.com/timholy
+
+----
+
 `Catalan <https://github.com/andrioni/Catalan.jl>`_
 ___________________________________________________
 
@@ -379,9 +693,11 @@ ___________________________________________________
      :alt: Alessandro Andrioni
      :target: https://github.com/andrioni
 
-  当前版本： ``0.0.0``
-
   Catalan: a combinatorics library for Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-05-07) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Alessandro Andrioni <https://github.com/andrioni>`_
 
@@ -397,11 +713,86 @@ ___________________________________________________
         :alt: Alessandro Andrioni
         :target: https://github.com/andrioni
 
+    .. image:: https://secure.gravatar.com/avatar/62df30beab9c2a6f3fe3f86995e94387?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: David de Laat
+        :target: https://github.com/daviddelaat
+
     .. image:: https://secure.gravatar.com/avatar/6cba33e8e7c69fa63f6ad386b7a958c5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Jiahao Chen
         :target: https://github.com/jiahao
+
+----
+
+`ChainedVectors <https://github.com/tanmaykm/ChainedVectors.jl>`_
+_________________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/eea0b193dae8ac47946202ee404a6d7a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Tanmay Mohapatra
+     :target: https://github.com/tanmaykm
+
+  Few utility types over Julia Vector type 
+
+  当前版本： ``0.0.0``  (updated: 2013-05-25) 
+
+  Master 状态： |ChainedVectors_build|
+
+  .. |ChainedVectors_build| image:: https://api.travis-ci.org/tanmaykm/ChainedVectors.jl.png
+     :align: bottom
+
+  维护者： `Tanmay Mohapatra <https://github.com/tanmaykm>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/eea0b193dae8ac47946202ee404a6d7a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tanmay Mohapatra
+        :target: https://github.com/tanmaykm
+
+----
+
+`ChemicalKinetics <https://github.com/scidom/ChemicalKinetics.jl>`_
+___________________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/f1678bcdc052b500191b78923399e5f8?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Theodore Papamarkou
+     :target: https://github.com/scidom
+
+  Simulation, Bayesian inference and Bayesian model selection for chemical kinetics in Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-07-07) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Theodore Papamarkou <https://github.com/scidom>`_
+
+  依赖关系： ::
+
+      Distributions  任意版本
+      Sundials       任意版本
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/f1678bcdc052b500191b78923399e5f8?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Theodore Papamarkou
+        :target: https://github.com/scidom
 
 ----
 
@@ -415,9 +806,11 @@ _______________________________________________
      :alt: Isaiah
      :target: https://github.com/ihnorton
 
-  当前版本： ``0.0.0``
+  Julia interface to libclang and C wrapper generator 
 
-  Julia access to the libclang interface of the LLVM Clang compiler. 
+  当前版本： ``0.0.0``  (updated: 2013-06-09) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Isaiah <https://github.com/ihnorton>`_
 
@@ -440,11 +833,23 @@ _______________________________________________
         :alt: Jameson Nash
         :target: https://github.com/vtjnash
 
+    .. image:: https://secure.gravatar.com/avatar/b0cf54b8431443687735cb486599ea9c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Miles Lubin
+        :target: https://github.com/mlubin
+
     .. image:: https://secure.gravatar.com/avatar/313e7a578240d11c97a68c9c6918a90b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Amit Murthy
         :target: https://github.com/amitmurthy
+
+    .. image:: https://secure.gravatar.com/avatar/9524ef56c2823a59d54f9226a7ef08ba?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Simon Kornblith
+        :target: https://github.com/simonster
 
     .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -464,15 +869,18 @@ _________________________________________
      :alt: Miles Lubin
      :target: https://github.com/mlubin
 
-  当前版本： ``0.0.1``
-
   Interface to the Coin-OR Linear Programming solver (CLP) 
+
+  当前版本： ``0.0.3``  (updated: 2013-06-24) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Miles Lubin <https://github.com/mlubin>`_
 
   依赖关系： ::
 
       BinDeps        任意版本
+      MathProgBase   任意版本
       julia          [v"0.2.0-"]
 
   贡献者：
@@ -482,6 +890,50 @@ _________________________________________
         :width: 40px
         :alt: Miles Lubin
         :target: https://github.com/mlubin
+
+    .. image:: https://secure.gravatar.com/avatar/80502de63c1b21d8f3ba663d72ba5be2?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Carlo Baldassi
+        :target: https://github.com/carlobaldassi
+
+----
+
+`ClusterManagers <https://github.com/nlhepler/ClusterManagers.jl>`_
+___________________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/0e32745f2094c6ec4162b447c47a9609?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Lance Hepler
+     :target: https://github.com/nlhepler
+
+   
+
+  当前版本： ``0.0.0``  (updated: 2013-07-10) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Lance Hepler <https://github.com/nlhepler>`_
+
+  依赖关系： ::
+
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/313e7a578240d11c97a68c9c6918a90b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Amit Murthy
+        :target: https://github.com/amitmurthy
+
+    .. image:: https://secure.gravatar.com/avatar/0e32745f2094c6ec4162b447c47a9609?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Lance Hepler
+        :target: https://github.com/nlhepler
 
 ----
 
@@ -495,9 +947,11 @@ _______________________________________________________________
      :alt: John Myles White
      :target: https://github.com/johnmyleswhite
 
-  当前版本： ``0.0.0``
-
   Basic functions for clustering data: k-means, dp-means, etc. 
+
+  当前版本： ``0.2.1``  (updated: 2013-06-21) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
@@ -505,16 +959,10 @@ _______________________________________________________________
 
       Devectorize    任意版本
       Distance       任意版本
-      MLBase         任意版本
-      Options        任意版本
+      Stats          任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
-
-    .. image:: https://secure.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: John Myles White
-        :target: https://github.com/johnmyleswhite
 
     .. image:: https://secure.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -522,11 +970,23 @@ _______________________________________________________________
         :alt: Dahua Lin
         :target: https://github.com/lindahua
 
+    .. image:: https://secure.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: John Myles White
+        :target: https://github.com/johnmyleswhite
+
     .. image:: https://secure.gravatar.com/avatar/1af2db0b26142fd0c7ab082f3d445f73?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Ian Fiske
         :target: https://github.com/ianfiske
+
+    .. image:: https://secure.gravatar.com/avatar/b02979bc1549a16515c880ce836c3023?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Chiyuan Zhang
+        :target: https://github.com/pluskid
 
 ----
 
@@ -540,9 +1000,11 @@ ________________________________________________
      :alt: Daniel Jones
      :target: https://github.com/dcjones
 
-  当前版本： ``0.0.0``
-
   Common data encoding algorithms 
+
+  当前版本： ``0.0.0``  (updated: 2013-06-23) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Daniel Jones <https://github.com/dcjones>`_
 
@@ -558,6 +1020,12 @@ ________________________________________________
         :alt: Daniel Jones
         :target: https://github.com/dcjones
 
+    .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tim Holy
+        :target: https://github.com/timholy
+
 ----
 
 `CoinMP <https://github.com/mlubin/CoinMP.jl>`_
@@ -570,15 +1038,18 @@ _______________________________________________
      :alt: Miles Lubin
      :target: https://github.com/mlubin
 
-  当前版本： ``0.0.1``
-
   Interface to the Coin-OR CBC solver for mixed-integer programming 
+
+  当前版本： ``0.0.2``  (updated: 2013-05-21) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Miles Lubin <https://github.com/mlubin>`_
 
   依赖关系： ::
 
       BinDeps        任意版本
+      MathProgBase   任意版本
       julia          [v"0.2.0-"]
 
   贡献者：
@@ -588,6 +1059,12 @@ _______________________________________________
         :width: 40px
         :alt: Miles Lubin
         :target: https://github.com/mlubin
+
+    .. image:: https://secure.gravatar.com/avatar/80502de63c1b21d8f3ba663d72ba5be2?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Carlo Baldassi
+        :target: https://github.com/carlobaldassi
 
 ----
 
@@ -601,9 +1078,11 @@ ________________________________________________
      :alt: The Julia Language
      :target: https://github.com/JuliaLang
 
-  当前版本： ``0.2.0``
-
   Basic color manipulation utilities. 
+
+  当前版本： ``0.2.4``  (updated: 2013-07-27) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `The Julia Language <https://github.com/JuliaLang>`_
 
@@ -619,23 +1098,35 @@ ________________________________________________
         :alt: Daniel Jones
         :target: https://github.com/dcjones
 
-    .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: Tim Holy
-        :target: https://github.com/timholy
-
     .. image:: https://secure.gravatar.com/avatar/b4b8db23d8096b722483a57d21b7d65d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Jeff Bezanson
         :target: https://github.com/JeffBezanson
 
+    .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tim Holy
+        :target: https://github.com/timholy
+
     .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Stefan Karpinski
         :target: https://github.com/StefanKarpinski
+
+    .. image:: https://secure.gravatar.com/avatar/8af4d5971a2308b86a94f58fb98129c5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Jameson Nash
+        :target: https://github.com/vtjnash
+
+    .. image:: https://secure.gravatar.com/avatar/d04d5b6e71776eb13d195ba7cc94b995?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Waldir Pimenta
+        :target: https://github.com/waldir
 
 ----
 
@@ -649,16 +1140,19 @@ __________________________________________________
      :alt: Daniel Jones
      :target: https://github.com/dcjones
 
-  当前版本： ``0.0.0``
-
   Declarative vector graphics 
+
+  当前版本： ``0.1.6``  (updated: 2013-07-17) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Daniel Jones <https://github.com/dcjones>`_
 
   依赖关系： ::
 
-      Cairo          任意版本
+      Color          任意版本
       Mustache       任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -692,6 +1186,12 @@ __________________________________________________
         :alt: Ian Fiske
         :target: https://github.com/ianfiske
 
+    .. image:: https://secure.gravatar.com/avatar/f5c61e85dfa465686adc24e0bffba42a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Avik Sengupta
+        :target: https://github.com/aviks
+
     .. image:: https://secure.gravatar.com/avatar/910a5ad5931aeda034b38c9658eaadf2?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
@@ -710,6 +1210,12 @@ __________________________________________________
         :alt: Westley Argentum Hennigh
         :target: https://github.com/WestleyArgentum
 
+    .. image:: https://secure.gravatar.com/avatar/8f514187144b1b19b0205fce41284d32?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: john verzani
+        :target: https://github.com/jverzani
+
 ----
 
 `ContinuedFractions <https://github.com/johnmyleswhite/ContinuedFractions.jl>`_
@@ -722,9 +1228,11 @@ _______________________________________________________________________________
      :alt: John Myles White
      :target: https://github.com/johnmyleswhite
 
-  当前版本： ``0.0.0``
-
   Types and functions for working with continued fractions in Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-02-07) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
@@ -752,9 +1260,11 @@ __________________________________________
      :alt: Tim Holy
      :target: https://github.com/timholy
 
-  当前版本： ``0.0.0``
-
   Utilities for calling C++ from Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-03-15) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Tim Holy <https://github.com/timholy>`_
 
@@ -782,9 +1292,11 @@ _____________________________________________________
      :alt: Steven G. Johnson
      :target: https://github.com/stevengj
 
-  当前版本： ``0.1.0``
-
   One- and multi-dimensional adaptive integration routines for the Julia language 
+
+  当前版本： ``1.0.0``  (updated: 2013-07-15) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Steven G. Johnson <https://github.com/stevengj>`_
 
@@ -807,15 +1319,17 @@ __________________________________________
      :alt: Forio Online Simulations
      :target: https://github.com/forio
 
-  当前版本： ``0.0.1``
-
   a Julia HTTP curl library 
+
+  当前版本： ``0.0.1``  (updated: 2013-05-29) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Forio Online Simulations <https://github.com/forio>`_
 
   依赖关系： ::
 
-      julia      [v"0.2.0-"]
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -825,7 +1339,7 @@ __________________________________________
         :alt: PLHW
         :target: https://github.com/pauladam
 
-       .. image:: https://secure.gravatar.com/avatar/dfc3b0fbb59c9444153823fd35dbd13b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+    .. image:: https://secure.gravatar.com/avatar/dfc3b0fbb59c9444153823fd35dbd13b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Westley Argentum Hennigh
@@ -843,9 +1357,11 @@ _______________________________________________
      :alt: Isaiah
      :target: https://github.com/ihnorton
 
-  当前版本： ``0.0.0``
-
   DICOM for Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-03-01) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Isaiah <https://github.com/ihnorton>`_
 
@@ -860,6 +1376,12 @@ _______________________________________________
         :width: 40px
         :alt: Isaiah
         :target: https://github.com/ihnorton
+
+    .. image:: https://secure.gravatar.com/avatar/9524ef56c2823a59d54f9226a7ef08ba?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Simon Kornblith
+        :target: https://github.com/simonster
 
     .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -887,26 +1409,64 @@ _______________________________________________
 
 ----
 
-`DataFrames <https://github.com/HarlanH/DataFrames.jl>`_
-________________________________________________________
+`DWARF <https://github.com/loladiro/DWARF.jl>`_
+_______________________________________________
 
-  .. image:: https://secure.gravatar.com/avatar/9f1a68b9e623be5da422b44e733fa8bc?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+  .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
      :height: 80px
      :width: 80px
      :align: right
-     :alt: Harlan Harris
-     :target: https://github.com/HarlanH
+     :alt: Keno Fischer
+     :target: https://github.com/loladiro
 
-  当前版本： ``0.2.0``
+  Julia Package for parsing the DWARF file format 
+
+  当前版本： ``0.0.0``  (updated: 2013-06-17) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Keno Fischer <https://github.com/loladiro>`_
+
+  依赖关系： ::
+
+      ELF            任意版本
+      StrPack        任意版本
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Keno Fischer
+        :target: https://github.com/loladiro
+
+----
+
+`DataFrames <https://github.com/JuliaStats/DataFrames.jl>`_
+___________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/d57c99557ab0dc0fa44b4c84447d0f15?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-org-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Julia Statistics
+     :target: https://github.com/JuliaStats
 
   library for working with tabular data in Julia 
 
-  维护者： `Harlan Harris <https://github.com/HarlanH>`_
+  当前版本： ``0.3.8``  (updated: 2013-07-26) 
+
+  Master 状态： |DataFrames_build|
+
+  .. |DataFrames_build| image:: https://api.travis-ci.org/JuliaStats/DataFrames.jl.png
+     :align: bottom
+
+  维护者： `Julia Statistics <https://github.com/JuliaStats>`_
 
   依赖关系： ::
 
       GZip           任意版本
-      Options        任意版本
       Stats          任意版本
       julia          [v"0.2.0-"]
 
@@ -930,17 +1490,17 @@ ________________________________________________________
         :alt: Chris DuBois
         :target: https://github.com/doobwa
 
+    .. image:: https://secure.gravatar.com/avatar/a27d23ce4c080f3307cc6507f6fdfe87?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Douglas Bates
+        :target: https://github.com/dmbates
+
     .. image:: https://secure.gravatar.com/avatar/42c8c4ab92de3390bcd2f637ef6ca16c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Kevin Squire
         :target: https://github.com/kmsquire
-
-    .. image:: https://secure.gravatar.com/avatar/a27d23ce4c080f3307cc6507f6fdfe87?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: dmbates
-        :target: https://github.com/dmbates
 
     .. image:: https://secure.gravatar.com/avatar/903acb22f47a901577ee48d3962d5858?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -954,6 +1514,12 @@ ________________________________________________________
         :alt: Viral B. Shah
         :target: https://github.com/ViralBShah
 
+    .. image:: https://secure.gravatar.com/avatar/9524ef56c2823a59d54f9226a7ef08ba?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Simon Kornblith
+        :target: https://github.com/simonster
+
     .. image:: https://secure.gravatar.com/avatar/25ce2ab2f5e673e46208c1188a39e6ca?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
@@ -966,6 +1532,11 @@ ________________________________________________________
         :alt: Stefan Karpinski
         :target: https://github.com/StefanKarpinski
 
+    .. image:: https://secure.gravatar.com/avatar/53949fa7e9d7c39f470e849cc94dd1e5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: David Reiss
+        :target: https://github.com/dreiss-isb
 
     .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -985,17 +1556,29 @@ ________________________________________________________
         :alt: Jeff Bezanson
         :target: https://github.com/JeffBezanson
 
+    .. image:: https://secure.gravatar.com/avatar/2cbc175271c0dbdaf0aa8f68af6c13d4?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Glen Hertz
+        :target: https://github.com/GlenHertz
+
+    .. image:: https://secure.gravatar.com/avatar/eea0b193dae8ac47946202ee404a6d7a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tanmay Mohapatra
+        :target: https://github.com/tanmaykm
+
     .. image:: https://secure.gravatar.com/avatar/16d8443194c380ca93a77fb8530a5aee?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Patrick O'Leary
         :target: https://github.com/pao
 
-    .. image:: https://secure.gravatar.com/avatar/2cbc175271c0dbdaf0aa8f68af6c13d4?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+    .. image:: https://secure.gravatar.com/avatar/fd97b03d16e1aa4c404391216d81c1d5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: Glen Hertz
-        :target: https://github.com/GlenHertz
+        :alt: Daniel Jones
+        :target: https://github.com/dcjones
 
     .. image:: https://secure.gravatar.com/avatar/80502de63c1b21d8f3ba663d72ba5be2?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -1009,17 +1592,17 @@ ________________________________________________________
         :alt: Jameson Nash
         :target: https://github.com/vtjnash
 
-    .. image:: https://secure.gravatar.com/avatar/fd97b03d16e1aa4c404391216d81c1d5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+    .. image:: https://secure.gravatar.com/avatar/756973876a839bde0544818d2dee6961?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: Daniel Jones
-        :target: https://github.com/dcjones
+        :alt: timema
+        :target: https://github.com/timema
 
-    .. image:: https://secure.gravatar.com/avatar/02abdd20ef026f24d96035a407912df0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+    .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: Andreas Noack Jensen
-        :target: https://github.com/andreasnoackjensen
+        :alt: Keno Fischer
+        :target: https://github.com/loladiro
 
     .. image:: https://secure.gravatar.com/avatar/4206b43cb025b0c1fd8cd9fa89dd6086?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -1027,11 +1610,17 @@ ________________________________________________________
         :alt: catawbasam
         :target: https://github.com/catawbasam
 
-    .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+    .. image:: https://secure.gravatar.com/avatar/02abdd20ef026f24d96035a407912df0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: Keno Fischer
-        :target: https://github.com/loladiro
+        :alt: Andreas Noack Jensen
+        :target: https://github.com/andreasnoackjensen
+
+    .. image:: https://secure.gravatar.com/avatar/79e1bcfc1ed23b8964171191e9073545?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Matt Weiden
+        :target: https://github.com/mweiden
 
     .. image:: https://secure.gravatar.com/avatar/1b65c4698da5f30310e14aaee8f3f24e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -1044,6 +1633,12 @@ ________________________________________________________
         :width: 40px
         :alt: Miles Lubin
         :target: https://github.com/mlubin
+
+    .. image:: https://secure.gravatar.com/avatar/957fc8103c58ee9ee9a5d96c91b15e76?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Randy Zwitch
+        :target: https://github.com/randyzwitch
 
     .. image:: https://secure.gravatar.com/avatar/5ac7b1da0f2e9107b5020f88023a15e5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -1063,15 +1658,20 @@ _________________________________________________________________
      :alt: Dahua Lin
      :target: https://github.com/lindahua
 
-  当前版本： ``0.0.0``
-
   Julia implementation of Data structures 
+
+  当前版本： ``0.2.4``  (updated: 2013-07-27) 
+
+  Master 状态： |DataStructures_build|
+
+  .. |DataStructures_build| image:: https://api.travis-ci.org/lindahua/DataStructures.jl.png
+     :align: bottom
 
   维护者： `Dahua Lin <https://github.com/lindahua>`_
 
   依赖关系： ::
 
-      无
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -1080,6 +1680,50 @@ _________________________________________________________________
         :width: 40px
         :alt: Dahua Lin
         :target: https://github.com/lindahua
+
+    .. image:: https://secure.gravatar.com/avatar/b58bc8f94bc5a0d8eaf149abe297a25e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: msainz
+        :target: https://github.com/msainz
+
+----
+
+`Datetime <https://github.com/karbarcca/Datetime.jl>`_
+______________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/d788bf7fd037ebef5798d8881c5faa2f?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Jacob Quinn
+     :target: https://github.com/karbarcca
+
+  A Date and DateTime implementation for Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-07-27) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Jacob Quinn <https://github.com/karbarcca>`_
+
+  依赖关系： ::
+
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/d788bf7fd037ebef5798d8881c5faa2f?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Jacob Quinn
+        :target: https://github.com/karbarcca
+
+    .. image:: https://secure.gravatar.com/avatar/1b65c4698da5f30310e14aaee8f3f24e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Mike Nolta
+        :target: https://github.com/nolta
 
 ----
 
@@ -1093,15 +1737,17 @@ _____________________________________________
      :alt: toivoh
      :target: https://github.com/toivoh
 
-  当前版本： ``0.0.0``
-
   Prototype interactive debugger for Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-07-20) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `toivoh <https://github.com/toivoh>`_
 
   依赖关系： ::
 
-      无
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -1117,6 +1763,12 @@ _____________________________________________
         :alt: nfoti
         :target: https://github.com/nfoti
 
+    .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tim Holy
+        :target: https://github.com/timholy
+
     .. image:: https://secure.gravatar.com/avatar/317e44562dcf11f5164d0a4936696fbc?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
@@ -1128,26 +1780,28 @@ _____________________________________________
 `DecisionTree <https://github.com/bensadeghi/DecisionTree.jl>`_
 _______________________________________________________________
 
-  .. image:: https://secure.gravatar.com/avatar/e0da736cf64e454db46b4446f1f58ed5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+  .. image:: https://secure.gravatar.com/avatar/de1cfaf505e6cea3e5b76cfda87bf6c8?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
      :height: 80px
      :width: 80px
      :align: right
      :alt: Ben Sadeghi
      :target: https://github.com/bensadeghi
 
-  当前版本： ``0.0.0``
-
   Decision Tree Classifier in Julia 
+
+  当前版本： ``0.1.0``  (updated: 2013-06-11) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Ben Sadeghi <https://github.com/bensadeghi>`_
 
   依赖关系： ::
 
-      julia          [v"0.1.0-"]
+      无
 
   贡献者：
 
-    .. image:: https://secure.gravatar.com/avatar/e0da736cf64e454db46b4446f1f58ed5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+    .. image:: https://secure.gravatar.com/avatar/de1cfaf505e6cea3e5b76cfda87bf6c8?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Ben Sadeghi
@@ -1165,9 +1819,11 @@ ___________________________________________________________
      :alt: Dahua Lin
      :target: https://github.com/lindahua
 
-  当前版本： ``0.2.0``
-
   A Julia framework for delayed expression evaluation 
+
+  当前版本： ``0.2.1``  (updated: 2013-04-15) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Dahua Lin <https://github.com/lindahua>`_
 
@@ -1185,6 +1841,38 @@ ___________________________________________________________
 
 ----
 
+`DictUtils <https://github.com/slycoder/DictUtils.jl>`_
+_______________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/34bbe1993f0b1e918539da9a832f8064?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Jonathan Chang
+     :target: https://github.com/slycoder
+
+  Utility functions for manipulating Dicts in Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-05-14) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Jonathan Chang <https://github.com/slycoder>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/34bbe1993f0b1e918539da9a832f8064?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Jonathan Chang
+        :target: https://github.com/slycoder
+
+----
+
 `DictViews <https://github.com/daviddelaat/DictViews.jl>`_
 __________________________________________________________
 
@@ -1195,9 +1883,11 @@ __________________________________________________________
      :alt: David de Laat
      :target: https://github.com/daviddelaat
 
-  当前版本： ``0.0.0``
-
   KeysView and ValuesView types for dynamic low-overhead views into the entries of dictionaries 
+
+  当前版本： ``0.0.0``  (updated: 2013-02-23) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `David de Laat <https://github.com/daviddelaat>`_
 
@@ -1225,9 +1915,11 @@ ________________________________________________________________________________
      :alt: John Myles White
      :target: https://github.com/johnmyleswhite
 
-  当前版本： ``0.0.0``
-
   Methods for dimensionality reduction: PCA, ICA, NMF 
+
+  当前版本： ``0.0.0``  (updated: 2013-01-17) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
@@ -1245,6 +1937,38 @@ ________________________________________________________________________________
 
 ----
 
+`DiscreteFactor <https://github.com/wlbksy/DiscreteFactor.jl>`_
+_______________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/0bd7b10cad6fab97f81741aa2081cbde?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Lei WANG
+     :target: https://github.com/wlbksy
+
+  Discrete factor and its operations in Probabilistic Graphical Models 
+
+  当前版本： ``0.0.0``  (updated: 2013-06-06) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Lei WANG <https://github.com/wlbksy>`_
+
+  依赖关系： ::
+
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/0bd7b10cad6fab97f81741aa2081cbde?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Lei WANG
+        :target: https://github.com/wlbksy
+
+----
+
 `Distance <https://github.com/lindahua/Distance.jl>`_
 _____________________________________________________
 
@@ -1255,9 +1979,11 @@ _____________________________________________________
      :alt: Dahua Lin
      :target: https://github.com/lindahua
 
-  当前版本： ``0.2.0``
-
   Julia module for Distance evaluation 
+
+  当前版本： ``0.2.1``  (updated: 2013-04-15) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Dahua Lin <https://github.com/lindahua>`_
 
@@ -1279,30 +2005,54 @@ _____________________________________________________
 `Distributions <https://github.com/JuliaStats/Distributions.jl>`_
 _________________________________________________________________
 
-  .. image:: https://secure.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-org-420.png
+  .. image:: https://secure.gravatar.com/avatar/d57c99557ab0dc0fa44b4c84447d0f15?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-org-420.png
      :height: 80px
      :width: 80px
      :align: right
-     :alt: JuliaStats
+     :alt: Julia Statistics
      :target: https://github.com/JuliaStats
 
-  当前版本： ``0.0.0``
+  A Julia package for probability distributions and associated functions. 
 
-  A Julia package for probability distributions and associated funtions. 
+  当前版本： ``0.2.3``  (updated: 2013-07-29) 
 
-  维护者： `JuliaStats <https://github.com/JuliaStats>`_
+  Master 状态： |Distributions_build|
+
+  .. |Distributions_build| image:: https://api.travis-ci.org/JuliaStats/Distributions.jl.png
+     :align: bottom
+
+  维护者： `Julia Statistics <https://github.com/JuliaStats>`_
 
   依赖关系： ::
 
-      julia      [v"0.2.0-"]
+      NumericExtensions任意版本
+      Stats          任意版本
 
   贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Dahua Lin
+        :target: https://github.com/lindahua
 
     .. image:: https://secure.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: John Myles White
         :target: https://github.com/johnmyleswhite
+
+    .. image:: https://secure.gravatar.com/avatar/5ac7b1da0f2e9107b5020f88023a15e5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Simon Byrne
+        :target: https://github.com/simonbyrne
+
+    .. image:: https://secure.gravatar.com/avatar/a27d23ce4c080f3307cc6507f6fdfe87?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Douglas Bates
+        :target: https://github.com/dmbates
 
     .. image:: https://secure.gravatar.com/avatar/52ec3f52d9c7be45b398b9e8afa4ee8c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -1316,30 +2066,23 @@ _________________________________________________________________
         :alt: Andreas Noack Jensen
         :target: https://github.com/andreasnoackjensen
 
-    .. image:: https://secure.gravatar.com/avatar/a27d23ce4c080f3307cc6507f6fdfe87?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: dmbates
-        :target: https://github.com/dmbates
-
-    .. image:: https://secure.gravatar.com/avatar/c982f9823bc3cb987b614baf5678ec31?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: gusl
-        :target: https://github.com/gusl
-
     .. image:: https://secure.gravatar.com/avatar/f5c61e85dfa465686adc24e0bffba42a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Avik Sengupta
         :target: https://github.com/aviks
 
-
-    .. image:: https://secure.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+    .. image:: https://secure.gravatar.com/avatar/25d0ed671b01595bb0a6c12bfa90c9b2?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: Dahua Lin
-        :target: https://github.com/lindahua
+        :alt: gusl
+        :target: https://github.com/gusl
+
+    .. image:: https://secure.gravatar.com/avatar/198e9aeca5b6c25a3c2b03a6506de1a9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Martin O'Leary
+        :target: https://github.com/mewo2
 
     .. image:: https://secure.gravatar.com/avatar/6cba33e8e7c69fa63f6ad386b7a958c5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -1359,12 +2102,76 @@ _________________________________________________________________
         :alt: Alan Edelman
         :target: https://github.com/alanedelman
 
-
     .. image:: https://secure.gravatar.com/avatar/0b41d1f9e580cde53307166a47ae5300?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Sergey Bartunov
         :target: https://github.com/sbos
+
+----
+
+`DualNumbers <https://github.com/scidom/DualNumbers.jl>`_
+_________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/f1678bcdc052b500191b78923399e5f8?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Theodore Papamarkou
+     :target: https://github.com/scidom
+
+  Julia package for representing dual numbers and for performing dual algebra 
+
+  当前版本： ``0.0.0``  (updated: 2013-04-21) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Theodore Papamarkou <https://github.com/scidom>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/f1678bcdc052b500191b78923399e5f8?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Theodore Papamarkou
+        :target: https://github.com/scidom
+
+----
+
+`ELF <https://github.com/loladiro/ELF.jl>`_
+___________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Keno Fischer
+     :target: https://github.com/loladiro
+
+  Julia Package for working with ELF files 
+
+  当前版本： ``0.0.0``  (updated: 2013-05-28) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Keno Fischer <https://github.com/loladiro>`_
+
+  依赖关系： ::
+
+      StrPack        任意版本
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Keno Fischer
+        :target: https://github.com/loladiro
 
 ----
 
@@ -1378,9 +2185,11 @@ __________________________________________________
      :alt: Mike Nolta
      :target: https://github.com/nolta
 
-  当前版本： ``0.0.0``
-
   Elliptic integral and Jacobi elliptic special functions 
+
+  当前版本： ``0.0.0``  (updated: 2013-03-13) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Mike Nolta <https://github.com/nolta>`_
 
@@ -1408,9 +2217,14 @@ ____________________________________________________
      :alt: The Julia Language
      :target: https://github.com/JuliaLang
 
-  当前版本： ``0.0.0``
-
   Example Julia package repo. 
+
+  当前版本： ``0.0.0``  (updated: 2012-11-22) 
+
+  Master 状态： |Example_build|
+
+  .. |Example_build| image:: https://api.travis-ci.org/JuliaLang/Example.jl.png
+     :align: bottom
 
   维护者： `The Julia Language <https://github.com/JuliaLang>`_
 
@@ -1426,6 +2240,68 @@ ____________________________________________________
         :alt: Stefan Karpinski
         :target: https://github.com/StefanKarpinski
 
+    .. image:: https://secure.gravatar.com/avatar/55e277a715ee2afd0d29c309174eca02?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Viral B. Shah
+        :target: https://github.com/ViralBShah
+
+    .. image:: https://secure.gravatar.com/avatar/f5c61e85dfa465686adc24e0bffba42a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Avik Sengupta
+        :target: https://github.com/aviks
+
+    .. image:: https://secure.gravatar.com/avatar/cc283e3bd2784ad33dfd55afcfef4877?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Iain Dunning
+        :target: https://github.com/IainNZ
+
+    .. image:: https://secure.gravatar.com/avatar/002ccfd8ee9e135f0dfb5650c292052d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Elliot Saba
+        :target: https://github.com/staticfloat
+
+    .. image:: https://secure.gravatar.com/avatar/6cba33e8e7c69fa63f6ad386b7a958c5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Jiahao Chen
+        :target: https://github.com/jiahao
+
+----
+
+`ExpressionUtils <https://github.com/zachallaun/ExpressionUtils.jl>`_
+_____________________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/06625cbad0c69f5c2e673a4312e9fd7e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Zach Allaun
+     :target: https://github.com/zachallaun
+
+  Utilities for working with the Julia `Expr` type 
+
+  当前版本： ``0.0.0``  (updated: 2013-04-30) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Zach Allaun <https://github.com/zachallaun>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/06625cbad0c69f5c2e673a4312e9fd7e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Zach Allaun
+        :target: https://github.com/zachallaun
+
 ----
 
 `FITSIO <https://github.com/nolta/FITSIO.jl>`_
@@ -1438,9 +2314,11 @@ ______________________________________________
      :alt: Mike Nolta
      :target: https://github.com/nolta
 
-  当前版本： ``0.0.0``
-
   FITS file package for Julia 
+
+  当前版本： ``0.0.0``  (updated: 2012-12-09) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Mike Nolta <https://github.com/nolta>`_
 
@@ -1468,9 +2346,11 @@ _________________________________________________________
      :alt: Zach Allaun
      :target: https://github.com/zachallaun
 
-  当前版本： ``0.0.0``
-
   Midje-like testing for Julia 
+
+  当前版本： ``0.1.0``  (updated: 2013-07-02) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Zach Allaun <https://github.com/zachallaun>`_
 
@@ -1486,6 +2366,48 @@ _________________________________________________________
         :alt: Zach Allaun
         :target: https://github.com/zachallaun
 
+    .. image:: https://secure.gravatar.com/avatar/d7912ba2ab72397e157148de151cd9e9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tomas Lycken
+        :target: https://github.com/tlycken
+
+----
+
+`FastaIO <https://github.com/carlobaldassi/FastaIO.jl>`_
+________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/80502de63c1b21d8f3ba663d72ba5be2?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Carlo Baldassi
+     :target: https://github.com/carlobaldassi
+
+  Utilities to read/write FASTA format files in Julia 
+
+  当前版本： ``0.1.1``  (updated: 2013-06-28) 
+
+  Master 状态： |FastaIO_build|
+
+  .. |FastaIO_build| image:: https://api.travis-ci.org/carlobaldassi/FastaIO.jl.png
+     :align: bottom
+
+  维护者： `Carlo Baldassi <https://github.com/carlobaldassi>`_
+
+  依赖关系： ::
+
+      GZip           任意版本
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/80502de63c1b21d8f3ba663d72ba5be2?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Carlo Baldassi
+        :target: https://github.com/carlobaldassi
+
 ----
 
 `FastaRead <https://github.com/carlobaldassi/FastaRead.jl>`_
@@ -1498,9 +2420,14 @@ ____________________________________________________________
      :alt: Carlo Baldassi
      :target: https://github.com/carlobaldassi
 
-  当前版本： ``0.2.0``
+  [DEPRECATED PACKAGE. USE FastaIO INSTEAD] 
 
-  A fast FASTA reader for Julia 
+  当前版本： ``0.2.1``  (updated: 2013-05-22) 
+
+  Master 状态： |FastaRead_build|
+
+  .. |FastaRead_build| image:: https://api.travis-ci.org/carlobaldassi/FastaRead.jl.png
+     :align: bottom
 
   维护者： `Carlo Baldassi <https://github.com/carlobaldassi>`_
 
@@ -1535,9 +2462,11 @@ ___________________________________________________________
      :alt: John Myles White
      :target: https://github.com/johnmyleswhite
 
-  当前版本： ``0.0.0``
-
   File::Find implementation in Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-01-19) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
@@ -1555,6 +2484,108 @@ ___________________________________________________________
 
 ----
 
+`FunctionalCollections <https://github.com/zachallaun/FunctionalCollections.jl>`_
+_________________________________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/06625cbad0c69f5c2e673a4312e9fd7e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Zach Allaun
+     :target: https://github.com/zachallaun
+
+  Functional and and persistent data structures for Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-05-16) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Zach Allaun <https://github.com/zachallaun>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/06625cbad0c69f5c2e673a4312e9fd7e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Zach Allaun
+        :target: https://github.com/zachallaun
+
+    .. image:: https://secure.gravatar.com/avatar/72ee26065724239b61be271722b682dd?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Nick Collins
+        :target: https://github.com/ncollins
+
+    .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Stefan Karpinski
+        :target: https://github.com/StefanKarpinski
+
+----
+
+`FunctionalUtils <https://github.com/zachallaun/FunctionalUtils.jl>`_
+_____________________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/06625cbad0c69f5c2e673a4312e9fd7e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Zach Allaun
+     :target: https://github.com/zachallaun
+
+  Functional Julia – based on fogus/lemonad 
+
+  当前版本： ``0.0.0``  (updated: 2013-04-30) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Zach Allaun <https://github.com/zachallaun>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/06625cbad0c69f5c2e673a4312e9fd7e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Zach Allaun
+        :target: https://github.com/zachallaun
+
+----
+
+`GARCH <https://github.com/AndreyKolev/GARCH.jl>`_
+__________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/27541ea7ad0954012c655bc3d2dad17f?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Andrey Kolev
+     :target: https://github.com/AndreyKolev
+
+  Julia GARCH package 
+
+  当前版本： ``0.0.0``  (updated: 2013-07-29) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Andrey Kolev <https://github.com/AndreyKolev>`_
+
+  依赖关系： ::
+
+      NLopt          任意版本
+
+  贡献者：
+
+----
+
 `GLFW <https://github.com/jayschwa/GLFW.jl>`_
 _____________________________________________
 
@@ -1565,9 +2596,11 @@ _____________________________________________
      :alt: Jay Weisskopf
      :target: https://github.com/jayschwa
 
-  当前版本： ``0.0.0``
-
   GLFW bindings for Julia. GLFW is a multi-platform library for opening a window, creating an OpenGL context, and managing input. 
+
+  当前版本： ``0.0.0``  (updated: 2013-04-02) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Jay Weisskopf <https://github.com/jayschwa>`_
 
@@ -1590,30 +2623,34 @@ _____________________________________________
 `GLM <https://github.com/JuliaStats/GLM.jl>`_
 _____________________________________________
 
-  .. image:: https://secure.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-org-420.png
+  .. image:: https://secure.gravatar.com/avatar/d57c99557ab0dc0fa44b4c84447d0f15?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-org-420.png
      :height: 80px
      :width: 80px
      :align: right
-     :alt: JuliaStats
+     :alt: Julia Statistics
      :target: https://github.com/JuliaStats
-
-  当前版本： ``0.0.0``
 
   Generalized linear models in Julia 
 
-  维护者： `JuliaStats <https://github.com/JuliaStats>`_
+  当前版本： ``0.2.0``  (updated: 2013-07-30) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Julia Statistics <https://github.com/JuliaStats>`_
 
   依赖关系： ::
 
-      DataFrames     任意版本
-      Distributions  任意版本
+      DataFrames     [v"0.3.6-"]
+      Distributions  [v"0.2.0-"]
+      NumericExtensions[v"0.2.12-"]
+      julia          [v"0.2.0-"]
 
   贡献者：
 
     .. image:: https://secure.gravatar.com/avatar/a27d23ce4c080f3307cc6507f6fdfe87?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: dmbates
+        :alt: Douglas Bates
         :target: https://github.com/dmbates
 
     .. image:: https://secure.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
@@ -1622,18 +2659,17 @@ _____________________________________________
         :alt: John Myles White
         :target: https://github.com/johnmyleswhite
 
-    .. image:: https://secure.gravatar.com/avatar/1a4672a0ae94c24f02517dea26097f58?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: Chris DuBois
-        :target: https://github.com/doobwa
-
     .. image:: https://secure.gravatar.com/avatar/02abdd20ef026f24d96035a407912df0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Andreas Noack Jensen
         :target: https://github.com/andreasnoackjensen
 
+    .. image:: https://secure.gravatar.com/avatar/1a4672a0ae94c24f02517dea26097f58?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Chris DuBois
+        :target: https://github.com/doobwa
 
 ----
 
@@ -1647,15 +2683,21 @@ __________________________________________________
      :alt: Carlo Baldassi
      :target: https://github.com/carlobaldassi
 
-  当前版本： ``0.0.0``
-
   GLPK wrapper module for Julia 
+
+  当前版本： ``0.2.4``  (updated: 2013-06-18) 
+
+  Master 状态： |GLPK_build|
+
+  .. |GLPK_build| image:: https://api.travis-ci.org/carlobaldassi/GLPK.jl.png
+     :align: bottom
 
   维护者： `Carlo Baldassi <https://github.com/carlobaldassi>`_
 
   依赖关系： ::
 
-      BinDeps        任意版本
+      BinDeps        [v"0.0.1-"]
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -1673,6 +2715,40 @@ __________________________________________________
 
 ----
 
+`GLPKMathProgInterface <https://github.com/carlobaldassi/GLPKMathProgInterface.jl>`_
+____________________________________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/80502de63c1b21d8f3ba663d72ba5be2?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Carlo Baldassi
+     :target: https://github.com/carlobaldassi
+
+  Interface between the GLPK.jl wrapper and MathProgBase.jl 
+
+  当前版本： ``0.0.0``  (updated: 2013-06-07) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Carlo Baldassi <https://github.com/carlobaldassi>`_
+
+  依赖关系： ::
+
+      GLPK           任意版本
+      MathProgBase   任意版本
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/80502de63c1b21d8f3ba663d72ba5be2?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Carlo Baldassi
+        :target: https://github.com/carlobaldassi
+
+----
+
 `GLUT <https://github.com/rennis250/GLUT.jl>`_
 ______________________________________________
 
@@ -1683,9 +2759,11 @@ ______________________________________________
      :alt: Robert J. Ennis
      :target: https://github.com/rennis250
 
-  当前版本： ``0.0.0``
-
   Julia interface to GLUT 
+
+  当前版本： ``0.0.0``  (updated: 2013-01-18) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Robert J. Ennis <https://github.com/rennis250>`_
 
@@ -1714,16 +2792,14 @@ _________________________________________
      :alt: Jiahao Chen
      :target: https://github.com/jiahao
 
-    .. image:: https://secure.gravatar.com/avatar/b4035aa7c2e4ecf012eed26a63573f5b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: Alan Edelman
-        :target: https://github.com/alanedelman
-
-
-  当前版本： ``0.0.0``
-
   Julia interface to the GNU Scientific Library (GSL) 
+
+  当前版本： ``0.0.0``  (updated: 2013-04-04) 
+
+  Master 状态： |GSL_build|
+
+  .. |GSL_build| image:: https://api.travis-ci.org/jiahao/GSL.jl.png
+     :align: bottom
 
   维护者： `Jiahao Chen <https://github.com/jiahao>`_
 
@@ -1739,6 +2815,12 @@ _________________________________________
         :alt: Jiahao Chen
         :target: https://github.com/jiahao
 
+    .. image:: https://secure.gravatar.com/avatar/b4035aa7c2e4ecf012eed26a63573f5b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Alan Edelman
+        :target: https://github.com/alanedelman
+
 ----
 
 `GZip <https://github.com/kmsquire/GZip.jl>`_
@@ -1751,9 +2833,11 @@ _____________________________________________
      :alt: Kevin Squire
      :target: https://github.com/kmsquire
 
-  当前版本： ``0.0.0``
-
   A Julia interface for gzip functions in zlib 
+
+  当前版本： ``0.2.4``  (updated: 2013-06-25) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Kevin Squire <https://github.com/kmsquire>`_
 
@@ -1761,7 +2845,7 @@ _____________________________________________
 
   依赖关系： ::
 
-      无
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -1770,6 +2854,12 @@ _____________________________________________
         :width: 40px
         :alt: Kevin Squire
         :target: https://github.com/kmsquire
+
+    .. image:: https://secure.gravatar.com/avatar/d788bf7fd037ebef5798d8881c5faa2f?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Jacob Quinn
+        :target: https://github.com/karbarcca
 
 ----
 
@@ -1783,9 +2873,11 @@ ________________________________________________
      :alt: Daniel Jones
      :target: https://github.com/dcjones
 
-  当前版本： ``0.0.0``
-
   Crafty statistical graphics for Julia. 
+
+  当前版本： ``0.1.7``  (updated: 2013-07-09) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Daniel Jones <https://github.com/dcjones>`_
 
@@ -1800,6 +2892,7 @@ ________________________________________________
       Distributions  任意版本
       Iterators      任意版本
       JSON           任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -1809,23 +2902,11 @@ ________________________________________________
         :alt: Daniel Jones
         :target: https://github.com/dcjones
 
-    .. image:: https://secure.gravatar.com/avatar/37cebf4f44a1dbf71ee94aaea166ef00?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+    .. image:: https://secure.gravatar.com/avatar/8f514187144b1b19b0205fce41284d32?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: Robert J. Ennis
-        :target: https://github.com/rennis250
-
-    .. image:: https://secure.gravatar.com/avatar/449044e4f0ed377b21409488cddafc45?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: Blake Johnson
-        :target: https://github.com/blakejohnson
-
-    .. image:: https://secure.gravatar.com/avatar/b1f06f732d86e562563db728b2875eb2?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: Jason Merrill
-        :target: https://github.com/jwmerrill
+        :alt: john verzani
+        :target: https://github.com/jverzani
 
     .. image:: https://secure.gravatar.com/avatar/f5c61e85dfa465686adc24e0bffba42a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -1833,10 +2914,34 @@ ________________________________________________
         :alt: Avik Sengupta
         :target: https://github.com/aviks
 
+    .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Keno Fischer
+        :target: https://github.com/loladiro
+
+    .. image:: https://secure.gravatar.com/avatar/b1f06f732d86e562563db728b2875eb2?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Jason Merrill
+        :target: https://github.com/jwmerrill
+
+    .. image:: https://secure.gravatar.com/avatar/449044e4f0ed377b21409488cddafc45?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Blake Johnson
+        :target: https://github.com/blakejohnson
+
+    .. image:: https://secure.gravatar.com/avatar/37cebf4f44a1dbf71ee94aaea166ef00?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Robert J. Ennis
+        :target: https://github.com/rennis250
+
     .. image:: https://secure.gravatar.com/avatar/a27d23ce4c080f3307cc6507f6fdfe87?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: dmbates
+        :alt: Douglas Bates
         :target: https://github.com/dmbates
 
     .. image:: https://secure.gravatar.com/avatar/25ce2ab2f5e673e46208c1188a39e6ca?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
@@ -1863,15 +2968,17 @@ _____________________________________________
      :alt: mbaz
      :target: https://github.com/mbaz
 
-  当前版本： ``0.0.0``
-
   A julia front-end for gnuplot. 
+
+  当前版本： ``0.0.0``  (updated: 2013-05-05) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `mbaz <https://github.com/mbaz>`_
 
   依赖关系： ::
 
-      julia          [v"0.1.0-", v"0.2.0-"]
+      julia          [v"0.1.0-"]
 
   贡献者：
 
@@ -1881,11 +2988,51 @@ _____________________________________________
         :alt: mbaz
         :target: https://github.com/mbaz
 
+    .. image:: https://secure.gravatar.com/avatar/80502de63c1b21d8f3ba663d72ba5be2?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Carlo Baldassi
+        :target: https://github.com/carlobaldassi
+
     .. image:: https://secure.gravatar.com/avatar/8af4d5971a2308b86a94f58fb98129c5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Jameson Nash
         :target: https://github.com/vtjnash
+
+----
+
+`GeoIP <https://github.com/johnmyleswhite/GeoIP.jl>`_
+_____________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: John Myles White
+     :target: https://github.com/johnmyleswhite
+
+  A Julia package to estimate the geographic location of IP addresses 
+
+  当前版本： ``0.0.0``  (updated: 2013-06-24) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+
+  依赖关系： ::
+
+      DataFrames     任意版本
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: John Myles White
+        :target: https://github.com/johnmyleswhite
+
+----
 
 `GeometricMCMC <https://github.com/scidom/GeometricMCMC.jl>`_
 _____________________________________________________________
@@ -1897,17 +3044,19 @@ _____________________________________________________________
      :alt: Theodore Papamarkou
      :target: https://github.com/scidom
 
-  Current Version: ``0.0.0``
-
   Geometric MCMC algorithms and zero-variance (ZV) Monte Carlo Bayesian routines 
 
-  Maintainer: `Theodore Papamarkou <https://github.com/scidom>`_
+  当前版本： ``0.0.0``  (updated: 2013-04-12) 
 
-  Dependencies::
+  Master 状态： 无 Travis-CI 状态
 
-      Distributions  Any Version
+  维护者： `Theodore Papamarkou <https://github.com/scidom>`_
 
-  Contributors:
+  依赖关系： ::
+
+      Distributions  任意版本
+
+  贡献者：
 
     .. image:: https://secure.gravatar.com/avatar/f1678bcdc052b500191b78923399e5f8?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -1927,9 +3076,11 @@ ______________________________________________
      :alt: Robert J. Ennis
      :target: https://github.com/rennis250
 
-  当前版本： ``0.0.0``
-
   Minimal implementation of Jasper's Julia FFI 
+
+  当前版本： ``0.0.0``  (updated: 2013-01-15) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Robert J. Ennis <https://github.com/rennis250>`_
 
@@ -1953,6 +3104,42 @@ ______________________________________________
 
 ----
 
+`GnuTLS <https://github.com/loladiro/GnuTLS.jl>`_
+_________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Keno Fischer
+     :target: https://github.com/loladiro
+
+  Transport Level Security for Julia Streams provided by GnuTLS 
+
+  当前版本： ``0.0.0``  (updated: 2013-07-26) 
+
+  Master 状态： |GnuTLS_build|
+
+  .. |GnuTLS_build| image:: https://api.travis-ci.org/loladiro/GnuTLS.jl.png
+     :align: bottom
+
+  维护者： `Keno Fischer <https://github.com/loladiro>`_
+
+  依赖关系： ::
+
+      BinDeps        [v"0.2.1-"]
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Keno Fischer
+        :target: https://github.com/loladiro
+
+----
+
 `GoogleCharts <https://github.com/jverzani/GoogleCharts.jl>`_
 _____________________________________________________________
 
@@ -1963,9 +3150,11 @@ _____________________________________________________________
      :alt: john verzani
      :target: https://github.com/jverzani
 
-  当前版本： ``0.0.0``
-
   Julia interface to Google Chart Tools 
+
+  当前版本： ``0.0.0``  (updated: 2013-05-14) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `john verzani <https://github.com/jverzani>`_
 
@@ -1986,33 +3175,87 @@ _____________________________________________________________
 
 ----
 
-`Graphs <https://github.com/johnmyleswhite/Graphs.jl>`_
-_______________________________________________________
+`Graphs <https://github.com/JuliaLang/Graphs.jl>`_
+__________________________________________________
 
-  .. image:: https://secure.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+  .. image:: https://secure.gravatar.com/avatar/d57c99557ab0dc0fa44b4c84447d0f15?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-org-420.png
      :height: 80px
      :width: 80px
      :align: right
-     :alt: John Myles White
-     :target: https://github.com/johnmyleswhite
-
-  当前版本： ``0.0.0``
+     :alt: The Julia Language
+     :target: https://github.com/JuliaLang
 
   Working with graphs in Julia 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  当前版本： ``0.2.3``  (updated: 2013-06-20) 
+
+  Master 状态： |Graphs_build|
+
+  .. |Graphs_build| image:: https://api.travis-ci.org/JuliaLang/Graphs.jl.png
+     :align: bottom
+
+  维护者： `The Julia Language <https://github.com/JuliaLang>`_
 
   依赖关系： ::
 
-      DataFrames     任意版本
+      DataStructures 任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Dahua Lin
+        :target: https://github.com/lindahua
 
     .. image:: https://secure.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: John Myles White
         :target: https://github.com/johnmyleswhite
+
+    .. image:: https://secure.gravatar.com/avatar/5c06e9faa0d7bd205f81d10e825d7e4a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: nfoti
+        :target: https://github.com/nfoti
+
+    .. image:: https://secure.gravatar.com/avatar/c58394486ebc197a62fa31dde80fd336?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Raphael Sofaer
+        :target: https://github.com/rsofaer
+
+    .. image:: https://secure.gravatar.com/avatar/2bf4378d854e6f9e8cdba9505b90520e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: David
+        :target: https://github.com/maxlikely
+
+    .. image:: https://secure.gravatar.com/avatar/79e1bcfc1ed23b8964171191e9073545?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Matt Weiden
+        :target: https://github.com/mweiden
+
+    .. image:: https://secure.gravatar.com/avatar/62df30beab9c2a6f3fe3f86995e94387?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: David de Laat
+        :target: https://github.com/daviddelaat
+
+    .. image:: https://secure.gravatar.com/avatar/a27d23ce4c080f3307cc6507f6fdfe87?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Douglas Bates
+        :target: https://github.com/dmbates
+
+    .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tim Holy
+        :target: https://github.com/timholy
 
     .. image:: https://secure.gravatar.com/avatar/c928b9b00cbc5133c4ae7a743cf96f10?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -2038,9 +3281,11 @@ ____________________________________________
      :alt: Tim Holy
      :target: https://github.com/timholy
 
-  当前版本： ``0.2.0``
-
   Interpolation and related operations on grids 
+
+  当前版本： ``0.2.3``  (updated: 2013-08-01) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Tim Holy <https://github.com/timholy>`_
 
@@ -2056,6 +3301,12 @@ ____________________________________________
         :alt: Tim Holy
         :target: https://github.com/timholy
 
+    .. image:: https://secure.gravatar.com/avatar/5ac7b1da0f2e9107b5020f88023a15e5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Simon Byrne
+        :target: https://github.com/simonbyrne
+
 ----
 
 `Gtk <https://github.com/vtjnash/Gtk.jl>`_
@@ -2068,15 +3319,18 @@ __________________________________________
      :alt: Jameson Nash
      :target: https://github.com/vtjnash
 
-  当前版本： ``0.0.0``
-
   Julia interface to Gtk windowing toolkit. 
+
+  当前版本： ``0.2.0``  (updated: 2013-07-24) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Jameson Nash <https://github.com/vtjnash>`_
 
   依赖关系： ::
 
-      Cairo          任意版本
+      Cairo          [v"0.2.2"]
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -2098,15 +3352,18 @@ _________________________________________________
      :alt: Dahua Lin
      :target: https://github.com/lindahua
 
-  当前版本： ``0.0.0``
-
   Julia Port of Gurobi Optimizer 
+
+  当前版本： ``0.0.0``  (updated: 2013-06-13) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Dahua Lin <https://github.com/lindahua>`_
 
   依赖关系： ::
 
-      无
+      MathProgBase   任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -2115,6 +3372,18 @@ _________________________________________________
         :width: 40px
         :alt: Dahua Lin
         :target: https://github.com/lindahua
+
+    .. image:: https://secure.gravatar.com/avatar/b0cf54b8431443687735cb486599ea9c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Miles Lubin
+        :target: https://github.com/mlubin
+
+    .. image:: https://secure.gravatar.com/avatar/cc283e3bd2784ad33dfd55afcfef4877?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Iain Dunning
+        :target: https://github.com/IainNZ
 
 ----
 
@@ -2128,15 +3397,16 @@ ____________________________________________
      :alt: Tim Holy
      :target: https://github.com/timholy
 
-  当前版本： ``0.2.0``
-
   HDF5 interface for the Julia language 
+
+  当前版本： ``0.2.5``  (updated: 2013-07-27) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Tim Holy <https://github.com/timholy>`_
 
   依赖关系： ::
 
-      StrPack        任意版本
       julia          [v"0.2.0-"]
 
   贡献者：
@@ -2147,17 +3417,17 @@ ____________________________________________
         :alt: Tim Holy
         :target: https://github.com/timholy
 
-    .. image:: https://secure.gravatar.com/avatar/449044e4f0ed377b21409488cddafc45?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: Blake Johnson
-        :target: https://github.com/blakejohnson
-
     .. image:: https://secure.gravatar.com/avatar/9524ef56c2823a59d54f9226a7ef08ba?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Simon Kornblith
         :target: https://github.com/simonster
+
+    .. image:: https://secure.gravatar.com/avatar/449044e4f0ed377b21409488cddafc45?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Blake Johnson
+        :target: https://github.com/blakejohnson
 
     .. image:: https://secure.gravatar.com/avatar/927b12170d55ac2cfe2060487cb16c0b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -2167,33 +3437,37 @@ ____________________________________________
 
 ----
 
-`HDFS <https://github.com/JuliaLang/HDFS.jl>`_
-______________________________________________
+`HDFS <https://github.com/tanmaykm/HDFS.jl>`_
+_____________________________________________
 
-  .. image:: https://secure.gravatar.com/avatar/d57c99557ab0dc0fa44b4c84447d0f15?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-org-420.png
+  .. image:: https://secure.gravatar.com/avatar/eea0b193dae8ac47946202ee404a6d7a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
      :height: 80px
      :width: 80px
      :align: right
-     :alt: The Julia Language
-     :target: https://github.com/JuliaLang
+     :alt: Tanmay Mohapatra
+     :target: https://github.com/tanmaykm
 
-  当前版本： ``0.0.0``
+  HDFS interface for Julia as a wrapper over Hadoop HDFS library. 
 
-  A Julia to the Hadoop and Map-R filesystems 
+  当前版本： ``0.0.0``  (updated: 2013-07-24) 
 
-  维护者： `The Julia Language <https://github.com/JuliaLang>`_
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Tanmay Mohapatra <https://github.com/tanmaykm>`_
 
   依赖关系： ::
 
-      无
+      PTools         任意版本
+      URLParse       任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
 
-    .. image:: https://secure.gravatar.com/avatar/55e277a715ee2afd0d29c309174eca02?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+    .. image:: https://secure.gravatar.com/avatar/eea0b193dae8ac47946202ee404a6d7a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: Viral B. Shah
-        :target: https://github.com/ViralBShah
+        :alt: Tanmay Mohapatra
+        :target: https://github.com/tanmaykm
 
 ----
 
@@ -2207,9 +3481,11 @@ _________________________________________
      :alt: Dirk Gadsden
      :target: https://github.com/dirk
 
-  当前版本： ``0.0.2``
-
   HTTP library (server, client, parser) for the Julia language 
+
+  当前版本： ``0.0.2``  (updated: 2013-03-06) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Dirk Gadsden <https://github.com/dirk>`_
 
@@ -2227,6 +3503,39 @@ _________________________________________
 
 ----
 
+`HTTPClient <https://github.com/amitmurthy/HTTPClient.jl>`_
+___________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/313e7a578240d11c97a68c9c6918a90b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Amit Murthy
+     :target: https://github.com/amitmurthy
+
+   
+
+  当前版本： ``0.0.0``  (updated: 2013-07-06) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Amit Murthy <https://github.com/amitmurthy>`_
+
+  依赖关系： ::
+
+      LibCURL        任意版本
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/313e7a578240d11c97a68c9c6918a90b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Amit Murthy
+        :target: https://github.com/amitmurthy
+
+----
+
 `Hadamard <https://github.com/stevengj/Hadamard.jl>`_
 _____________________________________________________
 
@@ -2237,9 +3546,11 @@ _____________________________________________________
      :alt: Steven G. Johnson
      :target: https://github.com/stevengj
 
-  当前版本： ``0.0.0``
-
   Fast Walsh-Hadamard transforms for the Julia language 
+
+  当前版本： ``0.0.0``  (updated: 2013-02-13) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Steven G. Johnson <https://github.com/stevengj>`_
 
@@ -2248,6 +3559,213 @@ _____________________________________________________
       无
 
   贡献者：
+
+----
+
+`HopfieldNets <https://github.com/johnmyleswhite/HopfieldNets.jl>`_
+___________________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: John Myles White
+     :target: https://github.com/johnmyleswhite
+
+  Hopfield networks in Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-07-28) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: John Myles White
+        :target: https://github.com/johnmyleswhite
+
+----
+
+`HttpCommon <https://github.com/hackerschool/HttpCommon.jl>`_
+_____________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/588308d511de92d8e642da998cdc5d06?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-org-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Hacker School
+     :target: https://github.com/hackerschool
+
+   
+
+  当前版本： ``0.0.1``  (updated: 2013-07-18) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Hacker School <https://github.com/hackerschool>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/757c233176d3ad14136df4a547ac4234?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Daniel Mendel
+        :target: https://github.com/danielmendel
+
+    .. image:: https://secure.gravatar.com/avatar/06625cbad0c69f5c2e673a4312e9fd7e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Zach Allaun
+        :target: https://github.com/zachallaun
+
+    .. image:: https://secure.gravatar.com/avatar/54cc6bf56d6223bdb99e5d6cfbd11056?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Leah Hanson
+        :target: https://github.com/astrieanna
+
+    .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Keno Fischer
+        :target: https://github.com/loladiro
+
+----
+
+`HttpParser <https://github.com/hackerschool/HttpParser.jl>`_
+_____________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/588308d511de92d8e642da998cdc5d06?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-org-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Hacker School
+     :target: https://github.com/hackerschool
+
+   
+
+  当前版本： ``0.0.2``  (updated: 2013-07-26) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Hacker School <https://github.com/hackerschool>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/757c233176d3ad14136df4a547ac4234?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Daniel Mendel
+        :target: https://github.com/danielmendel
+
+    .. image:: https://secure.gravatar.com/avatar/54cc6bf56d6223bdb99e5d6cfbd11056?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Leah Hanson
+        :target: https://github.com/astrieanna
+
+    .. image:: https://secure.gravatar.com/avatar/2aff223681817a0fadddb6a94a4860b8?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Chuck
+        :target: https://github.com/ChuckHa
+
+    .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Keno Fischer
+        :target: https://github.com/loladiro
+
+    .. image:: https://secure.gravatar.com/avatar/06625cbad0c69f5c2e673a4312e9fd7e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Zach Allaun
+        :target: https://github.com/zachallaun
+
+    .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Stefan Karpinski
+        :target: https://github.com/StefanKarpinski
+
+----
+
+`HttpServer <https://github.com/hackerschool/HttpServer.jl>`_
+_____________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/588308d511de92d8e642da998cdc5d06?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-org-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Hacker School
+     :target: https://github.com/hackerschool
+
+   
+
+  当前版本： ``0.0.1``  (updated: 2013-07-18) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Hacker School <https://github.com/hackerschool>`_
+
+  依赖关系： ::
+
+      HttpCommon     任意版本
+      HttpParser     任意版本
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/757c233176d3ad14136df4a547ac4234?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Daniel Mendel
+        :target: https://github.com/danielmendel
+
+    .. image:: https://secure.gravatar.com/avatar/54cc6bf56d6223bdb99e5d6cfbd11056?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Leah Hanson
+        :target: https://github.com/astrieanna
+
+    .. image:: https://secure.gravatar.com/avatar/06625cbad0c69f5c2e673a4312e9fd7e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Zach Allaun
+        :target: https://github.com/zachallaun
+
+    .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Keno Fischer
+        :target: https://github.com/loladiro
+
+    .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Stefan Karpinski
+        :target: https://github.com/StefanKarpinski
+
+    .. image:: https://secure.gravatar.com/avatar/dfc3b0fbb59c9444153823fd35dbd13b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Westley Argentum Hennigh
+        :target: https://github.com/WestleyArgentum
 
 ----
 
@@ -2261,9 +3779,11 @@ ____________________________________________________________________
      :alt: Simon Kornblith
      :target: https://github.com/simonster
 
-  当前版本： ``0.2.0``
-
   T-tests, Wilcoxon rank sum (Mann-Whitney U), signed rank, and circular statistics in Julia 
+
+  当前版本： ``0.2.0``  (updated: 2013-04-16) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Simon Kornblith <https://github.com/simonster>`_
 
@@ -2293,9 +3813,11 @@ ________________________________________
      :alt: Mike Nolta
      :target: https://github.com/nolta
 
-  当前版本： ``0.0.0``
-
   Julia wrapper for the International Components for Unicode (ICU) library 
+
+  当前版本： ``0.0.0``  (updated: 2013-07-03) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Mike Nolta <https://github.com/nolta>`_
 
@@ -2331,6 +3853,47 @@ ________________________________________
 
 ----
 
+`ImageView <https://github.com/timholy/ImageView.jl>`_
+______________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Tim Holy
+     :target: https://github.com/timholy
+
+  Interactive display of images and movies 
+
+  当前版本： ``0.0.2``  (updated: 2013-07-25) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Tim Holy <https://github.com/timholy>`_
+
+  依赖关系： ::
+
+      Images         任意版本
+      Tk             任意版本
+      Winston        任意版本
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tim Holy
+        :target: https://github.com/timholy
+
+    .. image:: https://secure.gravatar.com/avatar/afb7f86706c41da610daf216d60e59b9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Ron Rock
+        :target: https://github.com/rsrock
+
+----
+
 `Images <https://github.com/timholy/Images.jl>`_
 ________________________________________________
 
@@ -2341,17 +3904,18 @@ ________________________________________________
      :alt: Tim Holy
      :target: https://github.com/timholy
 
-  当前版本： ``0.0.0``
-
   An image library for Julia 
+
+  当前版本： ``0.2.7``  (updated: 2013-07-19) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Tim Holy <https://github.com/timholy>`_
 
   依赖关系： ::
 
-      Cairo      Any Version
-      Color      Any Version
-      Tk         Any Version
+      Color          任意版本
+      Grid           任意版本
 
   贡献者：
 
@@ -2360,6 +3924,12 @@ ________________________________________________
         :width: 40px
         :alt: Tim Holy
         :target: https://github.com/timholy
+
+    .. image:: https://secure.gravatar.com/avatar/afb7f86706c41da610daf216d60e59b9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Ron Rock
+        :target: https://github.com/rsrock
 
     .. image:: https://secure.gravatar.com/avatar/d04d5b6e71776eb13d195ba7cc94b995?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -2373,12 +3943,6 @@ ________________________________________________
         :alt: Jason Merrill
         :target: https://github.com/jwmerrill
 
-    .. image:: https://secure.gravatar.com/avatar/afb7f86706c41da610daf216d60e59b9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: Ron Rock
-        :target: https://github.com/rsrock
-
 ----
 
 `ImmutableArrays <https://github.com/twadleigh/ImmutableArrays.jl>`_
@@ -2391,9 +3955,14 @@ ____________________________________________________________________
      :alt: Tracy Wadleigh
      :target: https://github.com/twadleigh
 
-  当前版本： ``0.0.0``
-
   Statically-sized immutable vectors and matrices. 
+
+  当前版本： ``0.0.0``  (updated: 2013-04-09) 
+
+  Master 状态： |ImmutableArrays_build|
+
+  .. |ImmutableArrays_build| image:: https://api.travis-ci.org/twadleigh/ImmutableArrays.jl.png
+     :align: bottom
 
   维护者： `Tracy Wadleigh <https://github.com/twadleigh>`_
 
@@ -2439,9 +4008,11 @@ ____________________________________________________
      :alt: The Julia Language
      :target: https://github.com/JuliaLang
 
-  当前版本： ``0.0.0``
-
   Reading and writing Windows-style INI files (writing not yet implemented). 
+
+  当前版本： ``0.2.1``  (updated: 2013-06-29) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `The Julia Language <https://github.com/JuliaLang>`_
 
@@ -2457,23 +4028,29 @@ ____________________________________________________
         :alt: David de Laat
         :target: https://github.com/daviddelaat
 
-    .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: Stefan Karpinski
-        :target: https://github.com/StefanKarpinski
-
     .. image:: https://secure.gravatar.com/avatar/b4b8db23d8096b722483a57d21b7d65d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Jeff Bezanson
         :target: https://github.com/JeffBezanson
 
+    .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Stefan Karpinski
+        :target: https://github.com/StefanKarpinski
+
     .. image:: https://secure.gravatar.com/avatar/1b65c4698da5f30310e14aaee8f3f24e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Mike Nolta
         :target: https://github.com/nolta
+
+    .. image:: https://secure.gravatar.com/avatar/55e277a715ee2afd0d29c309174eca02?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Viral B. Shah
+        :target: https://github.com/ViralBShah
 
 ----
 
@@ -2487,9 +4064,11 @@ ________________________________________________________
      :alt: The Julia Language
      :target: https://github.com/JuliaLang
 
-  当前版本： ``0.0.0``
-
   Common functional iterator patterns. 
+
+  当前版本： ``0.1.1``  (updated: 2013-06-29) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `The Julia Language <https://github.com/JuliaLang>`_
 
@@ -2499,17 +4078,17 @@ ________________________________________________________
 
   贡献者：
 
-    .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: Stefan Karpinski
-        :target: https://github.com/StefanKarpinski
-
     .. image:: https://secure.gravatar.com/avatar/fd97b03d16e1aa4c404391216d81c1d5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Daniel Jones
         :target: https://github.com/dcjones
+
+    .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Stefan Karpinski
+        :target: https://github.com/StefanKarpinski
 
     .. image:: https://secure.gravatar.com/avatar/b4b8db23d8096b722483a57d21b7d65d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -2535,9 +4114,14 @@ ________________________________________
      :alt: Avik Sengupta
      :target: https://github.com/aviks
 
-  当前版本： ``0.0.0``
-
   A Julia package for quantitative finance 
+
+  当前版本： ``0.0.0``  (updated: 2013-01-03) 
+
+  Master 状态： |Ito_build|
+
+  .. |Ito_build| image:: https://api.travis-ci.org/aviks/Ito.jl.png
+     :align: bottom
 
   维护者： `Avik Sengupta <https://github.com/aviks>`_
 
@@ -2564,25 +4148,27 @@ ________________________________________
 
 ----
 
-`JSON <https://github.com/aviks/JSON.jl>`_
-__________________________________________
+`JSON <https://github.com/JuliaLang/JSON.jl>`_
+______________________________________________
 
-  .. image:: https://secure.gravatar.com/avatar/f5c61e85dfa465686adc24e0bffba42a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+  .. image:: https://secure.gravatar.com/avatar/d57c99557ab0dc0fa44b4c84447d0f15?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-org-420.png
      :height: 80px
      :width: 80px
      :align: right
-     :alt: Avik Sengupta
-     :target: https://github.com/aviks
-
-  当前版本： ``0.0.0``
+     :alt: The Julia Language
+     :target: https://github.com/JuliaLang
 
   JSON parsing and printing 
 
-  维护者： `Avik Sengupta <https://github.com/aviks>`_
+  当前版本： ``0.1.1``  (updated: 2013-07-12) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `The Julia Language <https://github.com/JuliaLang>`_
 
   依赖关系： ::
 
-      无
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -2591,6 +4177,18 @@ __________________________________________
         :width: 40px
         :alt: Avik Sengupta
         :target: https://github.com/aviks
+
+    .. image:: https://secure.gravatar.com/avatar/dfc3b0fbb59c9444153823fd35dbd13b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Westley Argentum Hennigh
+        :target: https://github.com/WestleyArgentum
+
+    .. image:: https://secure.gravatar.com/avatar/d9c8c5a29b60871d14846a382d50626a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Dirk Gadsden
+        :target: https://github.com/dirk
 
     .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -2604,23 +4202,17 @@ __________________________________________
         :alt: David de Laat
         :target: https://github.com/daviddelaat
 
+    .. image:: https://secure.gravatar.com/avatar/b4b8db23d8096b722483a57d21b7d65d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Jeff Bezanson
+        :target: https://github.com/JeffBezanson
+
     .. image:: https://secure.gravatar.com/avatar/1b65c4698da5f30310e14aaee8f3f24e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Mike Nolta
         :target: https://github.com/nolta
-
-    .. image:: https://secure.gravatar.com/avatar/fd97b03d16e1aa4c404391216d81c1d5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: Daniel Jones
-        :target: https://github.com/dcjones
-
-    .. image:: https://secure.gravatar.com/avatar/d9c8c5a29b60871d14846a382d50626a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: Dirk Gadsden
-        :target: https://github.com/dirk
 
     .. image:: https://secure.gravatar.com/avatar/002ccfd8ee9e135f0dfb5650c292052d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -2628,11 +4220,11 @@ __________________________________________
         :alt: Elliot Saba
         :target: https://github.com/staticfloat
 
-    .. image:: https://secure.gravatar.com/avatar/b4b8db23d8096b722483a57d21b7d65d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+    .. image:: https://secure.gravatar.com/avatar/fd97b03d16e1aa4c404391216d81c1d5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: Jeff Bezanson
-        :target: https://github.com/JeffBezanson
+        :alt: Daniel Jones
+        :target: https://github.com/dcjones
 
     .. image:: https://secure.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -2648,6 +4240,50 @@ __________________________________________
 
 ----
 
+`JuMP <https://github.com/IainNZ/JuMP.jl>`_
+___________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/cc283e3bd2784ad33dfd55afcfef4877?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Iain Dunning
+     :target: https://github.com/IainNZ
+
+  Modelling language for Linear, Integer, and Quadratic Programming 
+
+  当前版本： ``0.0.0``  (updated: 2013-07-20) 
+
+  Master 状态： |JuMP_build|
+
+  .. |JuMP_build| image:: https://api.travis-ci.org/IainNZ/JuMP.jl.png
+     :align: bottom
+
+  维护者： `Iain Dunning <https://github.com/IainNZ>`_
+
+  依赖关系： ::
+
+      Clp            任意版本
+      CoinMP         任意版本
+      MathProgBase   任意版本
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/b0cf54b8431443687735cb486599ea9c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Miles Lubin
+        :target: https://github.com/mlubin
+
+    .. image:: https://secure.gravatar.com/avatar/cc283e3bd2784ad33dfd55afcfef4877?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Iain Dunning
+        :target: https://github.com/IainNZ
+
+----
+
 `JudyDicts <https://github.com/tanmaykm/JudyDicts.jl>`_
 _______________________________________________________
 
@@ -2658,9 +4294,14 @@ _______________________________________________________
      :alt: Tanmay Mohapatra
      :target: https://github.com/tanmaykm
 
-  当前版本： ``0.0.0``
-
   Judy Array for Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-05-26) 
+
+  Master 状态： |JudyDicts_build|
+
+  .. |JudyDicts_build| image:: https://api.travis-ci.org/tanmaykm/JudyDicts.jl.png
+     :align: bottom
 
   维护者： `Tanmay Mohapatra <https://github.com/tanmaykm>`_
 
@@ -2688,9 +4329,11 @@ ____________________________________________________________
      :alt: Jameson Nash
      :target: https://github.com/vtjnash
 
-  当前版本： ``0.0.0``
-
    
+
+  当前版本： ``0.0.0``  (updated: 2013-04-08) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Jameson Nash <https://github.com/vtjnash>`_
 
@@ -2709,36 +4352,6 @@ ____________________________________________________________
 
 ----
 
-`Jyacas <https://github.com/jverzani/Jyacas.jl>`_
-_________________________________________________
-
-  .. image:: https://secure.gravatar.com/avatar/8f514187144b1b19b0205fce41284d32?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-     :height: 80px
-     :width: 80px
-     :align: right
-     :alt: john verzani
-     :target: https://github.com/jverzani
-
-  当前版本： ``0.0.0``
-
-  Interface to use yacas from julia 
-
-  维护者： `john verzani <https://github.com/jverzani>`_
-
-  依赖关系： ::
-
-      JSON           任意版本
-
-  贡献者：
-
-    .. image:: https://secure.gravatar.com/avatar/8f514187144b1b19b0205fce41284d32?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: john verzani
-        :target: https://github.com/jverzani
-
-----
-
 `KLDivergence <https://github.com/johnmyleswhite/KLDivergence.jl>`_
 ___________________________________________________________________
 
@@ -2749,9 +4362,11 @@ ___________________________________________________________________
      :alt: John Myles White
      :target: https://github.com/johnmyleswhite
 
-  当前版本： ``0.0.0``
-
   KL-divergence estimation in Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-01-17) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
@@ -2769,40 +4384,35 @@ ___________________________________________________________________
 
 ----
 
-`LM <https://github.com/JuliaStats/LM.jl>`_
-___________________________________________
+`LIBSVM <https://github.com/simonster/LIBSVM.jl>`_
+__________________________________________________
 
-  .. image:: https://secure.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-org-420.png
+  .. image:: https://secure.gravatar.com/avatar/9524ef56c2823a59d54f9226a7ef08ba?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
      :height: 80px
      :width: 80px
      :align: right
-     :alt: JuliaStats
-     :target: https://github.com/JuliaStats
+     :alt: Simon Kornblith
+     :target: https://github.com/simonster
 
-  当前版本： ``0.0.0``
+  LIBSVM bindings for Julia 
 
-  Linear models in Julia 
+  当前版本： ``0.0.0``  (updated: 2013-04-15) 
 
-  维护者： `JuliaStats <https://github.com/JuliaStats>`_
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Simon Kornblith <https://github.com/simonster>`_
 
   依赖关系： ::
 
-      DataFrames     任意版本
-      Distributions  任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
 
-    .. image:: https://secure.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+    .. image:: https://secure.gravatar.com/avatar/9524ef56c2823a59d54f9226a7ef08ba?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: John Myles White
-        :target: https://github.com/johnmyleswhite
-
-    .. image:: https://secure.gravatar.com/avatar/02abdd20ef026f24d96035a407912df0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: Andreas Noack Jensen
-        :target: https://github.com/andreasnoackjensen
+        :alt: Simon Kornblith
+        :target: https://github.com/simonster
 
 ----
 
@@ -2816,15 +4426,17 @@ _____________________________________________________________
      :alt: John Myles White
      :target: https://github.com/johnmyleswhite
 
-  当前版本： ``0.0.0``
-
   A package for working with human languages 
+
+  当前版本： ``0.0.1``  (updated: 2013-05-24) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
   依赖关系： ::
 
-      无
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -2846,15 +4458,17 @@ ______________________________________________________________
      :alt: Daniel Jones
      :target: https://github.com/dcjones
 
-  当前版本： ``0.0.0``
-
   Lazy sequences. 
+
+  当前版本： ``0.1.0``  (updated: 2013-06-20) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Daniel Jones <https://github.com/dcjones>`_
 
   依赖关系： ::
 
-      无
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -2863,6 +4477,76 @@ ______________________________________________________________
         :width: 40px
         :alt: Daniel Jones
         :target: https://github.com/dcjones
+
+----
+
+`LibCURL <https://github.com/amitmurthy/LibCURL.jl>`_
+_____________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/313e7a578240d11c97a68c9c6918a90b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Amit Murthy
+     :target: https://github.com/amitmurthy
+
+  Thin Julia wrapper of libCURL 
+
+  当前版本： ``0.0.0``  (updated: 2013-07-06) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Amit Murthy <https://github.com/amitmurthy>`_
+
+  依赖关系： ::
+
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/313e7a578240d11c97a68c9c6918a90b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Amit Murthy
+        :target: https://github.com/amitmurthy
+
+----
+
+`LibExpat <https://github.com/amitmurthy/LibExpat.jl>`_
+_______________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/313e7a578240d11c97a68c9c6918a90b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Amit Murthy
+     :target: https://github.com/amitmurthy
+
+  Julia interface to libexpat 
+
+  当前版本： ``0.0.0``  (updated: 2013-07-05) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Amit Murthy <https://github.com/amitmurthy>`_
+
+  依赖关系： ::
+
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/313e7a578240d11c97a68c9c6918a90b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Amit Murthy
+        :target: https://github.com/amitmurthy
+
+    .. image:: https://secure.gravatar.com/avatar/8af4d5971a2308b86a94f58fb98129c5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Jameson Nash
+        :target: https://github.com/vtjnash
 
 ----
 
@@ -2876,15 +4560,18 @@ ________________________________________________________________
      :alt: Carlo Baldassi
      :target: https://github.com/carlobaldassi
 
-  当前版本： ``0.0.0``
+  [DEPRECATED PACKAGE - SUPERSEDED BY MathProgBase] 
 
-  High-level linear programming functionality for Julia via GLPK library (transitional package) 
+  当前版本： ``0.2.1``  (updated: 2013-05-23) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Carlo Baldassi <https://github.com/carlobaldassi>`_
 
   依赖关系： ::
 
       GLPK           任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -2906,9 +4593,11 @@ ___________________________________________________
      :alt: John Myles White
      :target: https://github.com/johnmyleswhite
 
-  当前版本： ``0.0.0``
-
   Loss functions 
+
+  当前版本： ``0.0.0``  (updated: 2012-12-23) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
@@ -2936,15 +4625,18 @@ ____________________________________________
      :alt: Simon Kornblith
      :target: https://github.com/simonster
 
-  当前版本： ``0.2.0``
-
   Julia module for reading MATLAB files 
+
+  当前版本： ``0.2.1``  (updated: 2013-06-29) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Simon Kornblith <https://github.com/simonster>`_
 
   依赖关系： ::
 
       HDF5           任意版本
+      Zlib           任意版本
       julia          [v"0.2.0-"]
 
   贡献者：
@@ -2985,9 +4677,11 @@ _________________________________________________
      :alt: Dahua Lin
      :target: https://github.com/lindahua
 
-  当前版本： ``0.0.0``
-
   Calling MATLAB in Julia through MATLAB Engine 
+
+  当前版本： ``0.0.0``  (updated: 2013-05-10) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Dahua Lin <https://github.com/lindahua>`_
 
@@ -3003,6 +4697,12 @@ _________________________________________________
         :alt: Dahua Lin
         :target: https://github.com/lindahua
 
+    .. image:: https://secure.gravatar.com/avatar/9524ef56c2823a59d54f9226a7ef08ba?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Simon Kornblith
+        :target: https://github.com/simonster
+
 ----
 
 `MCMC <https://github.com/doobwa/MCMC.jl>`_
@@ -3015,9 +4715,11 @@ ___________________________________________
      :alt: Chris DuBois
      :target: https://github.com/doobwa
 
-  当前版本： ``0.0.0``
-
   MCMC tools for Julia 
+
+  当前版本： ``0.0.0``  (updated: 2012-11-23) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Chris DuBois <https://github.com/doobwa>`_
 
@@ -3057,17 +4759,19 @@ _____________________________________________
      :alt: Steven G. Johnson
      :target: https://github.com/stevengj
 
-  Current Version: ``0.0.0``
-
   fast modified discrete cosine transform (MDCT and IMDCT) for the Julia language 
 
-  Maintainer: `Steven G. Johnson <https://github.com/stevengj>`_
+  当前版本： ``0.0.0``  (updated: 2013-04-05) 
 
-  Dependencies::
+  Master 状态： 无 Travis-CI 状态
 
-      None
+  维护者： `Steven G. Johnson <https://github.com/stevengj>`_
 
-  Contributors:
+  依赖关系： ::
+
+      无
+
+  贡献者：
 
 ----
 
@@ -3081,16 +4785,17 @@ _________________________________________________
      :alt: Dahua Lin
      :target: https://github.com/lindahua
 
-  当前版本： ``0.0.0``
-
   A set of functions to support the development of machine learning algorithms 
+
+  当前版本： ``0.2.3``  (updated: 2013-07-20) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Dahua Lin <https://github.com/lindahua>`_
 
   依赖关系： ::
 
-      Devectorize    任意版本
-      Distance       任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -3099,6 +4804,38 @@ _________________________________________________
         :width: 40px
         :alt: Dahua Lin
         :target: https://github.com/lindahua
+
+----
+
+`MNIST <https://github.com/johnmyleswhite/MNIST.jl>`_
+_____________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: John Myles White
+     :target: https://github.com/johnmyleswhite
+
+  Tools for working with the MNIST data set 
+
+  当前版本： ``0.0.0``  (updated: 2013-04-12) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: John Myles White
+        :target: https://github.com/johnmyleswhite
 
 ----
 
@@ -3112,9 +4849,11 @@ _______________________________________________________________________
      :alt: milktrader
      :target: https://github.com/milktrader
 
-  当前版本： ``0.0.0``
-
   Technical analysis of financial time series in Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-03-02) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `milktrader <https://github.com/milktrader>`_
 
@@ -3125,7 +4864,7 @@ _______________________________________________________________________
       Stats          任意版本
       TimeSeries     任意版本
       UTF16          任意版本
-      julia          [v"0.1.0-", v"0.2.0-"]
+      julia          [v"0.1.0-",v"0.2.0-"]
 
   贡献者：
 
@@ -3134,45 +4873,6 @@ _______________________________________________________________________
         :width: 40px
         :alt: milktrader
         :target: https://github.com/milktrader
-
-----
-
-`MathProg <https://github.com/IainNZ/MathProg.jl>`_
-___________________________________________________
-
-  .. image:: https://secure.gravatar.com/avatar/cc283e3bd2784ad33dfd55afcfef4877?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-     :height: 80px
-     :width: 80px
-     :align: right
-     :alt: Iain Dunning
-     :target: https://github.com/IainNZ
-
-  当前版本： ``0.0.0``
-
-  Modelling language for Linear, Integer, and Quadratic Programming 
-
-  维护者： `Iain Dunning <https://github.com/IainNZ>`_
-
-  依赖关系： ::
-
-      Clp            任意版本
-      CoinMP         任意版本
-      MathProgBase   Any Version
-      julia          [v"0.2.0-"]
-
-  贡献者：
-
-    .. image:: https://secure.gravatar.com/avatar/b0cf54b8431443687735cb486599ea9c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: Miles Lubin
-        :target: https://github.com/mlubin
-
-    .. image:: https://secure.gravatar.com/avatar/cc283e3bd2784ad33dfd55afcfef4877?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: Iain Dunning
-        :target: https://github.com/IainNZ
 
 ----
 
@@ -3186,9 +4886,11 @@ ___________________________________________________________
      :alt: Miles Lubin
      :target: https://github.com/mlubin
 
-  当前版本： ``0.0.0``
+  Provides standard interface to linear/mixed-integer/++ optimization solvers, including linprog and mixintprog functions. 
 
-  Provides standard interface to linear programming solvers, including linprog function. 
+  当前版本： ``0.0.0``  (updated: 2013-06-24) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Miles Lubin <https://github.com/mlubin>`_
 
@@ -3204,6 +4906,106 @@ ___________________________________________________________
         :alt: Miles Lubin
         :target: https://github.com/mlubin
 
+    .. image:: https://secure.gravatar.com/avatar/80502de63c1b21d8f3ba663d72ba5be2?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Carlo Baldassi
+        :target: https://github.com/carlobaldassi
+
+    .. image:: https://secure.gravatar.com/avatar/cc283e3bd2784ad33dfd55afcfef4877?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Iain Dunning
+        :target: https://github.com/IainNZ
+
+----
+
+`Meddle <https://github.com/hackerschool/Meddle.jl>`_
+_____________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/588308d511de92d8e642da998cdc5d06?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-org-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Hacker School
+     :target: https://github.com/hackerschool
+
+   
+
+  当前版本： ``0.0.1``  (updated: 2013-07-18) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Hacker School <https://github.com/hackerschool>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/757c233176d3ad14136df4a547ac4234?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Daniel Mendel
+        :target: https://github.com/danielmendel
+
+    .. image:: https://secure.gravatar.com/avatar/54cc6bf56d6223bdb99e5d6cfbd11056?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Leah Hanson
+        :target: https://github.com/astrieanna
+
+    .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Stefan Karpinski
+        :target: https://github.com/StefanKarpinski
+
+    .. image:: https://secure.gravatar.com/avatar/06625cbad0c69f5c2e673a4312e9fd7e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Zach Allaun
+        :target: https://github.com/zachallaun
+
+    .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Keno Fischer
+        :target: https://github.com/loladiro
+
+----
+
+`Memoize <https://github.com/simonster/Memoize.jl>`_
+____________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/9524ef56c2823a59d54f9226a7ef08ba?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Simon Kornblith
+     :target: https://github.com/simonster
+
+  @memoize macro for Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-06-13) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Simon Kornblith <https://github.com/simonster>`_
+
+  依赖关系： ::
+
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/9524ef56c2823a59d54f9226a7ef08ba?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Simon Kornblith
+        :target: https://github.com/simonster
+
 ----
 
 `Meshes <https://github.com/twadleigh/Meshes.jl>`_
@@ -3216,9 +5018,11 @@ __________________________________________________
      :alt: Tracy Wadleigh
      :target: https://github.com/twadleigh
 
-  当前版本： ``0.0.0``
-
   Generation and manipulation of triangular meshes. 
+
+  当前版本： ``0.0.0``  (updated: 2013-03-03) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Tracy Wadleigh <https://github.com/twadleigh>`_
 
@@ -3242,6 +5046,39 @@ __________________________________________________
 
 ----
 
+`Metis <https://github.com/dmbates/Metis.jl>`_
+______________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/a27d23ce4c080f3307cc6507f6fdfe87?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Douglas Bates
+     :target: https://github.com/dmbates
+
+  Julia interface to Metis graph partitioning 
+
+  当前版本： ``0.0.0``  (updated: 2013-04-30) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Douglas Bates <https://github.com/dmbates>`_
+
+  依赖关系： ::
+
+      Graphs         任意版本
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/a27d23ce4c080f3307cc6507f6fdfe87?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Douglas Bates
+        :target: https://github.com/dmbates
+
+----
+
 `MixedModels <https://github.com/dmbates/MixedModels.jl>`_
 __________________________________________________________
 
@@ -3249,14 +5086,16 @@ __________________________________________________________
      :height: 80px
      :width: 80px
      :align: right
-     :alt: dmbates
+     :alt: Douglas Bates
      :target: https://github.com/dmbates
-
-  当前版本： ``0.0.0``
 
   A Julia package for fitting (statistical) mixed-effects models 
 
-  维护者： `dmbates <https://github.com/dmbates>`_
+  当前版本： ``0.0.0``  (updated: 2013-06-19) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Douglas Bates <https://github.com/dmbates>`_
 
   依赖关系： ::
 
@@ -3269,8 +5108,43 @@ __________________________________________________________
     .. image:: https://secure.gravatar.com/avatar/a27d23ce4c080f3307cc6507f6fdfe87?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: dmbates
+        :alt: Douglas Bates
         :target: https://github.com/dmbates
+
+----
+
+`MixtureModels <https://github.com/lindahua/MixtureModels.jl>`_
+_______________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Dahua Lin
+     :target: https://github.com/lindahua
+
+  A Julia package for probabilistic mixture models 
+
+  当前版本： ``0.1.1``  (updated: 2013-07-23) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Dahua Lin <https://github.com/lindahua>`_
+
+  依赖关系： ::
+
+      Distributions  任意版本
+      MLBase         任意版本
+      NumericExtensions任意版本
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Dahua Lin
+        :target: https://github.com/lindahua
 
 ----
 
@@ -3284,9 +5158,11 @@ ____________________________________________
      :alt: Patrick O'Leary
      :target: https://github.com/pao
 
-  当前版本： ``0.0.0``
-
   Monadic expressions and sequences for Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-03-05) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Patrick O'Leary <https://github.com/pao>`_
 
@@ -3316,9 +5192,11 @@ ____________________________________________
      :alt: Brian Smith
      :target: https://github.com/Lytol
 
-  当前版本： ``0.0.0``
-
   Mongo bindings for the Julia programming language 
+
+  当前版本： ``0.0.0``  (updated: 2013-03-14) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Brian Smith <https://github.com/Lytol>`_
 
@@ -3346,9 +5224,11 @@ __________________________________________________
      :alt: Avik Sengupta
      :target: https://github.com/aviks
 
-  当前版本： ``0.0.0``
-
   Mongrel2 handlers in Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-01-26) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Avik Sengupta <https://github.com/aviks>`_
 
@@ -3379,6 +5259,80 @@ __________________________________________________
 
 ----
 
+`Morsel <https://github.com/hackerschool/Morsel.jl>`_
+_____________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/588308d511de92d8e642da998cdc5d06?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-org-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Hacker School
+     :target: https://github.com/hackerschool
+
+  Sinatra-like micro framework for web programming in Julia 
+
+  当前版本： ``0.0.1``  (updated: 2013-07-18) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Hacker School <https://github.com/hackerschool>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/757c233176d3ad14136df4a547ac4234?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Daniel Mendel
+        :target: https://github.com/danielmendel
+
+    .. image:: https://secure.gravatar.com/avatar/06625cbad0c69f5c2e673a4312e9fd7e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Zach Allaun
+        :target: https://github.com/zachallaun
+
+    .. image:: https://secure.gravatar.com/avatar/54cc6bf56d6223bdb99e5d6cfbd11056?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Leah Hanson
+        :target: https://github.com/astrieanna
+
+    .. image:: https://secure.gravatar.com/avatar/72ee26065724239b61be271722b682dd?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Nick Collins
+        :target: https://github.com/ncollins
+
+    .. image:: https://secure.gravatar.com/avatar/6c72d7139086df4435a1067a66b02fff?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: thinkpad20
+        :target: https://github.com/thinkpad20
+
+    .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Stefan Karpinski
+        :target: https://github.com/StefanKarpinski
+
+    .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Keno Fischer
+        :target: https://github.com/loladiro
+
+    .. image:: https://secure.gravatar.com/avatar/2bf4378d854e6f9e8cdba9505b90520e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: David
+        :target: https://github.com/maxlikely
+
+----
+
 `Mustache <https://github.com/jverzani/Mustache.jl>`_
 _____________________________________________________
 
@@ -3389,9 +5343,11 @@ _____________________________________________________
      :alt: john verzani
      :target: https://github.com/jverzani
 
-  当前版本： ``0.0.0``
-
   Port of mustache.js to julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-07-09) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `john verzani <https://github.com/jverzani>`_
 
@@ -3425,6 +5381,12 @@ _____________________________________________________
         :alt: Dirk Gadsden
         :target: https://github.com/dirk
 
+    .. image:: https://secure.gravatar.com/avatar/54cc6bf56d6223bdb99e5d6cfbd11056?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Leah Hanson
+        :target: https://github.com/astrieanna
+
 ----
 
 `NHST <https://github.com/johnmyleswhite/NHST.jl>`_
@@ -3437,15 +5399,18 @@ ___________________________________________________
      :alt: John Myles White
      :target: https://github.com/johnmyleswhite
 
-  当前版本： ``0.0.0``
-
   Null hypothesis significance tests 
+
+  当前版本： ``0.0.1``  (updated: 2013-05-28) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
   依赖关系： ::
 
-      无
+      Distributions  任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -3454,6 +5419,39 @@ ___________________________________________________
         :width: 40px
         :alt: John Myles White
         :target: https://github.com/johnmyleswhite
+
+----
+
+`NIfTI <https://github.com/simonster/NIfTI.jl>`_
+________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/9524ef56c2823a59d54f9226a7ef08ba?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Simon Kornblith
+     :target: https://github.com/simonster
+
+  Julia module for reading NIfTI MRI files 
+
+  当前版本： ``0.0.0``  (updated: 2013-05-12) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Simon Kornblith <https://github.com/simonster>`_
+
+  依赖关系： ::
+
+      StrPack        任意版本
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/9524ef56c2823a59d54f9226a7ef08ba?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Simon Kornblith
+        :target: https://github.com/simonster
 
 ----
 
@@ -3467,9 +5465,11 @@ _______________________________________________
      :alt: Steven G. Johnson
      :target: https://github.com/stevengj
 
-  当前版本： ``0.0.0``
-
   Package to call the NLopt nonlinear-optimization library from the Julia language 
+
+  当前版本： ``0.0.0``  (updated: 2013-03-28) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Steven G. Johnson <https://github.com/stevengj>`_
 
@@ -3478,6 +5478,38 @@ _______________________________________________
       julia          [v"0.2.0-"]
 
   贡献者：
+
+----
+
+`NPZ <https://github.com/fhs/NPZ.jl>`_
+______________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/f11cd39050d2eb63ec494c0e7ae81d98?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Fazlul Shahriar
+     :target: https://github.com/fhs
+
+  A Julia package that provides support for reading and writing Numpy .npy and .npz files 
+
+  当前版本： ``0.0.0``  (updated: 2013-07-24) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Fazlul Shahriar <https://github.com/fhs>`_
+
+  依赖关系： ::
+
+      ZipFile        [v"0.1.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/f11cd39050d2eb63ec494c0e7ae81d98?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Fazlul Shahriar
+        :target: https://github.com/fhs
 
 ----
 
@@ -3491,9 +5523,11 @@ ______________________________________________
      :alt: Harlan Harris
      :target: https://github.com/HarlanH
 
-  当前版本： ``0.0.0``
-
   Julia named index and named vector types 
+
+  当前版本： ``0.0.0``  (updated: 2012-11-17) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Harlan Harris <https://github.com/HarlanH>`_
 
@@ -3511,6 +5545,85 @@ ______________________________________________
 
 ----
 
+`NetCDF <https://github.com/meggart/NetCDF.jl>`_
+________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/5c9292b49876311c17bf358b1717adf9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: meggart
+     :target: https://github.com/meggart
+
+  NetCDF support for the julia programming language 
+
+  当前版本： ``0.0.0``  (updated: 2013-05-07) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `meggart <https://github.com/meggart>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/5c9292b49876311c17bf358b1717adf9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: meggart
+        :target: https://github.com/meggart
+
+----
+
+`NumericExtensions <https://github.com/lindahua/NumericExtensions.jl>`_
+_______________________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Dahua Lin
+     :target: https://github.com/lindahua
+
+  Julia extensions to provide high performance computational support 
+
+  当前版本： ``0.2.12``  (updated: 2013-07-29) 
+
+  Master 状态： |NumericExtensions_build|
+
+  .. |NumericExtensions_build| image:: https://api.travis-ci.org/lindahua/NumericExtensions.jl.png
+     :align: bottom
+
+  维护者： `Dahua Lin <https://github.com/lindahua>`_
+
+  依赖关系： ::
+
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Dahua Lin
+        :target: https://github.com/lindahua
+
+    .. image:: https://secure.gravatar.com/avatar/a27d23ce4c080f3307cc6507f6fdfe87?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Douglas Bates
+        :target: https://github.com/dmbates
+
+    .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tim Holy
+        :target: https://github.com/timholy
+
+----
+
 `ODBC <https://github.com/karbarcca/ODBC.jl>`_
 ______________________________________________
 
@@ -3521,15 +5634,19 @@ ______________________________________________
      :alt: Jacob Quinn
      :target: https://github.com/karbarcca
 
-  当前版本： ``0.0.0``
-
   A low-level ODBC interface for the Julia programming language 
+
+  当前版本： ``0.2.0``  (updated: 2013-07-26) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Jacob Quinn <https://github.com/karbarcca>`_
 
   依赖关系： ::
 
-      DataFrames     任意版本
+      DataFrames     [v"0.2.0"]
+      ProgressMeter  任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -3545,6 +5662,12 @@ ______________________________________________
         :alt: Kevin Squire
         :target: https://github.com/kmsquire
 
+    .. image:: https://secure.gravatar.com/avatar/3aa708adb3ecf15173f7e6f2f9eefc6c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Paul Ingles
+        :target: https://github.com/pingles
+
 ----
 
 `ODE <https://github.com/vtjnash/ODE.jl>`_
@@ -3557,9 +5680,11 @@ __________________________________________
      :alt: Jameson Nash
      :target: https://github.com/vtjnash
 
-  当前版本： ``0.0.0``
-
   Assorted basic Ordinary Differential Equation solvers 
+
+  当前版本： ``0.0.0``  (updated: 2013-03-01) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Jameson Nash <https://github.com/vtjnash>`_
 
@@ -3587,9 +5712,11 @@ __________________________________________________
      :alt: Robert J. Ennis
      :target: https://github.com/rennis250
 
-  当前版本： ``0.0.0``
-
   Julia interface to OpenGL 
+
+  当前版本： ``0.0.0``  (updated: 2013-01-18) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Robert J. Ennis <https://github.com/rennis250>`_
 
@@ -3617,9 +5744,11 @@ _______________________________________________
      :alt: Dirk Gadsden
      :target: https://github.com/dirk
 
-  当前版本： ``0.0.0``
-
   WIP OpenSSL bindings for Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-03-06) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Dirk Gadsden <https://github.com/dirk>`_
 
@@ -3647,9 +5776,14 @@ _____________________________________________________
      :alt: John Myles White
      :target: https://github.com/johnmyleswhite
 
-  当前版本： ``0.0.0``
-
   Optimization functions for Julia 
+
+  当前版本： ``0.1.6``  (updated: 2013-07-15) 
+
+  Master 状态： |Optim_build|
+
+  .. |Optim_build| image:: https://api.travis-ci.org/johnmyleswhite/Optim.jl.png
+     :align: bottom
 
   维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
@@ -3660,6 +5794,7 @@ _____________________________________________________
       Calculus       任意版本
       Distributions  任意版本
       Options        任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -3681,11 +5816,23 @@ _____________________________________________________
         :alt: Blake Johnson
         :target: https://github.com/blakejohnson
 
+    .. image:: https://secure.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Dahua Lin
+        :target: https://github.com/lindahua
+
     .. image:: https://secure.gravatar.com/avatar/02abdd20ef026f24d96035a407912df0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Andreas Noack Jensen
         :target: https://github.com/andreasnoackjensen
+
+    .. image:: https://secure.gravatar.com/avatar/f5c61e85dfa465686adc24e0bffba42a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Avik Sengupta
+        :target: https://github.com/aviks
 
 ----
 
@@ -3699,9 +5846,11 @@ ____________________________________________________
      :alt: The Julia Language
      :target: https://github.com/JuliaLang
 
-  当前版本： ``0.2.0``
-
   A framework for providing optional arguments to functions. 
+
+  当前版本： ``0.2.1``  (updated: 2013-06-06) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `The Julia Language <https://github.com/JuliaLang>`_
 
@@ -3753,9 +5902,11 @@ ____________________________________________
      :alt: Simon Kornblith
      :target: https://github.com/simonster
 
-  当前版本： ``0.0.0``
-
   Julia module for reading Plexon PLX files 
+
+  当前版本： ``0.0.0``  (updated: 2013-04-02) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Simon Kornblith <https://github.com/simonster>`_
 
@@ -3773,6 +5924,44 @@ ____________________________________________
 
 ----
 
+`PTools <https://github.com/amitmurthy/PTools.jl>`_
+___________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/313e7a578240d11c97a68c9c6918a90b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Amit Murthy
+     :target: https://github.com/amitmurthy
+
+  Collection of utilities for parallel processing in Julia  
+
+  当前版本： ``0.0.0``  (updated: 2013-07-11) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Amit Murthy <https://github.com/amitmurthy>`_
+
+  依赖关系： ::
+
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/313e7a578240d11c97a68c9c6918a90b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Amit Murthy
+        :target: https://github.com/amitmurthy
+
+    .. image:: https://secure.gravatar.com/avatar/eea0b193dae8ac47946202ee404a6d7a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tanmay Mohapatra
+        :target: https://github.com/tanmaykm
+
+----
+
 `PatternDispatch <https://github.com/toivoh/PatternDispatch.jl>`_
 _________________________________________________________________
 
@@ -3783,15 +5972,17 @@ _________________________________________________________________
      :alt: toivoh
      :target: https://github.com/toivoh
 
-  当前版本： ``0.0.0``
-
   Method dispatch based on pattern matching for Julia 
+
+  当前版本： ``0.0.1``  (updated: 2013-05-01) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `toivoh <https://github.com/toivoh>`_
 
   依赖关系： ::
 
-      无
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -3809,6 +6000,38 @@ _________________________________________________________________
 
 ----
 
+`Phylogenetics <https://github.com/Ward9250/Phylogenetics.jl>`_
+_______________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/42b85a64563ec24b7a601143419f3d93?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Ben J. Ward
+     :target: https://github.com/Ward9250
+
+  The Julia package for analysis of evolution and phylogeny 
+
+  当前版本： ``0.0.0``  (updated: 2013-06-29) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Ben J. Ward <https://github.com/Ward9250>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/42b85a64563ec24b7a601143419f3d93?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Ben J. Ward
+        :target: https://github.com/Ward9250
+
+----
+
 `Polynomial <https://github.com/vtjnash/Polynomial.jl>`_
 ________________________________________________________
 
@@ -3819,9 +6042,11 @@ ________________________________________________________
      :alt: Jameson Nash
      :target: https://github.com/vtjnash
 
-  当前版本： ``0.0.0``
-
   Polynomial manipulations 
+
+  当前版本： ``0.0.0``  (updated: 2013-03-01) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Jameson Nash <https://github.com/vtjnash>`_
 
@@ -3849,9 +6074,11 @@ __________________________________________________
      :alt: Tim Holy
      :target: https://github.com/timholy
 
-  当前版本： ``0.2.0``
-
   Profilers for Julia 
+
+  当前版本： ``0.2.3``  (updated: 2013-07-26) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Tim Holy <https://github.com/timholy>`_
 
@@ -3873,11 +6100,103 @@ __________________________________________________
         :alt: rened
         :target: https://github.com/rened
 
+    .. image:: https://secure.gravatar.com/avatar/296ee25bff5b4ab9be5a06619e0a0818?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Mark McCurry
+        :target: https://github.com/fundamental
+
     .. image:: https://secure.gravatar.com/avatar/449044e4f0ed377b21409488cddafc45?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Blake Johnson
         :target: https://github.com/blakejohnson
+
+    .. image:: https://secure.gravatar.com/avatar/002ccfd8ee9e135f0dfb5650c292052d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Elliot Saba
+        :target: https://github.com/staticfloat
+
+    .. image:: https://secure.gravatar.com/avatar/42c8c4ab92de3390bcd2f637ef6ca16c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Kevin Squire
+        :target: https://github.com/kmsquire
+
+----
+
+`ProfileView <https://github.com/timholy/ProfileView.jl>`_
+__________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Tim Holy
+     :target: https://github.com/timholy
+
+  Visualization of Julia profiling data 
+
+  当前版本： ``0.0.0``  (updated: 2013-08-01) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Tim Holy <https://github.com/timholy>`_
+
+  依赖关系： ::
+
+      Cairo          [v"0.2.5-"]
+      Color          [v"0.2.4-"]
+      ImageView      任意版本
+      Tk             任意版本
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tim Holy
+        :target: https://github.com/timholy
+
+----
+
+`ProgressMeter <https://github.com/timholy/ProgressMeter.jl>`_
+______________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Tim Holy
+     :target: https://github.com/timholy
+
+  Progress meter for long-running computations 
+
+  当前版本： ``0.0.0``  (updated: 2013-06-07) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Tim Holy <https://github.com/timholy>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tim Holy
+        :target: https://github.com/timholy
+
+    .. image:: https://secure.gravatar.com/avatar/d788bf7fd037ebef5798d8881c5faa2f?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Jacob Quinn
+        :target: https://github.com/karbarcca
 
 ----
 
@@ -3891,9 +6210,11 @@ _________________________________________________________________________
      :alt: John Myles White
      :target: https://github.com/johnmyleswhite
 
-  当前版本： ``0.0.0``
-
   ProjectTemplate for Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-01-19) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
@@ -3922,9 +6243,11 @@ _________________________________________________
      :alt: Steven G. Johnson
      :target: https://github.com/stevengj
 
-  当前版本： ``0.0.0``
-
   Package to call Python functions from the Julia language 
+
+  当前版本： ``0.0.0``  (updated: 2013-07-18) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Steven G. Johnson <https://github.com/stevengj>`_
 
@@ -3946,6 +6269,11 @@ _________________________________________________
         :alt: Simon Kornblith
         :target: https://github.com/simonster
 
+    .. image:: https://secure.gravatar.com/avatar/8af4d5971a2308b86a94f58fb98129c5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Jameson Nash
+        :target: https://github.com/vtjnash
 
     .. image:: https://secure.gravatar.com/avatar/fa3b781987ef53c4d3b8397f2239e519?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -3953,11 +6281,86 @@ _________________________________________________
         :alt: Diego Javier Zea
         :target: https://github.com/diegozea
 
-    .. image:: https://secure.gravatar.com/avatar/8af4d5971a2308b86a94f58fb98129c5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+    .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: Jameson Nash
-        :target: https://github.com/vtjnash
+        :alt: Keno Fischer
+        :target: https://github.com/loladiro
+
+----
+
+`PyPlot <https://github.com/autozimu/PyPlot.jl>`_
+_________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/645b9a973f09e98d38b94955a980c9d5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Junfeng Li
+     :target: https://github.com/autozimu
+
+  Graphics solution for Julia based on pyplot 
+
+  当前版本： ``0.0.0``  (updated: 2013-06-19) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Junfeng Li <https://github.com/autozimu>`_
+
+  文档： `<http://autozimu.github.io/PyPlot.jl/>`_ 
+
+  依赖关系： ::
+
+      ZMQ            任意版本
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/645b9a973f09e98d38b94955a980c9d5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Junfeng Li
+        :target: https://github.com/autozimu
+
+    .. image:: https://secure.gravatar.com/avatar/5c06e9faa0d7bd205f81d10e825d7e4a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: nfoti
+        :target: https://github.com/nfoti
+
+----
+
+`PySide <https://github.com/jverzani/PySide.jl>`_
+_________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/8f514187144b1b19b0205fce41284d32?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: john verzani
+     :target: https://github.com/jverzani
+
+  julia interface for accessing Qt via PyCall and PySide 
+
+  当前版本： ``0.0.0``  (updated: 2013-07-18) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `john verzani <https://github.com/jverzani>`_
+
+  依赖关系： ::
+
+      DataFrames     任意版本
+      Mustache       任意版本
+      PyCall         任意版本
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/8f514187144b1b19b0205fce41284d32?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: john verzani
+        :target: https://github.com/jverzani
 
 ----
 
@@ -3971,18 +6374,20 @@ ___________________________________________________
      :alt: milktrader
      :target: https://github.com/milktrader
 
-  Current Version: ``0.0.1``
-
   Julia api to Quandl open source financial, economic and social datasets 
 
-  Maintainer: `milktrader <https://github.com/milktrader>`_
+  当前版本： ``0.0.1``  (updated: 2013-04-09) 
 
-  Dependencies::
+  Master 状态： 无 Travis-CI 状态
 
-      Calendar       Any Version
-      DataFrames     Any Version
+  维护者： `milktrader <https://github.com/milktrader>`_
 
-  Contributors:
+  依赖关系： ::
+
+      Calendar       任意版本
+      DataFrames     任意版本
+
+  贡献者：
 
     .. image:: https://secure.gravatar.com/avatar/25ce2ab2f5e673e46208c1188a39e6ca?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -4002,9 +6407,11 @@ ____________________________________________________
      :alt: Patrick O'Leary
      :target: https://github.com/pao
 
-  当前版本： ``0.0.0``
-
   QuickCheck specification-based testing for Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-02-22) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Patrick O'Leary <https://github.com/pao>`_
 
@@ -4034,15 +6441,18 @@ _____________________________________________________________
      :alt: John Myles White
      :target: https://github.com/johnmyleswhite
 
-  当前版本： ``0.0.0``
-
   Julia package for loading many of the data sets available in R 
+
+  当前版本： ``0.0.1``  (updated: 2013-06-23) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
   依赖关系： ::
 
       DataFrames     任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -4055,7 +6465,7 @@ _____________________________________________________________
     .. image:: https://secure.gravatar.com/avatar/a27d23ce4c080f3307cc6507f6fdfe87?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: dmbates
+        :alt: Douglas Bates
         :target: https://github.com/dmbates
 
     .. image:: https://secure.gravatar.com/avatar/62df30beab9c2a6f3fe3f86995e94387?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
@@ -4063,6 +6473,45 @@ _____________________________________________________________
         :width: 40px
         :alt: David de Laat
         :target: https://github.com/daviddelaat
+
+----
+
+`REPL <https://github.com/loladiro/REPL.jl>`_
+_____________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Keno Fischer
+     :target: https://github.com/loladiro
+
+  Pure-julia REPL implementation 
+
+  当前版本： ``0.0.0``  (updated: 2013-06-17) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Keno Fischer <https://github.com/loladiro>`_
+
+  依赖关系： ::
+
+      Readline       任意版本
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Keno Fischer
+        :target: https://github.com/loladiro
+
+    .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Stefan Karpinski
+        :target: https://github.com/StefanKarpinski
 
 ----
 
@@ -4076,9 +6525,11 @@ _____________________________________________________________
      :alt: Andreas Noack Jensen
      :target: https://github.com/andreasnoackjensen
 
-  当前版本： ``0.0.0``
-
   Code for testing of Julia's random numbers 
+
+  当前版本： ``0.0.0``  (updated: 2013-02-25) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Andreas Noack Jensen <https://github.com/andreasnoackjensen>`_
 
@@ -4102,6 +6553,48 @@ _____________________________________________________________
 
 ----
 
+`RPMmd <https://github.com/vtjnash/RPMmd.jl>`_
+______________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/8af4d5971a2308b86a94f58fb98129c5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Jameson Nash
+     :target: https://github.com/vtjnash
+
+  RPM-md processing library 
+
+  当前版本： ``0.0.3``  (updated: 2013-07-07) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Jameson Nash <https://github.com/vtjnash>`_
+
+  依赖关系： ::
+
+      HTTPClient     [v"0.0.0"]
+      LibExpat       [v"0.0.0"]
+      URLParse       [v"0.0.0"]
+      Zlib           [v"0.0.0"]
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/8af4d5971a2308b86a94f58fb98129c5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Jameson Nash
+        :target: https://github.com/vtjnash
+
+    .. image:: https://secure.gravatar.com/avatar/313e7a578240d11c97a68c9c6918a90b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Amit Murthy
+        :target: https://github.com/amitmurthy
+
+----
+
 `RandomMatrices <https://github.com/jiahao/RandomMatrices.jl>`_
 _______________________________________________________________
 
@@ -4112,9 +6605,11 @@ _______________________________________________________________
      :alt: Jiahao Chen
      :target: https://github.com/jiahao
 
-  当前版本： ``0.0.0``
-
   Random matrices package for Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-03-28) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Jiahao Chen <https://github.com/jiahao>`_
 
@@ -4141,6 +6636,105 @@ _______________________________________________________________
 
 ----
 
+`RdRand <https://github.com/SamChill/RdRand.jl>`_
+_________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/76dcb63fadbea9db73d6309005165661?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Sam Chill
+     :target: https://github.com/SamChill
+
+   
+
+  当前版本： ``0.0.0``  (updated: 2013-07-18) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Sam Chill <https://github.com/SamChill>`_
+
+  依赖关系： ::
+
+      RNGTest        任意版本
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/76dcb63fadbea9db73d6309005165661?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Sam Chill
+        :target: https://github.com/SamChill
+
+----
+
+`Readline <https://github.com/loladiro/Readline.jl>`_
+_____________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Keno Fischer
+     :target: https://github.com/loladiro
+
+  Julia readline-like library 
+
+  当前版本： ``0.0.0``  (updated: 2013-06-17) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Keno Fischer <https://github.com/loladiro>`_
+
+  依赖关系： ::
+
+      Terminals      任意版本
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Keno Fischer
+        :target: https://github.com/loladiro
+
+----
+
+`Regression <https://github.com/lindahua/Regression.jl>`_
+_________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Dahua Lin
+     :target: https://github.com/lindahua
+
+  Algorithms for regression analysis (e.g. linear regression and logistic regression) 
+
+  当前版本： ``0.0.0``  (updated: 2013-07-06) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Dahua Lin <https://github.com/lindahua>`_
+
+  依赖关系： ::
+
+      NumericExtensions任意版本
+      Optim          任意版本
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Dahua Lin
+        :target: https://github.com/lindahua
+
+----
+
 `Resampling <https://github.com/johnmyleswhite/Resampling.jl>`_
 _______________________________________________________________
 
@@ -4151,9 +6745,11 @@ _______________________________________________________________
      :alt: John Myles White
      :target: https://github.com/johnmyleswhite
 
-  当前版本： ``0.0.0``
-
   Tools for resampling data in Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-01-19) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
@@ -4181,9 +6777,11 @@ ___________________________________________
      :alt: Laurent Gautier
      :target: https://github.com/lgautier
 
-  当前版本： ``0.0.0``
-
   Julia-to-R interface 
+
+  当前版本： ``0.0.0``  (updated: 2013-02-05) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Laurent Gautier <https://github.com/lgautier>`_
 
@@ -4214,14 +6812,16 @@ ______________________________________________
      :height: 80px
      :width: 80px
      :align: right
-     :alt: dmbates
+     :alt: Douglas Bates
      :target: https://github.com/dmbates
-
-  当前版本： ``0.0.0``
 
   Archive of functions that emulate R's d-p-q-r functions for probability distributions 
 
-  维护者： `dmbates <https://github.com/dmbates>`_
+  当前版本： ``0.0.0``  (updated: 2013-03-04) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Douglas Bates <https://github.com/dmbates>`_
 
   依赖关系： ::
 
@@ -4232,8 +6832,77 @@ ______________________________________________
     .. image:: https://secure.gravatar.com/avatar/a27d23ce4c080f3307cc6507f6fdfe87?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: dmbates
+        :alt: Douglas Bates
         :target: https://github.com/dmbates
+
+----
+
+`RobustStats <https://github.com/mrxiaohe/RobustStats.jl>`_
+___________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/6b09c84accc07b69d2d60b721ac34a38?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Xiao He
+     :target: https://github.com/mrxiaohe
+
+  A collection of robust statistical tests 
+
+  当前版本： ``0.0.0``  (updated: 2013-06-30) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Xiao He <https://github.com/mrxiaohe>`_
+
+  依赖关系： ::
+
+      DataFrames     任意版本
+      Distributions  任意版本
+      GLM            任意版本
+      Rmath          任意版本
+      Stats          任意版本
+      Winston        任意版本
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/6b09c84accc07b69d2d60b721ac34a38?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Xiao He
+        :target: https://github.com/mrxiaohe
+
+----
+
+`Roots <https://github.com/jtravs/Roots.jl>`_
+_____________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/927b12170d55ac2cfe2060487cb16c0b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: John Travers
+     :target: https://github.com/jtravs
+
+  Root finding functions for Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-04-11) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `John Travers <https://github.com/jtravs>`_
+
+  依赖关系： ::
+
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/927b12170d55ac2cfe2060487cb16c0b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: John Travers
+        :target: https://github.com/jtravs
 
 ----
 
@@ -4247,15 +6916,18 @@ ___________________________________________
      :alt: M. Schauer
      :target: https://github.com/mschauer
 
-  当前版本： ``0.0.0``
-
   Simulation and inference for Ito processes and diffusions. 
+
+  当前版本： ``0.1.0``  (updated: 2013-06-21) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `M. Schauer <https://github.com/mschauer>`_
 
   依赖关系： ::
 
-      无
+      Winston        任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -4277,11 +6949,13 @@ ____________________________________________
      :alt: Robert J. Ennis
      :target: https://github.com/rennis250
 
-  当前版本： ``0.0.0``
-
   Julia interface to SDL 
 
-  维护者： `Robert Ennis <https://github.com/rennis250>`_
+  当前版本： ``0.0.0``  (updated: 2013-01-18) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Robert J. Ennis <https://github.com/rennis250>`_
 
   依赖关系： ::
 
@@ -4298,6 +6972,77 @@ ____________________________________________
 
 ----
 
+`SQLite <https://github.com/karbarcca/SQLite.jl>`_
+__________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/d788bf7fd037ebef5798d8881c5faa2f?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Jacob Quinn
+     :target: https://github.com/karbarcca
+
+  A Julia interface to the Sqlite library and support for operations on DataFrames 
+
+  当前版本： ``0.1.0``  (updated: 2013-06-20) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Jacob Quinn <https://github.com/karbarcca>`_
+
+  依赖关系： ::
+
+      DataFrames     [v"0.2.0"]
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/d788bf7fd037ebef5798d8881c5faa2f?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Jacob Quinn
+        :target: https://github.com/karbarcca
+
+    .. image:: https://secure.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: John Myles White
+        :target: https://github.com/johnmyleswhite
+
+----
+
+`SVM <https://github.com/johnmyleswhite/SVM.jl>`_
+_________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: John Myles White
+     :target: https://github.com/johnmyleswhite
+
+  SVM's for Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-04-14) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+
+  依赖关系： ::
+
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: John Myles White
+        :target: https://github.com/johnmyleswhite
+
+----
+
 `SemidefiniteProgramming <https://github.com/daviddelaat/SemidefiniteProgramming.jl>`_
 ______________________________________________________________________________________
 
@@ -4308,9 +7053,11 @@ ________________________________________________________________________________
      :alt: David de Laat
      :target: https://github.com/daviddelaat
 
-  当前版本： ``0.0.0``
-
   Interface to semidefinite programming libraries. 
+
+  当前版本： ``0.0.0``  (updated: 2013-03-08) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `David de Laat <https://github.com/daviddelaat>`_
 
@@ -4338,9 +7085,11 @@ _______________________________________________________
      :alt: Ben Lauwens
      :target: https://github.com/BenLauwens
 
-  当前版本： ``0.1.0``
-
   Process oriented simulation library written in Julia 
+
+  当前版本： ``0.1.2``  (updated: 2013-05-03) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Ben Lauwens <https://github.com/BenLauwens>`_
 
@@ -4358,6 +7107,38 @@ _______________________________________________________
 
 ----
 
+`SimpleMCMC <https://github.com/fredo-dedup/SimpleMCMC.jl>`_
+____________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/f87ff664dab9cd5bb362590613c680b8?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: fredo-dedup
+     :target: https://github.com/fredo-dedup
+
+  basic mcmc sampler implemented in Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-07-01) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `fredo-dedup <https://github.com/fredo-dedup>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/f87ff664dab9cd5bb362590613c680b8?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: fredo-dedup
+        :target: https://github.com/fredo-dedup
+
+----
+
 `Sims <https://github.com/tshort/Sims.jl>`_
 ___________________________________________
 
@@ -4368,9 +7149,11 @@ ___________________________________________
      :alt: Tom Short
      :target: https://github.com/tshort
 
-  当前版本： ``0.0.0``
-
   Experiments with non-causal, equation-based modeling in Julia 
+
+  当前版本： ``0.0.0``  (updated: 2012-11-23) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Tom Short <https://github.com/tshort>`_
 
@@ -4388,21 +7171,23 @@ ___________________________________________
 
 ----
 
-`Stats <https://github.com/JuliaStats/Stats.jl>`_
-_________________________________________________
+`Sodium <https://github.com/amitmurthy/Sodium.jl>`_
+___________________________________________________
 
-  .. image:: https://secure.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-org-420.png
+  .. image:: https://secure.gravatar.com/avatar/313e7a578240d11c97a68c9c6918a90b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
      :height: 80px
      :width: 80px
      :align: right
-     :alt: JuliaStats
-     :target: https://github.com/JuliaStats
+     :alt: Amit Murthy
+     :target: https://github.com/amitmurthy
 
-  当前版本： ``0.2.0``
+  Julia wrapper for libsodium 
 
-  Basic statistics for Julia 
+  当前版本： ``0.0.0``  (updated: 2013-04-24) 
 
-  维护者： `JuliaStats <https://github.com/JuliaStats>`_
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Amit Murthy <https://github.com/amitmurthy>`_
 
   依赖关系： ::
 
@@ -4410,17 +7195,108 @@ _________________________________________________
 
   贡献者：
 
-    .. image:: https://secure.gravatar.com/avatar/02abdd20ef026f24d96035a407912df0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+    .. image:: https://secure.gravatar.com/avatar/313e7a578240d11c97a68c9c6918a90b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: Andreas Noack Jensen
-        :target: https://github.com/andreasnoackjensen
+        :alt: Amit Murthy
+        :target: https://github.com/amitmurthy
+
+----
+
+`Soundex <https://github.com/johnmyleswhite/Soundex.jl>`_
+_________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: John Myles White
+     :target: https://github.com/johnmyleswhite
+
+  The Soundex algorithm in Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-07-08) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
 
     .. image:: https://secure.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: John Myles White
         :target: https://github.com/johnmyleswhite
+
+----
+
+`Stats <https://github.com/JuliaStats/Stats.jl>`_
+_________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/d57c99557ab0dc0fa44b4c84447d0f15?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-org-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Julia Statistics
+     :target: https://github.com/JuliaStats
+
+  Basic statistics for Julia 
+
+  当前版本： ``0.2.6``  (updated: 2013-07-22) 
+
+  Master 状态： |Stats_build|
+
+  .. |Stats_build| image:: https://api.travis-ci.org/JuliaStats/Stats.jl.png
+     :align: bottom
+
+  维护者： `Julia Statistics <https://github.com/JuliaStats>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Dahua Lin
+        :target: https://github.com/lindahua
+
+    .. image:: https://secure.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: John Myles White
+        :target: https://github.com/johnmyleswhite
+
+    .. image:: https://secure.gravatar.com/avatar/02abdd20ef026f24d96035a407912df0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Andreas Noack Jensen
+        :target: https://github.com/andreasnoackjensen
+
+    .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Stefan Karpinski
+        :target: https://github.com/StefanKarpinski
+
+    .. image:: https://secure.gravatar.com/avatar/449044e4f0ed377b21409488cddafc45?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Blake Johnson
+        :target: https://github.com/blakejohnson
+
+    .. image:: https://secure.gravatar.com/avatar/fa3b781987ef53c4d3b8397f2239e519?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Diego Javier Zea
+        :target: https://github.com/diegozea
 
 ----
 
@@ -4434,9 +7310,11 @@ ______________________________________________
      :alt: Patrick O'Leary
      :target: https://github.com/pao
 
-  当前版本： ``0.0.0``
-
   Swiss Army Knife for encoding and decoding binary streams 
+
+  当前版本： ``0.0.0``  (updated: 2013-05-23) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Patrick O'Leary <https://github.com/pao>`_
 
@@ -4460,6 +7338,18 @@ ______________________________________________
         :alt: Keno Fischer
         :target: https://github.com/loladiro
 
+    .. image:: https://secure.gravatar.com/avatar/9524ef56c2823a59d54f9226a7ef08ba?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Simon Kornblith
+        :target: https://github.com/simonster
+
+    .. image:: https://secure.gravatar.com/avatar/fa3b781987ef53c4d3b8397f2239e519?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Diego Javier Zea
+        :target: https://github.com/diegozea
+
     .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
@@ -4478,9 +7368,11 @@ ___________________________________________________
      :alt: Tom Short
      :target: https://github.com/tshort
 
-  当前版本： ``0.0.0``
-
   Julia interface to Sundials, including a nonlinear solver (KINSOL), ODE's (CVODE), and DAE's (IDA). 
+
+  当前版本： ``0.0.0``  (updated: 2013-05-07) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Tom Short <https://github.com/tshort>`_
 
@@ -4492,33 +7384,49 @@ ___________________________________________________
 
 ----
 
-`SymbolicLP <https://github.com/timholy/SymbolicLP.jl>`_
-________________________________________________________
+`SymPy <https://github.com/jverzani/SymPy.jl>`_
+_______________________________________________
 
-  .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+  .. image:: https://secure.gravatar.com/avatar/8f514187144b1b19b0205fce41284d32?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
      :height: 80px
      :width: 80px
      :align: right
-     :alt: Tim Holy
-     :target: https://github.com/timholy
+     :alt: john verzani
+     :target: https://github.com/jverzani
 
-  当前版本： ``0.0.0``
+  Start of Julia interface to SymPy via PyCall 
 
-  Symbolic linear programming and linear constraints 
+  当前版本： ``0.2.0``  (updated: 2013-07-22) 
 
-  维护者： `Tim Holy <https://github.com/timholy>`_
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `john verzani <https://github.com/jverzani>`_
 
   依赖关系： ::
 
-      无
+      GoogleCharts   任意版本
+      PyCall         任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
 
-    .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+    .. image:: https://secure.gravatar.com/avatar/8f514187144b1b19b0205fce41284d32?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: Tim Holy
-        :target: https://github.com/timholy
+        :alt: john verzani
+        :target: https://github.com/jverzani
+
+    .. image:: https://secure.gravatar.com/avatar/8af4d5971a2308b86a94f58fb98129c5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Jameson Nash
+        :target: https://github.com/vtjnash
+
+    .. image:: https://secure.gravatar.com/avatar/f1678bcdc052b500191b78923399e5f8?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Theodore Papamarkou
+        :target: https://github.com/scidom
 
 ----
 
@@ -4532,9 +7440,11 @@ _________________________________________
      :alt: pygy
      :target: https://github.com/pygy
 
-  当前版本： ``0.0.0``
-
   A TOML parser for Julia. 
+
+  当前版本： ``0.0.0``  (updated: 2013-03-06) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `pygy <https://github.com/pygy>`_
 
@@ -4553,6 +7463,38 @@ _________________________________________
 
 ----
 
+`Terminals <https://github.com/loladiro/Terminals.jl>`_
+_______________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Keno Fischer
+     :target: https://github.com/loladiro
+
+  Terminal Interfaces for Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-06-17) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Keno Fischer <https://github.com/loladiro>`_
+
+  依赖关系： ::
+
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Keno Fischer
+        :target: https://github.com/loladiro
+
+----
+
 `TextAnalysis <https://github.com/johnmyleswhite/TextAnalysis.jl>`_
 ___________________________________________________________________
 
@@ -4563,9 +7505,11 @@ ___________________________________________________________________
      :alt: John Myles White
      :target: https://github.com/johnmyleswhite
 
-  当前版本： ``0.0.0``
-
   Julia package for text analysis 
+
+  当前版本： ``0.0.1``  (updated: 2013-05-24) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
@@ -4573,6 +7517,7 @@ ___________________________________________________________________
 
       DataFrames     任意版本
       Languages      任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -4594,15 +7539,20 @@ __________________________________________________________
      :alt: Carlo Baldassi
      :target: https://github.com/carlobaldassi
 
-  当前版本： ``0.0.0``
-
   Package for wrapping text into paragraphs. 
+
+  当前版本： ``0.1.1``  (updated: 2013-06-28) 
+
+  Master 状态： |TextWrap_build|
+
+  .. |TextWrap_build| image:: https://api.travis-ci.org/carlobaldassi/TextWrap.jl.png
+     :align: bottom
 
   维护者： `Carlo Baldassi <https://github.com/carlobaldassi>`_
 
   依赖关系： ::
 
-      Options        任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -4630,9 +7580,11 @@ ___________________________________________________________
      :alt: milktrader
      :target: https://github.com/milktrader
 
-  当前版本： ``0.0.0``
-
   Modeling time series in Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-06-14) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `milktrader <https://github.com/milktrader>`_
 
@@ -4643,7 +7595,7 @@ ___________________________________________________________
       Stats          任意版本
       TimeSeries     任意版本
       UTF16          任意版本
-      julia          [v"0.1.0-", v"0.2.0-"]
+      julia          [v"0.1.0-",v"0.2.0-"]
 
   贡献者：
 
@@ -4671,9 +7623,11 @@ ___________________________________________________________
      :alt: milktrader
      :target: https://github.com/milktrader
 
-  当前版本： ``0.0.0``
-
   Time series toolkit for Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-04-10) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `milktrader <https://github.com/milktrader>`_
 
@@ -4683,7 +7637,7 @@ ___________________________________________________________
       DataFrames     任意版本
       Stats          任意版本
       UTF16          任意版本
-      julia          [v"0.1.0-", v"0.2.0-"]
+      julia          [v"0.1.0-",v"0.2.0-"]
 
   贡献者：
 
@@ -4711,43 +7665,20 @@ __________________________________________
      :alt: The Julia Language
      :target: https://github.com/JuliaLang
 
-  当前版本： ``0.0.1``
-
   Julia interface to Tk windowing toolkit. 
+
+  当前版本： ``0.2.4``  (updated: 2013-08-01) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `The Julia Language <https://github.com/JuliaLang>`_
 
   依赖关系： ::
 
-      BinDeps        任意版本
+      BinDeps        [v"0.2.2-"]
       Cairo          任意版本
-      julia          [v"0.2.0-"]
 
   贡献者：
-
-    .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: Keno Fischer
-        :target: https://github.com/loladiro
-
-    .. image:: https://secure.gravatar.com/avatar/b4b8db23d8096b722483a57d21b7d65d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: Jeff Bezanson
-        :target: https://github.com/JeffBezanson
-
-    .. image:: https://secure.gravatar.com/avatar/8f514187144b1b19b0205fce41284d32?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: john verzani
-        :target: https://github.com/jverzani
-
-    .. image:: https://secure.gravatar.com/avatar/1b65c4698da5f30310e14aaee8f3f24e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-        :height: 40px
-        :width: 40px
-        :alt: Mike Nolta
-        :target: https://github.com/nolta
 
     .. image:: https://secure.gravatar.com/avatar/55e277a715ee2afd0d29c309174eca02?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -4755,11 +7686,17 @@ __________________________________________
         :alt: Viral B. Shah
         :target: https://github.com/ViralBShah
 
-    .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+    .. image:: https://secure.gravatar.com/avatar/8f514187144b1b19b0205fce41284d32?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: Stefan Karpinski
-        :target: https://github.com/StefanKarpinski
+        :alt: john verzani
+        :target: https://github.com/jverzani
+
+    .. image:: https://secure.gravatar.com/avatar/b4b8db23d8096b722483a57d21b7d65d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Jeff Bezanson
+        :target: https://github.com/JeffBezanson
 
     .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -4767,41 +7704,53 @@ __________________________________________
         :alt: Tim Holy
         :target: https://github.com/timholy
 
+    .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Keno Fischer
+        :target: https://github.com/loladiro
+
+    .. image:: https://secure.gravatar.com/avatar/afb7f86706c41da610daf216d60e59b9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Ron Rock
+        :target: https://github.com/rsrock
+
+    .. image:: https://secure.gravatar.com/avatar/8af4d5971a2308b86a94f58fb98129c5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Jameson Nash
+        :target: https://github.com/vtjnash
+
+    .. image:: https://secure.gravatar.com/avatar/1b65c4698da5f30310e14aaee8f3f24e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Mike Nolta
+        :target: https://github.com/nolta
+
+    .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Stefan Karpinski
+        :target: https://github.com/StefanKarpinski
+
+    .. image:: https://secure.gravatar.com/avatar/37cebf4f44a1dbf71ee94aaea166ef00?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Robert J. Ennis
+        :target: https://github.com/rennis250
+
     .. image:: https://secure.gravatar.com/avatar/449044e4f0ed377b21409488cddafc45?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Blake Johnson
         :target: https://github.com/blakejohnson
 
-----
-
-`TkExtras <https://github.com/jverzani/TkExtras.jl>`_
-_____________________________________________________
-
-  .. image:: https://secure.gravatar.com/avatar/8f514187144b1b19b0205fce41284d32?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
-     :height: 80px
-     :width: 80px
-     :align: right
-     :alt: john verzani
-     :target: https://github.com/jverzani
-
-  当前版本： ``0.0.0``
-
-  Additions to the Tk.jl pacakge 
-
-  维护者： `john verzani <https://github.com/jverzani>`_
-
-  依赖关系： ::
-
-      Tk             任意版本
-
-  贡献者：
-
-    .. image:: https://secure.gravatar.com/avatar/8f514187144b1b19b0205fce41284d32?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+    .. image:: https://secure.gravatar.com/avatar/002ccfd8ee9e135f0dfb5650c292052d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: john verzani
-        :target: https://github.com/jverzani
+        :alt: Elliot Saba
+        :target: https://github.com/staticfloat
 
 ----
 
@@ -4815,9 +7764,11 @@ ___________________________________________________________
      :alt: Jonathan Chang
      :target: https://github.com/slycoder
 
-  当前版本： ``0.0.0``
-
   TopicModels for Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-03-17) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Jonathan Chang <https://github.com/slycoder>`_
 
@@ -4845,9 +7796,11 @@ _________________________________________________________________________
      :alt: milktrader
      :target: https://github.com/milktrader
 
-  当前版本： ``0.0.0``
-
   Downloading financial time series data and providing financial asset types in Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-03-01) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `milktrader <https://github.com/milktrader>`_
 
@@ -4858,7 +7811,7 @@ _________________________________________________________________________
       Stats          任意版本
       TimeSeries     任意版本
       UTF16          任意版本
-      julia          [v"0.1.0-", v"0.2.0-"]
+      julia          [v"0.1.0-",v"0.2.0-"]
 
   贡献者：
 
@@ -4880,9 +7833,11 @@ ______________________________________________
      :alt: The Julia Language
      :target: https://github.com/JuliaLang
 
-  当前版本： ``0.0.0``
-
   Implementation of the trie data structure. 
+
+  当前版本： ``0.0.0``  (updated: 2012-11-13) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `The Julia Language <https://github.com/JuliaLang>`_
 
@@ -4900,6 +7855,114 @@ ______________________________________________
 
 ----
 
+`URIParser <https://github.com/loladiro/URIParser.jl>`_
+_______________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Keno Fischer
+     :target: https://github.com/loladiro
+
+  Pure julia URI parser 
+
+  当前版本： ``0.0.0``  (updated: 2013-07-12) 
+
+  Master 状态： |URIParser_build|
+
+  .. |URIParser_build| image:: https://api.travis-ci.org/loladiro/URIParser.jl.png
+     :align: bottom
+
+  维护者： `Keno Fischer <https://github.com/loladiro>`_
+
+  依赖关系： ::
+
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Keno Fischer
+        :target: https://github.com/loladiro
+
+    .. image:: https://secure.gravatar.com/avatar/eea0b193dae8ac47946202ee404a6d7a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tanmay Mohapatra
+        :target: https://github.com/tanmaykm
+
+----
+
+`URITemplate <https://github.com/loladiro/URITemplate.jl>`_
+___________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Keno Fischer
+     :target: https://github.com/loladiro
+
+  RFC6570 URI templates for Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-07-15) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Keno Fischer <https://github.com/loladiro>`_
+
+  依赖关系： ::
+
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Keno Fischer
+        :target: https://github.com/loladiro
+
+----
+
+`URLParse <https://github.com/tanmaykm/URLParse.jl>`_
+_____________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/eea0b193dae8ac47946202ee404a6d7a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Tanmay Mohapatra
+     :target: https://github.com/tanmaykm
+
+  Parse URL strings into components and re-create the URL string back from components. 
+
+  当前版本： ``0.0.0``  (updated: 2013-06-24) 
+
+  Master 状态： |URLParse_build|
+
+  .. |URLParse_build| image:: https://api.travis-ci.org/tanmaykm/URLParse.jl.png
+     :align: bottom
+
+  维护者： `Tanmay Mohapatra <https://github.com/tanmaykm>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/eea0b193dae8ac47946202ee404a6d7a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Tanmay Mohapatra
+        :target: https://github.com/tanmaykm
+
+----
+
 `UTF16 <https://github.com/nolta/UTF16.jl>`_
 ____________________________________________
 
@@ -4910,9 +7973,11 @@ ____________________________________________
      :alt: Mike Nolta
      :target: https://github.com/nolta
 
-  当前版本： ``0.0.0``
-
   UTF16 string type for Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-01-14) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Mike Nolta <https://github.com/nolta>`_
 
@@ -4946,15 +8011,17 @@ ______________________________________________
      :alt: Tim Holy
      :target: https://github.com/timholy
 
-  当前版本： ``0.0.0``
-
   Infrastructure for handling physical units for the Julia programming language 
+
+  当前版本： ``0.2.0``  (updated: 2013-07-29) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Tim Holy <https://github.com/timholy>`_
 
   依赖关系： ::
 
-      无
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -4963,6 +8030,38 @@ ______________________________________________
         :width: 40px
         :alt: Tim Holy
         :target: https://github.com/timholy
+
+----
+
+`ValueDispatch <https://github.com/zachallaun/ValueDispatch.jl>`_
+_________________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/06625cbad0c69f5c2e673a4312e9fd7e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Zach Allaun
+     :target: https://github.com/zachallaun
+
+  Function dispatch on values 
+
+  当前版本： ``0.0.0``  (updated: 2013-04-30) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Zach Allaun <https://github.com/zachallaun>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/06625cbad0c69f5c2e673a4312e9fd7e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Zach Allaun
+        :target: https://github.com/zachallaun
 
 ----
 
@@ -4976,16 +8075,18 @@ ______________________________________________
      :alt: Daniel Casimiro
      :target: https://github.com/dancasimiro
 
-  当前版本： ``0.1.0``
-
   Julia package for working with WAV files 
+
+  当前版本： ``0.1.0``  (updated: 2013-01-16) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Daniel Casimiro <https://github.com/dancasimiro>`_
 
   依赖关系： ::
 
       Options        任意版本
-      julia          [v"0.1.0-", v"0.2.0-"]
+      julia          [v"0.1.0-",v"0.2.0-"]
 
   贡献者：
 
@@ -4994,6 +8095,62 @@ ______________________________________________
         :width: 40px
         :alt: Daniel Casimiro
         :target: https://github.com/dancasimiro
+
+----
+
+`WebSockets <https://github.com/hackerschool/WebSockets.jl>`_
+_____________________________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/588308d511de92d8e642da998cdc5d06?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-org-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Hacker School
+     :target: https://github.com/hackerschool
+
+   
+
+  当前版本： ``0.0.1``  (updated: 2013-07-18) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Hacker School <https://github.com/hackerschool>`_
+
+  依赖关系： ::
+
+      无
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/54cc6bf56d6223bdb99e5d6cfbd11056?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Leah Hanson
+        :target: https://github.com/astrieanna
+
+    .. image:: https://secure.gravatar.com/avatar/757c233176d3ad14136df4a547ac4234?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Daniel Mendel
+        :target: https://github.com/danielmendel
+
+    .. image:: https://secure.gravatar.com/avatar/06625cbad0c69f5c2e673a4312e9fd7e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Zach Allaun
+        :target: https://github.com/zachallaun
+
+    .. image:: https://secure.gravatar.com/avatar/fd97b03d16e1aa4c404391216d81c1d5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Daniel Jones
+        :target: https://github.com/dcjones
+
+    .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Stefan Karpinski
+        :target: https://github.com/StefanKarpinski
 
 ----
 
@@ -5007,9 +8164,11 @@ ________________________________________________
      :alt: Mike Nolta
      :target: https://github.com/nolta
 
-  当前版本： ``0.0.0``
-
   2D plotting for Julia 
+
+  当前版本： ``0.3.0``  (updated: 2013-07-15) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Mike Nolta <https://github.com/nolta>`_
 
@@ -5019,6 +8178,7 @@ ________________________________________________
       Color          任意版本
       IniFile        任意版本
       Tk             任意版本
+      julia          [v"0.2.0-"]
 
   贡献者：
 
@@ -5034,11 +8194,17 @@ ________________________________________________
         :alt: Jeff Bezanson
         :target: https://github.com/JeffBezanson
 
-    .. image:: https://secure.gravatar.com/avatar/42c8c4ab92de3390bcd2f637ef6ca16c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+    .. image:: https://secure.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: Kevin Squire
-        :target: https://github.com/kmsquire
+        :alt: Tim Holy
+        :target: https://github.com/timholy
+
+    .. image:: https://secure.gravatar.com/avatar/55e277a715ee2afd0d29c309174eca02?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Viral B. Shah
+        :target: https://github.com/ViralBShah
 
     .. image:: https://secure.gravatar.com/avatar/8af4d5971a2308b86a94f58fb98129c5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -5046,17 +8212,35 @@ ________________________________________________
         :alt: Jameson Nash
         :target: https://github.com/vtjnash
 
+    .. image:: https://secure.gravatar.com/avatar/42c8c4ab92de3390bcd2f637ef6ca16c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Kevin Squire
+        :target: https://github.com/kmsquire
+
+    .. image:: https://secure.gravatar.com/avatar/8f514187144b1b19b0205fce41284d32?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: john verzani
+        :target: https://github.com/jverzani
+
+    .. image:: https://secure.gravatar.com/avatar/fa3b781987ef53c4d3b8397f2239e519?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Diego Javier Zea
+        :target: https://github.com/diegozea
+
     .. image:: https://secure.gravatar.com/avatar/449044e4f0ed377b21409488cddafc45?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
         :alt: Blake Johnson
         :target: https://github.com/blakejohnson
 
-    .. image:: https://secure.gravatar.com/avatar/55e277a715ee2afd0d29c309174eca02?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+    .. image:: https://secure.gravatar.com/avatar/ed09e933a899fcae158439f11f66fed0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
         :width: 40px
-        :alt: Viral B. Shah
-        :target: https://github.com/ViralBShah
+        :alt: Emaad Ahmed Manzoor
+        :target: https://github.com/emaadmanzoor
 
     .. image:: https://secure.gravatar.com/avatar/dfc3b0fbb59c9444153823fd35dbd13b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -5066,21 +8250,58 @@ ________________________________________________
 
 ----
 
-`ZMQ <https://github.com/aviks/ZMQ.jl>`_
-________________________________________
+`YAML <https://github.com/dcjones/YAML.jl>`_
+____________________________________________
 
-  .. image:: https://secure.gravatar.com/avatar/f5c61e85dfa465686adc24e0bffba42a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+  .. image:: https://secure.gravatar.com/avatar/fd97b03d16e1aa4c404391216d81c1d5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
      :height: 80px
      :width: 80px
      :align: right
-     :alt: Avik Sengupta
-     :target: https://github.com/aviks
+     :alt: Daniel Jones
+     :target: https://github.com/dcjones
 
-  当前版本： ``0.0.0``
+  parse yer yamls 
+
+  当前版本： ``0.1.3``  (updated: 2013-07-22) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Daniel Jones <https://github.com/dcjones>`_
+
+  依赖关系： ::
+
+      Calendar       任意版本
+      Codecs         任意版本
+      LazySequences  任意版本
+      julia          [v"0.2.0-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/fd97b03d16e1aa4c404391216d81c1d5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Daniel Jones
+        :target: https://github.com/dcjones
+
+----
+
+`ZMQ <https://github.com/JuliaLang/ZMQ.jl>`_
+____________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/d57c99557ab0dc0fa44b4c84447d0f15?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-org-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: The Julia Language
+     :target: https://github.com/JuliaLang
 
   Julia interface to ZMQ 
 
-  维护者： `Avik Sengupta <https://github.com/aviks>`_
+  当前版本： ``0.0.0``  (updated: 2013-04-13) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `The Julia Language <https://github.com/JuliaLang>`_
 
   依赖关系： ::
 
@@ -5093,6 +8314,24 @@ ________________________________________
         :width: 40px
         :alt: Avik Sengupta
         :target: https://github.com/aviks
+
+    .. image:: https://secure.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Keno Fischer
+        :target: https://github.com/loladiro
+
+    .. image:: https://secure.gravatar.com/avatar/645b9a973f09e98d38b94955a980c9d5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Junfeng Li
+        :target: https://github.com/autozimu
+
+    .. image:: https://secure.gravatar.com/avatar/9563cfcf21df990e570df1dd019bce16?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Steven G. Johnson
+        :target: https://github.com/stevengj
 
     .. image:: https://secure.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
         :height: 40px
@@ -5108,6 +8347,39 @@ ________________________________________
 
 ----
 
+`ZipFile <https://github.com/fhs/ZipFile.jl>`_
+______________________________________________
+
+  .. image:: https://secure.gravatar.com/avatar/f11cd39050d2eb63ec494c0e7ae81d98?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+     :height: 80px
+     :width: 80px
+     :align: right
+     :alt: Fazlul Shahriar
+     :target: https://github.com/fhs
+
+  Read/Write ZIP file archives in Julia 
+
+  当前版本： ``0.1.0``  (updated: 2013-07-24) 
+
+  Master 状态： 无 Travis-CI 状态
+
+  维护者： `Fazlul Shahriar <https://github.com/fhs>`_
+
+  依赖关系： ::
+
+      CRC32          任意版本
+      Zlib           [v"0.1.1-"]
+
+  贡献者：
+
+    .. image:: https://secure.gravatar.com/avatar/f11cd39050d2eb63ec494c0e7ae81d98?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Fazlul Shahriar
+        :target: https://github.com/fhs
+
+----
+
 `Zlib <https://github.com/dcjones/Zlib.jl>`_
 ____________________________________________
 
@@ -5118,9 +8390,11 @@ ____________________________________________
      :alt: Daniel Jones
      :target: https://github.com/dcjones
 
-  当前版本： ``0.0.0``
-
   zlib bindings for Julia 
+
+  当前版本： ``0.1.1``  (updated: 2013-07-22) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `Daniel Jones <https://github.com/dcjones>`_
 
@@ -5136,6 +8410,18 @@ ____________________________________________
         :alt: Daniel Jones
         :target: https://github.com/dcjones
 
+    .. image:: https://secure.gravatar.com/avatar/8af4d5971a2308b86a94f58fb98129c5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Jameson Nash
+        :target: https://github.com/vtjnash
+
+    .. image:: https://secure.gravatar.com/avatar/f11cd39050d2eb63ec494c0e7ae81d98?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png
+        :height: 40px
+        :width: 40px
+        :alt: Fazlul Shahriar
+        :target: https://github.com/fhs
+
 ----
 
 `kNN <https://github.com/johnmyleswhite/kNN.jl>`_
@@ -5148,9 +8434,11 @@ _________________________________________________
      :alt: John Myles White
      :target: https://github.com/johnmyleswhite
 
-  当前版本： ``0.0.0``
-
   The k-nearest neighbors algorithm in Julia 
+
+  当前版本： ``0.0.0``  (updated: 2013-04-12) 
+
+  Master 状态： 无 Travis-CI 状态
 
   维护者： `John Myles White <https://github.com/johnmyleswhite>`_
 
@@ -5168,4 +8456,5 @@ _________________________________________________
 
 ----
 
-.. footer: 135 packages, generated 10 Apr 2013 22:36:07 GMT+01:00 
+.. footer: 201 个扩展包，本文档生成于 2 Aug 2013 21:49:37 GMT+05:30 
+

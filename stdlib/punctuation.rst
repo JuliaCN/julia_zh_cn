@@ -1,42 +1,43 @@
 
-标点符号
---------
+Punctuation
+-----------
 
-.. data:: punctuation
+Extended documentation for mathematical symbols & functions is :ref:`here <mathematical-operators>`.
 
    =========   ================================================
-   符号        意思
+   symbol      meaning
    =========   ================================================
-   ``@m``      调用宏 m ；后面应跟一空格，再跟一表达式 
-   ``!``       作为前缀时是“逻辑非”运算符 
-   ``!``       在函数名后时，暗示函数修改了它的参数 
-   ``#``       单行注释 
-   ``$``       异或运算符；字符串和表达式内插 
-   ``%``       余数运算符 
-   ``^``       指数运算符 
-   ``&``       位与 
-   ``*``       乘法；矩阵乘法 
-   ``()``      空多元组 
-   ``~``       按位取反运算符 
-   ``\``       反斜杠运算符 
-   ``a[]``     数组索引 
-   ``[,]``     垂直连接 
-   ``[;]``     也是 
-   ``[  ]``    水平连接，使用空格来分割表达式 
-   ``T{ }``    参数类型实例 
-   ``{  }``    构造元胞数组 
-   ``;``       语句分隔符 
-   ``,``       函数参数或多元组元素分隔符 
-   ``?``       问号表达式运算符 
-   ``""``      字符串文本定界符 
-   ``''``      字符文本定界符 
-   ``          外部进程（命令）定界符 
-   ``...``     向一个函数调用插入参数；声明变参函数 
-   ``.``       获取对象内域或模块中的命名；它也是逐元素计算的运算符 
-   ``a:b``     范围 
-   ``a:s:b``   范围 
-   ``:``       索引整个维度 
-   ``::``      类型注释 
-   ``:( )``    引用表达式 
+   ``@m``      invoke macro m; followed by space-separated expressions
+   ``!``       prefix "not" operator
+   ``a!( )``   at the end of a function name, `!` indicates that a function modifies its argument(s)
+   ``#``       begin single line comment
+   ``$``       xor operator, string and expression interpolation
+   ``%``       remainder operator
+   ``^``       exponent operator
+   ``&``       bitwise and
+   ``*``       multiply, or matrix multiply
+   ``()``      the empty tuple
+   ``~``       bitwise not operator
+   ``\``       backslash operator
+   ``'``       complex transpose operator A\ :sup:`H`
+   ``a[]``     array indexing
+   ``[,]``     vertical concatenation
+   ``[;]``     also vertical concatenation
+   ``[  ]``    with space-separated expressions, horizontal concatenation
+   ``T{ }``    parametric type instantiation
+   ``{  }``    construct a cell array
+   ``;``       statement separator
+   ``,``       separate function arguments or tuple components
+   ``?``       3-argument conditional operator (conditional ? if_true : if_false)
+   ``""``      delimit string literals
+   ``''``      delimit character literals
+   `\`\``      delimit external process (command) specifications
+   ``...``     splice arguments into a function call or declare a varargs function or type
+   ``.``       access named fields in objects or names inside modules, also prefixes elementwise operators
+   ``a:b``     range a, a+1, a+2, ..., b
+   ``a:s:b``   range a, a+s, a+2s, ..., b
+   ``:``       index an entire dimension (1:end)
+   ``::``      type annotation, depending on context
+   ``:( )``    quoted expression
    =========   ================================================
 

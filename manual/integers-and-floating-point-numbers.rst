@@ -1,75 +1,75 @@
 .. _man-integers-and-floating-point-numbers:
 
-**************
- 整数和浮点数
-**************
+*************************************
+ Integers and Floating-Point Numbers  
+*************************************
 
-整数和浮点数是算术和计算的基础。它们都是数字文本。例如 ``1`` 是整数文本，
-``1.0`` 是浮点数文本。
+Integers and floating-point values are the basic building blocks of
+arithmetic and computation. Built-in representations of such values are
+called numeric primitives, while representations of integers and
+floating-point numbers as immediate values in code are known as numeric
+literals. For example, ``1`` is an integer literal, while ``1.0`` is a
+floating-point literal; their binary in-memory representations as
+objects are numeric primitives.
 
-Julia 提供了丰富的基础数值类型, 全部的算数运算符和位运算符, 以及标准数学函数.
-这些数据和操作直接对应于现代计算机支持的操作, 因此, Julia 能充分利用硬件的计算
-资源. 另外, Julia 还从软件层面支持 :ref:`任意精度算术运算
-<man-arbitrary-precision-arithmetc>`, 可以用于表示硬件不能直接表示的数值, 当然
-, 这牺牲了部分运算效率.
+Julia provides a broad range of primitive numeric types, and a full complement
+of arithmetic and bitwise operators as well as standard mathematical functions
+are defined over them. These map directly onto numeric types and operations
+that are natively supported on modern computers, thus allowing Julia to take
+full advantage of computational resources. Additionally, Julia provides
+software support for :ref:`man-arbitrary-precision-arithmetic`, which can
+handle operations on numeric values that cannot be represented effectively in
+native hardware representations, but at the cost of relatively slower
+performance.
 
-Julia 提供的基础数值类型有：
+The following are Julia's primitive numeric types:
 
--  **整数类型：**
+-  **Integer types:**
 
-+-------------+---------+------+---------------+------------------+
-| 类型        | 有符号? | 位数 | 最小值        | 最大值           |
-+=============+=========+======+===============+==================+
-| ``Int8``    | ✓       | 8    | -2^7          | 2^7 - 1          |
-+-------------+---------+------+---------------+------------------+
-| ``Uint8``   |         | 8    | 0             | 2^8 - 1          |
-+-------------+---------+------+---------------+------------------+
-| ``Int16``   | ✓       | 16   | -2^15         | 2^15 - 1         |
-+-------------+---------+------+---------------+------------------+
-| ``Uint16``  |         | 16   | 0             | 2^16 - 1         |
-+-------------+---------+------+---------------+------------------+
-| ``Int32``   | ✓       | 32   | -2^31         | 2^31 - 1         |
-+-------------+---------+------+---------------+------------------+
-| ``Uint32``  |         | 32   | 0             | 2^32 - 1         |
-+-------------+---------+------+---------------+------------------+
-| ``Int64``   | ✓       | 64   | -2^63         | 2^62 - 1         |
-+-------------+---------+------+---------------+------------------+
-| ``Uint64``  |         | 64   | 0             | 2^64 - 1         |
-+-------------+---------+------+---------------+------------------+
-| ``Int128``  | ✓       | 128  | -2^127        | 2^127 - 1        |
-+-------------+---------+------+---------------+------------------+
-| ``Uint128`` |         | 128  | 0             | 2^128 - 1        |
-+-------------+---------+------+---------------+------------------+
-| ``Bool``    | N/A     | 8    | ``false`` (0) | ``true`` (1)     |
-+-------------+---------+------+---------------+------------------+
-| ``Char``    | N/A     | 32   | ``'\0'``      | ``'\Uffffffff'`` |
-+-------------+---------+------+---------------+------------------+
+===========  =======  ==============  ============== ==================
+Type         Signed?  Number of bits  Smallest value Largest value
+-----------  -------  --------------  -------------- ------------------
+``Int8``           ✓       8            -2^7             2^7 - 1
+``Uint8``                  8             0               2^8 - 1
+``Int16``          ✓       16           -2^15            2^15 - 1
+``Uint16``                 16            0               2^16 - 1
+``Int32``          ✓       32           -2^31            2^31 - 1
+``Uint32``                 32            0               2^32 - 1
+``Int64``          ✓       64           -2^63            2^63 - 1
+``Uint64``                 64            0               2^64 - 1
+``Int128``         ✓       128           -2^127          2^127 - 1
+``Uint128``                128           0               2^128 - 1
+``Bool``         N/A       8           ``false`` (0)  ``true`` (1)
+``Char``         N/A       32          ``'\0'``       ``'\Uffffffff'``
+===========  =======  ==============  ============== ==================
 
-``Char`` 原生支持 `Unicode (统一码) <http://en.wikipedia.org/wiki/Unicode>`_
-字符. 详细信息参见 :ref:`man-strings`.
+``Char`` natively supports representation of
+`Unicode characters <http://en.wikipedia.org/wiki/Unicode>`_; see
+:ref:`man-strings` for more details.
 
--  **浮点数类型：**
+-  **Floating-point types:**
 
-   -  ``Float32`` — `IEEE 754 32 位浮点数 <http://zh.wikipedia.org/zh-cn/%E5%8D%95%E7%B2%BE%E7%A1%AE%E6%B5%AE%E7%82%B9%E6%95%B0>`_
-   -  ``Float64`` — `IEEE 754 64 位浮点数 <http://zh.wikipedia.org/zh-cn/%E9%9B%99%E7%B2%BE%E5%BA%A6%E6%B5%AE%E9%BB%9E%E6%95%B8>`_
+=========== ========= ==============
+Type        Precision Number of bits
+----------- --------- --------------
+``Float16`` half_          16
+``Float32`` single_        32
+``Float64`` double_        64
+=========== ========= ==============
 
-+-------------+--------+------+---------------------------------------------------------------------------------+
-| 类型        | 精度   | 位数 | 精度                                                                            |
-+=============+========+======+=================================================================================+
-| ``Float32`` | 单精度 | 32   | `单精度 <http://en.wikipedia.org/wiki/Single_precision_floating-point_format>`_ |
-+-------------+--------+------+---------------------------------------------------------------------------------+
-| ``Float64`` | 双精度 | 64   | `双精度 <http://en.wikipedia.org/wiki/Double_precision_floating-point_format>`_ |
-+-------------+--------+------+---------------------------------------------------------------------------------+
+.. _half: http://en.wikipedia.org/wiki/Half-precision_floating-point_format
+.. _single: http://en.wikipedia.org/wiki/Single_precision_floating-point_format
+.. _double: http://en.wikipedia.org/wiki/Double_precision_floating-point_format
 
-另外, 对 :ref:`复数 <man-complex-and-rational-numbers>` 的支持建立在这些基础数
-据类型之上. 所有的基础数据类型通过自动类型转换以实现无缝互操作. 并且, 自动类型
-转换系统, (详细信息参见 :ref:`类型转换 <man-conversion-and-promotion>` ), 支持
-用户扩展,所以用户自定义的数据类型也可以实现和自带类型一样的互操作.
+Additionally, full support for :ref:`man-complex-and-rational-numbers` is built
+on top of these primitive numeric types. All numeric types interoperate
+naturally without explicit casting, thanks to a flexible, user-extensible
+:ref:`type promotion system <man-conversion-and-promotion>`.
 
-整数
-----
+Integers
+--------
 
-使用标准方式来表示文本化的整数： ::
+Literal integers are represented in the standard manner::
 
     julia> 1
     1
@@ -77,49 +77,55 @@ Julia 提供的基础数值类型有：
     julia> 1234
     1234
 
-整数文本的默认类型，取决于目标系统是 32 位架构还是 64 位架构： ::
+The default type for an integer literal depends on whether the target
+system has a 32-bit architecture or a 64-bit architecture::
 
-    # 32 位系统:
+    # 32-bit system:
     julia> typeof(1)
     Int32
 
-    # 64 位系统:
+    # 64-bit system:
     julia> typeof(1)
     Int64
 
-Julia 内部变量 ``WORD_SIZE`` 用以指示目标系统是 32 位还是 64 位. ::
+The Julia internal variable ``WORD_SIZE`` indicates whether the target system
+is 32-bit or 64-bit.::
 
-    # 32 位系统:
+    # 32-bit system:
     julia> WORD_SIZE
     32
 
-    # 64 位系统:
+    # 64-bit system:
     julia> WORD_SIZE
     64
+ 
+Julia also defines the types ``Int`` and ``UInt``, which are aliases for the
+system's signed and unsigned native integer types respectively.::
 
-另外，Julia定义了 ``Int`` 和 ``Uint`` 类型，它们分别是系统原生的有符号和无符号
-整数类型的别名： ::
-
-    # 32 位系统:
+    # 32-bit system:
     julia> Int
     Int32
     julia> Uint
     Uint32
 
-    # 64 位系统:
+
+    # 64-bit system:
     julia> Int
     Int64
     julia> Uint
     Uint64
 
-不能用 32 位，但能用 64 位来表示的大整数文本，不管系统类型是什么，始终被认为是 64 位整数： ::
+Larger integer literals that cannot be represented using only 32 bits
+but can be represented in 64 bits always create 64-bit integers,
+regardless of the system type::
 
-    # 32 位或 64 位系统:
+    # 32-bit or 64-bit system:
     julia> typeof(3000000000)
     Int64
 
-无符号整数的输入和输出使用前缀 ``0x`` 和十六进制数字 ``0-9a-f`` （也可以使用
-``A-F`` ）。无符号数的大小，由十六进制数的位数决定： ::
+Unsigned integers are input and output using the ``0x`` prefix and hexadecimal
+(base 16) digits ``0-9a-f`` (the capitalized digits ``A-F`` also work for input).
+The size of the unsigned value is determined by the number of hex digits used::
 
     julia> 0x1
     0x01
@@ -145,7 +151,12 @@ Julia 内部变量 ``WORD_SIZE`` 用以指示目标系统是 32 位还是 64 位
     julia> typeof(ans)
     Uint64
 
-二进制和八进制文本： ::
+This behavior is based on the observation that when one uses unsigned
+hex literals for integer values, one typically is using them to
+represent a fixed numeric byte sequence, rather than just an integer
+value.
+
+Binary and octal literals are also supported::
 
     julia> 0b10
     0x02
@@ -153,7 +164,8 @@ Julia 内部变量 ``WORD_SIZE`` 用以指示目标系统是 32 位还是 64 位
     julia> 0o10
     0x08
 
-基础数值类型的最小值和最大值，可由 ``typemin`` 和 ``typemax`` 函数查询： ::
+The minimum and maximum representable values of primitive numeric types
+such as integers are given by the ``typemin`` and ``typemax`` functions::
 
     julia> (typemin(Int32), typemax(Int32))
     (-2147483648,2147483647)
@@ -173,33 +185,40 @@ Julia 内部变量 ``WORD_SIZE`` 用以指示目标系统是 32 位还是 64 位
      Uint64: [0x0000000000000000,0xffffffffffffffff]
     Uint128: [0x00000000000000000000000000000000,0xffffffffffffffffffffffffffffffff]
 
-``typemin`` 和 ``typemax`` 的返回值，与所给的参数类型是同一类的。(上述例子用到
-了一些将要介绍到的特性，包括 :ref:`for 循环 <man-loops>` ，:ref:`字符串
-<man-strings>`，及 :ref:`字符串操作 <man-string-interpolation>` 。)
+The values returned by ``typemin`` and ``typemax`` are always of the
+given argument type. (The above expression uses several features we have
+yet to introduce, including :ref:`for loops <man-loops>`,
+:ref:`man-strings`, and :ref:`man-string-interpolation`,
+but should be easy enough to understand for users with some existing
+programming experience.)
 
-溢出
-----
 
-在 Julia 中, 如果计算结果超出数据类型所能代表的最大值, 将会发生溢出. ::
+Overflow behavior
+~~~~~~~~~~~~~~~~~
+
+In Julia, exceeding the maximum representable value of a given type results in
+a wraparound behavior::
 
     julia> x = typemax(Int64)
     9223372036854775807
-
+    
     julia> x + 1
     -9223372036854775808
 
     julia> x + 1 == typemin(Int64)
     true
 
-可见, Julia 中的算数运算其实是一种 `同余算术
-<http://en.wikipedia.org/wiki/Modular_arithmetic>`_ . 这其实是现代计算机底层算
-术运算的表现. 如果有可能发生溢出, 一定要显式的检查是否溢出; 或者使用``BigInt``
-类型 (详见 :ref:`任意精度算术运算<man-arbitray-precision-arithmetic>` ).
+Thus, arithmetic with Julia integers is actually a form of `modular arithmetic
+<http://en.wikipedia.org/wiki/Modular_arithmetic>`_. This reflects the
+characteristics of the underlying arithmetic of integers as implemented on
+modern computers. In applications where overflow is possible, explicit checking
+for wraparound produced by overflow is essential; otherwise, the ``BigInt`` type
+in :ref:`man-arbitrary-precision-arithmetic` is recommended instead.
 
-浮点数
-------
+Floating-Point Numbers
+----------------------
 
-使用标准格式来表示文本化的浮点数： ::
+Literal floating-point numbers are represented in the standard formats::
 
     julia> 1.0
     1.0
@@ -222,8 +241,8 @@ Julia 内部变量 ``WORD_SIZE`` 用以指示目标系统是 32 位还是 64 位
     julia> 2.5e-4
     0.00025
 
-上述结果均为 ``Float64`` 值. 文本化的``Float32`` 值也可以直接输入, 这时
-使用``f`` 而不是 ``e`` ::
+The above results are all ``Float64`` values. Literal ``Float32`` values can
+be entered by writing an ``f`` in place of ``e``::
 
     julia> 0.5f0
     0.5f0
@@ -234,7 +253,7 @@ Julia 内部变量 ``WORD_SIZE`` 用以指示目标系统是 32 位还是 64 位
     julia> 2.5f-4
     0.00025f0
 
-浮点数也可以很容易地转换为 ``Float32`` ： ::
+Values can be converted to ``Float32`` easily::
 
     julia> float32(-1.5)
     -1.5f0
@@ -242,40 +261,70 @@ Julia 内部变量 ``WORD_SIZE`` 用以指示目标系统是 32 位还是 64 位
     julia> typeof(ans)
     Float32
 
-浮点数类型的零
---------------
+Hexadecimal floating-point literals are also valid, but only as ``Float64`` values::
 
-浮点数类型中存在 `两个零 <http://en.wikipedia.org/wiki/Signed_zero>`_ , 正数的
-零和负数的零. 它们相等, 但有着不同的二进制表示, 可以使用``bits`` 函数看出: ::
+    julia> 0x1p0
+    1.0
+
+    julia> 0x1.8p3
+    12.0
+
+    julia> 0x.4p-1
+    0.125
+
+    julia> typeof(ans)
+    Float64
+
+Half-precision floating-point numbers are also supported (``Float16``), but
+only as a storage format. In calculations they'll be converted to ``Float32``::
+
+    julia> sizeof(float16(4.))
+    2
+
+    julia> 2*float16(4.)
+    8.0f0
+
+
+Floating-point zero
+~~~~~~~~~~~~~~~~~~~
+
+Floating-point numbers have `two zeros
+<http://en.wikipedia.org/wiki/Signed_zero>`_, positive zero and negative zero.
+They are equal to each other but have different binary representations, as can
+be seen using the ``bits`` function: ::
 
     julia> 0.0 == -0.0
     true
-
+    
     julia> bits(0.0)
     "0000000000000000000000000000000000000000000000000000000000000000"
-
-    julia> bits(0.0)
+    
+    julia> bits(-0.0)
     "1000000000000000000000000000000000000000000000000000000000000000"
 
 .. _man-special-floats:
 
-特殊的浮点数
-~~~~~~~~~~~~
+Special floating-point values
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+There are three specified standard floating-point values that do not
+correspond to any point on the real number line:
 
-有三个特殊的标准浮点值：
+=========== =========== ===========  ================= =================================================================
+Special value                        Name              Description 
+-----------------------------------  ----------------- -----------------------------------------------------------------
+``Float16`` ``Float32`` ``Float64``
+=========== =========== ===========  ================= =================================================================
+``Inf16``   ``Inf32``    ``Inf``     positive infinity a value greater than all finite floating-point values
+``-Inf16``  ``-Inf32``   ``-Inf``    negative infinity a value less than all finite floating-point values
+``NaN16``   ``NaN32``    ``NaN``     not a number      a value not ``==`` to any floating-point value (including itself)
+=========== =========== ===========  ================= =================================================================
 
-============ ============ ======= ========================================
-          特殊值           名称    描述
-------------------------- ------- ----------------------------------------
-``Float32``  ``Float64``
-============ ============ ======= ========================================
-``Inf32``    ``Inf``      正无穷  比所有的有限的浮点值都大
-``-Inf32``   ``-Inf``     负无穷  比所有的有限的浮点值都小
-``NaN32``    ``NaN``      不存在  不能和任意浮点数比较大小（包括它自己）
-============ ============ ======= ========================================
-
-详见 :ref:`man-numeric-comparisons` 。按照 `IEEE 754 标准 <http://zh.wikipedia.org/zh-cn/IEEE_754>`_ ，这几个值可如下获得： ::
+For further discussion of how these non-finite floating-point values are
+ordered with respect to each other and other floats, see
+:ref:`man-numeric-comparisons`. By the
+`IEEE 754 standard <http://en.wikipedia.org/wiki/IEEE_754-2008>`_, these
+floating-point values are the results of certain arithmetic operations::
 
     julia> 1/Inf
     0.0
@@ -305,7 +354,7 @@ Julia 内部变量 ``WORD_SIZE`` 用以指示目标系统是 32 位还是 64 位
     NaN
 
     julia> Inf * Inf
-    NaN
+    Inf
 
     julia> Inf / Inf
     NaN
@@ -313,7 +362,11 @@ Julia 内部变量 ``WORD_SIZE`` 用以指示目标系统是 32 位还是 64 位
     julia> 0 * Inf
     NaN
 
-``typemin`` 和 ``typemax`` 函数也适用于浮点数类型： ::
+The ``typemin`` and ``typemax`` functions also apply to floating-point
+types::
+
+    julia> (typemin(Float16),typemax(Float16))
+    (Float16(0xfc00),Float16(0x7c00))
 
     julia> (typemin(Float32),typemax(Float32))
     (-Inf32,Inf32)
@@ -321,13 +374,17 @@ Julia 内部变量 ``WORD_SIZE`` 用以指示目标系统是 32 位还是 64 位
     julia> (typemin(Float64),typemax(Float64))
     (-Inf,Inf)
 
-精度
-----
 
-大多数的实数并不能用浮点数精确表示, 因此有必要知道两个相邻浮点数间的间距, 也即
- `计算机的精度 <http://en.wikipedia.org/wiki/Machine_epsilon>`_ .
+Machine epsilon
+~~~~~~~~~~~~~~~
 
-Julia 提供了函数 ``eps``, 可以用来检查 ``1.0`` 和下一个浮点数之间的间距 ::
+Most real numbers cannot be represented exactly with floating-point numbers,
+and so for many purposes it is important to know the distance between two
+adjacent representable floating-point numbers, which is often known as
+`machine epsilon <http://en.wikipedia.org/wiki/Machine_epsilon>`_.
+
+Julia provides the ``eps`` function, which gives the distance between ``1.0``
+and the next larger representable floating-point value::
 
     julia> eps(Float32)
     1.192092896e-07
@@ -335,10 +392,16 @@ Julia 提供了函数 ``eps``, 可以用来检查 ``1.0`` 和下一个浮点数�
     julia> eps(Float64)
     2.22044604925031308e-16
 
-    julia> eps()  # 等效于 eps(Float64)
+    julia> eps() #Same as eps(Float64)
     2.22044604925031308e-16
 
-``eps`` 函数也可以取浮点数作为参数，给出这个值和下一个可表示的浮点数的绝对差，即， ``eps(x)`` 的结果与 ``x`` 同类型，满足 ``x + eps(x)`` 是下一个比 ``x`` 稍大的、可表示的浮点数： ::
+These values are ``2.0^-23`` and ``2.0^-52`` as ``Float32`` and ``Float64``
+values, respectively. The ``eps`` function can also take a
+floating-point value as an argument, and gives the absolute difference
+between that value and the next representable floating point value. That
+is, ``eps(x)`` yields a value of the same type as ``x`` such that
+``x + eps(x)`` is the next representable floating-point value larger
+than ``x``::
 
     julia> eps(1.0)
     2.22044604925031308e-16
@@ -352,68 +415,106 @@ Julia 提供了函数 ``eps``, 可以用来检查 ``1.0`` 和下一个浮点数�
     julia> eps(0.0)
     5.0e-324
 
-相邻的两个浮点数之间的距离并不是固定的, 数值越小, 间距越小, 数值越大, 间距越大
-. 换句话说, 浮点数在 0 附近最稠密, 随着数值越来越大, 数值越来越稀疏, 数值间的
-距离呈指数增长. 根据定义， ``eps(1.0)`` 与 ``eps(Float64)`` 相同，因为 ``1.0``
-是 64 位浮点数。
+The distance between two adjacent representable floating-point numbers is not
+constant, but is smaller for smaller values and larger for larger values. In
+other words, the representable floating-point numbers are densest in the real
+number line near zero, and grow sparser exponentially as one moves farther away
+from zero. By definition, ``eps(1.0)`` is the same as ``eps(Float64)`` since
+``1.0`` is a 64-bit floating-point value.
 
-函数 ``nextfloat`` 和 ``prevfloat`` 可以用来获取下一个或上一个浮点数: ::
+Julia also provides the ``nextfloat`` and ``prevfloat`` functions which return
+the next largest or smallest representable floating-point number to the
+argument respectively: ::
 
     julia> x = 1.25f0
     1.25f0
-
+    
     julia> nextfloat(x)
     1.2500001f0
-
+    
     julia> prevfloat(x)
     1.2499999f0
-
+    
     julia> bits(prevfloat(x))
     "00111111100111111111111111111111"
-
+    
     julia> bits(x)
     "00111111101000000000000000000000"
-
+    
     julia> bits(nextfloat(x))
     "00111111101000000000000000000001"
 
+This example highlights the general principle that the adjacent representable
+floating-point numbers also have adjacent binary integer representations.
 
-更多背景和参考资料
-~~~~~~~~~~~~~~~~~~
+Rounding modes
+~~~~~~~~~~~~~~
 
-浮点数的算术运算同人们的预期存在着许多差异, 特别是对不了解底层实现的人. 许多科
-学计算的书籍都会详细的解释这些差异. 下面是一些参考资料:
+If a number doesn't have an exact floating-point representation, it must be
+rounded to an appropriate representable value, however, if wanted, the manner
+in which this rounding is done can be changed according to the rounding modes
+presented in the `IEEE 754 standard <http://en.wikipedia.org/wiki/IEEE_754-2008>`_::
+    
 
-- 关于浮点数算数运算最权威的指南是 `IEEE 754-2008 Standard
-  <http://standards.ieee.org/findstds/standard/754-2008.html>`_ ; 然而, 该指南
-  没有免费的网络版.
-- 一个简短但是清晰地解释了浮点数是怎么表示的, 请参考 John D. Cook 的 `文章
+    julia> 1.1 + 0.1
+    1.2000000000000002
+
+    julia> with_rounding(RoundDown) do
+           1.1 + 0.1
+           end
+    1.2
+
+The default mode used is always ``RoundNearest``, which rounds to the nearest
+representable value, with ties rounded towards the nearest value with an even
+least significant bit.
+
+Background and References
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Floating-point arithmetic entails many subtleties which can be surprising to
+users who are unfamiliar with the low-level implementation details. However,
+these subtleties are described in detail in most books on scientific
+computation, and also in the following references:
+
+- The definitive guide to floating point arithmetic is the `IEEE 754-2008
+  Standard <http://standards.ieee.org/findstds/standard/754-2008.html>`_;
+  however, it is not available for free online.
+- For a brief but lucid presentation of how floating-point numbers are
+  represented, see John D. Cook's `article
   <http://www.johndcook.com/blog/2009/04/06/anatomy-of-a-floating-point-number/>`_
-  . 还有他的一个 `介绍
+  on the subject as well as his `introduction
   <http://www.johndcook.com/blog/2009/04/06/numbers-are-a-leaky-abstraction/>`_
-  , 探讨了由于浮点数的表示方法不同于理想的实数会带来怎样的问题.
-- 推荐 Bruce Dawson 的 `关于浮点数的博客
-  <http://randomascii.wordpress.com/2012/05/20/thats-not-normalthe-performance-of-odd-floats/>`_
-  .
-- David Goldberg 的 `每个计算机科学家都需要了解的浮点数算术计算
-  <http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.102.244&rep=rep1&type=pdf>`_
-  , 是一篇非常精彩的文章, 深入讨论了浮点数和浮点数的精度问题.
-- 更深入的文档, 请参考 "浮点数之父" `William Kahan
-  <http://en.wikipedia.org/wiki/William_Kahan>`_ 的 `collected writings
-  <http://www.cs.berkeley.edu/~wkahan/>`_ , 其中详细记录了浮点数的历史, 理论依
-  据, 问题, 还有其它很多的数值计算方面的内容. Of particular interest may be
-  `An Interview with the Old Man of Floating-Point
+  to some of the issues arising from how this representation differs in
+  behavior from the idealized abstraction of real numbers.
+- Also recommended is Bruce Dawson's `series of blog posts on floating-point
+  numbers <http://randomascii.wordpress.com/2012/05/20/thats-not-normalthe-performance-of-odd-floats/>`_.
+- For an excellent, in-depth discussion of floating-point numbers and issues of
+  numerical accuracy encountered when computing with them, see David Goldberg's
+  paper `What Every Computer Scientist Should Know About Floating-Point
+  Arithmetic
+  <http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.102.244&rep=rep1&type=pdf>`_.
+- For even more extensive documentation of the history of, rationale for,
+  and issues with floating-point numbers, as well as discussion of many other
+  topics in numerical computing, see the `collected writings
+  <http://www.cs.berkeley.edu/~wkahan/>`_ of `William Kahan
+  <http://en.wikipedia.org/wiki/William_Kahan>`_, commonly known as the "Father
+  of Floating-Point". Of particular interest may be `An Interview with the Old
+  Man of Floating-Point
   <http://www.cs.berkeley.edu/~wkahan/ieee754status/754story.html>`_.
-
 
 .. _man-arbitrary-precision-arithmetic:
 
-任意精度的算术
+Arbitrary Precision Arithmetic
 ------------------------------
 
-为保证整数和浮点数计算的精度，Julia 打包了 `GNU Multiple Precision Arithmetic Library, GMP <http://gmplib.org>`_ 。Julia 相应提供了 ``BigInt`` 和 ``BigFloat`` 类型。
+To allow computations with arbitrary-precision integers and floating point numbers, 
+Julia wraps the `GNU Multiple Precision Arithmetic Library (GMP) <http://gmplib.org>`_ and the `GNU MPFR Library <http://http://www.mpfr.org>`_, respectively. 
+The `BigInt` and `BigFloat` types are available in Julia for arbitrary precision 
+integer and floating point numbers respectively. 
 
-可以通过基础数值类型或 ``String`` 类型来构造： ::
+Constructors exist to create these types from primitive numerical types, or from ``String``. 
+Once created, they participate in arithmetic with all other numeric types thanks to Julia's 
+:ref:`type promotion and conversion mechanism <man-conversion-and-promotion>`. ::
 
     julia> BigInt(typemax(Int64)) + 1
     9223372036854775808
@@ -422,41 +523,64 @@ Julia 提供了函数 ``eps``, 可以用来检查 ``1.0`` 和下一个浮点数�
     123456789012345678901234567891
 
     julia> BigFloat("1.23456789012345678901")
-    1.23456789012345678901
+    1.234567890123456789010000000000000000000000000000000000000000000000000000000004e+00 with 256 bits of precision
 
     julia> BigFloat(2.0^66) / 3
-    24595658764946068821.3
+    2.459565876494606882133333333333333333333333333333333333333333333333333333333344e+19 with 256 bits of precision
 
     julia> factorial(BigInt(40))
     815915283247897734345611269596115894272000000000
 
-然而, 基础数据类型和 `BigInt`/`BigFloat` 不能自动进行类型转换, 需要明确指定 ::
+However, type promotion between the primitive types above and
+`BigInt`/`BigFloat` is not automatic and must be explicitly stated. ::
 
     julia> x = typemin(Int64)
     -9223372036854775808
-
+    
     julia> x = x - 1
     9223372036854775807
-
+    
     julia> typeof(x)
     Int64
 
     julia> y = BigInt(typemin(Int64))
     -9223372036854775808
-
+    
     julia> y = y - 1
     -9223372036854775809
-
+    
     julia> typeof(y)
     BigInt
 
+The default precision (in number of bits of the significand) and rounding
+mode of `BigFloat` operations can be changed, and all further calculations 
+will take these changes in account::
 
+    julia> with_bigfloat_rounding(RoundUp) do
+           BigFloat(1) + BigFloat("0.1")
+           end
+    1.100000000000000000000000000000000000000000000000000000000000000000000000000003e+00 with 256 bits of precision
+
+    julia> with_bigfloat_rounding(RoundDown) do
+           BigFloat(1) + BigFloat("0.1")
+           end
+    1.099999999999999999999999999999999999999999999999999999999999999999999999999986e+00 with 256 bits of precision
+
+    julia> with_bigfloat_precision(40) do
+           BigFloat(1) + BigFloat("0.1")
+           end
+    1.0999999999985e+00 with 40 bits of precision
+
+
+   
 .. _man-numeric-literal-coefficients:
 
-代数系数
---------
+Numeric Literal Coefficients
+----------------------------
 
-Julia 允许在变量前紧跟着数值文本，来表示乘法。这有助于简化表达式： ::
+To make common numeric formulas and expressions clearer, Julia allows
+variables to be immediately preceded by a numeric literal, implying
+multiplication. This makes writing polynomial expressions much cleaner::
 
     julia> x = 3
     3
@@ -467,24 +591,30 @@ Julia 允许在变量前紧跟着数值文本，来表示乘法。这有助于�
     julia> 1.5x^2 - .5x + 1
     13.0
 
-还可以使指数函数更好看： ::
+It also makes writing exponential functions more elegant::
 
     julia> 2^2x
     64
 
-数值文本系数同单目运算符一样。因此 ``2^3x`` 被解析为 ``2^(3x)`` ， ``2x^3`` 被解析为 ``2*(x^3)`` 。
+The precedence of numeric literal coefficients is the same as that of unary
+operators such as negation. So ``2^3x`` is parsed as ``2^(3x)``, and
+``2x^3`` is parsed as ``2*(x^3)``.
 
-数值文本也可以作为括号表达式的因子： ::
+Numeric literals also work as coefficients to parenthesized
+expressions::
 
     julia> 2(x-1)^2 - 3(x-1) + 1
     3
 
-括号表达式可作为变量的因子： ::
+Additionally, parenthesized expressions can be used as coefficients to
+variables, implying multiplication of the expression by the variable::
 
     julia> (x-1)x
     6
 
-两个变量括号表达式邻接，或者把变量放在括号表达式之前，不能被用来指代乘法运算： ::
+Neither juxtaposition of two parenthesized expressions, nor placing a
+variable before a parenthesized expression, however, can be used to
+imply multiplication::
 
     julia> (x-1)(x+1)
     type error: apply: expected Function, got Int64
@@ -492,43 +622,61 @@ Julia 允许在变量前紧跟着数值文本，来表示乘法。这有助于�
     julia> x(x+1)
     type error: apply: expected Function, got Int64
 
-这两个表达式都被解析为函数调用：任何非数值文本的表达式，如果后面跟着括号，代表调用函数来处理括号内的数值（详见 :ref:`man-functions` ）。因此，由于左面的值不是函数，这两个例子都出错了。
+Both of these expressions are interpreted as function application: any
+expression that is not a numeric literal, when immediately followed by a
+parenthetical, is interpreted as a function applied to the values in
+parentheses (see :ref:`man-functions` for more about functions).
+Thus, in both of these cases, an error occurs since the left-hand value
+is not a function.
 
-需要注意，代数因子和变量或括号表达式之间不能有空格。
+The above syntactic enhancements significantly reduce the visual noise
+incurred when writing common mathematical formulae. Note that no
+whitespace may come between a numeric literal coefficient and the
+identifier or parenthesized expression which it multiplies.
 
+Syntax Conflicts
+~~~~~~~~~~~~~~~~
 
-语法冲突
-~~~~~~~~
+Juxtaposed literal coefficient syntax may conflict with two numeric literal
+syntaxes: hexadecimal integer literals and engineering notation for
+floating-point literals. Here are some situations where syntactic
+conflicts arise:
 
-文本因子与两个数值表达式语法冲突: 十六进制整数文本和浮点数文本的科学计数法：
+-  The hexadecimal integer literal expression ``0xff`` could be
+   interpreted as the numeric literal ``0`` multiplied by the variable
+   ``xff``.
+-  The floating-point literal expression ``1e10`` could be interpreted
+   as the numeric literal ``1`` multiplied by the variable ``e10``, and
+   similarly with the equivalent ``E`` form.
 
--  十六进制整数文本表达式 ``0xff`` 可以被解析为数值文本 ``0`` 乘以变量 ``xff``
--  浮点数文本表达式 ``1e10`` 可以被解析为数值文本 ``1`` 乘以变量 ``e10`` ，类比 ``E`` 格式
+In both cases, we resolve the ambiguity in favor of interpretation as a
+numeric literals:
 
-两种情况下，我们都把表达式解析为数值文本：
+-  Expressions starting with ``0x`` are always hexadecimal literals.
+-  Expressions starting with a numeric literal followed by ``e`` or
+   ``E`` are always floating-point literals.
 
--  以 ``0x`` 开头的表达式，都被解析为十六进制文本
--  以数字文本开头，后面跟着 ``e`` 或 ``E`` ，都被解析为浮点数文本
+Literal zero and one
+--------------------
 
+Julia provides functions which return literal 0 and 1 corresponding to a
+specified type or the type of a given variable.
 
-零和一
-~~~~~~~~~~
+===========  =====================================================
+Function     Description
+-----------  -----------------------------------------------------
+``zero(x)``  Literal zero of type ``x`` or type of variable ``x``
+``one(x)``   Literal one of type ``x`` or type of variable ``x``
+===========  =====================================================
 
-Julia 提供了一些函数, 用以得到特定数据类型的零和一.
+These functions are useful in :ref:`man-numeric-comparisons` to avoid overhead
+from unnecessary :ref:`type conversion <man-conversion-and-promotion>`.
 
-+-------------+------------------------------------+
-| 函数        | 说明                               |
-+=============+====================================+
-| ``zero(x)`` | 数据类型 ``x`` 或者变量 ``x`` 的零 |
-+-------------+------------------------------------+
-| ``one(x)``  | 数据类型 ``x`` 或者变量 ``x`` 的一 |
-+-------------+------------------------------------+
-
-例如::
+Examples::
 
     julia> zero(Float32)
     0.0f0
-
+    
     julia> zero(1.0)
     0.0
 
@@ -537,3 +685,6 @@ Julia 提供了一些函数, 用以得到特定数据类型的零和一.
 
     julia> one(BigFloat)
     1e+00
+    
+
+

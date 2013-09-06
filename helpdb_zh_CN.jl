@@ -2,4180 +2,5520 @@
 
 {
 
-("杂项","Base","exit","exit([code])
+("Getting Around","Base","exit","exit([code])
 
+   Quit (or control-D at the prompt). The default exit code is zero,
+   indicating that the processes completed successfully.
 
-   退出（或在会话中按下 control-D ）。默认退出代码为 0 ，表示进程正常
-   结束。
-
 "),
 
-("杂项","Base","whos","whos([Module,] [pattern::Regex])
+("Getting Around","Base","quit","quit()
 
+   Calls \"exit(0)\".
 
-   打印模块中全局变量的信息，可选择性地限制打印匹配 \"pattern\" 的变量
-   。
-
 "),
-
-("杂项","Base","edit","edit(file::String[, line])
 
+("Getting Around","Base","atexit","atexit(f)
 
-   编辑文件；可选择性地提供要编辑的行号。退出编辑器后返回 Julia 会话。
-   如果文件后缀名为 \".jl\" ，关闭文件后会重载该文件。
+   Register a zero-argument function to be called at exit.
 
 "),
 
-("杂项","Base","edit","edit(function[, types])
+("Getting Around","Base","isinteractive","isinteractive()
 
+   Determine whether Julia is running an interactive session.
 
-   编辑函数定义，可选择性地提供一个类型多元组以指明要编辑哪个方法。 退
-   出编辑器后，包含定义的源文件会被重载。
-
 "),
-
-("杂项","Base","require","require(file::String...)
 
+("Getting Around","Base","whos","whos([Module,] [pattern::Regex])
 
-   在 \"Main\" 模块的上下文中，对每个活动的节点，通过系统的
-   \"LOAD_PATH\" 查找文件，并只载入一次。\"require\" 是顶层操作，因此
-   它设置当前的 \"include\" 路径，但并不使用它来查找文件（详见
-   \"include\" ）。 此函数常用来载入库代码； \"using\" 函数隐含使用它
-   来载入扩展包。
+   Print information about global variables in a module, optionally
+   restricted to those matching \"pattern\".
 
 "),
 
-("杂项","Base","reload","reload(file::String)
+("Getting Around","Base","edit","edit(file::String[, line])
 
+   Edit a file optionally providing a line number to edit at. Returns
+   to the julia prompt when you quit the editor.
 
-   类似 \"require\" ，但不管是否曾载入过，都要载入文件。 常在交互式地
-   开发库时使用。
-
 "),
-
-("杂项","Base","include","include(path::String)
 
+("Getting Around","Base","edit","edit(function[, types])
 
-   在当前上下文中，对源文件的内容求值。在包含的过程中，它将本地任务 包
-   含的路径设置为包含文件的文件夹。嵌套调用 \"include\" 时会搜索 那个
-   路径的   相关路径。并行运行时，所有的路径都指向节点 1 上文件， 并从
-   节点 1 上获取文件。此函数常用来交互式地载入源文件，或将分散为 多个
-   源文件的扩展包结合起来。
+   Edit the definition of a function, optionally specifying a tuple of
+   types to indicate which method to edit.
 
 "),
 
-("杂项","Base","include_string","include_string(code::String)
+("Getting Around","Base","less","less(file::String[, line])
 
+   Show a file using the default pager, optionally providing a
+   starting line number. Returns to the julia prompt when you quit the
+   pager.
 
-   类似 \"include\" ，但它从指定的字符串读取代码，而不是从文件中。 由
-   于没有涉及到文件路径，不会进行路径处理或从节点 1 获取文件。
-
 "),
-
-("杂项","Base","evalfile","evalfile(path::String)
 
+("Getting Around","Base","less","less(function[, types])
 
-   对指定文件的所有表达式求值，并返回最后一个表达式的值。 不会进行其他
-   处理（搜索路径，从节点 1 获取文件等）。
+   Show the definition of a function using the default pager,
+   optionally specifying a tuple of types to indicate which method to
+   see.
 
 "),
 
-("杂项","Base","help","help(name)
+("Getting Around","Base","require","require(file::String...)
 
+   Load source files once, in the context of the \"Main\" module, on
+   every active node, searching the system-wide \"LOAD_PATH\" for
+   files. \"require\" is considered a top-level operation, so it sets
+   the current \"include\" path but does not use it to search for
+   files (see help for \"include\"). This function is typically used
+   to load library code, and is implicitly called by \"using\" to load
+   packages.
 
-   获得函数帮助。 \"name\" 可以是对象或字符串。
-
 "),
-
-("杂项","Base","apropos","apropos(string)
 
+("Getting Around","Base","reload","reload(file::String)
 
-   查询文档中与 \"string\" 相关的函数。
+   Like \"require\", except forces loading of files regardless of
+   whether they have been loaded before. Typically used when
+   interactively developing libraries.
 
 "),
 
-("杂项","Base","which","which(f, args...)
+("Getting Around","Base","include","include(path::String)
 
+   Evaluate the contents of a source file in the current context.
+   During including, a task-local include path is set to the directory
+   containing the file. Nested calls to \"include\" will search
+   relative to that path. All paths refer to files on node 1 when
+   running in parallel, and files will be fetched from node 1. This
+   function is typically used to load source interactively, or to
+   combine files in packages that are broken into multiple source
+   files.
 
-   对指定的参数，显示应调用 \"f\" 的哪个方法。
-
 "),
-
-("杂项","Base","methods","methods(f)
 
+("Getting Around","Base","include_string","include_string(code::String)
 
-   显示 \"f\" 的所有方法及其对应的参数类型。
+   Like \"include\", except reads code from the given string rather
+   than from a file. Since there is no file path involved, no path
+   processing or fetching from node 1 is done.
 
 "),
 
-("杂项","Base","methodswith","methodswith(typ[, showparents])
+("Getting Around","Base","help","help(name)
 
+   Get help for a function. \"name\" can be an object or a string.
 
-   显示 \"typ\" 类型的所有方法。若可选项 \"showparents\" 为 \"true\"
-   ， 则额外显示 \"typ\" 除 \"Any\" 类型之外的父类型的方法。
-
 "),
-
-("所有对象","Base","is","is(x, y)
 
+("Getting Around","Base","apropos","apropos(string)
 
-   判断 \"x\" 与 \"y\" 是否相同，依据为程序不能区分它们。
+   Search documentation for functions related to \"string\".
 
 "),
 
-("所有对象","Base","isa","isa(x, type)
+("Getting Around","Base","which","which(f, args...)
 
+   Show which method of \"f\" will be called for the given arguments.
 
-   判断 \"x\" 是否为指定类型。
-
 "),
 
-("所有对象","Base","isequal","isequal(x, y)
+("Getting Around","Base","@which","@which()
 
+   Evaluates the arguments to the function call, determines their
+   types, and calls the \"which\" function on the resulting expression
 
-   当且仅当 \"x\" 和 \"y\" 内容相同是为真。粗略地说，即打印出来的
-   \"x\" 和 \"y\" 看起来一模一样。
-
 "),
-
-("所有对象","Base","isless","isless(x, y)
 
+("Getting Around","Base","methods","methods(f)
 
-   判断 \"x\" 是否比 \"y\" 小。它具有与 \"isequal\" 一致的整体排序。
-   不能正常排序的值如 \"NaN\" ，会按照任意顺序排序，但其排序方式会保持
-   一致。 它是 \"sort\" 默认使用的比较函数。可进行排序的非数值类型，应
-   当实现此方法。
+   Show all methods of \"f\" with their argument types.
 
 "),
 
-("所有对象","Base","typeof","typeof(x)
+("Getting Around","Base","methodswith","methodswith(typ[, showparents])
 
+   Show all methods with an argument of type \"typ\". If optional
+   \"showparents\" is \"true\", also show arguments with a parent type
+   of \"typ\", excluding type \"Any\".
 
-   返回 \"x\" 的具体类型。
-
 "),
-
-("所有对象","Base","tuple","tuple(xs...)
 
+("Getting Around","Base","@show","@show()
 
-   构造指定对象的多元组。
+   Show an expression and result, returning the result
 
 "),
 
-("所有对象","Base","ntuple","ntuple(n, f::Function)
+("Getting Around","Base","versioninfo","versioninfo([verbose::Bool])
 
+   Print information about the version of Julia in use. If the
+   \"verbose\" argument is true, detailed system information is shown
+   as well.
 
-   构造长度为 \"n\" 的多元组，每个元素为 \"f(i)\" ，其中 \"i\" 为元素
-   的索引值。
-
 "),
-
-("所有对象","Base","object_id","object_id(x)
 
+("All Objects","Base","is","is(x, y)
 
-   获取 \"x\" 唯一的整数值 ID 。当且仅当 \"is(x,y)\" 时，
-   \"object_id(x) == object_id(y)\" 。
+   Determine whether \"x\" and \"y\" are identical, in the sense that
+   no program could distinguish them. Compares mutable objects by
+   address in memory, and compares immutable objects (such as numbers)
+   by contents at the bit level. This function is sometimes called
+   \"egal\". The \"===\" operator is an alias for this function.
 
 "),
 
-("所有对象","Base","hash","hash(x)
+("All Objects","Base","isa","isa(x, type)
 
+   Determine whether \"x\" is of the given type.
 
-   计算整数哈希值。因而 \"isequal(x,y)\" 等价于 \"hash(x) == hash(y)\"
-   。
-
 "),
-
-("所有对象","Base","finalizer","finalizer(x, function)
 
+("All Objects","Base","isequal","isequal(x, y)
 
-   当对 \"x\" 的引用处于程序不可用时，注册一个注册可调用的函数
-   \"f(x)\" 来终结这个引用。当 \"x\" 为位类型时，此函数的行为不可预测
-   。
+   True if and only if \"x\" and \"y\" have the same contents. Loosely
+   speaking, this means \"x\" and \"y\" would look the same when
+   printed. This is the default comparison function used by hash
+   tables (\"Dict\"). New types with a notion of equality should
+   implement this function, except for numbers, which should implement
+   \"==\" instead. However, numeric types with special values might
+   need to implement \"isequal\" as well. For example, floating point
+   \"NaN\" values are not \"==\", but are all equivalent in the sense
+   of \"isequal\". Numbers of different types are considered unequal.
+   Mutable containers should generally implement \"isequal\" by
+   calling \"isequal\" recursively on all contents.
 
 "),
 
-("所有对象","Base","copy","copy(x)
+("All Objects","Base","isless","isless(x, y)
 
+   Test whether \"x\" is less than \"y\". Provides a total order
+   consistent with \"isequal\". Values that are normally unordered,
+   such as \"NaN\", are ordered in an arbitrary but consistent
+   fashion. This is the default comparison used by \"sort\". Non-
+   numeric types that can be ordered should implement this function.
+   Numeric types only need to implement it if they have special values
+   such as \"NaN\".
 
-   构造 \"x\" 的浅拷贝：仅复制外层结构，不复制内部值。如，复制数组时，
-   会生成一个元素与原先完全相同的新数组。
-
 "),
 
-("所有对象","Base","deepcopy","deepcopy(x)
+("All Objects","Base","typeof","typeof(x)
 
+   Get the concrete type of \"x\".
 
-   构造 \"x\" 的深拷贝：递归复制所有的东西，返回一个完全独立的对象。
-   如，深拷贝数组时，会生成一个元素为原先元素深拷贝的新数组。
+"),
 
-   作为特例，匿名函数只能深拷贝，非匿名函数则为浅拷贝。它们的区别仅与
-   闭包有关， 例如含有隐藏的内部引用的函数。
+("All Objects","Base","tuple","tuple(xs...)
 
-   正常情况都不必这么做：自定义类型可通过定义特殊版本的
-   \"deepcopy_internal(x::T, dict::ObjectIdDict)\" 函数（此函数其它情
-   况下 不应使用）来覆盖默认的 \"deepcopy\" 行为，其中 \"T\" 是要指明
-   的类型， \"dict\" 记录迄今为止递归中复制的对象。在定义中，
-   \"deepcopy_internal\" 应当用来代替 \"deepcopy\" ， \"dict\" 变量应
-   当在返回前正确的更新。
+   Construct a tuple of the given objects.
 
 "),
 
-("所有对象","Base","convert","convert(type, x)
+("All Objects","Base","ntuple","ntuple(n, f::Function)
 
+   Create a tuple of length \"n\", computing each element as \"f(i)\",
+   where \"i\" is the index of the element.
 
-   试着将 \"x\" 转换为指定类型。
-
 "),
-
-("所有对象","Base","promote","promote(xs...)
 
+("All Objects","Base","object_id","object_id(x)
 
-   将所有参数转换为共同的提升类型（如果有的话），并将它们（作为多元组
-   ）返回。
+   Get a unique integer id for \"x\". \"object_id(x)==object_id(y)\"
+   if and only if \"is(x,y)\".
 
 "),
 
-("类型","Base","subtype","subtype(type1, type2)
+("All Objects","Base","hash","hash(x)
 
+   Compute an integer hash code such that \"isequal(x,y)\" implies
+   \"hash(x)==hash(y)\".
 
-   仅在 \"type1\" 的所有值都是 \"type2\" 时为真。也可使用 \"<:\" 中缀
-   运算符， 写为 \"type1 <: type2\" 。
-
 "),
-
-("类型","Base","<:","<:(T1, T2)
 
+("All Objects","Base","finalizer","finalizer(x, function)
 
-   子类型运算符，等价于 \"subtype(T1,T2)\" 。
+   Register a function \"f(x)\" to be called when there are no
+   program-accessible references to \"x\". The behavior of this
+   function is unpredictable if \"x\" is of a bits type.
 
 "),
 
-("类型","Base","typemin","typemin(type)
+("All Objects","Base","copy","copy(x)
 
+   Create a shallow copy of \"x\": the outer structure is copied, but
+   not all internal values. For example, copying an array produces a
+   new array with identically-same elements as the original.
 
-   指定（实数）数值类型可表示的最小值。
-
 "),
 
-("类型","Base","typemax","typemax(type)
+("All Objects","Base","deepcopy","deepcopy(x)
 
+   Create a deep copy of \"x\": everything is copied recursively,
+   resulting in a fully independent object. For example, deep-copying
+   an array produces a new array whose elements are deep-copies of the
+   original elements.
 
-   指定（实数）数值类型可表示的最大值。
+   As a special case, functions can only be actually deep-copied if
+   they are anonymous, otherwise they are just copied. The difference
+   is only relevant in the case of closures, i.e. functions which may
+   contain hidden internal references.
 
-"),
+   While it isn't normally necessary, user-defined types can override
+   the default \"deepcopy\" behavior by defining a specialized version
+   of the function \"deepcopy_internal(x::T, dict::ObjectIdDict)\"
+   (which shouldn't otherwise be used), where \"T\" is the type to be
+   specialized for, and \"dict\" keeps track of objects copied so far
+   within the recursion. Within the definition, \"deepcopy_internal\"
+   should be used in place of \"deepcopy\", and the \"dict\" variable
+   should be updated as appropriate before returning.
 
-("类型","Base","realmin","realmin(type)
+"),
 
+("All Objects","Base","isdefined","isdefined(object, index | symbol)
 
-   指定的浮点数类型可表示的非反常值中，绝对值最小的数。
+   Tests whether an assignable location is defined. The arguments can
+   be an array and index, a composite object and field name (as a
+   symbol), or a module and a symbol.
 
 "),
 
-("类型","Base","realmax","realmax(type)
+("All Objects","Base","convert","convert(type, x)
 
+   Try to convert \"x\" to the given type.
 
-   指定的浮点数类型可表示的最大的有穷数。
-
 "),
-
-("类型","Base","maxintfloat","maxintfloat(type)
 
+("All Objects","Base","promote","promote(xs...)
 
-   指定的浮点数类型可无损表示的最大整数。
+   Convert all arguments to their common promotion type (if any), and
+   return them all (as a tuple).
 
 "),
 
-("类型","Base","sizeof","sizeof(type)
+("All Objects","Base","oftype","oftype(x, y)
 
+   Convert \"y\" to the type of \"x\".
 
-   指定类型的权威二进制表示（如果有的话）所占的字节大小。
-
 "),
-
-("类型","Base","eps","eps([type])
 
+("All Objects","Base","identity","identity(x)
 
-   1.0 与下一个稍大的 \"type\" 类型可表示的浮点数之间的距离。有效的类
-   型为 \"Float32\" 和 \"Float64\" 。如果省略 \"type\" ，则返回
-   \"eps(Float64)\" 。
+   The identity function. Returns its argument.
 
 "),
 
-("类型","Base","eps","eps(x)
+("Types","Base","super","super(T::DataType)
 
+   Return the supertype of DataType T
 
-   \"x\" 与下一个稍大的 \"x\" 同类型可表示的浮点数之间的距离。
-
 "),
-
-("类型","Base","promote_type","promote_type(type1, type2)
 
+("Types","Base","issubtype","issubtype(type1, type2)
 
-   如果可能的话，给出可以无损表示每个参数类型值的类型。若不存在无损表
-   示时， 可以容忍有损；如 \"promote_type(Int64,Float64)\" 返回
-   \"Float64\" ， 尽管严格来说，并非所有的 \"Int64\" 值都可以由
-   \"Float64\" 无损表示。
+   True if and only if all values of \"type1\" are also of \"type2\".
+   Can also be written using the \"<:\" infix operator as \"type1 <:
+   type2\".
 
 "),
 
-("类型","Base","getfield","getfield(value, name::Symbol)
+("Types","Base","<:","<:(T1, T2)
 
+   Subtype operator, equivalent to \"issubtype(T1,T2)\".
 
-   从复合类型的 value 中提取命名域。 \"a.b\" 语法调用 \"getfield(a,
-   :b)\" ， \"a.(b)\" 语法调用 \"getfield(a, b)\" 。
-
 "),
-
-("类型","Base","setfield","setfield(value, name::Symbol, x)
 
+("Types","Base","subtypes","subtypes(T::DataType)
 
-   为复合类型的 \"value\" 中的命名域赋值 \"x\" 。 \"a.b = c\" 语法调用
-   \"setfield(a, :b, c)\" ， \"a.(b) = c\" 语法调用 \"setfield(a, b,
-   c)\".
+   Return a list of immediate subtypes of DataType T.  Note that all
+   currently loaded subtypes are included, including those not visible
+   in the current module.
 
 "),
 
-("类型","Base","fieldtype","fieldtype(value, name::Symbol)
+("Types","Base","subtypetree","subtypetree(T::DataType)
 
+   Return a nested list of all subtypes of DataType T.  Note that all
+   currently loaded subtypes are included, including those not visible
+   in the current module.
 
-   返回复合类型的 \"value\" 中的命名域 \"name\" 的类型。
-
 "),
+
+("Types","Base","typemin","typemin(type)
 
-("通用函数","Base","method_exists","method_exists(f, tuple) -> Bool
+   The lowest value representable by the given (real) numeric type.
 
+"),
 
-   判断指定的通用函数是否有匹配参数类型多元组的方法。
+("Types","Base","typemax","typemax(type)
 
-   **例子** ： \"method_exists(length, (Array,)) = true\"
+   The highest value representable by the given (real) numeric type.
 
 "),
-
-("通用函数","Base","applicable","applicable(f, args...)
 
+("Types","Base","realmin","realmin(type)
 
-   判断指定的通用函数是否有可用于指定参数的方法。
+   The smallest in absolute value non-subnormal value representable by
+   the given floating-point type
 
 "),
 
-("通用函数","Base","invoke","invoke(f, (types...), args...)
+("Types","Base","realmax","realmax(type)
 
+   The highest finite value representable by the given floating-point
+   type
 
-   对指定的参数，为匹配指定类型（多元组）的通用函数指定要调用的方法。
-   参数应与指定的类型兼容。它允许在最匹配的方法之外，指定一个方法。 这
-   对明确需要一个更通用的定义的行为时非常有用 （通常作为相同函数的更特
-   殊的方法实现的一部分）。
-
 "),
 
-("通用函数","Base","|","|(x, f)
+("Types","Base","maxintfloat","maxintfloat(type)
 
+   The largest integer losslessly representable by the given floating-
+   point type
 
-   对前面的参数应用一个函数，方便写链式函数。
+"),
 
-   **例子** ： \"[1:5] | x->x.^2 | sum | inv\"
+("Types","Base","sizeof","sizeof(type)
 
-"),
+   Size, in bytes, of the canonical binary representation of the given
+   type, if any.
 
-("迭代","Base","start","start(iter) -> state
+"),
 
+("Types","Base","eps","eps([type])
 
-   获取可迭代对象的初始迭代状态。
+   The distance between 1.0 and the next larger representable
+   floating-point value of \"type\". The only types that are sensible
+   arguments are \"Float32\" and \"Float64\". If \"type\" is omitted,
+   then \"eps(Float64)\" is returned.
 
 "),
-
-("迭代","Base","done","done(iter, state) -> Bool
 
+("Types","Base","eps","eps(x)
 
-   判断迭代是否完成。
+   The distance between \"x\" and the next larger representable
+   floating-point value of the same type as \"x\".
 
 "),
 
-("迭代","Base","next","next(iter, state) -> item, state
+("Types","Base","promote_type","promote_type(type1, type2)
 
+   Determine a type big enough to hold values of each argument type
+   without loss, whenever possible. In some cases, where no type
+   exists which to which both types can be promoted losslessly, some
+   loss is tolerated; for example, \"promote_type(Int64,Float64)\"
+   returns \"Float64\" even though strictly, not all \"Int64\" values
+   can be represented exactly as \"Float64\" values.
 
-   对指定的可迭代对象和迭代状态，返回当前项和下一个迭代状态。
-
 "),
+
+("Types","Base","promote_rule","promote_rule(type1, type2)
 
-("迭代","Base","zip","zip(iters...)
+   Specifies what type should be used by \"promote\" when given values
+   of types \"type1\" and \"type2\". This function should not be
+   called directly, but should have definitions added to it for new
+   types as appropriate.
 
+"),
 
-   对一组迭代对象，返回一组可迭代多元组，其中第 \"i\" 个多元组 包含每
-   个可迭代输入的第 \"i\" 个分量。
+("Types","Base","getfield","getfield(value, name::Symbol)
 
-   注意 \"zip\" 是它自己的逆操作： \"[zip(zip(a...)...)...] ==
-   [a...]\" 。
+   Extract a named field from a value of composite type. The syntax
+   \"a.b\" calls \"getfield(a, :b)\", and the syntax \"a.(b)\" calls
+   \"getfield(a, b)\".
 
 "),
-
-("迭代","Base","enumerate","enumerate(iter)
 
+("Types","Base","setfield","setfield(value, name::Symbol, x)
 
-   返回生成 \"(i, x)\" 的迭代器，其中 \"i\" 是从 1 开始的索引， \"x\"
-   是指定迭代器的第 \"i\" 个值。
+   Assign \"x\" to a named field in \"value\" of composite type. The
+   syntax \"a.b = c\" calls \"setfield(a, :b, c)\", and the syntax
+   \"a.(b) = c\" calls \"setfield(a, b, c)\".
 
 "),
 
-("通用集合","Base","isempty","isempty(collection) -> Bool
+("Types","Base","fieldoffsets","fieldoffsets(type)
 
+   The byte offset of each field of a type relative to the data start.
+   For example, we could use it in the following manner to summarize
+   information about a struct type:
 
-   判断集合是否为空（没有元素）。
+      structinfo(T) = [zip(fieldoffsets(T),names(T),T.types)...]
+      structinfo(Stat)
 
 "),
 
-("通用集合","Base","empty!","empty!(collection) -> collection
+("Types","Base","fieldtype","fieldtype(value, name::Symbol)
 
+   Determine the declared type of a named field in a value of
+   composite type.
 
-   移除集合中的所有元素。
-
 "),
-
-("通用集合","Base","length","length(collection) -> Integer
 
+("Types","Base","isimmutable","isimmutable(v)
 
-   对可排序、可索引的集合，用于 \"getindex(collection, i)\" 最大索引值
-   \"i\" 是有效的。对不可排序的集合，结果为元素个数。
+   True if value \"v\" is immutable.  See *Immutable Composite Types*
+   for a discussion of immutability.
 
 "),
 
-("通用集合","Base","endof","endof(collection) -> Integer
+("Types","Base","isbits","isbits(T)
 
+   True if \"T\" is a \"plain data\" type, meaning it is immutable and
+   contains no references to other values. Typical examples are
+   numeric types such as \"Uint8\", \"Float64\", and
+   \"Complex{Float64}\".
 
-   返回集合的最后一个索引值。
+"),
 
-   **例子** ： \"endof([1,2,4]) = 3\"
+("Types","Base","isleaftype","isleaftype(T)
 
-"),
+   Determine whether \"T\" is a concrete type that can have instances,
+   meaning its only subtypes are itself and \"None\" (but \"T\" itself
+   is not \"None\").
 
-("可迭代集合","Base","contains","contains(itr, x) -> Bool
+"),
 
+("Types","Base","typejoin","typejoin(T, S)
 
-   判断集合是否包含指定值 \"x\" 。
+   Compute a type that contains both \"T\" and \"S\".
 
 "),
-
-("可迭代集合","Base","findin","findin(a, b)
 
+("Types","Base","typeintersect","typeintersect(T, S)
 
-   返回曾在集合 \"b\" 中出现的，集合 \"a\"  中元素的索引值。
+   Compute a type that contains the intersection of \"T\" and \"S\".
+   Usually this will be the smallest such type or one close to it.
 
 "),
 
-("可迭代集合","Base","unique","unique(itr)
+("Generic Functions","Base","method_exists","method_exists(f, tuple) -> Bool
 
+   Determine whether the given generic function has a method matching
+   the given tuple of argument types.
 
-   返回 \"itr\" 中去除多余重复元素的数组。
+   **Example**: \"method_exists(length, (Array,)) = true\"
 
 "),
 
-("可迭代集合","Base","reduce","reduce(op, v0, itr)
+("Generic Functions","Base","applicable","applicable(f, args...)
 
+   Determine whether the given generic function has a method
+   applicable to the given arguments.
 
-   使用指定的运算符约简指定集合， \"v0\" 为约简的初始值。一些常用运算
-   符的缩减， 有更简便的单参数格式： \"max(itr)\", \"min(itr)\",
-   \"sum(itr)\", \"prod(itr)\", \"any(itr)\", \"all(itr)\".
-
 "),
 
-("可迭代集合","Base","max","max(itr)
+("Generic Functions","Base","invoke","invoke(f, (types...), args...)
 
+   Invoke a method for the given generic function matching the
+   specified types (as a tuple), on the specified arguments. The
+   arguments must be compatible with the specified types. This allows
+   invoking a method other than the most specific matching method,
+   which is useful when the behavior of a more general definition is
+   explicitly needed (often as part of the implementation of a more
+   specific method of the same function).
 
-   返回集合中最大的元素。
-
 "),
 
-("可迭代集合","Base","min","min(itr)
+("Generic Functions","Base","|>","|>(x, f)
 
+   Applies a function to the preceding argument which allows for easy
+   function chaining.
 
-   返回集合中最小的元素。
+   **Example**: \"[1:5] |> x->x.^2 |> sum |> inv\"
 
 "),
-
-("可迭代集合","Base","indmax","indmax(itr) -> Integer
 
+("Syntax","Base","eval","eval(expr::Expr)
 
-   返回集合中最大的元素的索引值。
+   Evaluate an expression and return the value.
 
 "),
 
-("可迭代集合","Base","indmin","indmin(itr) -> Integer
+("Syntax","Base","@eval","@eval()
 
+   Evaluate an expression and return the value.
 
-   返回集合中最小的元素的索引值。
-
 "),
-
-("可迭代集合","Base","findmax","findmax(itr) -> (x, index)
 
+("Syntax","Base","evalfile","evalfile(path::String)
 
-   返回最大的元素及其索引值。
+   Evaluate all expressions in the given file, and return the value of
+   the last one. No other processing (path searching, fetching from
+   node 1, etc.) is performed.
 
 "),
 
-("可迭代集合","Base","findmin","findmin(itr) -> (x, index)
+("Syntax","Base","esc","esc(e::ANY)
 
+   Only valid in the context of an Expr returned from a macro.
+   Prevents the macro hygine pass from turning embedded variables into
+   gensym variables. See the *Macros* section of the Metaprogramming
+   chapter of the manual for more details and examples.
 
-   返回最小的元素及其索引值。
-
 "),
-
-("可迭代集合","Base","sum","sum(itr)
 
+("Syntax","Base","gensym","gensym([tag])
 
-   返回集合中所有元素的和。
+   Generates a symbol which will not conflict with other variable
+   names.
 
 "),
 
-("可迭代集合","Base","prod","prod(itr)
+("Syntax","Base","@gensym","@gensym()
 
+   Generates a gensym symbol for a variable. For example, *@gensym x
+   y* is transformed into *x = gensym(\"x\"); y = gensym(\"y\")*.
 
-   返回集合中所有元素的乘积。
-
 "),
-
-("可迭代集合","Base","any","any(itr) -> Bool
 
+("Syntax","Base","parse","parse(str[, start[, greedy[, err]]])
 
-   判断布尔值集合中是否有为真的元素。
+   Parse the expression string and return an expression (which could
+   later be passed to eval for execution). Start is the index of the
+   first character to start parsing (default is 1). If greedy is true
+   (default), parse will try to consume as much input as it can;
+   otherwise, it will stop as soon as it has parsed a valid token. If
+   err is true (default), parse errors will raise an error; otherwise,
+   it will return the error as a normal expression.
 
 "),
 
-("可迭代集合","Base","all","all(itr) -> Bool
+("Iteration","Base","start","start(iter) -> state
 
+   Get initial iteration state for an iterable object
 
-   判断布尔值集合中是否所有的元素都为真。
-
 "),
-
-("可迭代集合","Base","count","count(itr) -> Integer
 
+("Iteration","Base","done","done(iter, state) -> Bool
 
-   \"itr\" 中为真的布尔值元素的个数。
+   Test whether we are done iterating
 
 "),
 
-("可迭代集合","Base","countp","countp(p, itr) -> Integer
+("Iteration","Base","next","next(iter, state) -> item, state
 
+   For a given iterable object and iteration state, return the current
+   item and the next iteration state
 
-   \"itr\" 中断言 \"p\" 为真的布尔值元素的个数。
-
 "),
 
-("可迭代集合","Base","any","any(p, itr) -> Bool
+("Iteration","Base","zip","zip(iters...)
 
+   For a set of iterable objects, returns an iterable of tuples, where
+   the \"i\"th tuple contains the \"i\"th component of each input
+   iterable.
 
-   判断 \"itr\" 中是否存在使指定断言为真的元素。
+   Note that \"zip\" is it's own inverse: \"[zip(zip(a...)...)...] ==
+   [a...]\".
 
 "),
+
+("Iteration","Base","enumerate","enumerate(iter)
 
-("可迭代集合","Base","all","all(p, itr) -> Bool
+   Return an iterator that yields \"(i, x)\" where \"i\" is an index
+   starting at 1, and \"x\" is the \"ith\" value from the given
+   iterator.
+
+"),
 
+("General Collections","Base","isempty","isempty(collection) -> Bool
 
-   判断 \"itr\" 中是否所有元素都使指定断言为真。
+   Determine whether a collection is empty (has no elements).
 
 "),
 
-("可迭代集合","Base","map","map(f, c) -> collection
+("General Collections","Base","empty!","empty!(collection) -> collection
 
+   Remove all elements from a collection.
 
-   使用 \"f\" 遍历集合 \"c\" 的每个元素。
+"),
 
-   **例子** ： \"map((x) -> x * 2, [1, 2, 3]) = [2, 4, 6]\"
+("General Collections","Base","length","length(collection) -> Integer
 
+   For ordered, indexable collections, the maximum index \"i\" for
+   which \"getindex(collection, i)\" is valid. For unordered
+   collections, the number of elements.
+
 "),
 
-("可迭代集合","Base","map!","map!(function, collection)
+("General Collections","Base","endof","endof(collection) -> Integer
 
+   Returns the last index of the collection.
 
-   \"map()\" 的原地版本。
+   **Example**: \"endof([1,2,4]) = 3\"
 
 "),
+
+("Iterable Collections","Base","in","in(item, collection) -> Bool
 
-("可迭代集合","Base","mapreduce","mapreduce(f, op, itr)
+   Determine whether an item is in the given collection, in the sense
+   that it is \"isequal\" to one of the values generated by iterating
+   over the collection.
 
+"),
 
-   使用 \"f\" 遍历集合 \"c\" 的每个元素，然后使用二元函数 \"op\" 对结
-   果进行约简。
+("Iterable Collections","Base","indexin","indexin(a, b)
 
-   **例子** ： \"mapreduce(x->x^2, +, [1:3]) == 1 + 4 + 9 == 14\"
+   Returns a vector containing the highest index in \"b\" for each
+   value in \"a\" that is a member of \"b\" . The output vector
+   contains 0 wherever \"a\" is not a member of \"b\".
 
 "),
-
-("可迭代集合","Base","first","first(coll)
 
+("Iterable Collections","Base","findin","findin(a, b)
 
-   获取可排序集合的第一个元素。
+   Returns the indices of elements in collection \"a\" that appear in
+   collection \"b\"
 
 "),
 
-("可迭代集合","Base","last","last(coll)
+("Iterable Collections","Base","unique","unique(itr)
 
+   Returns an array containing only the unique elements of the
+   iterable \"itr\", in the order that the first of each set of
+   equivalent elements originally appears.
 
-   获取可排序集合的最后一个元素。
-
 "),
 
-("可迭代集合","Base","collect","collect(collection)
+("Iterable Collections","Base","reduce","reduce(op, v0, itr)
 
+   Reduce the given collection with the given operator, i.e.
+   accumulate \"v = op(v,elt)\" for each element, where \"v\" starts
+   as \"v0\". Reductions for certain commonly-used operators are
+   available in a more convenient 1-argument form: \"max(itr)\",
+   \"min(itr)\", \"sum(itr)\", \"prod(itr)\", \"any(itr)\",
+   \"all(itr)\".
 
-   返回集合中的所有项的数组。对关联性集合，返回 (key, value) 多元组。
+   The associativity of the reduction is implementation-dependent; if
+   you need a particular associativity, e.g. left-to-right, you should
+   write your own loop.
 
 "),
-
-("可索引集合","Base","getindex","getindex(collection, key...)
 
+("Iterable Collections","Base","max","max(itr)
 
-   取回集合中存储在指定键或索引值内的值。 语法 \"a[i,j,...]\" 由编译器
-   转换为 \"getindex(a, i, j, ...)\" 。
+   Returns the largest element in a collection
 
 "),
 
-("可索引集合","Base","setindex!","setindex!(collection, value, key...)
+("Iterable Collections","Base","min","min(itr)
 
+   Returns the smallest element in a collection
 
-   将指定值存储在集合的指定键或索引值内。 语法 \"a[i,j,...] = x\" 由编
-   译器转换为 \"setindex!(a, x, i, j, ...)\" 。
-
 "),
-
-("关联性集合","Base","Dict{K,V}","Dict{K,V}()
 
+("Iterable Collections","Base","indmax","indmax(itr) -> Integer
 
-   使用 K 类型的键和 V 类型的值来构造哈希表。
+   Returns the index of the maximum element in a collection
 
 "),
 
-("关联性集合","Base","has","has(collection, key)
+("Iterable Collections","Base","indmin","indmin(itr) -> Integer
 
+   Returns the index of the minimum element in a collection
 
-   判断集合是否含有指定键的映射。
-
 "),
-
-("关联性集合","Base","get","get(collection, key, default)
 
+("Iterable Collections","Base","findmax","findmax(itr) -> (x, index)
 
-   返回指定键存储的值；当前没有键的映射时，返回默认值。
+   Returns the maximum element and its index
 
 "),
 
-("关联性集合","Base","getkey","getkey(collection, key, default)
+("Iterable Collections","Base","findmin","findmin(itr) -> (x, index)
 
+   Returns the minimum element and its index
 
-   如果参数 \"key\" 匹配 \"collection\" 中的键，将其返回；否在返回
-   \"default\" 。
-
 "),
-
-("关联性集合","Base","delete!","delete!(collection, key)
 
+("Iterable Collections","Base","sum","sum(itr)
 
-   删除集合中指定键的映射，返回被删的键的值。
+   Returns the sum of all elements in a collection
 
 "),
 
-("关联性集合","Base","keys","keys(collection)
+("Iterable Collections","Base","sum","sum(f, itr)
 
+   Sum the results of calling function \"f\" on each element of
+   \"itr\".
 
-   返回集合中所有键组成的数组。
-
 "),
-
-("关联性集合","Base","values","values(collection)
 
+("Iterable Collections","Base","prod","prod(itr)
 
-   返回集合中所有值组成的数组。
+   Returns the product of all elements of a collection
 
 "),
 
-("关联性集合","Base","collect","collect(collection)
+("Iterable Collections","Base","any","any(itr) -> Bool
 
+   Test whether any elements of a boolean collection are true
 
-   返回集合中的所有项。对关联性集合，返回 (key, value) 多元组。
-
 "),
 
-("关联性集合","Base","merge","merge(collection, others...)
+("Iterable Collections","Base","all","all(itr) -> Bool
 
+   Test whether all elements of a boolean collection are true
 
-   使用指定的集合构造归并集合。
-
 "),
-
-("关联性集合","Base","merge!","merge!(collection, others...)
 
+("Iterable Collections","Base","count","count(p, itr) -> Integer
 
-   将其它集合中的对儿更新进 \"collection\" 。
+   Count the number of elements in \"itr\" for which predicate \"p\"
+   is true.
 
 "),
 
-("关联性集合","Base","filter","filter(function, collection)
+("Iterable Collections","Base","any","any(p, itr) -> Bool
 
+   Determine whether any element of \"itr\" satisfies the given
+   predicate.
 
-   返回集合的浅拷贝，移除使 \"function\" 函数为假的 (key, value) 对儿
-   。
-
 "),
-
-("关联性集合","Base","filter!","filter!(function, collection)
 
+("Iterable Collections","Base","all","all(p, itr) -> Bool
 
-   更新集合，移除使 \"function\" 函数为假的 (key, value) 对儿。
+   Determine whether all elements of \"itr\" satisfy the given
+   predicate.
 
 "),
 
-("关联性集合","Base","eltype","eltype(collection)
+("Iterable Collections","Base","map","map(f, c) -> collection
 
+   Transform collection \"c\" by applying \"f\" to each element.
 
-   返回集合中包含的 (key,value) 对儿的类型多元组。
+   **Example**: \"map((x) -> x * 2, [1, 2, 3]) = [2, 4, 6]\"
 
 "),
 
-("关联性集合","Base","sizehint","sizehint(s, n)
+("Iterable Collections","Base","map!","map!(function, collection)
 
+   In-place version of \"map()\".
 
-   使集合 \"s\" 保留最少 \"n\" 个元素的容量。这样可提高性能。
-
 "),
 
-("类集集合","Base","add!","add!(collection, key)
+("Iterable Collections","Base","mapreduce","mapreduce(f, op, itr)
 
+   Applies function \"f\" to each element in \"itr\" and then reduces
+   the result using the binary function \"op\".
 
-   向类集集合添加元素。
+   **Example**: \"mapreduce(x->x^2, +, [1:3]) == 1 + 4 + 9 == 14\"
 
-"),
+   The associativity of the reduction is implementation-dependent; if
+   you need a particular associativity, e.g. left-to-right, you should
+   write your own loop.
 
-("类集集合","Base","add_each!","add_each!(collection, iterable)
+"),
 
+("Iterable Collections","Base","first","first(coll)
 
-   向集合逐个添加 \"iterable\" 中的元素。
+   Get the first element of an ordered collection.
 
 "),
-
-("类集集合","Base","Set","Set(x...)
 
+("Iterable Collections","Base","last","last(coll)
 
-   使用指定元素来构造 \"Set\" 。构造稀疏整数集时应使用此函数，而非
-   \"IntSet\" 。
+   Get the last element of an ordered collection.
 
 "),
 
-("类集集合","Base","IntSet","IntSet(i...)
+("Iterable Collections","Base","step","step(r)
 
+   Get the step size of a \"Range\" object.
 
-   使用指定元素来构造 \"IntSet\" 。它是由位字符串实现的，因而适合构造
-   稠密整数集。如果为稀疏集合(例如集合内容为几个非常大的整数), 请使用
-   \"Set\".
-
 "),
-
-("类集集合","Base","union","union(s1, s2...)
 
+("Iterable Collections","Base","collect","collect(collection)
 
-   构造两个及两个以上集的共用体。保持原数组中的顺序。
+   Return an array of all items in a collection. For associative
+   collections, returns (key, value) tuples.
 
 "),
 
-("类集集合","Base","union!","union!(s1, s2)
+("Iterable Collections","Base","issubset","issubset(a, b)
 
+   Determine whether every element of \"a\" is also in \"b\", using
+   the \"contains\" function.
 
-   构造 \"IntSet\" s1 和 s2 的共用体，将结果保存在 \"s1\" 中。
-
 "),
-
-("类集集合","Base","intersect","intersect(s1, s2...)
 
+("Indexable Collections","Base","getindex","getindex(collection, key...)
 
-   构造两个及两个以上集的交集。保持原数组中的顺序。
+   Retrieve the value(s) stored at the given key or index within a
+   collection. The syntax \"a[i,j,...]\" is converted by the compiler
+   to \"getindex(a, i, j, ...)\".
 
 "),
 
-("类集集合","Base","setdiff","setdiff(s1, s2)
+("Indexable Collections","Base","setindex!","setindex!(collection, value, key...)
 
+   Store the given value at the given key or index within a
+   collection. The syntax \"a[i,j,...] = x\" is converted by the
+   compiler to \"setindex!(a, x, i, j, ...)\".
 
-   使用存在于 \"s1\" 且不在 \"s2\" 的元素来构造集合。保持原数组中的顺
-   序。
-
 "),
-
-("类集集合","Base","symdiff","symdiff(s1, s2...)
 
+("Associative Collections","Base","Dict{K,V}","Dict{K,V}()
 
-   构造由集合或数组中不同的元素构成的集。保持原数组中的顺序。
+   Construct a hashtable with keys of type K and values of type V
 
 "),
 
-("类集集合","Base","symdiff!","symdiff!(s, n)
+("Associative Collections","Base","haskey","haskey(collection, key)
 
+   Determine whether a collection has a mapping for a given key.
 
-   向 \"IntSet\" s 中插入整数元素 \"n\" 。
-
 "),
-
-("类集集合","Base","symdiff!","symdiff!(s, itr)
 
+("Associative Collections","Base","get","get(collection, key, default)
 
-   向 set s 中插入 \"itr\" 中的元素。
+   Return the value stored for the given key, or the given default
+   value if no mapping for the key is present.
 
 "),
 
-("类集集合","Base","symdiff!","symdiff!(s1, s2)
+("Associative Collections","Base","getkey","getkey(collection, key, default)
 
+   Return the key matching argument \"key\" if one exists in
+   \"collection\", otherwise return \"default\".
 
-   构造由 \"IntSets\" 类型的 \"s1\" 和 \"s2\" 中不同的元素构成的集，
-   结果保存在 \"s1\" 中。
-
 "),
-
-("类集集合","Base","complement","complement(s)
 
+("Associative Collections","Base","delete!","delete!(collection, key)
 
-   返回 \"IntSet\" s 的补集。
+   Delete the mapping for the given key in a collection, and return
+   the colection.
 
 "),
 
-("类集集合","Base","complement!","complement!(s)
+("Associative Collections","Base","pop!","pop!(collection, key[, default])
 
+   Delete and return the mapping for \"key\" if it exists in
+   \"collection\", otherwise return \"default\", or throw an error if
+   default is not specified.
 
-   将 \"IntSet\" s 转换为它的补集。
-
 "),
-
-("类集集合","Base","del_each!","del_each!(s, itr)
 
+("Associative Collections","Base","keys","keys(collection)
 
-   在原地将集合 s 中 itr 的元素删除。
+   Return an iterator over all keys in a collection.
+   \"collect(keys(d))\" returns an array of keys.
 
 "),
 
-("类集集合","Base","intersect!","intersect!(s1, s2)
+("Associative Collections","Base","values","values(collection)
 
+   Return an iterator over all values in a collection.
+   \"collect(values(d))\" returns an array of values.
 
-   构造 *Inset* s1 和 s2 的交集，并将结果覆写到 s1 。 s1 根据需要来决
-   定是否扩展到 s2 的大小。
-
 "),
-
-("双端队列","Base","push!","push!(collection, item) -> collection
 
+("Associative Collections","Base","merge","merge(collection, others...)
 
-   在集合尾端插入一项。
+   Construct a merged collection from the given collections.
 
 "),
 
-("双端队列","Base","pop!","pop!(collection) -> item
+("Associative Collections","Base","merge!","merge!(collection, others...)
 
+   Update collection with pairs from the other collections
 
-   移除集合的最后一项，并将其返回。
-
 "),
-
-("双端队列","Base","unshift!","unshift!(collection, item) ->
-collection
 
+("Associative Collections","Base","filter","filter(function, collection)
 
-   在集合首端插入一项。
+   Return a copy of collection, removing (key, value) pairs for which
+   function is false.
 
 "),
 
-("双端队列","Base","shift!","shift!(collection) -> item
+("Associative Collections","Base","filter!","filter!(function, collection)
 
+   Update collection, removing (key, value) pairs for which function
+   is false.
 
-   移除集合首项。
-
 "),
-
-("双端队列","Base","insert!","insert!(collection, index, item)
 
+("Associative Collections","Base","eltype","eltype(collection)
 
-   在指定索引值处插入一项。
+   Returns the type tuple of the (key,value) pairs contained in
+   collection.
 
 "),
 
-("双端队列","Base","delete!","delete!(collection, index) -> item
+("Associative Collections","Base","sizehint","sizehint(s, n)
 
+   Suggest that collection \"s\" reserve capacity for at least \"n\"
+   elements. This can improve performance.
 
-   移除指定索引值处的项，返回删除项。
-
 "),
-
-("双端队列","Base","delete!","delete!(collection, range) -> items
 
+("Set-Like Collections","Base","add!","add!(collection, key)
 
-   移除指定范围内的项，返回包含删除项的集合。
+   Add an element to a set-like collection.
 
 "),
 
-("双端队列","Base","resize!","resize!(collection, n) -> collection
+("Set-Like Collections","Base","Set","Set(x...)
 
+   Construct a \"Set\" with the given elements. Should be used instead
+   of \"IntSet\" for sparse integer sets, or for sets of arbitrary
+   objects.
 
-   改变集合的大小，使其可包含 \"n\" 个元素。
-
 "),
-
-("双端队列","Base","append!","append!(collection, items) -> collection
 
+("Set-Like Collections","Base","IntSet","IntSet(i...)
 
-   将 \"items\" 元素附加到集合末尾。
+   Construct a sorted set of the given integers. Implemented as a bit
+   string, and therefore designed for dense integer sets. If the set
+   will be sparse (for example holding a single very large integer),
+   use \"Set\" instead.
 
 "),
 
-("字符串","Base","length","length(s)
+("Set-Like Collections","Base","union","union(s1, s2...)
 
+   Construct the union of two or more sets. Maintains order with
+   arrays.
 
-   字符串 \"s\" 中的字符数。
-
 "),
 
-("字符串","Base","*","*(s, t)
+("Set-Like Collections","Base","union!","union!(s, iterable)
 
+   Union each element of \"iterable\" into set \"s\" in-place.
+
+"),
 
-   连接字符串。
+("Set-Like Collections","Base","intersect","intersect(s1, s2...)
 
-   **例子** ： \"\"Hello \" * \"world\" == \"Hello world\"\"
+   Construct the intersection of two or more sets. Maintains order and
+   multiplicity of the first argument for arrays and ranges.
 
 "),
 
-("字符串","Base","^","^(s, n)
+("Set-Like Collections","Base","setdiff","setdiff(s1, s2)
 
+   Construct the set of elements in \"s1\" but not \"s2\". Maintains
+   order with arrays.
 
-   将字符串 \"s\" 重复 \"n\" 次。
+"),
 
-   **例子** ： \"\"Julia \"^3 == \"Julia Julia Julia \"\"
+("Set-Like Collections","Base","setdiff!","setdiff!(s, iterable)
 
-"),
+   Remove each element of \"iterable\" from set \"s\" in-place.
 
-("字符串","Base","string","string(xs...)
+"),
 
+("Set-Like Collections","Base","symdiff","symdiff(s1, s2...)
 
-   使用 \"print\" 函数的值构造字符串。
+   Construct the symmetric difference of elements in the passed in
+   sets or arrays. Maintains order with arrays.
 
 "),
-
-("字符串","Base","repr","repr(x)
 
+("Set-Like Collections","Base","symdiff!","symdiff!(s, n)
 
-   使用 \"show\" 函数的值构造字符串。
+   IntSet s is destructively modified to toggle the inclusion of
+   integer \"n\".
 
 "),
 
-("字符串","Base","bytestring","bytestring(::Ptr{Uint8})
+("Set-Like Collections","Base","symdiff!","symdiff!(s, itr)
 
+   For each element in \"itr\", destructively toggle its inclusion in
+   set \"s\".
 
-   从 C （以 0 结尾的）格式字符串的地址构造一个字符串。 它使用了浅拷贝
-   ；可以安全释放指针。
-
 "),
-
-("字符串","Base","bytestring","bytestring(s)
 
+("Set-Like Collections","Base","symdiff!","symdiff!(s1, s2)
 
-   将字符串转换为连续的字节数组，从而可将它传递给 C 函数。
+   Construct the symmetric difference of IntSets \"s1\" and \"s2\",
+   storing the result in \"s1\".
 
 "),
 
-("字符串","Base","ascii","ascii(::Array{Uint8, 1})
+("Set-Like Collections","Base","complement","complement(s)
 
+   Returns the set-complement of IntSet s.
 
-   从字节数组构造 ASCII 字符串。
-
 "),
-
-("字符串","Base","ascii","ascii(s)
 
+("Set-Like Collections","Base","complement!","complement!(s)
 
-   将字符串转换为连续的 ASCII 字符串（所有的字符都是有效的 ASCII 字符
-   ）。
+   Mutates IntSet s into its set-complement.
 
 "),
 
-("字符串","Base","utf8","utf8(::Array{Uint8, 1})
+("Set-Like Collections","Base","intersect!","intersect!(s1, s2)
 
+   Intersects IntSets s1 and s2 and overwrites the set s1 with the
+   result. If needed, s1 will be expanded to the size of s2.
 
-   从字节数组构造 UTF-8 字符串。
-
 "),
-
-("字符串","Base","utf8","utf8(s)
 
+("Set-Like Collections","Base","issubset","issubset(A, S) -> Bool
 
-   将字符串转换为连续的 UTF-8 字符串（所有的字符都是有效的 UTF-8 字符
-   ）。
+   True if \"A ⊆ S\" (A is a subset of or equal to S)
 
 "),
 
-("字符串","Base","is_valid_ascii","is_valid_ascii(s) -> Bool
+("Dequeues","Base","push!","push!(collection, item) -> collection
 
+   Insert an item at the end of a collection.
 
-   如果字符串或字节向量是有效的 ASCII ，返回真；否则返回假。
-
 "),
-
-("字符串","Base","is_valid_utf8","is_valid_utf8(s) -> Bool
 
+("Dequeues","Base","pop!","pop!(collection) -> item
 
-   如果字符串或字节向量是有效的 UTF-8 ，返回真；否则返回假。
+   Remove the last item in a collection and return it.
 
 "),
 
-("字符串","Base","is_valid_char","is_valid_char(c) -> Bool
+("Dequeues","Base","unshift!","unshift!(collection, item) -> collection
 
+   Insert an item at the beginning of a collection.
 
-   如果指定的字符或整数是有效的 Unicode 码位，则返回真。
+"),
+
+("Dequeues","Base","shift!","shift!(collection) -> item
+
+   Remove the first item in a collection.
 
 "),
 
-("字符串","Base","ismatch","ismatch(r::Regex, s::String)
+("Dequeues","Base","insert!","insert!(collection, index, item)
 
+   Insert an item at the given index.
 
-   判断字符串是否匹配指定的正则表达式。
+"),
+
+("Dequeues","Base","splice!","splice!(collection, index[, replacement]) -> item
 
+   Remove the item at the given index, and return the removed item.
+   Subsequent items are shifted down to fill the resulting gap. If
+   specified, replacement values from an ordered collection will be
+   spliced in place of the removed item.
+
 "),
+
+("Dequeues","Base","splice!","splice!(collection, range[, replacement]) -> items
 
-("字符串","Base","lpad","lpad(string, n, p)
+   Remove items in the specified index range, and return a collection
+   containing the removed items. Subsequent items are shifted down to
+   fill the resulting gap. If specified, replacement values from an
+   ordered collection will be spliced in place of the removed items.
 
+"),
+
+("Dequeues","Base","resize!","resize!(collection, n) -> collection
 
-   在字符串左侧填充一系列 \"p\" ，以保证字符串至少有 \"n\" 个字符。
+   Resize collection to contain \"n\" elements.
 
 "),
+
+("Dequeues","Base","append!","append!(collection, items) -> collection.
+
+   Add the elements of \"items\" to the end of a collection.
+   \"append!([1],[2,3]) => [1,2,3]\"
 
-("字符串","Base","rpad","rpad(string, n, p)
+"),
 
+("Dequeues","Base","prepend!","prepend!(collection, items) -> collection
 
-   在字符串右侧填充一系列 \"p\" ，以保证字符串至少有 \"n\" 个字符。
+   Insert the elements of \"items\" to the beginning of a collection.
+   \"prepend!([3],[1,2]) => [1,2,3]\"
 
 "),
+
+("Strings","Base","length","length(s)
 
-("字符串","Base","search","search(string, chars[, start])
+   The number of characters in string \"s\".
+
+"),
 
+("Strings","Base","sizeof","sizeof(s::String)
 
-   在指定字符串中查找指定字符。第二个参数可以是单字符、字符向量或集合
-   、 字符串、或正则表达式（但正则表达式仅用来处理连续字符串，如 ASCII
-   或 UTF-8 字符串）。第三个参数是可选的，它指明起始索引值。 返回值为
-   所找到的匹配序列的索引值范围，它满足 \"s[search(s,x)] == x\" 。 如
-   果没有匹配，则返回值为 \"0:-1\" 。
+   The number of bytes in string \"s\".
 
 "),
 
-("字符串","Base","replace","replace(string, pat, r[, n])
+("Strings","Base","*","*(s, t)
 
+   Concatenate strings.
 
-   查找指定模式 \"pat\" ，并替换为 \"r\" 。如果提供 \"n\" ， 则最多替
-   换 \"n\" 次。搜索时，第二个参数可以是单字符、字符向量或集合、 字符
-   串、或正则表达式。如果 \"r\" 为函数，替换后的结果为 \"r(s)\" ， 其
-   中 \"s\" 是匹配的子字符串。
+   **Example**: \"\"Hello \" * \"world\" == \"Hello world\"\"
 
 "),
 
-("字符串","Base","split","split(string, [chars, [limit,]
-[include_empty]])
+("Strings","Base","^","^(s, n)
 
+   Repeat string \"s\" \"n\" times.
 
-   返回由指定字符分割符所分割的指定字符串的字符串数组。 分隔符可由
-   \"search\" 的第二个参数所允许的任何格式所指明（如单字符、 字符集合
-   、字符串、或正则表达式）。如果省略 \"chars\" ， 则它默认为整个空白
-   字符集，且 \"include_empty\" 默认为假。 最后两个参数是可选的：它们
-   是结果的最大长度，且由标志位决定是否在结果中包括空域。
+   **Example**: \"\"Julia \"^3 == \"Julia Julia Julia \"\"
 
 "),
 
-("字符串","Base","strip","strip(string[, chars])
+("Strings","Base","string","string(xs...)
 
+   Create a string from any values using the \"print\" function.
 
-   返回去除头部、尾部空白的 \"string\" 。如果提供了字符串 \"chars\" ，
-   则去除字符串中包含的字符。
+"),
+
+("Strings","Base","repr","repr(x)
+
+   Create a string from any value using the \"show\" function.
 
 "),
 
-("字符串","Base","lstrip","lstrip(string[, chars])
+("Strings","Base","bytestring","bytestring(::Ptr{Uint8})
 
+   Create a string from the address of a C (0-terminated) string. A
+   copy is made; the ptr can be safely freed.
 
-   返回去除头部空白的 \"string\" 。如果提供了字符串 \"chars\" ， 则去
-   除字符串中包含的字符。
+"),
+
+("Strings","Base","bytestring","bytestring(s)
 
+   Convert a string to a contiguous byte array representation
+   appropriate for passing it to C functions.
+
 "),
+
+("Strings","Base","ascii","ascii(::Array{Uint8, 1})
 
-("字符串","Base","rstrip","rstrip(string[, chars])
+   Create an ASCII string from a byte array.
 
+"),
+
+("Strings","Base","ascii","ascii(s)
 
-   返回去除尾部空白的 \"string\" 。如果提供了字符串 \"chars\" ， 则去
-   除字符串中包含的字符。
+   Convert a string to a contiguous ASCII string (all characters must
+   be valid ASCII characters).
 
 "),
+
+("Strings","Base","utf8","utf8(::Array{Uint8, 1})
+
+   Create a UTF-8 string from a byte array.
 
-("字符串","Base","beginswith","beginswith(string, prefix)
+"),
 
+("Strings","Base","utf8","utf8(s)
 
-   如果 \"string\" 以 \"prefix\" 开始，则返回 \"true\" 。
+   Convert a string to a contiguous UTF-8 string (all characters must
+   be valid UTF-8 characters).
 
 "),
+
+("Strings","Base","is_valid_ascii","is_valid_ascii(s) -> Bool
 
-("字符串","Base","endswith","endswith(string, suffix)
+   Returns true if the string or byte vector is valid ASCII, false
+   otherwise.
+
+"),
 
+("Strings","Base","is_valid_utf8","is_valid_utf8(s) -> Bool
 
-   如果 \"string\" 以 \"suffix\" 结尾，则返回 \"true\" 。
+   Returns true if the string or byte vector is valid UTF-8, false
+   otherwise.
 
 "),
 
-("字符串","Base","uppercase","uppercase(string)
+("Strings","Base","is_valid_char","is_valid_char(c) -> Bool
 
+   Returns true if the given char or integer is a valid Unicode code
+   point.
 
-   返回所有字符转换为大写的 \"string\" 。
+"),
+
+("Strings","Base","ismatch","ismatch(r::Regex, s::String) -> Bool
 
+   Test whether a string contains a match of the given regular
+   expression.
+
 "),
+
+("Strings","Base","match","match(r::Regex, s::String[, idx::Integer[, addopts]])
 
-("字符串","Base","lowercase","lowercase(string)
+   Search for the first match of the regular expression \"r\" in \"s\"
+   and return a RegexMatch object containing the match, or nothing if
+   the match failed. The matching substring can be retrieved by
+   accessing \"m.match\" and the captured sequences can be retrieved
+   by accessing \"m.captures\"
 
+"),
+
+("Strings","Base","eachmatch","eachmatch(r::Regex, s::String[, overlap::Bool=false])
 
-   返回所有字符转换为小写的 \"string\" 。
+   Search for all matches of a the regular expression \"r\" in \"s\"
+   and return a iterator over the matches. If overlap is true, the
+   matching sequences are allowed to overlap indices in the original
+   string, otherwise they must be from distinct character ranges.
 
 "),
+
+("Strings","Base","matchall","matchall(r::Regex, s::String[, overlap::Bool=false]) -> Vector{String}
+
+   Return a vector of the matching substrings from eachmatch.
 
-("字符串","Base","join","join(strings, delim)
+"),
 
+("Strings","Base","lpad","lpad(string, n, p)
 
-   将字符串数组合并为一个字符串，在邻接字符串间添加分隔符 \"delim\" 。
+   Make a string at least \"n\" characters long by padding on the left
+   with copies of \"p\".
 
 "),
+
+("Strings","Base","rpad","rpad(string, n, p)
 
-("字符串","Base","chop","chop(string)
+   Make a string at least \"n\" characters long by padding on the
+   right with copies of \"p\".
+
+"),
 
+("Strings","Base","search","search(string, chars[, start])
 
-   移除字符串的最后一个字符。
+   Search for the first occurance of the given characters within the
+   given string. The second argument may be a single character, a
+   vector or a set of characters, a string, or a regular expression
+   (though regular expressions are only allowed on contiguous strings,
+   such as ASCII or UTF-8 strings). The third argument optionally
+   specifies a starting index. The return value is a range of indexes
+   where the matching sequence is found, such that \"s[search(s,x)] ==
+   x\". The return value is \"0:-1\" if there is no match.
 
 "),
 
-("字符串","Base","chomp","chomp(string)
+("Strings","Base","rsearch","rsearch(string, chars[, start])
 
+   Similar to \"search\", but returning the last occurance of the
+   given characters within the given string, searching in reverse from
+   >>``<<start.''.
 
-   移除字符串最后的换行符。
+"),
+
+("Strings","Base","index","index(string, chars[, start])
 
+   Similar to \"search\", but return only the start index at which the
+   characters were found, or 0 if they were not.
+
 "),
 
-("字符串","Base","ind2chr","ind2chr(string, i)
+("Strings","Base","rindex","rindex(string, chars[, start])
 
+      Similar to \"rsearch\", but return only the start index at which
+      the characters were found, or 0 if they were not.
 
-   给出字符串中索引值为 i 的字节所在的字符的索引值。
+      Similar to \"search\", but return only the start index at which
+      the characters were found, or 0 if they were not.
 
-"),
+   Search for the given characters within the given string. The second
+   argument may be a single character, a vector or a set of
+   characters, a string, or a regular expression (though regular
+   expressions are only allowed on contiguous strings, such as ASCII
+   or UTF-8 strings). The third argument optionally specifies a
+   starting index. The return value is a range of indexes where the
+   matching sequence is found, such that \"s[search(s,x)] == x\". The
+   return value is \"0:-1\" if there is no match.
 
-("字符串","Base","chr2ind","chr2ind(string, i)
+"),
 
+("Strings","Base","rsearch","rsearch(string, chars[, start])
 
-   给出字符串中索引为 i 的字符对应的（第一个）字节的索引值。
+   Like \"search\", but starts at the end and moves towards the
+   beginning of \"string\".
 
 "),
+
+("Strings","Base","contains","contains(haystack, needle)
+
+   Determine whether the second argument is a substring of the first.
 
-("字符串","Base","isvalid","isvalid(str, i)
+"),
 
+("Strings","Base","replace","replace(string, pat, r[, n])
 
-   判断指定字符串的第 \"i\" 个索引值处是否是有效字符。
+   Search for the given pattern \"pat\", and replace each occurrence
+   with \"r\". If \"n\" is provided, replace at most \"n\"
+   occurrences.  As with search, the second argument may be a single
+   character, a vector or a set of characters, a string, or a regular
+   expression. If \"r\" is a function, each occurrence is replaced
+   with \"r(s)\" where \"s\" is the matched substring.
 
 "),
+
+("Strings","Base","split","split(string, [chars, [limit,] [include_empty]])
 
-("字符串","Base","nextind","nextind(str, i)
+   Return an array of strings by splitting the given string on
+   occurrences of the given character delimiters, which may be
+   specified in any of the formats allowed by \"search\"'s second
+   argument (i.e. a single character, collection of characters,
+   string, or regular expression). If \"chars\" is omitted, it
+   defaults to the set of all space characters, and \"include_empty\"
+   is taken to be false. The last two arguments are also optional:
+   they are are a maximum size for the result and a flag determining
+   whether empty fields should be included in the result.
+
+"),
 
+("Strings","Base","rsplit","rsplit(string, [chars, [limit,] [include_empty]])
 
-   获取索引值 \"i\" 处之后的有效字符的索引值。如果在字符串末尾， 则返
-   回 \"endof(str)+1\" 。
+   Similar to \"split\", but starting from the end of the string.
 
 "),
 
-("字符串","Base","prevind","prevind(str, i)
+("Strings","Base","strip","strip(string[, chars])
 
+   Return \"string\" with any leading and trailing whitespace removed.
+   If a string \"chars\" is provided, instead remove characters
+   contained in that string.
 
-   获取索引值 \"i\" 处之前的有效字符的索引值。如果在字符串开头，则返回
-   \"0\" 。
+"),
+
+("Strings","Base","lstrip","lstrip(string[, chars])
 
+   Return \"string\" with any leading whitespace removed. If a string
+   \"chars\" is provided, instead remove characters contained in that
+   string.
+
 "),
+
+("Strings","Base","rstrip","rstrip(string[, chars])
 
-("字符串","Base","thisind","thisind(str, i)
+   Return \"string\" with any trailing whitespace removed. If a string
+   \"chars\" is provided, instead remove characters contained in that
+   string.
 
+"),
+
+("Strings","Base","beginswith","beginswith(string, prefix)
 
-   返回索引值 \"i\" 处所在的有效字符的索引值。
+   Returns \"true\" if \"string\" starts with \"prefix\".
 
 "),
+
+("Strings","Base","endswith","endswith(string, suffix)
+
+   Returns \"true\" if \"string\" ends with \"suffix\".
 
-("字符串","Base","randstring","randstring(len)
+"),
 
+("Strings","Base","uppercase","uppercase(string)
 
-   构造长度为 \"len\" 的随机 ASCII 字符串。有效的字符为大小写字母和数
-   字 0-9 。
+   Returns \"string\" with all characters converted to uppercase.
 
 "),
+
+("Strings","Base","lowercase","lowercase(string)
+
+   Returns \"string\" with all characters converted to lowercase.
 
-("字符串","Base","charwidth","charwidth(c)
+"),
 
+("Strings","Base","ucfirst","ucfirst(string)
 
-   给出需要多少列来打印此字符。
+   Returns \"string\" with the first character converted to uppercase.
 
 "),
+
+("Strings","Base","lcfirst","lcfirst(string)
 
-("字符串","Base","strwidth","strwidth(s)
+   Returns \"string\" with the first character converted to lowercase.
+
+"),
 
+("Strings","Base","join","join(strings, delim)
 
-   给出需要多少列来打印此字符串。
+   Join an array of strings into a single string, inserting the given
+   delimiter between adjacent strings.
 
 "),
 
-("字符串","Base","isalnum","isalnum(c::Char)
+("Strings","Base","chop","chop(string)
 
+   Remove the last character from a string
 
-   判断字符是否为字母或数字。
+"),
+
+("Strings","Base","chomp","chomp(string)
 
+   Remove a trailing newline from a string
+
 "),
+
+("Strings","Base","ind2chr","ind2chr(string, i)
 
-("字符串","Base","isalpha","isalpha(c::Char)
+   Convert a byte index to a character index
 
+"),
+
+("Strings","Base","chr2ind","chr2ind(string, i)
 
-   判断字符是否为字母。
+   Convert a character index to a byte index
 
 "),
+
+("Strings","Base","isvalid","isvalid(str, i)
+
+   Tells whether index \"i\" is valid for the given string
 
-("字符串","Base","isascii","isascii(c::Char)
+"),
 
+("Strings","Base","nextind","nextind(str, i)
 
-   判断字符是否属于 ASCII 字符集。
+   Get the next valid string index after \"i\". Returns
+   \"endof(str)+1\" at the end of the string.
 
 "),
+
+("Strings","Base","prevind","prevind(str, i)
+
+   Get the previous valid string index before \"i\". Returns \"0\" at
+   the beginning of the string.
 
-("字符串","Base","isblank","isblank(c::Char)
+"),
 
+("Strings","Base","randstring","randstring(len)
 
-   判断字符是否为 tab 或空格。
+   Create a random ASCII string of length \"len\", consisting of
+   upper- and lower-case letters and the digits 0-9
 
 "),
+
+("Strings","Base","charwidth","charwidth(c)
 
-("字符串","Base","iscntrl","iscntrl(c::Char)
+   Gives the number of columns needed to print a character.
+
+"),
 
+("Strings","Base","strwidth","strwidth(s)
 
-   判断字符是否为控制字符。
+   Gives the number of columns needed to print a string.
 
 "),
 
-("字符串","Base","isdigit","isdigit(c::Char)
+("Strings","Base","isalnum","isalnum(c::Union(Char, String))
 
+   Tests whether a character is alphanumeric, or whether this is true
+   for all elements of a string.
 
-   判断字符是否为一位数字（0-9）。
+"),
+
+("Strings","Base","isalpha","isalpha(c::Union(Char, String))
 
+   Tests whether a character is alphabetic, or whether this is true
+   for all elements of a string.
+
 "),
+
+("Strings","Base","isascii","isascii(c::Union(Char, String))
 
-("字符串","Base","isgraph","isgraph(c::Char)
+   Tests whether a character belongs to the ASCII character set, or
+   whether this is true for all elements of a string.
 
+"),
+
+("Strings","Base","isblank","isblank(c::Union(Char, String))
 
-   判断字符是否可打印，且不是空白字符。
+   Tests whether a character is a tab or space, or whether this is
+   true for all elements of a string.
 
 "),
+
+("Strings","Base","iscntrl","iscntrl(c::Union(Char, String))
+
+   Tests whether a character is a control character, or whether this
+   is true for all elements of a string.
 
-("字符串","Base","islower","islower(c::Char)
+"),
 
+("Strings","Base","isdigit","isdigit(c::Union(Char, String))
 
-   判断字符是否为小写字母。
+   Tests whether a character is a numeric digit (0-9), or whether this
+   is true for all elements of a string.
 
 "),
+
+("Strings","Base","isgraph","isgraph(c::Union(Char, String))
 
-("字符串","Base","isprint","isprint(c::Char)
+   Tests whether a character is printable, and not a space, or whether
+   this is true for all elements of a string.
+
+"),
 
+("Strings","Base","islower","islower(c::Union(Char, String))
 
-   判断字符是否可打印，包括空白字符。
+   Tests whether a character is a lowercase letter, or whether this is
+   true for all elements of a string.
 
 "),
 
-("字符串","Base","ispunct","ispunct(c::Char)
+("Strings","Base","isprint","isprint(c::Union(Char, String))
 
+   Tests whether a character is printable, including space, or whether
+   this is true for all elements of a string.
 
-   判断字符是否可打印，且既非空白字符也非字母或数字。
+"),
+
+("Strings","Base","ispunct","ispunct(c::Union(Char, String))
 
+   Tests whether a character is printable, and not a space or
+   alphanumeric, or whether this is true for all elements of a string.
+
 "),
+
+("Strings","Base","isspace","isspace(c::Union(Char, String))
 
-("字符串","Base","isspace","isspace(c::Char)
+   Tests whether a character is any whitespace character, or whether
+   this is true for all elements of a string.
 
+"),
+
+("Strings","Base","isupper","isupper(c::Union(Char, String))
 
-   判断字符是否为任意空白字符。
+   Tests whether a character is an uppercase letter, or whether this
+   is true for all elements of a string.
 
 "),
+
+("Strings","Base","isxdigit","isxdigit(c::Union(Char, String))
+
+   Tests whether a character is a valid hexadecimal digit, or whether
+   this is true for all elements of a string.
 
-("字符串","Base","isupper","isupper(c::Char)
+"),
 
+("Strings","Base","symbol","symbol(str)
 
-   判断字符是否为大写字母。
+   Convert a string to a \"Symbol\".
 
 "),
+
+("Strings","Base","escape_string","escape_string(str::String) -> String
 
-("字符串","Base","isxdigit","isxdigit(c::Char)
+   General escaping of traditional C and Unicode escape sequences. See
+   \"print_escaped()\" for more general escaping.
+
+"),
 
+("Strings","Base","unescape_string","unescape_string(s::String) -> String
 
-   判断字符是否为有效的十六进制字符。
+   General unescaping of traditional C and Unicode escape sequences.
+   Reverse of \"escape_string()\". See also \"print_unescaped()\".
 
 "),
 
 ("I/O","Base","STDOUT","STDOUT
 
-
-   指向标准输出流的全局变量。
+   Global variable referring to the standard out stream.
 
 "),
 
 ("I/O","Base","STDERR","STDERR
 
-
-   指向标准错误流的全局变量。
+   Global variable referring to the standard error stream.
 
 "),
 
 ("I/O","Base","STDIN","STDIN
 
-
-   指向标准输入流的全局变量。
-
-"),
-
-("I/O","Base","OUTPUT_STREAM","OUTPUT_STREAM
-
-
-   用于文本输出的默认流，如在 \"print\" 和 \"show\" 函数中的流。
+   Global variable referring to the standard input stream.
 
 "),
 
-("I/O","Base","open","open(file_name[, read, write, create, truncate,
-append]) -> IOStream
+("I/O","Base","open","open(file_name[, read, write, create, truncate, append]) -> IOStream
 
-
-   按五个布尔值参数指明的模式打开文件。默认以只读模式打开文件。 返回操
-   作文件的流。
+   Open a file in a mode specified by five boolean arguments. The
+   default is to open files for reading only. Returns a stream for
+   accessing the file.
 
 "),
 
 ("I/O","Base","open","open(file_name[, mode]) -> IOStream
 
+   Alternate syntax for open, where a string-based mode specifier is
+   used instead of the five booleans. The values of \"mode\"
+   correspond to those from \"fopen(3)\" or Perl \"open\", and are
+   equivalent to setting the following boolean groups:
 
-   另一种打开文件的语法，它使用字符串样式的标识符：
-
    +------+-----------------------------------+
-   | r    | 读（默认）                        |
+   | r    | read                              |
    +------+-----------------------------------+
-   | r+   | 读、写                            |
+   | r+   | read, write                       |
    +------+-----------------------------------+
-   | w    | 写、新建、清空重写                |
+   | w    | write, create, truncate           |
    +------+-----------------------------------+
-   | w+   | 读写、新建、清空重写              |
+   | w+   | read, write, create, truncate     |
    +------+-----------------------------------+
-   | a    | 写、新建、追加                    |
+   | a    | write, create, append             |
    +------+-----------------------------------+
-   | a+   | 读、写、新建、追加                |
+   | a+   | read, write, create, append       |
    +------+-----------------------------------+
 
 "),
 
 ("I/O","Base","open","open(f::function, args...)
 
+   Apply the function \"f\" to the result of \"open(args...)\" and
+   close the resulting file descriptor upon completion.
 
-   将函数 \"f\" 映射到 \"open(args...)\" 的返回值上，完成后关闭文件描
-   述符。
-
-   **例子** ： \"open(readall, \"file.txt\")\"
-
-"),
-
-("I/O","Base","memio","memio([size[, finalize::Bool]]) -> IOStream
-
-
-   构造内存中 I/O 流，可选择性指明需要多少初始化空间。
+   **Example**: \"open(readall, \"file.txt\")\"
 
 "),
 
-("I/O","Base","fdio","fdio([name::String], fd::Integer[, own::Bool])
--> IOStream
+("I/O","Base","IOBuffer","IOBuffer() -> IOBuffer
 
+   Create an in-memory I/O stream.
 
-   用整数文件描述符构造 \"IOStream\" 对象。如果 \"own\" 为真， 关闭对
-   象时会关闭底层的描述符。默认垃圾回收时 \"IOStream\" 是关闭的。
-   \"name\" 用文件描述符关联已命名的文件。
+"),
+
+("I/O","Base","IOBuffer","IOBuffer(size::Int)
+
+   Create a fixed size IOBuffer. The buffer will not grow dynamically.
+
+"),
+
+("I/O","Base","IOBuffer","IOBuffer(string)
+
+   Create a read-only IOBuffer on the data underlying the given string
+
+"),
+
+("I/O","Base","IOBuffer","IOBuffer([data][, readable, writable[, maxsize]])
+
+   Create an IOBuffer, which may optionally operate on a pre-existing
+   array. If the readable/writable arguments are given, they restrict
+   whether or not the buffer may be read from or written to
+   respectively. By default the buffer is readable but not writable.
+   The last argument optionally specifies a size beyond which the
+   buffer may not be grown.
+
+"),
+
+("I/O","Base","takebuf_array","takebuf_array(b::IOBuffer)
+
+   Obtain the contents of an \"IOBuffer\" as an array, without
+   copying.
+
+"),
+
+("I/O","Base","takebuf_string","takebuf_string(b::IOBuffer)
+
+   Obtain the contents of an \"IOBuffer\" as a string, without
+   copying.
+
+"),
+
+("I/O","Base","fdio","fdio([name::String], fd::Integer[, own::Bool]) -> IOStream
+
+   Create an \"IOStream\" object from an integer file descriptor. If
+   \"own\" is true, closing this object will close the underlying
+   descriptor. By default, an \"IOStream\" is closed when it is
+   garbage collected. \"name\" allows you to associate the descriptor
+   with a named file.
 
 "),
 
 ("I/O","Base","flush","flush(stream)
 
+   Commit all currently buffered writes to the given stream.
 
-   将当前所有的缓冲写入指定流。
+"),
+
+("I/O","Base","flush_cstdio","flush_cstdio()
+
+   Flushes the C \"stdout\" and \"stderr\" streams (which may have
+   been written to by external C code).
 
 "),
 
 ("I/O","Base","close","close(stream)
 
-
-   关闭 I/O 流。它将在关闭前先做一次 \"flush\" 。
+   Close an I/O stream. Performs a \"flush\" first.
 
 "),
 
 ("I/O","Base","write","write(stream, x)
 
-
-   将值的标准二进制表示写入指定流。
+   Write the canonical binary representation of a value to the given
+   stream.
 
 "),
 
 ("I/O","Base","read","read(stream, type)
 
-
-   从标准二进制表示的流中读出指定类型的值。
+   Read a value of the given type from a stream, in canonical binary
+   representation.
 
 "),
 
 ("I/O","Base","read","read(stream, type, dims)
 
+   Read a series of values of the given type from a stream, in
+   canonical binary representation. \"dims\" is either a tuple or a
+   series of integer arguments specifying the size of \"Array\" to
+   return.
 
-   从标准二进制表示的流中读出指定类型的一组值。 \"dims\" 可以是整数参
-   数的多元组或集合，它指明要返还 \"Array\" 的大小。
+"),
+
+("I/O","Base","readbytes!","readbytes!(stream, b::Vector{Uint8}, nb=length(b))
+
+   Read at most \"nb\" bytes from the stream into \"b\", returning the
+   number of bytes read (increasing the size of \"b\" as needed).
+
+"),
+
+("I/O","Base","readbytes","readbytes(stream, nb=typemax(Int))
+
+   Read at most \"nb\" bytes from the stream, returning a
+   \"Vector{Uint8}\" of the bytes read.
 
 "),
 
 ("I/O","Base","position","position(s)
 
-
-   获取流的当前位置。
+   Get the current position of a stream.
 
 "),
 
 ("I/O","Base","seek","seek(s, pos)
 
-
-   将流定位到指定位置。
+   Seek a stream to the given position.
 
 "),
 
 ("I/O","Base","seekstart","seekstart(s)
 
-
-   将流定位到开头.
+   Seek a stream to its beginning.
 
 "),
 
 ("I/O","Base","seekend","seekend(s)
 
-
-   将流定位到尾端。
+   Seek a stream to its end.
 
 "),
 
 ("I/O","Base","skip","skip(s, offset)
 
-
-   相对于当前位置定位流。
+   Seek a stream relative to the current position.
 
 "),
 
 ("I/O","Base","eof","eof(stream)
 
+   Tests whether an I/O stream is at end-of-file. If the stream is not
+   yet exhausted, this function will block to wait for more data if
+   necessary, and then return \"false\". Therefore it is always safe
+   to read one byte after seeing \"eof\" return \"false\".
 
-   判断 I/O 流是否到达文件尾。如果流还没被耗尽，函数会阻塞并继续等待数
-   据， 然后返回 \"false\" 。因此当 \"eof\" 返回 \"false\" 后，可以很
-   安全地读取一个字节。
+"),
+
+("I/O","Base","isreadonly","isreadonly(stream)
+
+   Determine whether a stream is read-only.
+
+"),
+
+("I/O","Base","isopen","isopen(stream)
+
+   Determine whether a stream is open (i.e. has not been closed yet).
 
 "),
 
 ("I/O","Base","ntoh","ntoh(x)
 
-
-   将值的字节序从网络序（大端序）转换为本机字节序。
+   Converts the endianness of a value from Network byte order (big-
+   endian) to that used by the Host.
 
 "),
 
 ("I/O","Base","hton","hton(x)
 
-
-   将值的字节序从本机字节序转换为网络序（大端序）。
+   Converts the endianness of a value from that used by the Host to
+   Network byte order (big-endian).
 
 "),
 
 ("I/O","Base","ltoh","ltoh(x)
 
-
-   将值的字节序从小端序转换为本机字节序。
+   Converts the endianness of a value from Little-endian to that used
+   by the Host.
 
 "),
 
 ("I/O","Base","htol","htol(x)
 
+   Converts the endianness of a value from that used by the Host to
+   Little-endian.
 
-   将值的字节序从本机字节序转换为小端序。
+"),
+
+("I/O","Base","ENDIAN_BOM","ENDIAN_BOM
+
+   The 32-bit byte-order-mark indicates the native byte order of the
+   host machine. Little-endian machines will contain the value
+   0x04030201. Big-endian machines will contain the value 0x01020304.
+
+"),
+
+("I/O","Base","serialize","serialize(stream, value)
+
+   Write an arbitrary value to a stream in an opaque format, such that
+   it can be read back by \"deserialize\". The read-back value will be
+   as identical as possible to the original. In general, this process
+   will not work if the reading and writing are done by different
+   versions of Julia, or an instance of Julia with a different system
+   image.
+
+"),
+
+("I/O","Base","deserialize","deserialize(stream)
+
+   Read a value written by \"serialize\".
+
+"),
+
+("I/O","Base","print_escaped","print_escaped(io, str::String, esc::String)
+
+   General escaping of traditional C and Unicode escape sequences,
+   plus any characters in esc are also escaped (with a backslash).
+
+"),
+
+("I/O","Base","print_unescaped","print_unescaped(io, s::String)
+
+   General unescaping of traditional C and Unicode escape sequences.
+   Reverse of \"print_escaped()\".
+
+"),
+
+("I/O","Base","print_joined","print_joined(io, items, delim[, last])
+
+   Print elements of \"items\" to \"io\" with \"delim\" between them.
+   If \"last\" is specified, it is used as the final delimiter instead
+   of \"delim\".
+
+"),
+
+("I/O","Base","print_shortest","print_shortest(io, x)
+
+   Print the shortest possible representation of number \"x\" as a
+   floating point number, ensuring that it would parse to the exact
+   same number.
+
+"),
+
+("I/O","Base","fd","fd(stream)
+
+   Returns the file descriptor backing the stream or file. Note that
+   this function only applies to synchronous *File*'s and *IOStream*'s
+   not to any of the asynchronous streams.
+
+"),
+
+("I/O","Base","redirect_stdout","redirect_stdout()
+
+   Create a pipe to which all C and Julia level STDOUT output will be
+   redirected. Returns a tuple (rd,wr) representing the pipe ends.
+   Data written to STDOUT may now be read from the rd end of the pipe.
+   The wr end is given for convenience in case the old STDOUT object
+   was cached by the user and needs to be replaced elsewhere.
+
+"),
+
+("I/O","Base","redirect_stdout","redirect_stdout(stream)
+
+   Replace STDOUT by stream for all C and julia level output to
+   STDOUT. Note that *stream* must be a TTY, a Pipe or a TcpSocket.
+
+"),
+
+("I/O","Base","redirect_stderr","redirect_stderr([stream])
+
+   Like redirect_stdout, but for STDERR
+
+"),
+
+("I/O","Base","redirect_stdin","redirect_stdin([stream])
+
+   Like redirect_stdout, but for STDIN. Note that the order of the
+   return tuple is still (rd,wr), i.e. data to be read from STDIN, may
+   be written to wr.
+
+"),
+
+("I/O","Base","readchomp","readchomp(x)
+
+   Read the entirety of x as a string but remove trailing newlines.
+   Equivalent to chomp(readall(x)).
+
+"),
+
+("I/O","Base","readdir","readdir([dir]) -> Vector{ByteString}
+
+   Returns the files and directories in the directory *dir* (or the
+   current working directory if not given).
+
+"),
+
+("I/O","Base","truncate","truncate(file, n)
+
+   Resize the file or buffer given by the first argument to exactly
+   *n* bytes, filling previously unallocated space with '0' if the
+   file or buffer is grown
+
+"),
+
+("I/O","Base","skipchars","skipchars(stream, predicate; linecomment::Char)
+
+   Advance the stream until before the first character for which
+   \"predicate\" returns false. For example \"skipchars(stream,
+   isspace)\" will skip all whitespace. If keyword argument
+   \"linecomment\" is specified, characters from that character
+   through the end of a line will also be skipped.
+
+"),
+
+("I/O","Base","countlines","countlines(io[, eol::Char])
+
+   Read io until the end of the stream/file and count the number of
+   non-empty lines. To specify a file pass the filename as the first
+   argument. EOL markers other than 'n' are supported by passing them
+   as the second argument.
+
+"),
+
+("I/O","Base","PipeBuffer","PipeBuffer()
+
+   An IOBuffer that allows reading and performs writes by appending.
+   Seeking and truncating are not supported. See IOBuffer for the
+   available constructors.
+
+"),
+
+("I/O","Base","PipeBuffer","PipeBuffer(data::Vector{Uint8}[, maxsize])
+
+   Create a PipeBuffer to operate on a data vector, optionally
+   specifying a size beyond which the underlying Array may not be
+   grown.
+
+"),
+
+("I/O","Base","readavailable","readavailable(stream)
+
+   Read all available data on the stream, blocking the task only if no
+   data is available.
+
+"),
+
+("I/O","Base","stat","stat(file)
+
+   Returns a structure whose fields contain information about the
+   file. The fields of the structure are:
+
+   +-----------+------------------------------------------------------------------------+
+   | size      | The size (in bytes) of the file                                        |
+   +-----------+------------------------------------------------------------------------+
+   | device    | ID of the device that contains the file                                |
+   +-----------+------------------------------------------------------------------------+
+   | inode     | The inode number of the file                                           |
+   +-----------+------------------------------------------------------------------------+
+   | mode      | The protection mode of the file                                        |
+   +-----------+------------------------------------------------------------------------+
+   | nlink     | The number of hard links to the file                                   |
+   +-----------+------------------------------------------------------------------------+
+   | uid       | The user id of the owner of the file                                   |
+   +-----------+------------------------------------------------------------------------+
+   | gid       | The group id of the file owner                                         |
+   +-----------+------------------------------------------------------------------------+
+   | rdev      | If this file refers to a device, the ID of the device it refers to     |
+   +-----------+------------------------------------------------------------------------+
+   | blksize   | The file-system preffered block size for the file                      |
+   +-----------+------------------------------------------------------------------------+
+   | blocks    | The number of such blocks allocated                                    |
+   +-----------+------------------------------------------------------------------------+
+   | mtime     | Unix timestamp of when the file was last modified                      |
+   +-----------+------------------------------------------------------------------------+
+   | ctime     | Unix timestamp of when the file was created                            |
+   +-----------+------------------------------------------------------------------------+
+
+"),
+
+("I/O","Base","lstat","lstat(file)
+
+   Like stat, but for symbolic links gets the info for the link itself
+   rather than the file it refers to. This function must be called on
+   a file path rather than a file object or a file descriptor.
+
+"),
+
+("I/O","Base","ctime","ctime(file)
+
+   Equivalent to stat(file).ctime
+
+"),
+
+("I/O","Base","mtime","mtime(file)
+
+   Equivalent to stat(file).mtime
+
+"),
+
+("I/O","Base","filemode","filemode(file)
+
+   Equivalent to stat(file).mode
+
+"),
+
+("I/O","Base","filesize","filesize(path...)
+
+   Equivalent to stat(file).size
+
+"),
+
+("I/O","Base","uperm","uperm(file)
+
+   Gets the permissions of the owner of the file as a bitfield of
+
+   +------+-----------------------+
+   | 01   | Execute Permission    |
+   +------+-----------------------+
+   | 02   | Write Permission      |
+   +------+-----------------------+
+   | 04   | Read Permission       |
+   +------+-----------------------+
+
+   For allowed arguments, see the stat method.
+
+"),
+
+("I/O","Base","gperm","gperm(file)
+
+   Like uperm but gets the permissions of the group owning the file
+
+"),
+
+("I/O","Base","operm","operm(file)
+
+   Like uperm but gets the permissions for people who neither own the
+   file nor are a member of the group owning the file
+
+"),
+
+("I/O","Base","cp","cp(src::String, dst::String)
+
+   Copy a file from *src* to *dest*.
+
+"),
+
+("I/O","Base","download","download(url[, localfile])
+
+   Download a file from the given url, optionally renaming it to the
+   given local file name. Note that this function relies on the
+   availability of external tools such as \"curl\", \"wget\" or
+   \"fetch\" to download the file and is provided for convenience. For
+   production use or situations in which more options are need, please
+   use a package that provides the desired functionality instead.
+
+"),
+
+("I/O","Base","mv","mv(src::String, dst::String)
+
+   Move a file from *src* to *dst*.
+
+"),
+
+("I/O","Base","rm","rm(path::String)
+
+   Delete the file at the given path. Note that this does not work on
+   directories.
+
+"),
+
+("I/O","Base","touch","touch(path::String)
+
+   Update the last-modified timestamp on a file to the current time.
+
+"),
+
+("Network I/O","Base","connect","connect([host], port) -> TcpSocket
+
+   Connect to the host \"host\" on port \"port\"
+
+"),
+
+("Network I/O","Base","connect","connect(path) -> Pipe
+
+   Connect to the Named Pipe/Domain Socket at \"path\"
+
+"),
+
+("Network I/O","Base","listen","listen([addr], port) -> TcpServer
+
+   Listen on port on the address specified by \"addr\". By default
+   this listens on localhost only. To listen on all interfaces pass,
+   \"IPv4(0)\" or \"IPv6(0)\" as appropriate.
+
+"),
+
+("Network I/O","Base","listen","listen(path) -> PipeServer
+
+   Listens on/Creates a Named Pipe/Domain Socket
+
+"),
+
+("Network I/O","Base","getaddrinfo","getaddrinfo(host)
+
+   Gets the IP address of the \"host\" (may have to do a DNS lookup)
+
+"),
+
+("Network I/O","Base","parseip","parseip(addr)
+
+   Parse a string specifying an IPv4 or IPv6 ip address.
+
+"),
+
+("Network I/O","Base","nb_available","nb_available(stream)
+
+   Returns the number of bytes available for reading before a read
+   from this stream or buffer will block.
+
+"),
+
+("Network I/O","Base","accept","accept(server[, client])
+
+   Accepts a connection on the given server and returns a connection
+   to the client. An uninitialized client stream may be provided, in
+   which case it will be used instead of creating a new stream.
+
+"),
+
+("Network I/O","Base","listenany","listenany(port_hint) -> (Uint16, TcpServer)
+
+   Create a TcpServer on any port, using hint as a starting point.
+   Returns a tuple of the actual port that the server was created on
+   and the server itself.
+
+"),
+
+("Network I/O","Base","poll_fd","poll_fd(fd, seconds::Real; readable=false, writable=false)
+
+   Poll a file descriptor fd for changes in the read or write
+   availability and with a timeout given by the second argument. If
+   the timeout is not needed, use *wait(fd)* instead. The keyword
+   arguments determine which of read and/or write status should be
+   monitored and at least one of them needs to be set to true. The
+   return code is 0 on timeout and an OR'd bitfield of UV_READABLE and
+   UV_WRITABLE otherwise, indicating which event was triggered.
+
+"),
+
+("Network I/O","Base","poll_file","poll_file(s, interval_seconds::Real, seconds::Real)
+
+   Monitor a file for changes by polling every *interval_seconds*
+   seconds for *seconds* seconds. A return value of true indicates the
+   file changed, a return value of false indicates a timeout.
+
+"),
+
+("Text I/O","Base","show","show(x)
+
+   Write an informative text representation of a value to the current
+   output stream. New types should overload \"show(io, x)\" where the
+   first argument is a stream. The representation used by \"show\"
+   generally includes Julia-specific formatting and type information.
+
+"),
+
+("Text I/O","Base","showcompact","showcompact(x)
+
+   Show a more compact representation of a value. This is used for
+   printing array elements. If a new type has a different compact
+   representation, it should overload \"showcompact(io, x)\" where the
+   first argument is a stream.
+
+"),
+
+("Text I/O","Base","showall","showall(x)
+
+   Similar to \"show\", except shows all elements of arrays.
+
+"),
+
+("Text I/O","Base","summary","summary(x)
+
+   Return a string giving a brief description of a value. By default
+   returns \"string(typeof(x))\". For arrays, returns strings like
+   \"2x2 Float64 Array\".
+
+"),
+
+("Text I/O","Base","print","print(x)
+
+   Write (to the default output stream) a canonical (un-decorated)
+   text representation of a value if there is one, otherwise call
+   \"show\". The representation used by \"print\" includes minimal
+   formatting and tries to avoid Julia-specific details.
+
+"),
+
+("Text I/O","Base","println","println(x)
+
+   Print (using \"print()\") \"x\" followed by a newline.
+
+"),
+
+("Text I/O","Base","print_with_color","print_with_color(color::Symbol[, io], strings...)
+
+   Print strings in a color specified as a symbol, for example
+   \":red\" or \":blue\".
+
+"),
+
+("Text I/O","Base","info","info(msg)
+
+   Display an informational message.
+
+"),
+
+("Text I/O","Base","warn","warn(msg)
+
+   Display a warning.
+
+"),
+
+("Text I/O","Base","@printf","@printf([io::IOStream], \"%Fmt\", args...)
+
+   Print arg(s) using C \"printf()\" style format specification
+   string. Optionally, an IOStream may be passed as the first argument
+   to redirect output.
+
+"),
+
+("Text I/O","Base","@sprintf","@sprintf(\"%Fmt\", args...)
+
+   Return \"@printf\" formatted output as string.
+
+"),
+
+("Text I/O","Base","sprint","sprint(f::Function, args...)
+
+   Call the given function with an I/O stream and the supplied extra
+   arguments. Everything written to this I/O stream is returned as a
+   string.
+
+"),
+
+("Text I/O","Base","showerror","showerror(io, e)
 
+   Show a descriptive representation of an exception object.
+
+"),
+
+("Text I/O","Base","dump","dump(x)
+
+   Show all user-visible structure of a value.
+
+"),
+
+("Text I/O","Base","xdump","xdump(x)
+
+   Show all structure of a value, including all fields of objects.
+
+"),
+
+("Text I/O","Base","readall","readall(stream)
+
+   Read the entire contents of an I/O stream as a string.
+
+"),
+
+("Text I/O","Base","readline","readline(stream)
+
+   Read a single line of text, including a trailing newline character
+   (if one is reached before the end of the input).
+
+"),
+
+("Text I/O","Base","readuntil","readuntil(stream, delim)
+
+   Read a string, up to and including the given delimiter byte.
+
+"),
+
+("Text I/O","Base","readlines","readlines(stream)
+
+   Read all lines as an array.
+
+"),
+
+("Text I/O","Base","eachline","eachline(stream)
+
+   Create an iterable object that will yield each line from a stream.
+
+"),
+
+("Text I/O","Base","readdlm","readdlm(source, delim::Char; has_header=false, use_mmap=false, ignore_invalid_chars=false)
+
+   Read a matrix from the source where each line gives one row, with
+   elements separated by the given delimeter. The source can be a text
+   file, stream or byte array. Memory mapped filed can be used by
+   passing the byte array representation of the mapped segment as
+   source.
+
+   If \"has_header\" is \"true\" the first row of data would be read
+   as headers and the tuple \"(data_cells, header_cells)\" is returned
+   instead of only \"data_cells\".
+
+   If \"use_mmap\" is \"true\" the file specified by \"source\" is
+   memory mapped for potential speedups.
+
+   If \"ignore_invalid_chars\" is \"true\" bytes in \"source\" with
+   invalid character encoding will be ignored. Otherwise an error is
+   thrown indicating the offending character position.
+
+   If all data is numeric, the result will be a numeric array. If some
+   elements cannot be parsed as numbers, a cell array of numbers and
+   strings is returned.
+
+"),
+
+("Text I/O","Base","readdlm","readdlm(source, delim::Char, T::Type; options...)
+
+   Read a matrix from the source with a given element type. If \"T\"
+   is a numeric type, the result is an array of that type, with any
+   non-numeric elements as \"NaN\" for floating-point types, or zero.
+   Other useful values of \"T\" include \"ASCIIString\", \"String\",
+   and \"Any\".
+
+"),
+
+("Text I/O","Base","writedlm","writedlm(filename, array, delim::Char)
+
+   Write an array to a text file using the given delimeter (defaults
+   to comma).
+
+"),
+
+("Text I/O","Base","readcsv","readcsv(source, [T::Type]; options...)
+
+   Equivalent to \"readdlm\" with \"delim\" set to comma.
+
+"),
+
+("Text I/O","Base","writecsv","writecsv(filename, array)
+
+   Equivalent to \"writedlm\" with \"delim\" set to comma.
+
+"),
+
+("Text I/O","Base","Base64Pipe","Base64Pipe(ostream)
+
+   Returns a new write-only I/O stream, which converts any bytes
+   written to it into base64-encoded ASCII bytes written to
+   \"ostream\".  Calling \"close\" on the \"Base64Pipe\" stream is
+   necessary to complete the encoding (but does not close
+   \"ostream\").
+
+"),
+
+("Text I/O","Base","base64","base64(writefunc, args...)
+base64(args...)
+
+   Given a \"write\"-like function \"writefunc\", which takes an I/O
+   stream as its first argument, \"base64(writefunc, args...)\" calls
+   \"writefunc\" to write \"args...\" to a base64-encoded string, and
+   returns the string.  \"base64(args...)\" is equivalent to
+   \"base64(write, args...)\": it converts its arguments into bytes
+   using the standard \"write\" functions and returns the
+   base64-encoded string.
+
+"),
+
+("Multimedia I/O","Base","display","display(x)
+display(d::Display, x)
+display(mime, x)
+display(d::Display, mime, x)
+
+   Display \"x\" using the topmost applicable display in the display
+   stack, typically using the richest supported multimedia output for
+   \"x\", with plain-text \"STDOUT\" output as a fallback.  The
+   \"display(d, x)\" variant attempts to display \"x\" on the given
+   display \"d\" only, throwing a \"MethodError\" if \"d\" cannot
+   display objects of this type.
+
+   There are also two variants with a \"mime\" argument (a MIME type
+   string, such as \"\"image/png\"\"), which attempt to display \"x\"
+   using the requesed MIME type *only*, throwing a \"MethodError\" if
+   this type is not supported by either the display(s) or by \"x\".
+   With these variants, one can also supply the \"raw\" data in the
+   requested MIME type by passing \"x::String\" (for MIME types with
+   text-based storage, such as text/html or application/postscript) or
+   \"x::Vector{Uint8}\" (for binary MIME types).
+
+"),
+
+("Multimedia I/O","Base","redisplay","redisplay(x)
+redisplay(d::Display, x)
+redisplay(mime, x)
+redisplay(d::Display, mime, x)
+
+   By default, the \"redisplay\" functions simply call \"display\".
+   However, some display backends may override \"redisplay\" to modify
+   an existing display of \"x\" (if any).   Using \"redisplay\" is
+   also a hint to the backend that \"x\" may be redisplayed several
+   times, and the backend may choose to defer the display until (for
+   example) the next interactive prompt.
+
+"),
+
+("Multimedia I/O","Base","displayable","displayable(mime)
+displayable(d::Display, mime)
+
+   Returns a boolean value indicating whether the given \"mime\" type
+   (string) is displayable by any of the displays in the current
+   display stack, or specifically by the display \"d\" in the second
+   variant.
+
+"),
+
+("Multimedia I/O","Base","writemime","writemime(stream, mime, x)
+
+   The \"display\" functions ultimately call \"writemime\" in order to
+   write an object \"x\" as a given \"mime\" type to a given I/O
+   \"stream\" (usually a memory buffer), if possible.  In order to
+   provide a rich multimedia representation of a user-defined type
+   \"T\", it is only necessary to define a new \"writemime\" method
+   for \"T\", via: \"writemime(stream, ::MIME\"mime\", x::T) = ...\",
+   where \"mime\" is a MIME-type string and the function body calls
+   \"write\" (or similar) to write that representation of \"x\" to
+   \"stream\". (Note that the \"MIME\"\"\" notation only supports
+   literal strings; to construct \"MIME\" types in a more flexible
+   manner use \"MIME{symbol(\"\")}\".)
+
+   For example, if you define a \"MyImage\" type and know how to write
+   it to a PNG file, you could define a function \"writemime(stream,
+   ::MIME\"image/png\", x::MyImage) = ...`\" to allow your images to
+   be displayed on any PNG-capable \"Display\" (such as IJulia). As
+   usual, be sure to \"import Base.writemime\" in order to add new
+   methods to the built-in Julia function \"writemime\".
+
+   Technically, the \"MIME\"mime\"\" macro defines a singleton type
+   for the given \"mime\" string, which allows us to exploit Julia's
+   dispatch mechanisms in determining how to display objects of any
+   given type.
+
+"),
+
+("Multimedia I/O","Base","mimewritable","mimewritable(mime, T::Type)
+
+   Returns a boolean value indicating whether or not objects of type
+   \"T\" can be written as the given \"mime\" type.  (By default, this
+   is determined automatically by the existence of the corresponding
+   \"writemime\" function.)
+
+"),
+
+("Multimedia I/O","Base","reprmime","reprmime(mime, x)
+
+   Returns a \"String\" or \"Vector{Uint8}\" containing the
+   representation of \"x\" in the requested \"mime\" type, as written
+   by \"writemime\" (throwing a \"MethodError\" if no appropriate
+   \"writemime\" is available).  A \"String\" is returned for MIME
+   types with textual representations (such as \"\"text/html\"\" or
+   \"\"application/postscript\"\"), whereas binary data is returned as
+   \"Vector{Uint8}\".  (The function \"istext(mime)\" returns whether
+   or not Julia treats a given \"mime\" type as text.)
+
+   As a special case, if \"x\" is a \"String\" (for textual MIME
+   types) or a \"Vector{Uint8}\" (for binary MIME types), the
+   \"reprmime\" function assumes that \"x\" is already in the
+   requested \"mime\" format and simply returns \"x\".
+
+"),
+
+("Multimedia I/O","Base","stringmime","stringmime(mime, x)
+
+   Returns a \"String\" containing the representation of \"x\" in the
+   requested \"mime\" type.  This is similar to \"reprmime\" except
+   that binary data is base64-encoded as an ASCII string.
+
+"),
+
+("Multimedia I/O","Base","pushdisplay","pushdisplay(d::Display)
+
+   Pushes a new display \"d\" on top of the global display-backend
+   stack.  Calling \"display(x)\" or \"display(mime, x)\" will display
+   \"x\" on the topmost compatible backend in the stack (i.e., the
+   topmost backend that does not throw a \"MethodError\").
+
+"),
+
+("Multimedia I/O","Base","popdisplay","popdisplay()
+popdisplay(d::Display)
+
+   Pop the topmost backend off of the display-backend stack, or the
+   topmost copy of \"d\" in the second variant.
+
+"),
+
+("Multimedia I/O","Base","TextDisplay","TextDisplay(stream)
+
+   Returns a \"TextDisplay <: Display\", which can display any object
+   as the text/plain MIME type (only), writing the text representation
+   to the given I/O stream.  (The text representation is the same as
+   the way an object is printed in the Julia REPL.)
+
+"),
+
+("Multimedia I/O","Base","istext","istext(m::MIME)
+
+   Determine whether a MIME type is text data.
+
+"),
+
+("Memory-mapped I/O","Base","mmap_array","mmap_array(type, dims, stream[, offset])
+
+   Create an \"Array\" whose values are linked to a file, using
+   memory-mapping. This provides a convenient way of working with data
+   too large to fit in the computer's memory.
+
+   The type determines how the bytes of the array are interpreted (no
+   format conversions are possible), and dims is a tuple containing
+   the size of the array.
+
+   The file is specified via the stream.  When you initialize the
+   stream, use \"\"r\"\" for a \"read-only\" array, and \"\"w+\"\" to
+   create a new array used to write values to disk. Optionally, you
+   can specify an offset (in bytes) if, for example, you want to skip
+   over a header in the file.
+
+   **Example**:  \"A = mmap_array(Int64, (25,30000), s)\"
+
+   This would create a 25-by-30000 \"Array{Int64}\", linked to the
+   file associated with stream \"s\".
+
 "),
 
-("文本 I/O","Base","show","show(x)
+("Memory-mapped I/O","Base","mmap_bitarray","mmap_bitarray([type], dims, stream[, offset])
 
+   Create a \"BitArray\" whose values are linked to a file, using
+   memory-mapping; it has the same purpose, works in the same way, and
+   has the same arguments, as \"mmap_array()\", but the byte
+   representation is different. The \"type\" parameter is optional,
+   and must be \"Bool\" if given.
 
-   向当前输出流写入值的信息型文本表示。 新构造的类型应重载 \"show(io,
-   x)\" ，其中 \"io\" 为流。
+   **Example**:  \"B = mmap_bitarray((25,30000), s)\"
 
+   This would create a 25-by-30000 \"BitArray\", linked to the file
+   associated with stream \"s\".
+
+"),
+
+("Memory-mapped I/O","Base","msync","msync(array)
+
+   Forces synchronization between the in-memory version of a memory-
+   mapped \"Array\" or \"BitArray\" and the on-disk version.
+
+"),
+
+("Memory-mapped I/O","Base","msync","msync(ptr, len[, flags])
+
+   Forces synchronization of the mmap'd memory region from ptr to
+   ptr+len. Flags defaults to MS_SYNC, but can be a combination of
+   MS_ASYNC, MS_SYNC, or MS_INVALIDATE. See your platform man page for
+   specifics. The flags argument is not valid on Windows.
+
+   You may not need to call \"msync\", because synchronization is
+   performed at intervals automatically by the operating system.
+   However, you can call this directly if, for example, you are
+   concerned about losing the result of a long-running calculation.
+
+"),
+
+("Memory-mapped I/O","Base","MS_ASYNC","MS_ASYNC
+
+   Enum constant for msync. See your platform man page for details.
+   (not available on Windows).
+
+"),
+
+("Memory-mapped I/O","Base","MS_SYNC","MS_SYNC
+
+   Enum constant for msync. See your platform man page for details.
+   (not available on Windows).
+
+"),
+
+("Memory-mapped I/O","Base","MS_INVALIDATE","MS_INVALIDATE
+
+   Enum constant for msync. See your platform man page for details.
+   (not available on Windows).
+
+"),
+
+("Memory-mapped I/O","Base","mmap","mmap(len, prot, flags, fd, offset)
+
+   Low-level interface to the mmap system call. See the man page.
+
+"),
+
+("Memory-mapped I/O","Base","munmap","munmap(pointer, len)
+
+   Low-level interface for unmapping memory (see the man page). With
+   mmap_array you do not need to call this directly; the memory is
+   unmapped for you when the array goes out of scope.
+
+"),
+
+("Mathematical Operators","Base","-","-(x)
+
+   Unary minus operator.
+
+"),
+
+("Mathematical Operators","Base","+","+(x, y)
+
+   Binary addition operator.
+
+"),
+
+("Mathematical Operators","Base","-","-(x, y)
+
+   Binary subtraction operator.
+
 "),
+
+("Mathematical Operators","Base","*","*(x, y)
 
-("文本 I/O","Base","print","print(x)
+   Binary multiplication operator.
 
+"),
 
-   如果值有标准（未修饰）的文本表示，则将其写入默认输出流；否则调用
-   \"show\" 。
+("Mathematical Operators","Base","/","/(x, y)
 
+   Binary left-division operator.
+
 "),
+
+("Mathematical Operators","Base","\\","\\(x, y)
 
-("文本 I/O","Base","println","println(x)
+   Binary right-division operator.
 
+"),
+
+("Mathematical Operators","Base","^","^(x, y)
 
-   使用 \"print()\" 打印 \"x\" ，并接一个换行符。
+   Binary exponentiation operator.
 
 "),
+
+("Mathematical Operators","Base",".+",".+(x, y)
+
+   Element-wise binary addition operator.
 
-("文本 I/O","Base","@printf","@printf([io::IOStream], \"%Fmt\",
-args...)
+"),
 
+("Mathematical Operators","Base",".-",".-(x, y)
 
-   使用 C 中 \"printf()\" 的样式来打印。 第一个参数可选择性指明
-   IOStream 来重定向输出。
+   Element-wise binary subtraction operator.
 
 "),
+
+("Mathematical Operators","Base",".*",".*(x, y)
 
-("文本 I/O","Base","@sprintf","@sprintf(\"%Fmt\", args...)
+   Element-wise binary multiplication operator.
+
+"),
 
+("Mathematical Operators","Base","./","./(x, y)
 
-   按 \"@printf\" 的样式输出为字符串。
+   Element-wise binary left division operator.
 
 "),
 
-("文本 I/O","Base","showall","showall(x)
+("Mathematical Operators","Base",".\\",".\\(x, y)
 
+   Element-wise binary right division operator.
 
-   打印数组的所有元素。
+"),
+
+("Mathematical Operators","Base",".^",".^(x, y)
 
+   Element-wise binary exponentiation operator.
+
 "),
+
+("Mathematical Operators","Base","div","div(a, b)
 
-("文本 I/O","Base","dump","dump(x)
+   Compute a/b, truncating to an integer
 
+"),
 
-   向当前输出流写入值的完整文本表示。
+("Mathematical Operators","Base","fld","fld(a, b)
 
+   Largest integer less than or equal to a/b
+
 "),
+
+("Mathematical Operators","Base","mod","mod(x, m)
 
-("文本 I/O","Base","readall","readall(stream)
+   Modulus after division, returning in the range [0,m)
 
+"),
+
+("Mathematical Operators","Base","rem","rem(x, m)
 
-   按照字符串读取 I/O 流的所有内容。
+   Remainder after division
 
 "),
+
+("Mathematical Operators","Base","divrem","divrem(x, y)
+
+   Compute \"x/y\" and \"x%y\" at the same time
 
-("文本 I/O","Base","readline","readline(stream)
+"),
 
+("Mathematical Operators","Base","%","%(x, m)
 
-   读取一行文本，包括末尾的换行符（不管输入是否结束，遇到换行符就返回
-   ）。
+   Remainder after division. The operator form of \"rem\".
 
 "),
+
+("Mathematical Operators","Base","mod1","mod1(x, m)
+
+   Modulus after division, returning in the range (0,m]
 
-("文本 I/O","Base","readuntil","readuntil(stream, delim)
+"),
 
+("Mathematical Operators","Base","rem1","rem1(x, m)
 
-   读取字符串，直到指定的分隔符为止。字符串包括此分隔符。
+   Remainder after division, returning in the range (0,m]
 
 "),
+
+("Mathematical Operators","Base","//","//(num, den)
 
-("文本 I/O","Base","readlines","readlines(stream)
+   Rational division
+
+"),
 
+("Mathematical Operators","Base","rationalize","rationalize([Type], x)
 
-   将读入的所有行返回为数组。
+   Approximate the number x as a rational fraction
 
 "),
 
-("文本 I/O","Base","eachline","eachline(stream)
+("Mathematical Operators","Base","num","num(x)
 
+   Numerator of the rational representation of \"x\"
 
-   构造可迭代对象，它从流中生成每一行文本。
+"),
+
+("Mathematical Operators","Base","den","den(x)
+
+   Denominator of the rational representation of \"x\"
 
 "),
 
-("文本 I/O","Base","readdlm","readdlm(filename, delim::Char)
+("Mathematical Operators","Base","<<","<<(x, n)
 
+   Left shift operator.
 
-   从文本文件中读取矩阵，文本中的每一行是矩阵的行，元素由指定的分隔符
-   隔开。 如果所有的数据都是数值，结果为数值矩阵。如果有些元素不能被解
-   析为数， 将返回由数和字符串构成的元胞数组。
+"),
+
+("Mathematical Operators","Base",">>",">>(x, n)
 
+   Right shift operator.
+
 "),
+
+("Mathematical Operators","Base",">>>",">>>(x, n)
 
-("文本 I/O","Base","readdlm","readdlm(filename, delim::Char, T::Type)
+   Unsigned right shift operator.
 
+"),
+
+("Mathematical Operators","Base",":",":(start[, step], stop)
 
-   从文本文件中读取指定元素类型的矩阵。如果 \"T\" 是数值类型，结果为此
-   类型的数组： 若为浮点数类型，非数值的元素变为 \"NaN\" ；其余类型为
-   0 。 \"T\" 的类型还有 \"ASCIIString\", \"String\", 和 \"Any\" 。
+   Range operator. \"a:b\" constructs a range from \"a\" to \"b\" with
+   a step size of 1, and \"a:s:b\" is similar but uses a step size of
+   \"s\". These syntaxes call the function \"colon\". The colon is
+   also used in indexing to select whole dimensions.
 
 "),
+
+("Mathematical Operators","Base","colon","colon(start[, step], stop)
+
+   Called by \":\" syntax for constructing ranges.
 
-("文本 I/O","Base","writedlm","writedlm(filename, array, delim::Char)
+"),
 
+("Mathematical Operators","Base","==","==(x, y)
 
-   使用指定的分隔符（默认为逗号）将数组写入到文本文件。
+   Numeric equality operator. Compares numbers and number-like values
+   (e.g. arrays) by numeric value. True for numbers of different types
+   that represent the same value (e.g. \"2\" and \"2.0\"). Follows
+   IEEE semantics for floating-point numbers. New numeric types should
+   implement this function for two arguments of the new type.
 
 "),
+
+("Mathematical Operators","Base","!=","!=(x, y)
 
-("文本 I/O","Base","readcsv","readcsv(filename[, T::Type])
+   Not-equals comparison operator. Always gives the opposite answer as
+   \"==\". New types should generally not implement this, and rely on
+   the fallback definition \"!=(x,y) = !(x==y)\" instead.
+
+"),
 
+("Mathematical Operators","Base","===","===(x, y)
 
-   等价于 \"delim\" 为逗号的 \"readdlm\" 函数。
+   See the \"is()\" operator
 
 "),
 
-("文本 I/O","Base","writecsv","writecsv(filename, array)
+("Mathematical Operators","Base","!==","!==(x, y)
 
+   Equivalent to \"!is(x, y)\"
 
-   等价于 \"delim\" 为逗号的 \"writedlm\" 函数。
+"),
+
+("Mathematical Operators","Base","<","<(x, y)
+
+   Less-than comparison operator. New numeric types should implement
+   this function for two arguments of the new type.
 
 "),
 
-("内存映射 I/O","Base","mmap_array","mmap_array(type, dims, stream[,
-offset])
+("Mathematical Operators","Base","<=","<=(x, y)
 
+   Less-than-or-equals comparison operator.
 
-   使用内存映射构造数组，数组的值连接到文件。 它提供了处理对计算机内存
-   来说过于庞大数据的简便方法。
+"),
+
+("Mathematical Operators","Base",">",">(x, y)
 
-   \"type\" 决定了如何解释数组中的字节（不使用格式转换）。 \"dims\" 是
-   包含字节大小的多元组。
+   Greater-than comparison operator. Generally, new types should
+   implement \"<\" instead of this function, and rely on the fallback
+   definition \">(x,y) = y<x\".
 
-   文件是由 \"stream\" 指明的。初始化流时，对“只读”数组使用 “r” ， 使
-   用 \"w+\" 新建用于向硬盘写入值的数组。可以选择指明偏移值 （单位为字
-   节），用来跳过文件头等。
+"),
 
-   **例子** ：  A = mmap_array(Int64, (25,30000), s)
+("Mathematical Operators","Base",">=",">=(x, y)
 
-   它将构造一个 25 x 30000 的 Int64 类型的数列，它链接到与流 s 有关的
-   文件上。
+   Greater-than-or-equals comparison operator.
 
 "),
+
+("Mathematical Operators","Base",".==",".==(x, y)
 
-("内存映射 I/O","Base","msync","msync(array)
+   Element-wise equality comparison operator.
 
+"),
+
+("Mathematical Operators","Base",".!=",".!=(x, y)
 
-   对内存映射数组的内存中的版本和硬盘上的版本强制同步。 程序员可能不需
-   要调用此函数，因为操作系统在休息时自动同步。但是， 如果你担心丢失一
-   个需要很长时间来运算的结果，就可以直接调用此函数。
+   Element-wise not-equals comparison operator.
 
 "),
+
+("Mathematical Operators","Base",".<",".<(x, y)
+
+   Element-wise less-than comparison operator.
 
-("内存映射 I/O","Base","mmap","mmap(len, prot, flags, fd, offset)
+"),
 
+("Mathematical Operators","Base",".<=",".<=(x, y)
 
-   mmap 系统调用的低级接口。
+   Element-wise less-than-or-equals comparison operator.
 
 "),
+
+("Mathematical Operators","Base",".>",".>(x, y)
 
-("内存映射 I/O","Base","munmap","munmap(pointer, len)
+   Element-wise greater-than comparison operator.
+
+"),
 
+("Mathematical Operators","Base",".>=",".>=(x, y)
 
-   取消内存映射的低级接口。对于 mmap_array 则不需要直接调用此函数； 当
-   数组离开作用域时，会自动取消内存映射。
+   Element-wise greater-than-or-equals comparison operator.
 
 "),
 
-("数学函数","Base","-","-(x)
+("Mathematical Operators","Base","cmp","cmp(x, y)
 
+   Return -1, 0, or 1 depending on whether \"x<y\", \"x==y\", or
+   \"x>y\", respectively
 
-   一元减运算符。
+"),
+
+("Mathematical Operators","Base","~","~(x)
+
+   Bitwise not
 
 "),
 
-("数学函数","Base","+","+(x, y)
+("Mathematical Operators","Base","&","&(x, y)
 
+   Bitwise and
 
-   二元加运算符。
+"),
+
+("Mathematical Operators","Base","|","|(x, y)
 
+   Bitwise or
+
 "),
+
+("Mathematical Operators","Base","\$","\$(x, y)
 
-("数学函数","Base","-","-(x, y)
+   Bitwise exclusive or
 
+"),
+
+("Mathematical Operators","Base","!","!(x)
 
-   二元减运算符。
+   Boolean not
 
 "),
+
+("Mathematical Operators","Base","&&","&&(x, y)
+
+   Boolean and
 
-("数学函数","Base","*","*(x, y)
+"),
 
+("Mathematical Operators","Base","||","||(x, y)
 
-   二元乘运算符。
+   Boolean or
 
 "),
+
+("Mathematical Operators","Base","A_ldiv_Bc","A_ldiv_Bc(a, b)
 
-("数学函数","Base","/","/(x, y)
+   Matrix operator A \\ B^H
+
+"),
 
+("Mathematical Operators","Base","A_ldiv_Bt","A_ldiv_Bt(a, b)
 
-   二元左除运算符。
+   Matrix operator A \\ B^T
 
 "),
 
-("数学函数","Base","\\","\\(x, y)
+("Mathematical Operators","Base","A_mul_B","A_mul_B(...)
 
+   Matrix operator A B
 
-   二元右除运算符。
-
 "),
-
-("数学函数","Base","^","^(x, y)
 
+("Mathematical Operators","Base","A_mul_Bc","A_mul_Bc(...)
 
-   二元指数运算符。
+   Matrix operator A B^H
 
 "),
 
-("数学函数","Base",".+",".+(x, y)
+("Mathematical Operators","Base","A_mul_Bt","A_mul_Bt(...)
 
+   Matrix operator A B^T
 
-   逐元素二元加运算符。
-
 "),
-
-("数学函数","Base",".-",".-(x, y)
 
+("Mathematical Operators","Base","A_rdiv_Bc","A_rdiv_Bc(...)
 
-   逐元素二元减运算符。
+   Matrix operator A / B^H
 
 "),
 
-("数学函数","Base",".*",".*(x, y)
+("Mathematical Operators","Base","A_rdiv_Bt","A_rdiv_Bt(a, b)
 
+   Matrix operator A / B^T
 
-   逐元素二元乘运算符。
-
 "),
-
-("数学函数","Base","./","./(x, y)
 
+("Mathematical Operators","Base","Ac_ldiv_B","Ac_ldiv_B(...)
 
-   逐元素二元左除运算符。
+   Matrix operator A^H \\ B
 
 "),
 
-("数学函数","Base",".\\",".\\(x, y)
+("Mathematical Operators","Base","Ac_ldiv_Bc","Ac_ldiv_Bc(...)
 
+   Matrix operator A^H \\ B^H
 
-   逐元素二元右除运算符。
-
 "),
-
-("数学函数","Base",".^",".^(x, y)
 
+("Mathematical Operators","Base","Ac_mul_B","Ac_mul_B(...)
 
-   逐元素二元指数运算符。
+   Matrix operator A^H B
 
 "),
 
-("数学函数","Base","div","div(a, b)
+("Mathematical Operators","Base","Ac_mul_Bc","Ac_mul_Bc(...)
 
+   Matrix operator A^H B^H
 
-   截断取整除法；商向 0 舍入。
-
 "),
-
-("数学函数","Base","fld","fld(a, b)
 
+("Mathematical Operators","Base","Ac_rdiv_B","Ac_rdiv_B(a, b)
 
-   向下取整除法；商向 -Inf 舍入。
+   Matrix operator A^H / B
 
 "),
 
-("数学函数","Base","mod","mod(x, m)
+("Mathematical Operators","Base","Ac_rdiv_Bc","Ac_rdiv_Bc(a, b)
 
+   Matrix operator A^H / B^H
 
-   取模余数；满足 x == fld(x,m)*m + mod(x,m) ，与 m 同号，返回值范围
-   [0,m) 。
-
 "),
-
-("数学函数","Base","rem","rem(x, m)
 
+("Mathematical Operators","Base","At_ldiv_B","At_ldiv_B(...)
 
-   除法余数；满足 x == div(x,m)*m + rem(x,m) ，与 x 同号。
+   Matrix operator A^T \\ B
 
 "),
 
-("数学函数","Base","%","%(x, m)
+("Mathematical Operators","Base","At_ldiv_Bt","At_ldiv_Bt(...)
 
+   Matrix operator A^T \\ B^T
 
-   除法余数。 \"rem\" 的运算符形式。
-
 "),
-
-("数学函数","Base","mod1","mod1(x, m)
 
+("Mathematical Operators","Base","At_mul_B","At_mul_B(...)
 
-   整除后取模，返回值范围为 (0,m] 。
+   Matrix operator A^T B
 
 "),
 
-("数学函数","Base","//","//(num, den)
+("Mathematical Operators","Base","At_mul_Bt","At_mul_Bt(...)
 
+   Matrix operator A^T B^T
 
-   分数除法。
-
 "),
-
-("数学函数","Base","num","num(x)
 
+("Mathematical Operators","Base","At_rdiv_B","At_rdiv_B(a, b)
 
-   分数 \"x\" 的分子。
+   Matrix operator A^T / B
 
 "),
 
-("数学函数","Base","den","den(x)
+("Mathematical Operators","Base","At_rdiv_Bt","At_rdiv_Bt(a, b)
 
+   Matrix operator A^T / B^T
 
-   分数 \"x\" 的分母。
-
 "),
-
-("数学函数","Base","<<","<<(x, n)
 
+("Mathematical Functions","Base","isapprox","isapprox(x::Number, y::Number; rtol::Real=cbrt(maxeps), atol::Real=sqrt(maxeps))
 
-   左移运算符。
+   Inexact equality comparison - behaves slightly different depending
+   on types of input args:
 
-"),
+   * For \"FloatingPoint\" numbers, \"isapprox\" returns \"true\" if
+     \"abs(x-y) <= atol + rtol*max(abs(x), abs(y))\".
 
-("数学函数","Base",">>",">>(x, n)
+   * For \"Integer\" and \"Rational\" numbers, \"isapprox\" returns
+     \"true\" if \"abs(x-y) <= atol\". The *rtol* argument is ignored.
+     If one of \"x\" and \"y\" is \"FloatingPoint\", the other is
+     promoted, and the method above is called instead.
 
+   * For \"Complex\" numbers, the distance in the complex plane is
+     compared, using the same criterion as above.
 
-   右移运算符。
+   For default tolerance arguments, \"maxeps = max(eps(abs(x)),
+   eps(abs(y)))\".
 
 "),
-
-("数学函数","Base",">>>",">>>(x, n)
 
+("Mathematical Functions","Base","sin","sin(x)
 
-   无符号右移运算符。
+   Compute sine of \"x\", where \"x\" is in radians
 
 "),
 
-("数学函数","Base",":",":(start[, step], stop)
+("Mathematical Functions","Base","cos","cos(x)
 
+   Compute cosine of \"x\", where \"x\" is in radians
 
-   范围运算符。 \"a:b\" 构造一个步长为 1 ，从 \"a\" 到 \"b\" 的范围。
-   \"a:s:b\" 构造步长为 \"s\" 的范围。此语法调用函数 \"colon\" 。 冒号
-   也用于索引来选定全部维度。
-
 "),
-
-("数学函数","Base","colon","colon(start[, step], stop)
 
+("Mathematical Functions","Base","tan","tan(x)
 
-   由 \":\" 语法调用，用于构造范围。
+   Compute tangent of \"x\", where \"x\" is in radians
 
 "),
 
-("数学函数","Base","==","==(x, y)
+("Mathematical Functions","Base","sind","sind(x)
 
+   Compute sine of \"x\", where \"x\" is in degrees
 
-   相等运算符。
-
 "),
-
-("数学函数","Base","!=","!=(x, y)
 
+("Mathematical Functions","Base","cosd","cosd(x)
 
-   不等运算符。
+   Compute cosine of \"x\", where \"x\" is in degrees
 
 "),
 
-("数学函数","Base","<","<(x, y)
+("Mathematical Functions","Base","tand","tand(x)
 
+   Compute tangent of \"x\", where \"x\" is in degrees
 
-   小于运算符。
-
 "),
-
-("数学函数","Base","<=","<=(x, y)
 
+("Mathematical Functions","Base","sinpi","sinpi(x)
 
-   小于等于运算符。
+   Compute \\sin(\\pi x) more accurately than \"sin(pi*x)\",
+   especially for large \"x\".
 
 "),
 
-("数学函数","Base",">",">(x, y)
+("Mathematical Functions","Base","cospi","cospi(x)
 
+   Compute \\cos(\\pi x) more accurately than \"cos(pi*x)\",
+   especially for large \"x\".
 
-   大于运算符。
-
 "),
-
-("数学函数","Base",">=",">=(x, y)
 
+("Mathematical Functions","Base","sinh","sinh(x)
 
-   大于等于运算符。
+   Compute hyperbolic sine of \"x\"
 
 "),
 
-("数学函数","Base",".==",".==(x, y)
+("Mathematical Functions","Base","cosh","cosh(x)
 
+   Compute hyperbolic cosine of \"x\"
 
-   逐元素相等运算符。
-
 "),
-
-("数学函数","Base",".!=",".!=(x, y)
 
+("Mathematical Functions","Base","tanh","tanh(x)
 
-   逐元素不等运算符。
+   Compute hyperbolic tangent of \"x\"
 
 "),
 
-("数学函数","Base",".<",".<(x, y)
+("Mathematical Functions","Base","asin","asin(x)
 
+   Compute the inverse sine of \"x\", where the output is in radians
 
-   逐元素小于运算符。
-
 "),
-
-("数学函数","Base",".<=",".<=(x, y)
 
+("Mathematical Functions","Base","acos","acos(x)
 
-   逐元素小于等于运算符。
+   Compute the inverse cosine of \"x\", where the output is in radians
 
 "),
 
-("数学函数","Base",".>",".>(x, y)
+("Mathematical Functions","Base","atan","atan(x)
 
+   Compute the inverse tangent of \"x\", where the output is in
+   radians
 
-   逐元素大于运算符。
-
 "),
-
-("数学函数","Base",".>=",".>=(x, y)
 
+("Mathematical Functions","Base","atan2","atan2(y, x)
 
-   逐元素大于等于运算符。
+   Compute the inverse tangent of \"y/x\", using the signs of both
+   \"x\" and \"y\" to determine the quadrant of the return value.
 
 "),
 
-("数学函数","Base","cmp","cmp(x, y)
+("Mathematical Functions","Base","asind","asind(x)
 
+   Compute the inverse sine of \"x\", where the output is in degrees
 
-   根据 \"x<y\", \"x==y\", 或 \"x>y\" 三种情况，对应返回 -1, 0, 或 1
-   。
-
 "),
-
-("数学函数","Base","!","!(x)
 
+("Mathematical Functions","Base","acosd","acosd(x)
 
-   逻辑非。
+   Compute the inverse cosine of \"x\", where the output is in degrees
 
 "),
 
-("数学函数","Base","~","~(x)
+("Mathematical Functions","Base","atand","atand(x)
 
+   Compute the inverse tangent of \"x\", where the output is in
+   degrees
 
-   按位取反。
-
 "),
-
-("数学函数","Base","&","&(x, y)
 
+("Mathematical Functions","Base","sec","sec(x)
 
-   逻辑与。
+   Compute the secant of \"x\", where \"x\" is in radians
 
 "),
 
-("数学函数","Base","|","|(x, y)
+("Mathematical Functions","Base","csc","csc(x)
 
+   Compute the cosecant of \"x\", where \"x\" is in radians
 
-   逻辑或。
-
 "),
-
-("数学函数","Base","\$","\$(x, y)
 
+("Mathematical Functions","Base","cot","cot(x)
 
-   按位异或。
+   Compute the cotangent of \"x\", where \"x\" is in radians
 
 "),
 
-("数学函数","Base","sin","sin(x)
+("Mathematical Functions","Base","secd","secd(x)
 
+   Compute the secant of \"x\", where \"x\" is in degrees
 
-   计算 \"x\" 的正弦值，其中 \"x\" 的单位为弧度。
-
 "),
-
-("数学函数","Base","cos","cos(x)
 
+("Mathematical Functions","Base","cscd","cscd(x)
 
-   计算 \"x\" 的余弦值，其中 \"x\" 的单位为弧度。
+   Compute the cosecant of \"x\", where \"x\" is in degrees
 
 "),
 
-("数学函数","Base","tan","tan(x)
+("Mathematical Functions","Base","cotd","cotd(x)
 
+   Compute the cotangent of \"x\", where \"x\" is in degrees
 
-   计算 \"x\" 的正切值，其中 \"x\" 的单位为弧度。
-
 "),
-
-("数学函数","Base","sind","sind(x)
 
+("Mathematical Functions","Base","asec","asec(x)
 
-   计算 \"x\" 的正弦值，其中 \"x\" 的单位为度数。
+   Compute the inverse secant of \"x\", where the output is in radians
 
 "),
 
-("数学函数","Base","cosd","cosd(x)
+("Mathematical Functions","Base","acsc","acsc(x)
 
+   Compute the inverse cosecant of \"x\", where the output is in
+   radians
 
-   计算 \"x\" 的余弦值，其中 \"x\" 的单位为度数。
-
 "),
-
-("数学函数","Base","tand","tand(x)
 
+("Mathematical Functions","Base","acot","acot(x)
 
-   计算 \"x\" 的正切值，其中 \"x\" 的单位为度数。
+   Compute the inverse cotangent of \"x\", where the output is in
+   radians
 
 "),
 
-("数学函数","Base","sinh","sinh(x)
+("Mathematical Functions","Base","asecd","asecd(x)
 
+   Compute the inverse secant of \"x\", where the output is in degrees
 
-   计算 \"x\" 的双曲正弦值。
-
 "),
-
-("数学函数","Base","cosh","cosh(x)
 
+("Mathematical Functions","Base","acscd","acscd(x)
 
-   计算 \"x\" 的双曲余弦值。
+   Compute the inverse cosecant of \"x\", where the output is in
+   degrees
 
 "),
 
-("数学函数","Base","tanh","tanh(x)
+("Mathematical Functions","Base","acotd","acotd(x)
 
+   Compute the inverse cotangent of \"x\", where the output is in
+   degrees
 
-   计算 \"x\" 的双曲正切值。
-
 "),
-
-("数学函数","Base","asin","asin(x)
 
+("Mathematical Functions","Base","sech","sech(x)
 
-   计算 \"x\" 的反正弦值，结果的单位为弧度。
+   Compute the hyperbolic secant of \"x\"
 
 "),
 
-("数学函数","Base","acos","acos(x)
+("Mathematical Functions","Base","csch","csch(x)
 
+   Compute the hyperbolic cosecant of \"x\"
 
-   计算 \"x\" 的反余弦值，结果的单位为弧度。
-
 "),
-
-("数学函数","Base","atan","atan(x)
 
+("Mathematical Functions","Base","coth","coth(x)
 
-   计算 \"x\" 的反正切值，结果的单位为弧度。
+   Compute the hyperbolic cotangent of \"x\"
 
 "),
 
-("数学函数","Base","atan2","atan2(y, x)
+("Mathematical Functions","Base","asinh","asinh(x)
 
+   Compute the inverse hyperbolic sine of \"x\"
 
-   计算 \"y/x\" 的反正切值，由 \"x\" 和 \"y\" 的正负号来确定返回值的象
-   限。
-
 "),
-
-("数学函数","Base","asind","asind(x)
 
+("Mathematical Functions","Base","acosh","acosh(x)
 
-   计算 \"x\" 的反正弦值，结果的单位为度数。
+   Compute the inverse hyperbolic cosine of \"x\"
 
 "),
 
-("数学函数","Base","acosd","acosd(x)
+("Mathematical Functions","Base","atanh","atanh(x)
 
+   Compute the inverse hyperbolic cotangent of \"x\"
 
-   计算 \"x\" 的反余弦值，结果的单位为度数。
-
 "),
-
-("数学函数","Base","atand","atand(x)
 
+("Mathematical Functions","Base","asech","asech(x)
 
-   计算 \"x\" 的反正切值，结果的单位为度数。
+   Compute the inverse hyperbolic secant of \"x\"
 
 "),
 
-("数学函数","Base","sec","sec(x)
+("Mathematical Functions","Base","acsch","acsch(x)
 
+   Compute the inverse hyperbolic cosecant of \"x\"
 
-   计算 \"x\" 的正割值，其中 \"x\" 的单位为弧度。
-
 "),
-
-("数学函数","Base","csc","csc(x)
 
+("Mathematical Functions","Base","acoth","acoth(x)
 
-   计算 \"x\" 的余割值，其中 \"x\" 的单位为弧度。
+   Compute the inverse hyperbolic cotangent of \"x\"
 
 "),
 
-("数学函数","Base","cot","cot(x)
+("Mathematical Functions","Base","sinc","sinc(x)
 
+   Compute \\sin(\\pi x) / (\\pi x) if x \\neq 0, and 1 if x = 0.
 
-   计算 \"x\" 的余切值，其中 \"x\" 的单位为弧度。
-
 "),
-
-("数学函数","Base","secd","secd(x)
 
+("Mathematical Functions","Base","cosc","cosc(x)
 
-   计算 \"x\" 的正割值，其中 \"x\" 的单位为度数。
+   Compute \\cos(\\pi x) / x - \\sin(\\pi x) / (\\pi x^2) if x \\neq
+   0, and 0 if x = 0. This is the derivative of \"sinc(x)\".
 
 "),
 
-("数学函数","Base","cscd","cscd(x)
+("Mathematical Functions","Base","degrees2radians","degrees2radians(x)
 
+   Convert \"x\" from degrees to radians
 
-   计算 \"x\" 的余割值，其中 \"x\" 的单位为度数。
-
 "),
-
-("数学函数","Base","cotd","cotd(x)
 
+("Mathematical Functions","Base","radians2degrees","radians2degrees(x)
 
-   计算 \"x\" 的余切值，其中 \"x\" 的单位为度数。
+   Convert \"x\" from radians to degrees
 
 "),
 
-("数学函数","Base","asec","asec(x)
+("Mathematical Functions","Base","hypot","hypot(x, y)
 
+   Compute the \\sqrt{x^2+y^2} without undue overflow or underflow
 
-   计算 \"x\" 的反正割值，结果的单位为弧度。
-
 "),
-
-("数学函数","Base","acsc","acsc(x)
 
+("Mathematical Functions","Base","log","log(x)
 
-   计算 \"x\" 的反余割值，结果的单位为弧度。
+   Compute the natural logarithm of \"x\"
 
 "),
 
-("数学函数","Base","acot","acot(x)
+("Mathematical Functions","Base","log2","log2(x)
 
+   Compute the natural logarithm of \"x\" to base 2
 
-   计算 \"x\" 的反余切值，结果的单位为弧度。
-
 "),
-
-("数学函数","Base","asecd","asecd(x)
 
+("Mathematical Functions","Base","log10","log10(x)
 
-   计算 \"x\" 的反正割值，结果的单位为度数。
+   Compute the natural logarithm of \"x\" to base 10
 
 "),
 
-("数学函数","Base","acscd","acscd(x)
+("Mathematical Functions","Base","log1p","log1p(x)
 
+   Accurate natural logarithm of \"1+x\"
 
-   计算 \"x\" 的反余割值，结果的单位为度数。
-
 "),
-
-("数学函数","Base","acotd","acotd(x)
 
+("Mathematical Functions","Base","frexp","frexp(val, exp)
 
-   计算 \"x\" 的反余切值，结果的单位为度数。
+   Return a number \"x\" such that it has a magnitude in the interval
+   \"[1/2, 1)\" or 0, and val = x \\times 2^{exp}.
 
 "),
 
-("数学函数","Base","sech","sech(x)
+("Mathematical Functions","Base","exp","exp(x)
 
+   Compute e^x
 
-   计算 \"x\" 的双曲正割值。
-
 "),
-
-("数学函数","Base","csch","csch(x)
 
+("Mathematical Functions","Base","exp2","exp2(x)
 
-   计算 \"x\" 的双曲余割值。
+   Compute 2^x
 
 "),
 
-("数学函数","Base","coth","coth(x)
+("Mathematical Functions","Base","exp10","exp10(x)
 
+   Compute 10^x
 
-   计算 \"x\" 的双曲余切值。
-
 "),
-
-("数学函数","Base","asinh","asinh(x)
 
+("Mathematical Functions","Base","ldexp","ldexp(x, n)
 
-   计算 \"x\" 的反双曲正弦值。
+   Compute x \\times 2^n
 
 "),
 
-("数学函数","Base","acosh","acosh(x)
+("Mathematical Functions","Base","modf","modf(x)
 
+   Return a tuple (fpart,ipart) of the fractional and integral parts
+   of a number. Both parts have the same sign as the argument.
 
-   计算 \"x\" 的反双曲余弦值。
-
 "),
-
-("数学函数","Base","atanh","atanh(x)
 
+("Mathematical Functions","Base","expm1","expm1(x)
 
-   计算 \"x\" 的反双曲正切值。
+   Accurately compute e^x-1
 
 "),
 
-("数学函数","Base","asech","asech(x)
+("Mathematical Functions","Base","round","round(x[, digits[, base]])
 
+   \"round(x)\" returns the nearest integral value of the same type as
+   \"x\" to \"x\". \"round(x, digits)\" rounds to the specified number
+   of digits after the decimal place, or before if negative, e.g.,
+   \"round(pi,2)\" is \"3.14\". \"round(x, digits, base)\" rounds
+   using a different base, defaulting to 10, e.g., \"round(pi, 3, 2)\"
+   is \"3.125\".
 
-   计算 \"x\" 的反双曲正割值。
-
 "),
-
-("数学函数","Base","acsch","acsch(x)
 
+("Mathematical Functions","Base","ceil","ceil(x[, digits[, base]])
 
-   计算 \"x\" 的反双曲余割值。
+   Returns the nearest integral value of the same type as \"x\" not
+   less than \"x\". \"digits\" and \"base\" work as above.
 
 "),
 
-("数学函数","Base","acoth","acoth(x)
+("Mathematical Functions","Base","floor","floor(x[, digits[, base]])
 
+   Returns the nearest integral value of the same type as \"x\" not
+   greater than \"x\". \"digits\" and \"base\" work as above.
 
-   计算 \"x\" 的反双曲余切值。
-
 "),
-
-("数学函数","Base","sinc","sinc(x)
 
+("Mathematical Functions","Base","trunc","trunc(x[, digits[, base]])
 
-   当 x \\neq 0 时为 \\sin(\\pi x) / (\\pi x) ； 当 x = 0 时为 1 。
+   Returns the nearest integral value of the same type as \"x\" not
+   greater in magnitude than \"x\". \"digits\" and \"base\" work as
+   above.
 
 "),
 
-("数学函数","Base","cosc","cosc(x)
+("Mathematical Functions","Base","iround","iround(x) -> Integer
 
+   Returns the nearest integer to \"x\".
 
-   当 x \\neq 0 时为 \\cos(\\pi x) / x - \\sin(\\pi x) / (\\pi x^2) ；
-   当 x = 0 时为 0 。此函数由 \"sinc(x)\" 而得。
-
 "),
-
-("数学函数","Base","degrees2radians","degrees2radians(x)
 
+("Mathematical Functions","Base","iceil","iceil(x) -> Integer
 
-   将 \"x\" 度数转换为弧度。
+   Returns the nearest integer not less than \"x\".
 
 "),
 
-("数学函数","Base","radians2degrees","radians2degrees(x)
+("Mathematical Functions","Base","ifloor","ifloor(x) -> Integer
 
+   Returns the nearest integer not greater than \"x\".
 
-   将 \"x\" 弧度转换为度数。
-
 "),
-
-("数学函数","Base","hypot","hypot(x, y)
 
+("Mathematical Functions","Base","itrunc","itrunc(x) -> Integer
 
-   计算 \\sqrt{x^2+y^2} ，计算过程不会出现上溢、下溢。
+   Returns the nearest integer not greater in magnitude than \"x\".
 
 "),
 
-("数学函数","Base","log","log(x)
+("Mathematical Functions","Base","signif","signif(x, digits[, base])
 
+   Rounds (in the sense of \"round\") \"x\" so that there are
+   \"digits\" significant digits, under a base \"base\"
+   representation, default 10. E.g., \"signif(123.456, 2)\" is
+   \"120.0\", and \"signif(357.913, 4, 2)\" is \"352.0\".
 
-   计算 \"x\" 的自然对数。
-
 "),
-
-("数学函数","Base","log2","log2(x)
 
+("Mathematical Functions","Base","min","min(x, y)
 
-   计算 \"x\" 以 2 为底的对数。
+   Return the minimum of \"x\" and \"y\"
 
 "),
 
-("数学函数","Base","log10","log10(x)
+("Mathematical Functions","Base","max","max(x, y)
 
+   Return the maximum of \"x\" and \"y\"
 
-   计算 \"x\" 以 10 为底的对数。
-
 "),
-
-("数学函数","Base","log1p","log1p(x)
 
+("Mathematical Functions","Base","clamp","clamp(x, lo, hi)
 
-   \"1+x\" 自然对数的精确值。
+   Return x if \"lo <= x <= hi\". If \"x < lo\", return \"lo\". If \"x
+   > hi\", return \"hi\".
 
 "),
 
-("数学函数","Base","frexp","frexp(val, exp)
+("Mathematical Functions","Base","abs","abs(x)
 
+   Absolute value of \"x\"
 
-   返回数 \"x\" ，满足 \"x\" 的取值范围为 \"[1/2, 1)\" 或 0 ， 且 val
-   = x \\times 2^{exp} 。
-
 "),
-
-("数学函数","Base","exp","exp(x)
 
+("Mathematical Functions","Base","abs2","abs2(x)
 
-   计算 e^x 。
+   Squared absolute value of \"x\"
 
 "),
 
-("数学函数","Base","exp2","exp2(x)
+("Mathematical Functions","Base","copysign","copysign(x, y)
 
+   Return \"x\" such that it has the same sign as \"y\"
 
-   计算 2^x 。
-
 "),
-
-("数学函数","Base","ldexp","ldexp(x, n)
 
+("Mathematical Functions","Base","sign","sign(x)
 
-   计算 x \\times 2^n 。
+   Return \"+1\" if \"x\" is positive, \"0\" if \"x == 0\", and \"-1\"
+   if \"x\" is negative.
 
 "),
 
-("数学函数","Base","modf","modf(x)
+("Mathematical Functions","Base","signbit","signbit(x)
 
+   Returns \"1\" if the value of the sign of \"x\" is negative,
+   otherwise \"0\".
 
-   返回一个数的小数部分和整数部分的多元组。两部分都与参数同正负号。
-
 "),
-
-("数学函数","Base","expm1","expm1(x)
 
+("Mathematical Functions","Base","flipsign","flipsign(x, y)
 
-   e^x-1 的精确值。
+   Return \"x\" with its sign flipped if \"y\" is negative. For
+   example \"abs(x) = flipsign(x,x)\".
 
 "),
 
-("数学函数","Base","square","square(x)
+("Mathematical Functions","Base","sqrt","sqrt(x)
 
+   Return \\sqrt{x}
 
-   计算 x^2 。
-
 "),
-
-("数学函数","Base","round","round(x[, digits[, base]]) ->
-FloatingPoint
 
+("Mathematical Functions","Base","isqrt","isqrt(x)
 
-   \"round(x)\" 返回离 \"x\" 最近的整数 \"round(x, digits)\" 若
-   \"digits\" 为正数时舍入到小数点后对应位数，若为负数， 舍入到小数点
-   前对应位数，例子 \"round(pi,2) == 3.14\" 。 \"round(x, digits,
-   base)\" 使用指定的进制来舍入，默认进制为 10， 例如 \"round(pi, 3,
-   2) == 3.125\" 。
+   Integer square root.
 
 "),
 
-("数学函数","Base","ceil","ceil(x[, digits[, base]]) -> FloatingPoint
+("Mathematical Functions","Base","cbrt","cbrt(x)
 
+   Return x^{1/3}
 
-   将 \"x\" 向 +Inf 取整。 \"digits\" 与 \"base\" 的解释参见
-   \"round()\" 。
-
 "),
-
-("数学函数","Base","floor","floor(x[, digits[, base]]) ->
-FloatingPoint
 
+("Mathematical Functions","Base","erf","erf(x)
 
-   将 \"x\" 向 -Inf 取整。 \"digits\" 与 \"base\" 的解释参见
-   \"round()\" 。
+   Compute the error function of \"x\", defined by
+   \\frac{2}{\\sqrt{\\pi}} \\int_0^x e^{-t^2} dt for arbitrary complex
+   \"x\".
 
 "),
 
-("数学函数","Base","trunc","trunc(x[, digits[, base]]) ->
-FloatingPoint
+("Mathematical Functions","Base","erfc","erfc(x)
 
+   Compute the complementary error function of \"x\", defined by 1 -
+   \\operatorname{erf}(x).
 
-   将 \"x\" 向 0 取整。 \"digits\" 与 \"base\" 的解释参见 \"round()\"
-   。
-
 "),
-
-("数学函数","Base","iround","iround(x) -> Integer
 
+("Mathematical Functions","Base","erfcx","erfcx(x)
 
-   结果为整数类型的 \"round()\" 。
+   Compute the scaled complementary error function of \"x\", defined
+   by e^{x^2} \\operatorname{erfc}(x).  Note also that
+   \\operatorname{erfcx}(-ix) computes the Faddeeva function w(x).
 
 "),
 
-("数学函数","Base","iceil","iceil(x) -> Integer
+("Mathematical Functions","Base","erfi","erfi(x)
 
+   Compute the imaginary error function of \"x\", defined by -i
+   \\operatorname{erf}(ix).
 
-   结果为整数类型的 \"ceil()\" 。
-
 "),
-
-("数学函数","Base","ifloor","ifloor(x) -> Integer
 
+("Mathematical Functions","Base","dawson","dawson(x)
 
-   结果为整数类型的 \"floor()\" 。
+   Compute the Dawson function (scaled imaginary error function) of
+   \"x\", defined by \\frac{\\sqrt{\\pi}}{2} e^{-x^2}
+   \\operatorname{erfi}(x).
 
 "),
 
-("数学函数","Base","itrunc","itrunc(x) -> Integer
+("Mathematical Functions","Base","erfinv","erfinv(x)
 
+   Compute the inverse error function of a real \"x\", defined by
+   \\operatorname{erf}(\\operatorname{erfinv}(x)) = x.
 
-   结果为整数类型的 \"trunc()\" 。
-
 "),
-
-("数学函数","Base","signif","signif(x, digits[, base]) ->
-FloatingPoint
 
+("Mathematical Functions","Base","erfcinv","erfcinv(x)
 
-   将 \"x\" 舍入（使用 \"round\" 函数）到指定的有效位数。 \"digits\"
-   与 \"base\" 的解释参见 \"round()\" 。 例如 \"signif(123.456, 2) ==
-   120.0\" ， \"signif(357.913, 4, 2) == 352.0\" 。
+   Compute the inverse error complementary function of a real \"x\",
+   defined by \\operatorname{erfc}(\\operatorname{erfcinv}(x)) = x.
 
 "),
 
-("数学函数","Base","min","min(x, y)
+("Mathematical Functions","Base","real","real(z)
 
+   Return the real part of the complex number \"z\"
 
-   返回 \"x\" 和 \"y\" 的最小值。
-
 "),
-
-("数学函数","Base","max","max(x, y)
 
+("Mathematical Functions","Base","imag","imag(z)
 
-   返回 \"x\" 和 \"y\" 的最大值。
+   Return the imaginary part of the complex number \"z\"
 
 "),
 
-("数学函数","Base","clamp","clamp(x, lo, hi)
+("Mathematical Functions","Base","reim","reim(z)
 
+   Return both the real and imaginary parts of the complex number
+   \"z\"
 
-   如果 \"lo <= x <= y\" 则返回 x 。如果 \"x < lo\" ，返回 \"lo\" 。
-   如果 \"x > hi\" ，返回 \"hi\" 。
-
 "),
-
-("数学函数","Base","abs","abs(x)
 
+("Mathematical Functions","Base","conj","conj(z)
 
-   \"x\" 的绝对值。
+   Compute the complex conjugate of a complex number \"z\"
 
 "),
 
-("数学函数","Base","abs2","abs2(x)
+("Mathematical Functions","Base","angle","angle(z)
 
+   Compute the phase angle of a complex number \"z\"
 
-   \"x\" 绝对值的平方。
-
 "),
-
-("数学函数","Base","copysign","copysign(x, y)
 
+("Mathematical Functions","Base","cis","cis(z)
 
-   返回 \"x\" ，但其正负号与 \"y\" 相同。
+   Return \"cos(z) + i*sin(z)\" if z is real. Return \"(cos(real(z)) +
+   i*sin(real(z)))/exp(imag(z))\" if \"z\" is complex
 
 "),
 
-("数学函数","Base","sign","sign(x)
+("Mathematical Functions","Base","binomial","binomial(n, k)
 
+   Number of ways to choose \"k\" out of \"n\" items
 
-   如果 \"x\" 是正数时返回 \"+1\" ， \"x == 0\" 时返回 \"0\" ， \"x\"
-   是负数时返回 \"-1\" 。
-
 "),
-
-("数学函数","Base","signbit","signbit(x)
 
+("Mathematical Functions","Base","factorial","factorial(n)
 
-   如果 \"x\" 是负数时返回 \"1\" ，否则返回 \"0\" 。
+   Factorial of n
 
 "),
 
-("数学函数","Base","flipsign","flipsign(x, y)
+("Mathematical Functions","Base","factorial","factorial(n, k)
 
+   Compute \"factorial(n)/factorial(k)\"
 
-   如果 \"y\" 为复数，返回 \"x\" 的相反数，否则返回 \"x\" 。 如
-   \"abs(x) = flipsign(x,x)\" 。
-
 "),
 
-("数学函数","Base","sqrt","sqrt(x)
+("Mathematical Functions","Base","factor","factor(n)
 
+   Compute the prime factorization of an integer \"n\". Returns a
+   dictionary. The keys of the dictionary correspond to the factors,
+   and hence are of the same type as \"n\". The value associated with
+   each key indicates the number of times the factor appears in the
+   factorization.
 
-   返回 \\sqrt{x} 。
+   **Example**: 100=2*2*5*5; then, \"factor(100) -> [5=>2,2=>2]\"
 
 "),
-
-("数学函数","Base","cbrt","cbrt(x)
 
+("Mathematical Functions","Base","gcd","gcd(x, y)
 
-   返回 x^{1/3} 。
+   Greatest common divisor
 
 "),
 
-("数学函数","Base","erf","erf(x)
+("Mathematical Functions","Base","lcm","lcm(x, y)
 
+   Least common multiple
 
-   计算 \"x\" 的误差函数，其定义为 \\frac{2}{\\sqrt{\\pi}} \\int_0^x
-   e^{-t^2} dt 。
-
 "),
-
-("数学函数","Base","erfc","erfc(x)
 
+("Mathematical Functions","Base","gcdx","gcdx(x, y)
 
-   计算 \"x\" 的互补误差函数， 其定义为 1 - \\operatorname{erf}(x) =
-   \\frac{2}{\\sqrt{\\pi}} \\int_x^{\\infty} e^{-t^2} dt 。
+   Greatest common divisor, also returning integer coefficients \"u\"
+   and \"v\" that solve \"ux+vy == gcd(x,y)\"
 
 "),
 
-("数学函数","Base","erfcx","erfcx(x)
+("Mathematical Functions","Base","ispow2","ispow2(n)
 
+   Test whether \"n\" is a power of two
 
-   计算 \"x\" 的缩放互补误差函数，其定义为 e^{x^2}
-   \\operatorname{erfc}(x) 。 注意 \\operatorname{erfcx}(-ix) 即为
-   Faddeeva 函数 w(x) 。
-
 "),
-
-("数学函数","Base","erfi","erfi(x)
 
+("Mathematical Functions","Base","nextpow2","nextpow2(n)
 
-   计算 \"x\" 的虚误差函数，其定义为 -i \\operatorname{erf}(ix).
+   Next power of two not less than \"n\"
 
 "),
 
-("数学函数","Base","dawson","dawson(x)
+("Mathematical Functions","Base","prevpow2","prevpow2(n)
 
+   Previous power of two not greater than \"n\"
 
-   计算 \"x\" 的 Dawson 函数（缩放虚误差函数）， 其定义为
-   \\frac{\\sqrt{\\pi}}{2} e^{-x^2} \\operatorname{erfi}(x).
-
 "),
-
-("数学函数","Base","real","real(z)
 
+("Mathematical Functions","Base","nextpow","nextpow(a, n)
 
-   返回复数 \"z\" 的实数部分。
+   Next power of \"a\" not less than \"n\"
 
 "),
 
-("数学函数","Base","imag","imag(z)
+("Mathematical Functions","Base","prevpow","prevpow(a, n)
 
+   Previous power of \"a\" not greater than \"n\"
 
-   返回复数 \"z\" 的虚数部分。
-
 "),
-
-("数学函数","Base","reim","reim(z)
 
+("Mathematical Functions","Base","nextprod","nextprod([a, b, c], n)
 
-   返回复数 \"z\" 的整数部分和虚数部分。
+   Next integer not less than \"n\" that can be written \"a^i1 * b^i2
+   * c^i3\" for integers \"i1\", \"i2\", \"i3\".
 
 "),
 
-("数学函数","Base","conj","conj(z)
+("Mathematical Functions","Base","prevprod","prevprod([a, b, c], n)
 
+   Previous integer not greater than \"n\" that can be written \"a^i1
+   * b^i2 * c^i3\" for integers \"i1\", \"i2\", \"i3\".
 
-   计算复数 \"z\" 的共轭。
-
 "),
-
-("数学函数","Base","angle","angle(z)
 
+("Mathematical Functions","Base","invmod","invmod(x, m)
 
-   计算复数 \"z\" 的相位角。
+   Inverse of \"x\", modulo \"m\"
 
 "),
 
-("数学函数","Base","cis","cis(z)
+("Mathematical Functions","Base","powermod","powermod(x, p, m)
 
+   Compute \"mod(x^p, m)\"
 
-   如果 \"z\" 是实数，返回 \"cos(z) + i*sin(z)\" 。如果 \"z\" 是实数，
-   返回 \"(cos(real(z)) + i*sin(real(z)))/exp(imag(z))\" 。
-
 "),
-
-("数学函数","Base","binomial","binomial(n, k)
 
+("Mathematical Functions","Base","gamma","gamma(x)
 
-   从  \"n\" 项中选取 \"k\" 项，有多少种方法。
+   Compute the gamma function of \"x\"
 
 "),
 
-("数学函数","Base","factorial","factorial(n)
+("Mathematical Functions","Base","lgamma","lgamma(x)
 
+   Compute the logarithm of absolute value of \"gamma(x)\"
 
-   n 的阶乘。
-
 "),
-
-("数学函数","Base","factorial","factorial(n, k)
 
+("Mathematical Functions","Base","lfact","lfact(x)
 
-   计算 \"factorial(n)/factorial(k)\"
+   Compute the logarithmic factorial of \"x\"
 
 "),
 
-("数学函数","Base","factor","factor(n)
+("Mathematical Functions","Base","digamma","digamma(x)
 
+   Compute the digamma function of \"x\" (the logarithmic derivative
+   of \"gamma(x)\")
 
-   对 \"n\" 分解质因数，返回一个字典。 字典的键对应于质因数，与 \"n\"
-   类型相同。 每个键的值显示因式分解中这个质因数出现的次数。
+"),
 
-   **例子** ： 100=2*2*5*5 ，因此 \"factor(100) -> [5=>2,2=>2]\"
+("Mathematical Functions","Base","invdigamma","invdigamma(x)
 
-"),
+   Compute the inverse digamma function of \"x\".
 
-("数学函数","Base","gcd","gcd(x, y)
+"),
 
+("Mathematical Functions","Base","trigamma","trigamma(x)
 
-   最大公因数。
+   Compute the trigamma function of \"x\" (the logarithmic second
+   derivative of \"gamma(x)\")
 
 "),
-
-("数学函数","Base","lcm","lcm(x, y)
 
+("Mathematical Functions","Base","polygamma","polygamma(m, x)
 
-   最小公倍数。
+   Compute the polygamma function of order \"m\" of argument \"x\"
+   (the \"(m+1)th\" derivative of the logarithm of \"gamma(x)\")
 
 "),
 
-("数学函数","Base","gcdx","gcdx(x, y)
+("Mathematical Functions","Base","airy","airy(k, x)
 
+   kth derivative of the Airy function \\operatorname{Ai}(x).
 
-   最大公因数，同时返回整数因子 \"u\" 和 \"v\" ，满足 \"u*x+v*y ==
-   gcd(x,y)\" 。
-
 "),
-
-("数学函数","Base","ispow2","ispow2(n)
 
+("Mathematical Functions","Base","airyai","airyai(x)
 
-   判断 \"n\" 是否为 2 的幂。
+   Airy function \\operatorname{Ai}(x).
 
 "),
 
-("数学函数","Base","nextpow2","nextpow2(n)
+("Mathematical Functions","Base","airyprime","airyprime(x)
 
+   Airy function derivative \\operatorname{Ai}'(x).
 
-   不小于 \"n\" 的值为 2 的幂的数。
-
 "),
-
-("数学函数","Base","prevpow2","prevpow2(n)
 
+("Mathematical Functions","Base","airyaiprime","airyaiprime(x)
 
-   不大于 \"n\" 的值为 2 的幂的数。
+   Airy function derivative \\operatorname{Ai}'(x).
 
 "),
 
-("数学函数","Base","nextpow","nextpow(a, n)
+("Mathematical Functions","Base","airybi","airybi(x)
 
+   Airy function \\operatorname{Bi}(x).
 
-   不小于 \"n\" 的值为 \"a\" 的幂的数。
-
 "),
-
-("数学函数","Base","prevpow","prevpow(a, n)
 
+("Mathematical Functions","Base","airybiprime","airybiprime(x)
 
-   不大于 \"n\" 的值为 \"a\" 的幂的数。
+   Airy function derivative \\operatorname{Bi}'(x).
 
 "),
 
-("数学函数","Base","nextprod","nextprod([a, b, c], n)
+("Mathematical Functions","Base","besselj0","besselj0(x)
 
+   Bessel function of the first kind of order 0, J_0(x).
 
-   不小于 \"n\" 的数，存在整数 \"i1\", \"i2\", \"i3\" ， 使这个数等于
-   \"a^i1 * b^i2 * c^i3\" 。
-
 "),
-
-("数学函数","Base","prevprod","prevprod([a, b, c], n)
 
+("Mathematical Functions","Base","besselj1","besselj1(x)
 
-   不大于 \"n\" 的数，存在整数 \"i1\", \"i2\", \"i3\" ， 使这个数等于
-   \"a^i1 * b^i2 * c^i3\" 。
+   Bessel function of the first kind of order 1, J_1(x).
 
 "),
 
-("数学函数","Base","invmod","invmod(n, m)
+("Mathematical Functions","Base","besselj","besselj(nu, x)
 
+   Bessel function of the first kind of order \"nu\", J_\\nu(x).
 
-   \"n``的关于模 ``m\" 的逆，即求满足 \"(x * n ) % m == 1\" 的数 \"x\"
-   。
-
 "),
-
-("数学函数","Base","powermod","powermod(x, p, m)
 
+("Mathematical Functions","Base","bessely0","bessely0(x)
 
-   计算 \"mod(x^p, m)\" 。
+   Bessel function of the second kind of order 0, Y_0(x).
 
 "),
 
-("数学函数","Base","gamma","gamma(x)
+("Mathematical Functions","Base","bessely1","bessely1(x)
 
+   Bessel function of the second kind of order 1, Y_1(x).
 
-   计算 \"x\" 的 gamma 函数。
-
 "),
-
-("数学函数","Base","lgamma","lgamma(x)
 
+("Mathematical Functions","Base","bessely","bessely(nu, x)
 
-   计算 \"gamma(x)\" 的对数。
+   Bessel function of the second kind of order \"nu\", Y_\\nu(x).
 
 "),
 
-("数学函数","Base","lfact","lfact(x)
+("Mathematical Functions","Base","hankelh1","hankelh1(nu, x)
 
+   Bessel function of the third kind of order \"nu\", H^{(1)}_\\nu(x).
 
-   计算 \"x\" 阶乘的对数。
-
 "),
-
-("数学函数","Base","digamma","digamma(x)
 
+("Mathematical Functions","Base","hankelh2","hankelh2(nu, x)
 
-   计算 \"x\" 的双伽玛函数（ \"gamma(x)\" 自然对数的导数）
+   Bessel function of the third kind of order \"nu\", H^{(2)}_\\nu(x).
 
 "),
 
-("数学函数","Base","airy","airy(x)
+("Mathematical Functions","Base","besselh","besselh(nu, k, x)
 
+   Bessel function of the third kind of order \"nu\" (Hankel
+   function). \"k\" is either 1 or 2, selecting \"hankelh1\" or
+   \"hankelh2\", respectively.
 
-   艾里函数的 k 阶导数 \\operatorname{Ai}(x) 。
-
 "),
-
-("数学函数","Base","airyai","airyai(x)
 
+("Mathematical Functions","Base","besseli","besseli(nu, x)
 
-   艾里函数 \\operatorname{Ai}(x) 。
+   Modified Bessel function of the first kind of order \"nu\",
+   I_\\nu(x).
 
 "),
 
-("数学函数","Base","airyprime","airyprime(x)
+("Mathematical Functions","Base","besselk","besselk(nu, x)
 
+   Modified Bessel function of the second kind of order \"nu\",
+   K_\\nu(x).
 
-   艾里函数的导数 \\operatorname{Ai}'(x) 。
-
 "),
-
-("数学函数","Base","airyaiprime","airyaiprime(x)
 
+("Mathematical Functions","Base","beta","beta(x, y)
 
-   艾里函数的导数 \\operatorname{Ai}'(x) 。
+   Euler integral of the first kind \\operatorname{B}(x,y) =
+   \\Gamma(x)\\Gamma(y)/\\Gamma(x+y).
 
 "),
 
-("数学函数","Base","airybi","airybi(x)
+("Mathematical Functions","Base","lbeta","lbeta(x, y)
 
+   Natural logarithm of the absolute value of the beta function
+   \\log(|\\operatorname{B}(x,y)|).
 
-   艾里函数 \\operatorname{Bi}(x) 。
-
 "),
-
-("数学函数","Base","airybiprime","airybiprime(x)
 
+("Mathematical Functions","Base","eta","eta(x)
 
-   艾里函数的导数 \\operatorname{Bi}'(x) 。
+   Dirichlet eta function \\eta(s) =
+   \\sum^\\infty_{n=1}(-)^{n-1}/n^{s}.
 
 "),
 
-("数学函数","Base","besselj0","besselj0(x)
+("Mathematical Functions","Base","zeta","zeta(x)
 
+   Riemann zeta function \\zeta(s).
 
-   \"0\" 阶的第一类贝塞尔函数， J_0(x) 。
-
 "),
-
-("数学函数","Base","besselj1","besselj1(x)
 
+("Mathematical Functions","Base","bitmix","bitmix(x, y)
 
-   \"1\" 阶的第一类贝塞尔函数， J_1(x) 。
+   Hash two integers into a single integer. Useful for constructing
+   hash functions.
 
 "),
 
-("数学函数","Base","besselj","besselj(nu, x)
+("Mathematical Functions","Base","ndigits","ndigits(n, b)
 
+   Compute the number of digits in number \"n\" written in base \"b\".
 
-   \"nu\" 阶的第一类贝塞尔函数， J_\\nu(x) 。
-
 "),
-
-("数学函数","Base","bessely0","bessely0(x)
 
+("Data Formats","Base","bin","bin(n[, pad])
 
-   \"0\" 阶的第二类贝塞尔函数， Y_0(x) 。
+   Convert an integer to a binary string, optionally specifying a
+   number of digits to pad to.
 
 "),
 
-("数学函数","Base","bessely1","bessely1(x)
+("Data Formats","Base","hex","hex(n[, pad])
 
+   Convert an integer to a hexadecimal string, optionally specifying a
+   number of digits to pad to.
 
-   \"1\" 阶的第二类贝塞尔函数， Y_1(x) 。
-
 "),
-
-("数学函数","Base","bessely","bessely(nu, x)
 
+("Data Formats","Base","dec","dec(n[, pad])
 
-   \"nu\" 阶的第二类贝塞尔函数， Y_\\nu(x) 。
+   Convert an integer to a decimal string, optionally specifying a
+   number of digits to pad to.
 
 "),
 
-("数学函数","Base","hankelh1","hankelh1(nu, x)
+("Data Formats","Base","oct","oct(n[, pad])
 
+   Convert an integer to an octal string, optionally specifying a
+   number of digits to pad to.
 
-   \"nu\" 阶的第三类贝塞尔函数， H^{(1)}_\\nu(x) 。
-
 "),
-
-("数学函数","Base","hankelh2","hankelh2(nu, x)
 
+("Data Formats","Base","base","base(base, n[, pad])
 
-   \"nu\" 阶的第三类贝塞尔函数， H^{(2)}_\\nu(x) 。
+   Convert an integer to a string in the given base, optionally
+   specifying a number of digits to pad to. The base can be specified
+   as either an integer, or as a \"Uint8\" array of character values
+   to use as digit symbols.
 
 "),
 
-("数学函数","Base","besseli","besseli(nu, x)
+("Data Formats","Base","digits","digits(n[, base][, pad])
 
+   Returns an array of the digits of \"n\" in the given base,
+   optionally padded with zeros to a specified size. More significant
+   digits are at higher indexes, such that \"n ==
+   sum([digits[k]*base^(k-1) for k=1:length(digits)])\".
 
-   \"nu\" 阶的变形第一类贝塞尔函数， I_\\nu(x) 。
-
 "),
-
-("数学函数","Base","besselk","besselk(nu, x)
 
+("Data Formats","Base","bits","bits(n)
 
-   \"nu\" 阶的变形第二类贝塞尔函数， K_\\nu(x) 。
+   A string giving the literal bit representation of a number.
 
 "),
 
-("数学函数","Base","beta","beta(x, y)
+("Data Formats","Base","parseint","parseint([type], str[, base])
 
+   Parse a string as an integer in the given base (default 10),
+   yielding a number of the specified type (default \"Int\").
 
-   第一型欧拉积分 \\operatorname{B}(x,y) =
-   \\Gamma(x)\\Gamma(y)/\\Gamma(x+y) 。
-
 "),
-
-("数学函数","Base","lbeta","lbeta(x, y)
 
+("Data Formats","Base","parsefloat","parsefloat([type], str)
 
-   贝塔函数的自然对数 \\log(\\operatorname{B}(x,y)) 。
+   Parse a string as a decimal floating point number, yielding a
+   number of the specified type.
 
 "),
 
-("数学函数","Base","eta","eta(x)
+("Data Formats","Base","big","big(x)
 
+   Convert a number to a maximum precision representation (typically
+   \"BigInt\" or \"BigFloat\")
 
-   狄利克雷 \\eta 函数 \\eta(s) = \\sum^\\infty_{n=1}(-)^{n-1}/n^{s}
-   。
-
 "),
-
-("数学函数","Base","zeta","zeta(x)
 
+("Data Formats","Base","bool","bool(x)
 
-   黎曼 \\zeta 函数 :math:\"\\zeta(s)\" 。
+   Convert a number or numeric array to boolean
 
 "),
 
-("数学函数","Base","bitmix","bitmix(x, y)
+("Data Formats","Base","int","int(x)
 
+   Convert a number or array to the default integer type on your
+   platform. Alternatively, \"x\" can be a string, which is parsed as
+   an integer.
 
-   将两个整数散列为一个整数。用于构造哈希函数。
-
 "),
-
-("数学函数","Base","ndigits","ndigits(n, b)
 
+("Data Formats","Base","uint","uint(x)
 
-   计算用 \"b\" 进制表示 \"n\" 时的位数。
+   Convert a number or array to the default unsigned integer type on
+   your platform. Alternatively, \"x\" can be a string, which is
+   parsed as an unsigned integer.
 
 "),
 
-("数据格式","Base","bin","bin(n[, pad])
+("Data Formats","Base","integer","integer(x)
 
+   Convert a number or array to integer type. If \"x\" is already of
+   integer type it is unchanged, otherwise it converts it to the
+   default integer type on your platform.
 
-   将整数转换为二进制字符串，可选择性指明空白补位后的位数。
-
 "),
-
-("数据格式","Base","hex","hex(n[, pad])
 
+("Data Formats","Base","signed","signed(x)
 
-   将整数转换为十六进制字符串，可选择性指明空白补位后的位数。
+   Convert a number to a signed integer
 
 "),
 
-("数据格式","Base","dec","dec(n[, pad])
+("Data Formats","Base","unsigned","unsigned(x)
 
+   Convert a number to an unsigned integer
 
-   将整数转换为十进制字符串，可选择性指明空白补位后的位数。
-
 "),
-
-("数据格式","Base","oct","oct(n[, pad])
 
+("Data Formats","Base","int8","int8(x)
 
-   将整数转换为八进制字符串，可选择性指明空白补位后的位数。
+   Convert a number or array to \"Int8\" data type
 
 "),
 
-("数据格式","Base","base","base(base, n[, pad])
+("Data Formats","Base","int16","int16(x)
 
+   Convert a number or array to \"Int16\" data type
 
-   将整数 \"n\" 转换为指定进制 \"base\" 的字符串。 可选择性指明空白补
-   位后的位数。进制 \"base\" 可以为整数， 也可以是用于表征数字符号的字
-   符值所对应的 \"Uint8\" 数组。
-
 "),
-
-("数据格式","Base","bits","bits(n)
 
+("Data Formats","Base","int32","int32(x)
 
-   用二进制字符串文本表示一个数。
+   Convert a number or array to \"Int32\" data type
 
 "),
 
-("数据格式","Base","parseint","parseint([type], str[, base])
+("Data Formats","Base","int64","int64(x)
 
+   Convert a number or array to \"Int64\" data type
 
-   将字符串解析为指定类型（默认为 \"Int\" ）、指定进制（默认为 10 ）的
-   整数。
-
 "),
-
-("数据格式","Base","parsefloat","parsefloat([type], str)
 
+("Data Formats","Base","int128","int128(x)
 
-   将字符串解析为指定类型的十进制浮点数。
+   Convert a number or array to \"Int128\" data type
 
 "),
 
-("数据格式","Base","bool","bool(x)
+("Data Formats","Base","uint8","uint8(x)
 
+   Convert a number or array to \"Uint8\" data type
 
-   将数或数值数组转换为布尔值类型的。
-
 "),
-
-("数据格式","Base","isbool","isbool(x)
 
+("Data Formats","Base","uint16","uint16(x)
 
-   判断数或数组是否是布尔值类型的。
+   Convert a number or array to \"Uint16\" data type
 
 "),
 
-("数据格式","Base","int","int(x)
+("Data Formats","Base","uint32","uint32(x)
 
+   Convert a number or array to \"Uint32\" data type
 
-   将数或数组转换为所使用电脑上默认的整数类型。 \"x\" 也可以是字符串，
-   使用此函数时会将其解析为整数。
-
 "),
-
-("数据格式","Base","uint","uint(x)
 
+("Data Formats","Base","uint64","uint64(x)
 
-   将数或数组转换为所使用电脑上默认的无符号整数类型。 \"x\" 也可以是字
-   符串，使用此函数时会将其解析为无符号整数。
+   Convert a number or array to \"Uint64\" data type
 
 "),
 
-("数据格式","Base","integer","integer(x)
+("Data Formats","Base","uint128","uint128(x)
 
+   Convert a number or array to \"Uint128\" data type
 
-   将数或数组转换为整数类型。如果 \"x\" 已经是整数类型，则不处理； 否
-   则将其转换为所使用电脑上默认的整数类型。
-
 "),
-
-("数据格式","Base","isinteger","isinteger(x)
 
+("Data Formats","Base","float16","float16(x)
 
-   判断数或数组是否为整数类型的。
+   Convert a number or array to \"Float16\" data type
 
 "),
 
-("数据格式","Base","signed","signed(x)
+("Data Formats","Base","float32","float32(x)
 
+   Convert a number or array to \"Float32\" data type
 
-   将数转换为有符号整数。
-
 "),
-
-("数据格式","Base","unsigned","unsigned(x)
 
+("Data Formats","Base","float64","float64(x)
 
-   将数转换为无符号整数。
+   Convert a number or array to \"Float64\" data type
 
 "),
 
-("数据格式","Base","int8","int8(x)
+("Data Formats","Base","float32_isvalid","float32_isvalid(x, out::Vector{Float32}) -> Bool
 
+   Convert a number or array to \"Float32\" data type, returning true
+   if successful. The result of the conversion is stored in
+   \"out[1]\".
 
-   将数或数组转换为 \"Int8\" 数据类型。
-
 "),
-
-("数据格式","Base","int16","int16(x)
 
+("Data Formats","Base","float64_isvalid","float64_isvalid(x, out::Vector{Float64}) -> Bool
 
-   将数或数组转换为 \"Int16\" 数据类型。
+   Convert a number or array to \"Float64\" data type, returning true
+   if successful. The result of the conversion is stored in
+   \"out[1]\".
 
 "),
 
-("数据格式","Base","int32","int32(x)
+("Data Formats","Base","float","float(x)
 
+   Convert a number, array, or string to a \"FloatingPoint\" data
+   type. For numeric data, the smallest suitable \"FloatingPoint\"
+   type is used. For strings, it converts to \"Float64\".
 
-   将数或数组转换为 \"Int32\" 数据类型。
-
 "),
 
-("数据格式","Base","int64","int64(x)
+("Data Formats","Base","significand","significand(x)
 
+   Extract the significand(s) (a.k.a. mantissa), in binary
+   representation, of a floating-point number or array.
 
-   将数或数组转换为 \"Int64\" 数据类型。
+   For example, \"significand(15.2)/15.2 == 0.125\", and
+   \"significand(15.2)*8 == 15.2\"
 
 "),
-
-("数据格式","Base","int128","int128(x)
 
+("Data Formats","Base","exponent","exponent(x) -> Int
 
-   将数或数组转换为 \"Int128\" 数据类型。
+   Get the exponent of a normalized floating-point number.
 
 "),
 
-("数据格式","Base","uint8","uint8(x)
+("Data Formats","Base","complex64","complex64(r, i)
 
+   Convert to \"r+i*im\" represented as a \"Complex64\" data type
 
-   将数或数组转换为 \"Uint8\" 数据类型。
-
 "),
-
-("数据格式","Base","uint16","uint16(x)
 
+("Data Formats","Base","complex128","complex128(r, i)
 
-   将数或数组转换为 \"Uint16\" 数据类型。
+   Convert to \"r+i*im\" represented as a \"Complex128\" data type
 
 "),
 
-("数据格式","Base","uint32","uint32(x)
+("Data Formats","Base","char","char(x)
 
+   Convert a number or array to \"Char\" data type
 
-   将数或数组转换为 \"Uint32\" 数据类型。
-
 "),
-
-("数据格式","Base","uint64","uint64(x)
 
+("Data Formats","Base","complex","complex(r, i)
 
-   将数或数组转换为 \"Uint64\" 数据类型。
+   Convert real numbers or arrays to complex
 
 "),
 
-("数据格式","Base","uint128","uint128(x)
+("Data Formats","Base","bswap","bswap(n)
 
+   Byte-swap an integer
 
-   将数或数组转换为 \"Uint128\" 数据类型。
-
 "),
-
-("数据格式","Base","float32","float32(x)
 
+("Data Formats","Base","num2hex","num2hex(f)
 
-   将数或数组转换为 \"Float32\" 数据类型。
+   Get a hexadecimal string of the binary representation of a floating
+   point number
 
 "),
 
-("数据格式","Base","float64","float64(x)
+("Data Formats","Base","hex2num","hex2num(str)
 
+   Convert a hexadecimal string to the floating point number it
+   represents
 
-   将数或数组转换为 \"Float64\" 数据类型。
-
 "),
-
-("数据格式","Base","float","float(x)
 
+("Data Formats","Base","hex2bytes","hex2bytes(s::ASCIIString)
 
-   将数、数组、或字符串转换为 \"FloatingPoint\" 数据类型。 对数值数据
-   ，使用最小的恰当 \"FloatingPoint\" 类型。 对字符串，它将被转换为
-   \"Float64\" 类型。
+   Convert an arbitrarily long hexadecimal string to its binary
+   representation. Returns an Array{Uint8, 1}, i.e. an array of bytes.
 
 "),
 
-("数据格式","Base","significand","significand(x)
+("Data Formats","Base","bytes2hex","bytes2hex(bin_arr::Array{Uint8, 1})
 
+   Convert an array of bytes to its hexadecimal representation. All
+   characters are in lower-case. Returns an ASCIIString.
 
-   提取浮点数或浮点数组的二进制表示的有效数字。
+"),
 
-   例如， \"significand(15.2)/15.2 == 0.125\" \"significand(15.2)*8 ==
-   15.2\" 。
+("Numbers","Base","one","one(x)
 
-"),
+   Get the multiplicative identity element for the type of x (x can
+   also specify the type itself). For matrices, returns an identity
+   matrix of the appropriate size and type.
 
-("数据格式","Base","exponent","exponent(x) -> Int
+"),
 
+("Numbers","Base","zero","zero(x)
 
-   返回浮点数 \"trunc( log2( abs(x) ) )\" 。
+   Get the additive identity element for the type of x (x can also
+   specify the type itself).
 
 "),
-
-("数据格式","Base","float64_valued","float64_valued(x::Rational)
 
+("Numbers","Base","pi","pi
 
-   如果 \"x\" 能被无损地用 \"Float64\" 数据类型表示，返回真。
+   The constant pi
 
 "),
 
-("数据格式","Base","complex64","complex64(r, i)
+("Numbers","Base","im","im
 
+   The imaginary unit
 
-   构造值为 \"r+i*im\" 的 \"Complex64\" 数据类型。
-
 "),
-
-("数据格式","Base","complex128","complex128(r, i)
 
+("Numbers","Base","e","e
 
-   构造值为 \"r+i*im\" 的 \"Complex128\" 数据类型。
+   The constant e
 
 "),
 
-("数据格式","Base","char","char(x)
+("Numbers","Base","catalan","catalan
 
+   Catalan's constant
 
-   将数或数组转换为 \"Char\" 数据类型。
-
 "),
-
-("数据格式","Base","complex","complex(r, i)
 
+("Numbers","Base","Inf","Inf
 
-   将实数或数组转换为复数。
+   Positive infinity of type Float64
 
 "),
 
-("数据格式","Base","iscomplex","iscomplex(x) -> Bool
+("Numbers","Base","Inf32","Inf32
 
+   Positive infinity of type Float32
 
-   判断数或数组是否为复数类型。
-
 "),
-
-("数据格式","Base","isreal","isreal(x) -> Bool
 
+("Numbers","Base","Inf16","Inf16
 
-   判断数或数组是否为实数类型。
+   Positive infinity of type Float16
 
 "),
 
-("数据格式","Base","bswap","bswap(n)
+("Numbers","Base","NaN","NaN
 
+   A not-a-number value of type Float64
 
-   给出将一个整数的字节翻转后所得的整数。
-
 "),
-
-("数据格式","Base","num2hex","num2hex(f)
 
+("Numbers","Base","NaN32","NaN32
 
-   将浮点数的二进制表示转换为十六进制字符串。
+   A not-a-number value of type Float32
 
 "),
 
-("数据格式","Base","hex2num","hex2num(str)
+("Numbers","Base","NaN16","NaN16
 
+   A not-a-number value of type Float16
 
-   将十六进制字符串转换为它所表示的浮点数。
-
 "),
-
-("数","Base","one","one(x)
 
+("Numbers","Base","issubnormal","issubnormal(f) -> Bool
 
-   获取与 x 同类型的乘法单位元（ x 也可为类型），即用该类型表示数值 1
-   。 对于矩阵，返回与之大小、类型相匹配的的单位矩阵。
+   Test whether a floating point number is subnormal
 
 "),
 
-("数","Base","zero","zero(x)
+("Numbers","Base","isfinite","isfinite(f) -> Bool
 
+   Test whether a number is finite
 
-   获取与 x 同类型的加法单位元（ x 也可为类型），即用该类型表示数值 0
-   。 对于矩阵，返回与之大小、类型相匹配的的全零矩阵。
-
 "),
-
-("数","Base","pi","pi
 
+("Numbers","Base","isinf","isinf(f)
 
-   常量 pi 。
+   Test whether a number is infinite
 
 "),
 
-("数","Base","im","im
+("Numbers","Base","isnan","isnan(f)
 
+   Test whether a floating point number is not a number (NaN)
 
-   虚数单位。
-
 "),
-
-("数","Base","e","e
 
+("Numbers","Base","inf","inf(f)
 
-   常量 e 。
+   Returns infinity in the same floating point type as \"f\" (or \"f\"
+   can by the type itself)
 
 "),
 
-("数","Base","Inf","Inf
+("Numbers","Base","nan","nan(f)
 
+   Returns NaN in the same floating point type as \"f\" (or \"f\" can
+   by the type itself)
 
-   正无穷，类型为 Float64 。
-
 "),
-
-("数","Base","Inf32","Inf32
 
+("Numbers","Base","nextfloat","nextfloat(f)
 
-   正无穷，类型为 Float32 。
+   Get the next floating point number in lexicographic order
 
 "),
 
-("数","Base","NaN","NaN
+("Numbers","Base","prevfloat","prevfloat(f) -> Float
 
+   Get the previous floating point number in lexicographic order
 
-   表示“它不是数”的值，类型为 Float64 。
-
 "),
-
-("数","Base","NaN32","NaN32
 
+("Numbers","Base","isinteger","isinteger(x)
 
-   表示“它不是数”的值，类型为 Float32 。
+   Test whether \"x\" or all its elements are numerically equal to
+   some integer
 
 "),
 
-("数","Base","isdenormal","isdenormal(f) -> Bool
+("Numbers","Base","isreal","isreal(x)
 
+   Test whether \"x\" or all its elements are numerically equal to
+   some real number
 
-   判断浮点数是否为反常值。
-
 "),
-
-("数","Base","isfinite","isfinite(f) -> Bool
 
+("Numbers","Base","BigInt","BigInt(x)
 
-   判断数是否有限。
+   Create an arbitrary precision integer. \"x\" may be an \"Int\" (or
+   anything that can be converted to an \"Int\") or a \"String\". The
+   usual mathematical operators are defined for this type, and results
+   are promoted to a \"BigInt\".
 
 "),
 
-("数","Base","isinf","isinf(f)
+("Numbers","Base","BigFloat","BigFloat(x)
 
+   Create an arbitrary precision floating point number. \"x\" may be
+   an \"Integer\", a \"Float64\", a \"String\" or a \"BigInt\". The
+   usual mathematical operators are defined for this type, and results
+   are promoted to a \"BigFloat\".
 
-   判断数是否为无穷大或无穷小。
-
 "),
-
-("数","Base","isnan","isnan(f)
 
+("Numbers","Base","get_rounding","get_rounding()
 
-   判断浮点数是否为非数值（NaN）。
+   Get the current floating point rounding mode. Valid modes are
+   \"RoundNearest\", \"RoundToZero\", \"RoundUp\" and \"RoundDown\".
 
 "),
 
-("数","Base","inf","inf(f)
+("Numbers","Base","set_rounding","set_rounding(mode)
 
+   Set the floating point rounding mode. See \"get_rounding\" for
+   available modes
 
-   返回与 \"f\" 相同浮点数类型的无穷大（ \"f\" 也可以为类型）。
-
 "),
+
+("Numbers","Base","with_rounding","with_rounding(f::Function, mode)
 
-("数","Base","nan","nan(f)
+   Change the floating point rounding mode for the duration of \"f\".
+   It is logically equivalent to:
 
+      old = get_rounding()
+      set_rounding(mode)
+      f()
+      set_rounding(old)
 
-   返回与 \"f\" 相同浮点数类型的 NaN （ \"f\" 也可以为类型）。
+   See \"get_rounding\" for available rounding modes.
 
 "),
 
-("数","Base","nextfloat","nextfloat(f)
+("Numbers","Base","count_ones","count_ones(x::Integer) -> Integer
 
+   Number of ones in the binary representation of \"x\".
 
-   获取下一个绝对值稍大的同正负号的浮点数。
+   **Example**: \"count_ones(7) -> 3\"
 
 "),
 
-("数","Base","prevfloat","prevfloat(f) -> Float
+("Numbers","Base","count_zeros","count_zeros(x::Integer) -> Integer
 
+   Number of zeros in the binary representation of \"x\".
 
-   获取下一个绝对值稍小的同正负号的浮点数。
+   **Example**: \"count_zeros(int32(2 ^ 16 - 1)) -> 16\"
 
 "),
 
-("数","Base","integer_valued","integer_valued(x)
+("Numbers","Base","leading_zeros","leading_zeros(x::Integer) -> Integer
 
+   Number of zeros leading the binary representation of \"x\".
 
-   判断 \"x\" 在数值上是否为整数。
+   **Example**: \"leading_zeros(int32(1)) -> 31\"
 
 "),
 
-("数","Base","real_valued","real_valued(x)
+("Numbers","Base","leading_ones","leading_ones(x::Integer) -> Integer
 
+   Number of ones leading the binary representation of \"x\".
 
-   判断 \"x\" 在数值上是否为实数。
+   **Example**: \"leading_ones(int32(2 ^ 32 - 2)) -> 31\"
 
 "),
 
-("数","Base","BigInt","BigInt(x)
+("Numbers","Base","trailing_zeros","trailing_zeros(x::Integer) -> Integer
 
+   Number of zeros trailing the binary representation of \"x\".
 
-   构造任意精度的整数。 \"x\" 可以是 \"Int\" （或可以被转换为 \"Int\"
-   的）或 \"String\" 。 可以对其使用常用的数学运算符，结果被提升为
-   \"BigInt\" 类型。
+   **Example**: \"trailing_zeros(2) -> 1\"
 
 "),
 
-("数","Base","BigFloat","BigFloat(x)
+("Numbers","Base","trailing_ones","trailing_ones(x::Integer) -> Integer
 
+   Number of ones trailing the binary representation of \"x\".
 
-   构造任意精度的浮点数。 \"x\" 可以是 \"Integer\", \"Float64\",
-   \"String\" 或 \"BigInt\" 。 可以对其使用常用的数学运算符，结果被提
-   升为 \"BigFloat\" 类型。
+   **Example**: \"trailing_ones(3) -> 2\"
 
 "),
 
-("数","Base","count_ones","count_ones(x::Integer) -> Integer
+("Numbers","Base","isprime","isprime(x::Integer) -> Bool
 
+   Returns \"true\" if \"x\" is prime, and \"false\" otherwise.
 
-   \"x\" 的二进制表示中有多少个 1 。
+   **Example**: \"isprime(3) -> true\"
 
-   **例子** ： \"count_ones(7) -> 3\"
-
 "),
-
-("数","Base","count_zeros","count_zeros(x::Integer) -> Integer
 
+("Numbers","Base","primes","primes(n)
 
-   \"x\" 的二进制表示中有多少个 0 。
+   Returns a collection of the prime numbers <= \"n\".
 
-   **例子** ： \"count_zeros(int32(2 ^ 16 - 1)) -> 16\"
-
 "),
-
-("数","Base","leading_zeros","leading_zeros(x::Integer) -> Integer
 
+("Numbers","Base","isodd","isodd(x::Integer) -> Bool
 
-   \"x\" 的二进制表示中开头有多少个 0 。
+   Returns \"true\" if \"x\" is odd (that is, not divisible by 2), and
+   \"false\" otherwise.
 
-   **例子** ： \"leading_zeros(int32(1)) -> 31\"
+   **Example**: \"isodd(9) -> false\"
 
 "),
 
-("数","Base","leading_ones","leading_ones(x::Integer) -> Integer
+("Numbers","Base","iseven","iseven(x::Integer) -> Bool
 
+   Returns \"true\" is \"x\" is even (that is, divisible by 2), and
+   \"false\" otherwise.
 
-   \"x\" 的二进制表示中开头有多少个 1 。
+   **Example**: \"iseven(1) -> false\"
 
-   **例子** ： \"leading_ones(int32(2 ^ 32 - 2)) -> 31\"
-
 "),
+
+("BigFloats","Base","precision","precision(num::FloatingPoint)
 
-("数","Base","trailing_zeros","trailing_zeros(x::Integer) -> Integer
+   Get the precision of a floating point number, as defined by the
+   effective number of bits in the mantissa.
 
+"),
 
-   \"x\" 的二进制表示中末尾有多少个 0 。
+("BigFloats","Base","get_bigfloat_precision","get_bigfloat_precision()
 
-   **例子** ： \"trailing_zeros(2) -> 1\"
+   Get the precision (in bits) currently used for BigFloat arithmetic.
 
 "),
 
-("数","Base","trailing_ones","trailing_ones(x::Integer) -> Integer
+("BigFloats","Base","set_bigfloat_precision","set_bigfloat_precision(x::Int64)
 
+   Set the precision (in bits) to be used to BigFloat arithmetic.
 
-   \"x\" 的二进制表示中末尾有多少个 1 。
+"),
 
-   **例子** ： \"trailing_ones(3) -> 2\"
+("BigFloats","Base","with_bigfloat_precision","with_bigfloat_precision(f::Function, precision::Integer)
 
-"),
+   Change the BigFloat arithmetic precision (in bits) for the duration
+   of \"f\". It is logically equivalent to:
 
-("数","Base","isprime","isprime(x::Integer) -> Bool
+      old = get_bigfloat_precision()
+      set_bigfloat_precision(precision)
+      f()
+      set_bigfloat_precision(old)
 
+"),
 
-   如果 \"x\" 是质数，返回 \"true\" ；否则为 \"false\" 。
+("BigFloats","Base","get_bigfloat_rounding","get_bigfloat_rounding()
 
-   **例子** ： \"isprime(3) -> true\"
+   Get the current BigFloat rounding mode. Valid modes are
+   \"RoundNearest\", \"RoundToZero\", \"RoundUp\", \"RoundDown\",
+   \"RoundFromZero\"
 
 "),
 
-("数","Base","isodd","isodd(x::Integer) -> Bool
+("BigFloats","Base","set_bigfloat_rounding","set_bigfloat_rounding(mode)
 
+   Set the BigFloat rounding mode. See get_bigfloat_rounding for
+   available modes
 
-   如果 \"x\" 是奇数，返回 \"true\" ；否则为 \"false\" 。
+"),
+
+("BigFloats","Base","with_bigfloat_rounding","with_bigfloat_rounding(f::Function, mode)
 
-   **例子** ： \"isodd(9) -> false\"
+   Change the BigFloat rounding mode for the duration of \"f\". See
+   \"get_bigfloat_rounding\" for available rounding modes; see also
+   \"with_bigfloat_precision\".
 
 "),
 
-("数","Base","iseven","iseven(x::Integer) -> Bool
+("Random Numbers","Base","srand","srand([rng], seed)
 
+   Seed the RNG with a \"seed\", which may be an unsigned integer or a
+   vector of unsigned integers. \"seed\" can even be a filename, in
+   which case the seed is read from a file. If the argument \"rng\" is
+   not provided, the default global RNG is seeded.
 
-   如果 \"x\" 是偶数，返回 \"true\" ；否则为 \"false\" 。
+"),
 
-   **例子** ： \"iseven(1) -> false\"
+("Random Numbers","Base","MersenneTwister","MersenneTwister([seed])
 
-"),
+   Create a \"MersenneTwister\" RNG object. Different RNG objects can
+   have their own seeds, which may be useful for generating different
+   streams of random numbers.
 
-("随机数","Base","srand","srand([rng], seed)
+"),
 
+("Random Numbers","Base","rand","rand()
 
-   使用 \"seed\" 为 RNG 的种子，可以是无符号整数或向量。 \"seed\" 也可
-   以是文件名，此时从文件中读取种子。 如果省略参数 \"rng\" ，则默认为
-   全局 RNG 。
+   Generate a \"Float64\" random number uniformly in [0,1)
 
 "),
-
-("随机数","Base","MersenneTwister","MersenneTwister([seed])
 
+("Random Numbers","Base","rand!","rand!([rng], A)
 
-   构造一个 \"MersenneTwister\" RNG 对象。 不同的 RNG 对象可以有不同的
-   种子，这对于生成不同的随机数流非常有用。
+   Populate the array A with random number generated from the
+   specified RNG.
 
 "),
 
-("随机数","Base","rand","rand()
+("Random Numbers","Base","rand","rand(rng::AbstractRNG[, dims...])
 
+   Generate a random \"Float64\" number or array of the size specified
+   by dims, using the specified RNG object. Currently,
+   \"MersenneTwister\" is the only available Random Number Generator
+   (RNG), which may be seeded using srand.
 
-   生成 [0,1) 内均匀分布的 \"Float64\" 随机数。
-
 "),
-
-("随机数","Base","rand!","rand!([rng], A)
 
+("Random Numbers","Base","rand","rand(dims or [dims...])
 
-   向数组 \"A\" 中赋值由指定 RNG 生成的随机数。
+   Generate a random \"Float64\" array of the size specified by dims
 
 "),
 
-("随机数","Base","rand","rand(rng::AbstractRNG[, dims...])
+("Random Numbers","Base","rand","rand(Int32|Uint32|Int64|Uint64|Int128|Uint128[, dims...])
 
+   Generate a random integer of the given type. Optionally, generate
+   an array of random integers of the given type by specifying dims.
 
-   使用指定的 RNG 对象，生成 \"Float64\" 类型的随机数或数组。 目前仅提
-   供 \"MersenneTwister\" 随机数生成器 RNG ， 可由 \"srand\" 函数设置
-   随机数种子。
-
 "),
-
-("随机数","Base","rand","rand(dims 或 [dims...])
 
+("Random Numbers","Base","rand","rand(r[, dims...])
 
-   生成指定维度的 \"Float64\" 类型的随机数组。
+   Generate a random integer from the inclusive interval specified by
+   \"Range1 r\" (for example, \"1:n\"). Optionally, generate a random
+   integer array.
 
 "),
 
-("随机数
-","Base","rand","rand(Int32|Uint32|Int64|Uint64|Int128|Uint128[,
-dims...])
+("Random Numbers","Base","randbool","randbool([dims...])
 
+   Generate a random boolean value. Optionally, generate an array of
+   random boolean values.
 
-   生成指定整数类型的随机数。若指定维度，则生成对应类型的随机数组。
-
 "),
-
-("随机数","Base","rand","rand(r[, dims...])
 
+("Random Numbers","Base","randbool!","randbool!(A)
 
-   从 \"Range1\" r 的范围中产生随机整数（如 \"1:n\" ，包括 1 和 n）。
-   也可以生成随机整数数组。
+   Fill an array with random boolean values. A may be an \"Array\" or
+   a \"BitArray\".
 
 "),
 
-("随机数","Base","randbool","randbool([dims...])
+("Random Numbers","Base","randn","randn(dims or [dims...])
 
+   Generate a normally-distributed random number with mean 0 and
+   standard deviation 1. Optionally generate an array of normally-
+   distributed random numbers.
 
-   生成随机布尔值。若指定维度，则生成布尔值类型的随机数组。
-
 "),
-
-("随机数","Base","randbool!","randbool!(A)
 
+("Random Numbers","Base","randn!","randn!(A::Array{Float64, N})
 
-   将数组中的元素赋值为随机布尔值。 \"A\" 可以是 \"Array\" 或
-   \"BitArray\" 。
+   Fill the array A with normally-distributed (mean 0, standard
+   deviation 1) random numbers. Also see the rand function.
 
 "),
 
-("随机数","Base","randn","randn(dims 或 [dims...])
+("Random Numbers","Base","randsym","randsym(n)
 
+   Generate a \"nxn\" symmetric array of normally-distributed random
+   numbers with mean 0 and standard deviation 1.
 
-   生成均值为 0 ，标准差为 1 的标准正态分布随机数。 若指定维度，则生成
-   标准正态分布的随机数组。
-
 "),
-
-("数组","Base","ndims","ndims(A) -> Integer
 
+("Arrays","Base","ndims","ndims(A) -> Integer
 
-   返回 \"A\" 有几个维度。
+   Returns the number of dimensions of A
 
 "),
 
-("数组","Base","size","size(A)
+("Arrays","Base","size","size(A)
 
+   Returns a tuple containing the dimensions of A
 
-   返回 \"A\" 的维度多元组。
-
 "),
-
-("数组","Base","eltype","eltype(A)
 
+("Arrays","Base","eltype","eltype(A)
 
-   返回 \"A\" 中元素的类型。
+   Returns the type of the elements contained in A
 
 "),
 
-("数组","Base","length","length(A) -> Integer
+("Arrays","Base","iseltype","iseltype(A, T)
 
+   Tests whether A or its elements are of type T
 
-   返回 \"A\" 中所有元素的个数。（它与 MATLAB 中的定义不同。）
-
 "),
-
-("数组","Base","nnz","nnz(A)
 
+("Arrays","Base","length","length(A) -> Integer
 
-   数组 \"A\" 中非零元素的个数。可适用于稠密或稀疏数组。
+   Returns the number of elements in A (note that this differs from
+   MATLAB where \"length(A)\" is the largest dimension of \"A\")
 
 "),
 
-("数组","Base","scale!","scale!(A, k)
+("Arrays","Base","nnz","nnz(A)
 
+   Counts the number of nonzero values in array A (dense or sparse)
 
-   原地将数组 \"A\" 的内容乘以 k 。
-
 "),
-
-("数组","Base","conj!","conj!(A)
 
+("Arrays","Base","conj!","conj!(A)
 
-   原地求数组的复数共轭。
+   Convert an array to its complex conjugate in-place
 
 "),
 
-("数组","Base","stride","stride(A, k)
+("Arrays","Base","stride","stride(A, k)
 
+   Returns the distance in memory (in number of elements) between
+   adjacent elements in dimension k
 
-   返回维度 k 上相邻的两个元素在内存中的距离（单位为元素个数）
-
 "),
 
-("数组","Base","strides","strides(A)
+("Arrays","Base","strides","strides(A)
 
+   Returns a tuple of the memory strides in each dimension
 
-   返回每个维度上内存距离的多元组。
-
 "),
-
-("数组","Base","ind2sub","ind2sub(dims, index) -> subscripts
 
+("Arrays","Base","ind2sub","ind2sub(dims, index) -> subscripts
 
    Returns a tuple of subscripts into an array with dimensions
    \"dims\", corresponding to the linear index \"index\"
 
-   **例子** \"i, j, ... = ind2sub(size(A), indmax(A))\" provides the
-   indices of the maximum element
+   **Example** \"i, j, ... = ind2sub(size(A), indmax(A))\" provides
+   the indices of the maximum element
 
 "),
 
-("数组","Base","sub2ind","sub2ind(dims, i, j, k...) -> index
-
+("Arrays","Base","sub2ind","sub2ind(dims, i, j, k...) -> index
 
    The inverse of \"ind2sub\", returns the linear index corresponding
    to the provided subscripts
 
 "),
 
-("数组","Base","Array","Array(type, dims)
+("Arrays","Base","Array","Array(type, dims)
 
+   Construct an uninitialized dense array. \"dims\" may be a tuple or
+   a series of integer arguments.
 
-   构造一个未初始化的稠密数组。 \"dims\" 可以是整数参数的多元组或集合
-   。
-
 "),
 
-("数组","Base","getindex","getindex(type[, elements...])
+("Arrays","Base","getindex","getindex(type[, elements...])
 
+   Construct a 1-d array of the specified type. This is usually called
+   with the syntax \"Type[]\". Element values can be specified using
+   \"Type[a,b,c,...]\".
 
-   构造指定类型的一维数组。它常被 \"Type[]\" 语法调用。 元素值可由
-   \"Type[a,b,c,...]\" 指明。
-
 "),
-
-("数组","Base","cell","cell(dims)
 
+("Arrays","Base","cell","cell(dims)
 
-   构造未初始化的元胞数组（异构数组）。 \"dims\" 可以是整数参数的多元
-   组或集合。
+   Construct an uninitialized cell array (heterogeneous array).
+   \"dims\" can be either a tuple or a series of integer arguments.
 
 "),
 
-("数组","Base","zeros","zeros(type, dims)
+("Arrays","Base","zeros","zeros(type, dims)
 
+   Create an array of all zeros of specified type
 
-   构造指定类型的全零数组。
-
 "),
-
-("数组","Base","ones","ones(type, dims)
 
+("Arrays","Base","ones","ones(type, dims)
 
-   构造指定类型的全一数组。
+   Create an array of all ones of specified type
 
 "),
 
-("数组","Base","trues","trues(dims)
+("Arrays","Base","infs","infs(type, dims)
 
+   Create an array where every element is infinite and of the
+   specified type
 
-   构造元素全为真的布尔值数组。
-
 "),
-
-("数组","Base","falses","falses(dims)
 
+("Arrays","Base","nans","nans(type, dims)
 
-   构造元素全为假的布尔值数组。
+   Create an array where every element is NaN of the specified type
 
 "),
 
-("数组","Base","fill","fill(v, dims)
+("Arrays","Base","trues","trues(dims)
 
+   Create a Bool array with all values set to true
 
-   构造数组，元素都初始化为 \"v\" 。
-
 "),
-
-("数组","Base","fill!","fill!(A, x)
 
+("Arrays","Base","falses","falses(dims)
 
-   将数组 \"A\" 的元素都改为 \"x\" 。
+   Create a Bool array with all values set to false
 
 "),
 
-("数组","Base","reshape","reshape(A, dims)
+("Arrays","Base","fill","fill(v, dims)
 
+   Create an array filled with \"v\"
 
-   构造与指定数组同样数据的新数组，但维度不同。 特定类型数组的实现自动
-   选择复制或共享数据。
-
 "),
-
-("数组","Base","similar","similar(array[, element_type, dims])
 
+("Arrays","Base","fill!","fill!(A, x)
 
-   构造与指定数组相同类型的未初始化数组。可选择性指定指定了元素类型和
-   维度。 \"dims\" 参数可以是整数参数的多元组或集合。
+   Fill array \"A\" with value \"x\"
 
 "),
 
-("数组","Base","reinterpret","reinterpret(type, A)
+("Arrays","Base","reshape","reshape(A, dims)
 
+   Create an array with the same data as the given array, but with
+   different dimensions. An implementation for a particular type of
+   array may choose whether the data is copied or shared.
 
-   构造与指定数组同样二进制数据的新数组，但为指定的元素类型。
-
 "),
-
-("数组","Base","eye","eye(n)
 
+("Arrays","Base","similar","similar(array, element_type, dims)
 
-   \"n x n\" 单位矩阵。
+   Create an uninitialized array of the same type as the given array,
+   but with the specified element type and dimensions. The second and
+   third arguments are both optional. The \"dims\" argument may be a
+   tuple or a series of integer arguments.
 
 "),
 
-("数组","Base","eye","eye(m, n)
+("Arrays","Base","reinterpret","reinterpret(type, A)
 
+   Change the type-interpretation of a block of memory. For example,
+   \"reinterpret(Float32, uint32(7))\" interprets the 4 bytes
+   corresponding to \"uint32(7)\" as a \"Float32\". For arrays, this
+   constructs an array with the same binary data as the given array,
+   but with the specified element type.
 
-   \"m x n\" 单位矩阵。
-
 "),
-
-("数组","Base","linspace","linspace(start, stop, n)
 
+("Arrays","Base","eye","eye(n)
 
-   构造从 \"start\" 到 \"stop\" 的 \"n\" 个元素的向量，元素之间的步长
-   为线性。
+   n-by-n identity matrix
 
 "),
 
-("数组","Base","logspace","logspace(start, stop, n)
+("Arrays","Base","eye","eye(m, n)
 
+   m-by-n identity matrix
 
-   构造从 \"10^start\" 到 \"10^stop\" 的 \"n\" 个元素的向量，元素之间
-   的步长为对数。
-
 "),
-
-("数组","Base","bsxfun","bsxfun(fn, A, B[, C...])
 
+("Arrays","Base","linspace","linspace(start, stop, n)
 
-   对两个或两个以上的数组使用二元函数 \"fn\" ，它会展开单态的维度。
+   Construct a vector of \"n\" linearly-spaced elements from \"start\"
+   to \"stop\".
 
 "),
 
-("数组","Base","getindex","getindex(A, ind)
+("Arrays","Base","logspace","logspace(start, stop, n)
 
+   Construct a vector of \"n\" logarithmically-spaced numbers from
+   \"10^start\" to \"10^stop\".
 
-   返回 \"ind\" 位置的数组 \"A\" 的子集，结果可能是 \"Int\",
-   \"Range\", 或 \"Vector\" 。
-
 "),
-
-("数组","Base","sub","sub(A, ind)
 
+("Arrays","Base","broadcast","broadcast(f, As...)
 
-   返回 \"SubArray\" ，它存储 \"A\" 和 \"ind\" ，但不立即计算。 对
-   \"SubArray\" 调用 \"getindex\" 时才计算。
+   Broadcasts the arrays \"As\" to a common size by expanding
+   singleton dimensions, and returns an array of the results
+   \"f(as...)\" for each position.
 
 "),
 
-("数组","Base","slicedim","slicedim(A, d, i)
+("Arrays","Base","broadcast!","broadcast!(f, dest, As...)
 
+   Like \"broadcast\", but store the result in the \"dest\" array.
 
-   返回 \"A\" 中维度 \"d\" 上索引值为 \"i\" 的所有数据。 等价于
-   \"A[:,:,...,i,:,:,...]\" ，其中 \"i\" 在位置 \"d\" 上。
-
 "),
-
-("数组","Base","setindex!","setindex!(A, X, ind)
 
+("Arrays","Base","broadcast_function","broadcast_function(f)
 
-   在 \"ind\" 指定的 \"A\" 子集上存储 \"X\" 的值。
+   Returns a function \"broadcast_f\" such that
+   \"broadcast_function(f)(As...) === broadcast(f, As...)\". Most
+   useful in the form \"const broadcast_f = broadcast_function(f)\".
 
 "),
 
-("数组","Base","cat","cat(dim, A...)
+("Arrays","Base","broadcast!_function","broadcast!_function(f)
 
+   Like \"broadcast_function\", but for \"broadcast!\".
 
-   在指定维度上连接。
-
 "),
-
-("数组","Base","vcat","vcat(A...)
 
+("Arrays","Base","getindex","getindex(A, inds...)
 
-   在维度 1 上连接。
+   Returns a subset of array \"A\" as specified by \"inds\", where
+   each \"ind\" may be an \"Int\", a \"Range\", or a \"Vector\".
 
 "),
 
-("数组","Base","hcat","hcat(A...)
+("Arrays","Base","sub","sub(A, inds...)
 
+   Returns a SubArray, which stores the input \"A\" and \"inds\"
+   rather than computing the result immediately. Calling \"getindex\"
+   on a SubArray computes the indices on the fly.
 
-   在维度 2 上连接。
-
 "),
-
-("数组","Base","hvcat","hvcat(rows::(Int...), values...)
 
+("Arrays","Base","parent","parent(A)
 
-   在水平和垂直上连接。此函数用于块矩阵语法。 第一个参数多元组指明每行
-   要连接的参数个数。 例如， \"[a b;c d e]\" 调用
-   \"hvcat((2,3),a,b,c,d,e)\" 。
+   Returns the \"parent array\" of an array view type (e.g.,
+   SubArray), or the array itself if it is not a view
 
 "),
 
-("数组","Base","flipdim","flipdim(A, d)
+("Arrays","Base","parentindexes","parentindexes(A)
 
+   From an array view \"A\", returns the corresponding indexes in the
+   parent
 
-   在维度 \"d\" 上翻转。
-
 "),
-
-("数组","Base","flipud","flipud(A)
 
+("Arrays","Base","slicedim","slicedim(A, d, i)
 
-   等价于 \"flipdim(A,1)\" 。
+   Return all the data of \"A\" where the index for dimension \"d\"
+   equals \"i\". Equivalent to \"A[:,:,...,i,:,:,...]\" where \"i\" is
+   in position \"d\".
 
 "),
 
-("数组","Base","fliplr","fliplr(A)
+("Arrays","Base","slice","slice(A, inds...)
 
+   Create a view of the given indexes of array \"A\", dropping
+   dimensions indexed with scalars.
 
-   等价于 \"flipdim(A,2)\" 。
-
 "),
-
-("数组","Base","circshift","circshift(A, shifts)
 
+("Arrays","Base","setindex!","setindex!(A, X, inds...)
 
-   循环移位数组中的数据。第二个参数为每个维度上移位数值的向量。
+   Store values from array \"X\" within some subset of \"A\" as
+   specified by \"inds\".
 
 "),
 
-("数组","Base","find","find(A)
+("Arrays","Base","broadcast_getindex","broadcast_getindex(A, inds...)
 
+   Broadcasts the \"inds\" arrays to a common size like \"broadcast\",
+   and returns an array of the results \"A[ks...]\", where \"ks\" goes
+   over the positions in the broadcast.
 
-   返回数组 \"A\" 中非零值的线性索引值向量。
-
 "),
-
-("数组","Base","findn","findn(A)
 
+("Arrays","Base","broadcast_setindex!","broadcast_setindex!(A, X, inds...)
 
-   返回数组 \"A\" 中每个维度上非零值的索引值向量。
+   Broadcasts the \"X\" and \"inds\" arrays to a common size and
+   stores the value from each position in \"X\" at the indices given
+   by the same positions in \"inds\".
 
 "),
 
-("数组","Base","nonzeros","nonzeros(A)
+("Arrays","Base","cat","cat(dim, A...)
 
+   Concatenate the input arrays along the specified dimension
 
-   返回数组 \"A\" 中非零值的向量。
-
 "),
-
-("数组","Base","findfirst","findfirst(A)
 
+("Arrays","Base","vcat","vcat(A...)
 
-   返回数组 \"A\" 中第一个非零值的索引值。
+   Concatenate along dimension 1
 
 "),
 
-("数组","Base","findfirst","findfirst(A, v)
+("Arrays","Base","hcat","hcat(A...)
 
+   Concatenate along dimension 2
 
-   返回数组 \"A\" 中第一个等于 \"v\" 的元素的索引值。
-
 "),
-
-("数组","Base","findfirst","findfirst(predicate, A)
 
+("Arrays","Base","hvcat","hvcat(rows::(Int...), values...)
 
-   返回数组 \"A\" 中第一个满足指定断言的元素的索引值。
+   Horizontal and vertical concatenation in one call. This function is
+   called for block matrix syntax. The first argument specifies the
+   number of arguments to concatenate in each block row. For example,
+   \"[a b;c d e]\" calls \"hvcat((2,3),a,b,c,d,e)\".
 
 "),
 
-("数组","Base","permutedims","permutedims(A, perm)
+("Arrays","Base","flipdim","flipdim(A, d)
 
+   Reverse \"A\" in dimension \"d\".
 
-   重新排列数组 \"A\" 的维度。 \"perm\" 为长度为 \"ndims(A)\" 的向量，
-   它指明如何排列。 此函数是多维数组的广义转置。转置等价于
-   \"permute(A,[2,1])\" 。
-
 "),
-
-("数组","Base","ipermutedims","ipermutedims(A, perm)
 
+("Arrays","Base","flipud","flipud(A)
 
-   类似 \"permutedims()\" ，但它使用指定排列的逆排列。
+   Equivalent to \"flipdim(A,1)\".
 
 "),
 
-("数组","Base","squeeze","squeeze(A, dims)
+("Arrays","Base","fliplr","fliplr(A)
 
+   Equivalent to \"flipdim(A,2)\".
 
-   移除 \"A\" 中 \"dims\" 指定的维度。此维度大小应为 1 。
-
 "),
-
-("数组","Base","vec","vec(Array) -> Vector
 
+("Arrays","Base","circshift","circshift(A, shifts)
 
-   以列序为主序将数组向量化。
+   Circularly shift the data in an array. The second argument is a
+   vector giving the amount to shift in each dimension.
 
 "),
 
-("数组","Base","cumprod","cumprod(A[, dim])
+("Arrays","Base","find","find(A)
 
+   Return a vector of the linear indexes of the non-zeros in \"A\".
 
-   沿某个维度的累积乘法。
-
 "),
-
-("数组","Base","cumsum","cumsum(A[, dim])
 
+("Arrays","Base","find","find(f, A)
 
-   沿某个维度的累积加法。
+   Return a vector of the linear indexes of  \"A\" where \"f\" returns
+   true.
 
 "),
 
-("数组","Base","cumsum_kbn","cumsum_kbn(A[, dim])
+("Arrays","Base","findn","findn(A)
 
+   Return a vector of indexes for each dimension giving the locations
+   of the non-zeros in \"A\".
 
-   沿某个维度的累积加法。使用 Kahan-Babuska-Neumaier 的加法补偿算法来
-   提高精度。
-
 "),
-
-("数组","Base","cummin","cummin(A[, dim])
 
+("Arrays","Base","findnz","findnz(A)
 
-   沿某个维度的累积最小值。
+   Return a tuple \"(I, J, V)\" where \"I\" and \"J\" are the row and
+   column indexes of the non-zero values in matrix \"A\", and \"V\" is
+   a vector of the non-zero values.
 
 "),
 
-("数组","Base","cummax","cummax(A[, dim])
+("Arrays","Base","nonzeros","nonzeros(A)
 
+   Return a vector of the non-zero values in array \"A\".
 
-   沿某个维度的累积最大值。
-
 "),
+
+("Arrays","Base","findfirst","findfirst(A)
 
-("数组","Base","diff","diff(A[, dim])
+   Return the index of the first non-zero value in \"A\".
+
+"),
 
+("Arrays","Base","findfirst","findfirst(A, v)
 
-   沿某个维度的差值（第 2 个减去第 1 个，... ，第 n 个减去第 n-1 个）
-   。
+   Return the index of the first element equal to \"v\" in \"A\".
 
 "),
 
-("数组","Base","rot180","rot180(A)
+("Arrays","Base","findfirst","findfirst(predicate, A)
 
+   Return the index of the first element that satisfies the given
+   predicate in \"A\".
 
-   将矩阵 \"A\" 旋转 180 度。
+"),
+
+("Arrays","Base","findnext","findnext(A, i)
 
+   Find the next index >= \"i\" of a non-zero element of \"A\", or
+   \"0\" if not found.
+
 "),
+
+("Arrays","Base","findnext","findnext(predicate, A, i)
 
-("数组","Base","rotl90","rotl90(A)
+   Find the next index >= \"i\" of an element of \"A\" satisfying the
+   given predicate, or \"0\" if not found.
 
+"),
+
+("Arrays","Base","findnext","findnext(A, v, i)
 
-   将矩阵 \"A\" 向左旋转 90 度。
+   Find the next index >= \"i\" of an element of \"A\" equal to \"v\"
+   (using \"==\"), or \"0\" if not found.
 
 "),
+
+("Arrays","Base","permutedims","permutedims(A, perm)
+
+   Permute the dimensions of array \"A\". \"perm\" is a vector
+   specifying a permutation of length \"ndims(A)\". This is a
+   generalization of transpose for multi-dimensional arrays. Transpose
+   is equivalent to \"permute(A,[2,1])\".
 
-("数组","Base","rotr90","rotr90(A)
+"),
 
+("Arrays","Base","ipermutedims","ipermutedims(A, perm)
 
-   将矩阵 \"A\" 向右旋转 90 度。
+   Like \"permutedims()\", except the inverse of the given permutation
+   is applied.
 
 "),
+
+("Arrays","Base","squeeze","squeeze(A, dims)
 
-("数组","Base","reducedim","reducedim(f, A, dims, initial)
+   Remove the dimensions specified by \"dims\" from array \"A\"
+
+"),
 
+("Arrays","Base","vec","vec(Array) -> Vector
 
-   沿 \"A\" 的某个维度使用 \"f\" 函数进行约简。 \"dims\" 指明了约简的
-   维度， \"initial\" 为约简的初始值。
+   Vectorize an array using column-major convention.
 
 "),
 
-("数组","Base","mapslices","mapslices(f, A, dims)
+("Arrays","Base","promote_shape","promote_shape(s1, s2)
 
+   Check two array shapes for compatibility, allowing trailing
+   singleton dimensions, and return whichever shape has more
+   dimensions.
 
-   在 \"A\" 的指定维度上应用函数 \"f\" 。 \"A\" 的每个切片
-   \"A[...,:,...,:,...]\" 上都调用函数 \"f\" 。 整数向量 \"dims\" 指明
-   了维度信息。结果将沿着未指明的维度进行连接。 例如，如果 \"dims\" 为
-   \"[1,2]\" ， \"A\" 是四维数组， 此函数将对每个 \"i\" 和 \"`j` 调用
-   ``f\" 处理 \"A[:,:,i,j]\" 。
+"),
+
+("Arrays","Base","checkbounds","checkbounds(array, indexes...)
 
+   Throw an error if the specified indexes are not in bounds for the
+   given array.
+
 "),
+
+("Arrays","Base","cumprod","cumprod(A[, dim])
 
-("数组","Base","sum_kbn","sum_kbn(A)
+   Cumulative product along a dimension.
 
+"),
+
+("Arrays","Base","cumsum","cumsum(A[, dim])
 
-   返回数组中所有元素的总和。 使用 Kahan-Babuska-Neumaier 的加法补偿算
-   法来提高精度。
+   Cumulative sum along a dimension.
 
 "),
+
+("Arrays","Base","cumsum_kbn","cumsum_kbn(A[, dim])
+
+   Cumulative sum along a dimension, using the Kahan-Babuska-Neumaier
+   compensated summation algorithm for additional accuracy.
 
-("排列组合","Base","nthperm","nthperm(v, k)
+"),
 
+("Arrays","Base","cummin","cummin(A[, dim])
 
-   按字典顺序返回向量的第 k 种排列。
+   Cumulative minimum along a dimension.
 
 "),
+
+("Arrays","Base","cummax","cummax(A[, dim])
 
-("排列组合","Base","nthperm!","nthperm!(v, k)
+   Cumulative maximum along a dimension.
+
+"),
 
+("Arrays","Base","diff","diff(A[, dim])
 
-   \"nthperm()\" 的原地版本。
+   Finite difference operator of matrix or vector.
 
 "),
 
-("排列组合","Base","randperm","randperm(n)
+("Arrays","Base","gradient","gradient(F[, h])
 
+   Compute differences along vector \"F\", using \"h\" as the spacing
+   between points. The default spacing is one.
 
-   构造指定长度的随机排列。
+"),
+
+("Arrays","Base","rot180","rot180(A)
 
+   Rotate matrix \"A\" 180 degrees.
+
 "),
+
+("Arrays","Base","rotl90","rotl90(A)
 
-("排列组合","Base","invperm","invperm(v)
+   Rotate matrix \"A\" left 90 degrees.
 
+"),
+
+("Arrays","Base","rotr90","rotr90(A)
 
-   返回 v 的逆排列。
+   Rotate matrix \"A\" right 90 degrees.
 
 "),
 
-("排列组合","Base","isperm","isperm(v) -> Bool
+("Arrays","Base","reducedim","reducedim(f, A, dims, initial)
 
+   Reduce 2-argument function \"f\" along dimensions of \"A\".
+   \"dims\" is a vector specifying the dimensions to reduce, and
+   \"initial\" is the initial value to use in the reductions.
 
-   如果 v 是有效排列，则返回 \"true\" 。
+   The associativity of the reduction is implementation-dependent; if
+   you need a particular associativity, e.g. left-to-right, you should
+   write your own loop.
 
 "),
 
-("排列组合","Base","permute!","permute!(v, p)
+("Arrays","Base","mapslices","mapslices(f, A, dims)
 
+   Transform the given dimensions of array \"A\" using function \"f\".
+   \"f\" is called on each slice of \"A\" of the form
+   \"A[...,:,...,:,...]\". \"dims\" is an integer vector specifying
+   where the colons go in this expression. The results are
+   concatenated along the remaining dimensions. For example, if
+   \"dims\" is \"[1,2]\" and A is 4-dimensional, \"f\" is called on
+   \"A[:,:,i,j]\" for all \"i\" and \"j\".
+
+"),
 
-   根据排列 \"p\" 对向量 \"v\" 进行原地排列。此函数不验证 \"p\" 是否为
-   排列。
+("Arrays","Base","sum_kbn","sum_kbn(A)
 
-   使用 \"v[p]\" 返回新排列。对于大向量，它通常比 \"permute!(v,p)\" 快
-   。
+   Returns the sum of all array elements, using the Kahan-Babuska-
+   Neumaier compensated summation algorithm for additional accuracy.
 
 "),
 
-("排列组合","Base","ipermute!","ipermute!(v, p)
+("Arrays","Base","cartesianmap","cartesianmap(f, dims)
 
+   Given a \"dims\" tuple of integers \"(m, n, ...)\", call \"f\" on
+   all combinations of integers in the ranges \"1:m\", \"1:n\", etc.
+   Example:
 
-   类似 permute! ，但它使用指定排列的逆排列。
+   julia> cartesianmap(println, (2,2)) 11 21 12 22
 
 "),
 
-("排列组合","Base","randcycle","randcycle(n)
+("Arrays","Base","bitpack","bitpack(A::AbstractArray{T, N}) -> BitArray
 
+   Converts a numeric array to a packed boolean array
 
-   构造指定长度的随机循环排列。
+"),
+
+("Arrays","Base","bitunpack","bitunpack(B::BitArray{N}) -> Array{Bool,N}
 
+   Converts a packed boolean array to an array of booleans
+
 "),
+
+("Arrays","Base","flipbits!","flipbits!(B::BitArray{N}) -> BitArray{N}
 
-("排列组合","Base","shuffle","shuffle(v)
+   Performs a bitwise not operation on B. See *~ operator*.
 
+"),
+
+("Arrays","Base","rol","rol(B::BitArray{1}, i::Integer) -> BitArray{1}
 
-   随机重新排列向量中的元素。
+   Left rotation operator.
 
 "),
+
+("Arrays","Base","ror","ror(B::BitArray{1}, i::Integer) -> BitArray{1}
+
+   Right rotation operator.
 
-("排列组合","Base","shuffle!","shuffle!(v)
+"),
 
+("Combinatorics","Base","nthperm","nthperm(v, k)
 
-   \"shuffle()\" 的原地版本。
+   Compute the kth lexicographic permutation of a vector.
 
 "),
+
+("Combinatorics","Base","nthperm!","nthperm!(v, k)
 
-("排列组合","Base","reverse","reverse(v)
+   In-place version of \"nthperm()\".
+
+"),
 
+("Combinatorics","Base","randperm","randperm(n)
 
-   逆序排列向量 \"v\" 。
+   Construct a random permutation of the given length.
 
 "),
 
-("排列组合","Base","reverse!","reverse!(v) -> v
+("Combinatorics","Base","invperm","invperm(v)
 
+   Return the inverse permutation of v.
 
-   \"reverse()\" 的原地版本。
+"),
+
+("Combinatorics","Base","isperm","isperm(v) -> Bool
 
+   Returns true if v is a valid permutation.
+
 "),
 
-("排列组合","Base","combinations","combinations(array, n)
+("Combinatorics","Base","permute!","permute!(v, p)
 
+   Permute vector \"v\" in-place, according to permutation \"p\".  No
+   checking is done to verify that \"p\" is a permutation.
 
-   从指定数组生成 \"n\" 个元素的所有组合。 由于组合的个数很多，这个函
-   数应在 Task 内部使用。 写成 \"c = @task combinations(a,n)\" 的形式
-   ， 然后迭代 \"c\" 或对其调用 \"consume\" 。
+   To return a new permutation, use \"v[p]\".  Note that this is
+   generally faster than \"permute!(v,p)\" for large vectors.
 
 "),
+
+("Combinatorics","Base","ipermute!","ipermute!(v, p)
 
-("排列组合","Base","integer_partitions","integer_partitions(n, m)
+   Like permute!, but the inverse of the given permutation is applied.
 
+"),
+
+("Combinatorics","Base","randcycle","randcycle(n)
 
-   生成由 \"m\" 个整数加起来等于 \"n\" 的所有数组。 由于组合的个数很多
-   ，这个函数应在 Task 内部使用。 写成 \"c = @task
-   integer_partitions(n,m)\" 的形式， 然后迭代 \"c\" 或对其调用
-   \"consume\" 。
+   Construct a random cyclic permutation of the given length.
 
 "),
+
+("Combinatorics","Base","shuffle","shuffle(v)
+
+   Return a randomly permuted copy of \"v\".
 
-("排列组合","Base","partitions","partitions(array)
+"),
 
+("Combinatorics","Base","shuffle!","shuffle!(v)
 
-   生成数组中元素所有可能的组合，表示为数组的数组。 由于组合的个数很多
-   ，这个函数应在 Task 内部使用。 写成 \"c = @task partitions(a)\" 的
-   形式， 然后迭代 \"c\" 或对其调用 \"consume\" 。
+   In-place version of \"shuffle()\".
 
 "),
+
+("Combinatorics","Base","reverse","reverse(v[, start=1[, stop=length(v)]])
 
-("统计","Base","mean","mean(v[, region])
+   Return a copy of \"v\" reversed from start to stop.
+
+"),
 
+("Combinatorics","Base","reverse!","reverse!(v[, start=1[, stop=length(v)]]) -> v
 
-   计算整个数组 \"v\" 的均值，或按 \"region\" 中列出的维度计算（可选）
-   。
+   In-place version of \"reverse()\".
 
 "),
 
-("统计","Base","std","std(v[, region])
+("Combinatorics","Base","combinations","combinations(itr, n)
 
+   Generate all combinations of \"n\" elements from a given iterable
+   object.  Because the number of combinations can be very large, this
+   function returns an iterator object. Use
+   \"collect(combinations(a,n))\" to get an array of all combinations.
 
-   计算向量或数组 \"v\" 的样本标准差，可选择按 \"region\" 中列出的维度
-   计算。 算法在 \"v\" 中的每个元素都是从某个生成分布中独立同分布地取
-   得的假设下， 返回一个此生成分布标准差的估计。 它等价于
-   \"sqrt(sum((v - mean(v)).^2) / (length(v) - 1))\" 。
+"),
+
+("Combinatorics","Base","permutations","permutations(itr)
 
+   Generate all permutations of a given iterable object.  Because the
+   number of permutations can be very large, this function returns an
+   iterator object. Use \"collect(permutations(a,n))\" to get an array
+   of all permutations.
+
 "),
+
+("Combinatorics","Base","partitions","partitions(n)
 
-("统计","Base","stdm","stdm(v, m)
+   Generate all integer arrays that sum to \"n\". Because the number
+   of partitions can be very large, this function returns an iterator
+   object. Use \"collect(partitions(n))\" to get an array of all
+   partitions. The number of partitions to generete can be efficiently
+   computed using \"length(partitions(n))\".
 
+"),
+
+("Combinatorics","Base","partitions","partitions(n, m)
 
-   计算已知均值为 \"m\" 的向量 \"v\" 的样本标准差。
+   Generate all arrays of \"m\" integers that sum to \"n\". Because
+   the number of partitions can be very large, this function returns
+   an iterator object. Use \"collect(partitions(n,m))\" to get an
+   array of all partitions. The number of partitions to generete can
+   be efficiently computed using \"length(partitions(n,m))\".
 
 "),
+
+("Combinatorics","Base","partitions","partitions(array)
+
+   Generate all set partitions of the elements of an array,
+   represented as arrays of arrays. Because the number of partitions
+   can be very large, this function returns an iterator object. Use
+   \"collect(partitions(array))\" to get an array of all partitions.
+   The number of partitions to generete can be efficiently computed
+   using \"length(partitions(array))\".
 
-("统计","Base","var","var(v[, region])
+"),
 
+("Statistics","Base","mean","mean(v[, region])
 
-   计算向量或数组 \"v\" 的样本方差，可选择按 \"region\" 中列出的维度计
-   算。 算法在 \"v\" 中的每个元素都是从某个生成分布中独立同分布地取得
-   的假设下， 返回一个此生成分布方差的估计。 它等价于 \"sum((v -
-   mean(v)).^2) / (length(v) - 1)\" 。
+   Compute the mean of whole array \"v\", or optionally along the
+   dimensions in \"region\".
 
 "),
+
+("Statistics","Base","std","std(v[, region])
 
-("统计","Base","varm","varm(v, m)
+   Compute the sample standard deviation of a vector or array \"v\",
+   optionally along dimensions in \"region\". The algorithm returns an
+   estimator of the generative distribution's standard deviation under
+   the assumption that each entry of \"v\" is an IID draw from that
+   generative distribution. This computation is equivalent to
+   calculating \"sqrt(sum((v - mean(v)).^2) / (length(v) - 1))\".
+
+"),
 
+("Statistics","Base","stdm","stdm(v, m)
 
-   计算已知均值为 \"m\" 的向量 \"v\" 的样本方差。
+   Compute the sample standard deviation of a vector \"v\" with known
+   mean \"m\".
 
 "),
 
-("统计","Base","median","median(v)
+("Statistics","Base","var","var(v[, region])
 
+   Compute the sample variance of a vector or array \"v\", optionally
+   along dimensions in \"region\". The algorithm will return an
+   estimator of the generative distribution's variance under the
+   assumption that each entry of \"v\" is an IID draw from that
+   generative distribution. This computation is equivalent to
+   calculating \"sum((v - mean(v)).^2) / (length(v) - 1)\".
 
-   计算向量 \"v\" 的中位数。
+"),
+
+("Statistics","Base","varm","varm(v, m)
 
+   Compute the sample variance of a vector \"v\" with known mean
+   \"m\".
+
 "),
+
+("Statistics","Base","median","median(v; checknan::Bool=true)
 
-("统计","Base","hist","hist(v[, n]) -> e, counts
+   Compute the median of a vector \"v\". If keyword argument
+   \"checknan\" is true (the default), an error is raised for data
+   containing NaN values.
 
+"),
+
+("Statistics","Base","median!","median!(v; checknan::Bool=true)
 
-   计算 \"v\" 的直方图，可以指定划大致分为 \"n\" 个区间。 返回值为范围
-   \"e\" ，对应于区间的边缘， \"counts\" 为每个区间中 \"v\" 的元素个数
-   。
+   Like \"median\", but may overwrite the input vector.
 
 "),
+
+("Statistics","Base","hist","hist(v[, n]) -> e, counts
+
+   Compute the histogram of \"v\", optionally using approximately
+   \"n\" bins. The return values are a range \"e\", which correspond
+   to the edges of the bins, and \"counts\" containing the number of
+   elements of \"v\" in each bin.
 
-("统计","Base","hist","hist(v, e) -> e, counts
+"),
 
+("Statistics","Base","hist","hist(v, e) -> e, counts
 
-   结果为长为 \"length(e)-1\" 的向量，且第 \"i\" 个元素满足 \"sum(e[i]
-   .< v .<= e[i+1])\"
+   Compute the histogram of \"v\" using a vector/range \"e\" as the
+   edges for the bins. The result will be a vector of length
+   \"length(e) - 1\", such that the element at location \"i\"
+   satisfies \"sum(e[i] .< v .<= e[i+1])\".
 
 "),
+
+("Statistics","Base","hist2d","hist2d(M, e1, e2) -> (edge1, edge2, counts)
 
-("统计","Base","histrange","histrange(v, n)
+   Compute a \"2d histogram\" of a set of N points specified by N-by-2
+   matrix \"M\". Arguments \"e1\" and \"e2\" are bins for each
+   dimension, specified either as integer bin counts or vectors of bin
+   edges. The result is a tuple of \"edge1\" (the bin edges used in
+   the first dimension), \"edge2\" (the bin edges used in the second
+   dimension), and \"counts\", a histogram matrix of size
+   \"(length(edge1)-1, length(edge2)-1)\".
+
+"),
 
+("Statistics","Base","histrange","histrange(v, n)
 
    Compute *nice* bin ranges for the edges of a histogram of \"v\",
    using approximately \"n\" bins. The resulting step sizes will be 1,
@@ -4183,2229 +5523,3727 @@ dims...])
 
 "),
 
-("统计","Base","midpoints","midpoints(e)
-
+("Statistics","Base","midpoints","midpoints(e)
 
    Compute the midpoints of the bins with edges \"e\". The result is a
-      vector/range of length \"length(e) - 1\".
+   vector/range of length \"length(e) - 1\".
 
 "),
 
-("统计","Base","quantile","quantile(v, p)
+("Statistics","Base","quantile","quantile(v, p)
 
-
-   计算向量 \"v\" 在指定概率值集合 \"p\" 处的分位数。
-
-"),
-
-("统计","Base","quantile","quantile(v)
-
-
-   计算向量 \"v\" 在概率值 \"[.0, .2, .4, .6, .8, 1.0]\" 处的分位数。
+   Compute the quantiles of a vector \"v\" at a specified set of
+   probability values \"p\".
 
 "),
 
-("统计","Base","cov","cov(v1[, v2])
+("Statistics","Base","quantile","quantile(v)
 
-
-   计算两个向量 \"v1\" 和 \"v2\" 的协方差。 如果调用时只有 \"v\" 这一
-   个参数，它计算 \"v\" 中列的协方差。
-
-"),
-
-("统计","Base","cor","cor(v1[, v2])
-
-
-   计算两个向量 \"v1\" 和 \"v2\" 的 Pearson 相关系数。 如果调用时只有
-   \"v\" 这一个参数，它计算 \"v\" 中列的相关系数。
+   Compute the quantiles of a vector \"v\" at the probability values
+   \"[.0, .2, .4, .6, .8, 1.0]\".
 
 "),
 
-("信号处理","Base","fft","fft(A[, dims])
+("Statistics","Base","quantile!","quantile!(v[, p])
 
-
-   对数组 \"A\" 做多维 FFT 。可选参数 \"dims\" 指明了关于维度的可迭代
-   集合（如整数、 范围、多元组、数组）。如果 \"A\" 要运算的维度上的长
-   度是较小的质数的积， 算法会比较高效；详见 \"nextprod()\" 。另见高效
-   的 \"plan_fft()\" 。
-
-   一维 FFT 计算一维离散傅里叶变换（DFT），其定义为
-   \\operatorname{DFT}[k] = \\sum_{n=1}^{\\operatorname{length}(A)}
-   \\exp\\left(-i\\frac{2\\pi (n-1)(k-1)}{\\operatorname{length}(A)}
-   \\right) A[n] 。 多维 FFT 对 \"A\" 的多个维度做此运算。
+   Like \"quantile\", but overwrites the input vector.
 
 "),
 
-("信号处理","Base","fft!","fft!(A[, dims])
+("Statistics","Base","cov","cov(v1[, v2])
 
-
-   与 \"fft()\" 类似，但在原地对 \"A\" 运算， \"A\" 必须是复数浮点数数
-   组。
+   Compute the Pearson covariance between two vectors \"v1\" and
+   \"v2\". If called with a single element \"v\", then computes
+   covariance of columns of \"v\".
 
 "),
 
-("信号处理","Base","ifft","ifft(A[, dims])
+("Statistics","Base","cor","cor(v1[, v2])
 
+   Compute the Pearson correlation between two vectors \"v1\" and
+   \"v2\". If called with a single element \"v\", then computes
+   correlation of columns of \"v\".
 
-   多维 IFFT 。
+"),
 
-   一维反向 FFT 计算 \\operatorname{BDFT}[k] =
+("Signal Processing","Base","fft","fft(A[, dims])
+
+   Performs a multidimensional FFT of the array \"A\".  The optional
+   \"dims\" argument specifies an iterable subset of dimensions (e.g.
+   an integer, range, tuple, or array) to transform along.  Most
+   efficient if the size of \"A\" along the transformed dimensions is
+   a product of small primes; see \"nextprod()\".  See also
+   \"plan_fft()\" for even greater efficiency.
+
+   A one-dimensional FFT computes the one-dimensional discrete Fourier
+   transform (DFT) as defined by \\operatorname{DFT}[k] =
+   \\sum_{n=1}^{\\operatorname{length}(A)} \\exp\\left(-i\\frac{2\\pi
+   (n-1)(k-1)}{\\operatorname{length}(A)} \\right) A[n].  A
+   multidimensional FFT simply performs this operation along each
+   transformed dimension of \"A\".
+
+"),
+
+("Signal Processing","Base","fft!","fft!(A[, dims])
+
+   Same as \"fft()\", but operates in-place on \"A\", which must be an
+   array of complex floating-point numbers.
+
+"),
+
+("Signal Processing","Base","ifft","ifft(A[, dims])
+
+   Multidimensional inverse FFT.
+
+   A one-dimensional backward FFT computes \\operatorname{BDFT}[k] =
    \\sum_{n=1}^{\\operatorname{length}(A)} \\exp\\left(+i\\frac{2\\pi
-   (n-1)(k-1)}{\\operatorname{length}(A)} \\right) A[n] 。 多维反向
-   FFT 对 \"A\" 的多个维度做此运算。IFFT 将其结果除以所运算的维度大小
-   的积。
+   (n-1)(k-1)}{\\operatorname{length}(A)} \\right) A[n].  A
+   multidimensional backward FFT simply performs this operation along
+   each transformed dimension of \"A\".  The inverse FFT computes the
+   same thing divided by the product of the transformed dimensions.
 
 "),
 
-("信号处理","Base","ifft!","ifft!(A[, dims])
+("Signal Processing","Base","ifft!","ifft!(A[, dims])
 
+   Same as \"ifft()\", but operates in-place on \"A\".
 
-   与 \"ifft()\" 类似，但在原地对 \"A\" 进行运算。
-
 "),
+
+("Signal Processing","Base","bfft","bfft(A[, dims])
+
+   Similar to \"ifft()\", but computes an unnormalized inverse
+   (backward) transform, which must be divided by the product of the
+   sizes of the transformed dimensions in order to obtain the inverse.
+   (This is slightly more efficient than \"ifft()\" because it omits a
+   scaling step, which in some applications can be combined with other
+   computational steps elsewhere.)
 
-("信号处理","Base","bfft","bfft(A[, dims])
+"),
 
+("Signal Processing","Base","bfft!","bfft!(A[, dims])
 
-   类似 \"ifft()\" ，但计算非归一化的（即反向）变换。 它的结果需要除以
-   所运算的维度大小的积，才是 IFFT 的结果。 （它比 \"ifft()\" 稍微高效
-   一点儿，因为它省略了归一化的步骤； 有时归一化的步骤可以与其它地方的
-   其它计算合并在一起做。）
+   Same as \"bfft()\", but operates in-place on \"A\".
 
 "),
 
-("信号处理","Base","bfft!","bfft!(A[, dims])
+("Signal Processing","Base","plan_fft","plan_fft(A[, dims[, flags[, timelimit]]])
 
+   Pre-plan an optimized FFT along given dimensions (\"dims\") of
+   arrays matching the shape and type of \"A\".  (The first two
+   arguments have the same meaning as for \"fft()\".)  Returns a
+   function \"plan(A)\" that computes \"fft(A, dims)\" quickly.
 
-   与 \"bfft()\" 类似，但在原地对 \"A\" 进行运算。
+   The \"flags\" argument is a bitwise-or of FFTW planner flags,
+   defaulting to \"FFTW.ESTIMATE\".  e.g. passing \"FFTW.MEASURE\" or
+   \"FFTW.PATIENT\" will instead spend several seconds (or more)
+   benchmarking different possible FFT algorithms and picking the
+   fastest one; see the FFTW manual for more information on planner
+   flags.  The optional \"timelimit\" argument specifies a rough upper
+   bound on the allowed planning time, in seconds. Passing
+   \"FFTW.MEASURE\" or \"FFTW.PATIENT\" may cause the input array
+   \"A\" to be overwritten with zeros during plan creation.
 
+   \"plan_fft!()\" is the same as \"plan_fft()\" but creates a plan
+   that operates in-place on its argument (which must be an array of
+   complex floating-point numbers).  \"plan_ifft()\" and so on are
+   similar but produce plans that perform the equivalent of the
+   inverse transforms \"ifft()\" and so on.
+
 "),
 
-("信号处理","Base","plan_fft","plan_fft(A[, dims[, flags[,
-timelimit]]])
+("Signal Processing","Base","plan_ifft","plan_ifft(A[, dims[, flags[, timelimit]]])
 
+   Same as \"plan_fft()\", but produces a plan that performs inverse
+   transforms \"ifft()\".
 
-   在数组 \"A\" 的指定维度上（ \"dims\" ）制定优化 FFT 的方案。 （前两
-   个参数的意义参见 \"fft()\" 。） 返回可快速计算 \"fft(A, dims)\" 的
-   函数。
+"),
 
-   \"flags\" 参数时按位或的 FFTW 方案标志位，默认为 \"FFTW.ESTIMATE\"
-   。 如果使用 \"FFTW.MEASURE\" 或 \"FFTW.PATIENT\" 会先花几秒钟（或更
-   久） 来对不同的 FFT 算法进行分析，选取最快的。有关方案标志位，详见
-   FFTW 手册。 可选参数 \"timelimit\" 指明制定方案时间的粗略上界，单位
-   为秒。 如果使用 \"FFTW.MEASURE\" 或 \"FFTW.PATIENT\" 会在制定方案时
-   覆写输入数组 \"A\" 。
+("Signal Processing","Base","plan_bfft","plan_bfft(A[, dims[, flags[, timelimit]]])
 
-   \"plan_fft!()\" 与 \"plan_fft()\" 类似，但它在参数的原地制定方案 （
-   参数应为复浮点数数组）。 \"plan_ifft()\" 等类似， 但它们指定逆变换
-   \"ifft()\"  等的方案。
+   Same as \"plan_fft()\", but produces a plan that performs an
+   unnormalized backwards transform \"bfft()\".
 
 "),
 
-("信号处理","Base","plan_ifft","plan_ifft(A[, dims[, flags[,
-timelimit]]])
+("Signal Processing","Base","plan_fft!","plan_fft!(A[, dims[, flags[, timelimit]]])
 
+   Same as \"plan_fft()\", but operates in-place on \"A\".
 
-   与 \"plan_fft()\" 类似，但产生逆变换 \"ifft()\" 的方案。
-
 "),
+
+("Signal Processing","Base","plan_ifft!","plan_ifft!(A[, dims[, flags[, timelimit]]])
+
+   Same as \"plan_ifft()\", but operates in-place on \"A\".
 
-("信号处理","Base","plan_bfft","plan_bfft(A[, dims[, flags[,
-timelimit]]])
+"),
 
+("Signal Processing","Base","plan_bfft!","plan_bfft!(A[, dims[, flags[, timelimit]]])
 
-   与 \"plan_fft()\" 类似，但产生反向变换 \"bfft()\" 的方案。
+   Same as \"plan_bfft()\", but operates in-place on \"A\".
 
 "),
 
-("信号处理","Base","plan_fft!","plan_fft!(A[, dims[, flags[,
-timelimit]]])
+("Signal Processing","Base","rfft","rfft(A[, dims])
 
+   Multidimensional FFT of a real array A, exploiting the fact that
+   the transform has conjugate symmetry in order to save roughly half
+   the computational time and storage costs compared with \"fft()\".
+   If \"A\" has size \"(n_1, ..., n_d)\", the result has size
+   \"(floor(n_1/2)+1, ..., n_d)\".
 
-   与 \"plan_fft()\" 类似，但在原地对 \"A\" 进行运算。
+   The optional \"dims\" argument specifies an iterable subset of one
+   or more dimensions of \"A\" to transform, similar to \"fft()\".
+   Instead of (roughly) halving the first dimension of \"A\" in the
+   result, the \"dims[1]\" dimension is (roughly) halved in the same
+   way.
 
 "),
 
-("信号处理","Base","plan_ifft!","plan_ifft!(A[, dims[, flags[,
-timelimit]]])
+("Signal Processing","Base","irfft","irfft(A, d[, dims])
 
+   Inverse of \"rfft()\": for a complex array \"A\", gives the
+   corresponding real array whose FFT yields \"A\" in the first half.
+   As for \"rfft()\", \"dims\" is an optional subset of dimensions to
+   transform, defaulting to \"1:ndims(A)\".
 
-   与 \"plan_ifft()\" 类似，但在原地对 \"A\" 进行运算。
+   \"d\" is the length of the transformed real array along the
+   \"dims[1]\" dimension, which must satisfy \"d ==
+   floor(size(A,dims[1])/2)+1\". (This parameter cannot be inferred
+   from \"size(A)\" due to the possibility of rounding by the
+   \"floor\" function here.)
 
 "),
 
-("信号处理","Base","plan_bfft!","plan_bfft!(A[, dims[, flags[,
-timelimit]]])
+("Signal Processing","Base","brfft","brfft(A, d[, dims])
 
+   Similar to \"irfft()\" but computes an unnormalized inverse
+   transform (similar to \"bfft()\"), which must be divided by the
+   product of the sizes of the transformed dimensions (of the real
+   output array) in order to obtain the inverse transform.
 
-   与 \"plan_bfft()\" 类似，但在原地对 \"A\" 进行运算。
-
 "),
+
+("Signal Processing","Base","plan_rfft","plan_rfft(A[, dims[, flags[, timelimit]]])
 
-("信号处理","Base","rfft","rfft(A[, dims])
+   Pre-plan an optimized real-input FFT, similar to \"plan_fft()\"
+   except for \"rfft()\" instead of \"fft()\".  The first two
+   arguments, and the size of the transformed result, are the same as
+   for \"rfft()\".
 
+"),
 
-   对实数数组 \"A\" 做多维 FFT 。由于转换具有共轭对称性，相比
-   \"fft()\" ， 可节约将近一半的计算时间和存储空间。 如果 \"A\" 的大小
-   为 \"(n_1, ..., n_d)\" ， 结果的大小为 \"(floor(n_1/2)+1, ...,
-   n_d)\" 。
+("Signal Processing","Base","plan_brfft","plan_brfft(A, d[, dims[, flags[, timelimit]]])
 
-   与 \"fft()\" 类似，可选参数 \"dims\" 指明了关于维度的可迭代集合（如
-   整数、范围、 多元组、数组）。但结果中 \"dims[1]\" 维度大约只有一半
-   。
+   Pre-plan an optimized real-input unnormalized transform, similar to
+   \"plan_rfft()\" except for \"brfft()\" instead of \"rfft()\". The
+   first two arguments and the size of the transformed result, are the
+   same as for \"brfft()\".
 
 "),
 
-("信号处理","Base","irfft","irfft(A, d[, dims])
+("Signal Processing","Base","plan_irfft","plan_irfft(A, d[, dims[, flags[, timelimit]]])
 
+   Pre-plan an optimized inverse real-input FFT, similar to
+   \"plan_rfft()\" except for \"irfft()\" and \"brfft()\",
+   respectively.  The first three arguments have the same meaning as
+   for \"irfft()\".
+
+"),
 
-   对复数组 \"A\" 做 \"rfft()\": 的逆运算。 它给出 FFT 后可生成 \"A\"
-   的对应的实数数组的前半部分。 与 \"rfft()\" 类似， \"dims\" 是可选项
-   ，默认为 \"1:ndims(A)\" 。
+("Signal Processing","Base","dct","dct(A[, dims])
 
-   \"d\" 是转换后的实数数组在 \"dims[1]\" 维度上的长度， 必须满足 \"d
-   == floor(size(A,dims[1])/2)+1\" 。 （此参数不能从 \"size(A)\" 推导
-   出来，因为使用了 \"floor\" 函数。）
+   Performs a multidimensional type-II discrete cosine transform (DCT)
+   of the array \"A\", using the unitary normalization of the DCT. The
+   optional \"dims\" argument specifies an iterable subset of
+   dimensions (e.g. an integer, range, tuple, or array) to transform
+   along.  Most efficient if the size of \"A\" along the transformed
+   dimensions is a product of small primes; see \"nextprod()\".  See
+   also \"plan_dct()\" for even greater efficiency.
 
 "),
 
-("信号处理","Base","brfft","brfft(A, d[, dims])
+("Signal Processing","Base","dct!","dct!(A[, dims])
+
+   Same as \"dct!()\", except that it operates in-place on \"A\",
+   which must be an array of real or complex floating-point values.
+
+"),
 
+("Signal Processing","Base","idct","idct(A[, dims])
 
-   与 \"irfft()\" 类似，但它计算非归一化逆变换（与 \"bfft()\" 类似）。
-   要得到逆变换，需将结果除以除以（实数输出矩阵）所运算的维度大小的积
-   。
+   Computes the multidimensional inverse discrete cosine transform
+   (DCT) of the array \"A\" (technically, a type-III DCT with the
+   unitary normalization). The optional \"dims\" argument specifies an
+   iterable subset of dimensions (e.g. an integer, range, tuple, or
+   array) to transform along.  Most efficient if the size of \"A\"
+   along the transformed dimensions is a product of small primes; see
+   \"nextprod()\".  See also \"plan_idct()\" for even greater
+   efficiency.
 
 "),
 
-("信号处理","Base","plan_rfft","plan_rfft(A[, dims[, flags[,
-timelimit]]])
+("Signal Processing","Base","idct!","idct!(A[, dims])
 
+   Same as \"idct!()\", but operates in-place on \"A\".
 
-   制定优化实数输入 FFT 的方案。 与 \"plan_fft()\" 类似，但它对应于
-   \"rfft()\" 。 前两个参数及变换后的大小，都与 \"rfft()\" 相同。
+"),
+
+("Signal Processing","Base","plan_dct","plan_dct(A[, dims[, flags[, timelimit]]])
+
+   Pre-plan an optimized discrete cosine transform (DCT), similar to
+   \"plan_fft()\" except producing a function that computes \"dct()\".
+   The first two arguments have the same meaning as for \"dct()\".
 
 "),
 
-("信号处理","Base","plan_irfft","plan_irfft(A, d[, dims[, flags[,
-timelimit]]])
+("Signal Processing","Base","plan_dct!","plan_dct!(A[, dims[, flags[, timelimit]]])
+
+   Same as \"plan_dct()\", but operates in-place on \"A\".
+
+"),
 
+("Signal Processing","Base","plan_idct","plan_idct(A[, dims[, flags[, timelimit]]])
 
-   制定优化实数输入 FFT 的方案。 与 \"plan_rfft()\" 类似，但它对应于
-   \"irfft()\" 。 前三个参数的意义与 \"irfft()\" 相同。
+   Pre-plan an optimized inverse discrete cosine transform (DCT),
+   similar to \"plan_fft()\" except producing a function that computes
+   \"idct()\". The first two arguments have the same meaning as for
+   \"idct()\".
 
 "),
 
-("信号处理","Base","plan_brfft","plan_brfft(A, d[, dims[, flags[,
-timelimit]]])
+("Signal Processing","Base","plan_idct!","plan_idct!(A[, dims[, flags[, timelimit]]])
 
+   Same as \"plan_idct()\", but operates in-place on \"A\".
 
-   制定优化实数输入 FFT 的方案。 与 \"plan_rfft()\" 类似，但它对应于
-   \"brfft()\" 。 前三个参数的意义与 \"brfft()\" 相同。
+"),
+
+("Signal Processing","Base","fftshift","fftshift(x)
+
+   Swap the first and second halves of each dimension of \"x\".
 
 "),
 
-("信号处理","Base","dct","dct(A[, dims])
+("Signal Processing","Base","fftshift","fftshift(x, dim)
+
+   Swap the first and second halves of the given dimension of array
+   \"x\".
+
+"),
 
+("Signal Processing","Base","ifftshift","ifftshift(x[, dim])
 
-   对数组 \"A\" 做第二类离散余弦变换（DCT），使用归一化的 DCT 。 与
-   \"fft()\" 类似，可选参数 \"dims\" 指明了关于维度的可迭代集合 （如整
-   数、范围、多元组、数组）。 如果 \"A\" 要运算的维度上的长度是较小的
-   质数的积，算法会比较高效； 详见 \"nextprod()\" 。另见高效的
-   \"plan_dct()\" 。
+   Undoes the effect of \"fftshift\".
 
 "),
 
-("信号处理","Base","dct!","dct!(A[, dims])
+("Signal Processing","Base","filt","filt(b, a, x)
 
+   Apply filter described by vectors \"a\" and \"b\" to vector \"x\".
 
-   与 \"dct!()\" 类似，但在原地对 \"A\" 进行运算。 \"A\" 必须是实数或
-   复数的浮点数数组。
+"),
+
+("Signal Processing","Base","deconv","deconv(b, a)
+
+   Construct vector \"c\" such that \"b = conv(a,c) + r\". Equivalent
+   to polynomial division.
 
 "),
 
-("信号处理","Base","idct","idct(A[, dims])
+("Signal Processing","Base","conv","conv(u, v)
+
+   Convolution of two vectors. Uses FFT algorithm.
+
+"),
 
+("Signal Processing","Base","conv2","conv2(u, v, A)
 
-   对数组 \"A\" 做多维逆离散余弦变换（IDCT）（即归一化的第三类 DCT）。
-   可选参数 \"dims\" 指明了关于维度的可迭代集合（如整数、范围、 多元组
-   、数组）。如果 \"A\" 要运算的维度上的长度是较小的质数的积， 算法会
-   比较高效；详见 \"nextprod()\" 。另见高效的 \"plan_idct()\" 。
+   2-D convolution of the matrix \"A\" with the 2-D separable kernel
+   generated by the vectors \"u\" and \"v\".  Uses 2-D FFT algorithm
 
 "),
 
-("信号处理","Base","idct!","idct!(A[, dims])
+("Signal Processing","Base","conv2","conv2(B, A)
 
+   2-D convolution of the matrix \"B\" with the matrix \"A\".  Uses
+   2-D FFT algorithm
 
-   与 \"idct!()\" 类似，但在原地对 \"A\" 进行运算。
+"),
+
+("Signal Processing","Base","xcorr","xcorr(u, v)
+
+   Compute the cross-correlation of two vectors.
 
 "),
 
-("信号处理","Base","plan_dct","plan_dct(A[, dims[, flags[,
-timelimit]]])
+("Signal Processing","Base.FFTW","r2r","r2r(A, kind[, dims])
 
+   Performs a multidimensional real-input/real-output (r2r) transform
+   of type \"kind\" of the array \"A\", as defined in the FFTW manual.
+   \"kind\" specifies either a discrete cosine transform of various
+   types (\"FFTW.REDFT00\", \"FFTW.REDFT01\", \"FFTW.REDFT10\", or
+   \"FFTW.REDFT11\"), a discrete sine transform of various types
+   (\"FFTW.RODFT00\", \"FFTW.RODFT01\", \"FFTW.RODFT10\", or
+   \"FFTW.RODFT11\"), a real-input DFT with halfcomplex-format output
+   (\"FFTW.R2HC\" and its inverse \"FFTW.HC2R\"), or a discrete
+   Hartley transform (\"FFTW.DHT\").  The \"kind\" argument may be an
+   array or tuple in order to specify different transform types along
+   the different dimensions of \"A\"; \"kind[end]\" is used for any
+   unspecified dimensions.  See the FFTW manual for precise
+   definitions of these transform types, at http://www.fftw.org/doc.
 
-   制定优化 DCT 的方案。 与 \"plan_fft()\" 类似，但对应于 \"dct()\" 。
-   前两个参数的意义与 \"dct()\" 相同。
+   The optional \"dims\" argument specifies an iterable subset of
+   dimensions (e.g. an integer, range, tuple, or array) to transform
+   along. \"kind[i]\" is then the transform type for \"dims[i]\", with
+   \"kind[end]\" being used for \"i > length(kind)\".
 
-"),
+   See also \"plan_r2r()\" to pre-plan optimized r2r transforms.
 
-("信号处理","Base","plan_dct!","plan_dct!(A[, dims[, flags[,
-timelimit]]])
+"),
 
+("Signal Processing","Base.FFTW","r2r!","r2r!(A, kind[, dims])
 
-   与 \"plan_dct()\" 类似，但在原地对 \"A\" 进行运算。
+   Same as \"r2r()\", but operates in-place on \"A\", which must be an
+   array of real or complex floating-point numbers.
 
 "),
+
+("Signal Processing","Base.FFTW","plan_r2r","plan_r2r(A, kind[, dims[, flags[, timelimit]]])
 
-("信号处理","Base","plan_idct","plan_idct(A[, dims[, flags[,
-timelimit]]])
+   Pre-plan an optimized r2r transform, similar to \"Base.plan_fft()\"
+   except that the transforms (and the first three arguments)
+   correspond to \"r2r()\" and \"r2r!()\", respectively.
 
+"),
 
-   制定优化 IDCT 的方案。 与 \"plan_fft()\" 类似，但对应于 \"idct()\"
-   。 前两个参数的意义与 \"idct()\" 相同。
+("Signal Processing","Base.FFTW","plan_r2r!","plan_r2r!(A, kind[, dims[, flags[, timelimit]]])
 
+   Similar to \"Base.plan_fft()\", but corresponds to \"r2r!()\".
+
 "),
 
-("信号处理","Base","plan_idct!","plan_idct!(A[, dims[, flags[,
-timelimit]]])
+("Numerical Integration","Base","quadgk","quadgk(f, a, b, c...; reltol=sqrt(eps), abstol=0, maxevals=10^7, order=7)
 
+   Numerically integrate the function \"f(x)\" from \"a\" to \"b\",
+   and optionally over additional intervals \"b\" to \"c\" and so on.
+   Keyword options include a relative error tolerance \"reltol\"
+   (defaults to \"sqrt(eps)\" in the precision of the endpoints), an
+   absolute error tolerance \"abstol\" (defaults to 0), a maximum
+   number of function evaluations \"maxevals\" (defaults to \"10^7\"),
+   and the \"order\" of the integration rule (defaults to 7).
 
-   与 \"plan_idct()\" 类似，但在原地对 \"A\" 进行运算。
+   Returns a pair \"(I,E)\" of the estimated integral \"I\" and an
+   estimated upper bound on the absolute error \"E\".  If \"maxevals\"
+   is not exceeded then either \"E <= abstol\" or \"E <=
+   reltol*norm(I)\" will hold.  (Note that it is useful to specify a
+   positive \"abstol\" in cases where \"norm(I)\" may be zero.)
 
-"),
+   The endpoints \"a\" etcetera can also be complex (in which case the
+   integral is performed over straight-line segments in the complex
+   plane).  If the endpoints are \"BigFloat\", then the integration
+   will be performed in \"BigFloat\" precision as well (note: it is
+   advisable to increase the integration \"order\" in rough proportion
+   to the precision, for smooth integrands).  More generally, the
+   precision is set by the precision of the integration endpoints
+   (promoted to floating-point types).
 
-("信号处理","Base","FFTW","FFTW.r2r(A, kind[, dims])
+   The integrand \"f(x)\" can return any numeric scalar, vector, or
+   matrix type, or in fact any type supporting \"+\", \"-\",
+   multiplication by real values, and a \"norm\" (i.e., any normed
+   vector space).
 
+   The algorithm is an adaptive Gauss-Kronrod integration technique:
+   the integral in each interval is estimated using a Kronrod rule
+   (\"2*order+1\" points) and the error is estimated using an embedded
+   Gauss rule (\"order\" points).   The interval with the largest
+   error is then subdivided into two intervals and the process is
+   repeated until the desired error tolerance is achieved.
 
-   对数组 \"A\" 做种类为 \"kind\" 的多维实数输入实数输出（r2r）变换。
-   \"kind\" 指明各类离散余弦变换 （ \"FFTW.REDFT00\",
-   \"FFTW.REDFT01\", \"FFTW.REDFT10\", 或 \"FFTW.REDFT11\" ）、各类离
-   散正弦变换 （ \"FFTW.RODFT00\", \"FFTW.RODFT01\", \"FFTW.RODFT10\",
-   或 \"FFTW.RODFT11\" ）、实数输入半复数输出的 DFT （ \"FFTW.R2HC\"
-   及它的逆 \"FFTW.HC2R\")，或离散 Hartley 变换（ \"FFTW.DHT\" ）。 参
-   数 \"kind\" 可以为数组或多元组， 可用来指明在 \"A\" 的不同维度上做
-   不同种类的变换； 对未指明的维度使用 \"kind[end]\" 。 有关这些变换类
-   型的精确定义，详见 FFTW 手册 。
+   These quadrature rules work best for smooth functions within each
+   interval, so if your function has a known discontinuity or other
+   singularity, it is best to subdivide your interval to put the
+   singularity at an endpoint.  For example, if \"f\" has a
+   discontinuity at \"x=0.7\" and you want to integrate from 0 to 1,
+   you should use \"quadgk(f, 0,0.7,1)\" to subdivide the interval at
+   the point of discontinuity.  The integrand is never evaluated
+   exactly at the endpoints of the intervals, so it is possible to
+   integrate functions that diverge at the endpoints as long as the
+   singularity is integrable (for example, a \"log(x)\" or
+   \"1/sqrt(x)\" singularity).
+
+   For real-valued endpoints, the starting and/or ending points may be
+   infinite.  (A coordinate transformation is performed internally to
+   map the infinite interval to a finite one.)
+
+"),
 
-   可选参数 \"dims\" 指明了关于维度的可迭代集合（如整数、范围、多元组
-   、数组）。 \"kind[i]\" 是对维度 \"dims[i]\" 的变换种类。 当 \"i >
-   length(kind)\" 时使用 \"kind[end]\" 。
+("Parallel Computing","Base","addprocs","addprocs(n) -> List of process identifiers
 
-   另见 \"FFTW.plan_r2r()\" ，它制定优化 r2r 的方案。
+   Add processes on the local machine. Can be used to take advantage
+   of multiple cores.
 
 "),
 
-("信号处理","Base","FFTW","FFTW.r2r!(A, kind[, dims])
+("Parallel Computing","Base","addprocs","addprocs({\"host1\", \"host2\", ...}; tunnel=false, dir=JULIA_HOME, sshflags::Cmd=``, cman::ClusterManager) -> List of process identifiers
 
+   Add processes on remote machines via SSH or a custom cluster
+   manager. Requires julia to be installed in the same location on
+   each node, or to be available via a shared file system.
 
-   \"FFTW.r2r!()\" 与 \"FFTW.r2r()\" 类似，但在原地对 \"A\" 进行运算。
-   \"A\" 必须是实数或复数的浮点数数组。
+   Keyword arguments:
 
-"),
+   \"tunnel\" : if \"true\" then SSH tunneling will be used to connect
+   to the worker.
+
+   \"dir\" :  specifies the location of the julia binaries on the
+   worker nodes.
+
+   \"sshflags\" : specifies additional ssh options, e.g.
+   \"sshflags=`-i /home/foo/bar.pem`\" .
+
+   \"cman\" : Workers are started using the specified cluster manager.
+
+   For example Beowulf clusters are  supported via a custom cluster
+   manager implemented in  package \"ClusterManagers\".
+
+   See the documentation for package \"ClusterManagers\" for more
+   information on how to write a custom cluster manager.
 
-("信号处理","Base","FFTW","FFTW.plan_r2r(A, kind[, dims[, flags[,
-timelimit]]])
+"),
 
+("Parallel Computing","Base","nprocs","nprocs()
 
-   制定优化 r2r 的方案。与 \"plan_fft()\" 类似，但它对应于
-   \"FFTW.r2r()\" 。
+   Get the number of available processors.
 
 "),
+
+("Parallel Computing","Base","nworkers","nworkers()
+
+   Get the number of available worker processors. This is one less
+   than nprocs(). Equal to nprocs() if nprocs() == 1.
 
-("信号处理","Base","FFTW","FFTW.plan_r2r!(A, kind[, dims[, flags[,
-timelimit]]])
+"),
 
+("Parallel Computing","Base","procs","procs()
 
-   与 \"plan_fft()\" 类似，但它对应于 \"FFTW.r2r!()\" 。
+   Returns a list of all process identifiers.
 
 "),
+
+("Parallel Computing","Base","workers","workers()
+
+   Returns a list of all worker process identifiers.
 
-("信号处理","Base","fftshift","fftshift(x)
+"),
 
+("Parallel Computing","Base","rmprocs","rmprocs(pids...)
 
-   交换 \"x\" 每个维度的上半部分和下半部分。
+   Removes the specified workers.
 
 "),
+
+("Parallel Computing","Base","interrupt","interrupt([pids...])
+
+   Interrupt the current executing task on the specified workers. This
+   is equivalent to pressing Ctrl-C on the local machine. If no
+   arguments are given, all workers are interrupted.
 
-("信号处理","Base","fftshift","fftshift(x, dim)
+"),
 
+("Parallel Computing","Base","myid","myid()
 
-   交换 \"x\" 指定维度的上半部分和下半部分。
+   Get the id of the current processor.
 
 "),
+
+("Parallel Computing","Base","pmap","pmap(f, lsts...; err_retry=true, err_stop=false)
+
+   Transform collections \"lsts\" by applying \"f\" to each element in
+   parallel. If \"nprocs() > 1\", the calling process will be
+   dedicated to assigning tasks. All other available processes will be
+   used as parallel workers.
 
-("信号处理","Base","ifftshift","ifftshift(x[, dim])
+   If \"err_retry\" is true, it retries a failed application of \"f\"
+   on a different worker. If \"err_stop\" is true, it takes precedence
+   over the value of \"err_retry\" and \"pmap\" stops execution on the
+   first error.
 
+"),
 
-   \"fftshift\" 的逆运算。
+("Parallel Computing","Base","remotecall","remotecall(id, func, args...)
 
+   Call a function asynchronously on the given arguments on the
+   specified processor. Returns a \"RemoteRef\".
+
 "),
+
+("Parallel Computing","Base","wait","wait(x)
+
+   Block the current task until some event occurs, depending on the
+   type of the argument:
+
+   * \"RemoteRef\": Wait for a value to become available for the
+     specified remote reference.
+
+   * \"Condition\": Wait for \"notify\" on a condition.
 
-("信号处理","Base","filt","filt(b, a, x)
+   * \"Process\": Wait for a process or process chain to exit. The
+     \"exitcode\" field of a process can be used to determine success
+     or failure.
 
+   * \"Task\": Wait for a \"Task\" to finish, returning its result
+     value.
 
-   对向量 \"x\" 使用由向量 \"a\" 和 \"b\" 描述的过滤器。
+   * \"RawFD\": Wait for changes on a file descriptor (see *poll_fd*
+     for keyword arguments and return code)
 
 "),
 
-("信号处理","Base","deconv","deconv(b, a)
+("Parallel Computing","Base","fetch","fetch(RemoteRef)
 
+   Wait for and get the value of a remote reference.
 
-   构造向量 \"c\" ，满足 \"b = conv(a,c) + r\" 。等价于多项式除法。
+"),
+
+("Parallel Computing","Base","remotecall_wait","remotecall_wait(id, func, args...)
+
+   Perform \"wait(remotecall(...))\" in one message.
+
+"),
+
+("Parallel Computing","Base","remotecall_fetch","remotecall_fetch(id, func, args...)
 
+   Perform \"fetch(remotecall(...))\" in one message.
+
 "),
+
+("Parallel Computing","Base","put","put(RemoteRef, value)
+
+   Store a value to a remote reference. Implements \"shared queue of
+   length 1\" semantics: if a value is already present, blocks until
+   the value is removed with \"take\".
 
-("信号处理","Base","conv","conv(u, v)
+"),
 
+("Parallel Computing","Base","take","take(RemoteRef)
 
-   计算两个向量的卷积。使用 FFT 算法。
+   Fetch the value of a remote reference, removing it so that the
+   reference is empty again.
 
 "),
+
+("Parallel Computing","Base","isready","isready(RemoteRef)
+
+   Determine whether a \"RemoteRef\" has a value stored to it. Note
+   that this function can easily cause race conditions, since by the
+   time you receive its result it may no longer be true. It is
+   recommended that this function only be used on a \"RemoteRef\" that
+   is assigned once.
 
-("信号处理","Base","xcorr","xcorr(u, v)
+"),
 
+("Parallel Computing","Base","RemoteRef","RemoteRef()
 
-   计算两个向量的互相关。
+   Make an uninitialized remote reference on the local machine.
 
 "),
+
+("Parallel Computing","Base","RemoteRef","RemoteRef(n)
+
+   Make an uninitialized remote reference on processor \"n\".
 
-("并行计算","Base","addprocs_local","addprocs_local(n)
+"),
 
+("Parallel Computing","Base","timedwait","timedwait(testcb::Function, secs::Float64; pollint::Float64=0.1)
 
-   在当前机器上添加一个进程。适用于多核。
+   Waits till \"testcb\" returns \"true\" or for \"secs`\" seconds,
+   whichever is earlier. \"testcb\" is polled every \"pollint\"
+   seconds.
 
 "),
+
+("Parallel Computing","Base","@spawn","@spawn()
+
+   Execute an expression on an automatically-chosen processor,
+   returning a \"RemoteRef\" to the result.
 
-("并行计算","Base","addprocs_ssh","addprocs_ssh({\"host1\", \"host2\",
-...})
+"),
 
+("Parallel Computing","Base","@spawnat","@spawnat()
 
-   通过 SSH 在远程机器上添加进程。需要在每个节点的相同位置安装 Julia
-   ， 或者通过共享文件系统可以使用 Julia 。
+   Accepts two arguments, \"p\" and an expression, and runs the
+   expression asynchronously on processor \"p\", returning a
+   \"RemoteRef\" to the result.
 
 "),
+
+("Parallel Computing","Base","@fetch","@fetch()
+
+   Equivalent to \"fetch(@spawn expr)\".
 
-("并行计算","Base","addprocs_sge","addprocs_sge(n)
+"),
 
+("Parallel Computing","Base","@fetchfrom","@fetchfrom()
 
-   通过 Sun/Oracle Grid Engine batch queue 来添加进程，使用 \"qsub\"
-   。
+   Equivalent to \"fetch(@spawnat p expr)\".
 
 "),
+
+("Parallel Computing","Base","@async","@async()
+
+   Schedule an expression to run on the local machine, also adding it
+   to the set of items that the nearest enclosing \"@sync\" waits for.
 
-("并行计算","Base","nprocs","nprocs()
+"),
 
+("Parallel Computing","Base","@sync","@sync()
 
-   获取当前可用处理器的个数。
+   Wait until all dynamically-enclosed uses of \"@async\", \"@spawn\",
+   and \"@spawnat\" complete.
 
 "),
 
-("并行计算","Base","myid","myid()
+("Distributed Arrays","Base","DArray","DArray(init, dims[, procs, dist])
 
+   Construct a distributed array. \"init\" is a function that accepts
+   a tuple of index ranges. This function should allocate a local
+   chunk of the distributed array and initialize it for the specified
+   indices. \"dims\" is the overall size of the distributed array.
+   \"procs\" optionally specifies a vector of processor IDs to use.
+   \"dist\" is an integer vector specifying how many chunks the
+   distributed array should be divided into in each dimension.
 
-   获取当前处理器的 ID 。
+   For example, the \"dfill\" function that creates a distributed
+   array and fills it with a value \"v\" is implemented as:
 
+   \"dfill(v, args...) = DArray(I->fill(v, map(length,I)), args...)\"
+
 "),
+
+("Distributed Arrays","Base","dzeros","dzeros(dims, ...)
 
-("并行计算","Base","pmap","pmap(f, c)
+   Construct a distributed array of zeros. Trailing arguments are the
+   same as those accepted by \"darray\".
 
+"),
 
-   并行地将函数 \"f\" 映射到集合 \"c\" 的每个元素上。
+("Distributed Arrays","Base","dones","dones(dims, ...)
 
+   Construct a distributed array of ones. Trailing arguments are the
+   same as those accepted by \"darray\".
+
 "),
+
+("Distributed Arrays","Base","dfill","dfill(x, dims, ...)
 
-("并行计算","Base","remote_call","remote_call(id, func, args...)
+   Construct a distributed array filled with value \"x\". Trailing
+   arguments are the same as those accepted by \"darray\".
 
+"),
 
-   在指定的处理器上，对指定参数异步调用函数。返回 \"RemoteRef\" 。
+("Distributed Arrays","Base","drand","drand(dims, ...)
 
+   Construct a distributed uniform random array. Trailing arguments
+   are the same as those accepted by \"darray\".
+
 "),
+
+("Distributed Arrays","Base","drandn","drandn(dims, ...)
 
-("并行计算","Base","wait","wait(RemoteRef)
+   Construct a distributed normal random array. Trailing arguments are
+   the same as those accepted by \"darray\".
 
+"),
 
-   等待指定的 \"RemoteRef\" 所需的值为可用。
+("Distributed Arrays","Base","distribute","distribute(a)
 
+   Convert a local array to distributed
+
 "),
+
+("Distributed Arrays","Base","localpart","localpart(d)
 
-("并行计算","Base","fetch","fetch(RemoteRef)
+   Get the local piece of a distributed array
 
+"),
 
-   等待并获取 \"RemoteRef\" 的值。
+("Distributed Arrays","Base","myindexes","myindexes(d)
 
+   A tuple describing the indexes owned by the local processor
+
 "),
+
+("Distributed Arrays","Base","procs","procs(d)
 
-("并行计算","Base","remote_call_wait","remote_call_wait(id, func,
-args...)
+   Get the vector of processors storing pieces of \"d\"
 
+"),
 
-   在一个信息内运行 \"wait(remote_call(...))\" 。
+("System","Base","run","run(command)
 
+   Run a command object, constructed with backticks. Throws an error
+   if anything goes wrong, including the process exiting with a non-
+   zero status.
+
 "),
+
+("System","Base","spawn","spawn(command)
 
-("并行计算","Base","remote_call_fetch","remote_call_fetch(id, func,
-args...)
+   Run a command object asynchronously, returning the resulting
+   \"Process\" object.
 
+"),
 
-   在一个信息内运行 \"fetch(remote_call(...))\" 。
+("System","Base","DevNull","DevNull
 
+   Used in a stream redirect to discard all data written to it.
+   Essentially equivalent to /dev/null on Unix or NUL on Windows.
+   Usage: run(*cat test.txt* >>|<<> DevNull)
+
 "),
+
+("System","Base","success","success(command)
 
-("并行计算","Base","put","put(RemoteRef, value)
+   Run a command object, constructed with backticks, and tell whether
+   it was successful (exited with a code of 0). An exception is raised
+   if the process cannot be started.
 
+"),
 
-   把值存储在 \"RemoteRef\" 中。它的实现符合“共享长度为 1 的队列”： 如
-   果现在有一个值，除非值由 \"take\" 函数移除，否则一直阻塞。
+("System","Base","process_running","process_running(p::Process)
 
+   Determine whether a process is currently running.
+
 "),
+
+("System","Base","process_exited","process_exited(p::Process)
 
-("并行计算","Base","take","take(RemoteRef)
+   Determine whether a process has exited.
 
+"),
 
-   取回 \"RemoteRef\" 的值，将其移除，从而清空 \"RemoteRef\" 。
+("System","Base","kill","kill(p::Process, signum=SIGTERM)
 
+   Send a signal to a process. The default is to terminate the
+   process.
+
 "),
+
+("System","Base","readsfrom","readsfrom(command)
 
-("并行计算","Base","RemoteRef","RemoteRef()
+   Starts running a command asynchronously, and returns a tuple
+   (stream,process). The first value is a stream reading from the
+   process' standard output.
 
+"),
 
-   在当前机器上生成一个未初始化的 \"RemoteRef\" 。
+("System","Base","writesto","writesto(command)
 
+   Starts running a command asynchronously, and returns a tuple
+   (stream,process). The first value is a stream writing to the
+   process' standard input.
+
 "),
+
+("System","Base","readandwrite","readandwrite(command)
 
-("并行计算","Base","RemoteRef","RemoteRef(n)
+   Starts running a command asynchronously, and returns a tuple
+   (stdout,stdin,process) of the output stream and input stream of the
+   process, and the process object itself.
 
+"),
 
-   在处理器 \"n\" 上生成一个未初始化的 \"RemoteRef\" 。
+("System","Base","ignorestatus","ignorestatus(command)
 
+   Mark a command object so that running it will not throw an error if
+   the result code is non-zero.
+
 "),
+
+("System","Base","detach","detach(command)
 
-("分布式数组","Base","DArray","DArray(init, dims[, procs, dist])
+   Mark a command object so that it will be run in a new process
+   group, allowing it to outlive the julia process, and not have
+   Ctrl-C interrupts passed to it.
 
+"),
 
-   构造分布式数组。 \"init\" 函数接收索引值范围多元组为参数， 此函数为
-   指定的索引值返回分布式数组中对应的块。 \"dims\" 为整个分布式数组的
-   大小。 \"procs\" 为要使用的处理器 ID 的向量。 \"dist\" 是整数向量，
-   指明分布式数组在每个维度上需要划分为多少块。
+("System","Base","setenv","setenv(command, env)
 
+   Set environment variables to use when running the given command.
+   \"env\" is either a dictionary mapping strings to strings, or an
+   array of strings of the form \"\"var=val\"\".
+
 "),
+
+("System","Base","|>","|>(command, command)
+|>(command, filename)
+|>(filename, command)
 
-("分布式数组","Base","dzeros","dzeros(dims, ...)
+   Redirect operator. Used for piping the output of a process into
+   another (first form) or to redirect the standard output/input of a
+   command to/from a file (second and third forms).
 
+   **Examples**:
+      * \"run(`ls` |> `grep xyz`)\"
 
-   构造全零的分布式数组。尾参数可参见 \"darray\" 。
+      * \"run(`ls` |> \"out.txt\")\"
 
+      * \"run(\"out.txt\" |> `grep xyz`)\"
+
 "),
+
+("System","Base",">>",">>(command, filename)
+
+   Redirect standard output of a process, appending to the destination
+   file.
 
-("分布式数组","Base","dones","dones(dims, ...)
+"),
 
+("System","Base",".>",".>(command, filename)
 
-   构造全一的分布式数组。尾参数可参见 \"DArray\" 。
+   Redirect the standard error stream of a process.
 
 "),
+
+("System","Base","gethostname","gethostname() -> String
+
+   Get the local machine's host name.
 
-("分布式数组","Base","dfill","dfill(x, dims, ...)
+"),
 
+("System","Base","getipaddr","getipaddr() -> String
 
-   构造值全为 \"x\" 的分布式数组。尾参数可参见 \"DArray\" 。
+   Get the IP address of the local machine, as a string of the form
+   \"x.x.x.x\".
 
 "),
+
+("System","Base","pwd","pwd() -> String
+
+   Get the current working directory.
 
-("分布式数组","Base","drand","drand(dims, ...)
+"),
 
+("System","Base","cd","cd(dir::String)
 
-   构造均匀分布的随机分布式数组。尾参数可参见 \"DArray\" 。
+   Set the current working directory. Returns the new current
+   directory.
 
 "),
+
+("System","Base","cd","cd(f[, dir])
+
+   Temporarily changes the current working directory (HOME if not
+   specified) and applies function f before returning.
 
-("分布式数组","Base","drandn","drandn(dims, ...)
+"),
 
+("System","Base","mkdir","mkdir(path[, mode])
 
-   构造正态分布的随机分布式数组。尾参数可参见 \"DArray\" 。
+   Make a new directory with name \"path\" and permissions \"mode\".
+   \"mode\" defaults to 0o777, modified by the current file creation
+   mask.
 
 "),
+
+("System","Base","mkpath","mkpath(path[, mode])
+
+   Create all directories in the given \"path\", with permissions
+   \"mode\". \"mode\" defaults to 0o777, modified by the current file
+   creation mask.
 
-("分布式数组","Base","distribute","distribute(a)
+"),
 
+("System","Base","rmdir","rmdir(path)
 
-   将本地数组转换为分布式数组。
+   Remove the directory named \"path\".
 
 "),
+
+("System","Base","getpid","getpid() -> Int32
+
+   Get julia's process ID.
 
-("分布式数组","Base","localize","localize(d)
+"),
 
+("System","Base","time","time([t::TmStruct])
 
-   获取分布式数组 \"d\" 的本地部分。
+   Get the system time in seconds since the epoch, with fairly high
+   (typically, microsecond) resolution. When passed a \"TmStruct\",
+   converts it to a number of seconds since the epoch.
 
 "),
+
+("System","Base","time_ns","time_ns()
+
+   Get the time in nanoseconds. The time corresponding to 0 is
+   undefined, and wraps every 5.8 years.
 
-("分布式数组","Base","myindexes","myindexes(d)
+"),
 
+("System","Base","strftime","strftime([format], time)
 
-   分布式数组 \"d\" 的本地部分所对应的索引值的多元组。
+   Convert time, given as a number of seconds since the epoch or a
+   \"TmStruct\", to a formatted string using the given format.
+   Supported formats are the same as those in the standard C library.
 
 "),
+
+("System","Base","strptime","strptime([format], timestr)
+
+   Parse a formatted time string into a \"TmStruct\" giving the
+   seconds, minute, hour, date, etc. Supported formats are the same as
+   those in the standard C library. On some platforms, timezones will
+   not be parsed correctly. If the result of this function will be
+   passed to \"time\" to convert it to seconds since the epoch, the
+   \"isdst\" field should be filled in manually. Setting it to \"-1\"
+   will tell the C library to use the current system settings to
+   determine the timezone.
 
-("分布式数组","Base","procs","procs(d)
+"),
 
+("System","Base","TmStruct","TmStruct([seconds])
 
-   获取存储分布式数组 \"d\" 的处理器 ID 的向量。
+   Convert a number of seconds since the epoch to broken-down format,
+   with fields \"sec\", \"min\", \"hour\", \"mday\", \"month\",
+   \"year\", \"wday\", \"yday\", and \"isdst\".
 
 "),
+
+("System","Base","tic","tic()
+
+   Set a timer to be read by the next call to \"toc()\" or \"toq()\".
+   The macro call \"@time expr\" can also be used to time evaluation.
 
-("系统","Base","run","run(command)
+"),
 
+("System","Base","toc","toc()
 
-   执行命令对象。如果出错或进程退出时为非零状态，将报错。 命令是由倒引
-   号引起来的。
+   Print and return the time elapsed since the last \"tic()\".
 
 "),
+
+("System","Base","toq","toq()
+
+   Return, but do not print, the time elapsed since the last
+   \"tic()\".
 
-("系统","Base","spawn","spawn(command)
+"),
 
+("System","Base","@time","@time()
 
-   异步运行命令，返回生成的 \"Process\" 对象。
+   A macro to execute and expression, printing time it took to execute
+   and the total number of bytes its execution caused to be allocated,
+   before returning the value of the expression.
 
 "),
+
+("System","Base","@elapsed","@elapsed()
+
+   A macro to evaluate an expression, discarding the resulting value,
+   instead returning the number of seconds it took to execute as a
+   floating-point number.
 
-("系统","Base","success","success(command)
+"),
 
+("System","Base","@allocated","@allocated()
 
-   执行命令对象，并判断是否成功（退出代码是否为 0 ）。命令是由倒引号引
-   起来的。
+   A macro to evaluate an expression, discarding the resulting value,
+   instead returning the total number of bytes allocated during
+   evaluation of the expression.
 
 "),
+
+("System","Base","EnvHash","EnvHash() -> EnvHash
+
+   A singleton of this type provides a hash table interface to
+   environment variables.
 
-("系统","Base","readsfrom","readsfrom(command)
+"),
 
+("System","Base","ENV","ENV
 
-   异步运行命令，返回 (stream,process) 多元组。 第一个值是从进程的标准
-   输出读出的流。
+   Reference to the singleton \"EnvHash\", providing a dictionary
+   interface to system environment variables.
 
 "),
+
+("System","Base","@unix","@unix()
+
+   Given \"@unix? a : b\", do \"a\" on Unix systems (including Linux
+   and OS X) and \"b\" elsewhere. See documentation for Handling
+   Platform Variations in the Calling C and Fortran Code section of
+   the manual.
 
-("系统","Base","writesto","writesto(command)
+"),
 
+("System","Base","@osx","@osx()
 
-   异步运行命令，返回 (stream,process) 多元组。 第一个值是向进程的标准
-   输入写入的流。
+   Given \"@osx? a : b\", do \"a\" on OS X and \"b\" elsewhere. See
+   documentation for Handling Platform Variations in the Calling C and
+   Fortran Code section of the manual.
 
 "),
+
+("System","Base","@linux","@linux()
+
+   Given \"@linux? a : b\", do \"a\" on Linux and \"b\" elsewhere. See
+   documentation for Handling Platform Variations in the Calling C and
+   Fortran Code section of the manual.
 
-("系统","Base","readandwrite","readandwrite(command)
+"),
 
+("System","Base","@windows","@windows()
 
-   异步运行命令，返回 (stdout,stdin,process) 多元组， 分别为进程的输出
-   流、输入流，及进程本身。
+   Given \"@windows? a : b\", do \"a\" on Windows and \"b\" elsewhere.
+   See documentation for Handling Platform Variations in the Calling C
+   and Fortran Code section of the manual.
 
 "),
 
-("系统","Base",">",">()
+("C Interface","Base","ccall","ccall((symbol, library) or fptr, RetType, (ArgType1, ...), ArgVar1, ...)
 
+   Call function in C-exported shared library, specified by
+   \"(function name, library)\" tuple, where each component is a
+   String or :Symbol. Alternatively, ccall may be used to call a
+   function pointer returned by dlsym, but note that this usage is
+   generally discouraged to facilitate future static compilation. Note
+   that the argument type tuple must be a literal tuple, and not a
+   tuple-valued variable or expression.
+
+"),
 
-   重定向进程的标准输出流。
+("C Interface","Base","cglobal","cglobal((symbol, library) or ptr[, Type=Void])
 
-   **例子**: \"run(`ls` > \"out.log\")\"
+   Obtain a pointer to a global variable in a C-exported shared
+   library, specified exactly as in \"ccall\".  Returns a
+   \"Ptr{Type}\", defaulting to \"Ptr{Void}\" if no Type argument is
+   supplied.  The values can be read or written by \"unsafe_load\" or
+   \"unsafe_store!\", respectively.
 
 "),
+
+("C Interface","Base","cfunction","cfunction(fun::Function, RetType::Type, (ArgTypes...))
+
+   Generate C-callable function pointer from Julia function. Type
+   annotation of the return value in the callback function is a must
+   for situations where Julia cannot infer the return type
+   automatically.
+
+   For example:
 
-("系统","Base","<","<()
+      function foo()
+        # body
 
+        retval::Float64
+      end
 
-   重定向进程的标准输入流流。
+      bar = cfunction(foo, Float64, ())
 
 "),
 
-("系统","Base",">>",">>()
+("C Interface","Base","dlopen","dlopen(libfile::String[, flags::Integer])
 
+   Load a shared library, returning an opaque handle.
 
-   重定向进程的标准输出流，添加到目标文件尾部。
+   The optional flags argument is a bitwise-or of zero or more of
+   RTLD_LOCAL, RTLD_GLOBAL, RTLD_LAZY, RTLD_NOW, RTLD_NODELETE,
+   RTLD_NOLOAD, RTLD_DEEPBIND, and RTLD_FIRST.  These are converted to
+   the corresponding flags of the POSIX (and/or GNU libc and/or MacOS)
+   dlopen command, if possible, or are ignored if the specified
+   functionality is not available on the current platform.  The
+   default is RTLD_LAZY|RTLD_DEEPBIND|RTLD_LOCAL.  An important usage
+   of these flags, on POSIX platforms, is to specify
+   RTLD_LAZY|RTLD_DEEPBIND|RTLD_GLOBAL in order for the library's
+   symbols to be available for usage in other shared libraries, in
+   situations where there are dependencies between shared libraries.
 
 "),
 
-("系统","Base",".>",".>()
+("C Interface","Base","dlopen_e","dlopen_e(libfile::String[, flags::Integer])
 
+   Similar to \"dlopen\", except returns a NULL pointer instead of
+   raising errors.
 
-   重定向进程的标准错误流。
+"),
+
+("C Interface","Base","RTLD_DEEPBIND","RTLD_DEEPBIND
+
+   Enum constant for dlopen. See your platform man page for details,
+   if applicable.
+
+"),
+
+("C Interface","Base","RTLD_FIRST","RTLD_FIRST
 
+   Enum constant for dlopen. See your platform man page for details,
+   if applicable.
+
 "),
+
+("C Interface","Base","RTLD_GLOBAL","RTLD_GLOBAL
+
+   Enum constant for dlopen. See your platform man page for details,
+   if applicable.
 
-("系统","Base","gethostname","gethostname() -> String
+"),
 
+("C Interface","Base","RTLD_LAZY","RTLD_LAZY
 
-   获取本机的主机名。
+   Enum constant for dlopen. See your platform man page for details,
+   if applicable.
 
 "),
+
+("C Interface","Base","RTLD_LOCAL","RTLD_LOCAL
+
+   Enum constant for dlopen. See your platform man page for details,
+   if applicable.
 
-("系统","Base","getipaddr","getipaddr() -> String
+"),
 
+("C Interface","Base","RTLD_NODELETE","RTLD_NODELETE
 
-   获取本机的 IP 地址，形为 \"x.x.x.x\" 的字符串。
+   Enum constant for dlopen. See your platform man page for details,
+   if applicable.
 
 "),
+
+("C Interface","Base","RTLD_NOLOAD","RTLD_NOLOAD
+
+   Enum constant for dlopen. See your platform man page for details,
+   if applicable.
 
-("系统","Base","pwd","pwd() -> String
+"),
 
+("C Interface","Base","RTLD_NOW","RTLD_NOW
 
-   获取当前的工作目录。
+   Enum constant for dlopen. See your platform man page for details,
+   if applicable.
 
 "),
+
+("C Interface","Base","dlsym","dlsym(handle, sym)
+
+   Look up a symbol from a shared library handle, return callable
+   function pointer on success.
 
-("系统","Base","cd","cd(dir::String)
+"),
 
+("C Interface","Base","dlsym_e","dlsym_e(handle, sym)
 
-   设置当前工作文件夹。返回新的当前文件夹。
+   Look up a symbol from a shared library handle, silently return NULL
+   pointer on lookup failure.
 
 "),
+
+("C Interface","Base","dlclose","dlclose(handle)
+
+   Close shared library referenced by handle.
 
-("系统","Base","cd","cd(f[, \"dir\"])
+"),
 
+("C Interface","Base","c_malloc","c_malloc(size::Integer)
 
-   临时更改当前工作文件夹（未指明主文件夹），调用 f 函数，然后返回原文
-   件夹。
+   Call \"malloc\" from the C standard library.
 
 "),
+
+("C Interface","Base","c_free","c_free(addr::Ptr)
+
+   Call \"free\" from the C standard library.
 
-("系统","Base","mkdir","mkdir(path[, mode])
+"),
 
+("C Interface","Base","unsafe_load","unsafe_load(p::Ptr{T}, i::Integer)
 
-   新建名为 \"path\" 的文件夹，其权限为 \"mode\" 。 \"mode\" 默认为
-   0o777 ， 可通过当前文件创建掩码来修改。
+   Dereference the pointer \"p[i]\" or \"*p\", returning a copy of
+   type T.
 
 "),
+
+("C Interface","Base","unsafe_store!","unsafe_store!(p::Ptr{T}, x, i::Integer)
+
+   Assign to the pointer \"p[i] = x\" or \"*p = x\", making a copy of
+   object x into the memory at p.
 
-("系统","Base","mkpath","mkpath(path[, mode])
+"),
 
+("C Interface","Base","unsafe_copy!","unsafe_copy!(dest::Ptr{T}, src::Ptr{T}, N)
 
-   创建指定路径 \"path\" 中的所有文件夹，其权限为 \"mode\" 。 \"mode\"
-   默认为 0o777 ，可通过当前文件创建掩码来修改。
+   Copy \"N\" elements from a source pointer to a destination, with no
+   checking. The size of an element is determined by the type of the
+   pointers.
 
 "),
+
+("C Interface","Base","unsafe_copy!","unsafe_copy!(dest::Array, do, src::Array, so, N)
+
+   Copy \"N\" elements from a source array to a destination, starting
+   at offset \"so\" in the source and \"do\" in the destination.
 
-("系统","Base","rmdir","rmdir(path)
+"),
 
+("C Interface","Base","pointer","pointer(a[, index])
 
-   删除 \"path\" 文件夹。
+   Get the native address of an array element. Be careful to ensure
+   that a julia reference to \"a\" exists as long as this pointer will
+   be used.
 
 "),
+
+("C Interface","Base","pointer","pointer(type, int)
+
+   Convert an integer to a pointer of the specified element type.
 
-("系统","Base","getpid","getpid() -> Int32
+"),
 
+("C Interface","Base","pointer_to_array","pointer_to_array(p, dims[, own])
 
-   获取 Julia 的进程 ID 。
+   Wrap a native pointer as a Julia Array object. The pointer element
+   type determines the array element type. \"own\" optionally
+   specifies whether Julia should take ownership of the memory,
+   calling \"free\" on the pointer when the array is no longer
+   referenced.
 
 "),
+
+("C Interface","Base","pointer_from_objref","pointer_from_objref(obj)
+
+   Get the memory address of a Julia object as a \"Ptr\". The
+   existence of the resulting \"Ptr\" will not protect the object from
+   garbage collection, so you must ensure that the object remains
+   referenced for the whole time that the \"Ptr\" will be used.
 
-("系统","Base","time","time()
+"),
 
+("C Interface","Base","unsafe_pointer_to_objref","unsafe_pointer_to_objref(p::Ptr)
 
-   获取系统自 1970-01-01 00:00:00 UTC 起至今的秒数。 结果是高解析度（
-   一般为微秒 10^{-6} ）的。
+   Convert a \"Ptr\" to an object reference. Assumes the pointer
+   refers to a valid heap-allocated Julia object. If this is not the
+   case, undefined behavior results, hence this function is considered
+   \"unsafe\" and should be used with care.
 
 "),
 
-("系统","Base","time_ns","time_ns()
+("C Interface","Base","disable_sigint","disable_sigint(f::Function)
 
+   Disable Ctrl-C handler during execution of a function, for calling
+   external code that is not interrupt safe. Intended to be called
+   using \"do\" block syntax as follows:
 
-   获取时间，单位为纳秒 10^{-9} 。 对应于 0 的时间是未定义的，计时时间
-   5.8 年为最长周期。
+      disable_sigint() do
+          # interrupt-unsafe code
+          ...
+      end
 
 "),
+
+("C Interface","Base","reenable_sigint","reenable_sigint(f::Function)
+
+   Re-enable Ctrl-C handler during execution of a function.
+   Temporarily reverses the effect of \"disable_sigint\".
 
-("系统","Base","tic","tic()
+"),
 
+("C Interface","Base","find_library","find_library(names, locations)
 
-   设置计时器， \"toc()\" 或 \"toq()\" 会调用它所计时的时间。 也可以使
-   用 \"@time expr\" 宏来计算时间。
+   Searches for the first library in \"names\" in the paths in the
+   \"locations\" list, \"DL_LOAD_PATH\", or system library paths (in
+   that order) which can successfully be dlopen'd. On success, the
+   return value will be one of the names (potentially prefixed by one
+   of the paths in locations). This string can be assigned to a
+   \"global const\" and used as the library name in future
+   \"ccall\"'s. On failure, it returns the empty string.
 
 "),
+
+("C Interface","Base","DL_LOAD_PATH","DL_LOAD_PATH
+
+   When calling \"dlopen\", the paths in this list will be searched
+   first, in order, before searching the system locations for a valid
+   library handle.
 
-("系统","Base","toc","toc()
+"),
 
+("C Interface","Base","Cchar","Cchar
 
-   打印并返回最后一个 \"tic()\" 计时器的时间。
+   Equivalent to the native \"char\" c-type
 
 "),
+
+("C Interface","Base","Cuchar","Cuchar
+
+   Equivalent to the native \"unsigned char\" c-type (Uint8)
 
-("系统","Base","toq","toq()
+"),
 
+("C Interface","Base","Cshort","Cshort
 
-   返回但不打印最后一个 \"tic()\" 计时器的时间。
+   Equivalent to the native \"signed short\" c-type (Int16)
 
 "),
+
+("C Interface","Base","Cushort","Cushort
+
+   Equivalent to the native \"unsigned short\" c-type (Uint16)
 
-("系统","Base","EnvHash","EnvHash() -> EnvHash
+"),
 
+("C Interface","Base","Cint","Cint
 
-   给环境变量提供哈希表接口的单态。
+   Equivalent to the native \"signed int\" c-type (Int32)
 
 "),
+
+("C Interface","Base","Cuint","Cuint
+
+   Equivalent to the native \"unsigned int\" c-type (Uint32)
 
-("系统","Base","ENV","ENV
+"),
 
+("C Interface","Base","Clong","Clong
 
-   对单态 \"EnvHash\" 的引用，提供系统环境变量的字典接口。
+   Equivalent to the native \"signed long\" c-type
 
 "),
+
+("C Interface","Base","Culong","Culong
+
+   Equivalent to the native \"unsigned long\" c-type
 
-("C 接口","Base","ccall","ccall((symbol, library), RetType, (ArgType1,
-...), ArgVar1, ...)
+"),
 
+("C Interface","Base","Clonglong","Clonglong
 
-   调用从 C 导出的共享库的函数，它由 (函数名, 共享库名) 多元组 （字符
-   串或 :Symbol ）指明。 ccall 也可用来调用由 dlsym 返回的函数指针，
-   但由于将来想实现静态编译，不提倡这种用法。
+   Equivalent to the native \"signed long long\" c-type (Int64)
 
 "),
+
+("C Interface","Base","Culonglong","Culonglong
+
+   Equivalent to the native \"unsigned long long\" c-type (Uint64)
 
-("C 接口","Base","cfunction","cfunction(fun::Function, RetType::Type,
-(ArgTypes...))
+"),
 
+("C Interface","Base","Csize_t","Csize_t
 
-   使用 Julia 函数生成 C 可调用的函数指针。
+   Equivalent to the native \"size_t\" c-type (Uint)
 
 "),
 
-("C 接口","Base","dlopen","dlopen(libfile::String[, flags::Integer])
+("C Interface","Base","Cssize_t","Cssize_t
 
+   Equivalent to the native \"ssize_t\" c-type
+
+"),
 
-   载入共享库，返回不透明句柄。
+("C Interface","Base","Cptrdiff_t","Cptrdiff_t
 
-   可选参数为 0 或者是 RTLD_LOCAL, RTLD_GLOBAL, RTLD_LAZY, RTLD_NOW,
-   RTLD_NODELETE, RTLD_NOLOAD, RTLD_DEEPBIND, RTLD_FIRST 等参数的位或
-   。 它们被转换为对应的 POSIX dlopen 命令的标志位； 如果当前平台不支
-   持某个特性，则忽略。 默认值为 RTLD_LAZY|RTLD_DEEPBIND|RTLD_LOCAL 。
-   在 POSIX 平台上，这些标志位的重要用途是当共享库之间有依赖关系时，
-   指明 RTLD_LAZY|RTLD_DEEPBIND|RTLD_GLOBAL 来使库的符号可被其它共享库
-   使用。
+   Equivalent to the native \"ptrdiff_t\" c-type (Int)
 
 "),
 
-("C 接口","Base","dlsym","dlsym(handle, sym)
+("C Interface","Base","Coff_t","Coff_t
 
+   Equivalent to the native \"off_t\" c-type
 
-   在共享库句柄中查找符号。查找成功时返回可调用的函数指针。
+"),
+
+("C Interface","Base","Cwchar_t","Cwchar_t
+
+   Equivalent to the native \"wchar_t\" c-type (Int32)
 
 "),
 
-("C 接口","Base","dlsym_e","dlsym_e(handle, sym)
+("C Interface","Base","Cfloat","Cfloat
+
+   Equivalent to the native \"float\" c-type (Float32)
+
+"),
 
+("C Interface","Base","Cdouble","Cdouble
 
-   在共享库句柄中查找符号。如果查找失败，则安静地返回空指针。
+   Equivalent to the native \"double\" c-type (Float64)
 
 "),
 
-("C 接口","Base","dlclose","dlclose(handle)
+("Errors","Base","error","error(message::String)
 
+   Raise an error with the given message
 
-   通过句柄来关闭共享库的引用。
+"),
+
+("Errors","Base","throw","throw(e)
+
+   Throw an object as an exception
 
 "),
 
-("C 接口","Base","c_free","c_free(addr::Ptr)
+("Errors","Base","rethrow","rethrow([e])
+
+   Throw an object without changing the current exception backtrace.
+   The default argument is the current exception (if called within a
+   \"catch\" block).
+
+"),
 
+("Errors","Base","backtrace","backtrace()
 
-   调用 C 标准库中的 ·\"free()\" 。
+   Get a backtrace object for the current program point.
 
 "),
 
-("C 接口","Base","unsafe_ref","unsafe_ref(p::Ptr{T}, i::Integer)
+("Errors","Base","catch_backtrace","catch_backtrace()
 
+   Get the backtrace of the current exception, for use within
+   \"catch\" blocks.
 
-   对指针解引用 \"p[i]\" 或 \"*p\" ，返回类型 T 的值的浅拷贝。
+"),
+
+("Errors","Base","errno","errno()
+
+   Get the value of the C library's \"errno\"
 
 "),
 
-("C 接口","Base","unsafe_assign","unsafe_assign(p::Ptr{T}, x,
-i::Integer)
+("Errors","Base","systemerror","systemerror(sysfunc, iftrue)
+
+   Raises a \"SystemError\" for \"errno\" with the descriptive string
+   \"sysfunc\" if \"bool\" is true
+
+"),
 
+("Errors","Base","strerror","strerror(n)
 
-   给指针赋值 \"p[i] = x\" 或 \"*p = x\" ，将对象 x 复制进 p 处的内存
-   中。
+   Convert a system call error code to a descriptive string
 
 "),
 
-("C 接口","Base","pointer","pointer(a[, index])
+("Errors","Base","assert","assert(cond[, text])
 
+   Raise an error if \"cond\" is false. Also available as the macro
+   \"@assert expr\".
 
-   获取数组元素的原生地址。要确保使用指针时，必须存在 Julia 对 \"a\"
-   的引用。
+"),
+
+("Errors","Base","@assert","@assert()
+
+   Raise an error if \"cond\" is false. Preferred syntax for writings
+   assertions.
 
 "),
 
-("C 接口","Base","pointer","pointer(type, Uint)
+("Errors","Base","ArgumentError","ArgumentError
+
+   The parameters given to a function call are not valid.
+
+"),
 
+("Errors","Base","BoundsError","BoundsError
 
-   指向指定元素类型的指针，地址为该无符号整数。
+   An indexing operation into an array tried to access an out-of-
+   bounds element.
 
 "),
 
-("C 接口","Base","pointer_to_array","pointer_to_array(p, dims[, own])
+("Errors","Base","EOFError","EOFError
 
+   No more data was available to read from a file or stream.
 
-   将原生指针封装为 Julia 数组对象。指针元素的类型决定了数组元素的类型
-   。 \"own\" 可选项指明 Julia 是否可以控制内存， 当数组不再被引用时调
-   用 \"free\" 释放指针。
+"),
+
+("Errors","Base","ErrorException","ErrorException
+
+   Generic error type. The error message, in the *.msg* field, may
+   provide more specific details.
 
 "),
 
-("错误","Base","error","error(message::String)
+("Errors","Base","KeyError","KeyError
+
+   An indexing operation into an \"Associative\" (\"Dict\") or \"Set\"
+   like object tried to access or delete a non-existent element.
+
+"),
 
+("Errors","Base","LoadError","LoadError
 
-   报错，并显示指定信息。
+   An error occurred while *including*, *requiring*, or *using* a
+   file. The error specifics should be available in the *.error*
+   field.
 
 "),
 
-("错误","Base","throw","throw(e)
+("Errors","Base","MethodError","MethodError
 
+   A method with the required type signature does not exist in the
+   given generic function.
 
-   将一个对象作为异常抛出。
+"),
+
+("Errors","Base","ParseError","ParseError
+
+   The expression passed to the *parse* function could not be
+   interpreted as a valid Julia expression.
 
 "),
 
-("错误","Base","errno","errno()
+("Errors","Base","ProcessExitedException","ProcessExitedException
+
+   After a client Julia process has exited, further attempts to
+   reference the dead child will throw this exception.
+
+"),
 
+("Errors","Base","SystemError","SystemError
 
-   获取 C 库 \"errno\" 的值。
+   A system call failed with an error code (in the \"errno\" global
+   variable).
 
 "),
 
-("错误","Base","strerror","strerror(n)
+("Errors","Base","TypeError","TypeError
 
+   A type assertion failure, or calling an intrinsic function with an
+   incorrect argument type.
 
-   将系统调用错误代码转换为描述字符串。
+"),
+
+("Tasks","Base","Task","Task(func)
+
+   Create a \"Task\" (i.e. thread, or coroutine) to execute the given
+   function. The task exits when this function returns.
 
 "),
 
-("错误","Base","assert","assert(cond)
+("Tasks","Base","yieldto","yieldto(task, args...)
+
+   Switch to the given task. The first time a task is switched to, the
+   task's function is called with \"args\". On subsequent switches,
+   \"args\" are returned from the task's last call to \"yieldto\".
+
+"),
 
+("Tasks","Base","current_task","current_task()
 
-   如果 \"cond\" 为假则报错。也可以使用宏 \"@assert expr\" 。
+   Get the currently running Task.
 
 "),
 
-("任务","Base","Task","Task(func)
+("Tasks","Base","istaskdone","istaskdone(task)
 
+   Tell whether a task has exited.
 
-   构造 \"Task\" （如线程，协程）来执行指定程序。此函数返回时，任务自
-   动退出。
+"),
+
+("Tasks","Base","consume","consume(task)
+
+   Receive the next value passed to \"produce\" by the specified task.
 
 "),
 
-("任务","Base","yieldto","yieldto(task, args...)
+("Tasks","Base","produce","produce(value)
+
+   Send the given value to the last \"consume\" call, switching to the
+   consumer task.
+
+"),
 
+("Tasks","Base","yield","yield()
 
-   跳转到指定的任务。第一次跳转到某任务时，使用 \"args\" 参数来调用任
-   务的函数。 在后续的跳转时， \"args\" 被任务的最后一个调用返回到
-   \"yieldto\" 。
+   For scheduled tasks, switch back to the scheduler to allow another
+   scheduled task to run. A task that calls this function is still
+   runnable, and will be restarted immediately if there are no other
+   runnable tasks.
 
 "),
 
-("任务","Base","current_task","current_task()
+("Tasks","Base","task_local_storage","task_local_storage(symbol)
 
+   Look up the value of a symbol in the current task's task-local
+   storage.
 
-   获取当前正在运行的任务。
+"),
+
+("Tasks","Base","task_local_storage","task_local_storage(symbol, value)
+
+   Assign a value to a symbol in the current task's task-local
+   storage.
 
 "),
 
-("任务","Base","istaskdone","istaskdone(task)
+("Tasks","Base","Condition","Condition()
+
+   Create an edge-triggered event source that tasks can wait for.
+   Tasks that call \"wait\" on a \"Condition\" are suspended and
+   queued. Tasks are woken up when \"notify\" is later called on the
+   \"Condition\". Edge triggering means that only tasks waiting at the
+   time \"notify\" is called can be woken up. For level-triggered
+   notifications, you must keep extra state to keep track of whether a
+   notification has happened. The \"RemoteRef\" type does this, and so
+   can be used for level-triggered events.
+
+"),
 
+("Tasks","Base","notify","notify(condition, val=nothing; all=true, error=false)
 
-   判断任务是否已退出。
+   Wake up tasks waiting for a condition, passing them \"val\". If
+   \"all\" is true (the default), all waiting tasks are woken,
+   otherwise only one is. If \"error\" is true, the passed value is
+   raised as an exception in the woken tasks.
 
 "),
 
-("任务","Base","consume","consume(task)
+("Tasks","Base","schedule","schedule(t::Task)
 
+   Add a task to the scheduler's queue. This causes the task to run
+   constantly when the system is otherwise idle, unless the task
+   performs a blocking operation such as \"wait\".
 
-   接收由指定任务传递给 \"produce\" 的下一个值。
+"),
+
+("Tasks","Base","@schedule","@schedule()
+
+   Wrap an expression in a Task and add it to the scheduler's queue.
 
 "),
 
-("任务","Base","produce","produce(value)
+("Tasks","Base","@task","@task()
+
+   Wrap an expression in a Task executing it, and return the Task.
+   This only creates a task, and does not run it.
+
+"),
 
+("Tasks","Base","sleep","sleep(seconds)
 
-   将指定值传递给最近的一次 \"consume\" 调用，然后跳转到消费者任务。
+   Block the current task for a specified number of seconds.
 
 "),
 
-("任务","Base","make_scheduled","make_scheduled(task)
+("Events","Base","Timer","Timer(f::Function)
 
+   Create a timer to call the given callback function. The callback is
+   passed two arguments: the timer object itself, and a status code,
+   which will be 0 unless an error occurs. The timer can be started
+   and stopped with \"start_timer\" and \"stop_timer\".
 
-   使用主事件循环来注册任务，任务会在允许的时候自动运行。
+"),
+
+("Events","Base","start_timer","start_timer(t::Timer, delay, repeat)
+
+   Start invoking the callback for a \"Timer\" after the specified
+   initial delay, and then repeating with the given interval. Times
+   are in seconds. If \"repeat\" is \"0\", the timer is only triggered
+   once.
 
 "),
 
-("任务","Base","yield","yield()
+("Events","Base","stop_timer","stop_timer(t::Timer)
+
+   Stop invoking the callback for a timer.
+
+"),
 
+("Reflection","Base","module_name","module_name(m::Module) -> Symbol
 
-   对安排好的任务，跳转到安排者来允许运行另一个安排好的任务。
+   Get the name of a module as a symbol.
 
 "),
 
-("任务","Base","tls","tls(symbol)
+("Reflection","Base","module_parent","module_parent(m::Module) -> Module
 
+   Get a module's enclosing module. \"Main\" is its own parent.
 
-   在当前任务的本地任务存储中查询 \"symbol\" 的值。
+"),
+
+("Reflection","Base","current_module","current_module() -> Module
+
+   Get the *dynamically* current module, which is the module code is
+   currently being read from. In general, this is not the same as the
+   module containing the call to this function.
 
 "),
 
-("任务","Base","tls","tls(symbol, value)
+("Reflection","Base","fullname","fullname(m::Module)
+
+   Get the fully-qualified name of a module as a tuple of symbols. For
+   example, \"fullname(Base.Pkg)\" gives \"(:Base,:Pkg)\", and
+   \"fullname(Main)\" gives \"()\".
+
+"),
 
+("Reflection","Base","names","names(x)
 
-   给当前任务的本地任务存储中的 \"symbol\" 赋值 \"value\" 。
+   Get an array of the names exported by a module, or the fields of a
+   data type.
 
 "),
 
-("常量","Base","OS_NAME","OS_NAME
+("Reflection","Base","isconst","isconst([m::Module], s::Symbol) -> Bool
 
+   Determine whether a global is declared \"const\" in a given module.
 
-   表示操作系统名的符号。可能的值有 \":Linux\", \":Darwin\" (OS X), 或
-   \":Windows\" 。
+"),
+
+("Reflection","Base","isgeneric","isgeneric(f::Function) -> Bool
+
+   Determine whether a function is generic.
 
 "),
 
-("常量","Base","ARGS","ARGS
+("Reflection","Base","function_name","function_name(f::Function) -> Symbol
+
+   Get the name of a generic function as a symbol, or \":anonymous\".
+
+"),
 
+("Reflection","Base","function_module","function_module(f::Function, types) -> Module
 
-   传递给 Julia 的命令行参数数组，它是个字符串数组。
+   Determine the module containing a given definition of a generic
+   function.
 
 "),
 
-("常量","Base","C_NULL","C_NULL
+("Reflection","Base","functionloc","functionloc(f::Function, types)
 
+   Returns a tuple \"(filename,line)\" giving the location of a method
+   definition.
 
-   C 空指针常量，有时用于调用外部代码。
+"),
+
+("Reflection","Base","functionlocs","functionlocs(f::Function, types)
+
+   Returns an array of the results of \"functionloc\" for all matching
+   definitions.
 
 "),
 
-("常量","Base","CPU_CORES","CPU_CORES
+("Internals","Base","gc","gc()
+
+   Perform garbage collection. This should not generally be used.
+
+"),
 
+("Internals","Base","gc_disable","gc_disable()
 
-   系统中 CPU 内核的个数。
+   Disable garbage collection. This should be used only with extreme
+   caution, as it can cause memory use to grow without bound.
 
 "),
 
-("常量","Base","WORD_SIZE","WORD_SIZE
+("Internals","Base","gc_enable","gc_enable()
 
+   Re-enable garbage collection after calling \"gc_disable\".
 
-   当前机器的标准字长，单位为位。
+"),
+
+("Internals","Base","macroexpand","macroexpand(x)
+
+   Takes the expression x and returns an equivalent expression with
+   all macros removed (expanded).
 
 "),
 
-("常量","Base","VERSION","VERSION
+("Internals","Base","expand","expand(x)
+
+   Takes the expression x and returns an equivalent expression in
+   lowered form
+
+"),
 
+("Internals","Base","code_lowered","code_lowered(f, types)
 
-   描述 Julia 版本的对象。
+   Returns an array of lowered ASTs for the methods matching the given
+   generic function and type signature.
 
 "),
 
-("常量","Base","LOAD_PATH","LOAD_PATH
+("Internals","Base","code_typed","code_typed(f, types)
 
+   Returns an array of lowered and type-inferred ASTs for the methods
+   matching the given generic function and type signature.
 
-   路径的字符串数组， \"require\" 函数在这些路径下查找代码。
+"),
+
+("Internals","Base","code_llvm","code_llvm(f, types)
+
+   Prints the LLVM bitcodes generated for running the method matching
+   the given generic function and type signature to STDOUT.
 
 "),
 
-("文件系统","Base","isblockdev","isblockdev(path) -> Bool
+("Internals","Base","code_native","code_native(f, types)
+
+   Prints the native assembly instructions generated for running the
+   method matching the given generic function and type signature to
+   STDOUT.
+
+"),
 
+("Internals","Base","precompile","precompile(f, args::(Any..., ))
 
-   如果 \"path\" 是块设备，则返回 \"true\" ；否则返回 \"false\" 。
+   Compile the given function *f* for the argument tuple (of types)
+   *args*, but do not execute it.
 
 "),
 
-("文件系统","Base","ischardev","ischardev(path) -> Bool
+("Collections and Data Structures","Base.Collections","PriorityQueue{K,V}","PriorityQueue{K,V}([ord])
 
+   Construct a new PriorityQueue, with keys of type K and
+   values/priorites of type V. If an order is not given, the priority
+   queue is min-ordered using the default comparison for V.
 
-   如果 \"path\" 是字符设备，则返回 \"true\" ；否则返回 \"false\" 。
+"),
+
+("Collections and Data Structures","Base.Collections","enqueue!","enqueue!(pq, k, v)
+
+   Insert the a key \"k\" into a priority queue \"pq\" with priority
+   \"v\".
 
 "),
 
-("文件系统","Base","isdir","isdir(path) -> Bool
+("Collections and Data Structures","Base.Collections","dequeue!","dequeue!(pq)
+
+   Remove and return the lowest priority key from a priority queue.
+
+"),
 
+("Collections and Data Structures","Base.Collections","heapify","heapify(v[, ord])
 
-   如果 \"path\" 是文件夹，则返回 \"true\" ；否则返回 \"false\" 。
+   Return a new vector in binary heap order, optionally using the
+   given ordering.
 
 "),
 
-("文件系统","Base","isexecutable","isexecutable(path) -> Bool
+("Collections and Data Structures","Base.Collections","heapify!","heapify!(v[, ord])
 
+   In-place heapify.
 
-   如果当前用户对 \"path\" 有执行权限，则返回 \"true\" ；否则返回
-   \"false\" 。
+"),
+
+("Collections and Data Structures","Base.Collections","isheap","isheap(v[, ord])
+
+   Return true iff an array is heap-ordered according to the given
+   order.
 
 "),
 
-("文件系统","Base","isfifo","isfifo(path) -> Bool
+("Collections and Data Structures","Base.Collections","heappush!","heappush!(v[, ord])
+
+   Given a binary heap-ordered array, push a new element, preserving
+   the heap property. For efficiency, this function does not check
+   that the array is indeed heap-ordered.
+
+"),
 
+("Collections and Data Structures","Base.Collections","heappop!","heappop!(v[, ord])
 
-   如果 \"path\" 是 FIFO ，则返回 \"true\" ；否则返回 \"false\" 。
+   Given a binary heap-ordered array, remove and return the lowest
+   ordered element. For efficiency, this function does not check that
+   the array is indeed heap-ordered.
 
 "),
 
-("文件系统","Base","isfile","isfile(path) -> Bool
+("Constants","Base","OS_NAME","OS_NAME
 
+   A symbol representing the name of the operating system. Possible
+   values are \":Linux\", \":Darwin\" (OS X), or \":Windows\".
 
-   如果 \"path\" 是文件，则返回 \"true\" ；否则返回 \"false\" 。
+"),
+
+("Constants","Base","ARGS","ARGS
+
+   An array of the command line arguments passed to Julia, as strings.
 
 "),
 
-("文件系统","Base","islink","islink(path) -> Bool
+("Constants","Base","C_NULL","C_NULL
+
+   The C null pointer constant, sometimes used when calling external
+   code.
+
+"),
 
+("Constants","Base","CPU_CORES","CPU_CORES
 
-   如果 \"path\" 是符号链接，则返回 \"true\" ；否则返回 \"false\" 。
+   The number of CPU cores in the system.
 
 "),
 
-("文件系统","Base","ispath","ispath(path) -> Bool
+("Constants","Base","WORD_SIZE","WORD_SIZE
 
+   Standard word size on the current machine, in bits.
 
-   如果 \"path\" 是有效的文件系统路径，则返回 \"true\" ；否则返回
-   \"false\" 。
+"),
+
+("Constants","Base","VERSION","VERSION
+
+   An object describing which version of Julia is in use.
 
 "),
 
-("文件系统","Base","isreadable","isreadable(path) -> Bool
+("Constants","Base","LOAD_PATH","LOAD_PATH
+
+   An array of paths (as strings) where the \"require\" function looks
+   for code.
+
+"),
 
+("Filesystem","Base","isblockdev","isblockdev(path) -> Bool
 
-   如果当前用户对 \"path\" 有读权限，则返回 \"true\" ；否则返回
-   \"false\" 。
+   Returns \"true\" if \"path\" is a block device, \"false\"
+   otherwise.
 
 "),
 
-("文件系统","Base","issetgid","issetgid(path) -> Bool
+("Filesystem","Base","ischardev","ischardev(path) -> Bool
 
+   Returns \"true\" if \"path\" is a character device, \"false\"
+   otherwise.
 
-   如果 \"path\" 设置了 setgid 标识符，则返回 \"true\" ；否则返回
-   \"false\" 。
+"),
+
+("Filesystem","Base","isdir","isdir(path) -> Bool
+
+   Returns \"true\" if \"path\" is a directory, \"false\" otherwise.
 
 "),
 
-("文件系统","Base","issetuid","issetuid(path) -> Bool
+("Filesystem","Base","isexecutable","isexecutable(path) -> Bool
+
+   Returns \"true\" if the current user has permission to execute
+   \"path\", \"false\" otherwise.
+
+"),
 
+("Filesystem","Base","isfifo","isfifo(path) -> Bool
 
-   如果 \"path\" 设置了 setuid 标识符，则返回 \"true\" ；否则返回
-   \"false\" 。
+   Returns \"true\" if \"path\" is a FIFO, \"false\" otherwise.
 
 "),
 
-("文件系统","Base","issocket","issocket(path) -> Bool
+("Filesystem","Base","isfile","isfile(path) -> Bool
 
+   Returns \"true\" if \"path\" is a regular file, \"false\"
+   otherwise.
 
-   如果 \"path\" 是 socket，则返回 \"true\" ；否则返回 \"false\" 。
+"),
+
+("Filesystem","Base","islink","islink(path) -> Bool
+
+   Returns \"true\" if \"path\" is a symbolic link, \"false\"
+   otherwise.
 
 "),
 
-("文件系统","Base","issticky","issticky(path) -> Bool
+("Filesystem","Base","ispath","ispath(path) -> Bool
+
+   Returns \"true\" if \"path\" is a valid filesystem path, \"false\"
+   otherwise.
+
+"),
 
+("Filesystem","Base","isreadable","isreadable(path) -> Bool
 
-   如果 \"path\" 设置了粘着位，则返回 \"true\" ；否则返回 \"false\" 。
+   Returns \"true\" if the current user has permission to read
+   \"path\", \"false\" otherwise.
 
 "),
 
-("文件系统","Base","iswriteable","iswriteable(path) -> Bool
+("Filesystem","Base","issetgid","issetgid(path) -> Bool
 
+   Returns \"true\" if \"path\" has the setgid flag set, \"false\"
+   otherwise.
 
-   如果当前用户对 \"path\" 有写权限，则返回 \"true\" ；否则返回
-   \"false\" 。
+"),
+
+("Filesystem","Base","issetuid","issetuid(path) -> Bool
+
+   Returns \"true\" if \"path\" has the setuid flag set, \"false\"
+   otherwise.
 
 "),
 
-("文件系统","Base","dirname","dirname(path::String) -> String
+("Filesystem","Base","issocket","issocket(path) -> Bool
+
+   Returns \"true\" if \"path\" is a socket, \"false\" otherwise.
+
+"),
 
+("Filesystem","Base","issticky","issticky(path) -> Bool
 
-   获取路径的目录部分。
+   Returns \"true\" if \"path\" has the sticky bit set, \"false\"
+   otherwise.
 
 "),
 
-("文件系统","Base","basename","basename(path::String) -> String
+("Filesystem","Base","iswritable","iswritable(path) -> Bool
 
+   Returns \"true\" if the current user has permission to write to
+   \"path\", \"false\" otherwise.
 
-   获取路径的文件名部分。
+"),
+
+("Filesystem","Base","dirname","dirname(path::String) -> String
+
+   Get the directory part of a path.
 
 "),
 
-("文件系统","Base","isabspath","isabspath(path::String) -> Bool
+("Filesystem","Base","basename","basename(path::String) -> String
+
+   Get the file name part of a path.
+
+"),
 
+("Filesystem","Base","isabspath","isabspath(path::String) -> Bool
 
    Determines whether a path is absolute (begins at the root
    directory).
 
 "),
 
-("文件系统","Base","joinpath","joinpath(parts...) -> String
+("Filesystem","Base","isdirpath","isdirpath(path::String) -> Bool
 
+   Determines whether a path refers to a directory (for example, ends
+   with a path separator).
+
+"),
+
+("Filesystem","Base","joinpath","joinpath(parts...) -> String
 
    Join path components into a full path. If some argument is an
    absolute path, then prior components are dropped.
 
 "),
 
-("文件系统","Base","abspath","abspath(path::String) -> String
-
+("Filesystem","Base","abspath","abspath(path::String) -> String
 
    Convert a path to an absolute path by adding the current directory
    if necessary.
 
 "),
 
-("文件系统","Base","tempname","tempname()
+("Filesystem","Base","normpath","normpath(path::String) -> String
 
-
-   生成唯一的临时文件名。
+   Normalize a path, removing \".\" and \"..\" entries.
 
 "),
 
-("文件系统","Base","tempdir","tempdir()
+("Filesystem","Base","realpath","realpath(path::String) -> String
 
+   Canonicalize a path by expanding symbolic links and removing \".\"
+   and \"..\" entries.
+
+"),
+
+("Filesystem","Base","expanduser","expanduser(path::String) -> String
+
+   On Unix systems, replace a tilde character at the start of a path
+   with the current user's home directory.
+
+"),
+
+("Filesystem","Base","splitdir","splitdir(path::String) -> (String, String)
+
+   Split a path into a tuple of the directory name and file name.
+
+"),
+
+("Filesystem","Base","splitdrive","splitdrive(path::String) -> (String, String)
+
+   On Windows, split a path into the drive letter part and the path
+   part. On Unix systems, the first component is always the empty
+   string.
+
+"),
+
+("Filesystem","Base","splitext","splitext(path::String) -> (String, String)
+
+   If the last component of a path contains a dot, split the path into
+   everything before the dot and everything including and after the
+   dot. Otherwise, return a tuple of the argument unmodified and the
+   empty string.
+
+"),
+
+("Filesystem","Base","tempname","tempname()
+
+   Generate a unique temporary filename.
+
+"),
+
+("Filesystem","Base","tempdir","tempdir()
 
    Obtain the path of a temporary directory.
 
 "),
 
-("文件系统","Base","mktemp","mktemp()
-
+("Filesystem","Base","mktemp","mktemp()
 
    Returns \"(path, io)\", where \"path\" is the path of a new
    temporary file and \"io\" is an open file object for this path.
 
 "),
 
-("文件系统","Base","mktempdir","mktempdir()
-
+("Filesystem","Base","mktempdir","mktempdir()
 
    Create a temporary directory and return its path.
 
 "),
 
+("Graphics","Base","Vec2","Vec2(x, y)
 
-("线性代数","","*","*(A, B)
+   Creates a point in two dimensions
 
+"),
 
-   矩阵乘法。
+("Graphics","Base","BoundingBox","BoundingBox(xmin, xmax, ymin, ymax)
 
-"),
+   Creates a box in two dimensions with the given edges
 
-("线性代数","","\\","\\(A, B)
+"),
 
+("Graphics","Base","BoundingBox","BoundingBox(objs...)
 
-   使用 polyalgorithm 做矩阵除法。对输入矩阵 \"A\" 和 \"B\" ，当 \"A\"
-   为方阵时， 输出 \"X\" 满足 \"A*X == B\" 。由 \"A\" 的结构确定使用哪
-   种求解器。 对上三角矩阵和下三角矩阵 \"A\" ，直接求解。 对 Hermitian
-   矩阵 \"A\" （它等价于实对称矩阵）时，使用 BunchKaufman 分解。 其他
-   情况使用 LU 分解。对长方矩阵 \"A\" ，通过将 \"A\" 约简到双对角线形
-   式， 然后使用最小范数最小二乘法来求解双对角线最小二乘问题。 对稀疏
-   矩阵 \"A\" ，使用 UMFPACK 中的 LU 分解。
+   Creates a box in two dimensions that encloses all objects
 
 "),
-
-("线性代数","","dot","dot(x, y)
 
+("Graphics","Base","width","width(obj)
 
-   计算点积。
+   Computes the width of an object
 
 "),
 
-("线性代数","","cross","cross(x, y)
+("Graphics","Base","height","height(obj)
 
+   Computes the height of an object
 
-   计算三维向量的向量积。
-
 "),
-
-("线性代数","","norm","norm(a)
 
+("Graphics","Base","xmin","xmin(obj)
 
-   计算 \"Vector\" 或 \"Matrix\" 的模。
+   Computes the minimum x-coordinate contained in an object
 
 "),
 
-("线性代数","","lu","lu(A) -> L, U, P
+("Graphics","Base","xmax","xmax(obj)
 
+   Computes the maximum x-coordinate contained in an object
 
-   对 \"A\" 做 LU 分解，满足 \"P*A = L*U\" 。
-
 "),
-
-("线性代数","","lufact","lufact(A) -> LU
 
+("Graphics","Base","ymin","ymin(obj)
 
-   对 \"A\" 做 LU 分解。若 \"A\" 为稠密矩阵，返回 \"LU\" 对象； 若
-   \"A\" 为稀疏矩阵，返回 \"UmfpackLU\" 对象。 分解结果 \"F\" 的独立分
-   量是可以被索引的： \"F[:L]\", \"F[:U]\", 及 \"F[:P]\" （置换矩阵）
-   或 \"F[:p]\" （置换向量）。 \"UmfpackLU\" 对象还有额外的 \"F[:q]\"
-   分量（ left 置换向量） 及缩放因子 \"F[:Rs]\" 向量。 \"LU\" 对象和
-   \"UmfpackLU\" 对象可使用下列函数： \"size\", \"\\\" 和 \"det\" 。
-   \"LUDense\" 对象还可以使用 \"inv\" 方法。 稀疏 LU 分解中， \"L*U\"
-   等价于 \"diagmm(Rs,A)[p,q]\" 。
+   Computes the minimum y-coordinate contained in an object
 
 "),
 
-("线性代数","","lufact!","lufact!(A) -> LU
+("Graphics","Base","ymax","ymax(obj)
 
+   Computes the maximum y-coordinate contained in an object
 
-   \"lufact!\" 与 \"lufact\" 类似，但它覆写输入 A ，而非构造浅拷贝。
-   对稀疏矩阵 \"A\" ，它并不覆写 \"nzval\" 域，仅覆写索引值域，
-   \"colptr\" 和 \"rowval\" 在原地缩减， 使得从 1 开始的索引改为从 0
-   开始的索引。
-
 "),
-
-("线性代数","","chol","chol(A[, LU]) -> F
 
+("Graphics","Base","diagonal","diagonal(obj)
 
-   计算对称正定矩阵 \"A\" 的 Cholesky 分解，返回 \"F\" 矩阵。 如果
-   \"LU\" 为 \"L\" （下三角）， \"A = L*L'\" 。 如果 \"LU\" 为 \"U\"
-   （下三角）， \"A = R'*R\" 。
+   Return the length of the diagonal of an object
 
 "),
 
-("线性代数","","cholfact","cholfact(A[, LU]) -> Cholesky
+("Graphics","Base","aspect_ratio","aspect_ratio(obj)
 
+   Compute the height/width of an object
 
-   计算稠密对称正定矩阵 \"A\" 的 Cholesky 分解，返回 \"Cholesky\" 对象
-   。 \"LU\" 若为 'L' 则使用下三角，若为 'U' 则使用上三角。默认使用
-   'U' 。 可从分解结果 \"F\" 中获取三角矩阵： \"F[:L]\" 和 \"F[:U]\"
-   。 \"Cholesky\" 对象可使用下列函数： \"size\", \"\\\", \"inv\",
-   \"det\" 。 如果矩阵不是正定，会抛出 \"LAPACK.PosDefException\" 错误
-   。
-
 "),
-
-("线性代数","","cholpfact","cholpfact(A[, LU]) -> CholeskyPivoted
 
+("Graphics","Base","center","center(obj)
 
-   计算对称正定矩阵 \"A\" 的主元 Cholesky 分解，返回
-   \"CholeskyPivoted\" 对象。 \"LU\" 若为 'L' 则使用下三角，若为 'U'
-   则使用上三角。默认使用 'U' 。 可从分解结果 \"F\" 中获取三角分量：
-   \"F[:L]\" 和 \"F[:U]\" ， 置换矩阵和置换向量分布为 \"F[:P]\" 和
-   \"F[:p]\" 。 \"CholeskyPivoted\" 对象可使用下列函数： \"size\",
-   \"\\\", \"inv\", \"det\" 。 如果矩阵不是满秩，会抛出
-   \"LAPACK.RankDeficientException\" 错误。
+   Return the point in the center of an object
 
 "),
 
-("线性代数","","cholpfact!","cholpfact!(A[, LU]) -> CholeskyPivoted
+("Graphics","Base","xrange","xrange(obj)
 
+   Returns a tuple \"(xmin(obj), xmax(obj))\"
 
-   \"cholpfact!\" 与 \"cholpfact\" 类似，但它覆写输入 A ，而非构造浅拷
-   贝。
-
 "),
-
-("线性代数","","qr","qr(A[, thin]) -> Q, R
 
+("Graphics","Base","yrange","yrange(obj)
 
-   对 \"A\" 做 QR 分解，满足 \"A = Q*R\" 。也可参见 \"qrfact\" 。 默认
-   做 \"thin\" 分解。
+   Returns a tuple \"(ymin(obj), ymax(obj))\"
 
 "),
 
-("线性代数","","qrfact","qrfact(A)
+("Graphics","Base","rotate","rotate(obj, angle, origin) -> newobj
 
+   Rotates an object around origin by the specified angle (radians),
+   returning a new object of the same type.  Because of type-
+   constancy, this new object may not always be a strict geometric
+   rotation of the input; for example, if \"obj\" is a \"BoundingBox\"
+   the return is the smallest \"BoundingBox\" that encloses the
+   rotated input.
 
-   对 \"A\" 做 QR 分解，返回 \"QR\" 对象。 \"factors(qrfact(A))\" 返回
-   \"Q\" 和 \"R\" 。 \"QR\" 对象可使用下列函数： \"size\",
-   \"factors\", \"qmulQR\", \"qTmulQR\", \"\\\" 。 提取的 \"Q\" 是
-   \"QRPackedQ\" 对象，且为了支持 \"Q\" 与 \"Q'\" 的高效乘法， 重载了
-   \"*\" 运算符。
-
 "),
-
-("线性代数","","qrfact!","qrfact!(A)
 
+("Graphics","Base","shift","shift(obj, dx, dy)
 
-   \"qrfact!\" 与 \"qrfact\" 类似，但它覆写输入 A ，而非构造浅拷贝。
+   Returns an object shifted horizontally and vertically by the
+   indicated amounts
 
 "),
 
-("线性代数","","qrp","qrp(A[, thin]) -> Q, R, P
+("Graphics","Base","*","*(obj, s::Real)
 
+   Scale the width and height of a graphics object, keeping the center
+   fixed
 
-   对 \"A\" 做主元 QR 分解，满足 \"A*P = Q*R\" 。另见 \"qrpfact\" 。
-   默认做 \"thin\" 分解。
-
 "),
-
-("线性代数","","qrpfact","qrpfact(A) -> QRPivoted
 
+("Graphics","Base","+","+(bb1::BoundingBox, bb2::BoundingBox) -> BoundingBox
 
-   对 \"A\" 做主元 QR 分解，返回 \"QRPivoted\" 对象。 可从分解结果
-   \"F\" 中获取分量：正交矩阵 \"Q\" 为 \"F[:Q]\" ， 三角矩阵 \"R\" 为
-   \"F[:R]\" ，置换矩阵和置换向量分布为 \"F[:P]\" 和 \"F[:p]\" 。
-   \"QRPivoted\" 对象可使用下列函数： \"size\", \"\\\" 。 提取的 \"Q\"
-   是 \"QRPivotedQ\" 对象，且为了支持 \"Q\" 与 \"Q'\" 的高效乘法， 重
-   载了 \"*\" 运算符。可以使用 \"full\" 函数将 \"QRPivotedQ\" 矩阵转换
-   为普通矩阵。
+   Returns the smallest box containing both boxes
 
 "),
 
-("线性代数","","qrpfact!","qrpfact!(A) -> QRPivoted
+("Graphics","Base","&","&(bb1::BoundingBox, bb2::BoundingBox) -> BoundingBox
 
+   Returns the intersection, the largest box contained in both boxes
 
-   \"qrpfact!\" 与 \"qrpfact\" 类似，但它覆写 A 以节约空间，而非构造浅
-   拷贝。
-
 "),
-
-("线性代数","","sqrtm","sqrtm(A)
 
+("Graphics","Base","deform","deform(bb::BoundingBox, dxmin, dxmax, dymin, dymax)
 
-   计算 \"A\" 的矩阵平方根。如果 \"B = sqrtm(A)\" ，满足在误差范围内
-   \"B*B == A\" 。
+   Returns a bounding box with all edges shifted by the indicated
+   amounts
 
 "),
 
-("线性代数","","eig","eig(A) -> D, V
+("Graphics","Base","isinside","isinside(bb::BoundingBox, x, y)
 
+   True if the given point is inside the box
 
-   计算 \"A\" 的特征值和特征向量。
-
 "),
-
-("线性代数","","eigvals","eigvals(A)
 
+("Graphics","Base","isinside","isinside(bb::BoundingBox, point)
 
-   返回  \"A\" 的特征值。
+   True if the given point is inside the box
 
 "),
 
-("线性代数","","eigmax","eigmax(A)
 
+("Linear Algebra","Base","*","*(A, B)
 
-   返回 \"A\" 的最大的特征值。
+   Matrix multiplication
 
 "),
 
-("线性代数","","eigmin","eigmin(A)
+("Linear Algebra","Base","\\","\\(A, B)
 
+   Matrix division using a polyalgorithm. For input matrices \"A\" and
+   \"B\", the result \"X\" is such that \"A*X == B\" when \"A\" is
+   square.  The solver that is used depends upon the structure of
+   \"A\".  A direct solver is used for upper- or lower triangular
+   \"A\".  For Hermitian \"A\" (equivalent to symmetric \"A\" for non-
+   complex \"A\") the BunchKaufman factorization is used.  Otherwise
+   an LU factorization is used. For rectangular \"A\" the result is
+   the minimum-norm least squares solution computed by reducing \"A\"
+   to bidiagonal form and solving the bidiagonal least squares
+   problem.  For sparse, square \"A\" the LU factorization (from
+   UMFPACK) is used.
 
-   返回 \"A\" 的最小的特征值。
-
 "),
+
+("Linear Algebra","Base","dot","dot(x, y)
 
-("线性代数","","eigvecs","eigvecs(A[, eigvals])
+   Compute the dot product
 
+"),
 
-   返回  \"A\" 的特征向量。
+("Linear Algebra","Base","cross","cross(x, y)
 
-   对于对称三对角线矩阵 SymTridiagonal, 如果指明了可选项 \"eigvals\"
-   特征值，返回对应的特征向量。
+   Compute the cross product of two 3-vectors
 
 "),
-
-("线性代数","","eigfact","eigfact(A)
 
+("Linear Algebra","Base","norm","norm(a)
 
-   对 \"A\" 做特征分解，返回 \"Eigen\" 对象。可从分解结果 \"F\" 中获取
-   分量： 特征值为 \"F[:values]\" ，特征向量为 \"F[:vectors]\" 。
-   \"Eigen\" 对象可使用下列函数： \"inv\", \"det\" 。
+   Compute the norm of a \"Vector\" or a \"Matrix\"
 
 "),
 
-("线性代数","","eigfact!","eigfact!(A)
+("Linear Algebra","Base","rref","rref(A)
 
+   Compute the reduced row echelon form of the matrix A.
 
-   \"eigfact!\" 与 \"eigfact\" 类似，但它覆写输入 A ，而非构造浅拷贝。
-
 "),
-
-("线性代数","","hessfact","hessfact(A)
 
+("Linear Algebra","Base","factorize","factorize(A)
 
-   对 \"A\" 做 Hessenberg 分解，返回 \"Hessenberg\" 对象。 如果分解后
-   的结果为 \"F\" ，酉矩阵为 \"F[:Q]\" ， Hessenberg 矩阵为 \"F[:H]\"
-   。 提取的 \"Q\" 是 \"HessenbergQ\" 对象， 可以使用 \"full\" 函数将
-   其转换为普通矩阵。
+   Compute a convenient factorization (including LU, Cholesky, Bunch
+   Kaufman, Triangular) of A, based upon the type of the input matrix.
+   The return value can then be reused for efficient solving of
+   multiple systems. For example: \"A=factorize(A); x=A\\\\b;
+   y=A\\\\C\".
 
 "),
 
-("线性代数","","hessfact!","hessfact!(A)
+("Linear Algebra","Base","factorize!","factorize!(A)
 
+   \"factorize!\" is the same as \"factorize()\", but saves space by
+   overwriting the input A, instead of creating a copy.
 
-   \"hessfact!\" 与 \"hessfact\" 类似，但它覆写输入 A ，而非构造浅拷贝
-   。
-
 "),
-
-("线性代数","","schurfact","schurfact(A) -> Schur
 
+("Linear Algebra","Base","lu","lu(A) -> L, U, P
 
-   对 \"A\" 做 Schur 分解。 分解结果 \"Schur\" 对象 \"F\" 的（近似）三
-   角 Schur 因子为 \"F[:Schur]\" 或 \"F[:T]\" ， 正交 Schur 向量为
-   \"F[:vectors]\" 或 \"F[:Z]\" 。 满足
-   \"A=F[:vectors]*F[:Schur]*F[:vectors]'\" 。 \"A\" 的特征值为
-   \"F[:values]\" 。
+   Compute the LU factorization of \"A\", such that \"P*A = L*U\".
 
 "),
 
-("线性代数","","schur","schur(A) -> Schur[:T], Schur[:Z],
-Schur[:values]
+("Linear Algebra","Base","lufact","lufact(A) -> LU
 
+   Compute the LU factorization of \"A\", returning an \"LU\" object
+   for dense \"A\" or an \"UmfpackLU\" object for sparse \"A\". The
+   individual components of the factorization \"F\" can be accesed by
+   indexing: \"F[:L]\", \"F[:U]\", and \"F[:P]\" (permutation matrix)
+   or \"F[:p]\" (permutation vector). An \"UmfpackLU\" object has
+   additional components \"F[:q]\" (the left permutation vector) and
+   \"Rs\" the vector of scaling factors. The following functions are
+   available for both \"LU\" and \"UmfpackLU\" objects: \"size\",
+   \"\\\" and \"det\".  For \"LU\" there is also an \"inv\" method.
+   The sparse LU factorization is such that \"L*U\" is equal
+   to``scale(Rs,A)[p,q]``.
 
-   详见 \"schurfact()\" 。
-
 "),
-
-("线性代数","","schurfact","schurfact(A, B) -> GeneralizedSchur
 
+("Linear Algebra","Base","lufact!","lufact!(A) -> LU
 
-   计算 \"A\" 和 \"B\" 做广义 Schur （或 QZ ）分解。 分解结果
-   \"Schur\" 对象 \"F\" 的（近似）三角 Schur 因子为 \"F[:S]\" 和
-   \"F[:T]\" ， 左正交 Schur 向量为 \"F[:left]\" 或 \"F[:Q]\" ， 左正
-   交 Schur 向量为 \"F[:right]\" 或 \"F[:Z]\" 。 满足
-   \"A=F[:left]*F[:S]*F[:right]'\" 及 \"B=F[:left]*F[:T]*F[:right]'\"
-   。 \"A\" 和 \"B\" 做广义特征值为 \"F[:alpha]./F[:beta]\" 。
+   \"lufact!\" is the same as \"lufact()\", but saves space by
+   overwriting the input A, instead of creating a copy.  For sparse
+   \"A\" the \"nzval\" field is not overwritten but the index fields,
+   \"colptr\" and \"rowval\" are decremented in place, converting from
+   1-based indices to 0-based indices.
 
 "),
 
-("线性代数","","schur","schur(A, B) -> GeneralizedSchur[:S],
-GeneralizedSchur[:T], GeneralizedSchur[:Q], GeneralizedSchur[:Z]
+("Linear Algebra","Base","chol","chol(A[, LU]) -> F
 
+   Compute Cholesky factorization of a symmetric positive-definite
+   matrix \"A\" and return the matrix \"F\". If \"LU\" is \"L\"
+   (Lower), \"A = L*L'\". If \"LU\" is \"U\" (Upper), \"A = R'*R\".
 
-   详见 \"schurfact()\" 。
-
 "),
-
-("线性代数","","svdfact","svdfact(A[, thin]) -> SVD
 
+("Linear Algebra","Base","cholfact","cholfact(A[, LU]) -> Cholesky
 
-   对 \"A\" 做奇异值分解（SVD），返回 \"SVD\" 对象。 分解结果 \"F\" 的
-   \"U\", \"S\", \"V\" 和 \"Vt\" 可分别通过 \"F[:U]\", \"F[:S]\",
-   \"F[:V]\" 和 \"F[:Vt]\" 来获得，它们满足 \"A = U*diagm(S)*Vt\" 。
-   如果 \"thin\" 为 \"true\" ，则做节约模式分解。 此算法先计算 \"Vt\"
-   ，即 \"V\" 的转置，后者是由前者转置得到的。 默认做 \"thin\" 分解。
+   Compute the Cholesky factorization of a dense symmetric positive-
+   definite matrix \"A\" and return a \"Cholesky\" object. \"LU\" may
+   be 'L' for using the lower part or 'U' for the upper part. The
+   default is to use 'U'. The triangular matrix can be obtained from
+   the factorization \"F\" with: \"F[:L]\" and \"F[:U]\". The
+   following functions are available for \"Cholesky\" objects:
+   \"size\", \"\\\", \"inv\", \"det\". A \"LAPACK.PosDefException\"
+   error is thrown in case the matrix is not positive definite.
 
 "),
 
-("线性代数","","svdfact!","svdfact!(A[, thin]) -> SVD
+("Linear Algebra","Base","cholfact","cholfact(A[, ll]) -> CholmodFactor
 
+   Compute the sparse Cholesky factorization of a sparse matrix \"A\".
+   If \"A\" is Hermitian its Cholesky factor is determined.  If \"A\"
+   is not Hermitian the Cholesky factor of \"A*A'\" is determined. A
+   fill-reducing permutation is used.  Methods for \"size\",
+   \"solve\", \"\\\", \"findn_nzs\", \"diag\", \"det\" and \"logdet\".
+   One of the solve methods includes an integer argument that can be
+   used to solve systems involving parts of the factorization only.
+   The optional boolean argument, \"ll\" determines whether the
+   factorization returned is of the \"A[p,p] = L*L'\" form, where
+   \"L\" is lower triangular or \"A[p,p] = scale(L,D)*L'\" form where
+   \"L\" is unit lower triangular and \"D\" is a non-negative vector.
+   The default is LDL.
 
-   \"svdfact!\" 与 \"svdfact\" 类似，但它覆写 A 以节约空间，而非构造浅
-   拷贝。 如果 \"thin\" 为 \"true\" ，则做 \"thin\" 分解。默认做
-   \"thin\" 分解。
-
 "),
-
-("线性代数","","svd","svd(A[, thin]) -> U, S, V
 
+("Linear Algebra","Base","cholfact!","cholfact!(A[, LU]) -> Cholesky
 
-   对 \"A\" 做奇异值分解，返回 \"U\" ，向量 \"S\" ，及 \"V\" ， 满足
-   \"A == U*diagm(S)*V'\" 。如果 \"thin\" 为 \"true\" ，则做节约模式分
-   解。
+   \"cholfact!\" is the same as \"cholfact()\", but saves space by
+   overwriting the input A, instead of creating a copy.
 
 "),
 
-("线性代数","","svdvals","svdvals(A)
+("Linear Algebra","Base","cholpfact","cholpfact(A[, LU]) -> CholeskyPivoted
 
+   Compute the pivoted Cholesky factorization of a symmetric positive
+   semi-definite matrix \"A\" and return a \"CholeskyPivoted\" object.
+   \"LU\" may be 'L' for using the lower part or 'U' for the upper
+   part. The default is to use 'U'. The triangular factors containted
+   in the factorization \"F\" can be obtained with \"F[:L]\" and
+   \"F[:U]\", whereas the permutation can be obtained with \"F[:P]\"
+   or \"F[:p]\". The following functions are available for
+   \"CholeskyPivoted\" objects: \"size\", \"\\\", \"inv\", \"det\". A
+   \"LAPACK.RankDeficientException\" error is thrown in case the
+   matrix is rank deficient.
 
-   返回 \"A\" 的奇异值。
+"),
+
+("Linear Algebra","Base","cholpfact!","cholpfact!(A[, LU]) -> CholeskyPivoted
 
+   \"cholpfact!\" is the same as \"cholpfact\", but saves space by
+   overwriting the input A, instead of creating a copy.
+
 "),
+
+("Linear Algebra","Base","qr","qr(A[, thin]) -> Q, R
 
-("线性代数","","svdvals!","svdvals!(A)
+   Compute the QR factorization of \"A\" such that \"A = Q*R\". Also
+   see \"qrfact\". The default is to compute a thin factorization.
 
+"),
+
+("Linear Algebra","Base","qrfact","qrfact(A)
 
-   返回 \"A\" 的奇异值，将结果覆写到输入上以节约空间。
+   Compute the QR factorization of \"A\" and return a \"QR\" object.
+   The coomponents of the factorization \"F\" can be accessed as
+   follows: the orthogonal matrix \"Q\" can be extracted with
+   \"F[:Q]\" and the triangular matrix \"R\" with \"F[:R]\". The
+   following functions are available for \"QR\" objects: \"size\",
+   \"\\\". When \"Q\" is extracted, the resulting type is the
+   \"QRPackedQ\" object, and has the \"*\" operator overloaded to
+   support efficient multiplication by \"Q\" and \"Q'\".
 
 "),
+
+("Linear Algebra","Base","qrfact!","qrfact!(A)
+
+   \"qrfact!\" is the same as \"qrfact()\", but saves space by
+   overwriting the input A, instead of creating a copy.
 
-("线性代数","","svdfact","svdfact(A, B) -> GSVDDense
+"),
 
+("Linear Algebra","Base","qrp","qrp(A[, thin]) -> Q, R, P
 
-   计算 \"A\" 和 \"B\" 的广义 SVD ，返回 \"GeneralizedSVD\" 分解对象。
-   满足 \"A = U*D1*R0*Q'\" 及 \"B = V*D2*R0*Q'\" 。
+   Compute the QR factorization of \"A\" with pivoting, such that
+   \"A*P = Q*R\", Also see \"qrpfact\". The default is to compute a
+   thin factorization.
 
 "),
+
+("Linear Algebra","Base","qrpfact","qrpfact(A) -> QRPivoted
 
-("线性代数","","svd","svd(A, B) -> U, V, Q, D1, D2, R0
+   Compute the QR factorization of \"A\" with pivoting and return a
+   \"QRPivoted\" object. The components of the factorization \"F\" can
+   be accessed as follows: the orthogonal matrix \"Q\" can be
+   extracted with \"F[:Q]\", the triangular matrix \"R\" with
+   \"F[:R]\", and the permutation with \"F[:P]\" or \"F[:p]\". The
+   following functions are available for \"QRPivoted\" objects:
+   \"size\", \"\\\". When \"Q\" is extracted, the resulting type is
+   the \"QRPivotedQ\" object, and has the \"*\" operator overloaded to
+   support efficient multiplication by \"Q\" and \"Q'\". A
+   \"QRPivotedQ\" matrix can be converted into a regular matrix with
+   \"full\".
+
+"),
 
+("Linear Algebra","Base","qrpfact!","qrpfact!(A) -> QRPivoted
 
-   计算 \"A\" 和 \"B\" 的广义 SVD ，返回 \"U\", \"V\", \"Q\", \"D1\",
-   \"D2\", 和 \"R0\" ，满足 \"A = U*D1*R0*Q'\" 及 \"B = V*D2*R0*Q'\"
-   。
+   \"qrpfact!\" is the same as \"qrpfact()\", but saves space by
+   overwriting the input A, instead of creating a copy.
 
 "),
 
-("线性代数","","svdvals","svdvals(A, B)
+("Linear Algebra","Base","bkfact","bkfact(A) -> BunchKaufman
 
+   Compute the Bunch Kaufman factorization of a real symmetric or
+   complex Hermitian matrix \"A\" and return a \"BunchKaufman\"
+   object. The following functions are available for \"BunchKaufman\"
+   objects: \"size\", \"\\\", \"inv\", \"issym\", \"ishermitian\".
 
-   仅返回 \"A\" 和 \"B\" 广义 SVD 中的奇异值。
+"),
+
+("Linear Algebra","Base","bkfact!","bkfact!(A) -> BunchKaufman
 
+   \"bkfact!\" is the same as \"bkfact()\", but saves space by
+   overwriting the input A, instead of creating a copy.
+
 "),
+
+("Linear Algebra","Base","sqrtm","sqrtm(A)
 
-("线性代数","","triu","triu(M)
+   Compute the matrix square root of \"A\". If \"B = sqrtm(A)\", then
+   \"B*B == A\" within roundoff error.
 
+"),
+
+("Linear Algebra","Base","eig","eig(A) -> D, V
 
-   矩阵上三角。
+   Compute eigenvalues and eigenvectors of A
 
 "),
+
+("Linear Algebra","Base","eig","eig(A, B) -> D, V
+
+   Compute generalized eigenvalues and vectors of A and B
 
-("线性代数","","tril","tril(M)
+"),
 
+("Linear Algebra","Base","eigvals","eigvals(A)
 
-   矩阵下三角。
+   Returns the eigenvalues of \"A\".
 
 "),
+
+("Linear Algebra","Base","eigmax","eigmax(A)
 
-("线性代数","","diag","diag(M[, k])
+   Returns the largest eigenvalue of \"A\".
+
+"),
 
+("Linear Algebra","Base","eigmin","eigmin(A)
 
-   矩阵的第 \"k\" 条对角线，结果为向量。 \"k\" 从 0 开始。
+   Returns the smallest eigenvalue of \"A\".
 
 "),
 
-("线性代数","","diagm","diagm(v[, k])
+("Linear Algebra","Base","eigvecs","eigvecs(A[, eigvals])
 
+   Returns the eigenvectors of \"A\".
 
-   构造 \"v\" 为第 \"k\" 条对角线的对角矩阵。 \"k\" 从 0 开始。
+   For SymTridiagonal matrices, if the optional vector of eigenvalues
+   \"eigvals\" is specified, returns the specific corresponding
+   eigenvectors.
 
 "),
 
-("线性代数","","diagmm","diagmm(matrix, vector)
+("Linear Algebra","Base","eigfact","eigfact(A)
 
+   Compute the eigenvalue decomposition of \"A\" and return an
+   \"Eigen\" object. If \"F\" is the factorization object, the
+   eigenvalues can be accessed with \"F[:values]\" and the
+   eigenvectors with \"F[:vectors]\". The following functions are
+   available for \"Eigen\" objects: \"inv\", \"det\".
 
-   矩阵与向量相乘。此函数也可以做向量与矩阵相乘。
-
 "),
+
+("Linear Algebra","Base","eigfact","eigfact(A, B)
 
-("线性代数","","Tridiagonal","Tridiagonal(dl, d, du)
+   Compute the generalized eigenvalue decomposition of \"A\" and \"B\"
+   and return an \"GeneralizedEigen\" object. If \"F\" is the
+   factorization object, the eigenvalues can be accessed with
+   \"F[:values]\" and the eigenvectors with \"F[:vectors]\".
 
+"),
 
-   由下对角线、主对角线、上对角线来构造三对角矩阵
+("Linear Algebra","Base","eigfact!","eigfact!(A[, B])
 
+   \"eigfact!\" is the same as \"eigfact()\", but saves space by
+   overwriting the input A (and B), instead of creating a copy.
+
 "),
+
+("Linear Algebra","Base","hessfact","hessfact(A)
 
-("线性代数","","Bidiagonal","Bidiagonal(dv, ev, isupper)
+   Compute the Hessenberg decomposition of \"A\" and return a
+   \"Hessenberg\" object. If \"F\" is the factorization object, the
+   unitary matrix can be accessed with \"F[:Q]\" and the Hessenberg
+   matrix with \"F[:H]\". When \"Q\" is extracted, the resulting type
+   is the \"HessenbergQ\" object, and may be converted to a regular
+   matrix with \"full\".
 
+"),
+
+("Linear Algebra","Base","hessfact!","hessfact!(A)
 
-   使用指定的对角线 (dv) 和非对角线 (ev) 向量， 构造上(isupper=true)或
-   下(isupper=false) 双对角线矩阵。
+   \"hessfact!\" is the same as \"hessfact()\", but saves space by
+   overwriting the input A, instead of creating a copy.
 
 "),
+
+("Linear Algebra","Base","schurfact","schurfact(A) -> Schur
+
+   Computes the Schur factorization of the matrix \"A\". The (quasi)
+   triangular Schur factor can be obtained from the \"Schur\" object
+   \"F\" with either \"F[:Schur]\" or \"F[:T]\" and the
+   unitary/orthogonal Schur vectors can be obtained with
+   \"F[:vectors]\" or \"F[:Z]\" such that
+   \"A=F[:vectors]*F[:Schur]*F[:vectors]'\". The eigenvalues of \"A\"
+   can be obtained with \"F[:values]\".
 
-("线性代数","","Woodbury","Woodbury(A, U, C, V)
+"),
 
+("Linear Algebra","Base","schurfact!","schurfact!(A)
 
-   构造 Woodbury matrix identity 格式的矩阵。
+   Computer the Schur factorization of A, overwriting A in the
+   process. See \"schurfact()\"
 
 "),
+
+("Linear Algebra","Base","schur","schur(A) -> Schur[:T], Schur[:Z], Schur[:values]
 
-("线性代数","","rank","rank(M)
+   See schurfact
+
+"),
 
+("Linear Algebra","Base","schurfact","schurfact(A, B) -> GeneralizedSchur
 
-   计算矩阵的秩。
+   Computes the Generalized Schur (or QZ) factorization of the
+   matrices \"A\" and \"B\". The (quasi) triangular Schur factors can
+   be obtained from the \"Schur\" object \"F\" with \"F[:S]\" and
+   \"F[:T]\", the left unitary/orthogonal Schur vectors can be
+   obtained with \"F[:left]\" or \"F[:Q]\" and the right
+   unitary/orthogonal Schur vectors can be obtained with \"F[:right]\"
+   or \"F[:Z]\" such that \"A=F[:left]*F[:S]*F[:right]'\" and
+   \"B=F[:left]*F[:T]*F[:right]'\". The generalized eigenvalues of
+   \"A\" and \"B\" can be obtained with \"F[:alpha]./F[:beta]\".
 
 "),
 
-("线性代数","","norm","norm(A[, p])
+("Linear Algebra","Base","schur","schur(A, B) -> GeneralizedSchur[:S], GeneralizedSchur[:T], GeneralizedSchur[:Q], GeneralizedSchur[:Z]
 
+   See schurfact
 
-   计算向量或矩阵的 \"p\" 范数。 \"p\" 默认为 2 。 如果 \"A\" 是向量，
-   \"norm(A, p)\" 计算 \"p\" 范数。 \"norm(A, Inf)\" 返回 \"abs(A)\"
-   中的最大值， \"norm(A, -Inf)\" 返回最小值。 如果 \"A\" 是矩阵，
-   \"p\" 的有效值为 \"1\", \"2\", 和 \"Inf\" 。 要计算 Frobenius 范数
-   ，应使用 \"normfro\" 。
+"),
+
+("Linear Algebra","Base","svdfact","svdfact(A[, thin]) -> SVD
 
+   Compute the Singular Value Decomposition (SVD) of \"A\" and return
+   an \"SVD\" object. \"U\", \"S\", \"V\" and \"Vt\" can be obtained
+   from the factorization \"F\" with \"F[:U]\", \"F[:S]\", \"F[:V]\"
+   and \"F[:Vt]\", such that \"A = U*diagm(S)*Vt\". If \"thin\" is
+   \"true\", an economy mode decomposition is returned. The algorithm
+   produces \"Vt\" and hence \"Vt\" is more efficient to extract than
+   \"V\". The default is to produce a thin decomposition.
+
 "),
+
+("Linear Algebra","Base","svdfact!","svdfact!(A[, thin]) -> SVD
 
-("线性代数","","normfro","normfro(A)
+   \"svdfact!\" is the same as \"svdfact()\", but saves space by
+   overwriting the input A, instead of creating a copy. If \"thin\" is
+   \"true\", an economy mode decomposition is returned. The default is
+   to produce a thin decomposition.
 
+"),
+
+("Linear Algebra","Base","svd","svd(A[, thin]) -> U, S, V
 
-   计算矩阵 \"A\" 的 Frobenius 范数。
+   Compute the SVD of A, returning \"U\", vector \"S\", and \"V\" such
+   that \"A == U*diagm(S)*V'\". If \"thin\" is \"true\", an economy
+   mode decomposition is returned.
 
 "),
+
+("Linear Algebra","Base","svdvals","svdvals(A)
+
+   Returns the singular values of \"A\".
 
-("线性代数","","cond","cond(M[, p])
+"),
 
+("Linear Algebra","Base","svdvals!","svdvals!(A)
 
-   使用 p 范数计算矩阵条件数。 \"p\" 如果省略，默认为 2 。 \"p\" 的有
-   效值为 \"1\", \"2\", 和 \"Inf\".
+   Returns the singular values of \"A\", while saving space by
+   overwriting the input.
 
 "),
+
+("Linear Algebra","Base","svdfact","svdfact(A, B) -> GeneralizedSVD
 
-("线性代数","","trace","trace(M)
+   Compute the generalized SVD of \"A\" and \"B\", returning a
+   \"GeneralizedSVD\" Factorization object, such that \"A =
+   U*D1*R0*Q'\" and \"B = V*D2*R0*Q'\".
+
+"),
 
+("Linear Algebra","Base","svd","svd(A, B) -> U, V, Q, D1, D2, R0
 
-   矩阵的迹。
+   Compute the generalized SVD of \"A\" and \"B\", returning \"U\",
+   \"V\", \"Q\", \"D1\", \"D2\", and \"R0\" such that \"A =
+   U*D1*R0*Q'\" and \"B = V*D2*R0*Q'\".
 
 "),
 
-("线性代数","","det","det(M)
+("Linear Algebra","Base","svdvals","svdvals(A, B)
 
+   Return only the singular values from the generalized singular value
+   decomposition of \"A\" and \"B\".
 
-   矩阵的行列式。
+"),
+
+("Linear Algebra","Base","triu","triu(M)
 
+   Upper triangle of a matrix.
+
 "),
+
+("Linear Algebra","Base","triu!","triu!(M)
 
-("线性代数","","inv","inv(M)
+   Upper triangle of a matrix, overwriting M in the process.
 
+"),
+
+("Linear Algebra","Base","tril","tril(M)
 
-   矩阵的逆。
+   Lower triangle of a matrix.
 
 "),
+
+("Linear Algebra","Base","tril!","tril!(M)
+
+   Lower triangle of a matrix, overwriting M in the process.
 
-("线性代数","","pinv","pinv(M)
+"),
 
+("Linear Algebra","Base","diagind","diagind(M[, k])
 
-   矩阵的 Moore-Penrose （广义）逆
+   A \"Range\" giving the indices of the \"k\"-th diagonal of the
+   matrix \"M\".
 
 "),
+
+("Linear Algebra","Base","diag","diag(M[, k])
 
-("线性代数","","null","null(M)
+   The \"k\"-th diagonal of a matrix, as a vector.
+
+"),
 
+("Linear Algebra","Base","diagm","diagm(v[, k])
 
-   矩阵 M 的零空间的基。
+   Construct a diagonal matrix and place \"v\" on the \"k\"-th
+   diagonal.
 
 "),
 
-("线性代数","","repmat","repmat(A, n, m)
+("Linear Algebra","Base","scale","scale(A, B)
 
+   \"scale(A::Array, B::Number)\" scales all values in \"A\" with
+   \"B\". Note: In cases where the array is big enough, \"scale\" can
+   be much faster than \"A .* B\", due to the use of BLAS.
 
-   重复矩阵 \"A\" 来构造新数组，在第一维度上重复 \"n\" 次，第二维度上
-   重复 \"m\" 次。
+   \"scale(A::Matrix, B::Vector)\" is the same as multiplying with a
+   diagonal matrix on the right, and scales the columns of \"A\" with
+   the values in \"B\".
 
+   \"scale(A::Vector, B::Matrix)\" is the same as multiplying with a
+   diagonal matrix on the left, and scales the rows of \"B\" with the
+   values in \"A\".
+
 "),
+
+("Linear Algebra","Base","scale!","scale!(A, B)
 
-("线性代数","","kron","kron(A, B)
+   \"scale!(A,B)\" overwrites the input array with the scaled result.
+
+"),
 
+("Linear Algebra","Base","symmetrize!","symmetrize!(A[, UL::Char])
 
-   两个向量或两个矩阵的 Kronecker 张量积。
+   \"symmetrize!(A)\" converts from the BLAS/LAPACK symmetric storage
+   format, in which only the \"UL\" ('U'pper or 'L'ower, default 'U')
+   triangle is used, to a full symmetric matrix.
 
 "),
 
-("线性代数","","linreg","linreg(x, y)
+("Linear Algebra","Base","Tridiagonal","Tridiagonal(dl, d, du)
 
+   Construct a tridiagonal matrix from the lower diagonal, diagonal,
+   and upper diagonal, respectively.  The result is of type
+   \"Tridiagonal\" and provides efficient specialized linear solvers,
+   but may be converted into a regular matrix with \"full\".
 
-   最小二乘法线性回归来计算参数 \"[a, b]\" ，使 \"y\" 逼近 \"a+b*x\"
-   。
+"),
+
+("Linear Algebra","Base","Bidiagonal","Bidiagonal(dv, ev, isupper)
 
+   Constructs an upper (isupper=true) or lower (isupper=false)
+   bidiagonal matrix using the given diagonal (dv) and off-diagonal
+   (ev) vectors.  The result is of type \"Bidiagonal\" and provides
+   efficient specialized linear solvers, but may be converted into a
+   regular matrix with \"full\".
+
 "),
+
+("Linear Algebra","Base","SymTridiagonal","SymTridiagonal(d, du)
 
-("线性代数","","linreg","linreg(x, y, w)
+   Construct a real-symmetric tridiagonal matrix from the diagonal and
+   upper diagonal, respectively. The result is of type
+   \"SymTridiagonal\" and provides efficient specialized eigensolvers,
+   but may be converted into a regular matrix with \"full\".
 
+"),
+
+("Linear Algebra","Base","Woodbury","Woodbury(A, U, C, V)
 
-   带权最小二乘法线性回归。
+   Construct a matrix in a form suitable for applying the Woodbury
+   matrix identity
 
 "),
+
+("Linear Algebra","Base","rank","rank(M)
+
+   Compute the rank of a matrix
 
-("线性代数","","expm","expm(A)
+"),
 
+("Linear Algebra","Base","norm","norm(A[, p])
 
-   矩阵指数。
+   Compute the \"p\"-norm of a vector or a matrix. \"p\" is \"2\" by
+   default, if not provided. If \"A\" is a vector, \"norm(A, p)\"
+   computes the \"p\"-norm. \"norm(A, Inf)\" returns the largest value
+   in \"abs(A)\", whereas \"norm(A, -Inf)\" returns the smallest. If
+   \"A\" is a matrix, valid values for \"p\" are \"1\", \"2\", or
+   \"Inf\". In order to compute the Frobenius norm, use \"normfro\".
 
 "),
+
+("Linear Algebra","Base","normfro","normfro(A)
 
-("线性代数","","issym","issym(A)
+   Compute the Frobenius norm of a matrix \"A\".
+
+"),
 
+("Linear Algebra","Base","cond","cond(M[, p])
 
-   判断是否为对称矩阵。
+   Matrix condition number, computed using the p-norm. \"p\" is 2 by
+   default, if not provided. Valid values for \"p\" are \"1\", \"2\",
+   or \"Inf\".
 
 "),
 
-("线性代数","","isposdef","isposdef(A)
+("Linear Algebra","Base","trace","trace(M)
 
+   Matrix trace
 
-   判断是否为正定矩阵。
+"),
+
+("Linear Algebra","Base","det","det(M)
 
+   Matrix determinant
+
 "),
+
+("Linear Algebra","Base","logdet","logdet(M)
 
-("线性代数","","istril","istril(A)
+   Log of Matrix determinant. Equivalent to \"log(det(M))\", but may
+   provide increased accuracy and/or speed.
 
+"),
+
+("Linear Algebra","Base","inv","inv(M)
 
-   判断是否为下三角矩阵。
+   Matrix inverse
 
 "),
+
+("Linear Algebra","Base","pinv","pinv(M)
+
+   Moore-Penrose inverse
 
-("线性代数","","istriu","istriu(A)
+"),
 
+("Linear Algebra","Base","null","null(M)
 
-   判断是否为上三角矩阵。
+   Basis for null space of M.
 
 "),
+
+("Linear Algebra","Base","repmat","repmat(A, n, m)
 
-("线性代数","","ishermitian","ishermitian(A)
+   Construct a matrix by repeating the given matrix \"n\" times in
+   dimension 1 and \"m\" times in dimension 2.
+
+"),
 
+("Linear Algebra","Base","repeat","repeat(A, inner = Int[], outer = Int[])
 
-   判断是否为 Hamilton 矩阵。
+   Construct an array by repeating the entries of \"A\". The i-th
+   element of \"inner\" specifies the number of times that the
+   individual entries of the i-th dimension of \"A\" should be
+   repeated. The i-th element of \"outer\" specifies the number of
+   times that a slice along the i-th dimension of >>``<<A` should be
+   repeated.
 
 "),
 
-("线性代数","","transpose","transpose(A)
+("Linear Algebra","Base","kron","kron(A, B)
 
+   Kronecker tensor product of two vectors or two matrices.
 
-   转置运算符（ \".'\" ）。
+"),
+
+("Linear Algebra","Base","linreg","linreg(x, y)
 
+   Determine parameters \"[a, b]\" that minimize the squared error
+   between \"y\" and \"a+b*x\".
+
 "),
+
+("Linear Algebra","Base","linreg","linreg(x, y, w)
+
+   Weighted least-squares linear regression.
 
-("线性代数","","ctranspose","ctranspose(A)
+"),
 
+("Linear Algebra","Base","expm","expm(A)
 
-   共轭转置运算符（ \"'\" ）。
+   Matrix exponential.
 
 "),
+
+("Linear Algebra","Base","issym","issym(A)
 
-("BLAS 函数","","copy!","copy!(n, X, incx, Y, incy)
+   Test whether a matrix is symmetric.
+
+"),
 
+("Linear Algebra","Base","isposdef","isposdef(A)
 
-   将内存邻接距离为 \"incx\" 的数组 \"X\" 的 \"n\" 个元素复制到 内存邻
-   接距离为 \"incy\" 的数组 \"Y\" 中。返回 \"Y\" 。
+   Test whether a matrix is positive-definite.
 
 "),
 
-("BLAS 函数","","dot","dot(n, X, incx, Y, incy)
+("Linear Algebra","Base","isposdef!","isposdef!(A)
 
+   Test whether a matrix is positive-definite, overwriting A in the
+   processes.
 
-   内存邻接距离为 \"incx\" 的数组 \"X\" 的 \"n\" 个元素组成的向量，与
-   内存邻接距离为 \"incy\" 的数组 \"Y\" 的 \"n\" 个元素组成的向量，做
-   点积。 \"Complex\" 数组没有 \"dot\" 方法。
+"),
+
+("Linear Algebra","Base","istril","istril(A)
 
+   Test whether a matrix is lower-triangular.
+
 "),
+
+("Linear Algebra","Base","istriu","istriu(A)
 
-("BLAS 函数","","nrm2","nrm2(n, X, incx)
+   Test whether a matrix is upper-triangular.
 
+"),
+
+("Linear Algebra","Base","ishermitian","ishermitian(A)
 
-   内存邻接距离为 \"incx\" 的数组 \"X\" 的 \"n\" 个元素组成的向量的 2
-   范数。
+   Test whether a matrix is hermitian.
 
 "),
+
+("Linear Algebra","Base","transpose","transpose(A)
+
+   The transpose operator (\".'\").
 
-("BLAS 函数","","axpy!","axpy!(n, a, X, incx, Y, incy)
+"),
 
+("Linear Algebra","Base","ctranspose","ctranspose(A)
 
-   将 \"a*X + Y\" 赋值给 \"Y\" 并返回。
+   The conjugate transpose operator (\"'\").
 
 "),
+
+("Linear Algebra","Base","eigs","eigs(A; nev=6, which=\"LM\", tol=0.0, maxiter=1000, ritzvec=true)
+
+   \"eigs\" computes the eigenvalues of A using Arnoldi factorization.
+   The following keyword arguments are supported:
+      * \"nev\": Number of eigenvalues
+
+      * \"which\": type of eigenvalues (\"LM\", \"SM\")
 
-("BLAS 函数","","syrk!","syrk!(uplo, trans, alpha, A, beta, C)
+      * \"tol\": tolerance (tol \\le 0.0 defaults to
+        \"DLAMCH('EPS')\")
 
+      * \"maxiter\": Maximum number of iterations
 
-   由参数 \"trans\" （ 'N' 或 'T' ）确定，计算 \"alpha*A*A.' +
-   beta*C\" 或 \"alpha*A.'*A + beta*C\" ，由参数 \"uplo\" （ 'U' 或
-   'L' ）确定， 用计算的结果更新对称矩阵 \"C\" 的上三角矩阵或下三角矩
-   阵。返回 \"C\" 。
+      * \"ritzvec\": Returns the Ritz vectors (eigenvectors) if
+        \"true\"
 
 "),
 
-("BLAS 函数","","syrk","syrk(uplo, trans, alpha, A)
+("Linear Algebra","Base","svds","svds(A; nev=6, which=\"LA\", tol=0.0, maxiter=1000, ritzvec=true)
 
+   \"svds\" computes the singular values of A using Arnoldi
+   factorization. The following keyword arguments are supported:
+      * \"nsv\": Number of singular values
 
-   由参数 \"trans\" （ 'N' 或 'T' ）确定，计算 \"alpha*A*A.'\" 或
-   \"alpha*A.'*A\" ，由参数 \"uplo\" （ 'U' 或 'L' ）确定， 返回计算结
-   果的上三角矩阵或下三角矩阵。
+      * \"which\": type of singular values (\"LA\")
 
+      * \"tol\": tolerance (tol \\le 0.0 defaults to
+        \"DLAMCH('EPS')\")
+
+      * \"maxiter\": Maximum number of iterations
+
+      * \"ritzvec\": Returns the singular vectors if \"true\"
+
 "),
 
-("BLAS 函数","","herk!","herk!(uplo, trans, alpha, A, beta, C)
+("Linear Algebra","Base","peakflops","peakflops(n; parallel=false)
 
+   \"peakflops\" computes the peak flop rate of the computer by using
+   BLAS dgemm. By default, if no arguments are specified, it
+   multiplies a matrix of size \"n x n\", where \"n = 2000\". If the
+   underlying BLAS is using multiple threads, higher flop rates are
+   realized. The number of BLAS threads can be set with
+   \"blas_set_num_threads(n)\".
 
-   此方法只适用于复数数组。由参数 \"trans\" （ 'N' 或 'T' ）确定， 计
-   算 \"alpha*A*A' + beta*C\" 或 \"alpha*A'*A + beta*C\" ， 由参数
-   \"uplo\" （ 'U' 或 'L' ）确定， 用计算的结果更新对称矩阵 \"C\" 的上
-   三角矩阵或下三角矩阵。返回 \"C\" 。
+   If the keyword argument \"parallel\" is set to \"true\",
+   \"peakflops\" is run in parallel on all the worker processors. The
+   flop rate of the entire parallel computer is returned. When running
+   in parallel, only 1 BLAS thread is used. The argument \"n\" still
+   refers to the size of the problem that is solved on each processor.
 
 "),
-
-("BLAS 函数","","herk","herk(uplo, trans, alpha, A)
 
+("BLAS Functions","Base","copy!","copy!(n, X, incx, Y, incy)
 
-   此方法只适用于复数数组。由参数 \"trans\" （ 'N' 或 'T' ）确定， 计
-   算 \"alpha*A*A'\" 或 \"alpha*A'*A\" ， 由参数 \"uplo\" （ 'U' 或
-   'L' ）确定，返回计算结果的上三角矩阵或下三角矩阵。
+   Copy \"n\" elements of array \"X\" with stride \"incx\" to array
+   \"Y\" with stride \"incy\".  Returns \"Y\".
 
 "),
 
-("BLAS 函数","","gbmv!","gbmv!(trans, m, kl, ku, alpha, A, x, beta, y)
+("BLAS Functions","Base","dot","dot(n, X, incx, Y, incy)
 
+   Dot product of two vectors consisting of \"n\" elements of array
+   \"X\" with stride \"incx\" and \"n\" elements of array \"Y\" with
+   stride \"incy\".  There are no \"dot\" methods for \"Complex\"
+   arrays.
 
-   由参数 \"trans\" （ 'N' 或 'T' ）确定，计算 \"alpha*A*x\" 或
-   \"alpha*A'*x\" ，将结果赋值给 \"y\" 并返回。矩阵 \"A\" 为普通带矩阵
-   ， 其维度 \"m\" 为 \"size(A,2)\" ， 子对角线为 \"kl\" ，超对角线为
-   \"ku\" 。
+"),
+
+("BLAS Functions","Base.LinAlg.BLAS","nrm2","nrm2(n, X, incx)
 
+   2-norm of a vector consisting of \"n\" elements of array \"X\" with
+   stride \"incx\".
+
 "),
+
+("BLAS Functions","Base.LinAlg.BLAS","asum","asum(n, X, incx)
 
-("BLAS 函数","","gbmv","gbmv(trans, m, kl, ku, alpha, A, x, beta, y)
+   sum of the absolute values of the first \"n\" elements of array
+   \"X\" with stride \"incx\".
 
+"),
+
+("BLAS Functions","Base.LinAlg.BLAS","axpy!","axpy!(n, a, X, incx, Y, incy)
 
-   由参数 \"trans\" （ 'N' 或 'T' ）确定，计算 \"alpha*A*x\" 或
-   \"alpha*A'*x\" 。矩阵 \"A\" 为普通带矩阵， 其维度 \"m\" 为
-   \"size(A,2)\" ， 子对角线为 \"kl\" ， 超对角线为 \"ku\" 。
+   Overwrite \"Y\" with \"a*X + Y\".  Returns \"Y\".
 
 "),
+
+("BLAS Functions","Base.LinAlg.BLAS","scal!","scal!(n, a, X, incx)
+
+   Overwrite \"X\" with \"a*X\".  Returns \"X\".
 
-("BLAS 函数","","sbmv!","sbmv!(uplo, k, alpha, A, x, beta, y)
+"),
 
+("BLAS Functions","Base.LinAlg.BLAS","scal","scal(n, a, X, incx)
 
-   将 \"alpha*A*x + beta*y\" 赋值给 \"y\" 并返回。 其中 \"A\" 是对称带
-   矩阵，维度为 \"size(A,2)\" ，超对角线为 \"k\" 。 关于 A 是如何存储
-   的，详见 http://www.netlib.org/lapack/explore-html/ 的 level-2 BLAS
-   。
+   Returns \"a*X\".
 
 "),
+
+("BLAS Functions","Base.LinAlg.BLAS","syrk!","syrk!(uplo, trans, alpha, A, beta, C)
 
-("BLAS 函数","","sbmv","sbmv(uplo, k, alpha, A, x)
+   Rank-k update of the symmetric matrix \"C\" as \"alpha*A*A.' +
+   beta*C\" or \"alpha*A.'*A + beta*C\" according to whether \"trans\"
+   is 'N' or 'T'.  When \"uplo\" is 'U' the upper triangle of \"C\" is
+   updated ('L' for lower triangle).  Returns \"C\".
+
+"),
 
+("BLAS Functions","Base.LinAlg.BLAS","syrk","syrk(uplo, trans, alpha, A)
 
-   返回 \"alpha*A*x\" 。 其中 \"A\" 是对称带矩阵，维度为 \"size(A,2)\"
-   ，超对角线为 \"k\" 。
+   Returns either the upper triangle or the lower triangle, according
+   to \"uplo\" ('U' or 'L'), of \"alpha*A*A.'\" or \"alpha*A.'*A\",
+   according to \"trans\" ('N' or 'T').
 
 "),
 
-("BLAS 函数","","gemm!","gemm!(tA, tB, alpha, A, B, beta, C)
+("BLAS Functions","Base.LinAlg.BLAS","herk!","herk!(uplo, trans, alpha, A, beta, C)
 
+   Methods for complex arrays only.  Rank-k update of the Hermitian
+   matrix \"C\" as \"alpha*A*A' + beta*C\" or \"alpha*A'*A + beta*C\"
+   according to whether \"trans\" is 'N' or 'T'.  When \"uplo\" is 'U'
+   the upper triangle of \"C\" is updated ('L' for lower triangle).
+   Returns \"C\".
 
-   由 \"tA\" （ \"A\" 做转置）和 \"tB\" 确定， 计算 \"alpha*A*B +
-   beta*C\" 或其它对应的三个表达式， 将结果赋值给 \"C\" 并返回。
+"),
+
+("BLAS Functions","Base.LinAlg.BLAS","herk","herk(uplo, trans, alpha, A)
 
+   Methods for complex arrays only.  Returns either the upper triangle
+   or the lower triangle, according to \"uplo\" ('U' or 'L'), of
+   \"alpha*A*A'\" or \"alpha*A'*A\", according to \"trans\" ('N' or
+   'T').
+
 "),
+
+("BLAS Functions","Base.LinAlg.BLAS","gbmv!","gbmv!(trans, m, kl, ku, alpha, A, x, beta, y)
 
-("BLAS 函数","","gemm","gemm(tA, tB, alpha, A, B)
+   Update vector \"y\" as \"alpha*A*x + beta*y\" or \"alpha*A'*x +
+   beta*y\" according to \"trans\" ('N' or 'T').  The matrix \"A\" is
+   a general band matrix of dimension \"m\" by \"size(A,2)\" with
+   \"kl\" sub-diagonals and \"ku\" super-diagonals. Returns the
+   updated \"y\".
 
+"),
+
+("BLAS Functions","Base.LinAlg.BLAS","gbmv","gbmv(trans, m, kl, ku, alpha, A, x, beta, y)
 
-   由 \"tA\" （ \"A\" 做转置）和 \"tB\" 确定， 计算 \"alpha*A*B +
-   beta*C\" 或其它对应的三个表达式。
+   Returns \"alpha*A*x\" or \"alpha*A'*x\" according to \"trans\" ('N'
+   or 'T'). The matrix \"A\" is a general band matrix of dimension
+   \"m\" by \"size(A,2)\" with \"kl\" sub-diagonals and \"ku\" super-
+   diagonals.
 
 "),
 
-("标点符号","","punctuation","punctuation
+("BLAS Functions","Base.LinAlg.BLAS","sbmv!","sbmv!(uplo, k, alpha, A, x, beta, y)
 
+   Update vector \"y\" as \"alpha*A*x + beta*y\" where \"A\" is a a
+   symmetric band matrix of order \"size(A,2)\" with \"k\" super-
+   diagonals stored in the argument \"A\".  The storage layout for
+   \"A\" is described the reference BLAS module, level-2 BLAS at
+   http://www.netlib.org/lapack/explore-html/.
 
-   +-----------+------------------------------------------------------+
-   | 符号      | 意思                                                 |
-   +===========+======================================================+
-   | \\\"@m\\\"    | 调用宏 m ；后面应跟一空格，再跟一表达式              |
-   +-----------+------------------------------------------------------+
-   | \\\"!\\\"     | 作为前缀时是“逻辑非”运算符                           |
-   +-----------+------------------------------------------------------+
-   | \\\"!\\\"     | 在函数名后时，暗示函数修改了它的参数                 |
-   +-----------+------------------------------------------------------+
-   | \\\"#\\\"     | 单行注释                                             |
-   +-----------+------------------------------------------------------+
-   | \\\"\\\$\\\"    | 异或运算符；字符串和表达式内插                       |
-   +-----------+------------------------------------------------------+
-   | \\\"%\\\"     | 余数运算符                                           |
-   +-----------+------------------------------------------------------+
-   | \\\"^\\\"     | 指数运算符                                           |
-   +-----------+------------------------------------------------------+
-   | \\\"&\\\"     | 位与                                                 |
-   +-----------+------------------------------------------------------+
-   | \\\"*\\\"     | 乘法；矩阵乘法                                       |
-   +-----------+------------------------------------------------------+
-   | \\\"()\\\"    | 空多元组                                             |
-   +-----------+------------------------------------------------------+
-   | \\\"~\\\"     | 按位取反运算符                                       |
-   +-----------+------------------------------------------------------+
-   | \\\"\\\\\\\"    | 反斜杠运算符                                         |
-   +-----------+------------------------------------------------------+
-   | \\\"a[]\\\"   | 数组索引                                             |
-   +-----------+------------------------------------------------------+
-   | \\\"[,]\\\"   | 垂直连接                                             |
-   +-----------+------------------------------------------------------+
-   | \\\"[;]\\\"   | 也是                                                 |
-   +-----------+------------------------------------------------------+
-   | \\\"[  ]\\\"  | 水平连接，使用空格来分割表达式                       |
-   +-----------+------------------------------------------------------+
-   | \\\"T{ }\\\"  | 参数类型实例                                         |
-   +-----------+------------------------------------------------------+
-   | \\\"{  }\\\"  | 构造元胞数组                                         |
-   +-----------+------------------------------------------------------+
-   | \\\";\\\"     | 语句分隔符                                           |
-   +-----------+------------------------------------------------------+
-   | \\\",\\\"     | 函数参数或多元组元素分隔符                           |
-   +-----------+------------------------------------------------------+
-   | \\\"?\\\"     | 问号表达式运算符                                     |
-   +-----------+------------------------------------------------------+
-   | \\\"\\\"\\\"\\\"  | 字符串文本定界符                                     |
-   +-----------+------------------------------------------------------+
-   | \\\"''\\\"    | 字符文本定界符                                       |
-   +-----------+------------------------------------------------------+
-   | >>``<<    | 外部进程（命令）定界符                               |
-   +-----------+------------------------------------------------------+
-   | \\\"...\\\"   | 向一个函数调用插入参数；声明变参函数                 |
-   +-----------+------------------------------------------------------+
-   | \\\".\\\"     | 获取对象内域或模块中的命名；它也是逐元素计算的运算符 |
-   +-----------+------------------------------------------------------+
-   | \\\"a:b\\\"   | 范围                                                 |
-   +-----------+------------------------------------------------------+
-   | \\\"a:s:b\\\" | 范围                                                 |
-   +-----------+------------------------------------------------------+
-   | \\\":\\\"     | 索引整个维度                                         |
-   +-----------+------------------------------------------------------+
-   | \\\"::\\\"    | 类型注释                                             |
-   +-----------+------------------------------------------------------+
-   | \\\":( )\\\"  | 引用表达式                                           |
-   +-----------+------------------------------------------------------+
+   Returns the updated \"y\".
 
 "),
 
-("Base.Sort","Base.Sort","sort","sort(v[, alg[, ord]])
+("BLAS Functions","Base.LinAlg.BLAS","sbmv","sbmv(uplo, k, alpha, A, x)
 
+   Returns \"alpha*A*x\" where \"A\" is a symmetric band matrix of
+   order \"size(A,2)\" with \"k\" super-diagonals stored in the
+   argument \"A\".
 
-   按升序对向量排序。 \"alg\" 为特定的排序算法（
-   \"Sort.InsertionSort\", \"Sort.QuickSort\", \"Sort.MergeSort\", 或
-   \"Sort.TimSort\" ）， \"ord\" 为自定义的排序顺序（如 Sort.Reverse
-   或一个比较函数）。
-
 "),
+
+("BLAS Functions","Base.LinAlg.BLAS","sbmv","sbmv(uplo, k, A, x)
 
-("Base.Sort","Base.Sort","sort!","sort!(...)
+   Returns \"A*x\" where \"A\" is a symmetric band matrix of order
+   \"size(A,2)\" with \"k\" super-diagonals stored in the argument
+   \"A\".
 
+"),
+
+("BLAS Functions","Base.LinAlg.BLAS","gemm!","gemm!(tA, tB, alpha, A, B, beta, C)
 
-   原地排序。
+   Update \"C\" as \"alpha*A*B + beta*C\" or the other three variants
+   according to \"tA\" (transpose \"A\") and \"tB\".  Returns the
+   updated \"C\".
 
 "),
+
+("BLAS Functions","Base.LinAlg.BLAS","gemm","gemm(tA, tB, alpha, A, B)
+
+   Returns \"alpha*A*B\" or the other three variants according to
+   \"tA\" (transpose \"A\") and \"tB\".
 
-("Base.Sort","Base.Sort","sortby","sortby(v, by[, alg])
+"),
 
+("BLAS Functions","Base.LinAlg.BLAS","gemm","gemm(tA, tB, alpha, A, B)
 
-   根据 \"by(v)\" 对向量排序。 \"alg\" 为特定的排序算法 （
-   \"Sort.InsertionSort\", \"Sort.QuickSort\", \"Sort.MergeSort\", 或
-   \"Sort.TimSort\" ）。
+   Returns \"alpha*A*B\" or the other three variants according to
+   \"tA\" (transpose \"A\") and \"tB\".
 
 "),
+
+("BLAS Functions","Base.LinAlg.BLAS","gemv!","gemv!(tA, alpha, A, x, beta, y)
 
-("Base.Sort","Base.Sort","sortby!","sortby!(...)
+   Update the vector \"y\" as \"alpha*A*x + beta*x\" or \"alpha*A'x +
+   beta*x\" according to \"tA\" (transpose \"A\"). Returns the updated
+   \"y\".
+
+"),
 
+("BLAS Functions","Base.LinAlg.BLAS","gemv","gemv(tA, alpha, A, x)
 
-   \"sortby\" 的原地版本
+   Returns \"alpha*A*x\" or \"alpha*A'x\" according to \"tA\"
+   (transpose \"A\").
 
 "),
 
-("Base.Sort","Base.Sort","sortperm","sortperm(v[, alg[, ord]])
+("BLAS Functions","Base.LinAlg.BLAS","gemv","gemv(tA, alpha, A, x)
 
+   Returns \"A*x\" or \"A'x\" according to \"tA\" (transpose \"A\").
 
-   返回排序向量，可用它对输入向量 \"v\" 进行排序。 \"alg\" 为特定的排
-   序算法（ \"Sort.InsertionSort\", \"Sort.QuickSort\",
-   \"Sort.MergeSort\", 或 \"Sort.TimSort\" ）， \"ord\" 为自定义的排序
-   顺序（如 Sort.Reverse 或一个比较函数）。
+"),
+
+("BLAS Functions","Base.LinAlg.BLAS","symm!","symm!(side, ul, alpha, A, B, beta, C)
 
+   Update \"C\" as \"alpha*A*B + beta*C\" or \"alpha*B*A + beta*C\"
+   according to \"side\". \"A\" is assumed to be symmetric.  Only the
+   \"ul\" triangle of \"A\" is used.  Returns the updated \"C\".
+
 "),
+
+("BLAS Functions","Base.LinAlg.BLAS","symm","symm(side, ul, alpha, A, B)
 
-("Base.Sort","Base.Sort","sort","sort(A, dim[, alg[, ord]])
+   Returns \"alpha*A*B\" or \"alpha*B*A\" according to \"side\". \"A\"
+   is assumed to be symmetric.  Only the \"ul\" triangle of \"A\" is
+   used.
 
+"),
+
+("BLAS Functions","Base.LinAlg.BLAS","symm","symm(side, ul, A, B)
 
-   多维矩阵根据指定维度排序.
+   Returns \"A*B\" or \"B*A\" according to \"side\".  \"A\" is assumed
+   to be symmetric.  Only the \"ul\" triangle of \"A\" is used.
 
 "),
+
+("BLAS Functions","Base.LinAlg.BLAS","symm","symm(tA, tB, alpha, A, B)
+
+   Returns \"alpha*A*B\" or the other three variants according to
+   \"tA\" (transpose \"A\") and \"tB\".
 
-("Base.Sort","Base.Sort","sortrows","sortrows(A[, alg[, ord]])
+"),
 
+("BLAS Functions","Base.LinAlg.BLAS","symv!","symv!(ul, alpha, A, x, beta, y)
 
-   对矩阵行进行字典排序.
+   Update the vector \"y\" as \"alpha*A*y + beta*y\". \"A\" is assumed
+   to be symmetric.  Only the \"ul\" triangle of \"A\" is used.
+   Returns the updated \"y\".
 
 "),
+
+("BLAS Functions","Base.LinAlg.BLAS","symv","symv(ul, alpha, A, x)
 
-("Base.Sort","Base.Sort","sortcols","sortcols(A[, alg[, ord]])
+   Returns \"alpha*A*x\". \"A\" is assumed to be symmetric.  Only the
+   \"ul\" triangle of \"A\" is used.
+
+"),
 
+("BLAS Functions","Base.LinAlg.BLAS","symv","symv(ul, A, x)
 
-   对矩阵列进行字典排序.
+   Returns \"A*x\".  \"A\" is assumed to be symmetric.  Only the
+   \"ul\" triangle of \"A\" is used.
 
 "),
 
-("Base.Sort","Base.Sort","issorted","issorted(v[, ord])
+("BLAS Functions","Base.LinAlg.BLAS","trmm!","trmm!(side, ul, tA, dA, alpha, A, B)
 
+   Update \"B\" as \"alpha*A*B\" or one of the other three variants
+   determined by \"side\" (A on left or right) and \"tA\" (transpose
+   A). Only the \"ul\" triangle of \"A\" is used.  \"dA\" indicates if
+   \"A\" is unit-triangular (the diagonal is assumed to be all ones).
+   Returns the updated \"B\".
 
-   判断向量是否为已经为升序排列。 \"ord\" 为自定义的排序顺序。
+"),
+
+("BLAS Functions","Base.LinAlg.BLAS","trmm","trmm(side, ul, tA, dA, alpha, A, B)
 
+   Returns \"alpha*A*B\" or one of the other three variants determined
+   by \"side\" (A on left or right) and \"tA\" (transpose A). Only the
+   \"ul\" triangle of \"A\" is used.  \"dA\" indicates if \"A\" is
+   unit-triangular (the diagonal is assumed to be all ones).
+
 "),
 
-("Base.Sort","Base.Sort","searchsorted","searchsorted(a, x[, ord])
+("BLAS Functions","Base.LinAlg.BLAS","trsm!","trsm!(side, ul, tA, dA, alpha, A, B)
 
+   Overwrite \"B\" with the solution to \"A*X = alpha*B\" or one of
+   the other three variants determined by \"side\" (A on left or right
+   of \"X\") and \"tA\" (transpose A). Only the \"ul\" triangle of
+   \"A\" is used.  \"dA\" indicates if \"A\" is unit-triangular (the
+   diagonal is assumed to be all ones).  Returns the updated \"B\".
+
+"),
 
-   返回 \"a\" 中排序顺序不小于 \"x\" 的第一个值的索引值， \"ord\" 为自
-   定义的排序顺序（默认为 \"Sort.Forward\" ）。
+("BLAS Functions","Base.LinAlg.BLAS","trsm","trsm(side, ul, tA, dA, alpha, A, B)
 
-   \"searchsortedfirst()\" 的别名
+   Returns the solution to \"A*X = alpha*B\" or one of the other three
+   variants determined by \"side\" (A on left or right of \"X\") and
+   \"tA\" (transpose A). Only the \"ul\" triangle of \"A\" is used.
+   \"dA\" indicates if \"A\" is unit-triangular (the diagonal is
+   assumed to be all ones).
 
 "),
 
-("Base.Sort","Base.Sort","searchsortedfirst","searchsortedfirst(a, x[,
-ord])
+("BLAS Functions","Base.LinAlg.BLAS","trmv!","trmv!(side, ul, tA, dA, alpha, A, b)
 
+   Update \"b\" as \"alpha*A*b\" or one of the other three variants
+   determined by \"side\" (A on left or right) and \"tA\" (transpose
+   A). Only the \"ul\" triangle of \"A\" is used.  \"dA\" indicates if
+   \"A\" is unit-triangular (the diagonal is assumed to be all ones).
+   Returns the updated \"b\".
 
-   返回 \"a\" 中排序顺序不小于 \"x\" 的第一个值的索引值， \"ord\" 为自
-   定义的排序顺序（默认为 \"Sort.Forward\" ）。
+"),
+
+("BLAS Functions","Base.LinAlg.BLAS","trmv","trmv(side, ul, tA, dA, alpha, A, b)
 
+   Returns \"alpha*A*b\" or one of the other three variants determined
+   by \"side\" (A on left or right) and \"tA\" (transpose A). Only the
+   \"ul\" triangle of \"A\" is used.  \"dA\" indicates if \"A\" is
+   unit-triangular (the diagonal is assumed to be all ones).
+
 "),
+
+("BLAS Functions","Base.LinAlg.BLAS","trsv!","trsv!(side, ul, tA, dA, alpha, A, b)
 
-("Base.Sort","Base.Sort","searchsortedlast","searchsortedlast(a, x[,
-ord])
+   Overwrite \"b\" with the solution to \"A*X = alpha*b\" or one of
+   the other three variants determined by \"side\" (A on left or right
+   of \"X\") and \"tA\" (transpose A). Only the \"ul\" triangle of
+   \"A\" is used.  \"dA\" indicates if \"A\" is unit-triangular (the
+   diagonal is assumed to be all ones).  Returns the updated \"b\".
 
+"),
+
+("BLAS Functions","Base.LinAlg.BLAS","trsv","trsv(side, ul, tA, dA, alpha, A, b)
 
-   返回 \"a\" 中排序顺序不大于 \"x\" 的最后一个值的索引值， \"ord\" 为
-   自定义的排序顺序（默认为 \"Sort.Forward\" ）。
+   Returns the solution to \"A*X = alpha*b\" or one of the other three
+   variants determined by \"side\" (A on left or right of \"X\") and
+   \"tA\" (transpose A). Only the \"ul\" triangle of \"A\" is used.
+   \"dA\" indicates if \"A\" is unit-triangular (the diagonal is
+   assumed to be all ones).
 
 "),
+
+("BLAS Functions","Base.LinAlg.BLAS","blas_set_num_threads","blas_set_num_threads(n)
+
+   Set the number of threads the BLAS library should use.
 
-("Base.Sort","Base.Sort","select","select(v, k[, ord])
+"),
 
+("Profiling","Base","@profile","@profile()
 
-   找到排序好的向量 \"v\" 中第 \"k\" 个位置的元素，在未排序时的索引值
-   。 \"ord\" 为自定义的排序顺序（默认为 \"Sort.Forward\" ）。
+   \"@profile <expression>\" runs your expression while taking
+   periodic backtraces.  These are appended to an internal buffer of
+   backtraces.
 
 "),
+
+("Profiling","Base.Profile","clear","clear()
 
-("Base.Sort","Base.Sort","select!","select!(v, k[, ord])
+   Clear any existing backtraces from the internal buffer.
+
+"),
 
+("Profiling","Base.Profile","print","print([io::IO = STDOUT], [data::Vector]; format = :tree, C = false, combine = true, cols = tty_cols())
 
-   \"select\" 的原地版本。
+   Prints profiling results to \"io\" (by default, \"STDOUT\"). If you
+   do not supply a \"data\" vector, the internal buffer of accumulated
+   backtraces will be used.  \"format\" can be \":tree\" or \":flat\".
+   If \"C==true\", backtraces from C and Fortran code are shown.
+   \"combine==true\" merges instruction pointers that correspond to
+   the same line of code.  \"cols\" controls the width of the display.
 
 "),
 
-("稀疏矩阵","","sparse","sparse(I, J, V[, m, n, combine])
+("Profiling","Base.Profile","print","print([io::IO = STDOUT], data::Vector, lidict::Dict; format = :tree, combine = true, cols = tty_cols())
 
+   Prints profiling results to \"io\". This variant is used to examine
+   results exported by a previous call to \"Profile.retrieve()\".
+   Supply the vector \"data\" of backtraces and a dictionary
+   \"lidict\" of line information.
 
-   构造 \"m x n\" 的稀疏矩阵 \"S\" ，满足 \"S[I[k], J[k]] = V[k]\" 。
-   使用 \"combine\" 函数来处理坐标重复的元素。 如果未指明 \"m\" 和
-   \"n\" ，则默认为 \"max(I)\" 和 \"max(J)\" 。 如果省略 \"combine\"
-   函数，默认对坐标重复的元素求和。
+"),
+
+("Profiling","Base.Profile","init","init(n::Integer, delay::Float64)
 
+   Configure the \"delay\" between backtraces (measured in seconds),
+   and the number \"n\" of instruction pointers that may be stored.
+   Each instruction pointer corresponds to a single line of code;
+   backtraces generally consist of a long list of instruction
+   pointers. Default settings are \"n=10^6\" and \"delay=0.001\".
+
 "),
+
+("Profiling","Base.Profile","fetch","fetch() -> data
 
-("稀疏矩阵","","sparsevec","sparsevec(I, V[, m, combine])
+   Returns a reference to the internal buffer of backtraces. Note that
+   subsequent operations, like \"Profile.clear()\", can affect
+   \"data\" unless you first make a copy. Note that the values in
+   \"data\" have meaning only on this machine in the current session,
+   because it depends on the exact memory addresses used in JIT-
+   compiling. This function is primarily for internal use;
+   \"Profile.retrieve()\" may be a better choice for most users.
 
+"),
+
+("Profiling","Base.Profile","retrieve","retrieve(;C = false) -> data, lidict
 
-   构造 \"m x 1\" 的稀疏矩阵 \"S\" ，满足 \"S[I[k]] = V[k]\" 。 使用
-   \"combine\" 函数来处理坐标重复的元素，如果它被省略，则默认为 \"+\"
-   。 在 Julia 中，稀疏向量是只有一列的稀疏矩阵。 由于 Julia 使用列压
-   缩（CSC）存储格式，只有一列的稀疏列矩阵是稀疏的， 但只有一行的稀疏
-   行矩阵是稠密的。
+   \"Exports\" profiling results in a portable format, returning the
+   set of all backtraces (\"data\") and a dictionary that maps the
+   (session-specific) instruction pointers in \"data\" to \"LineInfo\"
+   values that store the file name, function name, and line number.
+   This function allows you to save profiling results for future
+   analysis.
 
 "),
 
-("稀疏矩阵","","sparsevec","sparsevec(D::Dict[, m])
 
+("Sorting and Related Functions","Base","sort!","sort!(v, [dim,] [alg=<algorithm>,] [by=<transform>,] [lt=<comparison>,] [rev=false])
 
-   构造 \"m x 1\" 大小的稀疏矩阵，其行值为字典中的键，非零值为字典中的
-   值。
+   Sort the vector \"v\" in place. \"QuickSort\" is used by default
+   for numeric arrays while \"MergeSort\" is used for other arrays.
+   You can specify an algorithm to use via the \"alg\" keyword (see
+   Sorting Algorithms for available algorithms). The \"by\" keyword
+   lets you provide a function that will be applied to each element
+   before comparison; the \"lt\" keyword allows providing a custom
+   \"less than\" function; use \"rev=true\" to reverse the sorting
+   order. These options are independent and can be used together in
+   all possible combinations: if both \"by\" and \"lt\" are specified,
+   the \"lt\" function is applied to the result of the \"by\"
+   function; \"rev=true\" reverses whatever ordering specified via the
+   \"by\" and \"lt\" keywords.
 
 "),
+
+("Sorting and Related Functions","Base","sort","sort(v, [alg=<algorithm>,] [by=<transform>,] [lt=<comparison>,] [rev=false])
+
+   Variant of \"sort!\" that returns a sorted copy of \"v\" leaving
+   \"v\" itself unmodified.
 
-("稀疏矩阵","","issparse","issparse(S)
+"),
 
+("Sorting and Related Functions","Base","sort","sort(A, dim, [alg=<algorithm>,] [by=<transform>,] [lt=<comparison>,] [rev=false])
 
-   如果 \"S\" 为稀疏矩阵，返回 \"true\" ；否则为 \"false\" 。
+   Sort a multidimensional array \"A\" along the given dimension.
 
 "),
+
+("Sorting and Related Functions","Base","sortperm","sortperm(v, [alg=<algorithm>,] [by=<transform>,] [lt=<comparison>,] [rev=false])
 
-("稀疏矩阵","","sparse","sparse(A)
+   Return a permutation vector of indices of \"v\" that puts it in
+   sorted order. Specify \"alg\" to choose a particular sorting
+   algorithm (see Sorting Algorithms). \"MergeSort\" is used by
+   default, and since it is stable, the resulting permutation will be
+   the lexicographically first one that puts the input array into
+   sorted order – i.e. indices of equal elements appear in ascending
+   order. If you choose a non-stable sorting algorithm such as
+   \"QuickSort\", a different permutation that puts the array into
+   order may be returned. The order is specified using the same
+   keywords as \"sort!\".
+
+"),
 
+("Sorting and Related Functions","Base","sortrows","sortrows(A, [alg=<algorithm>,] [by=<transform>,] [lt=<comparison>,] [rev=false])
 
-   将稠密矩阵 \"A\" 转换为稀疏矩阵。
+   Sort the rows of matrix \"A\" lexicographically.
 
 "),
 
-("稀疏矩阵","","sparsevec","sparsevec(A)
+("Sorting and Related Functions","Base","sortcols","sortcols(A, [alg=<algorithm>,] [by=<transform>,] [lt=<comparison>,] [rev=false])
 
+   Sort the columns of matrix \"A\" lexicographically.
 
-   将稠密矩阵 \"A\" 转换为 \"m x 1\" 的稀疏矩阵。 在 Julia 中，稀疏向
-   量是只有一列的稀疏矩阵。
+"),
+
+("Sorting and Related Functions","Base","issorted","issorted(v, [by=<transform>,] [lt=<comparison>,] [rev=false])
 
+   Test whether a vector is in sorted order. The \"by\", \"lt\" and
+   \"rev\" keywords modify what order is considered to be sorted just
+   as they do for \"sort\".
+
 "),
+
+("Sorting and Related Functions","Base","searchsorted","searchsorted(a, x, [by=<transform>,] [lt=<comparison>,] [rev=false])
 
-("稀疏矩阵","","dense","dense(S)
+   Returns the range of indices of \"a\" which compare as equal to
+   \"x\" according to the order specified by the \"by\", \"lt\" and
+   \"rev\" keywords, assuming that \"a\" is already sorted in that
+   order. Returns an empty range located at the insertion point if
+   \"a\" does not contain values equal to \"x\".
 
+"),
+
+("Sorting and Related Functions","Base","searchsortedfirst","searchsortedfirst(a, x, [by=<transform>,] [lt=<comparison>,] [rev=false])
 
-   将稀疏矩阵 \"S\" 转换为稠密矩阵。
+   Returns the index of the first value in \"a\" greater than or equal
+   to \"x\", according to the specified order. Returns \"length(a)+1\"
+   if \"x\" is greater than all values in \"a\".
 
 "),
+
+("Sorting and Related Functions","Base","searchsortedlast","searchsortedlast(a, x, [by=<transform>,] [lt=<comparison>,] [rev=false])
+
+   Returns the index of the last value in \"a\" less than or equal to
+   \"x\", according to the specified order. Returns \"0\" if \"x\" is
+   less than all values in \"a\".
 
-("稀疏矩阵","","full","full(S)
+"),
 
+("Sorting and Related Functions","Base","select!","select!(v, k, [by=<transform>,] [lt=<comparison>,] [rev=false])
 
-   将稀疏矩阵 \"S\" 转换为稠密矩阵。
+   Partially sort the vector \"v\" in place, according to the order
+   specified by \"by\", \"lt\" and \"rev\" so that the value at index
+   \"k\" (or range of adjacent values if \"k\" is a range) occurs at
+   the position where it would appear if the array were fully sorted.
+   If \"k\" is a single index, that values is returned; if \"k\" is a
+   range, an array of values at those indices is returned. Note that
+   \"select!\" does not fully sort the input array, but does leave the
+   returned elements where they would be if the array were fully
+   sorted.
 
 "),
+
+("Sorting and Related Functions","Base","select","select(v, k, [by=<transform>,] [lt=<comparison>,] [rev=false])
 
-("稀疏矩阵","","spzeros","spzeros(m, n)
+   Variant of \"select!\" which copies \"v\" before partially sorting
+   it, thereby returning the same thing as \"select!\" but leaving
+   \"v\" unmodified.
+
+"),
 
+("Sparse Matrices","Base","sparse","sparse(I, J, V[, m, n, combine])
 
-   构造 \"m x n\" 的空稀疏矩阵。
+   Create a sparse matrix \"S\" of dimensions \"m x n\" such that
+   \"S[I[k], J[k]] = V[k]\". The \"combine\" function is used to
+   combine duplicates. If \"m\" and \"n\" are not specified, they are
+   set to \"max(I)\" and \"max(J)\" respectively. If the \"combine\"
+   function is not supplied, duplicates are added by default.
 
 "),
 
-("稀疏矩阵","","speye","speye(type, m[, n])
+("Sparse Matrices","Base","sparsevec","sparsevec(I, V[, m, combine])
 
+   Create a sparse matrix \"S\" of size \"m x 1\" such that \"S[I[k]]
+   = V[k]\". Duplicates are combined using the \"combine\" function,
+   which defaults to \"+\" if it is not provided. In julia, sparse
+   vectors are really just sparse matrices with one column. Given
+   Julia's Compressed Sparse Columns (CSC) storage format, a sparse
+   column matrix with one column is sparse, whereas a sparse row
+   matrix with one row ends up being dense.
 
-   构造指定类型、大小为 \"m x m\" 的稀疏单位矩阵。 如果提供了 \"n\" 则
-   构建大小为 \"m x n\" 的稀疏单位矩阵。
+"),
+
+("Sparse Matrices","Base","sparsevec","sparsevec(D::Dict[, m])
 
+   Create a sparse matrix of size \"m x 1\" where the row values are
+   keys from the dictionary, and the nonzero values are the values
+   from the dictionary.
+
 "),
+
+("Sparse Matrices","Base","issparse","issparse(S)
 
-("稀疏矩阵","","spones","spones(S)
+   Returns \"true\" if \"S\" is sparse, and \"false\" otherwise.
 
+"),
+
+("Sparse Matrices","Base","sparse","sparse(A)
 
-   构造与 \"S\" 同样结构的稀疏矩阵，但非零元素值为 \"1.0\" 。
+   Convert a dense matrix \"A\" into a sparse matrix.
 
 "),
+
+("Sparse Matrices","Base","sparsevec","sparsevec(A)
+
+   Convert a dense vector \"A\" into a sparse matrix of size \"m x
+   1\". In julia, sparse vectors are really just sparse matrices with
+   one column.
 
-("稀疏矩阵","","sprand","sprand(m, n, density[, rng])
+"),
 
+("Sparse Matrices","Base","dense","dense(S)
 
-   构造指定密度的随机稀疏矩阵。非零样本满足由 \"rng\" 指定的分布。默认
-   为均匀分布。
+   Convert a sparse matrix \"S\" into a dense matrix.
 
 "),
+
+("Sparse Matrices","Base","full","full(S)
 
-("稀疏矩阵","","sprandn","sprandn(m, n, density)
+   Convert a sparse matrix \"S\" into a dense matrix.
+
+"),
 
+("Sparse Matrices","Base","spzeros","spzeros(m, n)
 
-   构造指定密度的随机稀疏矩阵，非零样本满足正态分布。
+   Create an empty sparse matrix of size \"m x n\".
 
 "),
 
-("稀疏矩阵","","sprandbool","sprandbool(m, n, density)
+("Sparse Matrices","Base","spones","spones(S)
 
+   Create a sparse matrix with the same structure as that of \"S\",
+   but with every nonzero element having the value \"1.0\".
 
-   构造指定密度的随机稀疏布尔值矩阵。
+"),
+
+("Sparse Matrices","Base","speye","speye(type, m[, n])
 
+   Create a sparse identity matrix of specified type of size \"m x
+   m\". In case \"n\" is supplied, create a sparse identity matrix of
+   size \"m x n\".
+
 "),
+
+("Sparse Matrices","Base","spdiagm","spdiagm(v)
 
-("宏","","@test ex","@test ex
+   Construct a sparse diagonal matrix and place \"v\" on the diagonal.
 
+"),
+
+("Sparse Matrices","Base","sprand","sprand(m, n, density[, rng])
 
-   测试表达式 *ex*, 然后调用当前管理程序处理结果.
+   Create a random sparse matrix with the specified density. Nonzeros
+   are sampled from the distribution specified by \"rng\". The uniform
+   distribution is used in case \"rng\" is not specified.
 
 "),
 
-("宏","","@test_fails ex","@test_fails ex
+("Sparse Matrices","Base","sprandn","sprandn(m, n, density)
 
+   Create a random sparse matrix of specified density with nonzeros
+   sampled from the normal distribution.
 
-   测试表达式 *ex*, 然后调用当前管理程序依照下面的方式处理结果:
+"),
 
-   * 如果测试没有抛出异常, 返回 *Failure*.
+("Sparse Matrices","Base","sprandbool","sprandbool(m, n, density)
 
-   * 如果测试抛出异常, 返回 *Success*.
+   Create a random sparse boolean matrix with the specified density.
 
 "),
+
+("Sparse Matrices","Base","etree","etree(A[, post])
 
-("宏","","@test_approx_eq a b","@test_approx_eq a b
+   Compute the elimination tree of a symmetric sparse matrix \"A\"
+   from \"triu(A)\" and, optionally, its post-ordering permutation.
 
+"),
+
+("Unit and Functional Testing","Base.Test","@test","@test(ex)
 
-   测试两个浮点数, *a* 和 *b*, 在考虑微小误差的情况下是否相等.
+   Test the expression \"ex\" and calls the current handler to handle
+   the result.
 
 "),
 
-("宏","","@test_approx_eq a b c","@test_approx_eq a b c
+("Unit and Functional Testing","Base.Test","@test_throws","@test_throws(ex)
 
+   Test the expression \"ex\" and calls the current handler to handle
+   the result in the following manner:
 
-   测试两个浮点数, *a* 和 *b*, 在考虑到最大误差 *c* 的情况下是否相等.
+   * If the test doesn't throw an error, the \"Failure\" case is
+     called.
 
+   * If the test throws an error, the \"Success\" case is called.
+
 "),
+
+("Unit and Functional Testing","Base.Test","@test_approx_eq","@test_approx_eq(a, b)
 
-("Base.Test","Base.Test","registerhandler","registerhandler(handler)
+   Test two floating point numbers \"a\" and \"b\" for equality taking
+   in account small numerical errors.
 
+"),
+
+("Unit and Functional Testing","Base.Test","@test_approx_eq_eps","@test_approx_eq_eps(a, b, tol)
 
-   修改全局管理函数为 *handler*
+   Test two floating point numbers \"a\" and \"b\" for equality taking
+   in account a margin of tolerance given by \"tol\".
 
 "),
 
-("Base.Test","Base.Test","withhandler","withhandler(f, handler)
+("Unit and Functional Testing","Base.Test","registerhandler","registerhandler(handler)
+
+   Change the handler function used globally to \"handler\".
+
+"),
 
+("Unit and Functional Testing","Base.Test","withhandler","withhandler(f, handler)
 
-   使用 *hander* 当作管理函数来运行函数 *f*.
+   Run the function \"f\" using the \"handler\" as the handler.
 
 "),
 
