@@ -12,9 +12,9 @@ Julia 提供的基础数值类型有： ::
 
 -  **整数类型：**
 
-===========  =======  ==============  ============== ==================
-类型         有符号？ 位数            最小值         最大值
------------  -------  --------------  -------------- ------------------
+===========  =========  ==============  ============== ==================
+类型         有符号？  位数            最小值         最大值
+-----------  ---------  --------------  -------------- ------------------
 ``Int8``           ✓       8            -2^7             2^7 - 1
 ``Uint8``                  8             0               2^8 - 1
 ``Int16``          ✓       16           -2^15            2^15 - 1
@@ -27,7 +27,7 @@ Julia 提供的基础数值类型有： ::
 ``Uint128``                128           0               2^128 - 1
 ``Bool``         N/A       8           ``false`` (0)  ``true`` (1)
 ``Char``         N/A       32          ``'\0'``       ``'\Uffffffff'``
-===========  =======  ==============  ============== ==================
+===========  =========  ==============  ============== ==================
 
 ``Char`` 原生支持 `Unicode 字符 <http://zh.wikipedia.org/zh-cn/Unicode>`_ ；详见 :ref:`man-strings` 。
 
@@ -36,19 +36,15 @@ Julia 提供的基础数值类型有： ::
 =========== ========= ==============
 类型        精度      位数
 ----------- --------- --------------
-``Float16`` _半精度    16
-``Float32`` _单精度    32
-``Float64`` _双精度    64
+``Float16`` _half      16
+``Float32`` _single    32
+``Float64`` _double    64
 =========== ========= ==============
 
-.. _半精度: http://en.wikipedia.org/wiki/Half-precision_floating-point_format
-.. _单精度: http://zh.wikipedia.org/zh-cn/%E5%96%AE%E7%B2%BE%E5%BA%A6%E6%B5%AE%E9%BB%9E%E6%95%B8
-.. _双精度: http://zh.wikipedia.org/zh-cn/%E9%9B%99%E7%B2%BE%E5%BA%A6%E6%B5%AE%E9%BB%9E%E6%95%B8
+.. _half: http://en.wikipedia.org/wiki/Half-precision_floating-point_format
+.. _single: http://zh.wikipedia.org/zh-cn/%E5%96%AE%E7%B2%BE%E5%BA%A6%E6%B5%AE%E9%BB%9E%E6%95%B8
+.. _double: http://zh.wikipedia.org/zh-cn/%E9%9B%99%E7%B2%BE%E5%BA%A6%E6%B5%AE%E9%BB%9E%E6%95%B8
 
-Additionally, full support for :ref:`man-complex-and-rational-numbers` is built
-on top of these primitive numeric types. All numeric types interoperate
-naturally without explicit casting, thanks to a flexible, user-extensible
-:ref:`type promotion system <man-conversion-and-promotion>`.
 另外, 对 :ref:`man-complex-and-rational-numbers` 的支持建立在这些基础数据类型之上。所有的基础数据类型通过灵活用户可扩展的 :ref:`类型提升系统 <man-conversion-and-promotion>` ，不需显式类型转换，就可以互相运算。
 
 整数
@@ -164,8 +160,6 @@ Julia 内部变量 ``WORD_SIZE`` 用以指示目标系统是 32 位还是 64 位
 溢出
 ----
 
-In Julia, exceeding the maximum representable value of a given type results in
-a wraparound behavior::
 在 Julia 中，如果计算结果超出数据类型所能代表的最大值，将会发生溢出： ::
 
     julia> x = typemax(Int64)
@@ -205,8 +199,6 @@ a wraparound behavior::
     julia> 2.5e-4
     0.00025
 
-The above results are all ``Float64`` values. Literal ``Float32`` values can
-be entered by writing an ``f`` in place of ``e``::
 上述结果均为 ``Float64`` 值。文本化的 ``Float32`` 值也可以直接输入，这时使用 ``f`` 来替代 ``e`` ： ::
 
     julia> 0.5f0
@@ -362,12 +354,6 @@ Julia 提供了 ``eps`` 函数，可以用来检查 ``1.0`` 和下一个可表�
     julia> eps(0.0)
     5.0e-324
 
-The distance between two adjacent representable floating-point numbers is not
-constant, but is smaller for smaller values and larger for larger values. In
-other words, the representable floating-point numbers are densest in the real
-number line near zero, and grow sparser exponentially as one moves farther away
-from zero. By definition, ``eps(1.0)`` is the same as ``eps(Float64)`` since
-``1.0`` is a 64-bit floating-point value.
 相邻的两个浮点数之间的距离并不是固定的，数值越小，间距越小；数值越大, 间距越大。换句话说，浮点数在 0 附近最稠密，随着数值越来越大，数值越来越稀疏，数值间的距离呈指数增长。根据定义， ``eps(1.0)`` 与 ``eps(Float64)`` 相同，因为 ``1.0`` 是 64 位浮点数。
 
 函数 ``nextfloat`` 和 ``prevfloat`` 可以用来获取下一个或上一个浮点数: ::
@@ -419,7 +405,7 @@ least significant bit.
 
 浮点数的算术运算同人们的预期存在着许多差异，特别是对不了解底层实现的人。许多科学计算的书籍都会详细的解释这些差异。下面是一些参考资料：
 
-- 关于浮点数算数运算最权威的指南是 `IEEE 754-2008 Standard <http://standards.ieee.org/findstds/standard/754-2008.html>`_ ；然而，该指南没有免费的网络版
+- 关于浮点数算数运算最权威的指南是 `IEEE 754-2008 标准 <http://standards.ieee.org/findstds/standard/754-2008.html>`_ ；然而，该指南没有免费的网络版
 - 一个简短但是清晰地解释了浮点数是怎么表示的, 请参考 John D. Cook 的 `文章 <http://www.johndcook.com/blog/2009/04/06/anatomy-of-a-floating-point-number/>`_ 。它还 `简述 <http://www.johndcook.com/blog/2009/04/06/numbers-are-a-leaky-abstraction/>`_ 了由于浮点数的表示方法不同于理想的实数会带来怎样的问题
 - 推荐 Bruce Dawson 的 `关于浮点数的博客 <http://randomascii.wordpress.com/2012/05/20/thats-not-normalthe-performance-of-odd-floats/>`_
 - David Goldberg 的 `每个计算机科学家都需要了解的浮点数算术计算 <http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.102.244&rep=rep1&type=pdf>`_ ，是一篇非常精彩的文章， 深入讨论了浮点数和浮点数的精度问题
@@ -552,9 +538,7 @@ Julia 允许在变量前紧跟着数值文本，来表示乘法。这有助于�
 零和一
 ------
 
-Julia provides functions which return literal 0 and 1 corresponding to a
-specified type or the type of a given variable.
-Julia 提供了一些函数, 用以得到特定数据类型的零和一.
+Julia 提供了一些函数, 用以得到特定数据类型的零和一文本。
 
 ===========  =====================================================
 函数         说明

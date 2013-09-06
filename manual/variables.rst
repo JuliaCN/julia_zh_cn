@@ -30,7 +30,7 @@ Julia 提供了极其灵活的变量命名系统。变量名区分大小写。
 
     \end{CJK*}
 
-也可以使用 Unicode 字符（UTF-8 编码）来命名names (in UTF-8 encoding)：
+也可以使用 Unicode 字符（UTF-8 编码）来命名：
 
 .. raw:: latex
 
