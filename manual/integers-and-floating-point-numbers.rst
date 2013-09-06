@@ -385,7 +385,7 @@ Rounding modes
 If a number doesn't have an exact floating-point representation, it must be
 rounded to an appropriate representable value, however, if wanted, the manner
 in which this rounding is done can be changed according to the rounding modes
-presented in the `IEEE 754 standard <http://en.wikipedia.org/wiki/IEEE_754-2008>`_::
+presented in the `IEEE 754 标准 <http://en.wikipedia.org/wiki/IEEE_754-2008>`_::
     
 
     julia> 1.1 + 0.1
@@ -417,7 +417,7 @@ least significant bit.
 任意精度的算术
 --------------
 
-为保证整数和浮点数计算的精度，Julia 打包了 `GNU Multiple Precision Arithmetic Library, GMP <http://gmplib.org>`_ 和 `GNU MPFR Library <http://http://www.mpfr.org>`_ 。Julia 相应提供了 ``BigInt`` 和 ``BigFloat`` 类型。
+为保证整数和浮点数计算的精度，Julia 打包了 `GNU Multiple Precision Arithmetic Library, GMP <http://gmplib.org>`_ 和 `GNU MPFR Library <http://www.mpfr.org>`_ 。Julia 相应提供了 ``BigInt`` 和 ``BigFloat`` 类型。
 
 可以通过基础数值类型或 ``String`` 类型来构造： ::
 

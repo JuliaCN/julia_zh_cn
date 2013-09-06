@@ -26,7 +26,7 @@ Julia 与传统动态语言最大的区别是：
 
 Julia 想要变成一个前所未有的集易用、强大、高效于一体的语言。除此之外，Julia 的优势还在于：
 
--  免费开源（ `MIT 协议 <https://github.com/JuliaLang/julia/blob/master/LICENSE>`_ ）
+-  免费开源（ `MIT 协议 <https://github.com/JuliaLang/julia/blob/master/LICENSE.md>`_ ）
 -  自定义类型与内置类型同样高效、紧凑
 -  不需要把代码向量化；非向量化的代码跑得也很快
 -  为并行和分布式计算而设计
