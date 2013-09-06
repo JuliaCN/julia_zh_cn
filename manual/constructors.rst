@@ -4,7 +4,7 @@
  构造函数
 **********
 
-构造函数[#]_ 是构造新对象，即新 :ref:`man-composite-types` 实例的函数。构造类型对象： ::
+构造函数 [#]_ 是构造新对象，即新 :ref:`man-composite-types` 实例的函数。构造类型对象： ::
 
     type Foo
       bar

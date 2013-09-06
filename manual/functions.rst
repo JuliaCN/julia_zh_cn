@@ -99,6 +99,8 @@ Lisps, Python, Ruby and Perl, among other dynamic languages.
 
 最后一行的 ``return`` 可以省略。
 
+.. _man-operators-are-functions:
+
 函数运算符
 ----------
 
@@ -337,7 +339,7 @@ Julia 支持简单的多元组“析构”来给变量赋值： ::
 函数参数的块语法
 ------------------
 
-将函数作为参数传递给其它函数，当行数较多时，有时不太方便。下例在多行函数中调用 ``map`` ： :::
+将函数作为参数传递给其它函数，当行数较多时，有时不太方便。下例在多行函数中调用 ``map`` ： ::
 
     map(x->begin
                if x < 0 && iseven(x)

@@ -328,7 +328,7 @@ Julia 不只支持 UTF-8 ，增加其它编码的支持也很简单。有关 UTF
 非标准字符串文本
 ----------------
 
-Julia 提供了 :ref:`非标准字符串文本 <man-non-standard-string-literals2>_` 。它在正常的双引号括起来的字符串文本上，添加了前缀标识符。下面将要介绍的正则表达式，就是非标准字符串文本的一个例子。 :ref:`元编程 <man-non-standard-string-literals2>` 章节有另外的一些例子。
+Julia 提供了 :ref:`非标准字符串文本 <man-non-standard-string-literals2>` 。它在正常的双引号括起来的字符串文本上，添加了前缀标识符。下面将要介绍的正则表达式，就是非标准字符串文本的一个例子。 :ref:`元编程 <man-non-standard-string-literals2>` 章节有另外的一些例子。
 
 正则表达式
 ~~~~~~~~~~
