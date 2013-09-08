@@ -1,24 +1,18 @@
 .. _man-faq:
 
-****************************
- Frequently-Asked Questions
-****************************
+**********
+ 常见问题
+**********
 
-Sessions and the REPL
----------------------
+会话和 REPL
+-----------
 
-How do I delete an object in memory?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+如何删除内存中的对象？
+~~~~~~~~~~~~~~~~~~~~~~
 
-Julia does not have an analog of MATLAB's ``clear`` function; once a
-name is defined in a Julia session (technically, in module ``Main``),
-it is always present.
+Julia 没有 MATLAB 的 ``clear`` 函数；在 Julia 会话（准确来说， ``Main`` 模块）中定义了一个名字的话，它就一直在啦。
 
-If memory usage is your concern, you can always replace objects with
-ones that consume less memory.  For example, if ``A`` is a
-gigabyte-sized array that you no longer need, you can free the memory
-with ``A = 0``.  The memory will be released the next time the garbage
-collector runs; you can force this to happen with ``gc()``.
+如果你很关心内存使用，你可以用占内存的小的来替换大的。例如，如果 ``A`` 是个你不需要的大数组，可以先用 ``A = 0`` 来释放内存。下一次进行垃圾回收的时候，内存就会被释放了；你也可以直接调用 ``gc()`` 来回收。
 
 How can I modify the declaration of a type/immutable in my session?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

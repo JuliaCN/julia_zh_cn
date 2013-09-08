@@ -260,7 +260,7 @@ other ways.
 调用方式
 --------
 
-``ccall`` 的第二个（可选）参数指定调用方式（在返回值之前）。如果没指定，将会使用操作系统的默认 C 调用方式。其它支持的调用方式为: ``stdcall``, ``cdecl`, ``fastcall`` 和 ``thiscall`` 。例如 (来自 base/libc.jl)： ::
+``ccall`` 的第二个（可选）参数指定调用方式（在返回值之前）。如果没指定，将会使用操作系统的默认 C 调用方式。其它支持的调用方式为: ``stdcall`` , ``cdecl`` , ``fastcall`` 和 ``thiscall`` 。例如 (来自 base/libc.jl)： ::
 
     hn = Array(Uint8, 256)
     err=ccall(:gethostname, stdcall, Int32, (Ptr{Uint8}, Uint32), hn, length(hn))
