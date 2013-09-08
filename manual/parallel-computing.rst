@@ -1,47 +1,18 @@
 .. _man-parallel-computing:
 
-********************
- Parallel Computing  
-********************
+**********
+ 并行计算
+**********
 
-Most modern computers possess more than one CPU, and several computers
-can be combined together in a cluster. Harnessing the power of these
-multiple CPUs allows many computations to be completed more quickly.
-There are two major factors that influence performance: the speed of the
-CPUs themselves, and the speed of their access to memory. In a cluster,
-it's fairly obvious that a given CPU will have fastest access to the RAM
-within the same computer (node). Perhaps more surprisingly, similar
-issues are very relevant on a typical multicore laptop, due to
-differences in the speed of main memory and the
-`cache <http://www.akkadia.org/drepper/cpumemory.pdf>`_. Consequently, a
-good multiprocessing environment should allow control over the
-"ownership" of a chunk of memory by a particular CPU. Julia provides a
-multiprocessing environment based on message passing to allow programs
-to run on multiple processes in separate memory domains at once.
+Julia 提供了一个基于消息传递的多处理器环境，能够同时在多处理器上使用独立的内存空间运行程序。
 
-Julia's implementation of message passing is different from other
-environments such as MPI [#mpi2rma]_. Communication in Julia is generally
-"one-sided", meaning that the programmer needs to explicitly manage only
-one process in a two-process operation. Furthermore, these
-operations typically do not look like "message send" and "message
-receive" but rather resemble higher-level operations like calls to user
-functions.
+Julia 的消息传递与 MPI [#mpi2rma]_ 等环境不同。Julia 中的通信是“单边”的，即程序员只需要管理双处理器运算中的一个处理器即可。
 
-Parallel programming in Julia is built on two primitives: *remote
-references* and *remote calls*. A remote reference is an object that can
-be used from any process to refer to an object stored on a particular
-process. A remote call is a request by one process to call a certain
-function on certain arguments on another (possibly the same) process.
-A remote call returns a remote reference to its result. Remote calls
-return immediately; the process that made the call proceeds to its
-next operation while the remote call happens somewhere else. You can
-wait for a remote call to finish by calling ``wait`` on its remote
-reference, and you can obtain the full value of the result using
-``fetch``.
+Julia 中的并行编程基于两个原语：*remote references* 和 *remote calls* 。remote reference 对象，用于从任意的处理器，查阅指定处理器上存储的对象。 remote call 请求，用于一个处理器对另一个（也有可能是同一个）处理器调用某个函数处理某些参数。
+remote call 返回 remote reference 对象。 remote call 是立即返回的；调用它的处理器继续执行下一步操作，而 remote call 继续在某处执行。可以对 remote
+reference 调用 ``wait`` ，以等待 remote call 执行完毕，然后通过 ``fetch`` 获取结果的完整值。
 
-Let's try this out. Starting with ``julia -p n`` provides ``n``
-processes on the local machine. Generally it makes sense for ``n`` to
-equal the number of CPU cores on the machine.
+通过 ``julia -p n`` 启动，可以在本地机器上提供 ``n`` 个处理器。一般 ``n`` 等于机器上 CPU 内核个数：
 
 ::
 
@@ -63,37 +34,18 @@ equal the number of CPU cores on the machine.
      1.60401  1.50111
      1.17457  1.15741
 
-The first argument to ``remotecall`` is the index of the process
-that will do the work. Most parallel programming in Julia does not
-reference specific processes or the number of processes available,
-but ``remotecall`` is considered a low-level interface providing
-finer control. The second argument to ``remotecall`` is the function
-to call, and the remaining arguments will be passed to this
-function. As you can see, in the first line we asked process 2 to
-construct a 2-by-2 random matrix, and in the second line we asked it
-to add 1 to it. The result of both calculations is available in the
-two remote references, ``r`` and ``s``. The ``@spawnat`` macro
-evaluates the expression in the second argument on the process
-specified by the first argument.
+``remote_call`` 的第一个参数是要进行这个运算的处理器索引值。Julia 中大部分并行编程不查询特定的处理器或可用处理器的个数，但可认为 ``remote_call`` 是个为精细控制所提供的低级接口。第二个参数是要调用的函数，剩下的参数是该函数的参数。此例中，我们先让处理器 2 构造一个 2x2 的随机矩阵，然后我们在结果上加 1 。两个计算的结果保存在两个 remote reference 中，即 ``r`` 和 ``s`` 。 ``@spawnat`` 宏在由第一个参数指明的处理器上，计算第二个参数中的表达式。
 
-Occasionally you might want a remotely-computed value immediately. This
-typically happens when you read from a remote object to obtain data
-needed by the next local operation. The function ``remotecall_fetch``
-exists for this purpose. It is equivalent to ``fetch(remotecall(...))``
-but is more efficient.
+``remote_call_fetch`` 函数可以立即获取要在远端计算的值。它等价于 ``fetch(remote_call(...))`` ，但比之更高效：
 
 ::
 
     julia> remotecall_fetch(2, getindex, r, 1, 1)
     0.10824216411304866
 
-Remember that ``getindex(r,1,1)`` is :ref:`equivalent <man-array-indexing>` to
-``r[1,1]``, so this call fetches the first element of the remote
-reference ``r``.
+``getindex(r,1,1)`` :ref:`等价于 <man-array-indexing>` ``r[1,1]`` ，因此，这个调用获取 remote reference 对象 ``r`` 的第一个元素。
 
-The syntax of ``remotecall`` is not especially convenient. The macro
-``@spawn`` makes things easier. It operates on an expression rather than
-a function, and picks where to do the operation for you::
+``remote_call`` 语法不太方便。 ``@spawn`` 宏简化了这件事儿，它对表达式而非函数进行操作，并自动选取在哪儿进行计算： ::
 
     julia> r = @spawn rand(2,2)
     RemoteRef(1,1,0)
@@ -105,18 +57,11 @@ a function, and picks where to do the operation for you::
     1.10824216411304866 1.13798233877923116
     1.12376292706355074 1.18750497916607167
 
-Note that we used ``1+fetch(r)`` instead of ``1+r``. This is because we
-do not know where the code will run, so in general a ``fetch`` might be
-required to move ``r`` to the process doing the addition. In this
-case, ``@spawn`` is smart enough to perform the computation on the
-process that owns ``r``, so the ``fetch`` will be a no-op.
+注意，此处用 ``1+fetch(r)`` 而不是 ``1+r`` 。这是因为我们不知道代码在何处运行，而 ``fetch`` 会将需要的 ``r`` 移到做加法的处理器上。此例中， ``@spawn`` 很聪明，它知道在有 ``r`` 对象的处理器上进行计算，因而 ``fetch`` 将不做任何操作。
 
-(It is worth noting that ``@spawn`` is not built-in but defined in Julia
-as a :ref:`macro <man-macros>`. It is possible to define your
-own such constructs.)
+（ ``@spawn`` 不是内置函数，而是 Julia 定义的 :ref:`宏 <man-macros>` ）
 
-One important point is that your code must be available on any process
-that runs it. For example, type the following into the julia prompt::
+所有执行程序代码的处理器上，都必须能获得程序代码。例如，输入： ::
 
     julia> function rand2(dims...)
              return 2*rand(dims...)
@@ -135,14 +80,11 @@ that runs it. For example, type the following into the julia prompt::
 
     julia> exception on 2: in anonymous: rand2 not defined 
 
-Processor 1 knew about the function ``rand2``, but process 2 did not.
-To make your code available to all processes, the ``require`` function will
-automatically load a source file on all currently available processes::
+处理器 1 知道 ``rand2`` 函数，但处理器 2 不知道。 ``require`` 函数自动在当前所有可用的处理器上载入源文件，使所有的处理器都能运行代码： ::
 
     julia> require("myfile")
 
-In a cluster, the contents of the file (and any files loaded recursively)
-will be sent over the network. It is also useful to execute a statement on all processes. This can be done with the ``@everywhere`` macro::
+在集群中，文件（及递归载入的任何文件）的内容会被发送到整个网络。可以使用 ``@everywhere`` 宏在所有处理器上执行命令： ::
 
     julia> @everywhere id = myid()
 
@@ -174,21 +116,12 @@ adding, removing and querying the processes in a cluster.
 Other types of clusters can be supported by writing your own custom ClusterManager. See section on 
 ClusterManagers.
 
-Data Movement
--------------
+数据移动
+--------
 
-Sending messages and moving data constitute most of the overhead in a
-parallel program. Reducing the number of messages and the amount of data
-sent is critical to achieving performance and scalability. To this end,
-it is important to understand the data movement performed by Julia's
-various parallel programming constructs.
+并行计算中，消息传递和数据移动是最大的开销。减少这两者的数量，对性能至关重要。
 
-``fetch`` can be considered an explicit data movement operation, since
-it directly asks that an object be moved to the local machine.
-``@spawn`` (and a few related constructs) also moves data, but this is
-not as obvious, hence it can be called an implicit data movement
-operation. Consider these two approaches to constructing and squaring a
-random matrix::
+``fetch`` 是显式的数据移动操作，它直接要求将对象移动到当前机器。 ``@spawn`` （及相关宏）也进行数据移动，但不是显式的，因而被称为隐式数据移动操作。对比如下两种构造随机矩阵并计算其平方的方法： ::
 
     # method 1
     A = rand(1000,1000)
@@ -201,33 +134,12 @@ random matrix::
     ...
     fetch(Bref)
 
-The difference seems trivial, but in fact is quite significant due to
-the behavior of ``@spawn``. In the first method, a random matrix is
-constructed locally, then sent to another process where it is squared.
-In the second method, a random matrix is both constructed and squared on
-another process. Therefore the second method sends much less data than
-the first.
+方法 1 中，本地构造了一个随机矩阵，然后将其传递给做平方计算的处理器。方法 2 中，在同一处理器构造随机矩阵并进行平方计算。因此，方法 2 比方法 1 移动的数据少得多。
 
-In this toy example, the two methods are easy to distinguish and choose
-from. However, in a real program designing data movement might require
-more thought and very likely some measurement. For example, if the first
-process needs matrix ``A`` then the first method might be better. Or,
-if computing ``A`` is expensive and only the current process has it,
-then moving it to another process might be unavoidable. Or, if the
-current process has very little to do between the ``@spawn`` and
-``fetch(Bref)`` then it might be better to eliminate the parallelism
-altogether. Or imagine ``rand(1000,1000)`` is replaced with a more
-expensive operation. Then it might make sense to add another ``@spawn``
-statement just for this step.
+并行映射和循环
+--------------
 
-Parallel Map and Loops
-----------------------
-
-Fortunately, many useful parallel computations do not require data
-movement. A common example is a monte carlo simulation, where multiple
-processes can handle independent simulation trials simultaneously. We
-can use ``@spawn`` to flip coins on two processes. First, write the
-following function in ``count_heads.jl``::
+大部分并行计算不需要移动数据。最常见的是蒙特卡罗仿真。下例使用 ``@spawn`` 在两个处理器上仿真投硬币。先在 ``count_heads.jl`` 中写如下函数： ::
 
     function count_heads(n)
         c::Int = 0
@@ -237,9 +149,7 @@ following function in ``count_heads.jl``::
         c
     end
 
-The function ``count_heads`` simply adds together ``n`` random bits.
-Here is how we can perform some trials on two machines, and add together the
-results::
+在两台机器上做仿真，最后将结果加起来： ::
 
     require("count_heads")
 
@@ -247,79 +157,40 @@ results::
     b = @spawn count_heads(100000000)
     fetch(a)+fetch(b)
 
-This example, as simple as it is, demonstrates a powerful and often-used
-parallel programming pattern. Many iterations run independently over
-several processes, and then their results are combined using some
-function. The combination process is called a *reduction*, since it is
-generally tensor-rank-reducing: a vector of numbers is reduced to a
-single number, or a matrix is reduced to a single row or column, etc. In
-code, this typically looks like the pattern ``x = f(x,v[i])``, where
-``x`` is the accumulator, ``f`` is the reduction function, and the
-``v[i]`` are the elements being reduced. It is desirable for ``f`` to be
-associative, so that it does not matter what order the operations are
-performed in.
+在多处理器上独立地进行迭代运算，然后用一些函数把它们的结果综合起来。综合的过程称为 *约简* 。
 
-Notice that our use of this pattern with ``count_heads`` can be
-generalized. We used two explicit ``@spawn`` statements, which limits
-the parallelism to two processes. To run on any number of processes,
-we can use a *parallel for loop*, which can be written in Julia like
-this::
+上例中，我们显式调用了两个 ``@spawn`` 语句，它将并行计算限制在两个处理器上。要在任意个数的处理器上运行，应使用 *并行 for 循环* ，它在 Julia 中应写为： ::
 
     nheads = @parallel (+) for i=1:200000000
       int(randbool())
     end
 
-This construct implements the pattern of assigning iterations to
-multiple processes, and combining them with a specified reduction (in
-this case ``(+)``). The result of each iteration is taken as the value
-of the last expression inside the loop. The whole parallel loop
-expression itself evaluates to the final answer.
+这个构造实现了给多处理器分配迭代的模式，并且使用特定约简来综合结果（此例中为 ``(+)`` ）。
 
-Note that although parallel for loops look like serial for loops, their
-behavior is dramatically different. In particular, the iterations do not
-happen in a specified order, and writes to variables or arrays will not
-be globally visible since iterations run on different processes. Any
-variables used inside the parallel loop will be copied and broadcast to
-each process.
+注意，尽管并行 for 循环看起来和一组 for 循环差不多，但它们的行为有很大区别。第一，循环不是按顺序进行的。第二，写进变量或数组的值不是全局可见的，因为迭代运行在不同的处理器上。并行循环内使用的所有变量都会被复制、广播到每个处理器。
 
-For example, the following code will not work as intended::
+下列代码并不会按照预想运行： ::
 
     a = zeros(100000)
     @parallel for i=1:100000
       a[i] = i
     end
 
-Notice that the reduction operator can be omitted if it is not needed.
-However, this code will not initialize all of ``a``, since each
-process will have a separate copy if it. Parallel for loops like these
-must be avoided. Fortunately, distributed arrays can be used to get
-around this limitation, as we will see in the next section.
+如果不需要，可以省略约简运算符。但此代码不会初始化 ``a`` 的所有元素，因为每个处理器上都只有独立的一份儿。应避免类似的并行 for 循环。但是我们可以使用分布式数组来规避这种情形，后面我们会讲。
 
-Using "outside" variables in parallel loops is perfectly reasonable if
-the variables are read-only::
+如果“外部”变量是只读的，就可以在并行循环中使用它： ::
 
     a = randn(1000)
     @parallel (+) for i=1:100000
       f(a[randi(end)])
     end
 
-Here each iteration applies ``f`` to a randomly-chosen sample from a
-vector ``a`` shared by all processes.
-
-In some cases no reduction operator is needed, and we merely wish to
-apply a function to all integers in some range (or, more generally, to
-all elements in some collection). This is another useful operation
-called *parallel map*, implemented in Julia as the ``pmap`` function.
-For example, we could compute the singular values of several large
-random matrices in parallel as follows::
+有时我们不需要约简，仅希望将函数应用到某个范围的整数（或某个集合的元素）上。这时可以使用 *并行映射* ``pmap`` 函数。下例中并行计算几个大随机矩阵的奇异值： ::
 
     M = {rand(1000,1000) for i=1:10}
     pmap(svd, M)
 
-Julia's ``pmap`` is designed for the case where each function call does
-a large amount of work. In contrast, ``@parallel for`` can handle
-situations where each iteration is tiny, perhaps merely summing two
-numbers.
+被调用的函数需处理大量工作时使用 ``pmap`` ，反之，则使用 ``@parallel for`` 。
 
 Synchronization With Remote References
 --------------------------------------
@@ -393,25 +264,16 @@ required, since the threads are scheduled cooperatively and not
 preemptively. This means context switches only occur at well-defined
 points: in this case, when ``remotecall_fetch`` is called.
 
-Distributed Arrays
-------------------
+分布式数组
+----------
 
-Large computations are often organized around large arrays of data. In
-these cases, a particularly natural way to obtain parallelism is to
-distribute arrays among several processes. This combines the memory
-resources of multiple machines, allowing use of arrays too large to fit
-on one machine. Each process operates on the part of the array it
-owns, providing a ready answer to the question of how a program should
-be divided among machines.
+并行计算综合使用多个机器上的内存资源，因而可以使用在一个机器上不能实现的大数组。这时，可使用分布式数组，每个处理器仅对它所拥有的那部分数组进行操作。
 
-Julia distributed arrays are implemented by the ``DArray`` type. A
-``DArray`` has an element type and dimensions just like an ``Array``.
-A ``DArray`` can also use arbitrary array-like types to represent the local
-chunks that store actual data. The data in a ``DArray`` is distributed by
-dividing the index space into some number of blocks in each dimension.
+分布式数组（或 *全局对象* ）逻辑上是个单数组，但它分为很多块儿，每个处理器上保存一块儿。但对整个数组的运算与在本地数组的运算是一样的，并行计算是隐藏的。
 
-Common kinds of arrays can be constructed with functions beginning with
-``d``::
+分布式数组是用 ``DArray`` 类型来实现的。 ``DArray`` 的元素类型和维度与 ``Array`` 一样。 ``DArray`` 的数据的分布，是这样实现的：它把索引空间在每个维度都分成一些小块。
+
+一些常用分布式数组可以使用 ``d`` 开头的函数来构造： ::
 
     dzeros(100,100,10)
     dones(100,100,10)
@@ -419,10 +281,7 @@ Common kinds of arrays can be constructed with functions beginning with
     drandn(100,100,10)
     dfill(x, 100,100,10)
 
-In the last case, each element will be initialized to the specified
-value ``x``. These functions automatically pick a distribution for you.
-For more control, you can specify which processors to use, and how the
-data should be distributed::
+最后一个例子中，数组的元素由值 ``x`` 来初始化。这些函数自动选取某个分布。如果要指明使用哪个处理器，如何分布数据，应这样写： ::
 
     dzeros((100,100), [1:4], [1,4])
 
@@ -440,24 +299,21 @@ dimension will be divided into 4 pieces. Therefore each local chunk will be
 of size ``(100,25)``. Note that the product of the distribution array must
 equal the number of processors.
 
-``distribute(a::Array)`` converts a local array to a distributed array.
+``distribute(a::Array)`` 可用来将本地数组转换为分布式数组。
 
-``localpart(a::DArray)`` obtains the locally-stored portion
-of a ``DArray``.
+``localpart(a::DArray)`` 可用来获取 ``DArray`` 本地存储的部分。
 
-``myindexes(a::DArray)`` gives a tuple of the index ranges owned by the
-local process.
+``myindexes(a::DArray)`` 返回本地处理器所存储的维度索引值范围多元组。
 
-``convert(Array, a::DArray)`` brings all the data to the local processor.
+``convert(Array, a::DArray)`` 将所有数据综合到本地处理器上。
 
-Indexing a ``DArray`` (square brackets) with ranges of indexes always
-creates a ``SubArray``, not copying any data.
+使用索引值范围来索引 ``DArray`` （方括号）时，会创建 ``SubArray`` 对象，但不复制数据。
 
 
-Constructing Distributed Arrays
--------------------------------
+构造分布式数组
+--------------
 
-The primitive ``DArray`` constructor has the following somewhat elaborate signature::
+``DArray`` 的构造函数是 ``darray`` ，它的声明如下： ::
 
     DArray(init, dims[, procs, dist])
 
@@ -467,20 +323,18 @@ indices. ``dims`` is the overall size of the distributed array.
 ``procs`` optionally specifies a vector of processor IDs to use.
 ``dist`` is an integer vector specifying how many chunks the
 distributed array should be divided into in each dimension.
+``init`` 函数的参数，是索引值范围多元组。这个函数在本地声名一块分布式数组，并用指定索引值来进行初始化。 ``dims`` 是整个分布式数组的维度。 ``procs`` 是可选的，指明一个存有要使用的处理器 ID 的向量 。 ``dist`` 是一个整数向量，指明分布式数组在每个维度应该被分成几块。
 
-The last two arguments are optional, and defaults will be used if they
-are omitted.
+最后俩参数是可选的，忽略的时候使用默认值。
 
-As an example, here is how to turn the local array constructor ``fill``
-into a distributed array constructor::
+下例演示如果将本地数组 ``fill`` 的构造函数更改为分布式数组的构造函数： ::
 
     dfill(v, args...) = DArray(I->fill(v, map(length,I)), args...)
 
-In this case the ``init`` function only needs to call ``fill`` with the
-dimensions of the local piece it is creating.
+此例中 ``init`` 函数仅对它构造的本地块的维度调用 ``fill`` 。
 
-Distributed Array Operations
-----------------------------
+分布式数组运算
+--------------
 
 At this time, distributed arrays do not have much functionality. Their
 major utility is allowing communication to be done via array indexing, which
