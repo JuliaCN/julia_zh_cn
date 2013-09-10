@@ -1,40 +1,26 @@
 .. _man-control-flow:
 
-**************
- Control Flow  
-**************
+********
+ 控制流
+********
 
-Julia provides a variety of control flow constructs:
+Julia 提供一系列控制流：
 
--  :ref:`man-compound-expressions`: ``begin`` and ``(;)``.
--  :ref:`man-conditional-evaluation`:
-   ``if``-``elseif``-``else`` and ``?:`` (ternary operator).
--  :ref:`man-short-circuit-evaluation`:
-   ``&&``, ``||`` and chained comparisons.
--  :ref:`man-loops`: ``while`` and ``for``.
--  :ref:`man-exception-handling`:
-   ``try``-``catch``, ``error`` and ``throw``.
--  :ref:`man-tasks`: ``yieldto``.
+-  :ref:`man-compound-expressions` ： ``begin`` 和 ``(;)``
+-  :ref:`man-conditional-evaluation` ： ``if``-``elseif``-``else`` 和 ``?:`` (ternary operator)
+-  :ref:`man-short-circuit-evaluation` ： ``&&``, ``||`` 和 chained comparisons
+-  :ref:`man-loops` ： ``while`` 和 ``for``
+-  :ref:`man-exception-handling` ： ``try``-``catch`` ， ``error`` 和 ``throw``
+-  :ref:`man-tasks` ： ``yieldto``
 
-The first five control flow mechanisms are standard to high-level
-programming languages. Tasks are not so standard: they provide non-local
-control flow, making it possible to switch between temporarily-suspended
-computations. This is a powerful construct: both exception handling and
-cooperative multitasking are implemented in Julia using tasks. Everyday
-programming requires no direct usage of tasks, but certain problems can
-be solved much more easily by using tasks.
+前五个控制流机制是高级编程语言的标准。但任务不是：它提供了非本地的控制流，便于在临时暂停的计算中进行切换。在 Julia 中，异常处理和协同多任务都是使用的这个机制。
 
 .. _man-compound-expressions:
 
-Compound Expressions
---------------------
+复合表达式
+----------
 
-Sometimes it is convenient to have a single expression which evaluates
-several subexpressions in order, returning the value of the last
-subexpression as its value. There are two Julia constructs that
-accomplish this: ``begin`` blocks and ``(;)`` chains. The value of both
-compound expression constructs is that of the last subexpression. Here's
-an example of a ``begin`` block::
+用一个表达式按照顺序对一系列子表达式求值，并返回最后一个子表达式的值，有两种方法： ``begin`` 块和 ``(;)`` 链。 ``begin`` 块的例子： ::
 
     julia> z = begin
              x = 1
@@ -43,17 +29,12 @@ an example of a ``begin`` block::
            end
     3
 
-Since these are fairly small, simple expressions, they could easily be
-placed onto a single line, which is where the ``(;)`` chain syntax comes
-in handy::
+这个块很短也很简单，可以用 ``(;)`` 链语法将其放在一行上： ::
 
     julia> z = (x = 1; y = 2; x + y)
     3
 
-This syntax is particularly useful with the terse single-line function
-definition form introduced in :ref:`man-functions`. Although it
-is typical, there is no requirement that ``begin`` blocks be multiline
-or that ``(;)`` chains be single-line::
+这个语法在 :ref:`man-functions` 中的单行函数定义非常有用。 ``begin`` 块也可以写成单行， ``(;)`` 链也可以写成多行： ::
 
     julia> begin x = 1; y = 2; x + y end
     3

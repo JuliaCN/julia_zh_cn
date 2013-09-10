@@ -16,15 +16,15 @@ _______________________________________________________
 
   Julia IFun Implementation 
 
-  当前版本： ``0.0.0``  (更新于： 2013-07-15) 
+  Current Version: ``0.0.0``  (updated: 2013-07-15) 
 
-  维护者： `dlfivefifty <https://github.com/dlfivefifty>`_
+  Maintainer: `dlfivefifty <https://github.com/dlfivefifty>`_
 
-  依赖关系： ::
+  Dependencies::
 
       Winston                  [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/69459897cbc341ab301fa1d7d2e3486a?d=https%3A%2F%2Fidenticons.github.com%2F9921857de834e7f939b19d3d1afbe55b.png
         :height: 40px
@@ -52,15 +52,15 @@ ____________________________________________________
 
   Basic Arduino interface for Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-09-01) 
+  Current Version: ``0.0.0``  (updated: 2013-09-01) 
 
-  维护者： `Robert J. Ennis <https://github.com/rennis250>`_
+  Maintainer: `Robert J. Ennis <https://github.com/rennis250>`_
 
-  依赖关系： ::
+  Dependencies::
 
       GetC                     [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/37cebf4f44a1dbf71ee94aaea166ef00?d=https%3A%2F%2Fidenticons.github.com%2F297c3e3befdaf89f098f109d971e6f5a.png
         :height: 40px
@@ -87,17 +87,17 @@ __________________________________________________________
 
   Package for parsing command-line arguments to Julia programs. 
 
-  当前版本： ``0.2.5``  (更新于： 2013-08-30) 
+  Current Version: ``0.2.5``  (updated: 2013-08-30) 
 
-  维护者： `Carlo Baldassi <https://github.com/carlobaldassi>`_
+  Maintainer: `Carlo Baldassi <https://github.com/carlobaldassi>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Options                  [0.0.0-,∞)
       TextWrap                 [0.1.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/80502de63c1b21d8f3ba663d72ba5be2?d=https%3A%2F%2Fidenticons.github.com%2Fd454171c70136b2284d6a8cfe123eb29.png
         :height: 40px
@@ -137,15 +137,15 @@ _______________________________________________________________
 
   Generate simple plots as ASCII art in Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-07-26) 
+  Current Version: ``0.0.0``  (updated: 2013-07-26) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -167,11 +167,11 @@ _____________________________________________
 
   Julia interface to AWS 
 
-  当前版本： ``0.0.0``  (更新于： 2013-08-20) 
+  Current Version: ``0.0.0``  (updated: 2013-08-20) 
 
-  维护者： `Amit Murthy <https://github.com/amitmurthy>`_
+  Maintainer: `Amit Murthy <https://github.com/amitmurthy>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Codecs                   [0.0.0-,∞)
@@ -179,7 +179,7 @@ _____________________________________________
       HTTPClient               [0.0.0-,∞)
       LibExpat                 [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/313e7a578240d11c97a68c9c6918a90b?d=https%3A%2F%2Fidenticons.github.com%2F8de01f67e4cbfa5ce2e70e6f1f761891.png
         :height: 40px
@@ -213,16 +213,16 @@ _____________________________________________________________
 
   A package for benchmarking code and packages 
 
-  当前版本： ``0.0.1``  (更新于： 2013-06-23) 
+  Current Version: ``0.0.1``  (updated: 2013-06-23) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       DataFrames               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -256,16 +256,16 @@ ___________________________________________________
 
   Tool for building binary dependencies for Julia modules 
 
-  当前版本： ``0.2.4``  (更新于： 2013-09-06) 
+  Current Version: ``0.2.4``  (updated: 2013-09-06) 
 
-  维护者： `Keno Fischer <https://github.com/loladiro>`_
+  Maintainer: `Keno Fischer <https://github.com/loladiro>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       URIParser                [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https%3A%2F%2Fidenticons.github.com%2Ff36f3f932c25fc21ab72033891540076.png
         :height: 40px
@@ -335,15 +335,15 @@ _________________________________________________
 
   Julia's package for working on Bioinformatics with DNA, RNA and Protein Sequences 
 
-  当前版本： ``0.2.1``  (更新于： 2013-05-25) 
+  Current Version: ``0.2.1``  (updated: 2013-05-25) 
 
-  维护者： `Diego Javier Zea <https://github.com/diegozea>`_
+  Maintainer: `Diego Javier Zea <https://github.com/diegozea>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/fa3b781987ef53c4d3b8397f2239e519?d=https%3A%2F%2Fidenticons.github.com%2F75a2b93c61829886bca2442b2438509b.png
         :height: 40px
@@ -376,15 +376,15 @@ _________________________________________________
 
   A framework to represent chunks of entities and parallel methods on them. 
 
-  当前版本： ``0.0.0``  (更新于： 2013-09-02) 
+  Current Version: ``0.0.0``  (updated: 2013-09-02) 
 
-  维护者： `Tanmay Mohapatra <https://github.com/tanmaykm>`_
+  Maintainer: `Tanmay Mohapatra <https://github.com/tanmaykm>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/eea0b193dae8ac47946202ee404a6d7a?d=https%3A%2F%2Fidenticons.github.com%2Fa2feca9cad6b69327bdee24d0d81156a.png
         :height: 40px
@@ -412,15 +412,15 @@ ___________________________________________________________________
 
   Bloom filters in Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-02-03) 
+  Current Version: ``0.0.0``  (updated: 2013-02-03) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -442,15 +442,15 @@ _________________________________________________
 
    
 
-  当前版本： ``0.0.0``  (更新于： 2013-04-11) 
+  Current Version: ``0.0.0``  (updated: 2013-04-11) 
 
-  维护者： `gusl <https://github.com/gusl>`_
+  Maintainer: `gusl <https://github.com/gusl>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/25d0ed671b01595bb0a6c12bfa90c9b2?d=https%3A%2F%2Fidenticons.github.com%2F22b82e9e1ecf7e4570a56c0160a247b7.png
         :height: 40px
@@ -472,16 +472,16 @@ ________________________________________________
 
   Bindings to the Cairo graphics library. 
 
-  当前版本： ``0.2.8``  (更新于： 2013-09-07) 
+  Current Version: ``0.2.8``  (updated: 2013-09-07) 
 
-  维护者： `The Julia Language <https://github.com/JuliaLang>`_
+  Maintainer: `The Julia Language <https://github.com/JuliaLang>`_
 
-  依赖关系： ::
+  Dependencies::
 
       BinDeps                  [0.0.0-,∞)
       Color                    [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https%3A%2F%2Fidenticons.github.com%2Ff36f3f932c25fc21ab72033891540076.png
         :height: 40px
@@ -580,15 +580,15 @@ ___________________________________________________________
 
   Calculus functions in Julia 
 
-  当前版本： ``0.1.1``  (更新于： 2013-04-27) 
+  Current Version: ``0.1.1``  (updated: 2013-04-27) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -646,16 +646,16 @@ __________________________________________________
 
   Calendar time package for Julia 
 
-  当前版本： ``0.4.0``  (更新于： 2013-09-03) 
+  Current Version: ``0.4.0``  (updated: 2013-09-03) 
 
-  维护者： `Mike Nolta <https://github.com/nolta>`_
+  Maintainer: `Mike Nolta <https://github.com/nolta>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       ICU                      [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/1b65c4698da5f30310e14aaee8f3f24e?d=https%3A%2F%2Fidenticons.github.com%2Fccc246e2e59d5e2d0cca344114f2065e.png
         :height: 40px
@@ -695,15 +695,15 @@ ______________________________________________________
 
   Fast multidimensional iteration 
 
-  当前版本： ``0.1.0``  (更新于： 2013-08-21) 
+  Current Version: ``0.1.0``  (updated: 2013-08-21) 
 
-  维护者： `Tim Holy <https://github.com/timholy>`_
+  Maintainer: `Tim Holy <https://github.com/timholy>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https%3A%2F%2Fidenticons.github.com%2F0d84f7b936eeba4c2a9b73061cfbbf13.png
         :height: 40px
@@ -725,15 +725,15 @@ ___________________________________________________
 
   Catalan: a combinatorics library for Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-05-07) 
+  Current Version: ``0.0.0``  (updated: 2013-05-07) 
 
-  维护者： `Alessandro Andrioni <https://github.com/andrioni>`_
+  Maintainer: `Alessandro Andrioni <https://github.com/andrioni>`_
 
-  依赖关系： ::
+  Dependencies::
 
       Polynomial               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/c928b9b00cbc5133c4ae7a743cf96f10?d=https%3A%2F%2Fidenticons.github.com%2F6b1b3a1e3737701978c843b72704488b.png
         :height: 40px
@@ -767,17 +767,17 @@ _________________________________________
 
   Interface to the Coin-OR Cbc solver for mixed-integer programming 
 
-  当前版本： ``0.0.3``  (更新于： 2013-09-03) 
+  Current Version: ``0.0.3``  (updated: 2013-09-03) 
 
-  维护者： `Miles Lubin <https://github.com/mlubin>`_
+  Maintainer: `Miles Lubin <https://github.com/mlubin>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       BinDeps                  [0.0.0-,∞)
       MathProgBase             [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/b0cf54b8431443687735cb486599ea9c?d=https%3A%2F%2Fidenticons.github.com%2Fd73ab2afeb22d558e3fae4b0a0de43e3.png
         :height: 40px
@@ -810,15 +810,15 @@ _________________________________________________________________
 
   Few utility types over Julia Vector type 
 
-  当前版本： ``0.0.0``  (更新于： 2013-05-25) 
+  Current Version: ``0.0.0``  (updated: 2013-05-25) 
 
-  维护者： `Tanmay Mohapatra <https://github.com/tanmaykm>`_
+  Maintainer: `Tanmay Mohapatra <https://github.com/tanmaykm>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/eea0b193dae8ac47946202ee404a6d7a?d=https%3A%2F%2Fidenticons.github.com%2Fa2feca9cad6b69327bdee24d0d81156a.png
         :height: 40px
@@ -840,17 +840,17 @@ ___________________________________________________________________
 
   Simulation, Bayesian inference and Bayesian model selection for chemical kinetics in Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-07-07) 
+  Current Version: ``0.0.0``  (updated: 2013-07-07) 
 
-  维护者： `Theodore Papamarkou <https://github.com/scidom>`_
+  Maintainer: `Theodore Papamarkou <https://github.com/scidom>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Distributions            [0.0.0-,∞)
       Sundials                 [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/f1678bcdc052b500191b78923399e5f8?d=https%3A%2F%2Fidenticons.github.com%2F23ac6c3f4e95b0415828115db7a8ca44.png
         :height: 40px
@@ -872,16 +872,16 @@ _______________________________________________
 
   Julia interface to libclang and C wrapper generator 
 
-  当前版本： ``0.0.0``  (更新于： 2013-08-20) 
+  Current Version: ``0.0.0``  (updated: 2013-08-20) 
 
-  维护者： `Isaiah <https://github.com/ihnorton>`_
+  Maintainer: `Isaiah <https://github.com/ihnorton>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       BinDeps                  [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/192f114babcc8c2f53936c145bbc502c?d=https%3A%2F%2Fidenticons.github.com%2F8221b4c8f7cc8d6114e4f1afc7fd7dff.png
         :height: 40px
@@ -933,17 +933,17 @@ _________________________________________
 
   Interface to the Coin-OR Linear Programming solver (CLP) 
 
-  当前版本： ``0.0.4``  (更新于： 2013-09-03) 
+  Current Version: ``0.0.4``  (updated: 2013-09-03) 
 
-  维护者： `Miles Lubin <https://github.com/mlubin>`_
+  Maintainer: `Miles Lubin <https://github.com/mlubin>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Cbc                      [0.0.0-,∞)
       MathProgBase             [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/b0cf54b8431443687735cb486599ea9c?d=https%3A%2F%2Fidenticons.github.com%2Fd73ab2afeb22d558e3fae4b0a0de43e3.png
         :height: 40px
@@ -971,18 +971,18 @@ _______________________________________________________________
 
   Basic functions for clustering data: k-means, dp-means, etc. 
 
-  当前版本： ``0.2.2``  (更新于： 2013-09-06) 
+  Current Version: ``0.2.2``  (updated: 2013-09-06) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Distance                 [0.0.0-,∞)
       Stats                    [0.0.0-,∞)
       Devectorize              [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https%3A%2F%2Fidenticons.github.com%2F25219d2b2afe83531dc59b52b9217686.png
         :height: 40px
@@ -1022,15 +1022,15 @@ ___________________________________________________________________
 
    
 
-  当前版本： ``0.0.0``  (更新于： 2013-08-28) 
+  Current Version: ``0.0.0``  (updated: 2013-08-28) 
 
-  维护者： `Lance Hepler <https://github.com/nlhepler>`_
+  Maintainer: `Lance Hepler <https://github.com/nlhepler>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/0e32745f2094c6ec4162b447c47a9609?d=https%3A%2F%2Fidenticons.github.com%2F3bd73f0a57e8f464e8afda24aac180ea.png
         :height: 40px
@@ -1058,15 +1058,15 @@ ________________________________________________
 
   Common data encoding algorithms 
 
-  当前版本： ``0.1.0``  (更新于： 2013-08-14) 
+  Current Version: ``0.1.0``  (updated: 2013-08-14) 
 
-  维护者： `Daniel Jones <https://github.com/dcjones>`_
+  Maintainer: `Daniel Jones <https://github.com/dcjones>`_
 
-  依赖关系： ::
+  Dependencies::
 
       Iterators                [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/fd97b03d16e1aa4c404391216d81c1d5?d=https%3A%2F%2Fidenticons.github.com%2Fc7ec48e0ff0d0ae8827e36301a0962a1.png
         :height: 40px
@@ -1094,15 +1094,15 @@ ________________________________________________
 
   Basic color manipulation utilities. 
 
-  当前版本： ``0.2.6``  (更新于： 2013-08-29) 
+  Current Version: ``0.2.6``  (updated: 2013-08-29) 
 
-  维护者： `The Julia Language <https://github.com/JuliaLang>`_
+  Maintainer: `The Julia Language <https://github.com/JuliaLang>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/fd97b03d16e1aa4c404391216d81c1d5?d=https%3A%2F%2Fidenticons.github.com%2Fc7ec48e0ff0d0ae8827e36301a0962a1.png
         :height: 40px
@@ -1166,17 +1166,17 @@ __________________________________________________
 
   Declarative vector graphics 
 
-  当前版本： ``0.1.10``  (更新于： 2013-09-05) 
+  Current Version: ``0.1.10``  (updated: 2013-09-05) 
 
-  维护者： `Daniel Jones <https://github.com/dcjones>`_
+  Maintainer: `Daniel Jones <https://github.com/dcjones>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Mustache                 [0.0.0-,∞)
       Color                    [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/fd97b03d16e1aa4c404391216d81c1d5?d=https%3A%2F%2Fidenticons.github.com%2Fc7ec48e0ff0d0ae8827e36301a0962a1.png
         :height: 40px
@@ -1258,15 +1258,15 @@ _______________________________________________________________________________
 
   Types and functions for working with continued fractions in Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-02-07) 
+  Current Version: ``0.0.0``  (updated: 2013-02-07) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -1288,15 +1288,15 @@ __________________________________________
 
   Utilities for calling C++ from Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-03-15) 
+  Current Version: ``0.0.0``  (updated: 2013-03-15) 
 
-  维护者： `Tim Holy <https://github.com/timholy>`_
+  Maintainer: `Tim Holy <https://github.com/timholy>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https%3A%2F%2Fidenticons.github.com%2F0d84f7b936eeba4c2a9b73061cfbbf13.png
         :height: 40px
@@ -1323,15 +1323,15 @@ __________________________________________
 
   32-bit cyclic redundancy check (CRC-32) checksum implementation for Julia 
 
-  当前版本： ``0.0.1``  (更新于： 2013-08-13) 
+  Current Version: ``0.0.1``  (updated: 2013-08-13) 
 
-  维护者： `Fazlul Shahriar <https://github.com/fhs>`_
+  Maintainer: `Fazlul Shahriar <https://github.com/fhs>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/f11cd39050d2eb63ec494c0e7ae81d98?d=https%3A%2F%2Fidenticons.github.com%2Fe4874cbbcbec68daabdd9342beac3bd9.png
         :height: 40px
@@ -1353,16 +1353,16 @@ _____________________________________________________
 
   One- and multi-dimensional adaptive integration routines for the Julia language 
 
-  当前版本： ``1.0.1``  (更新于： 2013-08-22) 
+  Current Version: ``1.0.1``  (updated: 2013-08-22) 
 
-  维护者： `Steven G. Johnson <https://github.com/stevengj>`_
+  Maintainer: `Steven G. Johnson <https://github.com/stevengj>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       BinDeps                  [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
 ----
 
@@ -1378,15 +1378,15 @@ __________________________________________
 
   a Julia HTTP curl library 
 
-  当前版本： ``0.0.1``  (更新于： 2013-05-29) 
+  Current Version: ``0.0.1``  (updated: 2013-05-29) 
 
-  维护者： `Forio Online Simulations <https://github.com/forio>`_
+  Maintainer: `Forio Online Simulations <https://github.com/forio>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/d1206b7851de49f51e710c88a15547f4?d=https%3A%2F%2Fidenticons.github.com%2Ff9e6291c7298972dcf570643ff134ed8.png
         :height: 40px
@@ -1419,18 +1419,18 @@ ___________________________________________________________
 
   library for working with tabular data in Julia 
 
-  当前版本： ``0.3.11``  (更新于： 2013-08-26) 
+  Current Version: ``0.3.11``  (updated: 2013-08-26) 
 
-  维护者： `Julia Statistics <https://github.com/JuliaStats>`_
+  Maintainer: `Julia Statistics <https://github.com/JuliaStats>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Blocks                   [0.0.0-,∞)
       GZip                     [0.0.0-,∞)
       Stats                    [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -1643,15 +1643,15 @@ _________________________________________________________________
 
   Julia implementation of Data structures 
 
-  当前版本： ``0.2.4``  (更新于： 2013-07-27) 
+  Current Version: ``0.2.4``  (updated: 2013-07-27) 
 
-  维护者： `Dahua Lin <https://github.com/lindahua>`_
+  Maintainer: `Dahua Lin <https://github.com/lindahua>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https%3A%2F%2Fidenticons.github.com%2F25219d2b2afe83531dc59b52b9217686.png
         :height: 40px
@@ -1679,15 +1679,15 @@ ______________________________________________________
 
   A Date and DateTime implementation for Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-07-27) 
+  Current Version: ``0.0.0``  (updated: 2013-07-27) 
 
-  维护者： `Jacob Quinn <https://github.com/karbarcca>`_
+  Maintainer: `Jacob Quinn <https://github.com/karbarcca>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/d788bf7fd037ebef5798d8881c5faa2f?d=https%3A%2F%2Fidenticons.github.com%2Fb74329b16ae6564aa58c344720a5a087.png
         :height: 40px
@@ -1715,15 +1715,15 @@ _____________________________________________
 
   Prototype interactive debugger for Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-07-20) 
+  Current Version: ``0.0.0``  (updated: 2013-07-20) 
 
-  维护者： `toivoh <https://github.com/toivoh>`_
+  Maintainer: `toivoh <https://github.com/toivoh>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/8d3d3934c39b52f48c35a0cc536edae7?d=https%3A%2F%2Fidenticons.github.com%2F81c47394418f4da2556f7b0d67d3d3be.png
         :height: 40px
@@ -1763,15 +1763,15 @@ _______________________________________________________________
 
   Decision Tree Classifier in Julia 
 
-  当前版本： ``0.1.0``  (更新于： 2013-06-11) 
+  Current Version: ``0.1.0``  (updated: 2013-06-11) 
 
-  维护者： `Ben Sadeghi <https://github.com/bensadeghi>`_
+  Maintainer: `Ben Sadeghi <https://github.com/bensadeghi>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/de1cfaf505e6cea3e5b76cfda87bf6c8?d=https%3A%2F%2Fidenticons.github.com%2F4318d1a0f79b8fe608856135fd5480be.png
         :height: 40px
@@ -1793,15 +1793,15 @@ ___________________________________________________________
 
   A Julia framework for delayed expression evaluation 
 
-  当前版本： ``0.2.1``  (更新于： 2013-04-15) 
+  Current Version: ``0.2.1``  (updated: 2013-04-15) 
 
-  维护者： `Dahua Lin <https://github.com/lindahua>`_
+  Maintainer: `Dahua Lin <https://github.com/lindahua>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https%3A%2F%2Fidenticons.github.com%2F25219d2b2afe83531dc59b52b9217686.png
         :height: 40px
@@ -1829,15 +1829,15 @@ _______________________________________________
 
   DICOM for Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-03-01) 
+  Current Version: ``0.0.0``  (updated: 2013-03-01) 
 
-  维护者： `Isaiah <https://github.com/ihnorton>`_
+  Maintainer: `Isaiah <https://github.com/ihnorton>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/192f114babcc8c2f53936c145bbc502c?d=https%3A%2F%2Fidenticons.github.com%2F8221b4c8f7cc8d6114e4f1afc7fd7dff.png
         :height: 40px
@@ -1889,15 +1889,15 @@ _______________________________________________________
 
   Utility functions for manipulating Dicts in Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-05-14) 
+  Current Version: ``0.0.0``  (updated: 2013-05-14) 
 
-  维护者： `Jonathan Chang <https://github.com/slycoder>`_
+  Maintainer: `Jonathan Chang <https://github.com/slycoder>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/34bbe1993f0b1e918539da9a832f8064?d=https%3A%2F%2Fidenticons.github.com%2F2be6a2b31df685466061c234f3b786aa.png
         :height: 40px
@@ -1919,15 +1919,15 @@ __________________________________________________________
 
   KeysView and ValuesView types for dynamic low-overhead views into the entries of dictionaries 
 
-  当前版本： ``0.0.0``  (更新于： 2013-02-23) 
+  Current Version: ``0.0.0``  (updated: 2013-02-23) 
 
-  维护者： `David de Laat <https://github.com/daviddelaat>`_
+  Maintainer: `David de Laat <https://github.com/daviddelaat>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/62df30beab9c2a6f3fe3f86995e94387?d=https%3A%2F%2Fidenticons.github.com%2F58b08088d26ada47c510cef3759f7aae.png
         :height: 40px
@@ -1949,15 +1949,15 @@ ________________________________________________________________________________
 
   Methods for dimensionality reduction: PCA, ICA, NMF 
 
-  当前版本： ``0.0.0``  (更新于： 2013-01-17) 
+  Current Version: ``0.0.0``  (updated: 2013-01-17) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  依赖关系： ::
+  Dependencies::
 
       DataFrames               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -1991,15 +1991,15 @@ _______________________________________________________________
 
   Discrete factor and its operations in Probabilistic Graphical Models 
 
-  当前版本： ``0.0.0``  (更新于： 2013-09-03) 
+  Current Version: ``0.0.0``  (updated: 2013-09-03) 
 
-  维护者： `Lei WANG <https://github.com/wlbksy>`_
+  Maintainer: `Lei WANG <https://github.com/wlbksy>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/0bd7b10cad6fab97f81741aa2081cbde?d=https%3A%2F%2Fidenticons.github.com%2F4769168d0296537ac86601333d81c75a.png
         :height: 40px
@@ -2021,16 +2021,16 @@ _____________________________________________________
 
   Julia module for Distance evaluation 
 
-  当前版本： ``0.2.1``  (更新于： 2013-04-15) 
+  Current Version: ``0.2.1``  (updated: 2013-04-15) 
 
-  维护者： `Dahua Lin <https://github.com/lindahua>`_
+  Maintainer: `Dahua Lin <https://github.com/lindahua>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Devectorize              [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https%3A%2F%2Fidenticons.github.com%2F25219d2b2afe83531dc59b52b9217686.png
         :height: 40px
@@ -2063,16 +2063,16 @@ _________________________________________________________________
 
   A Julia package for probability distributions and associated functions. 
 
-  当前版本： ``0.2.4``  (更新于： 2013-08-22) 
+  Current Version: ``0.2.4``  (updated: 2013-08-22) 
 
-  维护者： `Julia Statistics <https://github.com/JuliaStats>`_
+  Maintainer: `Julia Statistics <https://github.com/JuliaStats>`_
 
-  依赖关系： ::
+  Dependencies::
 
       Stats                    [0.0.0-,∞)
       NumericExtensions        [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https%3A%2F%2Fidenticons.github.com%2F25219d2b2afe83531dc59b52b9217686.png
         :height: 40px
@@ -2172,16 +2172,16 @@ _________________________________________________
 
   Manage Docker containers using Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-09-02) 
+  Current Version: ``0.0.0``  (updated: 2013-09-02) 
 
-  维护者： `Keno Fischer <https://github.com/loladiro>`_
+  Maintainer: `Keno Fischer <https://github.com/loladiro>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       WWWClient                [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https%3A%2F%2Fidenticons.github.com%2Ff36f3f932c25fc21ab72033891540076.png
         :height: 40px
@@ -2203,15 +2203,15 @@ _________________________________________________________
 
   Julia package for representing dual numbers and for performing dual algebra 
 
-  当前版本： ``0.0.0``  (更新于： 2013-04-21) 
+  Current Version: ``0.0.0``  (updated: 2013-04-21) 
 
-  维护者： `Theodore Papamarkou <https://github.com/scidom>`_
+  Maintainer: `Theodore Papamarkou <https://github.com/scidom>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/f1678bcdc052b500191b78923399e5f8?d=https%3A%2F%2Fidenticons.github.com%2F23ac6c3f4e95b0415828115db7a8ca44.png
         :height: 40px
@@ -2233,17 +2233,17 @@ _______________________________________________
 
   Julia Package for parsing the DWARF file format 
 
-  当前版本： ``0.0.0``  (更新于： 2013-06-17) 
+  Current Version: ``0.0.0``  (updated: 2013-06-17) 
 
-  维护者： `Keno Fischer <https://github.com/loladiro>`_
+  Maintainer: `Keno Fischer <https://github.com/loladiro>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       StrPack                  [0.0.0-,∞)
       ELF                      [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https%3A%2F%2Fidenticons.github.com%2Ff36f3f932c25fc21ab72033891540076.png
         :height: 40px
@@ -2265,16 +2265,16 @@ ___________________________________________
 
   Julia Package for working with ELF files 
 
-  当前版本： ``0.0.0``  (更新于： 2013-05-28) 
+  Current Version: ``0.0.0``  (updated: 2013-05-28) 
 
-  维护者： `Keno Fischer <https://github.com/loladiro>`_
+  Maintainer: `Keno Fischer <https://github.com/loladiro>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       StrPack                  [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https%3A%2F%2Fidenticons.github.com%2Ff36f3f932c25fc21ab72033891540076.png
         :height: 40px
@@ -2296,15 +2296,15 @@ __________________________________________________
 
   Elliptic integral and Jacobi elliptic special functions 
 
-  当前版本： ``0.0.0``  (更新于： 2013-03-13) 
+  Current Version: ``0.0.0``  (updated: 2013-03-13) 
 
-  维护者： `Mike Nolta <https://github.com/nolta>`_
+  Maintainer: `Mike Nolta <https://github.com/nolta>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/1b65c4698da5f30310e14aaee8f3f24e?d=https%3A%2F%2Fidenticons.github.com%2Fccc246e2e59d5e2d0cca344114f2065e.png
         :height: 40px
@@ -2331,15 +2331,15 @@ ____________________________________________________
 
   Example Julia package repo. 
 
-  当前版本： ``0.0.0``  (更新于： 2012-11-22) 
+  Current Version: ``0.0.0``  (updated: 2012-11-22) 
 
-  维护者： `The Julia Language <https://github.com/JuliaLang>`_
+  Maintainer: `The Julia Language <https://github.com/JuliaLang>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https%3A%2F%2Fidenticons.github.com%2F85df517d6848f02168468b6cbb2dc786.png
         :height: 40px
@@ -2391,15 +2391,15 @@ _____________________________________________________________________
 
   Utilities for working with the Julia `Expr` type 
 
-  当前版本： ``0.0.0``  (更新于： 2013-04-30) 
+  Current Version: ``0.0.0``  (updated: 2013-04-30) 
 
-  维护者： `Zach Allaun <https://github.com/zachallaun>`_
+  Maintainer: `Zach Allaun <https://github.com/zachallaun>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/06625cbad0c69f5c2e673a4312e9fd7e?d=https%3A%2F%2Fidenticons.github.com%2F5dd6d7ae462c1aec0b364990d3ec72e0.png
         :height: 40px
@@ -2421,15 +2421,15 @@ _________________________________________________________
 
   Midje-like testing for Julia 
 
-  当前版本： ``0.1.0``  (更新于： 2013-07-02) 
+  Current Version: ``0.1.0``  (updated: 2013-07-02) 
 
-  维护者： `Zach Allaun <https://github.com/zachallaun>`_
+  Maintainer: `Zach Allaun <https://github.com/zachallaun>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/06625cbad0c69f5c2e673a4312e9fd7e?d=https%3A%2F%2Fidenticons.github.com%2F5dd6d7ae462c1aec0b364990d3ec72e0.png
         :height: 40px
@@ -2462,16 +2462,16 @@ ________________________________________________________
 
   Utilities to read/write FASTA format files in Julia 
 
-  当前版本： ``0.1.2``  (更新于： 2013-08-30) 
+  Current Version: ``0.1.2``  (updated: 2013-08-30) 
 
-  维护者： `Carlo Baldassi <https://github.com/carlobaldassi>`_
+  Maintainer: `Carlo Baldassi <https://github.com/carlobaldassi>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       GZip                     [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/80502de63c1b21d8f3ba663d72ba5be2?d=https%3A%2F%2Fidenticons.github.com%2Fd454171c70136b2284d6a8cfe123eb29.png
         :height: 40px
@@ -2498,16 +2498,16 @@ ____________________________________________________________
 
   [DEPRECATED PACKAGE. USE FastaIO INSTEAD] 
 
-  当前版本： ``0.2.1``  (更新于： 2013-05-22) 
+  Current Version: ``0.2.1``  (updated: 2013-05-22) 
 
-  维护者： `Carlo Baldassi <https://github.com/carlobaldassi>`_
+  Maintainer: `Carlo Baldassi <https://github.com/carlobaldassi>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       GZip                     [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/80502de63c1b21d8f3ba663d72ba5be2?d=https%3A%2F%2Fidenticons.github.com%2Fd454171c70136b2284d6a8cfe123eb29.png
         :height: 40px
@@ -2535,15 +2535,15 @@ ___________________________________________________________
 
   File::Find implementation in Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-01-19) 
+  Current Version: ``0.0.0``  (updated: 2013-01-19) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -2565,15 +2565,15 @@ ______________________________________________
 
   FITS file package for Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2012-12-09) 
+  Current Version: ``0.0.0``  (updated: 2012-12-09) 
 
-  维护者： `Mike Nolta <https://github.com/nolta>`_
+  Maintainer: `Mike Nolta <https://github.com/nolta>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/1b65c4698da5f30310e14aaee8f3f24e?d=https%3A%2F%2Fidenticons.github.com%2Fccc246e2e59d5e2d0cca344114f2065e.png
         :height: 40px
@@ -2595,15 +2595,15 @@ ________________________________________________________________________________
 
   Functional and and persistent data structures for Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-05-16) 
+  Current Version: ``0.0.0``  (updated: 2013-05-16) 
 
-  维护者： `Zach Allaun <https://github.com/zachallaun>`_
+  Maintainer: `Zach Allaun <https://github.com/zachallaun>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/06625cbad0c69f5c2e673a4312e9fd7e?d=https%3A%2F%2Fidenticons.github.com%2F5dd6d7ae462c1aec0b364990d3ec72e0.png
         :height: 40px
@@ -2637,15 +2637,15 @@ _____________________________________________________________________
 
   Functional Julia – based on fogus/lemonad 
 
-  当前版本： ``0.0.0``  (更新于： 2013-04-30) 
+  Current Version: ``0.0.0``  (updated: 2013-04-30) 
 
-  维护者： `Zach Allaun <https://github.com/zachallaun>`_
+  Maintainer: `Zach Allaun <https://github.com/zachallaun>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/06625cbad0c69f5c2e673a4312e9fd7e?d=https%3A%2F%2Fidenticons.github.com%2F5dd6d7ae462c1aec0b364990d3ec72e0.png
         :height: 40px
@@ -2673,13 +2673,13 @@ ________________________________________________
 
   Crafty statistical graphics for Julia. 
 
-  当前版本： ``0.1.11``  (更新于： 2013-08-31) 
+  Current Version: ``0.1.11``  (updated: 2013-08-31) 
 
-  维护者： `Daniel Jones <https://github.com/dcjones>`_
+  Maintainer: `Daniel Jones <https://github.com/dcjones>`_
 
-  文档： `<http://dcjones.github.com/Gadfly.jl>`_ 
+  Documentation: `<http://dcjones.github.com/Gadfly.jl>`_ 
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Distributions            [0.0.0-,∞)
@@ -2690,7 +2690,7 @@ ________________________________________________
       JSON                     [0.0.0-,∞)
       DataFrames               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/fd97b03d16e1aa4c404391216d81c1d5?d=https%3A%2F%2Fidenticons.github.com%2Fc7ec48e0ff0d0ae8827e36301a0962a1.png
         :height: 40px
@@ -2778,16 +2778,16 @@ __________________________________________________
 
   Julia GARCH package 
 
-  当前版本： ``0.0.0``  (更新于： 2013-07-29) 
+  Current Version: ``0.0.0``  (updated: 2013-07-29) 
 
-  维护者： `Andrey Kolev <https://github.com/AndreyKolev>`_
+  Maintainer: `Andrey Kolev <https://github.com/AndreyKolev>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       NLopt                    [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/27541ea7ad0954012c655bc3d2dad17f?d=https%3A%2F%2Fidenticons.github.com%2F4e0791aa8c6cc892713508d5d4dfdecb.png
         :height: 40px
@@ -2809,15 +2809,15 @@ _____________________________________________
 
   A julia front-end for gnuplot. 
 
-  当前版本： ``0.0.0``  (更新于： 2013-05-05) 
+  Current Version: ``0.0.0``  (updated: 2013-05-05) 
 
-  维护者： `mbaz <https://github.com/mbaz>`_
+  Maintainer: `mbaz <https://github.com/mbaz>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.1.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/ec325e7c3c35e354f2ea5ead5b0ec745?d=https%3A%2F%2Fidenticons.github.com%2F8118ed29272cba4f144a2500bdb2dc52.png
         :height: 40px
@@ -2851,15 +2851,15 @@ _____________________________________________________
 
   A Julia package to estimate the geographic location of IP addresses 
 
-  当前版本： ``0.0.0``  (更新于： 2013-06-24) 
+  Current Version: ``0.0.0``  (updated: 2013-06-24) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  依赖关系： ::
+  Dependencies::
 
       DataFrames               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -2881,15 +2881,15 @@ _____________________________________________________________
 
   Geometric MCMC algorithms and zero-variance (ZV) Monte Carlo Bayesian routines 
 
-  当前版本： ``0.0.0``  (更新于： 2013-04-12) 
+  Current Version: ``0.0.0``  (updated: 2013-04-12) 
 
-  维护者： `Theodore Papamarkou <https://github.com/scidom>`_
+  Maintainer: `Theodore Papamarkou <https://github.com/scidom>`_
 
-  依赖关系： ::
+  Dependencies::
 
       Distributions            [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/f1678bcdc052b500191b78923399e5f8?d=https%3A%2F%2Fidenticons.github.com%2F23ac6c3f4e95b0415828115db7a8ca44.png
         :height: 40px
@@ -2911,15 +2911,15 @@ ______________________________________________
 
   Minimal implementation of Jasper's Julia FFI 
 
-  当前版本： ``0.0.0``  (更新于： 2013-01-15) 
+  Current Version: ``0.0.0``  (updated: 2013-01-15) 
 
-  维护者： `Robert J. Ennis <https://github.com/rennis250>`_
+  Maintainer: `Robert J. Ennis <https://github.com/rennis250>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/37cebf4f44a1dbf71ee94aaea166ef00?d=https%3A%2F%2Fidenticons.github.com%2F297c3e3befdaf89f098f109d971e6f5a.png
         :height: 40px
@@ -2947,17 +2947,17 @@ _____________________________________________
 
   GLFW bindings for Julia. GLFW is a multi-platform library for opening a window, creating an OpenGL context, and managing input. 
 
-  当前版本： ``0.0.0``  (更新于： 2013-04-02) 
+  Current Version: ``0.0.0``  (updated: 2013-04-02) 
 
-  维护者： `Jay Weisskopf <https://github.com/jayschwa>`_
+  Maintainer: `Jay Weisskopf <https://github.com/jayschwa>`_
 
-  文档： `<http://www.glfw.org/>`_ 
+  Documentation: `<http://www.glfw.org/>`_ 
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/805857de807ffc1b543e807f727d05c6?d=https%3A%2F%2Fidenticons.github.com%2F650104614a86140b6f734393ee947c77.png
         :height: 40px
@@ -2979,18 +2979,18 @@ _____________________________________________
 
   Generalized linear models in Julia 
 
-  当前版本： ``0.2.0``  (更新于： 2013-07-30) 
+  Current Version: ``0.2.0``  (updated: 2013-07-30) 
 
-  维护者： `Julia Statistics <https://github.com/JuliaStats>`_
+  Maintainer: `Julia Statistics <https://github.com/JuliaStats>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Distributions            [0.2.0-,∞)
       NumericExtensions        [0.2.12-,∞)
       DataFrames               [0.3.6-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/a27d23ce4c080f3307cc6507f6fdfe87?d=https%3A%2F%2Fidenticons.github.com%2Faeffec9bb1d59de139f16ccd910b5168.png
         :height: 40px
@@ -3041,16 +3041,16 @@ __________________________________________________
 
   GLPK wrapper module for Julia 
 
-  当前版本： ``0.2.5``  (更新于： 2013-08-20) 
+  Current Version: ``0.2.5``  (updated: 2013-08-20) 
 
-  维护者： `Carlo Baldassi <https://github.com/carlobaldassi>`_
+  Maintainer: `Carlo Baldassi <https://github.com/carlobaldassi>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       BinDeps                  [0.2.2-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/80502de63c1b21d8f3ba663d72ba5be2?d=https%3A%2F%2Fidenticons.github.com%2Fd454171c70136b2284d6a8cfe123eb29.png
         :height: 40px
@@ -3096,17 +3096,17 @@ ________________________________________________________________________________
 
   Interface between the GLPK.jl wrapper and MathProgBase.jl 
 
-  当前版本： ``0.0.0``  (更新于： 2013-06-07) 
+  Current Version: ``0.0.0``  (updated: 2013-06-07) 
 
-  维护者： `Carlo Baldassi <https://github.com/carlobaldassi>`_
+  Maintainer: `Carlo Baldassi <https://github.com/carlobaldassi>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       MathProgBase             [0.0.0-,∞)
       GLPK                     [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/80502de63c1b21d8f3ba663d72ba5be2?d=https%3A%2F%2Fidenticons.github.com%2Fd454171c70136b2284d6a8cfe123eb29.png
         :height: 40px
@@ -3128,16 +3128,16 @@ ______________________________________________
 
   Julia interface to GLUT 
 
-  当前版本： ``0.0.0``  (更新于： 2013-01-18) 
+  Current Version: ``0.0.0``  (updated: 2013-01-18) 
 
-  维护者： `Robert J. Ennis <https://github.com/rennis250>`_
+  Maintainer: `Robert J. Ennis <https://github.com/rennis250>`_
 
-  依赖关系： ::
+  Dependencies::
 
       GetC                     [0.0.0-,∞)
       OpenGL                   [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/37cebf4f44a1dbf71ee94aaea166ef00?d=https%3A%2F%2Fidenticons.github.com%2F297c3e3befdaf89f098f109d971e6f5a.png
         :height: 40px
@@ -3164,16 +3164,16 @@ _________________________________________________
 
   Transport Level Security for Julia Streams provided by GnuTLS 
 
-  当前版本： ``0.0.0``  (更新于： 2013-09-06) 
+  Current Version: ``0.0.0``  (updated: 2013-09-06) 
 
-  维护者： `Keno Fischer <https://github.com/loladiro>`_
+  Maintainer: `Keno Fischer <https://github.com/loladiro>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       BinDeps                  [0.2.1-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https%3A%2F%2Fidenticons.github.com%2Ff36f3f932c25fc21ab72033891540076.png
         :height: 40px
@@ -3201,18 +3201,18 @@ _____________________________________________________________
 
   Julia interface to Google Chart Tools 
 
-  当前版本： ``0.0.0``  (更新于： 2013-08-30) 
+  Current Version: ``0.0.0``  (updated: 2013-08-30) 
 
-  维护者： `john verzani <https://github.com/jverzani>`_
+  Maintainer: `john verzani <https://github.com/jverzani>`_
 
-  依赖关系： ::
+  Dependencies::
 
       Mustache                 [0.0.0-,∞)
       Calendar                 [0.0.0-,∞)
       JSON                     [0.0.0-,∞)
       DataFrames               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/8f514187144b1b19b0205fce41284d32?d=https%3A%2F%2Fidenticons.github.com%2F763a59893dc5fcf4c3d471b690847bec.png
         :height: 40px
@@ -3239,16 +3239,16 @@ __________________________________________________
 
   Working with graphs in Julia 
 
-  当前版本： ``0.2.4``  (更新于： 2013-07-30) 
+  Current Version: ``0.2.4``  (updated: 2013-07-30) 
 
-  维护者： `The Julia Language <https://github.com/JuliaLang>`_
+  Maintainer: `The Julia Language <https://github.com/JuliaLang>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       DataStructures           [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https%3A%2F%2Fidenticons.github.com%2F25219d2b2afe83531dc59b52b9217686.png
         :height: 40px
@@ -3330,15 +3330,15 @@ ____________________________________________
 
   Interpolation and related operations on grids 
 
-  当前版本： ``0.2.5``  (更新于： 2013-08-22) 
+  Current Version: ``0.2.5``  (updated: 2013-08-22) 
 
-  维护者： `Tim Holy <https://github.com/timholy>`_
+  Maintainer: `Tim Holy <https://github.com/timholy>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https%3A%2F%2Fidenticons.github.com%2F0d84f7b936eeba4c2a9b73061cfbbf13.png
         :height: 40px
@@ -3371,15 +3371,15 @@ _________________________________________
 
   Julia interface to the GNU Scientific Library (GSL) 
 
-  当前版本： ``0.0.0``  (更新于： 2013-04-04) 
+  Current Version: ``0.0.0``  (updated: 2013-04-04) 
 
-  维护者： `Jiahao Chen <https://github.com/jiahao>`_
+  Maintainer: `Jiahao Chen <https://github.com/jiahao>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/6cba33e8e7c69fa63f6ad386b7a958c5?d=https%3A%2F%2Fidenticons.github.com%2F270edd69788dce200a3b395a6da6fdb7.png
         :height: 40px
@@ -3407,16 +3407,16 @@ ____________________________________________
 
   Julia interface to Gtk windowing toolkit. 
 
-  当前版本： ``0.2.0``  (更新于： 2013-07-24) 
+  Current Version: ``0.2.0``  (updated: 2013-07-24) 
 
-  维护者： `The Julia Language <https://github.com/JuliaLang>`_
+  Maintainer: `The Julia Language <https://github.com/JuliaLang>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Cairo                    [0.2.2,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/8af4d5971a2308b86a94f58fb98129c5?d=https%3A%2F%2Fidenticons.github.com%2F5d5113de843c8b258029d6a06bccd163.png
         :height: 40px
@@ -3444,16 +3444,16 @@ _________________________________________________
 
   Julia Port of Gurobi Optimizer 
 
-  当前版本： ``0.0.0``  (更新于： 2013-06-13) 
+  Current Version: ``0.0.0``  (updated: 2013-06-13) 
 
-  维护者： `Dahua Lin <https://github.com/lindahua>`_
+  Maintainer: `Dahua Lin <https://github.com/lindahua>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       MathProgBase             [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https%3A%2F%2Fidenticons.github.com%2F25219d2b2afe83531dc59b52b9217686.png
         :height: 40px
@@ -3487,17 +3487,17 @@ _____________________________________________
 
   A Julia interface for gzip functions in zlib 
 
-  当前版本： ``0.2.4``  (更新于： 2013-06-25) 
+  Current Version: ``0.2.4``  (updated: 2013-06-25) 
 
-  维护者： `Kevin Squire <https://github.com/kmsquire>`_
+  Maintainer: `Kevin Squire <https://github.com/kmsquire>`_
 
-  文档： `<https://gzipjl.readthedocs.org/en/latest/>`_ 
+  Documentation: `<https://gzipjl.readthedocs.org/en/latest/>`_ 
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/42c8c4ab92de3390bcd2f637ef6ca16c?d=https%3A%2F%2Fidenticons.github.com%2Fd4828708b50b1ddbfbd546384eb34fd1.png
         :height: 40px
@@ -3525,15 +3525,15 @@ _____________________________________________________
 
   Fast Walsh-Hadamard transforms for the Julia language 
 
-  当前版本： ``0.0.0``  (更新于： 2013-08-15) 
+  Current Version: ``0.0.0``  (updated: 2013-08-15) 
 
-  维护者： `Steven G. Johnson <https://github.com/stevengj>`_
+  Maintainer: `Steven G. Johnson <https://github.com/stevengj>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/9563cfcf21df990e570df1dd019bce16?d=https%3A%2F%2Fidenticons.github.com%2Ff2d6e6092107c938c67268b75745fb84.png
         :height: 40px
@@ -3560,15 +3560,15 @@ ____________________________________________
 
   Saving and loading Julia variables 
 
-  当前版本： ``0.2.9``  (更新于： 2013-08-25) 
+  Current Version: ``0.2.9``  (updated: 2013-08-25) 
 
-  维护者： `Tim Holy <https://github.com/timholy>`_
+  Maintainer: `Tim Holy <https://github.com/timholy>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https%3A%2F%2Fidenticons.github.com%2F0d84f7b936eeba4c2a9b73061cfbbf13.png
         :height: 40px
@@ -3620,18 +3620,18 @@ _____________________________________________
 
   HDFS interface for Julia as a wrapper over Hadoop HDFS library. 
 
-  当前版本： ``0.0.0``  (更新于： 2013-09-02) 
+  Current Version: ``0.0.0``  (updated: 2013-09-02) 
 
-  维护者： `Tanmay Mohapatra <https://github.com/tanmaykm>`_
+  Maintainer: `Tanmay Mohapatra <https://github.com/tanmaykm>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Blocks                   [0.0.0-,∞)
       URLParse                 [0.0.0-,∞)
       PTools                   [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/eea0b193dae8ac47946202ee404a6d7a?d=https%3A%2F%2Fidenticons.github.com%2Fa2feca9cad6b69327bdee24d0d81156a.png
         :height: 40px
@@ -3659,16 +3659,16 @@ ________________________________________________________
 
   OSX Binary dependency provider for Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-09-03) 
+  Current Version: ``0.0.0``  (updated: 2013-09-03) 
 
-  维护者： `Elliot Saba <https://github.com/staticfloat>`_
+  Maintainer: `Elliot Saba <https://github.com/staticfloat>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       BinDeps                  [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/002ccfd8ee9e135f0dfb5650c292052d?d=https%3A%2F%2Fidenticons.github.com%2F0f1b002e3ac98562472e40b49a01cc84.png
         :height: 40px
@@ -3690,15 +3690,15 @@ ___________________________________________________________________
 
   Hopfield networks in Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-07-28) 
+  Current Version: ``0.0.0``  (updated: 2013-07-28) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -3720,15 +3720,15 @@ _________________________________________
 
   HTTP library (server, client, parser) for the Julia language 
 
-  当前版本： ``0.0.2``  (更新于： 2013-03-06) 
+  Current Version: ``0.0.2``  (updated: 2013-03-06) 
 
-  维护者： `Dirk Gadsden <https://github.com/dirk>`_
+  Maintainer: `Dirk Gadsden <https://github.com/dirk>`_
 
-  依赖关系： ::
+  Dependencies::
 
       Calendar                 [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/d9c8c5a29b60871d14846a382d50626a?d=https%3A%2F%2Fidenticons.github.com%2Fdf438e5206f31600e6ae4af72f2725f1.png
         :height: 40px
@@ -3756,16 +3756,16 @@ ___________________________________________________________
 
    
 
-  当前版本： ``0.0.0``  (更新于： 2013-07-06) 
+  Current Version: ``0.0.0``  (updated: 2013-07-06) 
 
-  维护者： `Amit Murthy <https://github.com/amitmurthy>`_
+  Maintainer: `Amit Murthy <https://github.com/amitmurthy>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       LibCURL                  [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/313e7a578240d11c97a68c9c6918a90b?d=https%3A%2F%2Fidenticons.github.com%2F8de01f67e4cbfa5ce2e70e6f1f761891.png
         :height: 40px
@@ -3792,17 +3792,17 @@ _____________________________________________________________
 
    
 
-  当前版本： ``0.0.2``  (更新于： 2013-07-18) 
+  Current Version: ``0.0.2``  (updated: 2013-07-18) 
 
-  维护者： `Hacker School <https://github.com/hackerschool>`_
+  Maintainer: `Hacker School <https://github.com/hackerschool>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       FactCheck                [0.0.1,∞)
       Calendar                 [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/757c233176d3ad14136df4a547ac4234?d=https%3A%2F%2Fidenticons.github.com%2F121cd9e6bfd4012a5efdf75e322b5b39.png
         :height: 40px
@@ -3853,17 +3853,17 @@ _____________________________________________________________
 
   Julia wrapper for Joyent's http-parser 
 
-  当前版本： ``0.0.3``  (更新于： 2013-07-26) 
+  Current Version: ``0.0.3``  (updated: 2013-07-26) 
 
-  维护者： `Hacker School <https://github.com/hackerschool>`_
+  Maintainer: `Hacker School <https://github.com/hackerschool>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       BinDeps                  [0.2.1-,∞)
       HttpCommon               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/2aff223681817a0fadddb6a94a4860b8?d=https%3A%2F%2Fidenticons.github.com%2F4f34bae0831b0cdba0b2e707858e1ce0.png
         :height: 40px
@@ -3920,18 +3920,18 @@ _____________________________________________________________
 
    
 
-  当前版本： ``0.0.3``  (更新于： 2013-09-04) 
+  Current Version: ``0.0.3``  (updated: 2013-09-04) 
 
-  维护者： `Hacker School <https://github.com/hackerschool>`_
+  Maintainer: `Hacker School <https://github.com/hackerschool>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       HttpParser               [0.0.0-,∞)
       GnuTLS                   [0.0.0-,∞)
       HttpCommon               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/757c233176d3ad14136df4a547ac4234?d=https%3A%2F%2Fidenticons.github.com%2F121cd9e6bfd4012a5efdf75e322b5b39.png
         :height: 40px
@@ -3989,15 +3989,15 @@ _________________________________________________________________
 
   HyperLogLog in Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-08-11) 
+  Current Version: ``0.0.0``  (updated: 2013-08-11) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -4019,17 +4019,17 @@ ____________________________________________________________________
 
   T-tests, Wilcoxon rank sum (Mann-Whitney U), signed rank, and circular statistics in Julia 
 
-  当前版本： ``0.2.0``  (更新于： 2013-04-16) 
+  Current Version: ``0.2.0``  (updated: 2013-04-16) 
 
-  维护者： `Simon Kornblith <https://github.com/simonster>`_
+  Maintainer: `Simon Kornblith <https://github.com/simonster>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Distributions            [0.0.0-,∞)
       Rmath                    [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/9524ef56c2823a59d54f9226a7ef08ba?d=https%3A%2F%2Fidenticons.github.com%2F743091389e86963e4eeef5832534cbbd.png
         :height: 40px
@@ -4051,15 +4051,15 @@ ________________________________________
 
   Julia wrapper for the International Components for Unicode (ICU) library 
 
-  当前版本： ``0.0.0``  (更新于： 2013-07-03) 
+  Current Version: ``0.0.0``  (updated: 2013-07-03) 
 
-  维护者： `Mike Nolta <https://github.com/nolta>`_
+  Maintainer: `Mike Nolta <https://github.com/nolta>`_
 
-  依赖关系： ::
+  Dependencies::
 
       UTF16                    [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/1b65c4698da5f30310e14aaee8f3f24e?d=https%3A%2F%2Fidenticons.github.com%2Fccc246e2e59d5e2d0cca344114f2065e.png
         :height: 40px
@@ -4099,11 +4099,11 @@ __________________________________________________
 
   Julia kernel and magics for IPython 
 
-  当前版本： ``0.0.0``  (更新于： 2013-09-02) 
+  Current Version: ``0.0.0``  (updated: 2013-09-02) 
 
-  维护者： `The Julia Language <https://github.com/JuliaLang>`_
+  Maintainer: `The Julia Language <https://github.com/JuliaLang>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       REPLCompletions          [0.0.0-,∞)
@@ -4111,7 +4111,7 @@ __________________________________________________
       JSON                     [0.2.0-,∞)
       Nettle                   [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/95198572b00e5fbcd97fb5315215bf7a?d=https%3A%2F%2Fidenticons.github.com%2F00780d1b74ca2bbca4e7a7710dacfb2d.png
         :height: 40px
@@ -4193,17 +4193,17 @@ ________________________________________________
 
   An image library for Julia 
 
-  当前版本： ``0.2.11``  (更新于： 2013-08-31) 
+  Current Version: ``0.2.11``  (updated: 2013-08-31) 
 
-  维护者： `Tim Holy <https://github.com/timholy>`_
+  Maintainer: `Tim Holy <https://github.com/timholy>`_
 
-  依赖关系： ::
+  Dependencies::
 
       Grid                     [0.2.4-,∞)
       Cartesian                [0.0.0-,∞)
       Color                    [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https%3A%2F%2Fidenticons.github.com%2F0d84f7b936eeba4c2a9b73061cfbbf13.png
         :height: 40px
@@ -4243,18 +4243,18 @@ ______________________________________________________
 
   Interactive display of images and movies 
 
-  当前版本： ``0.0.6``  (更新于： 2013-08-31) 
+  Current Version: ``0.0.6``  (updated: 2013-08-31) 
 
-  维护者： `Tim Holy <https://github.com/timholy>`_
+  Maintainer: `Tim Holy <https://github.com/timholy>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Winston                  [0.0.0-,∞)
       Images                   [0.0.0-,∞)
       Tk                       [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https%3A%2F%2Fidenticons.github.com%2F0d84f7b936eeba4c2a9b73061cfbbf13.png
         :height: 40px
@@ -4287,15 +4287,15 @@ ____________________________________________________________________
 
   Statically-sized immutable vectors and matrices. 
 
-  当前版本： ``0.0.0``  (更新于： 2013-04-09) 
+  Current Version: ``0.0.0``  (updated: 2013-04-09) 
 
-  维护者： `Tracy Wadleigh <https://github.com/twadleigh>`_
+  Maintainer: `Tracy Wadleigh <https://github.com/twadleigh>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/9553bee3aa95ce13310db4f5f70acc62?d=https%3A%2F%2Fidenticons.github.com%2F9a46c6d38ad6c7b17e8005b2e900ff2f.png
         :height: 40px
@@ -4335,15 +4335,15 @@ ____________________________________________________
 
   Reading and writing Windows-style INI files (writing not yet implemented). 
 
-  当前版本： ``0.2.1``  (更新于： 2013-06-29) 
+  Current Version: ``0.2.1``  (updated: 2013-06-29) 
 
-  维护者： `The Julia Language <https://github.com/JuliaLang>`_
+  Maintainer: `The Julia Language <https://github.com/JuliaLang>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/62df30beab9c2a6f3fe3f86995e94387?d=https%3A%2F%2Fidenticons.github.com%2F58b08088d26ada47c510cef3759f7aae.png
         :height: 40px
@@ -4389,15 +4389,15 @@ ________________________________________________________
 
   Common functional iterator patterns. 
 
-  当前版本： ``0.1.1``  (更新于： 2013-06-29) 
+  Current Version: ``0.1.1``  (updated: 2013-06-29) 
 
-  维护者： `The Julia Language <https://github.com/JuliaLang>`_
+  Maintainer: `The Julia Language <https://github.com/JuliaLang>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/fd97b03d16e1aa4c404391216d81c1d5?d=https%3A%2F%2Fidenticons.github.com%2Fc7ec48e0ff0d0ae8827e36301a0962a1.png
         :height: 40px
@@ -4442,18 +4442,18 @@ ________________________________________
 
   A Julia package for quantitative finance 
 
-  当前版本： ``0.0.0``  (更新于： 2013-01-03) 
+  Current Version: ``0.0.0``  (updated: 2013-01-03) 
 
-  维护者： `Avik Sengupta <https://github.com/aviks>`_
+  Maintainer: `Avik Sengupta <https://github.com/aviks>`_
 
-  文档： `<http://aviks.github.com/Ito.jl/>`_ 
+  Documentation: `<http://aviks.github.com/Ito.jl/>`_ 
 
-  依赖关系： ::
+  Dependencies::
 
       Distributions            [0.0.0-,∞)
       Calendar                 [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/f5c61e85dfa465686adc24e0bffba42a?d=https%3A%2F%2Fidenticons.github.com%2Fd166f0c0f0c599a75f4938f2b9660479.png
         :height: 40px
@@ -4492,15 +4492,15 @@ ______________________________________________
 
   JSON parsing and printing 
 
-  当前版本： ``0.2.2``  (更新于： 2013-08-14) 
+  Current Version: ``0.2.2``  (updated: 2013-08-14) 
 
-  维护者： `The Julia Language <https://github.com/JuliaLang>`_
+  Maintainer: `The Julia Language <https://github.com/JuliaLang>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/f5c61e85dfa465686adc24e0bffba42a?d=https%3A%2F%2Fidenticons.github.com%2Fd166f0c0f0c599a75f4938f2b9660479.png
         :height: 40px
@@ -4593,15 +4593,15 @@ _______________________________________________________
 
   Judy Array for Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-08-19) 
+  Current Version: ``0.0.0``  (updated: 2013-08-19) 
 
-  维护者： `Tanmay Mohapatra <https://github.com/tanmaykm>`_
+  Maintainer: `Tanmay Mohapatra <https://github.com/tanmaykm>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/eea0b193dae8ac47946202ee404a6d7a?d=https%3A%2F%2Fidenticons.github.com%2Fa2feca9cad6b69327bdee24d0d81156a.png
         :height: 40px
@@ -4623,16 +4623,16 @@ ______________________________________________________________
 
    
 
-  当前版本： ``0.0.0``  (更新于： 2013-04-08) 
+  Current Version: ``0.0.0``  (updated: 2013-04-08) 
 
-  维护者： `The Julia Language <https://github.com/JuliaLang>`_
+  Maintainer: `The Julia Language <https://github.com/JuliaLang>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       BinDeps                  [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/8af4d5971a2308b86a94f58fb98129c5?d=https%3A%2F%2Fidenticons.github.com%2F5d5113de843c8b258029d6a06bccd163.png
         :height: 40px
@@ -4659,18 +4659,18 @@ ___________________________________________
 
   Modelling language for Linear, Integer, and Quadratic Programming 
 
-  当前版本： ``0.0.0``  (更新于： 2013-09-03) 
+  Current Version: ``0.0.0``  (updated: 2013-09-03) 
 
-  维护者： `Iain Dunning <https://github.com/IainNZ>`_
+  Maintainer: `Iain Dunning <https://github.com/IainNZ>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       MathProgBase             [0.0.0-,∞)
       Cbc                      [0.0.0-,∞)
       Clp                      [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/b0cf54b8431443687735cb486599ea9c?d=https%3A%2F%2Fidenticons.github.com%2Fd73ab2afeb22d558e3fae4b0a0de43e3.png
         :height: 40px
@@ -4698,15 +4698,15 @@ ___________________________________________________________________
 
   KL-divergence estimation in Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-01-17) 
+  Current Version: ``0.0.0``  (updated: 2013-01-17) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  依赖关系： ::
+  Dependencies::
 
       Distributions            [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -4734,15 +4734,15 @@ _________________________________________________
 
   The k-nearest neighbors algorithm in Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-04-12) 
+  Current Version: ``0.0.0``  (updated: 2013-04-12) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  依赖关系： ::
+  Dependencies::
 
       DataFrames               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -4764,15 +4764,15 @@ _____________________________________________________________
 
   A package for working with human languages 
 
-  当前版本： ``0.0.1``  (更新于： 2013-05-24) 
+  Current Version: ``0.0.1``  (updated: 2013-05-24) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -4794,15 +4794,15 @@ ______________________________________________________________
 
   Lazy sequences. 
 
-  当前版本： ``0.1.0``  (更新于： 2013-06-20) 
+  Current Version: ``0.1.0``  (updated: 2013-06-20) 
 
-  维护者： `Daniel Jones <https://github.com/dcjones>`_
+  Maintainer: `Daniel Jones <https://github.com/dcjones>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/fd97b03d16e1aa4c404391216d81c1d5?d=https%3A%2F%2Fidenticons.github.com%2Fc7ec48e0ff0d0ae8827e36301a0962a1.png
         :height: 40px
@@ -4824,15 +4824,15 @@ _____________________________________________________
 
   Thin Julia wrapper of libCURL 
 
-  当前版本： ``0.0.0``  (更新于： 2013-07-06) 
+  Current Version: ``0.0.0``  (updated: 2013-07-06) 
 
-  维护者： `Amit Murthy <https://github.com/amitmurthy>`_
+  Maintainer: `Amit Murthy <https://github.com/amitmurthy>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/313e7a578240d11c97a68c9c6918a90b?d=https%3A%2F%2Fidenticons.github.com%2F8de01f67e4cbfa5ce2e70e6f1f761891.png
         :height: 40px
@@ -4854,15 +4854,15 @@ _______________________________________________________
 
   Julia interface to libexpat 
 
-  当前版本： ``0.0.0``  (更新于： 2013-08-30) 
+  Current Version: ``0.0.0``  (updated: 2013-08-30) 
 
-  维护者： `Amit Murthy <https://github.com/amitmurthy>`_
+  Maintainer: `Amit Murthy <https://github.com/amitmurthy>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/313e7a578240d11c97a68c9c6918a90b?d=https%3A%2F%2Fidenticons.github.com%2F8de01f67e4cbfa5ce2e70e6f1f761891.png
         :height: 40px
@@ -4896,15 +4896,15 @@ __________________________________________________
 
   LIBSVM bindings for Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-04-15) 
+  Current Version: ``0.0.0``  (updated: 2013-04-15) 
 
-  维护者： `Simon Kornblith <https://github.com/simonster>`_
+  Maintainer: `Simon Kornblith <https://github.com/simonster>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/9524ef56c2823a59d54f9226a7ef08ba?d=https%3A%2F%2Fidenticons.github.com%2F743091389e86963e4eeef5832534cbbd.png
         :height: 40px
@@ -4926,16 +4926,16 @@ ________________________________________________________________
 
   [DEPRECATED PACKAGE - SUPERSEDED BY MathProgBase] 
 
-  当前版本： ``0.2.1``  (更新于： 2013-05-23) 
+  Current Version: ``0.2.1``  (updated: 2013-05-23) 
 
-  维护者： `Carlo Baldassi <https://github.com/carlobaldassi>`_
+  Maintainer: `Carlo Baldassi <https://github.com/carlobaldassi>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       GLPK                     [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/80502de63c1b21d8f3ba663d72ba5be2?d=https%3A%2F%2Fidenticons.github.com%2Fd454171c70136b2284d6a8cfe123eb29.png
         :height: 40px
@@ -4957,15 +4957,15 @@ ___________________________________________________
 
   Loss functions 
 
-  当前版本： ``0.0.0``  (更新于： 2012-12-23) 
+  Current Version: ``0.0.0``  (updated: 2012-12-23) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -4987,11 +4987,11 @@ _______________________________________________________________________
 
   Technical analysis of financial time series in Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-03-02) 
+  Current Version: ``0.0.0``  (updated: 2013-03-02) 
 
-  维护者： `milktrader <https://github.com/milktrader>`_
+  Maintainer: `milktrader <https://github.com/milktrader>`_
 
-  依赖关系： ::
+  Dependencies::
 
       Stats                    [0.0.0-,∞)
       Calendar                 [0.0.0-,∞)
@@ -4999,7 +4999,7 @@ _______________________________________________________________________
       TimeSeries               [0.0.0-,∞)
       DataFrames               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/25ce2ab2f5e673e46208c1188a39e6ca?d=https%3A%2F%2Fidenticons.github.com%2F94554a56b2946c805e180501c4d4544c.png
         :height: 40px
@@ -5021,17 +5021,17 @@ ____________________________________________
 
   Julia module for reading MATLAB files 
 
-  当前版本： ``0.2.1``  (更新于： 2013-06-29) 
+  Current Version: ``0.2.1``  (updated: 2013-06-29) 
 
-  维护者： `Simon Kornblith <https://github.com/simonster>`_
+  Maintainer: `Simon Kornblith <https://github.com/simonster>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       HDF5                     [0.0.0-,∞)
       Zlib                     [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/9524ef56c2823a59d54f9226a7ef08ba?d=https%3A%2F%2Fidenticons.github.com%2F743091389e86963e4eeef5832534cbbd.png
         :height: 40px
@@ -5071,15 +5071,15 @@ _______________________________________________
 
    
 
-  当前版本： ``0.0.0``  (更新于： 2013-09-04) 
+  Current Version: ``0.0.0``  (updated: 2013-09-04) 
 
-  维护者： `Kevin Squire <https://github.com/kmsquire>`_
+  Maintainer: `Kevin Squire <https://github.com/kmsquire>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/42c8c4ab92de3390bcd2f637ef6ca16c?d=https%3A%2F%2Fidenticons.github.com%2Fd4828708b50b1ddbfbd546384eb34fd1.png
         :height: 40px
@@ -5101,15 +5101,15 @@ ___________________________________________________________
 
   Provides standard interface to linear/mixed-integer/++ optimization solvers, including linprog and mixintprog functions. 
 
-  当前版本： ``0.0.0``  (更新于： 2013-09-03) 
+  Current Version: ``0.0.0``  (updated: 2013-09-03) 
 
-  维护者： `Miles Lubin <https://github.com/mlubin>`_
+  Maintainer: `Miles Lubin <https://github.com/mlubin>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/b0cf54b8431443687735cb486599ea9c?d=https%3A%2F%2Fidenticons.github.com%2Fd73ab2afeb22d558e3fae4b0a0de43e3.png
         :height: 40px
@@ -5143,15 +5143,15 @@ _________________________________________________
 
   Calling MATLAB in Julia through MATLAB Engine 
 
-  当前版本： ``0.0.0``  (更新于： 2013-05-10) 
+  Current Version: ``0.0.0``  (updated: 2013-05-10) 
 
-  维护者： `Dahua Lin <https://github.com/lindahua>`_
+  Maintainer: `Dahua Lin <https://github.com/lindahua>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https%3A%2F%2Fidenticons.github.com%2F25219d2b2afe83531dc59b52b9217686.png
         :height: 40px
@@ -5179,15 +5179,15 @@ ___________________________________________
 
   MCMC tools for Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2012-11-23) 
+  Current Version: ``0.0.0``  (updated: 2012-11-23) 
 
-  维护者： `Chris DuBois <https://github.com/doobwa>`_
+  Maintainer: `Chris DuBois <https://github.com/doobwa>`_
 
-  依赖关系： ::
+  Dependencies::
 
       Options                  [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/1a4672a0ae94c24f02517dea26097f58?d=https%3A%2F%2Fidenticons.github.com%2F876581e21f82522068fadfdd6f1d08c7.png
         :height: 40px
@@ -5221,15 +5221,15 @@ _____________________________________________
 
   fast modified discrete cosine transform (MDCT and IMDCT) for the Julia language 
 
-  当前版本： ``0.0.0``  (更新于： 2013-08-15) 
+  Current Version: ``0.0.0``  (updated: 2013-08-15) 
 
-  维护者： `Steven G. Johnson <https://github.com/stevengj>`_
+  Maintainer: `Steven G. Johnson <https://github.com/stevengj>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/9563cfcf21df990e570df1dd019bce16?d=https%3A%2F%2Fidenticons.github.com%2Ff2d6e6092107c938c67268b75745fb84.png
         :height: 40px
@@ -5251,16 +5251,16 @@ _____________________________________________________
 
    
 
-  当前版本： ``0.0.2``  (更新于： 2013-08-25) 
+  Current Version: ``0.0.2``  (updated: 2013-08-25) 
 
-  维护者： `Hacker School <https://github.com/hackerschool>`_
+  Maintainer: `Hacker School <https://github.com/hackerschool>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       HttpServer               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/757c233176d3ad14136df4a547ac4234?d=https%3A%2F%2Fidenticons.github.com%2F121cd9e6bfd4012a5efdf75e322b5b39.png
         :height: 40px
@@ -5306,15 +5306,15 @@ ____________________________________________________
 
   @memoize macro for Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-06-13) 
+  Current Version: ``0.0.0``  (updated: 2013-06-13) 
 
-  维护者： `Simon Kornblith <https://github.com/simonster>`_
+  Maintainer: `Simon Kornblith <https://github.com/simonster>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/9524ef56c2823a59d54f9226a7ef08ba?d=https%3A%2F%2Fidenticons.github.com%2F743091389e86963e4eeef5832534cbbd.png
         :height: 40px
@@ -5336,15 +5336,15 @@ __________________________________________________
 
   Generation and manipulation of triangular meshes. 
 
-  当前版本： ``0.0.0``  (更新于： 2013-03-03) 
+  Current Version: ``0.0.0``  (updated: 2013-03-03) 
 
-  维护者： `Tracy Wadleigh <https://github.com/twadleigh>`_
+  Maintainer: `Tracy Wadleigh <https://github.com/twadleigh>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/9553bee3aa95ce13310db4f5f70acc62?d=https%3A%2F%2Fidenticons.github.com%2F9a46c6d38ad6c7b17e8005b2e900ff2f.png
         :height: 40px
@@ -5372,16 +5372,16 @@ ______________________________________________
 
   Julia interface to Metis graph partitioning 
 
-  当前版本： ``0.0.0``  (更新于： 2013-04-30) 
+  Current Version: ``0.0.0``  (updated: 2013-04-30) 
 
-  维护者： `Douglas Bates <https://github.com/dmbates>`_
+  Maintainer: `Douglas Bates <https://github.com/dmbates>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Graphs                   [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/a27d23ce4c080f3307cc6507f6fdfe87?d=https%3A%2F%2Fidenticons.github.com%2Faeffec9bb1d59de139f16ccd910b5168.png
         :height: 40px
@@ -5408,17 +5408,17 @@ _______________________________________________________________________________
 
   An implementation of minimal perfect hash function generation as described in Czech et. al. 1992. 
 
-  当前版本： ``0.0.0``  (更新于： 2013-07-30) 
+  Current Version: ``0.0.0``  (updated: 2013-07-30) 
 
-  维护者： `SoundCloud <https://github.com/soundcloud>`_
+  Maintainer: `SoundCloud <https://github.com/soundcloud>`_
 
-  文档： `<bit.ly/137iukS>`_ 
+  Documentation: `<bit.ly/137iukS>`_ 
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/79e1bcfc1ed23b8964171191e9073545?d=https%3A%2F%2Fidenticons.github.com%2F770db0d7e7610d1f17e1680bddda40c6.png
         :height: 40px
@@ -5440,17 +5440,17 @@ __________________________________________________________
 
   A Julia package for fitting (statistical) mixed-effects models 
 
-  当前版本： ``0.2.0``  (更新于： 2013-08-06) 
+  Current Version: ``0.2.0``  (updated: 2013-08-06) 
 
-  维护者： `Douglas Bates <https://github.com/dmbates>`_
+  Maintainer: `Douglas Bates <https://github.com/dmbates>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       GLM                      [0.2.0-,∞)
       NLopt                    [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/a27d23ce4c080f3307cc6507f6fdfe87?d=https%3A%2F%2Fidenticons.github.com%2Faeffec9bb1d59de139f16ccd910b5168.png
         :height: 40px
@@ -5472,18 +5472,18 @@ _______________________________________________________________
 
   A Julia package for probabilistic mixture models 
 
-  当前版本： ``0.1.1``  (更新于： 2013-07-23) 
+  Current Version: ``0.1.1``  (updated: 2013-07-23) 
 
-  维护者： `Dahua Lin <https://github.com/lindahua>`_
+  Maintainer: `Dahua Lin <https://github.com/lindahua>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       MLBase                   [0.0.0-,∞)
       Distributions            [0.0.0-,∞)
       NumericExtensions        [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https%3A%2F%2Fidenticons.github.com%2F25219d2b2afe83531dc59b52b9217686.png
         :height: 40px
@@ -5505,15 +5505,15 @@ _________________________________________________
 
   A set of functions to support the development of machine learning algorithms 
 
-  当前版本： ``0.2.3``  (更新于： 2013-07-20) 
+  Current Version: ``0.2.3``  (updated: 2013-07-20) 
 
-  维护者： `Dahua Lin <https://github.com/lindahua>`_
+  Maintainer: `Dahua Lin <https://github.com/lindahua>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https%3A%2F%2Fidenticons.github.com%2F25219d2b2afe83531dc59b52b9217686.png
         :height: 40px
@@ -5535,15 +5535,15 @@ _____________________________________________________
 
   Tools for working with the MNIST data set 
 
-  当前版本： ``0.0.0``  (更新于： 2013-04-12) 
+  Current Version: ``0.0.0``  (updated: 2013-04-12) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -5571,17 +5571,17 @@ ____________________________________________
 
   Monadic expressions and sequences for Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-03-05) 
+  Current Version: ``0.0.0``  (updated: 2013-03-05) 
 
-  维护者： `Patrick O'Leary <https://github.com/pao>`_
+  Maintainer: `Patrick O'Leary <https://github.com/pao>`_
 
-  文档： `<https://monadsjl.readthedocs.org/>`_ 
+  Documentation: `<https://monadsjl.readthedocs.org/>`_ 
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/16d8443194c380ca93a77fb8530a5aee?d=https%3A%2F%2Fidenticons.github.com%2F38da66e2f2af82932859b7a5f330af55.png
         :height: 40px
@@ -5603,15 +5603,15 @@ ____________________________________________
 
   Mongo bindings for the Julia programming language 
 
-  当前版本： ``0.0.0``  (更新于： 2013-03-14) 
+  Current Version: ``0.0.0``  (updated: 2013-03-14) 
 
-  维护者： `Brian Smith <https://github.com/Lytol>`_
+  Maintainer: `Brian Smith <https://github.com/Lytol>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/eabc077018e56904597d150369b4a803?d=https%3A%2F%2Fidenticons.github.com%2F178fde6398864e33aaefae5d2d855f20.png
         :height: 40px
@@ -5633,16 +5633,16 @@ __________________________________________________
 
   Mongrel2 handlers in Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-01-26) 
+  Current Version: ``0.0.0``  (updated: 2013-01-26) 
 
-  维护者： `Avik Sengupta <https://github.com/aviks>`_
+  Maintainer: `Avik Sengupta <https://github.com/aviks>`_
 
-  依赖关系： ::
+  Dependencies::
 
       ZMQ                      [0.0.0,∞)
       JSON                     [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/f5c61e85dfa465686adc24e0bffba42a?d=https%3A%2F%2Fidenticons.github.com%2Fd166f0c0f0c599a75f4938f2b9660479.png
         :height: 40px
@@ -5676,18 +5676,18 @@ _____________________________________________________
 
   Sinatra-like micro framework for web programming in Julia 
 
-  当前版本： ``0.0.2``  (更新于： 2013-07-18) 
+  Current Version: ``0.0.2``  (updated: 2013-07-18) 
 
-  维护者： `Hacker School <https://github.com/hackerschool>`_
+  Maintainer: `Hacker School <https://github.com/hackerschool>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Meddle                   [0.0.0-,∞)
       HttpCommon               [0.0.0-,∞)
       HttpServer               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/757c233176d3ad14136df4a547ac4234?d=https%3A%2F%2Fidenticons.github.com%2F121cd9e6bfd4012a5efdf75e322b5b39.png
         :height: 40px
@@ -5751,15 +5751,15 @@ _____________________________________________________
 
   Port of mustache.js to julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-07-09) 
+  Current Version: ``0.0.0``  (updated: 2013-07-09) 
 
-  维护者： `john verzani <https://github.com/jverzani>`_
+  Maintainer: `john verzani <https://github.com/jverzani>`_
 
-  依赖关系： ::
+  Dependencies::
 
       DataFrames               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/8f514187144b1b19b0205fce41284d32?d=https%3A%2F%2Fidenticons.github.com%2F763a59893dc5fcf4c3d471b690847bec.png
         :height: 40px
@@ -5811,15 +5811,15 @@ ______________________________________________
 
   Julia named index and named vector types 
 
-  当前版本： ``0.0.0``  (更新于： 2012-11-17) 
+  Current Version: ``0.0.0``  (updated: 2012-11-17) 
 
-  维护者： `Harlan Harris <https://github.com/HarlanH>`_
+  Maintainer: `Harlan Harris <https://github.com/HarlanH>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/9f1a68b9e623be5da422b44e733fa8bc?d=https%3A%2F%2Fidenticons.github.com%2Fe101c9ae473b1eeb13745d045d60d917.png
         :height: 40px
@@ -5841,15 +5841,15 @@ ________________________________________________
 
   NetCDF support for the julia programming language 
 
-  当前版本： ``0.0.0``  (更新于： 2013-05-07) 
+  Current Version: ``0.0.0``  (updated: 2013-05-07) 
 
-  维护者： `meggart <https://github.com/meggart>`_
+  Maintainer: `meggart <https://github.com/meggart>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/5c9292b49876311c17bf358b1717adf9?d=https%3A%2F%2Fidenticons.github.com%2Fd82d82c9dfa5f52ec4c41fc14d4a9f71.png
         :height: 40px
@@ -5871,16 +5871,16 @@ ____________________________________________________
 
   Julia package for libnettle 
 
-  当前版本： ``0.0.0``  (更新于： 2013-09-02) 
+  Current Version: ``0.0.0``  (updated: 2013-09-02) 
 
-  维护者： `Elliot Saba <https://github.com/staticfloat>`_
+  Maintainer: `Elliot Saba <https://github.com/staticfloat>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       BinDeps                  [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/002ccfd8ee9e135f0dfb5650c292052d?d=https%3A%2F%2Fidenticons.github.com%2F0f1b002e3ac98562472e40b49a01cc84.png
         :height: 40px
@@ -5902,16 +5902,16 @@ ___________________________________________________
 
   Null hypothesis significance tests 
 
-  当前版本： ``0.0.1``  (更新于： 2013-05-28) 
+  Current Version: ``0.0.1``  (updated: 2013-05-28) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Distributions            [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -5933,16 +5933,16 @@ ________________________________________________
 
   Julia module for reading NIfTI MRI files 
 
-  当前版本： ``0.0.0``  (更新于： 2013-05-12) 
+  Current Version: ``0.0.0``  (updated: 2013-05-12) 
 
-  维护者： `Simon Kornblith <https://github.com/simonster>`_
+  Maintainer: `Simon Kornblith <https://github.com/simonster>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       StrPack                  [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/9524ef56c2823a59d54f9226a7ef08ba?d=https%3A%2F%2Fidenticons.github.com%2F743091389e86963e4eeef5832534cbbd.png
         :height: 40px
@@ -5964,15 +5964,15 @@ _______________________________________________
 
   Package to call the NLopt nonlinear-optimization library from the Julia language 
 
-  当前版本： ``0.0.0``  (更新于： 2013-03-28) 
+  Current Version: ``0.0.0``  (updated: 2013-03-28) 
 
-  维护者： `Steven G. Johnson <https://github.com/stevengj>`_
+  Maintainer: `Steven G. Johnson <https://github.com/stevengj>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
 ----
 
@@ -5993,15 +5993,15 @@ ______________________________________
 
   A Julia package that provides support for reading and writing Numpy .npy and .npz files 
 
-  当前版本： ``0.0.1``  (更新于： 2013-08-23) 
+  Current Version: ``0.0.1``  (updated: 2013-08-23) 
 
-  维护者： `Fazlul Shahriar <https://github.com/fhs>`_
+  Maintainer: `Fazlul Shahriar <https://github.com/fhs>`_
 
-  依赖关系： ::
+  Dependencies::
 
       ZipFile                  [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/f11cd39050d2eb63ec494c0e7ae81d98?d=https%3A%2F%2Fidenticons.github.com%2Fe4874cbbcbec68daabdd9342beac3bd9.png
         :height: 40px
@@ -6028,15 +6028,15 @@ _______________________________________________________________________
 
   Julia extensions to provide high performance computational support 
 
-  当前版本： ``0.2.13``  (更新于： 2013-09-06) 
+  Current Version: ``0.2.13``  (updated: 2013-09-06) 
 
-  维护者： `Dahua Lin <https://github.com/lindahua>`_
+  Maintainer: `Dahua Lin <https://github.com/lindahua>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https%3A%2F%2Fidenticons.github.com%2F25219d2b2afe83531dc59b52b9217686.png
         :height: 40px
@@ -6070,18 +6070,18 @@ ______________________________________________
 
   A low-level ODBC interface for the Julia programming language 
 
-  当前版本： ``0.2.1``  (更新于： 2013-09-06) 
+  Current Version: ``0.2.1``  (updated: 2013-09-06) 
 
-  维护者： `Jacob Quinn <https://github.com/karbarcca>`_
+  Maintainer: `Jacob Quinn <https://github.com/karbarcca>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       ProgressMeter            [0.0.0-,∞)
       Datetime                 [0.0.0-,∞)
       DataFrames               [0.2.0,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/d788bf7fd037ebef5798d8881c5faa2f?d=https%3A%2F%2Fidenticons.github.com%2Fb74329b16ae6564aa58c344720a5a087.png
         :height: 40px
@@ -6115,15 +6115,15 @@ ____________________________________________
 
   Assorted basic Ordinary Differential Equation solvers 
 
-  当前版本： ``0.0.0``  (更新于： 2013-03-01) 
+  Current Version: ``0.0.0``  (updated: 2013-03-01) 
 
-  维护者： `The Julia Language <https://github.com/JuliaLang>`_
+  Maintainer: `The Julia Language <https://github.com/JuliaLang>`_
 
-  依赖关系： ::
+  Dependencies::
 
       Polynomial               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/8af4d5971a2308b86a94f58fb98129c5?d=https%3A%2F%2Fidenticons.github.com%2F5d5113de843c8b258029d6a06bccd163.png
         :height: 40px
@@ -6145,15 +6145,15 @@ __________________________________________________
 
   Julia interface to OpenGL 
 
-  当前版本： ``0.0.0``  (更新于： 2013-01-18) 
+  Current Version: ``0.0.0``  (updated: 2013-01-18) 
 
-  维护者： `Robert J. Ennis <https://github.com/rennis250>`_
+  Maintainer: `Robert J. Ennis <https://github.com/rennis250>`_
 
-  依赖关系： ::
+  Dependencies::
 
       GetC                     [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/37cebf4f44a1dbf71ee94aaea166ef00?d=https%3A%2F%2Fidenticons.github.com%2F297c3e3befdaf89f098f109d971e6f5a.png
         :height: 40px
@@ -6175,15 +6175,15 @@ _______________________________________________
 
   WIP OpenSSL bindings for Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-03-06) 
+  Current Version: ``0.0.0``  (updated: 2013-03-06) 
 
-  维护者： `Dirk Gadsden <https://github.com/dirk>`_
+  Maintainer: `Dirk Gadsden <https://github.com/dirk>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/d9c8c5a29b60871d14846a382d50626a?d=https%3A%2F%2Fidenticons.github.com%2Fdf438e5206f31600e6ae4af72f2725f1.png
         :height: 40px
@@ -6210,20 +6210,20 @@ _____________________________________________________
 
   Optimization functions for Julia 
 
-  当前版本： ``0.1.6``  (更新于： 2013-07-15) 
+  Current Version: ``0.1.6``  (updated: 2013-07-15) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  文档： `<http://johnmyleswhite.com>`_ 
+  Documentation: `<http://johnmyleswhite.com>`_ 
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Distributions            [0.0.0-,∞)
       Options                  [0.0.0-,∞)
       Calculus                 [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -6275,15 +6275,15 @@ ____________________________________________________
 
   A framework for providing optional arguments to functions. 
 
-  当前版本： ``0.2.1``  (更新于： 2013-06-06) 
+  Current Version: ``0.2.1``  (updated: 2013-06-06) 
 
-  维护者： `The Julia Language <https://github.com/JuliaLang>`_
+  Maintainer: `The Julia Language <https://github.com/JuliaLang>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https%3A%2F%2Fidenticons.github.com%2F0d84f7b936eeba4c2a9b73061cfbbf13.png
         :height: 40px
@@ -6329,15 +6329,15 @@ _________________________________________________________________
 
   Method dispatch based on pattern matching for Julia 
 
-  当前版本： ``0.0.1``  (更新于： 2013-05-01) 
+  Current Version: ``0.0.1``  (updated: 2013-05-01) 
 
-  维护者： `toivoh <https://github.com/toivoh>`_
+  Maintainer: `toivoh <https://github.com/toivoh>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/8d3d3934c39b52f48c35a0cc536edae7?d=https%3A%2F%2Fidenticons.github.com%2F81c47394418f4da2556f7b0d67d3d3be.png
         :height: 40px
@@ -6365,15 +6365,15 @@ _______________________________________________________________
 
   The Julia package for analysis of evolution and phylogeny 
 
-  当前版本： ``0.0.0``  (更新于： 2013-06-29) 
+  Current Version: ``0.0.0``  (updated: 2013-06-29) 
 
-  维护者： `Ben J. Ward <https://github.com/Ward9250>`_
+  Maintainer: `Ben J. Ward <https://github.com/Ward9250>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/42b85a64563ec24b7a601143419f3d93?d=https%3A%2F%2Fidenticons.github.com%2Fd67ecea18c6467d959faba0a0d03048a.png
         :height: 40px
@@ -6395,15 +6395,15 @@ ____________________________________________
 
   Julia module for reading Plexon PLX files 
 
-  当前版本： ``0.0.0``  (更新于： 2013-04-02) 
+  Current Version: ``0.0.0``  (updated: 2013-04-02) 
 
-  维护者： `Simon Kornblith <https://github.com/simonster>`_
+  Maintainer: `Simon Kornblith <https://github.com/simonster>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/9524ef56c2823a59d54f9226a7ef08ba?d=https%3A%2F%2Fidenticons.github.com%2F743091389e86963e4eeef5832534cbbd.png
         :height: 40px
@@ -6425,15 +6425,15 @@ ________________________________________________________
 
   Polynomial manipulations 
 
-  当前版本： ``0.0.0``  (更新于： 2013-03-01) 
+  Current Version: ``0.0.0``  (updated: 2013-03-01) 
 
-  维护者： `Jameson Nash <https://github.com/vtjnash>`_
+  Maintainer: `Jameson Nash <https://github.com/vtjnash>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/8af4d5971a2308b86a94f58fb98129c5?d=https%3A%2F%2Fidenticons.github.com%2F5d5113de843c8b258029d6a06bccd163.png
         :height: 40px
@@ -6455,15 +6455,15 @@ __________________________________________________
 
   Profilers for Julia 
 
-  当前版本： ``0.2.3``  (更新于： 2013-07-26) 
+  Current Version: ``0.2.3``  (updated: 2013-07-26) 
 
-  维护者： `Tim Holy <https://github.com/timholy>`_
+  Maintainer: `Tim Holy <https://github.com/timholy>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https%3A%2F%2Fidenticons.github.com%2F0d84f7b936eeba4c2a9b73061cfbbf13.png
         :height: 40px
@@ -6515,11 +6515,11 @@ __________________________________________________________
 
   Visualization of Julia profiling data 
 
-  当前版本： ``0.0.0``  (更新于： 2013-08-01) 
+  Current Version: ``0.0.0``  (updated: 2013-08-01) 
 
-  维护者： `Tim Holy <https://github.com/timholy>`_
+  Maintainer: `Tim Holy <https://github.com/timholy>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       ImageView                [0.0.0-,∞)
@@ -6527,7 +6527,7 @@ __________________________________________________________
       Tk                       [0.0.0-,∞)
       Color                    [0.2.4-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https%3A%2F%2Fidenticons.github.com%2F0d84f7b936eeba4c2a9b73061cfbbf13.png
         :height: 40px
@@ -6549,15 +6549,15 @@ ______________________________________________________________
 
   Progress meter for long-running computations 
 
-  当前版本： ``0.0.0``  (更新于： 2013-08-31) 
+  Current Version: ``0.0.0``  (updated: 2013-08-31) 
 
-  维护者： `Tim Holy <https://github.com/timholy>`_
+  Maintainer: `Tim Holy <https://github.com/timholy>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https%3A%2F%2Fidenticons.github.com%2F0d84f7b936eeba4c2a9b73061cfbbf13.png
         :height: 40px
@@ -6591,17 +6591,17 @@ _________________________________________________________________________
 
   ProjectTemplate for Julia 
 
-  当前版本： ``0.0.1``  (更新于： 2013-08-07) 
+  Current Version: ``0.0.1``  (updated: 2013-08-07) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       JSON                     [0.0.0-,∞)
       DataFrames               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -6623,15 +6623,15 @@ ___________________________________________________
 
   Collection of utilities for parallel processing in Julia  
 
-  当前版本： ``0.0.0``  (更新于： 2013-08-09) 
+  Current Version: ``0.0.0``  (updated: 2013-08-09) 
 
-  维护者： `Amit Murthy <https://github.com/amitmurthy>`_
+  Maintainer: `Amit Murthy <https://github.com/amitmurthy>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/313e7a578240d11c97a68c9c6918a90b?d=https%3A%2F%2Fidenticons.github.com%2F8de01f67e4cbfa5ce2e70e6f1f761891.png
         :height: 40px
@@ -6659,15 +6659,15 @@ _________________________________________________
 
   Package to call Python functions from the Julia language 
 
-  当前版本： ``0.0.0``  (更新于： 2013-09-05) 
+  Current Version: ``0.0.0``  (updated: 2013-09-05) 
 
-  维护者： `Steven G. Johnson <https://github.com/stevengj>`_
+  Maintainer: `Steven G. Johnson <https://github.com/stevengj>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/9563cfcf21df990e570df1dd019bce16?d=https%3A%2F%2Fidenticons.github.com%2Ff2d6e6092107c938c67268b75745fb84.png
         :height: 40px
@@ -6719,19 +6719,19 @@ _________________________________________________
 
   Plotting for Julia based on matplotlib.pyplot 
 
-  当前版本： ``1.0.7``  (更新于： 2013-09-05) 
+  Current Version: ``1.0.7``  (updated: 2013-09-05) 
 
-  维护者： `Steven G. Johnson <https://github.com/stevengj>`_
+  Maintainer: `Steven G. Johnson <https://github.com/stevengj>`_
 
-  文档： `<https://github.com/stevengj/PyPlot.jl>`_ 
+  Documentation: `<https://github.com/stevengj/PyPlot.jl>`_ 
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       PyCall                   [0.0.0-,∞)
       Color                    [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/645b9a973f09e98d38b94955a980c9d5?d=https%3A%2F%2Fidenticons.github.com%2Fa155f64bd0f9ac6f56baeff9b75122c2.png
         :height: 40px
@@ -6771,18 +6771,18 @@ _________________________________________________
 
   julia interface for accessing Qt via PyCall and PySide 
 
-  当前版本： ``0.0.0``  (更新于： 2013-07-18) 
+  Current Version: ``0.0.0``  (updated: 2013-07-18) 
 
-  维护者： `john verzani <https://github.com/jverzani>`_
+  Maintainer: `john verzani <https://github.com/jverzani>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Mustache                 [0.0.0-,∞)
       PyCall                   [0.0.0-,∞)
       DataFrames               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/8f514187144b1b19b0205fce41284d32?d=https%3A%2F%2Fidenticons.github.com%2F763a59893dc5fcf4c3d471b690847bec.png
         :height: 40px
@@ -6804,16 +6804,16 @@ ___________________________________________________
 
   Julia api to Quandl open source financial, economic and social datasets 
 
-  当前版本： ``0.0.1``  (更新于： 2013-04-09) 
+  Current Version: ``0.0.1``  (updated: 2013-04-09) 
 
-  维护者： `milktrader <https://github.com/milktrader>`_
+  Maintainer: `milktrader <https://github.com/milktrader>`_
 
-  依赖关系： ::
+  Dependencies::
 
       Calendar                 [0.0.0-,∞)
       DataFrames               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/25ce2ab2f5e673e46208c1188a39e6ca?d=https%3A%2F%2Fidenticons.github.com%2F94554a56b2946c805e180501c4d4544c.png
         :height: 40px
@@ -6835,17 +6835,17 @@ ____________________________________________________
 
   QuickCheck specification-based testing for Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-02-22) 
+  Current Version: ``0.0.0``  (updated: 2013-02-22) 
 
-  维护者： `Patrick O'Leary <https://github.com/pao>`_
+  Maintainer: `Patrick O'Leary <https://github.com/pao>`_
 
-  文档： `<https://quickcheckjl.readthedocs.org/>`_ 
+  Documentation: `<https://quickcheckjl.readthedocs.org/>`_ 
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/16d8443194c380ca93a77fb8530a5aee?d=https%3A%2F%2Fidenticons.github.com%2F38da66e2f2af82932859b7a5f330af55.png
         :height: 40px
@@ -6867,18 +6867,18 @@ _______________________________________________________________
 
   Random matrices package for Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-03-28) 
+  Current Version: ``0.0.0``  (updated: 2013-03-28) 
 
-  维护者： `Jiahao Chen <https://github.com/jiahao>`_
+  Maintainer: `Jiahao Chen <https://github.com/jiahao>`_
 
-  依赖关系： ::
+  Dependencies::
 
       Distributions            [0.0.0-,∞)
       ODE                      [0.0.0-,∞)
       Catalan                  [0.0.0-,∞)
       GSL                      [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/6cba33e8e7c69fa63f6ad386b7a958c5?d=https%3A%2F%2Fidenticons.github.com%2F270edd69788dce200a3b395a6da6fdb7.png
         :height: 40px
@@ -6906,16 +6906,16 @@ _____________________________________________________________
 
   Julia package for loading many of the data sets available in R 
 
-  当前版本： ``0.0.1``  (更新于： 2013-06-23) 
+  Current Version: ``0.0.1``  (updated: 2013-06-23) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       DataFrames               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -6955,15 +6955,15 @@ _________________________________________________
 
    
 
-  当前版本： ``0.0.0``  (更新于： 2013-07-18) 
+  Current Version: ``0.0.0``  (updated: 2013-07-18) 
 
-  维护者： `Sam Chill <https://github.com/SamChill>`_
+  Maintainer: `Sam Chill <https://github.com/SamChill>`_
 
-  依赖关系： ::
+  Dependencies::
 
       RNGTest                  [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/76dcb63fadbea9db73d6309005165661?d=https%3A%2F%2Fidenticons.github.com%2Fe4045cc4ef08aaccfc848d460e7c4a65.png
         :height: 40px
@@ -6985,16 +6985,16 @@ _____________________________________________________
 
   Julia readline-like library 
 
-  当前版本： ``0.0.0``  (更新于： 2013-06-17) 
+  Current Version: ``0.0.0``  (updated: 2013-06-17) 
 
-  维护者： `Keno Fischer <https://github.com/loladiro>`_
+  Maintainer: `Keno Fischer <https://github.com/loladiro>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Terminals                [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https%3A%2F%2Fidenticons.github.com%2Ff36f3f932c25fc21ab72033891540076.png
         :height: 40px
@@ -7016,17 +7016,17 @@ _________________________________________________________
 
   Algorithms for regression analysis (e.g. linear regression and logistic regression) 
 
-  当前版本： ``0.0.0``  (更新于： 2013-07-06) 
+  Current Version: ``0.0.0``  (updated: 2013-07-06) 
 
-  维护者： `Dahua Lin <https://github.com/lindahua>`_
+  Maintainer: `Dahua Lin <https://github.com/lindahua>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Optim                    [0.0.0-,∞)
       NumericExtensions        [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/3db090e101b916d9256d0d3e043db71d?d=https%3A%2F%2Fidenticons.github.com%2F25219d2b2afe83531dc59b52b9217686.png
         :height: 40px
@@ -7048,16 +7048,16 @@ _____________________________________________
 
   Pure-julia REPL implementation 
 
-  当前版本： ``0.0.0``  (更新于： 2013-06-17) 
+  Current Version: ``0.0.0``  (updated: 2013-06-17) 
 
-  维护者： `Keno Fischer <https://github.com/loladiro>`_
+  Maintainer: `Keno Fischer <https://github.com/loladiro>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Readline                 [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https%3A%2F%2Fidenticons.github.com%2Ff36f3f932c25fc21ab72033891540076.png
         :height: 40px
@@ -7090,15 +7090,15 @@ ___________________________________________________________________
 
   Completions for your Julia REPL 
 
-  当前版本： ``0.0.0``  (更新于： 2013-08-21) 
+  Current Version: ``0.0.0``  (updated: 2013-08-21) 
 
-  维护者： `Keno Fischer <https://github.com/loladiro>`_
+  Maintainer: `Keno Fischer <https://github.com/loladiro>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https%3A%2F%2Fidenticons.github.com%2Ff36f3f932c25fc21ab72033891540076.png
         :height: 40px
@@ -7132,15 +7132,15 @@ _______________________________________________________________
 
   Tools for resampling data in Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-01-19) 
+  Current Version: ``0.0.0``  (updated: 2013-01-19) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  依赖关系： ::
+  Dependencies::
 
       DataFrames               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -7162,15 +7162,15 @@ ___________________________________________
 
   Julia-to-R interface 
 
-  当前版本： ``0.0.0``  (更新于： 2013-02-05) 
+  Current Version: ``0.0.0``  (updated: 2013-02-05) 
 
-  维护者： `Laurent Gautier <https://github.com/lgautier>`_
+  Maintainer: `Laurent Gautier <https://github.com/lgautier>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/8e5422a173711c086b685140dbc498fe?d=https%3A%2F%2Fidenticons.github.com%2F5e4d72124c9a5a8c0e66c075b993994b.png
         :height: 40px
@@ -7204,15 +7204,15 @@ ______________________________________________
 
   Archive of functions that emulate R's d-p-q-r functions for probability distributions 
 
-  当前版本： ``0.0.0``  (更新于： 2013-03-04) 
+  Current Version: ``0.0.0``  (updated: 2013-03-04) 
 
-  维护者： `Douglas Bates <https://github.com/dmbates>`_
+  Maintainer: `Douglas Bates <https://github.com/dmbates>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/a27d23ce4c080f3307cc6507f6fdfe87?d=https%3A%2F%2Fidenticons.github.com%2Faeffec9bb1d59de139f16ccd910b5168.png
         :height: 40px
@@ -7234,15 +7234,15 @@ _____________________________________________________________
 
   Code for testing of Julia's random numbers 
 
-  当前版本： ``0.0.0``  (更新于： 2013-02-25) 
+  Current Version: ``0.0.0``  (updated: 2013-02-25) 
 
-  维护者： `Andreas Noack Jensen <https://github.com/andreasnoackjensen>`_
+  Maintainer: `Andreas Noack Jensen <https://github.com/andreasnoackjensen>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/02abdd20ef026f24d96035a407912df0?d=https%3A%2F%2Fidenticons.github.com%2Fc217f7fdea0f4545b9bb96a09ec7bd72.png
         :height: 40px
@@ -7270,11 +7270,11 @@ ___________________________________________________________
 
   A collection of robust statistical tests 
 
-  当前版本： ``0.0.0``  (更新于： 2013-06-30) 
+  Current Version: ``0.0.0``  (updated: 2013-06-30) 
 
-  维护者： `Xiao He <https://github.com/mrxiaohe>`_
+  Maintainer: `Xiao He <https://github.com/mrxiaohe>`_
 
-  依赖关系： ::
+  Dependencies::
 
       Distributions            [0.0.0-,∞)
       Stats                    [0.0.0-,∞)
@@ -7283,7 +7283,7 @@ ___________________________________________________________
       GLM                      [0.0.0-,∞)
       DataFrames               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/6b09c84accc07b69d2d60b721ac34a38?d=https%3A%2F%2Fidenticons.github.com%2F27343dc0d427d45c891c8ea1bdf71701.png
         :height: 40px
@@ -7305,16 +7305,16 @@ _____________________________________________
 
   Root finding functions for Julia 
 
-  当前版本： ``0.1.0``  (更新于： 2013-08-08) 
+  Current Version: ``0.1.0``  (updated: 2013-08-08) 
 
-  维护者： `John Travers <https://github.com/jtravs>`_
+  Maintainer: `John Travers <https://github.com/jtravs>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Polynomial               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/8f514187144b1b19b0205fce41284d32?d=https%3A%2F%2Fidenticons.github.com%2F763a59893dc5fcf4c3d471b690847bec.png
         :height: 40px
@@ -7342,11 +7342,11 @@ ________________________________________________
 
   RPM-md processing library 
 
-  当前版本： ``0.0.4``  (更新于： 2013-08-30) 
+  Current Version: ``0.0.4``  (updated: 2013-08-30) 
 
-  维护者： `The Julia Language <https://github.com/JuliaLang>`_
+  Maintainer: `The Julia Language <https://github.com/JuliaLang>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       URLParse                 [0.0.0,∞)
@@ -7354,7 +7354,7 @@ ________________________________________________
       HTTPClient               [0.0.0,∞)
       LibExpat                 [0.0.0,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/8af4d5971a2308b86a94f58fb98129c5?d=https%3A%2F%2Fidenticons.github.com%2F5d5113de843c8b258029d6a06bccd163.png
         :height: 40px
@@ -7399,16 +7399,16 @@ ___________________________________________
 
   Simulation and inference for Ito processes and diffusions. 
 
-  当前版本： ``0.1.0``  (更新于： 2013-06-21) 
+  Current Version: ``0.1.0``  (updated: 2013-06-21) 
 
-  维护者： `M. Schauer <https://github.com/mschauer>`_
+  Maintainer: `M. Schauer <https://github.com/mschauer>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Winston                  [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/b3ce82c50576d090da69fc77bc2ee79f?d=https%3A%2F%2Fidenticons.github.com%2F6c0f70bfbd840497403e511d771e040d.png
         :height: 40px
@@ -7430,16 +7430,16 @@ ____________________________________________
 
   Julia interface to SDL 
 
-  当前版本： ``0.0.0``  (更新于： 2013-01-18) 
+  Current Version: ``0.0.0``  (updated: 2013-01-18) 
 
-  维护者： `Robert J. Ennis <https://github.com/rennis250>`_
+  Maintainer: `Robert J. Ennis <https://github.com/rennis250>`_
 
-  依赖关系： ::
+  Dependencies::
 
       GetC                     [0.0.0-,∞)
       OpenGL                   [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/37cebf4f44a1dbf71ee94aaea166ef00?d=https%3A%2F%2Fidenticons.github.com%2F297c3e3befdaf89f098f109d971e6f5a.png
         :height: 40px
@@ -7461,15 +7461,15 @@ ________________________________________________________________________________
 
   Interface to semidefinite programming libraries. 
 
-  当前版本： ``0.0.0``  (更新于： 2013-03-08) 
+  Current Version: ``0.0.0``  (updated: 2013-03-08) 
 
-  维护者： `David de Laat <https://github.com/daviddelaat>`_
+  Maintainer: `David de Laat <https://github.com/daviddelaat>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/62df30beab9c2a6f3fe3f86995e94387?d=https%3A%2F%2Fidenticons.github.com%2F58b08088d26ada47c510cef3759f7aae.png
         :height: 40px
@@ -7491,15 +7491,15 @@ _______________________________________________________
 
   Process oriented simulation library written in Julia 
 
-  当前版本： ``0.1.2``  (更新于： 2013-05-03) 
+  Current Version: ``0.1.2``  (updated: 2013-05-03) 
 
-  维护者： `Ben Lauwens <https://github.com/BenLauwens>`_
+  Maintainer: `Ben Lauwens <https://github.com/BenLauwens>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/d90d902f9f64a30155b8a87441615cc2?d=https%3A%2F%2Fidenticons.github.com%2F1b12ae56baba3be253691a77fc68269f.png
         :height: 40px
@@ -7521,15 +7521,15 @@ ____________________________________________________________
 
   basic mcmc sampler implemented in Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-07-01) 
+  Current Version: ``0.0.0``  (updated: 2013-07-01) 
 
-  维护者： `Frédéric Testard <https://github.com/fredo-dedup>`_
+  Maintainer: `Frédéric Testard <https://github.com/fredo-dedup>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/f87ff664dab9cd5bb362590613c680b8?d=https%3A%2F%2Fidenticons.github.com%2F74e421289e7f0fa0ef2e52acfe948fae.png
         :height: 40px
@@ -7551,15 +7551,15 @@ ___________________________________________
 
   Experiments with non-causal, equation-based modeling in Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-08-16) 
+  Current Version: ``0.0.0``  (updated: 2013-08-16) 
 
-  维护者： `Tom Short <https://github.com/tshort>`_
+  Maintainer: `Tom Short <https://github.com/tshort>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/11ed595b17e2ccf6bc0b3c80f3dde4e8?d=https%3A%2F%2Fidenticons.github.com%2F176a9d5ad1fcb179b164bdd7d4e625dc.png
         :height: 40px
@@ -7587,15 +7587,15 @@ ___________________________________________________
 
   Julia wrapper for libsodium 
 
-  当前版本： ``0.0.0``  (更新于： 2013-04-24) 
+  Current Version: ``0.0.0``  (updated: 2013-04-24) 
 
-  维护者： `Amit Murthy <https://github.com/amitmurthy>`_
+  Maintainer: `Amit Murthy <https://github.com/amitmurthy>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/313e7a578240d11c97a68c9c6918a90b?d=https%3A%2F%2Fidenticons.github.com%2F8de01f67e4cbfa5ce2e70e6f1f761891.png
         :height: 40px
@@ -7617,15 +7617,15 @@ _________________________________________________________
 
   The Soundex algorithm in Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-07-08) 
+  Current Version: ``0.0.0``  (updated: 2013-07-08) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -7647,16 +7647,16 @@ __________________________________________________
 
   A Julia interface to the Sqlite library and support for operations on DataFrames 
 
-  当前版本： ``0.1.0``  (更新于： 2013-06-20) 
+  Current Version: ``0.1.0``  (updated: 2013-06-20) 
 
-  维护者： `Jacob Quinn <https://github.com/karbarcca>`_
+  Maintainer: `Jacob Quinn <https://github.com/karbarcca>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       DataFrames               [0.2.0,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/d788bf7fd037ebef5798d8881c5faa2f?d=https%3A%2F%2Fidenticons.github.com%2Fb74329b16ae6564aa58c344720a5a087.png
         :height: 40px
@@ -7695,15 +7695,15 @@ _________________________________________________
 
   Basic statistics for Julia 
 
-  当前版本： ``0.2.6``  (更新于： 2013-07-22) 
+  Current Version: ``0.2.6``  (updated: 2013-07-22) 
 
-  维护者： `Julia Statistics <https://github.com/JuliaStats>`_
+  Maintainer: `Julia Statistics <https://github.com/JuliaStats>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -7773,17 +7773,17 @@ ______________________________________________
 
   Swiss Army Knife for encoding and decoding binary streams 
 
-  当前版本： ``0.0.0``  (更新于： 2013-05-23) 
+  Current Version: ``0.0.0``  (updated: 2013-05-23) 
 
-  维护者： `Patrick O'Leary <https://github.com/pao>`_
+  Maintainer: `Patrick O'Leary <https://github.com/pao>`_
 
-  文档： `<https://strpackjl.readthedocs.org/>`_ 
+  Documentation: `<https://strpackjl.readthedocs.org/>`_ 
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/16d8443194c380ca93a77fb8530a5aee?d=https%3A%2F%2Fidenticons.github.com%2F38da66e2f2af82932859b7a5f330af55.png
         :height: 40px
@@ -7829,15 +7829,15 @@ ______________________________________________________
 
   Julia interface to Sundials, including a nonlinear solver (KINSOL), ODE's (CVODE), and DAE's (IDA). 
 
-  当前版本： ``0.0.0``  (更新于： 2013-05-07) 
+  Current Version: ``0.0.0``  (updated: 2013-05-07) 
 
-  维护者： `The Julia Language <https://github.com/JuliaLang>`_
+  Maintainer: `The Julia Language <https://github.com/JuliaLang>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/11ed595b17e2ccf6bc0b3c80f3dde4e8?d=https%3A%2F%2Fidenticons.github.com%2F176a9d5ad1fcb179b164bdd7d4e625dc.png
         :height: 40px
@@ -7859,15 +7859,15 @@ _________________________________________________
 
   SVM's for Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-04-14) 
+  Current Version: ``0.0.0``  (updated: 2013-04-14) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -7889,17 +7889,17 @@ _______________________________________________
 
   Start of Julia interface to SymPy via PyCall 
 
-  当前版本： ``0.2.0``  (更新于： 2013-08-09) 
+  Current Version: ``0.2.0``  (updated: 2013-08-09) 
 
-  维护者： `john verzani <https://github.com/jverzani>`_
+  Maintainer: `john verzani <https://github.com/jverzani>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Gadfly                   [0.0.0-,∞)
       PyCall                   [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/8f514187144b1b19b0205fce41284d32?d=https%3A%2F%2Fidenticons.github.com%2F763a59893dc5fcf4c3d471b690847bec.png
         :height: 40px
@@ -7933,15 +7933,15 @@ _______________________________________________________
 
   Terminal Interfaces for Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-06-17) 
+  Current Version: ``0.0.0``  (updated: 2013-06-17) 
 
-  维护者： `Keno Fischer <https://github.com/loladiro>`_
+  Maintainer: `Keno Fischer <https://github.com/loladiro>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https%3A%2F%2Fidenticons.github.com%2Ff36f3f932c25fc21ab72033891540076.png
         :height: 40px
@@ -7963,17 +7963,17 @@ ___________________________________________________________________
 
   Julia package for text analysis 
 
-  当前版本： ``0.0.1``  (更新于： 2013-05-24) 
+  Current Version: ``0.0.1``  (updated: 2013-05-24) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Languages                [0.0.0-,∞)
       DataFrames               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -8006,15 +8006,15 @@ __________________________________________________________
 
   Package for wrapping text into paragraphs. 
 
-  当前版本： ``0.1.1``  (更新于： 2013-06-28) 
+  Current Version: ``0.1.1``  (updated: 2013-06-28) 
 
-  维护者： `Carlo Baldassi <https://github.com/carlobaldassi>`_
+  Maintainer: `Carlo Baldassi <https://github.com/carlobaldassi>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/80502de63c1b21d8f3ba663d72ba5be2?d=https%3A%2F%2Fidenticons.github.com%2Fd454171c70136b2284d6a8cfe123eb29.png
         :height: 40px
@@ -8042,11 +8042,11 @@ ___________________________________________________________
 
   Modeling time series in Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-06-14) 
+  Current Version: ``0.0.0``  (updated: 2013-06-14) 
 
-  维护者： `milktrader <https://github.com/milktrader>`_
+  Maintainer: `milktrader <https://github.com/milktrader>`_
 
-  依赖关系： ::
+  Dependencies::
 
       Stats                    [0.0.0-,∞)
       Calendar                 [0.0.0-,∞)
@@ -8054,7 +8054,7 @@ ___________________________________________________________
       TimeSeries               [0.0.0-,∞)
       DataFrames               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/25ce2ab2f5e673e46208c1188a39e6ca?d=https%3A%2F%2Fidenticons.github.com%2F94554a56b2946c805e180501c4d4544c.png
         :height: 40px
@@ -8082,18 +8082,18 @@ ___________________________________________________________
 
   Time series toolkit for Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-08-19) 
+  Current Version: ``0.0.0``  (updated: 2013-08-19) 
 
-  维护者： `milktrader <https://github.com/milktrader>`_
+  Maintainer: `milktrader <https://github.com/milktrader>`_
 
-  依赖关系： ::
+  Dependencies::
 
       Stats                    [0.0.0-,∞)
       Calendar                 [0.0.0-,∞)
       UTF16                    [0.0.0-,∞)
       DataFrames               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/25ce2ab2f5e673e46208c1188a39e6ca?d=https%3A%2F%2Fidenticons.github.com%2F94554a56b2946c805e180501c4d4544c.png
         :height: 40px
@@ -8121,16 +8121,16 @@ __________________________________________
 
   Julia interface to Tk windowing toolkit. 
 
-  当前版本： ``0.2.4``  (更新于： 2013-08-01) 
+  Current Version: ``0.2.4``  (updated: 2013-08-01) 
 
-  维护者： `The Julia Language <https://github.com/JuliaLang>`_
+  Maintainer: `The Julia Language <https://github.com/JuliaLang>`_
 
-  依赖关系： ::
+  Dependencies::
 
       BinDeps                  [0.2.2-,∞)
       Cairo                    [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/55e277a715ee2afd0d29c309174eca02?d=https%3A%2F%2Fidenticons.github.com%2F938b248e75affacf29383e0738b98ea2.png
         :height: 40px
@@ -8218,16 +8218,16 @@ _________________________________________
 
   A TOML parser for Julia. 
 
-  当前版本： ``0.0.0``  (更新于： 2013-03-06) 
+  Current Version: ``0.0.0``  (updated: 2013-03-06) 
 
-  维护者： `pygy <https://github.com/pygy>`_
+  Maintainer: `pygy <https://github.com/pygy>`_
 
-  依赖关系： ::
+  Dependencies::
 
       Calendar                 [0.0.0-,∞)
       JSON                     [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/e38cd950767e62fd3250795bbd208cf6?d=https%3A%2F%2Fidenticons.github.com%2Fdde7ab386f2688e33598588c7447fa0b.png
         :height: 40px
@@ -8249,15 +8249,15 @@ ___________________________________________________________
 
   TopicModels for Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-03-17) 
+  Current Version: ``0.0.0``  (updated: 2013-03-17) 
 
-  维护者： `Jonathan Chang <https://github.com/slycoder>`_
+  Maintainer: `Jonathan Chang <https://github.com/slycoder>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/34bbe1993f0b1e918539da9a832f8064?d=https%3A%2F%2Fidenticons.github.com%2F2be6a2b31df685466061c234f3b786aa.png
         :height: 40px
@@ -8279,11 +8279,11 @@ _________________________________________________________________________
 
   Downloading financial time series data and providing financial asset types in Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-03-01) 
+  Current Version: ``0.0.0``  (updated: 2013-03-01) 
 
-  维护者： `milktrader <https://github.com/milktrader>`_
+  Maintainer: `milktrader <https://github.com/milktrader>`_
 
-  依赖关系： ::
+  Dependencies::
 
       Stats                    [0.0.0-,∞)
       Calendar                 [0.0.0-,∞)
@@ -8291,7 +8291,7 @@ _________________________________________________________________________
       TimeSeries               [0.0.0-,∞)
       DataFrames               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/25ce2ab2f5e673e46208c1188a39e6ca?d=https%3A%2F%2Fidenticons.github.com%2F94554a56b2946c805e180501c4d4544c.png
         :height: 40px
@@ -8313,15 +8313,15 @@ ______________________________________________
 
   Implementation of the trie data structure. 
 
-  当前版本： ``0.0.0``  (更新于： 2012-11-13) 
+  Current Version: ``0.0.0``  (updated: 2012-11-13) 
 
-  维护者： `The Julia Language <https://github.com/JuliaLang>`_
+  Maintainer: `The Julia Language <https://github.com/JuliaLang>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/21aeae1f260365557523718bc19640f7?d=https%3A%2F%2Fidenticons.github.com%2F85df517d6848f02168468b6cbb2dc786.png
         :height: 40px
@@ -8343,15 +8343,15 @@ ______________________________________________
 
   Infrastructure for handling physical units for the Julia programming language 
 
-  当前版本： ``0.2.1``  (更新于： 2013-08-11) 
+  Current Version: ``0.2.1``  (updated: 2013-08-11) 
 
-  维护者： `Tim Holy <https://github.com/timholy>`_
+  Maintainer: `Tim Holy <https://github.com/timholy>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/2989a078f4caff6fb86fa30e59bd9aa9?d=https%3A%2F%2Fidenticons.github.com%2F0d84f7b936eeba4c2a9b73061cfbbf13.png
         :height: 40px
@@ -8378,15 +8378,15 @@ _______________________________________________________
 
   Pure julia URI parser 
 
-  当前版本： ``0.0.0``  (更新于： 2013-07-12) 
+  Current Version: ``0.0.0``  (updated: 2013-07-12) 
 
-  维护者： `Keno Fischer <https://github.com/loladiro>`_
+  Maintainer: `Keno Fischer <https://github.com/loladiro>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https%3A%2F%2Fidenticons.github.com%2Ff36f3f932c25fc21ab72033891540076.png
         :height: 40px
@@ -8420,15 +8420,15 @@ ___________________________________________________________
 
   RFC6570 URI templates for Julia 
 
-  当前版本： ``0.0.0``  (更新于： 2013-07-15) 
+  Current Version: ``0.0.0``  (updated: 2013-07-15) 
 
-  维护者： `Keno Fischer <https://github.com/loladiro>`_
+  Maintainer: `Keno Fischer <https://github.com/loladiro>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https%3A%2F%2Fidenticons.github.com%2Ff36f3f932c25fc21ab72033891540076.png
         :height: 40px
@@ -8455,15 +8455,15 @@ _____________________________________________________
 
   Parse URL strings into components and re-create the URL string back from components. 
 
-  当前版本： ``0.0.0``  (更新于： 2013-09-03) 
+  Current Version: ``0.0.0``  (updated: 2013-09-03) 
 
-  维护者： `Tanmay Mohapatra <https://github.com/tanmaykm>`_
+  Maintainer: `Tanmay Mohapatra <https://github.com/tanmaykm>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/eea0b193dae8ac47946202ee404a6d7a?d=https%3A%2F%2Fidenticons.github.com%2Fa2feca9cad6b69327bdee24d0d81156a.png
         :height: 40px
@@ -8485,15 +8485,15 @@ ____________________________________________
 
   UTF16 string type for Julia 
 
-  当前版本： ``0.2.0``  (更新于： 2013-08-10) 
+  Current Version: ``0.2.0``  (updated: 2013-08-10) 
 
-  维护者： `Mike Nolta <https://github.com/nolta>`_
+  Maintainer: `Mike Nolta <https://github.com/nolta>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/1b65c4698da5f30310e14aaee8f3f24e?d=https%3A%2F%2Fidenticons.github.com%2Fccc246e2e59d5e2d0cca344114f2065e.png
         :height: 40px
@@ -8521,15 +8521,15 @@ _________________________________________________________________
 
   Function dispatch on values 
 
-  当前版本： ``0.0.0``  (更新于： 2013-04-30) 
+  Current Version: ``0.0.0``  (updated: 2013-04-30) 
 
-  维护者： `Zach Allaun <https://github.com/zachallaun>`_
+  Maintainer: `Zach Allaun <https://github.com/zachallaun>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/06625cbad0c69f5c2e673a4312e9fd7e?d=https%3A%2F%2Fidenticons.github.com%2F5dd6d7ae462c1aec0b364990d3ec72e0.png
         :height: 40px
@@ -8551,16 +8551,16 @@ ___________________________________________________
 
   A Julia package for generating visualizations in Vega  
 
-  当前版本： ``0.0.0``  (更新于： 2013-07-30) 
+  Current Version: ``0.0.0``  (updated: 2013-07-30) 
 
-  维护者： `John Myles White <https://github.com/johnmyleswhite>`_
+  Maintainer: `John Myles White <https://github.com/johnmyleswhite>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       JSON                     [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/b6b704f26ffe0d91e6317a1c069d4303?d=https%3A%2F%2Fidenticons.github.com%2F9c8f9728c5c3be5ef64f32ed3d49f02e.png
         :height: 40px
@@ -8588,15 +8588,15 @@ ______________________________________________
 
   Julia package for working with WAV files 
 
-  当前版本： ``0.2.0``  (更新于： 2013-08-24) 
+  Current Version: ``0.2.0``  (updated: 2013-08-24) 
 
-  维护者： `Daniel Casimiro <https://github.com/dancasimiro>`_
+  Maintainer: `Daniel Casimiro <https://github.com/dancasimiro>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/e9c9bece011a5c75918c1dc73a21eaa8?d=https%3A%2F%2Fidenticons.github.com%2F31dc52ce7f9747c7e199cb4dccc21e4b.png
         :height: 40px
@@ -8623,18 +8623,18 @@ _____________________________________________________________
 
   A WebSockets server library for Julia 
 
-  当前版本： ``0.0.3``  (更新于： 2013-09-04) 
+  Current Version: ``0.0.3``  (updated: 2013-09-04) 
 
-  维护者： `Hacker School <https://github.com/hackerschool>`_
+  Maintainer: `Hacker School <https://github.com/hackerschool>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Codecs                   [0.0.0-,∞)
       HttpCommon               [0.0.0-,∞)
       HttpServer               [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/54cc6bf56d6223bdb99e5d6cfbd11056?d=https%3A%2F%2Fidenticons.github.com%2F64e76e13ef337dfcda3cf3da7b89c5c2.png
         :height: 40px
@@ -8686,11 +8686,11 @@ ________________________________________________
 
   2D plotting for Julia 
 
-  当前版本： ``0.4.0``  (更新于： 2013-09-03) 
+  Current Version: ``0.4.0``  (updated: 2013-09-03) 
 
-  维护者： `Mike Nolta <https://github.com/nolta>`_
+  Maintainer: `Mike Nolta <https://github.com/nolta>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Cairo                    [0.0.0-,∞)
@@ -8698,7 +8698,7 @@ ________________________________________________
       Tk                       [0.0.0-,∞)
       Color                    [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://0.gravatar.com/avatar/1b65c4698da5f30310e14aaee8f3f24e?d=https%3A%2F%2Fidenticons.github.com%2Fccc246e2e59d5e2d0cca344114f2065e.png
         :height: 40px
@@ -8780,11 +8780,11 @@ _______________________________________________________
 
   Http client written in julia (depends on joyent/http-parser) for HTTP parsing.  
 
-  当前版本： ``0.0.0``  (更新于： 2013-09-06) 
+  Current Version: ``0.0.0``  (updated: 2013-09-06) 
 
-  维护者： `Keno Fischer <https://github.com/loladiro>`_
+  Maintainer: `Keno Fischer <https://github.com/loladiro>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       HttpParser               [0.0.0-,∞)
@@ -8792,7 +8792,7 @@ _______________________________________________________
       GnuTLS                   [0.0.0-,∞)
       URIParser                [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/ed9f9395e60acde24eb4bb89fe2154aa?d=https%3A%2F%2Fidenticons.github.com%2Ff36f3f932c25fc21ab72033891540076.png
         :height: 40px
@@ -8814,18 +8814,18 @@ ____________________________________________
 
   parse yer yamls 
 
-  当前版本： ``0.1.3``  (更新于： 2013-07-22) 
+  Current Version: ``0.1.3``  (updated: 2013-07-22) 
 
-  维护者： `Daniel Jones <https://github.com/dcjones>`_
+  Maintainer: `Daniel Jones <https://github.com/dcjones>`_
 
-  依赖关系： ::
+  Dependencies::
 
       julia                    [0.2.0-,∞)
       Codecs                   [0.0.0-,∞)
       Calendar                 [0.0.0-,∞)
       LazySequences            [0.0.0-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/fd97b03d16e1aa4c404391216d81c1d5?d=https%3A%2F%2Fidenticons.github.com%2Fc7ec48e0ff0d0ae8827e36301a0962a1.png
         :height: 40px
@@ -8852,17 +8852,17 @@ ______________________________________________
 
   Read/Write ZIP archives in Julia 
 
-  当前版本： ``0.2.0``  (更新于： 2013-08-23) 
+  Current Version: ``0.2.0``  (updated: 2013-08-23) 
 
-  维护者： `Fazlul Shahriar <https://github.com/fhs>`_
+  Maintainer: `Fazlul Shahriar <https://github.com/fhs>`_
 
-  文档： `<https://zipfilejl.readthedocs.org/en/latest/>`_ 
+  Documentation: `<https://zipfilejl.readthedocs.org/en/latest/>`_ 
 
-  依赖关系： ::
+  Dependencies::
 
       Zlib                     [0.1.2-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/f11cd39050d2eb63ec494c0e7ae81d98?d=https%3A%2F%2Fidenticons.github.com%2Fe4874cbbcbec68daabdd9342beac3bd9.png
         :height: 40px
@@ -8884,15 +8884,15 @@ ____________________________________________
 
   zlib bindings for Julia 
 
-  当前版本： ``0.1.2``  (更新于： 2013-08-22) 
+  Current Version: ``0.1.2``  (updated: 2013-08-22) 
 
-  维护者： `Daniel Jones <https://github.com/dcjones>`_
+  Maintainer: `Daniel Jones <https://github.com/dcjones>`_
 
-  依赖关系： ::
+  Dependencies::
 
-      无
+      None
 
-  贡献者：
+  Contributors:
 
     .. image:: https://1.gravatar.com/avatar/fd97b03d16e1aa4c404391216d81c1d5?d=https%3A%2F%2Fidenticons.github.com%2Fc7ec48e0ff0d0ae8827e36301a0962a1.png
         :height: 40px
@@ -8931,15 +8931,15 @@ ____________________________________________
 
   Julia interface to ZMQ 
 
-  当前版本： ``0.1.1``  (更新于： 2013-09-03) 
+  Current Version: ``0.1.1``  (updated: 2013-09-03) 
 
-  维护者： `The Julia Language <https://github.com/JuliaLang>`_
+  Maintainer: `The Julia Language <https://github.com/JuliaLang>`_
 
-  依赖关系： ::
+  Dependencies::
 
       BinDeps                  [0.2.3-,∞)
 
-  贡献者：
+  Contributors:
 
     .. image:: https://2.gravatar.com/avatar/f5c61e85dfa465686adc24e0bffba42a?d=https%3A%2F%2Fidenticons.github.com%2Fd166f0c0f0c599a75f4938f2b9660479.png
         :height: 40px
@@ -8991,4 +8991,5 @@ ____________________________________________
 
 ----
 
-.. footer: 212 个扩展包，本列表生成于 7 Sep 2013 23:53:50 GMT+01:00 
+.. footer: 212 packages, generated 7 Sep 2013 23:53:50 GMT+01:00 
+

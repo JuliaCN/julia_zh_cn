@@ -2,9 +2,9 @@
 
 这是 `Julia` 语言的中文文档，可以 [在线阅读](http://julia-zh-cn.readthedocs.org) 。
 
-欢迎大伙儿来修订文档。扩展包部分就暂时不翻译了，反正大家如果要使用，也得看英文文档。
+欢迎大伙儿来修订文档。仅翻译的话，什么都不用安装，直接找到要修改的文件，点击 `Edit` ，编辑好后提交即可。对 git 熟悉的请使用 git 。
 
-需要翻译的就是 `manual/` 及 `stdlib/` 下的所有文档。仅翻译的话，什么都不用安装，直接找到要修改的文件，点击 `Edit` ，编辑好后提交即可。对 git 熟悉的请使用 git 。
+停止支持标准库和扩展包部分的翻译了，多看英文文档会比较好。
 
 本翻译项目追随 [Julia 源代码](https://github.com/JuliaLang/julia) 的 master 分支。对其余分支（如已发行版的维护分支）的支持，暂不能保证（总是忘记 git checkout ）。
 
@@ -12,50 +12,11 @@
 
     manual/                         Julia 手册
     stdlib/                         Julia 标准库文档
-	packages/packagelist.rst        扩展包文档（由 listpkg.jl 生成）
-	helpdb_zh_CN.jl                 REPL 帮助文档数据库 （由 stdlib/ 中的文档解析生成，不需要手动修改）
-						
+	packages/packagelist.rst        扩展包文档
+	
 	conf.py                         Sphinx 配置文件
-	listpkg.jl                      生成 packages/packagelist.rst
 	
 	note/                           暂时存放一些笔记之类的东西，将来很有可能移走
-
-## 生成帮助文档及扩展包文档
-
-### 生成帮助文档
-
-`Ubuntu` 上需要几个组件。安装吧，都很小：
-
-    sudo apt-get install python-setuptools
-    sudo easy_install -U Sphinx
-
-然后运行：
-
-    $ make helpdb.jl
-
-好啦，`helpdb_zh_CN.jl` 就生成了。这就是在命令行输入 `help()` 时会调用的帮助文档。
-
-可以将这个文档放在 `$JULIA_HOME/../share/julia/zh_CN/` 中，改名为 `helpdb.jl` ，然后运行：
-
-	julia> Base.locale("zh_CN")
-	"zh_CN"
-
-这样 `help()` 应该就可以调用中文帮助文档了。想返回英文帮助文档，输入 `Base.locale("")` 或重启程序即可。
-
-### 生成扩展包文档
-
-运行 Julia ，安装两个扩展包：
-
-	julia> Pkg.add("JSON")
-	julia> Pkg.add("Calendar")
-	
-然后进入 `julia_zh_cn` 文件夹，运行
-
-	julia> require("listpkg.jl")
-	
-即可生成新的 `packages/packagelist.rst` ，即本文档的 `可用扩展包` 章节。
-
-生成时，有可能会因为 github 提示连接太频繁而运行出错。
 
 ## 生成网页文档及 PDF 文档
 
