@@ -46,12 +46,10 @@ Julia 提供一系列控制流：
 
 .. _man-conditional-evaluation:
 
-Conditional Evaluation
-----------------------
+条件求值
+--------
 
-Conditional evaluation allows portions of code to be evaluated or not
-evaluated depending on the value of a boolean expression. Here is the
-anatomy of the ``if``-``elseif``-``else`` conditional syntax::
+一个 ``if``-``elseif``-``else`` 条件表达式的例子： ::
 
     if x < y
       println("x is less than y")
@@ -61,10 +59,7 @@ anatomy of the ``if``-``elseif``-``else`` conditional syntax::
       println("x is equal to y")
     end
 
-If the condition expression ``x < y`` is ``true``, then the corresponding block
-is evaluated; otherwise the condition expression ``x > y`` is evaluated, and if
-it is ``true``, the corresponding block is evaluated; if neither expression is
-true, the ``else`` block is evaluated. Here it is in action::
+如果条件表达式 ``x < y`` 为真，相应的语句块将会被执行；否则就执行条件表达式 ``x > y`` ，如果结果为真, 相应的语句块将被执行；如果两个表达式都是假， ``else`` 语句块将被执行。这是它用在实际中的例子： ::
 
     julia> function test(x, y)
              if x < y
@@ -85,42 +80,22 @@ true, the ``else`` block is evaluated. Here it is in action::
     julia> test(1, 1)
     x is equal to y
 
-The ``elseif`` and ``else`` blocks are optional, and as many ``elseif``
-blocks as desired can be used. The condition expressions in the
-``if``-``elseif``-``else`` construct are evaluated until the first one
-evaluates to ``true``, after which the associated block is evaluated,
-and no further condition expressions or blocks are evaluated.
+``elseif`` 及 ``else`` 块是可选的。
 
-Unlike C, MATLAB, Perl, Python, and Ruby — but like Java, and a few
-other stricter, typed languages — it is an error if the value of a
-conditional expression is anything but ``true`` or ``false``::
+如果条件表达式的值是除 ``true`` 和 ``false`` 之外的值，会出错： ::
 
     julia> if 1
              println("true")
            end
     type error: lambda: in if, expected Bool, got Int64
 
-This error indicates that the conditional was of the wrong type:
-``Int64`` rather than the required ``Bool``.
-
-The so-called "ternary operator", ``?:``, is closely related to the
-``if``-``elseif``-``else`` syntax, but is used where a conditional
-choice between single expression values is required, as opposed to
-conditional execution of longer blocks of code. It gets its name from
-being the only operator in most languages taking three operands::
+“问号表达式”语法 ``?:`` 与 ``if``-``elseif``-``else`` 语法相关，但是适用于单个表达式： ::
 
     a ? b : c
 
-The expression ``a``, before the ``?``, is a condition expression, and
-the ternary operation evaluates the expression ``b``, before the ``:``,
-if the condition ``a`` is ``true`` or the expression ``c``, after the
-``:``, if it is ``false``.
+``?`` 之前的 ``a`` 是条件表达式，如果为 ``true`` ，就执行 ``:`` 之前的 ``b`` 表达式，如果为 ``false`` ，就执行 ``:`` 的 ``c`` 表达式。
 
-The easiest way to understand this behavior is to see an example. In the
-previous example, the ``println`` call is shared by all three branches:
-the only real choice is which literal string to print. This could be
-written more concisely using the ternary operator. For the sake of
-clarity, let's try a two-way version first::
+用问号表达式来重写，可以使前面的例子更加紧凑。先看一个二选一的例子： ::
 
     julia> x = 1; y = 2;
 
@@ -132,11 +107,7 @@ clarity, let's try a two-way version first::
     julia> println(x < y ? "less than" : "not less than")
     not less than
 
-If the expression ``x < y`` is true, the entire ternary operator
-expression evaluates to the string ``"less than"`` and otherwise it
-evaluates to the string ``"not less than"``. The original three-way
-example requires chaining multiple uses of the ternary operator
-together::
+三选一的例子需要链式调用问号表达式： ::
 
     julia> test(x, y) = println(x < y ? "x is less than y"    :
                                 x > y ? "x is greater than y" : "x is equal to y")
@@ -150,11 +121,9 @@ together::
     julia> test(1, 1)
     x is equal to y
 
-To facilitate chaining, the operator associates from right to left.
+链式问号表达式的结合规则是从右到左。
 
-It is significant that like ``if``-``elseif``-``else``, the expressions
-before and after the ``:`` are only evaluated if the condition
-expression evaluates to ``true`` or ``false``, respectively::
+与 ``if``-``elseif``-``else`` 类似， ``:`` 前后的表达式，只有在对应条件表达式为 ``true`` 或 ``false`` 时才执行： ::
 
     v(x) = (println(x); x)
 
@@ -168,27 +137,15 @@ expression evaluates to ``true`` or ``false``, respectively::
 
 .. _man-short-circuit-evaluation:
 
-Short-Circuit Evaluation
-------------------------
+短路求值
+--------
 
-Short-circuit evaluation is quite similar to conditional evaluation. The
-behavior is found in most imperative programming languages having the
-``&&`` and ``||`` boolean operators: in a series of boolean expressions
-connected by these operators, only the minimum number of expressions are
-evaluated as are necessary to determine the final boolean value of the
-entire chain. Explicitly, this means that:
+ ``&&`` 和 ``||`` 布尔运算符被称为短路求值，它们连接一系列布尔表达式，仅计算最少的表达式来确定整个链的布尔值。这意味着：
 
--  In the expression ``a && b``, the subexpression ``b`` is only
-   evaluated if ``a`` evaluates to ``true``.
--  In the expression ``a || b``, the subexpression ``b`` is only
-   evaluated if ``a`` evaluates to ``false``.
+-  在表达式 ``a && b`` 中，只有 ``a`` 为 ``true`` 时才计算子表达式 ``b``
+-  在表达式 ``a || b`` 中，只有 ``a`` 为 ``false`` 时才计算子表达式 ``b``
 
-The reasoning is that ``a && b`` must be ``false`` if ``a`` is
-``false``, regardless of the value of ``b``, and likewise, the value of
-``a || b`` must be true if ``a`` is ``true``, regardless of the value of
-``b``. Both ``&&`` and ``||`` associate to the right, but ``&&`` has
-higher precedence than than ``||`` does. It's easy to experiment with
-this behavior::
+``&&`` 和 ``||`` 都与右侧结合，但 ``&&`` 比 ``||`` 优先级高： ::
 
     t(x) = (println(x); true)
     f(x) = (println(x); false)
@@ -229,13 +186,7 @@ this behavior::
     2
     false
 
-You can easily experiment in the same way with the associativity and
-precedence of various combinations of ``&&`` and ``||`` operators.
-
-Boolean operations *without* short-circuit evaluation can be done with the
-bitwise boolean operators introduced in :ref:`man-mathematical-operations`:
-``&`` and ``|``. These are normal functions, which happen to support
-infix operator syntax, but always evaluate their arguments::
+*非* 短路求值运算符，可以使用 :ref:`man-mathematical-operations` 中介绍的位布尔运算符 ``&`` 和 ``|`` ： ::
 
     julia> f(1) & t(2)
     1
@@ -247,21 +198,17 @@ infix operator syntax, but always evaluate their arguments::
     2
     true
 
-Just like condition expressions used in ``if``, ``elseif`` or the
-ternary operator, the operands of ``&&`` or ``||`` must be boolean
-values (``true`` or ``false``). Using a non-boolean value is an error::
+``&&`` 和 ``||`` 的运算对象也必须是布尔值（ ``true`` 或 ``false`` ），否则会出现错误： ::
 
     julia> 1 && 2
     type error: lambda: in if, expected Bool, got Int64
 
 .. _man-loops:
 
-Repeated Evaluation: Loops
---------------------------
+重复求值: 循环
+--------------
 
-There are two constructs for repeated evaluation of expressions: the
-``while`` loop and the ``for`` loop. Here is an example of a ``while``
-loop::
+有两种循环表达式： ``while`` 循环和 ``for`` 循环。下面是 ``while`` 的例子： ::
 
     julia> i = 1;
 
@@ -275,14 +222,7 @@ loop::
     4
     5
 
-The ``while`` loop evaluates the condition expression (``i < n`` in this
-case), and as long it remains ``true``, keeps also evaluating the body
-of the ``while`` loop. If the condition expression is ``false`` when the
-``while`` loop is first reached, the body is never evaluated.
-
-The ``for`` loop makes common repeated evaluation idioms easier to
-write. Since counting up and down like the above ``while`` loop does is
-so common, it can be expressed more concisely with a ``for`` loop::
+上例也可以重写为 ``for`` 循环： ::
 
     julia> for i = 1:5
              println(i)
@@ -293,15 +233,7 @@ so common, it can be expressed more concisely with a ``for`` loop::
     4
     5
 
-Here the ``1:5`` is a ``Range`` object, representing the sequence of
-numbers 1, 2, 3, 4, 5. The ``for`` loop iterates through these values,
-assigning each one in turn to the variable ``i``. One rather important
-distinction between the previous ``while`` loop form and the ``for``
-loop form is the scope during which the variable is visible. If the
-variable ``i`` has not been introduced in an other scope, in the ``for``
-loop form, it is visible only inside of the ``for`` loop, and not
-afterwards. You'll either need a new interactive session instance or a
-different variable name to test this::
+此处的 ``1:5`` 是一个 ``Range`` 对象，表示的是 1, 2, 3, 4, 5 序列。 ``for`` 循环遍历这些数，将其逐一赋给变量 ``i`` 。 ``while`` 循环和 ``for`` 循环的另一区别是变量的作用域。如果在其它作用域中没有引入变量 ``i`` ，那么它仅存在于 ``for`` 循环中。不难验证： ::
 
     julia> for j = 1:5
              println(j)
@@ -315,13 +247,9 @@ different variable name to test this::
     julia> j
     j not defined
 
-See :ref:`man-variables-and-scoping` for a detailed
-explanation of variable scope and how it works in Julia.
+有关变量作用域，详见 :ref:`man-variables-and-scoping` 。
 
-In general, the ``for`` loop construct can iterate over any container.
-In these cases, the alternative (but fully equivalent) keyword ``in`` is
-typically used instead of ``=``, since it makes the code read more
-clearly::
+通常， ``for`` 循环可以遍历任意容器。这时，应使用另一个（但是完全等价的）关键词 ``in`` ，而不是 ``=`` ，它使得代码更易阅读： ::
 
     julia> for i in [1,4,0]
              println(i)
@@ -337,13 +265,9 @@ clearly::
     bar
     baz
 
-Various types of iterable containers will be introduced and discussed in
-later sections of the manual (see, e.g., :ref:`man-arrays`).
+手册中将介绍各种可迭代容器（详见 :ref:`man-arrays` ）。
 
-It is sometimes convenient to terminate the repetition of a ``while``
-before the test condition is falsified or stop iterating in a ``for``
-loop before the end of the iterable object is reached. This can be
-accomplished with the ``break`` keyword::
+有时要提前终止 ``while`` 或 ``for`` 循环。可以通过关键词 ``break`` 来实现： ::
 
     julia> i = 1;
 
@@ -372,13 +296,7 @@ accomplished with the ``break`` keyword::
     4
     5
 
-The above ``while`` loop would never terminate on its own, and the
-``for`` loop would iterate up to 1000. These loops are both exited early
-by using the ``break`` keyword.
-
-In other circumstances, it is handy to be able to stop an iteration and
-move on to the next one immediately. The ``continue`` keyword
-accomplishes this::
+有时需要中断本次循环，进行下一次循环，这时可以用关键字 ``continue`` ： ::
 
     julia> for i = 1:10
              if i % 3 != 0
@@ -390,14 +308,7 @@ accomplishes this::
     6
     9
 
-This is a somewhat contrived example since we could produce the same
-behavior more clearly by negating the condition and placing the
-``println`` call inside the ``if`` block. In realistic usage there is
-more code to be evaluated after the ``continue``, and often there are
-multiple points from which one calls ``continue``.
-
-Multiple nested ``for`` loops can be combined into a single outer loop,
-forming the cartesian product of its iterables::
+多层 ``for`` 循环可以被重写为一个外层循环，迭代类似于笛卡尔乘积的形式： ::
 
     julia> for i = 1:2, j = 3:4
              println((i, j))
