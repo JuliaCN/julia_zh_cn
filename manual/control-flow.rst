@@ -320,21 +320,15 @@ Julia 提供一系列控制流：
 
 .. _man-exception-handling:
 
-Exception Handling
-------------------
+异常处理
+--------
 
-When an unexpected condition occurs, a function may be unable to return
-a reasonable value to its caller. In such cases, it may be best for the
-exceptional condition to either terminate the program, printing a
-diagnostic error message, or if the programmer has provided code to
-handle such exceptional circumstances, allow that code to take the
-appropriate action.
+当遇到意外条件时，函数可能无法给调用者返回一个合理值。这时，要么终止程序，打印诊断错误信息；要么程序员编写异常处理。
 
-Built-in ``Exception``\ s
-~~~~~~~~~~~~~~~~~~~~~~~~~
+内置异常 ``Exception``
+~~~~~~~~~~~~~~~~~~~~~~
 
-``Exception``\ s are thrown when an unexpected condition has occurred. The
-built-in ``Exception``\ s listed below all interrupt the normal flow of control.
+如果程序遇到意外条件，异常将会被抛出。表中列出内置异常。
 
 +------------------------+
 | ``Exception``          |
@@ -374,19 +368,16 @@ built-in ``Exception``\ s listed below all interrupt the normal flow of control.
 | ``UndefRefError``      |
 +------------------------+
 
-For example, the ``sqrt`` function throws a ``DomainError()`` if applied to a
-negative real value::
+例如，当对负实数使用内置的 ``sqrt`` 函数时，将抛出 ``DomainError()`` ： ::
 
     julia> sqrt(-1)
     ERROR: DomainError()
      in sqrt at math.jl:117
 
-The ``throw`` function
-~~~~~~~~~~~~~~~~~~~~~~
+``throw`` 函数
+~~~~~~~~~~~~~~
 
-Exceptions can be created explicitly with ``throw``. For example, a function
-defined only for nonnegative numbers could be written to ``throw`` a ``DomainError``
-if the argument is negative. ::
+可以使用 ``throw`` 函数显式创建异常。例如，某个函数只对非负数做了定义，如果参数为负数，可以抛出 ``DomaineError`` 异常： ::
 
     julia> f(x) = x>=0 ? exp(-x) : throw(DomainError())
     # methods for generic function f
@@ -399,8 +390,7 @@ if the argument is negative. ::
     ERROR: DomainError()
      in f at none:1
 
-Note that ``DomainError`` without parentheses is not an exception, but a type of
-exception. It needs to be called to obtain an ``Exception`` object ::
+注意， ``DomainError`` 使用时需要使用带括号的形式，否则返回的并不是异常，而是异常的类型。必须带括号才能返回 ``Exception`` 对象： ::
 
     julia> typeof(DomainError()) <: Exception
     true
@@ -408,15 +398,12 @@ exception. It needs to be called to obtain an ``Exception`` object ::
     julia> typeof(DomainError) <: Exception
     false
 
-Errors
-~~~~~~
+``error`` 函数
+~~~~~~~~~~~~~~
 
-The ``error`` function is used to produce an ``ErrorException`` that
-interrupts the normal flow of control.
+``error`` 函数用来产生 ``ErrorException`` ，阻断程序的正常执行。
 
-Suppose we want to stop execution immediately if the square root of a
-negative number is taken. To do this, we can define a fussy version of
-the ``sqrt`` function that raises an error if its argument is negative::
+如下改写 ``sqrt`` 函数，当参数为负数时，提示错误，立即停止执行： ::
 
     fussy_sqrt(x) = x >= 0 ? sqrt(x) : error("negative x not allowed")
 
@@ -447,12 +434,10 @@ session::
     before fussy_sqrt
     negative x not allowed
 
-Warnings and informational messages
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``warn`` 和 ``info`` 函数
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Julia also provides other functions that write messages to the standard error
-I/O, but do not throw any ``Exception``\ s and hence do not interrupt
-execution.::
+Julia 还提供一些函数，用来向标准错误 I/O 输出一些消息，但不抛出异常，因而并不会打断程序的执行： ::
 
     julia> info("Hi"); 1+1
     MESSAGE: Hi
@@ -466,13 +451,10 @@ execution.::
     ERROR: Hi
      in error at error.jl:21
 
-The ``try/catch`` statement
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``try/catch`` 语句
+~~~~~~~~~~~~~~~~~~
 
-The ``try/catch`` statement allows for ``Exception``\ s to be tested for. For
-example, a customized square root function can be written to automatically
-call either the real or complex square root method on demand using
-``Exception``\ s ::
+``try/catch`` 语句可以用于处理一部分预料中的异常 ``Exception`` 。例如，下面求平方根函数可以正确处理实数或者复数 ::
 
     julia> f(x) = try
              sqrt(x)
@@ -488,14 +470,9 @@ call either the real or complex square root method on demand using
     julia> f(-1)
     0.0 + 1.0im
 
-It is important to note that in real code computing this function, one would
-compare ``x`` to zero instead of catching an exception. The exception is much
-slower than simply comparing and branching.
+但是处理异常比正常采用分支来处理，会慢得多。
 
-``try/catch`` statements also allow the ``Exception`` to be saved in a
-variable. In this contrived example, the following example calculates the
-square root of the second element of ``x`` if ``x`` is indexable, otherwise
-assumes ``x`` is a real number and returns its square root::
+``try/catch`` 语句使用时也可以把异常赋值给某个变量。例如： ::
 
     julia> sqrt_second(x) = try
              sqrt(x[2])
@@ -524,24 +501,14 @@ assumes ``x`` is a real number and returns its square root::
      in sqrt at math.jl:117
      in sqrt_second at none:7
      
-The power of the ``try/catch`` construct lies in the ability to unwind a deeply
-nested computation immediately to a much higher level in the stack of calling
-functions. There are situations where no error has occurred, but the ability to
-unwind the stack and pass a value to a higher level is desirable. Julia
-provides the ``rethrow``, ``backtrace`` and ``catch_backtrace`` functions for
-more advanced error handling.
+Julia 还提供了更高级的异常处理函数 ``rethrow`` ， ``backtrace`` 和 ``catch_backtrace`` 。
 
-finally Clauses
-~~~~~~~~~~~~~~~
+finally 语句
+~~~~~~~~~~~~
 
-In code that performs state changes or uses resources like files, there is
-typically clean-up work (such as closing files) that needs to be done when the
-code is finished. Exceptions potentially complicate this task, since they can
-cause a block of code to exit before reaching its normal end. The ``finally``
-keyword provides a way to run some code when a given block of code exits,
-regardless of how it exits.
+在改变状态或者使用文件等资源时，通常需要在操作执行完成时做清理工作（比如关闭文件）。异常的存在使得这样的任务变得复杂，因为异常会导致程序提前退出。关键字 ``finally`` 可以解决这样的问题，无论程序是怎样退出的， ``finally`` 语句总是会被执行。
 
-For example, here is how we can guarantee that an opened file is closed::
+例如, 下面的程序说明了怎样保证打开的文件总是会被关闭： ::
 
     f = open("file")
     try
@@ -550,48 +517,21 @@ For example, here is how we can guarantee that an opened file is closed::
         close(f)
     end
 
-When control leaves the ``try`` block (for example due to a ``return``, or
-just finishing normally), ``close(f)`` will be executed. If
-the ``try`` block exits due to an exception, the exception will continue
-propagating. A ``catch`` block may be combined with ``try`` and ``finally``
-as well. In this case the ``finally`` block will run after ``catch`` has
-handled the error.
+当程序执行完 ``try`` 语句块（例如因为执行到 ``return`` 语句，或者只是正常完成）， ``close`` 语句将会被执行。如果 ``try`` 语句块因为异常提前退出，异常将会继续传播。 ``catch`` 语句可以和 ``try`` ， ``finally`` 一起使用。这时。 ``finally`` 语句将会在 ``catch`` 处理完异常之后执行。
 
 .. _man-tasks:
 
-Tasks (aka Coroutines)
-----------------------
+任务（也称为协程）
+------------------
 
-Tasks are a control flow feature that allows computations to be
-suspended and resumed in a flexible manner. This feature is sometimes
-called by other names, such as symmetric coroutines, lightweight
-threads, cooperative multitasking, or one-shot continuations.
+任务是一种允许计算灵活地挂起和恢复的控制流，有时也被称为对称协程、轻量级线程、协同多任务等。
 
-When a piece of computing work (in practice, executing a particular
-function) is designated as a ``Task``, it becomes possible to interrupt
-it by switching to another ``Task``. The original ``Task`` can later be
-resumed, at which point it will pick up right where it left off. At
-first, this may seem similar to a function call. However there are two
-key differences. First, switching tasks does not use any space, so any
-number of task switches can occur without consuming the call stack.
-Second, switching among tasks can occur in any order, unlike function calls,
-where the called function must finish executing before control returns
-to the calling function.
+如果一个计算（比如运行一个函数）被设计为 ``Task`` ，有可能因为切换到其它 ``Task`` 而被中断。原先的 ``Task`` 在以后恢复时，会从原先中断的地方继续工作。切换任务不需要任何空间，同时可以有任意数量的任务切换，而不需要考虑堆栈问题。任务切换与函数调用不同，可以按照任何顺序来进行。
 
-This kind of control flow can make it much easier to solve certain
-problems. In some problems, the various pieces of required work are not
-naturally related by function calls; there is no obvious "caller" or
-"callee" among the jobs that need to be done. An example is the
-producer-consumer problem, where one complex procedure is generating
-values and another complex procedure is consuming them. The consumer
-cannot simply call a producer function to get a value, because the
-producer may have more values to generate and so might not yet be ready
-to return. With tasks, the producer and consumer can both run as long as
-they need to, passing values back and forth as necessary.
+任务比较适合生产者-消费者模式，一个过程用来生产值，另一个用来消费值。消费者不能简单的调用生产者来得到值，因为两者的执行时间不一定协同。在任务中，两者则可以
+正常运行。
 
-Julia provides the functions ``produce`` and ``consume`` for solving
-this problem. A producer is a function that calls ``produce`` on each
-value it needs to produce::
+Julia 提供了 ``produce`` 和 ``consume`` 函数来解决这个问题。生产者调用 ``produce`` 函数来生产值： ::
 
     function producer()
       produce("start")
@@ -601,8 +541,7 @@ value it needs to produce::
       produce("stop")
     end
 
-To consume values, first the producer is wrapped in a ``Task``, then
-``consume`` is called repeatedly on that object::
+要消费生产的值，先对生产者调用 ``Task`` 函数，然后对返回的对象重复调用 ``consume`` ： ::
 
     julia> p = Task(producer)
     Task
@@ -625,12 +564,7 @@ To consume values, first the producer is wrapped in a ``Task``, then
     julia> consume(p)
     "stop"
 
-One way to think of this behavior is that ``producer`` was able to
-return multiple times. Between calls to ``produce``, the producer's
-execution is suspended and the consumer has control.
-
-A Task can be used as an iterable object in a ``for`` loop, in which
-case the loop variable takes on all the produced values::
+可以在 ``for`` 循环中迭代任务，生产的值被赋值给循环变量： ::
 
     julia> for x in Task(producer)
              println(x)
@@ -642,20 +576,14 @@ case the loop variable takes on all the produced values::
     8
     stop
 
-Note that the ``Task()`` constructor expects a 0-argument function. A
-common pattern is for the producer to be parameterized, in which case a
-partial function application is needed to create a 0-argument :ref:`anonymous
-function <man-anonymous-functions>`. This can be done either
-directly or by use of a convenience macro::
+注意 ``Task()`` 函数的参数，应为零参函数。生产者常常是参数化的，因此需要为其构造零参 :ref:`匿名函数 <man-anonymous-functions>` 。可以直接写，也可以调用宏： ::
 
     function mytask(myarg)
         ...
     end
 
     taskHdl = Task(() -> mytask(7))
-    # or, equivalently
+    # 也可以写成
     taskHdl = @task mytask(7)
 
-``produce`` and ``consume`` are intended for multitasking, and do not
-launch threads that can run on separate CPUs. True kernel threads are
-discussed under the topic of :ref:`man-parallel-computing`.
+``produce`` 和 ``consume`` 适用于多任务，但它并不在不同的 CPU 发起线程。我们将在:ref:`man-parallel-computing` 中，讨论真正的内核线程。

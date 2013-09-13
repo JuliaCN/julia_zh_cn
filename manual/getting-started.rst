@@ -73,6 +73,7 @@ Julia 的安装，不管是使用编译好的程序，还是自己从源代码�
      --no-history             Don't load or save history
      -f --no-startup          Don't load ~/.juliarc.jl
      -F                       Load ~/.juliarc.jl, then handle remaining inputs
+	 --color=yes|no           Enable or disable color text
 
      -h --help                Print this message
 
