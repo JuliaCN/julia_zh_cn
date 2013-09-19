@@ -1439,6 +1439,10 @@ Network I/O
    Create a TcpServer on any port, using hint as a starting point. Returns a tuple of the actual port that the server
    was created on and the server itself. 
 
+.. function:: watch_file(cb=false, s; poll=false)
+
+   Watch file or directory ``s`` and run callback ``cb`` when ``s`` is modified. The ``poll`` parameter specifies whether to use file system event monitoring or polling. The callback function ``cb`` should accept 3 arguments: ``(filename, events, status)`` where ``filename`` is the name of file that was modified, ``events`` is an object with boolean fields ``changed`` and ``renamed`` when using file system event monitoring, or ``readable`` and ``writable`` when using polling, and ``status`` is always 0. Pass ``false`` for ``cb`` to not use a callback function.
+
 .. function:: poll_fd(fd, seconds::Real; readable=false, writable=false)
 
    Poll a file descriptor fd for changes in the read or write availability and with a timeout given by the second argument.
@@ -1759,13 +1763,36 @@ Memory-mapped I/O
 
    Create an ``Array`` whose values are linked to a file, using memory-mapping. This provides a convenient way of working with data too large to fit in the computer's memory.
 
-   The type determines how the bytes of the array are interpreted (no format conversions are possible), and dims is a tuple containing the size of the array.
+   The type determines how the bytes of the array are interpreted. Note that the file must be stored in binary format, and no format conversions are possible (this is a limitation of operating systems, not Julia).
+   
+   dims is a tuple specifying the size of the array.
 
-   The file is specified via the stream.  When you initialize the stream, use ``"r"`` for a "read-only" array, and ``"w+"`` to create a new array used to write values to disk. Optionally, you can specify an offset (in bytes) if, for example, you want to skip over a header in the file.
+   The file is passed via the stream argument.  When you initialize the stream, use ``"r"`` for a "read-only" array, and ``"w+"`` to create a new array used to write values to disk.
+   
+   Optionally, you can specify an offset (in bytes) if, for example, you want to skip over a header in the file. The default value for the offset is the current stream position.
 
-   **Example**:  ``A = mmap_array(Int64, (25,30000), s)``
+   **Example**::
+   
+       # Create a file for mmapping
+       # (you could alternatively use mmap_array to do this step, too)
+       A = rand(1:20, 5, 30)
+       s = open("/tmp/mmap.bin", "w+")
+       # We'll write the dimensions of the array as the first two Ints in the file
+       write(s, size(A,1))
+       write(s, size(A,2))
+       # Now write the data
+       write(s, A)
+       close(s)
+       
+       # Test by reading it back in
+       s = open("/tmp/mmap.bin")   # default is read-only
+       m = read(s, Int)
+       n = read(s, Int)
+       A2 = mmap_array(Int, (m,n), s)
 
-   This would create a 25-by-30000 ``Array{Int64}``, linked to the file associated with stream ``s``.
+   This would create a m-by-n ``Matrix{Int}``, linked to the file associated with stream ``s``.
+   
+   A more portable file would need to encode the word size---32 bit or 64 bit---and endianness information in the header. In practice, consider encoding binary data using standard formats like HDF5 (which can be used with memory-mapping).
 
 .. function:: mmap_bitarray([type,] dims, stream, [offset])
 
@@ -2341,19 +2368,19 @@ Mathematical Functions
 
 .. function:: log(x)
 
-   Compute the natural logarithm of ``x``
+   Compute the natural logarithm of ``x``. Throws ``DomainError`` for negative ``Real`` arguments. Use complex negative arguments instead.
 
 .. function:: log2(x)
 
-   Compute the natural logarithm of ``x`` to base 2
+   Compute the natural logarithm of ``x`` to base 2. Throws ``DomainError`` for negative ``Real`` arguments.
 
 .. function:: log10(x)
 
-   Compute the natural logarithm of ``x`` to base 10
+   Compute the natural logarithm of ``x`` to base 10. Throws ``DomainError`` for negative ``Real`` arguments.
 
 .. function:: log1p(x)
 
-   Accurate natural logarithm of ``1+x``
+   Accurate natural logarithm of ``1+x``.  Throws ``DomainError`` for ``Real`` arguments less than -1.
 
 .. function:: frexp(val, exp)
 
@@ -2459,7 +2486,7 @@ Mathematical Functions
 
 .. function:: sqrt(x)
 
-   Return :math:`\sqrt{x}`
+   Return :math:`\sqrt{x}`. Throws ``DomainError`` for negative ``Real`` arguments. Use complex negative arguments instead.
 
 .. function:: isqrt(x)
 
@@ -4250,7 +4277,13 @@ Distributed Arrays
 
 .. function:: DArray(init, dims, [procs, dist])
 
-   Construct a distributed array. ``init`` is a function that accepts a tuple of index ranges. This function should allocate a local chunk of the distributed array and initialize it for the specified indices. ``dims`` is the overall size of the distributed array. ``procs`` optionally specifies a vector of processor IDs to use. ``dist`` is an integer vector specifying how many chunks the distributed array should be divided into in each dimension.
+   Construct a distributed array. ``init`` is a function that accepts a tuple of index ranges. 
+   This function should allocate a local chunk of the distributed array and initialize it for the specified indices. 
+   ``dims`` is the overall size of the distributed array. ``procs`` optionally specifies a vector of processor IDs to use. 
+   If unspecified, the array is distributed over all worker processes only. Typically, when runnning in distributed mode,
+   i.e., ``nprocs() > 1``, this would mean that no chunk of the distributed array exists on the process hosting the 
+   interactive julia prompt.
+   ``dist`` is an integer vector specifying how many chunks the distributed array should be divided into in each dimension.
 
    For example, the ``dfill`` function that creates a distributed array and fills it with a value ``v`` is implemented as:
 
@@ -4282,11 +4315,12 @@ Distributed Arrays
 
 .. function:: localpart(d)
 
-   Get the local piece of a distributed array
+   Get the local piece of a distributed array. Returns an empty array if no local part exists on the calling process.
 
 .. function:: myindexes(d)
 
-   A tuple describing the indexes owned by the local processor
+   A tuple describing the indexes owned by the local processor. Returns a tuple with empty ranges 
+   if no local part exists on the calling process.
 
 .. function:: procs(d)
 

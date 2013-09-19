@@ -287,26 +287,26 @@ Julia 不只支持 UTF-8 ，增加其它编码的支持也很简单。有关 UTF
     julia> "1 + 2 = 3" == "1 + 2 = $(1 + 2)"
     true
 
-使用 ``strchr`` 函数查找某个字符的索引值： ::
+使用 ``search`` 函数查找某个字符的索引值： ::
 
-    julia> strchr("xylophone", 'x')
+    julia> search("xylophone", 'x')
     1
 
-    julia> strchr("xylophone", 'p')
+    julia> search("xylophone", 'p')
     5
 
-    julia> strchr("xylophone", 'z')
+    julia> search("xylophone", 'z')
     0
 
 可以通过提供第三个参数，从此偏移值开始查找： ::
 
-    julia> strchr("xylophone", 'o')
+    julia> search("xylophone", 'o')
     4
 
-    julia> strchr("xylophone", 'o', 5)
+    julia> search("xylophone", 'o', 5)
     7
 
-    julia> strchr("xylophone", 'o', 8)
+    julia> search("xylophone", 'o', 8)
     0
 
 另一个好用的处理字符串的函数 ``repeat`` ： ::
