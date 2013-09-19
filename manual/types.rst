@@ -1,69 +1,18 @@
 .. _man-types:
 
-*********
- Types    
-*********
+******
+ 类型
+******
 
-Type systems have traditionally fallen into two quite different camps:
-static type systems, where every program expression must have a type
-computable before the execution of the program, and dynamic type
-systems, where nothing is known about types until run time, when the
-actual values manipulated by the program are available. Object
-orientation allows some flexibility in statically typed languages by
-letting code be written without the precise types of values being known
-at compile time. The ability to write code that can operate on different
-types is called polymorphism. All code in classic dynamically typed
-languages is polymorphic: only by explicitly checking types, or when
-objects fail to support operations at run-time, are the types of any
-values ever restricted.
+Julia 中，如果类型被省略，则值可以是任意类型。添加类型会显著提高性能和系统稳定性。
 
-Julia's type system is dynamic, but gains some of the advantages of
-static type systems by making it possible to indicate that certain
-values are of specific types. This can be of great assistance in
-generating efficient code, but even more significantly, it allows method
-dispatch on the types of function arguments to be deeply integrated with
-the language. Method dispatch is explored in detail in
-:ref:`man-methods`, but is rooted in the type system presented
-here.
+Julia `类型系统 <http://zh.wikipedia.org/zh-cn/%E9%A1%9E%E5%9E%8B%E7%B3%BB%E7%B5%B1>`_ 的特性是，具体类型不能作为具体类型的子类型，所有的具体类型都是最终的，它们可以拥有抽象类型作为父类型。其它高级特性有：
 
-The default behavior in Julia when types are omitted is to allow values
-to be of any type. Thus, one can write many useful Julia programs
-without ever explicitly using types. When additional expressiveness is
-needed, however, it is easy to gradually introduce explicit type
-annotations into previously "untyped" code. Doing so will typically
-increase both the performance and robustness of these systems, and
-perhaps somewhat counterintuitively, often significantly simplify them.
+-  不区分对象和非对象值：Julia 中的所有值都是一个有类型的对象，这个类型属于一个单一、全连通类型图，图中的每个节点都是类型
+-  没有“编译时类型”：程序运行时仅有其实际类型，这在面向对象编程语言中被称为“运行时类型”
+-  值有类型，变量没有类型——变量仅仅是绑定了值的名字而已
+-  抽象类型和具体类型都可以被其它类型和值（目前是整数和符号）参数化
 
-Describing Julia in the lingo of `type
-systems <http://en.wikipedia.org/wiki/Type_system>`_, it is: dynamic,
-nominative, parametric and dependent. Generic types can be parameterized,
-and the hierarchical relationships
-between types are explicitly declared, rather than implied by compatible
-structure. One particularly distinctive feature of Julia's type system
-is that concrete types may not subtype each other: all concrete types
-are final and may only have abstract types as their supertypes. While
-this might at first seem unduly restrictive, it has many beneficial
-consequences with surprisingly few drawbacks. It turns out that being
-able to inherit behavior is much more important than being able to
-inherit structure, and inheriting both causes significant difficulties
-in traditional object-oriented languages. Other high-level aspects of
-Julia's type system that should be mentioned up front are:
-
--  There is no division between object and non-object values: all values
-   in Julia are true objects having a type that belongs to a single,
-   fully connected type graph, all nodes of which are equally
-   first-class as types.
--  There is no meaningful concept of a "compile-time type": the only
-   type a value has is its actual type when the program is running. This
-   is called a "run-time type" in object-oriented languages where the
-   combination of static compilation with polymorphism makes this
-   distinction significant.
--  Only values, not variables, have types — variables are simply names
-   bound to values.
--  Both abstract and concrete types can be paramaterized by other types
-   and by certain other values (currently integers and symbols).
-   Type parameters may be completely omitted when they
-   do not need to be referenced or restricted.
 
 Julia's type system is designed to be powerful and expressive, yet
 clear, intuitive and unobtrusive. Many Julia programmers may never feel
@@ -71,27 +20,15 @@ the need to write code that explicitly uses types. Some kinds of
 programming, however, become clearer, simpler, faster and more robust
 with declared types.
 
-Type Declarations
------------------
+类型声明
+--------
 
-The ``::`` operator can be used to attach type annotations to
-expressions and variables in programs. There are two primary reasons to
-do this:
+``::`` 运算符可以用来在程序中给表达式和变量附加类型注释。这样做有两个理由：
 
-1. As an assertion to help confirm that your program works the way you
-   expect,
-2. To provide extra type information to the compiler, which can then
-   improve performance in some cases
+1. 作为断言，帮助确认程序是否正常运行
+2. 给编译器提供额外类型信息，帮助提升性能
 
-The ``::`` operator is read as "is an instance of" and can be used
-anywhere to assert that the value of the expression on the left is an
-instance of the type on the right. When the type on the right is
-concrete, the value on the left must have that type as its
-implementation — recall that all concrete types are final, so no
-implementation is a subtype of any other. When the type is abstract, it
-suffices for the value to be implemented by a concrete type that is a
-subtype of the abstract type. If the type assertion is not true, an
-exception is thrown, otherwise, the left-hand value is returned::
+``::`` 运算符读作“前者是后者的实例”，它用来断言左侧表达式是否为右侧表达式的实例。如果右侧是具体类型，此类型应该是左侧的实例。如果右侧是抽象类型，左侧应是一个具体类型的实例的值，该具体类型是这个抽象类型的子类型。如果类型断言为假，将抛出异常，否则，返回左值::
 
     julia> (1+2)::FloatingPoint
     ERROR: type: typeassert: expected FloatingPoint, got Int64
@@ -99,13 +36,9 @@ exception is thrown, otherwise, the left-hand value is returned::
     julia> (1+2)::Int
     3
 
-This allows a type assertion to be attached to any expression in-place.
+可以在任何表达式的所在位置做类型断言。
 
-When attached to a variable, the ``::`` operator means something a bit
-different: it declares the variable to always have the specified type,
-like a type declaration in a statically-typed language such as C. Every
-value assigned to the variable will be converted to the declared type
-using the ``convert`` function::
+``::`` 运算符跟在变量名后时，它声明变量应该是某个类型，有点儿类似于 C 等静态语言中的类型声明。赋给这个变量的值会被 ``convert`` 函数转换为所声明的类型： ::
 
     julia> function foo()
              x::Int8 = 1000
@@ -118,20 +51,15 @@ using the ``convert`` function::
     julia> typeof(ans)
     Int8
 
-This feature is useful for avoiding performance "gotchas" that could
-occur if one of the assignments to a variable changed its type
-unexpectedly.
+这个特性用于避免性能陷阱，即给一个变量赋值时意外更改了类型。
 
-The "declaration" behavior only occurs in specific contexts::
+“声明”仅发生在特定的上下文中： ::
 
     x::Int8        # a variable by itself
     local x::Int8  # in a local declaration
     x::Int8 = 10   # as the left-hand side of an assignment
 
-In value contexts, such as ``f(x::Int8)``, the ``::`` is a type
-assertion again and not a declaration. Note that these declarations
-cannot be used in global scope currently, in the REPL, since Julia
-does not yet have constant-type globals.
+在值的上下文，如 ``f(x::Int8)`` 中， ``::`` 是类型断言而不是声明。现在还不能在全局作用域或 REPL 中做这种声明，因为 Julia 现在还没有常量类型的全局变量。
 
 .. _man-abstract-types:
 
