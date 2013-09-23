@@ -63,55 +63,21 @@ with declared types.
 
 .. _man-abstract-types:
 
-Abstract Types
---------------
+抽象类型
+--------
 
-Abstract types cannot be instantiated, and serve only as nodes in the
-type graph, thereby describing sets of related concrete types: those
-concrete types which are their descendants. We begin with abstract types
-even though they have no instantiation because they are the backbone of
-the type system: they form the conceptual hierarchy which makes Julia's
-type system more than just a collection of object implementations.
+抽象类型不能被实例化，它组织了类型等级关系，方便程序员编程。如，编程时可针对任意整数类型，而不需指明是哪种具体的整数类型。
 
-Recall that in :ref:`man-integers-and-floating-point-numbers`, we introduced a
-variety of concrete types of numeric values: ``Int8``, ``Uint8``,
-``Int16``, ``Uint16``, ``Int32``, ``Uint32``, ``Int64``, ``Uint64``,
-``Float32``, and ``Float64``. Although they have different
-representation sizes, ``Int8``, ``Int16``, ``Int32`` and ``Int64`` all
-have in common that they are signed integer types. Likewise ``Uint8``,
-``Uint16``, ``Uint32`` and ``Uint64`` are all unsigned integer types,
-while ``Float32`` and ``Float64`` are distinct in being floating-point
-types rather than integers. It is common for a piece of code to make
-sense, for example, only if its arguments are some kind of integer, but
-not really depend on what particular *kind* of integer.
-For example, the greatest common denominator algorithm works for all
-kinds of integers, but will not work for floating-point numbers.
-Abstract types allow the construction of a hierarchy of types,
-providing a context into which concrete types can fit. This allows you,
-for example, to easily program to any type that is an integer, without
-restricting an algorithm to a specific type of integer.
-
-Abstract types are declared using the ``abstract`` keyword. The general
-syntaxes for declaring an abstract type are::
+使用 ``abstract`` 关键字声明抽象类型： ::
 
     abstract «name»
     abstract «name» <: «supertype»
 
-The ``abstract`` keyword introduces a new abstract type, whose name is
-given by ``«name»``. This name can be optionally followed by ``<:`` and
-an already-existing type, indicating that the newly declared abstract
-type is a subtype of this "parent" type.
+``abstract`` 关键字引入了新的抽象类型，类型名为 ``«name»`` 。类型名后可跟 ``<:`` 及已存在的类型，表明新声明的抽象类型是这个“父”类型的子类型。
 
-When no supertype is given, the default supertype is ``Any`` — a
-predefined abstract type that all objects are instances of and all types
-are subtypes of. In type theory, ``Any`` is commonly called "top"
-because it is at the apex of the type graph. Julia also has a predefined
-abstract "bottom" type, at the nadir of the type graph, which is called
-``None``. It is the exact opposite of ``Any``: no object is an instance
-of ``None`` and all types are supertypes of ``None``.
+如果没有指明父类型，则父类型默认为 ``Any`` ——所有对象和类型都是这个抽象类型的子类型。在类型理论中， ``Any`` 位于类型图的顶峰，被称为“顶”。Julia 也有预定义的抽象“底”类型，它位于类型图的最底处，被称为 ``None`` 。 ``None``与 ``Any`` 对立：任何对象都不是 ``None`` 的实例，所有的类型都是 ``None`` 的父类型。
 
-Let's consider some of the abstract types that make up Julia's numerical
-hierarchy::
+下面是构造 Julia 数值体系的抽象类型子集的具体例子： ::
 
     abstract Number
     abstract Real     <: Number
@@ -120,22 +86,7 @@ hierarchy::
     abstract Signed   <: Integer
     abstract Unsigned <: Integer
 
-The ``Number`` type is a direct child type of ``Any``, and ``Real`` is
-its child. In turn, ``Real`` has two children (it has more, but only two
-are shown here; we'll get to the others later): ``Integer`` and
-``FloatingPoint``, separating the world into representations of integers and
-representations of real numbers. Representations of real numbers
-include, of course, floating-point types, but also include other types,
-such as rationals. Hence, ``FloatingPoint`` is a proper subtype of
-``Real``, including only floating-point representations of real numbers.
-Integers are further subdivided into ``Signed`` and ``Unsigned``
-varieties.
-
-The ``<:`` operator in general means "is a subtype of", and, used in
-declarations like this, declares the right-hand type to be an immediate
-supertype of the newly declared type. It can also be used in expressions
-as a subtype operator which returns ``true`` when its left operand is a
-subtype of its right operand::
+``<:`` 运算符意思为“前者是后者的子类型”，它声明右侧是左侧新声明类型的直接父类型。也可以用来判断左侧是不是右侧的子类型： ::
 
     julia> Integer <: Number
     true
@@ -143,19 +94,11 @@ subtype of its right operand::
     julia> Integer <: FloatingPoint
     false
 
-Since abstract types have no instantiations and serve as no more than
-nodes in the type graph, there is not much more to say about them until
-we introduce parametric abstract types later on in `Parametric
-Types <#man-parametric-types>`_.
 
-Bits Types
-----------
+位类型
+------
 
-A bits type is a concrete type whose data consists of plain old bits.
-Classic examples of bits types are integers and floating-point values.
-Unlike most languages, Julia lets you declare your own bits types,
-rather than providing only a fixed set of built-in bits types. In fact,
-the standard bits types are all defined in the language itself::
+位类型是具体类型，它的数据是由位构成的。整数和浮点数都是位类型。标准的位类型是用 Julia 语言本身定义的： ::
 
     bitstype 32 Float32 <: FloatingPoint
     bitstype 64 Float64 <: FloatingPoint
@@ -172,33 +115,14 @@ the standard bits types are all defined in the language itself::
     bitstype 64 Int64  <: Signed
     bitstype 64 Uint64 <: Unsigned
 
-The general syntaxes for declaration of a ``bitstype`` are::
+声明位类型的通用语法是： ::
 
     bitstype «bits» «name»
     bitstype «bits» «name» <: «supertype»
 
-The number of bits indicates how much storage the type requires and the
-name gives the new type a name. A bits type can optionally be declared
-to be a subtype of some supertype. If a supertype is omitted, then the
-type defaults to having ``Any`` as its immediate supertype. The
-declaration of ``Bool`` above therefore means that a boolean value takes
-eight bits to store, and has ``Integer`` as its immediate supertype.
-Currently, only sizes that are multiples of 8 bits are supported.
-Therefore, boolean values, although they really need just a single bit,
-cannot be declared to be any smaller than eight bits.
+``«bits»`` 表明类型需要多少空间来存储，``«name»`` 为新类型的名字。目前，位类型的声明的位数只支持 8 的倍数，因此布尔类型也是 8 位的。
 
-The types ``Bool``, ``Int8`` and ``Uint8`` all have identical
-representations: they are eight-bit chunks of memory. Since Julia's type
-system is nominative, however, they are not interchangeable despite
-having identical structure. Another fundamental difference between them
-is that they have different supertypes: ``Bool``'s direct supertype is
-``Integer``, ``Int8``'s is ``Signed``, and ``Uint8``'s is ``Unsigned``.
-All other differences between ``Bool``, ``Int8``, and ``Uint8`` are
-matters of behavior — the way functions are defined to act when given
-objects of these types as arguments. This is why a nominative type
-system is necessary: if structure determined type, which in turn
-dictates behavior, then it would be impossible to make ``Bool`` behave any
-differently than ``Int8`` or ``Uint8``.
+``Bool``, ``Int8`` 及 ``Uint8`` 类型的声明是完全相同的，都占用了 8 位内存，但它们是互相独立的。
 
 .. _man-composite-types:
 

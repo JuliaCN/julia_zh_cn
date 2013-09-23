@@ -373,7 +373,7 @@ Julia 中，稀疏矩阵使用 `列压缩（CSC）格式 <http://en.wikipedia.or
 
     julia> I = [1, 4, 3, 5]; J = [4, 7, 18, 9]; V = [1, 2, -5, 3];
 
-    julia> sparse(I,J,V)
+    julia> S = sparse(I,J,V)
     5x18 sparse matrix with 4 nonzeros:
          [1 ,  4]  =  1
          [4 ,  7]  =  2
@@ -387,7 +387,7 @@ Julia 中，稀疏矩阵使用 `列压缩（CSC）格式 <http://en.wikipedia.or
     julia> findn(S)
     ([1, 4, 5, 3],[4, 7, 9, 18])
 
-    julia> findn_nzs(S)
+    julia> findnz(S)
     ([1, 4, 5, 3],[4, 7, 9, 18],[1, 2, 3, -5])
 
 另一个构造稀疏矩阵的方法是，使用 ``sparse`` 函数将稠密矩阵转换为稀疏矩阵：

@@ -45,6 +45,13 @@ Julia 的安装，不管是使用编译好的程序，还是自己从源代码�
     foo
     bar
 
+Julia can be started in parallel mode with either the ``-p`` or the 
+``--machinefile`` options. ``-p n`` will launch an additional ``n`` 
+worker processes, while ``--machinefile file`` will launch a worker 
+for each line in file ``file``. The machines defined in ``file`` must be 
+accessible via ``ssh`` and each machine definition takes the form 
+``[user@]host[:port]``
+	
 如果你想让 Julia 在启动时运行一些代码，可以将代码放入 ``~\.juliarc.jl``::
 
     $ echo 'println("Greetings! 你好! 안녕하세요?")' > ~/.juliarc.jl

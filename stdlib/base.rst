@@ -533,11 +533,12 @@ Iterable Collections
 
 .. function:: first(coll)
 
-   Get the first element of an ordered collection.
+   Get the first element of an iterable collection.
 
 .. function:: last(coll)
 
-   Get the last element of an ordered collection.
+   Get the last element of an ordered collection, if it can be computed in O(1) time.
+   This is accomplished by calling ``endof`` to get the last index.
 
 .. function:: step(r)
 
@@ -1446,9 +1447,10 @@ Network I/O
 .. function:: poll_fd(fd, seconds::Real; readable=false, writable=false)
 
    Poll a file descriptor fd for changes in the read or write availability and with a timeout given by the second argument.
-   If the timeout is not needed, use `wait(fd)` instead. The keyword arguments determine which of read and/or write status
-   should be monitored and at least one of them needs to be set to true. The return code is 0 on timeout and an OR'd bitfield
-   of UV_READABLE and UV_WRITABLE otherwise, indicating which event was triggered. 
+   If the timeout is not needed, use ``wait(fd)`` instead. The keyword arguments determine which of read and/or write status
+   should be monitored and at least one of them needs to be set to true.
+   The returned value is an object with boolean fields ``readable``, ``writable``, and
+   ``timedout``, giving the result of the polling.
 
 .. function:: poll_file(s, interval_seconds::Real, seconds::Real)
    
@@ -2372,11 +2374,11 @@ Mathematical Functions
 
 .. function:: log2(x)
 
-   Compute the natural logarithm of ``x`` to base 2. Throws ``DomainError`` for negative ``Real`` arguments.
+   Compute the logarithm of ``x`` to base 2. Throws ``DomainError`` for negative ``Real`` arguments.
 
 .. function:: log10(x)
 
-   Compute the natural logarithm of ``x`` to base 10. Throws ``DomainError`` for negative ``Real`` arguments.
+   Compute the logarithm of ``x`` to base 10. Throws ``DomainError`` for negative ``Real`` arguments.
 
 .. function:: log1p(x)
 
@@ -3338,7 +3340,10 @@ All mathematical operations and functions are supported for arrays
 
 .. function:: broadcast!(f, dest, As...)
 
-   Like ``broadcast``, but store the result in the ``dest`` array.
+   Like ``broadcast``, but store the result of ``broadcast(f, As...)`` in the ``dest`` array.
+   Note that ``dest`` is only used to store the result, and does not supply arguments to
+   ``f`` unless it is also listed in the ``As``, as in ``broadcast!(f, A, A, B)`` to perform
+   ``A[:] = broadcast(f, A, B)``.
 
 .. function:: broadcast_function(f)
 
@@ -4120,14 +4125,25 @@ some built-in integration support in Julia.
 Parallel Computing
 ------------------
 
-.. function:: addprocs(n) -> List of process identifiers
+.. function:: addprocs(n; cman::ClusterManager=LocalManager()) -> List of process identifiers
 
-   Add processes on the local machine. Can be used to take advantage of multiple cores.
+   ``addprocs(4)`` will add 4 processes on the local machine. This can be used to take 
+   advantage of multiple cores.
+   
+   Keyword argument ``cman`` can be used to provide a custom cluster manager to start workers. 
+   For example Beowulf clusters are  supported via a custom cluster manager implemented 
+   in  package ``ClusterManagers``.
+   
+   See the documentation for package ``ClusterManagers`` for more information on how to 
+   write a custom cluster manager.
 
-.. function:: addprocs({"host1","host2",...}; tunnel=false, dir=JULIA_HOME, sshflags::Cmd=``, cman::ClusterManager) -> List of process identifiers
+.. function:: addprocs(machines; tunnel=false, dir=JULIA_HOME, sshflags::Cmd=``) -> List of process identifiers
 
-   Add processes on remote machines via SSH or a custom cluster manager. 
+   Add processes on remote machines via SSH. 
    Requires julia to be installed in the same location on each node, or to be available via a shared file system.
+   
+   ``machines`` is a vector of host definitions of the form ``[user@]host[:port]``. A worker is started
+   for each such definition.
    
    Keyword arguments:
 
@@ -4137,13 +4153,6 @@ Parallel Computing
 
    ``sshflags`` : specifies additional ssh options, e.g. :literal:`sshflags=\`-i /home/foo/bar.pem\`` .
 
-   ``cman`` : Workers are started using the specified cluster manager. 
-
-   For example Beowulf clusters are  supported via a custom cluster manager implemented 
-   in  package ``ClusterManagers``.
-   
-   See the documentation for package ``ClusterManagers`` for more information on how to 
-   write a custom cluster manager.
    
 .. function:: nprocs()
 
