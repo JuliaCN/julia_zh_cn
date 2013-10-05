@@ -22,7 +22,7 @@ Julia 使用倒引号 ````` 来运行外部程序：
     julia> run(`echo hello`)
     hello
 
-``hello`` 是 ``echo`` 命令的输出，它被送到标准输出。 ``run`` 方法本身返回 ``Nothing`` 。如果外部命令没有正确运行，将抛出 ``ErrorException`` 异常。 
+``hello`` 是 ``echo`` 命令的输出，它被送到标准输出。 ``run`` 方法本身返回 ``nothing`` 。如果外部命令没有正确运行，将抛出 ``ErrorException`` 异常。 
 
 使用 ``readall`` 读取命令的输出： ::
 

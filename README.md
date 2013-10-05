@@ -1,6 +1,6 @@
 # Julia 中文文档说明
 
-这是 `Julia` 语言的中文文档，可以 [在线阅读](http://julia-zh-cn.readthedocs.org) 。
+这是 `Julia` 语言的中文文档，可以 [在线阅读](http://julia-zh-cn.readthedocs.org/en/latest/) 。
 
 欢迎大伙儿来修订文档。仅翻译的话，什么都不用安装，直接找到要修改的文件，点击 `Edit` ，编辑好后提交即可。对 git 熟悉的请使用 git 。
 
