@@ -329,7 +329,8 @@ Julia 内置了所有的标准三角函数和双曲函数 ::
     sin    cos    tan    cot    sec    csc
     sinh   cosh   tanh   coth   sech   csch
     asin   acos   atan   acot   asec   acsc
-    sinc   cosc   atan2  acoth  asech  acsch
+    asinh  acosh  atanh  acoth  asech  acsch
+    sinc   cosc   atan2
 
 除了 `atan2 <http://zh.wikipedia.org/zh-cn/Atan2>`_ 之外，都是单参数函数。 ``atan2`` 给出了 *x* 轴，与由 *x* 、 *y* 确定的点之间的 `弧度 <http://zh.wikipedia.org/zh-cn/%E5%BC%A7%E5%BA%A6>`_ 。
 
