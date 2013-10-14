@@ -43,8 +43,8 @@ while developing you might use a workflow something like this::
     ...
 
 
-Type declarations and constructors
-----------------------------------
+类型声明和构造方法
+------------------
 .. _man-abstract-fields:
 
 How do "abstract" or ambiguous fields in types interact with the compiler?
@@ -177,8 +177,8 @@ to try this yourself. Because the type is fully-specified in the first
 case, the compiler doesn't need to generate any code to resolve the
 type at run-time.  This results in shorter and faster code.
 
-How should I declare "abstract container type" fields?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+如何声明“抽象容器类型”的域
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The same best practices that apply in the `previous section
 <#man-abstract-fields>`_ also work for container types::

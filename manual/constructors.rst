@@ -71,9 +71,7 @@
 
 所有的外部构造方法，最终都会调用内部构造方法。
 
-Of course, if the type is declared as ``immutable``, then its
-constructor-provided invariants are fully enforced. This is an important
-consideration when deciding whether a type should be immutable.
+当然，如果类型被声明为 ``immutable`` ，它的构造函数的结构就不能变了。这对判断一个类型是否应该是 immutable 时很重要。
 
 如果定义了内部构造方法，Julia 将不再提供默认的构造方法。默认的构造方法等价于一个自定义内部构造方法，它将对象的所有域作为参数（如果对应域有类型，应为具体类型），传递给 ``new`` ，最后返回结果对象： ::
 
@@ -250,11 +248,6 @@ consideration when deciding whether a type should be immutable.
     julia> Point(1.0,1//2)
     Point(1.0,0.5)
 
-Thus, while the implicit type parameter constructors provided by default
-in Julia are fairly strict, it is possible to make them behave in a more
-relaxed but sensible manner quite easily. Moreover, since constructors
-can leverage all of the power of the type system, methods, and multiple
-dispatch, defining sophisticated behavior is typically quite simple.
 
 案例：分数
 ----------

@@ -43,17 +43,10 @@ Julia 中可以精炼地定义函数。上述传统的声明语法，等价于�
 
 ``apply`` 函数把第一个参数当做函数对象，应用在后面的参数上。
 
-Argument Passing Behavior
--------------------------
+参数传递行为
+------------
 
-Julia function arguments follow a convention sometimes called "pass-by-sharing",
-which means that values are not copied when they are passed to functions.
-Function arguments themselves act as new variable *bindings* (new locations that
-can refer to values), but the values they refer to are identical to the passed
-values. Modifications to mutable values (such as Arrays) made within a function
-will be visible to the caller. This is the same behavior found in Scheme, most
-Lisps, Python, Ruby and Perl, among other dynamic languages.
-
+Julia 函数的参数遵循 "pass-by-sharing" 的惯例，即不传递值，而是传递引用。函数参数本身，有点儿像新变量 *绑定* （引用值的新位置），但它们引用的值与传递的值完全相同。对可变值（如数组）的修改，会影响其它函数。
 .. _man-return-keyword:
 
 ``return`` 关键字
@@ -121,14 +114,13 @@ Julia 中，大多数运算符都是支持特定语法的函数。 ``&&`` 、 ``
 
 但是，这时 ``f`` 函数不支持中缀表达式。
 
-Operators With Special Names
-----------------------------
+特殊名字的运算符
+----------------
 
-A few special expressions correspond to calls to functions with non-obvious
-names. These are:
+有一些表达式调用特殊名字的运算符：
 
 =================== ==============
-Expression          Calls
+表达式              调用
 =================== ==============
 ``[A B C ...]``     ``hcat``
 ``[A, B, C, ...]``  ``vcat``
@@ -140,8 +132,7 @@ Expression          Calls
 ``A[i]=x``          ``setindex!``
 =================== ==============
 
-These functions are included in the ``Base.Operators`` module even
-though they do not have operator-like names.
+这些函数都存在于 ``Base.Operators`` 模块中。
 
 .. _man-anonymous-functions:
 

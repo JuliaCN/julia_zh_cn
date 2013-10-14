@@ -45,12 +45,7 @@ Julia 的安装，不管是使用编译好的程序，还是自己从源代码�
     foo
     bar
 
-Julia can be started in parallel mode with either the ``-p`` or the 
-``--machinefile`` options. ``-p n`` will launch an additional ``n`` 
-worker processes, while ``--machinefile file`` will launch a worker 
-for each line in file ``file``. The machines defined in ``file`` must be 
-accessible via ``ssh`` and each machine definition takes the form 
-``[user@]host[:port]``
+Julia 可以用 ``-p`` 或 ``--machinefile`` 选项来开启并行模式。 ``-p n`` 会发起额外的 ``n`` 个工作进程，而 ``--machinefile file`` 会为文件 ``file`` 的每一行发起一个工作进程。 ``file`` 定义的机器，必须要能经由 ``ssh`` 访问，且每个机器定义的格式为 ``[user@]host[:port]`` 。
 	
 如果你想让 Julia 在启动时运行一些代码，可以将代码放入 ``~\.juliarc.jl``::
 
@@ -155,6 +150,6 @@ Julia 也想成为数据分析和统计编程的高效语言。与 R 的区别�
 
 - 对数组、字符串等索引。Julia 索引的下标是从 1 开始，而不是从 0 开始
 - 索引列表和数组的最后一个元素时，Julia 使用 ``end`` ，Python 使用 -1
-- Comprehensions in Julia do not (yet) have the optional if clause found in Python.
-- For, if, while, etc. blocks in Julia are terminated by ``end``; indentation is not significant.
+- Julia 中的 Comprehensions （还）没有条件 if 语句
+- For, if, while, 等块的结尾需要 ``end`` ；不强制要求缩进排版
 - Julia 没有代码分行的语法：如果在一行的结尾，输入已经是个完整的表达式，就直接执行；否则就继续等待输入。强迫 Julia 的表达式分行的方法是用圆括号括起来

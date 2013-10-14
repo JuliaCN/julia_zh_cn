@@ -169,13 +169,10 @@ Julia 内置了高效的函数 ``iseven`` 和 ``isodd`` 来验证奇偶性。
 
 第一个例子，不能在同一个作用域中声明同名本地变量。第二个例子， ``let`` 引入了新作用域块，内层的本地变量 ``x`` 与外层的本地变量 ``x`` 不同。
 
-For Loops and Comprehensions
+For 循环及 Comprehensions
 ----------------------------
 
-For loops and comprehensions have a special additional behavior: any
-new variables introduced in their body scopes are freshly allocated for
-each loop iteration. Therefore these constructs are similar to ``while``
-loops with ``let`` blocks inside:
+For 循环及 Comprehensions 有特殊的行为：在其中声明的新变量，都会在每次循环中重新声明。因此，它有点儿类似于带有内部 ``let`` 块的 ``while`` 循环： ::
 
     Fs = cell(2)
     for i = 1:2
@@ -188,15 +185,14 @@ loops with ``let`` blocks inside:
     julia> Fs[2]()
     2
 
-``for`` loops will reuse existing variables for iteration:
+``for`` 循环会复用已存在的变量来迭代： ::
 
     i = 0
     for i = 1:3
     end
     i  # here equal to 3
 
-However, comprehensions do not do this, and always freshly allocate their
-iteration variables:
+但是, comprehensions 与之不同，它总是声明新变量： ::
 
     x = 0
     [ x for x=1:3 ]

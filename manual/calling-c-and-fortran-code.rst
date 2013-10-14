@@ -236,11 +236,7 @@ Julia 的 ``Char`` 类型是 32 位的，与所有平台的宽字符类型 (``wc
 
 只要构造了指向 Julia 数据的指针，就必须保证原始数据直至指针使用完之前一直存在。Julia 中的许多方法，如 ``unsafe_ref()`` 和 ``bytestring()`` ，都复制数据而不是控制缓冲区，因此可以安全释放（或修改）原始数据，不会影响到 Julia 。有一个例外需要注意，由于性能的原因， ``pointer_to_array()`` 会共享（或控制）底层缓冲区。
 
-The garbage collector does not guarantee any order of finalization. That is, if ``a`` 
-contained a reference to ``b`` and both ``a`` and ``b`` are due for garbage 
-collection, there is no guarantee that ``b`` would be finalized after ``a``. If
-proper finalization of ``a`` depends on ``b`` being valid, it must be handled in 
-other ways.
+垃圾回收并不能保证回收的顺序。例如，当 ``a`` 包含对 ``b`` 的引用，且两者都要被垃圾回收时，不能保证 ``b`` 在 ``a`` 之后被回收。这需要用其它方式来处理。
 
 非常量函数说明
 --------------
@@ -347,18 +343,13 @@ C++
 处理不同平台
 ------------
 
-When dealing with platform libraries, it is often necessary to provide special cases
-for various platforms. The variable ``OS_NAME`` can be used to write these special
-cases. Additionally, there are several macros intended to make this easier:
-``@windows``, ``@unix``, ``@linux``, and ``@osx``. Note that linux and osx are mutually 
-exclusive subsets of unix. Their usage takes the form of a ternary conditional
-operator, as demonstrated in the following examples.
+当处理不同的平台库的时候，经常要针对特殊平台提供特殊函数。这时常用到变量 ``OS_NAME`` 。此外，还有一些常用的宏： ``@windows``, ``@unix``, ``@linux``, 及 ``@osx`` 。注意， linux 和 osx 是 unix 的不相交的子集。宏的用法类似于三元条件运算符。
 
-Simple blocks::
+简单的调用： ::
 
     ccall( (@windows? :_fopen : :fopen), ...)
 
-Complex blocks::
+复杂的调用： ::
 
     @linux? (
              begin
@@ -369,6 +360,6 @@ Complex blocks::
              end
            )
 
-Chaining (parentheses optional, but recommended for readability)::
+链式调用（圆括号可以省略，但为了可读性，最好加上）： ::
 
     @windows? :a : (@osx? :b : :c)

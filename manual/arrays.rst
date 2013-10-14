@@ -32,10 +32,6 @@
 构造和初始化
 ------------
 
-Many functions for constructing and initializing arrays are provided. In
-the following list of such functions, calls with a ``dims...`` argument
-can either take a single tuple of dimension sizes or a series of
-dimension sizes passed as a variable number of arguments.
 下列函数中调用的 ``dims...`` 参数，既可以是维度的单多元组，也可以是维度作为可变参数时的一组值。
 
 ===================================== =====================================================================
@@ -180,8 +176,6 @@ X 的维度为 ``(length(I_1), length(I_2), ..., length(I_n))`` ，且 A 在 ``(
 连接
 ----
 
-Arrays can be concatenated along any dimension using the following
-functions:
 使用下列函数，可在任意维度连接数组：
 
 ================ ======================================================
@@ -280,7 +274,7 @@ Broadcasting
      1.31849  1.44364
      1.56107  1.68622
 
-Elementwise operators such as ``.+`` and ``.*`` perform broadcasting if necessary. There is also a ``broadcast!`` function to specify an explicit destination, and ``broadcast_getindex`` and ``broadcast_setindex!`` that broadcast the indices before indexing.
+逐元素的运算符，如 ``.+`` 和 ``.*`` 将会在必要时进行 broadcasting 。还提供了 ``broadcast!`` 函数，可以明确指明目的，而 ``broadcast_getindex`` 和 ``broadcast_setindex!`` 函数可以在索引前对索引值做 broadcast 。
 
 实现
 ----

@@ -413,10 +413,7 @@ Julia 提供一系列控制流：
     julia> fussy_sqrt(-1)
     negative x not allowed
 
-If ``fussy_sqrt`` is called with a negative value from another function,
-instead of trying to continue execution of the calling function, it
-returns immediately, displaying the error message in the interactive
-session::
+当对负数调用 ``fussy_sqrt`` 时，它会立即返回，显示错误信息： ::
 
     function verbose_fussy_sqrt(x)
       println("before fussy_sqrt")

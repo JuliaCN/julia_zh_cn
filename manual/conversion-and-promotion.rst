@@ -47,12 +47,6 @@ Julia 不做字符串和数字之间的类型转换。
 
     convert(::Type{Bool}, x::Number) = (x!=0)
 
-The type of the first argument of this method is a :ref:`singleton
-type <man-singleton-types>`, ``Type{Bool}``, the only instance of
-which is ``Bool``. Thus, this method is only invoked when the first
-argument is the type value ``Bool``. When invoked, the method determines
-whether a numeric value is true or false as a boolean, by comparing it
-to zero::
 此方法第一个参数的类型是 :ref:`单态类型 <man-singleton-types>` ， ``Bool`` 是 ``Type{Bool}`` 的唯一实例。此方法仅在第一个参数是 ``Bool`` 才调用，转换时检查数值是否为 0 ： ::
 
     julia> convert(Bool, 1)

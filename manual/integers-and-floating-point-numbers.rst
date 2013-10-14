@@ -218,7 +218,7 @@ Julia 内部变量 ``WORD_SIZE`` 用以指示目标系统是 32 位还是 64 位
     julia> typeof(ans)
     Float32
 
-Hexadecimal floating-point literals are also valid, but only as ``Float64`` values::
+十六进制浮点数的类型，只能为 ``Float64`` ： ::
 
     julia> 0x1p0
     1.0
@@ -232,8 +232,7 @@ Hexadecimal floating-point literals are also valid, but only as ``Float64`` valu
     julia> typeof(ans)
     Float64
 
-Half-precision floating-point numbers are also supported (``Float16``), but
-only as a storage format. In calculations they'll be converted to ``Float32``::
+Julia 也支持半精度浮点数(``Float16``) ，但只用来存储。计算时，它们被转换为 ``Float32`` ： ::
 
     julia> sizeof(float16(4.))
     2
@@ -376,11 +375,10 @@ Julia 提供了 ``eps`` 函数，可以用来检查 ``1.0`` 和下一个可表�
     julia> bits(nextfloat(x))
     "00111111101000000000000000000001"
 
-This example highlights the general principle that the adjacent representable
-floating-point numbers also have adjacent binary integer representations.
+此例显示了邻接的浮点数和它们的二进制整数的表示。
 
-Rounding modes
-~~~~~~~~~~~~~~
+舍入模型
+~~~~~~~~
 
 If a number doesn't have an exact floating-point representation, it must be
 rounded to an appropriate representable value, however, if wanted, the manner
@@ -396,9 +394,7 @@ presented in the `IEEE 754 标准 <http://en.wikipedia.org/wiki/IEEE_754-2008>`_
            end
     1.2
 
-The default mode used is always ``RoundNearest``, which rounds to the nearest
-representable value, with ties rounded towards the nearest value with an even
-least significant bit.
+默认舍入模型为 ``RoundNearest`` ，它舍入到最近的可表示的值，这个被舍入的值使用尽量少的有效数字。
 
 背景和参考资料
 ~~~~~~~~~~~~~~
@@ -456,9 +452,7 @@ least significant bit.
     julia> typeof(y)
     BigInt
 
-The default precision (in number of bits of the significand) and rounding
-mode of `BigFloat` operations can be changed, and all further calculations 
-will take these changes in account::
+`BigFloat` 运算的默认精度（有效数字的位数）和舍入模型，是可以改的。然后，计算就都按照更改之后的设置来运行了： ::
 
     julia> with_bigfloat_rounding(RoundUp) do
            BigFloat(1) + BigFloat("0.1")
@@ -474,7 +468,6 @@ will take these changes in account::
            BigFloat(1) + BigFloat("0.1")
            end
     1.0999999999985e+00 with 40 bits of precision
-
 
    
 .. _man-numeric-literal-coefficients:

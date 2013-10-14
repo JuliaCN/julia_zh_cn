@@ -72,13 +72,13 @@ for its package management.
 新建 Julia 扩展包
 ~~~~~~~~~~~~~~~~~
 
-Note: this documentation is out of date pending further development of version 2 of Julia's package management system – specifically its tools for package developers. For the time being, using Pkg1 (i.e. the first version of the package manager) tools for package development work.
+Note: this documentation is out of date pending further development of version 2 of Julia's package management system – specifically its tools for package developers.
 
 1. 请检查 :ref:`available-packages` 列表，确保你的扩展包不会和已有的扩展包重名。如果你的扩展包和已有的扩展包功能有不少重合，我们希望你和那个软   件包的维护者合作，一起改进。参见 :ref:`contrib-existing` 。
 
 2. 在 Julia 中初始化你的扩展包： ::
 
-    Pkg1.new("MY_PACKAGE_NAME")
+    Pkg.generate("MyPackageName", "MIT") # or change MIT to BSD
 
    它会在 ``$HOME/.julia/MY_PACKAGE_NAME`` 中初始化一个新扩展包的框架。
 
