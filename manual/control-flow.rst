@@ -583,4 +583,4 @@ Julia 提供了 ``produce`` 和 ``consume`` 函数来解决这个问题。生产
     # 也可以写成
     taskHdl = @task mytask(7)
 
-``produce`` 和 ``consume`` 适用于多任务，但它并不在不同的 CPU 发起线程。我们将在:ref:`man-parallel-computing` 中，讨论真正的内核线程。
+``produce`` 和 ``consume`` 适用于多任务，但它并不在不同的 CPU 发起线程。我们将在 :ref:`man-parallel-computing` 中，讨论真正的内核线程。

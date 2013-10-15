@@ -132,7 +132,6 @@ Julia 提供复数和分数类型，并对其支持所有的 :ref:`标准数学�
     julia> complex(a,b)
     1 + 2im
 
-This construction avoids the multiplication and addition operations.
 这种构造方式避免了乘法和加法操作。
 
 ``Inf`` 和 ``NaN`` 也可以参与构造复数 (参考 :ref:`man-special-floats` 部分)： ::
