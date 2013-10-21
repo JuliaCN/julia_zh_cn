@@ -55,3 +55,16 @@
             \DeclareUnicodeCharacter{27FA}{\ensuremath{\Longleftrightarrow}}
 
 语句删去，替换为 `\usepackage[adobefonts]{ctex}` 并保存（使用选项 `adobefonts` 需要在系统中安装 Adobe 的四个简体中文字体，也可使用 ctex 宏包的相应命令自定义中文字体，ctex 宏包说明可以在终端使用命令 `texdoc ctex` 查看）。然后在此目录下执行 `xelatex JuliaLanguage.tex` 两次即可生成中文 PDF 文档。编译过程如果遇到警告，使用回车跳过即可。
+
+
+## to do
+./manual/
+        types.rst
+        metaprogramming.rst
+        networking-and-streams.rst
+        parallel-computing.rst
+        calling-c-and-fortran-code.rst
+        packages.rst
+        performance-tips.rst
+        style-guide.rst
+        faq.rst

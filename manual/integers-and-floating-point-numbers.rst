@@ -380,10 +380,7 @@ Julia 提供了 ``eps`` 函数，可以用来检查 ``1.0`` 和下一个可表�
 舍入模型
 ~~~~~~~~
 
-If a number doesn't have an exact floating-point representation, it must be
-rounded to an appropriate representable value, however, if wanted, the manner
-in which this rounding is done can be changed according to the rounding modes
-presented in the `IEEE 754 标准 <http://en.wikipedia.org/wiki/IEEE_754-2008>`_::
+如果一个数没有精确的浮点数表示，那就需要舍入了。可以根据 `IEEE 754 标准 <http://en.wikipedia.org/wiki/IEEE_754-2008>`_ 来更改舍入的模型： ::
     
 
     julia> 1.1 + 0.1

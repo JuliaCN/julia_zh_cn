@@ -1,8 +1,8 @@
 .. _man-networking-and-streams:
 
-************************
- Networking and Streams  
-************************
+**********
+ 网络和流  
+**********
 
 Julia provides a rich interface to deal with streaming I/O objects such as
 Terminals, Pipes and Tcp Sockets. This interface, though asynchronous at the 
@@ -11,8 +11,8 @@ usually unnecessary to think about the underlying asynchronous operation. This
 is achieved by making heavy use of Julia cooperative threading (coroutine) 
 functionality.
 
-Basic Stream I/O
-----------------
+基本流 I/O
+----------
 
 All Julia streams expose at least a `read` and a `write` method, taking the stream as their first argument, e.g.::
 
@@ -62,7 +62,7 @@ or if we had wanted to read the entire line instead::
 Note that depending on your terminal settings, your TTY may be line buffered and might thus require an additional enter before the data
 is sent to julia.
 
-Text I/O
+文本 I/O
 --------
 
 Note that the write method mentioned above operates on binary streams. In particular, values do not get converted to any canoncical text 
@@ -78,8 +78,8 @@ the difference between the two)::
     97
 
 
-A simple TCP example
---------------------
+简单的 TCP 例子
+---------------
 
 Let's jump right in with a simple example involving Tcp Sockets. To do, let's first create a simple server:: 
 
@@ -160,8 +160,8 @@ A great strength of Julia is that since the API is exposed synchronously even th
 
     julia> Hello World from the Echo Server
 
-Resolving IP Addresses
-----------------------
+解析 IP 地址
+------------
 
 One of the `connect` methods that does not follow the `listen` methods is `connect(host::ASCIIString,port)`, which will attempt to connect to the host 
 given by the `host` parameter on the port given by the port parameter. It 

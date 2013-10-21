@@ -66,8 +66,8 @@ Julia 代码表示为由 Julia 的 ``Expr`` 类型的数据结构而构成的语
       +(x,y)
     end
 
-Symbols
-~~~~~~~
+符号
+~~~~
 
 ``:`` 的参数为符号时，结果为 ``Symbol`` 对象，而不是 ``Expr`` ： ::
 
@@ -193,9 +193,6 @@ Julia 使用表达式内插和求值来生成重复的代码。下例定义了�
     unsupported or misplaced expression $
 
 .. _man-macros:
-
-Macros
-------
 
 宏
 --

@@ -14,8 +14,8 @@ Julia 没有 MATLAB 的 ``clear`` 函数；在 Julia 会话（准确来说， ``
 
 如果你很关心内存使用，你可以用占内存的小的来替换大的。例如，如果 ``A`` 是个你不需要的大数组，可以先用 ``A = 0`` 来释放内存。下一次进行垃圾回收的时候，内存就会被释放了；你也可以直接调用 ``gc()`` 来回收。
 
-How can I modify the declaration of a type/immutable in my session?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+如何在会话中修改 type/immutable 的声明？
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Perhaps you've defined a type and and then realize you need to add a
 new field.  If you try this at the REPL, you get the error::
@@ -353,8 +353,8 @@ itself). You will generally not need to use this type.
 The empty tuple (``()``) is another form of nothingness. But, it should not
 really be thought of as nothing but rather a tuple of zero values.
 
-Julia Releases
-----------------
+Julia 发行版
+------------
 
 Do I want to use a release, beta, or nightly version of Julia?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -371,13 +371,13 @@ __ https://github.com/JuliaLang/julia/blob/master/CONTRIBUTING.md
 
 Links to each of these download types can be found on the download page at http://julialang.org/downloads/. Note that not all versions of Julia are available for all platforms.
 
-When are deprecated functions removed?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+何时移除舍弃的函数？
+~~~~~~~~~~~~~~~~~~~~
 
 Deprecated functions are removed after the subsequent release. For example, functions marked as deprecated in the 0.1 release will not be available starting with the 0.2 release.
 
-Developing Julia
-----------------
+开发 Julia
+----------
 
 How do I debug julia's C code? (running the julia REPL from within a debugger like gdb)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

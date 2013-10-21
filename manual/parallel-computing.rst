@@ -318,12 +318,6 @@ equal the number of processors.
 
     DArray(init, dims[, procs, dist])
 
-``init`` is a function that accepts a tuple of index ranges. This function should
-allocate a local chunk of the distributed array and initialize it for the specified
-indices. ``dims`` is the overall size of the distributed array.
-``procs`` optionally specifies a vector of processor IDs to use.
-``dist`` is an integer vector specifying how many chunks the
-distributed array should be divided into in each dimension.
 ``init`` 函数的参数，是索引值范围多元组。这个函数在本地声名一块分布式数组，并用指定索引值来进行初始化。 ``dims`` 是整个分布式数组的维度。 ``procs`` 是可选的，指明一个存有要使用的处理器 ID 的向量 。 ``dist`` 是一个整数向量，指明分布式数组在每个维度应该被分成几块。
 
 最后俩参数是可选的，忽略的时候使用默认值。

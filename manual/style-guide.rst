@@ -1,15 +1,15 @@
 .. _man-style-guide:
 
-*************
- Style Guide
-*************
+**********
+ 代码样式
+**********
 
 The following sections explain a few aspects of idiomatic Julia coding style.
 None of these rules are absolute; they are only suggestions to help familiarize
 you with the language and to help you choose among alternative designs.
 
-Write functions, not just scripts
----------------------------------
+写成函数，别写成脚本
+--------------------
 
 Writing code as a series of steps at the top level is a quick way to get
 started solving a problem, but you should try to divide a program into
@@ -21,8 +21,8 @@ code, due to how Julia's compiler works.
 It is also worth emphasizing that functions should take arguments, instead
 of operating directly on global variables (aside from constants like ``pi``).
 
-Avoid writing overly-specific types
------------------------------------
+避免类型过于严格
+----------------
 
 Code should be as generic as possible. Instead of writing::
 
@@ -90,8 +90,8 @@ might be better to force the caller to decide how non-integers should
 be converted (e.g. floor or ceiling). Another issue is that declaring
 more specific types leaves more "space" for future method definitions.
 
-Append `!` to names of functions that modify their arguments
-------------------------------------------------------------
+如果函数修改了它的参数，在函数名后加 `!`
+----------------------------------------
 
 Instead of::
 
@@ -113,11 +113,10 @@ contains examples of functions with both copying and modifying forms
 (e.g., ``push!``, ``pop!``, ``splice!``).  It is typical for
 such functions to also return the modified array for convenience.
 
-Avoid strange type Unions
--------------------------
+避免奇葩的类型集合
+------------------
 
-Types such as ``Union(Function,String)`` are often a sign that some design
-could be cleaner.
+像 ``Union(Function,String)`` 这样的类型，说明你的设计有问题。
 
 Try to avoid nullable fields
 ----------------------------
@@ -143,19 +142,19 @@ In this case ``cell(n)`` is better. It is also more helpful to the compiler
 to annotate specific uses (e.g. ``a[i]::Int``) than to try to pack many
 alternatives into one type.
 
-Avoid underscores in names
---------------------------
+函数名不使用下划线
+------------------
 
 If a function name requires multiple words, it might represent more than one
 concept. It is better to keep identifier names concise.
 
-Don't overuse try-catch
------------------------
+不要滥用 try-catch
+------------------
 
 It is better to avoid errors than to rely on catching them.
 
-Don't parenthesize conditions
------------------------------
+不要把条件表达式用圆括号括起来
+------------------------------
 
 Julia doesn't require parens around conditions in ``if`` and ``while``.
 Write::
@@ -166,8 +165,8 @@ instead of::
 
     if (a == b)
 
-Don't overuse ...
------------------
+不要滥用 ...
+------------
 
 Splicing function arguments can be addictive. Instead of ``[a..., b...]``,
 use simply ``[a, b]``, which already concatenates arrays.
@@ -212,8 +211,8 @@ of it. Constructors and conversions can check whether values are valid.
 This design is preferred over making the enumeration an abstract type,
 with the ``values`` as subtypes.
 
-Don't overuse macros
---------------------
+不要滥用 macros
+---------------
 
 Be aware of when a macro could really be a function instead.
 
@@ -262,8 +261,8 @@ not ``==``. Checking types for exact equality typically only makes sense
 when comparing to a known concrete type (e.g. ``T == Float64``), or if you
 *really, really* know what you're doing.
 
-Do not write ``x->f(x)``
-------------------------
+不要写 ``x->f(x)``
+------------------
 
 Since higher-order functions are often called with anonymous functions, it
 is easy to conclude that this is desirable or even necessary.
