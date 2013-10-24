@@ -58,13 +58,14 @@
 
 
 ## to do
-./manual/
-        types.rst
-        metaprogramming.rst
-        networking-and-streams.rst
-        parallel-computing.rst
-        calling-c-and-fortran-code.rst
-        packages.rst
-        performance-tips.rst
-        style-guide.rst
-        faq.rst
+
+    ./manual/
+            types.rst
+            metaprogramming.rst
+            networking-and-streams.rst
+            parallel-computing.rst
+            calling-c-and-fortran-code.rst
+            packages.rst
+            performance-tips.rst
+            style-guide.rst
+            faq.rst
