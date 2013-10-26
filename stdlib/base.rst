@@ -3277,7 +3277,7 @@ Basic functions
 
 .. function:: length(A) -> Integer
 
-   Returns the number of elements in A (note that this differs from MATLAB where ``length(A)`` is the largest dimension of ``A``)
+   Returns the number of elements in A
 
 .. function:: nnz(A)
 
@@ -3461,6 +3461,8 @@ Indexing, Assignment, and Concatenation
    block matrix syntax. The first argument specifies the number of arguments to
    concatenate in each block row.
    For example, ``[a b;c d e]`` calls ``hvcat((2,3),a,b,c,d,e)``.
+
+   If the first argument is a single integer ``n``, then all block rows are assumed to have ``n`` block columns.
 
 .. function:: flipdim(A, d)
 

@@ -10,7 +10,7 @@ Julia 的消息传递与 MPI [#mpi2rma]_ 等环境不同。Julia 中的通信是
 
 Julia 中的并行编程基于两个原语：*remote references* 和 *remote calls* 。remote reference 对象，用于从任意的处理器，查阅指定处理器上存储的对象。 remote call 请求，用于一个处理器对另一个（也有可能是同一个）处理器调用某个函数处理某些参数。
 remote call 返回 remote reference 对象。 remote call 是立即返回的；调用它的处理器继续执行下一步操作，而 remote call 继续在某处执行。可以对 remote
-reference 调用 ``wait`` ，以等待 remote call 执行完毕，然后通过 ``fetch`` 获取结果的完整值。
+reference 调用 ``wait`` ，以等待 remote call 执行完毕，然后通过 ``fetch`` 获取结果的完整值。使用 ``put`` 可将值存储到 remote reference 。
 
 通过 ``julia -p n`` 启动，可以在本地机器上提供 ``n`` 个处理器。一般 ``n`` 等于机器上 CPU 内核个数：
 
