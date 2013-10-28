@@ -131,8 +131,14 @@ Julia 内部变量 ``WORD_SIZE`` 用以指示目标系统是 32 位还是 64 位
     julia> 0b10
     0x02
 
+    julia> typeof(ans)
+    Uint8
+
     julia> 0o10
     0x08
+
+    julia> typeof(ans)
+    Uint8
 
 基础数值类型的最小值和最大值，可由 ``typemin`` 和 ``typemax`` 函数查询： ::
 
