@@ -50,7 +50,6 @@
                                       第二、三参数可省略，省略时默认为 ``A`` 的元素类型和维度
 ``reinterpret(type, A)``              二进制数据与输入数组相同的数组，但指明了元素类型
 ``rand(dims)``                        在 [0,1) 上独立均匀同分布的 ``Float64`` 类型的随机数组
-``randf(dims)``                       在 [0,1) 上独立均匀同分布的 ``Float32`` 类型的随机数组
 ``randn(dims)``                       ``Float64`` 类型的独立正态同分布的随机数组，均值为 0 ，标准差为 1
 ``eye(n)``                            ``n`` x ``n`` 单位矩阵
 ``eye(m, n)``                         ``m`` x ``n`` 单位矩阵
@@ -214,9 +213,13 @@ X 的维度为 ``(length(I_1), length(I_2), ..., length(I_n))`` ，且 A 在 ``(
     abs abs2 angle cbrt
     airy airyai airyaiprime airybi airybiprime airyprime
     acos acosh asin asinh atan atan2 atanh
+    acsc acsch asec asech acot acoth
     cos  cosh  sin  sinh  tan  tanh  sinc  cosc
+    csc  csch  sec  sech  cot  coth
+    acosd asind atand asecd acscd acotd
+    cosd  sind  tand  secd  cscd  cotd
     besselh besseli besselj besselj0 besselj1 besselk bessely bessely0 bessely1
-    exp  erf  erfc  exp2  expm1
+    exp  erf  erfc  erfinv erfcinv exp2  expm1
     beta dawson digamma erfcx erfi
     exponent eta zeta gamma
     hankelh1 hankelh2

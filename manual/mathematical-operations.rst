@@ -296,28 +296,26 @@ Julia 提供了一系列数学函数和运算符：
 乘方，对数和开方
 ~~~~~~~~~~~~~~~~
 
-================= ==============================================================================
-函数              描述
-================= ==============================================================================
-``sqrt(x)``       ``x`` 的平方根
-``cbrt(x)``       ``x`` 的立方根
-``hypot(x,y)``    误差较小的 ``sqrt(x^2 + y^2)``
-``exp(x)``        自然指数 ``e`` 的 ``x`` 次幂
-``expm1(x)``      当 ``x`` 接近 0 时，精确计算 ``exp(x)-1``
-``ldexp(x,n)``    当 ``n`` 为整数时，高效计算``x*2^n``
-``log(x)``        ``x`` 的自然对数
-``log(b,x)``      以 ``b`` 为底 ``x`` 的对数
-``log2(x)``       以 2 为底 ``x`` 的对数
-``log10(x)``      以 10 为底 ``x`` 的对数
-``log1p(x)``      当 ``x`` 接近 0 时，精确计算 ``log(1+x)``
-``exponent(x)``   ``trunc(log2(x))``
-``erf(x)``        ``x`` 处的 `误差函数 <http://en.wikipedia.org/wiki/Error_function>`_
-``erfc(x)``       补误差函数 ``1-erf(x)``
-``gamma(x)``      ``x`` 处的 `gamma 函数 <http://en.wikipedia.org/wiki/Gamma_function>`_
-``lgamma(x)``     对于大 ``x`` ，精确计算 ``log(gamma(x))``
-================= ==============================================================================
+=================== ==============================================================================
+函数                描述
+=================== ==============================================================================
+``sqrt(x)``         ``x`` 的平方根
+``cbrt(x)``         ``x`` 的立方根
+``hypot(x,y)``      误差较小的 ``sqrt(x^2 + y^2)``
+``exp(x)``          自然指数 ``e`` 的 ``x`` 次幂
+``expm1(x)``        当 ``x`` 接近 0 时，精确计算 ``exp(x)-1``
+``ldexp(x,n)``      当 ``n`` 为整数时，高效计算``x*2^n``
+``log(x)``          ``x`` 的自然对数
+``log(b,x)``        以 ``b`` 为底 ``x`` 的对数
+``log2(x)``         以 2 为底 ``x`` 的对数
+``log10(x)``        以 10 为底 ``x`` 的对数
+``log1p(x)``        当 ``x`` 接近 0 时，精确计算 ``log(1+x)``
+``exponent(x)``     ``trunc(log2(x))``
+``significand(x)``  returns the binary significand (a.k.a. mantissa) of a floating-point number ``x``
+=================== ==============================================================================
 
-为什么要有 ``hypot``, ``expm1``, ``log1p``, ``erfc`` 等函数，参见 John D. Cook 的博客： `expm1, log1p, erfc <http://www.johndcook.com/blog/2010/06/07/math-library-functions-that-seem-unnecessary/>`_ 和 `hypot <http://www.johndcook.com/blog/2010/06/02/whats-so-hard-about-finding-a-hypotenuse/>`_ 。
+为什么要有 ``hypot``, ``expm1``, ``log1p`` 等函数，参见 John D. Cook 的博客： `expm1, log1p, erfc <http://www.johndcook.com/blog/2010/06/07/math-library-functions-that-seem-unnecessary/>`_ 和 `hypot <http://www.johndcook.com/blog/2010/06/02/whats-so-hard-about-finding-a-hypotenuse/>`_ 。
+
 
 三角函数和双曲函数
 ~~~~~~~~~~~~~~~~~~
@@ -337,3 +335,40 @@ Julia 内置了所有的标准三角函数和双曲函数 ::
     sind   cosd   tand   cotd   secd   cscd
     asind  acosd  atand  acotd  asecd  acscd
 
+特殊函数
+~~~~~~~~
+
+====================================== ==============================================================================
+函数                                   描述
+====================================== ==============================================================================
+``erf(x)``                             ``x`` 处的 `误差函数 <http://en.wikipedia.org/wiki/Error_function>`_
+``erfc(x)``                            补误差函数。当 ``x`` 较大时，精确计算 ``1-erf(x)``
+``erfinv(x)``                          the inverse function to ``erf``
+``erfcinv(x)``                         the inverse function to ``erfc``
+``erfi(x)``                            the imaginary error function defined as ``-im * erf(x * im)``, where ``im`` is the imaginary unit
+``erfcx(x)``                           the scaled complementary error function, i.e. accurate ``exp(x^2) * erfc(x)`` for large ``x``
+``dawson(x)``                          the scaled imaginary error function, a.k.a. Dawson function, i.e. accurate ``exp(-x^2) * erfi(x) * sqrt(pi) / 2`` for large ``x``
+``gamma(x)``                           ``x`` 处的 `gamma 函数 <http://en.wikipedia.org/wiki/Gamma_function>`_
+``lgamma(x)``                          当 ``x`` 较大时，精确计算 ``log(gamma(x))``
+``lfact(x)``                           accurate ``log(factorial(x))`` for large ``x``; same as ``lgamma(x+1)`` for ``x > 1``, zero otherwise
+``digamma(x)``                         the `digamma function <http://en.wikipedia.org/wiki/Digamma_function>`_ (i.e. the derivative of ``lgamma``) at ``x``
+``beta(x,y)``                          the `beta function <http://en.wikipedia.org/wiki/Beta_function>`_ at ``x,y``
+``lbeta(x)``                           accurate ``log(beta(x,y))`` for large ``x`` or ``y``
+``zeta(x)``                            the `Riemann zeta function <http://en.wikipedia.org/wiki/Riemann_zeta_function>`_ at ``x``
+``airy(x)``, ``airyai(x)``             the `Airy Ai function <http://en.wikipedia.org/wiki/Airy_function>`_ at ``x``
+``airyprime(x)``, ``airyaiprime(x)``   the derivative of the Airy Ai function at ``x``
+``airybi(x)``                          the `Airy Bi function <http://en.wikipedia.org/wiki/Airy_function>`_ at ``x``
+``airybiprime(x)``                     the derivative of the Airy Bi function at ``x``
+``airy(k,x)``                          the ``k``-th derivative of the Airy Ai function at ``x``
+``besselj(nu,z)``                      the `Bessel function <http://en.wikipedia.org/wiki/Bessel_function>`_ of the first kind of order ``nu`` at ``z``
+``besselj0(z)``                        ``besselj(0,z)``
+``besselj1(z)``                        ``besselj(1,z)``
+``bessely(nu,z)``                      the `Bessel function <http://en.wikipedia.org/wiki/Bessel_function>`_ of the second kind of order ``nu`` at ``z``
+``bessely0(z)``                        ``bessely(0,z)``
+``bessely1(z)``                        ``bessely(1,z)``
+``besselh(nu,k,z)``                    the `Bessel function <http://en.wikipedia.org/wiki/Bessel_function>`_ of the third kind (a.k.a. Hankel function) of order ``nu`` at ``z``; ``k`` must be either ``1`` or ``2``
+``hankelh1(nu,z)``                     ``besselh(nu, 1, z)``
+``hankelh2(nu,z)``                     ``besselh(nu, 2, z)``
+``besseli(nu,z)``                      the modified `Bessel function <http://en.wikipedia.org/wiki/Bessel_function>`_ of the first kind of order ``nu`` at ``z``
+``besselk(nu,z)``                      the modified `Bessel function <http://en.wikipedia.org/wiki/Bessel_function>`_ of the second kind of order ``nu`` at ``z``
+====================================== ==============================================================================

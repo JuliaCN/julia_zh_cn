@@ -502,9 +502,9 @@ Julia 的类型系统支持参数化：类型可以引入参数，这样类型�
       y::T
     end
 
-下面是 Julia 的 ``Rational`` 类型是如何定义的，这个类型表示分数： ::
+下面是 Julia 的 ``Rational`` 的 immutable 类型是如何定义的，这个类型表示分数： ::
 
-    type Rational{T<:Integer} <: Real
+    immutable Rational{T<:Integer} <: Real
       num::T
       den::T
     end
