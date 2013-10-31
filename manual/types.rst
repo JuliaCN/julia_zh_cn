@@ -100,20 +100,23 @@ with declared types.
 
 位类型是具体类型，它的数据是由位构成的。整数和浮点数都是位类型。标准的位类型是用 Julia 语言本身定义的： ::
 
+    bitstype 16 Float16 <: FloatingPoint
     bitstype 32 Float32 <: FloatingPoint
     bitstype 64 Float64 <: FloatingPoint
 
     bitstype 8  Bool <: Integer
     bitstype 32 Char <: Integer
 
-    bitstype 8  Int8   <: Signed
-    bitstype 8  Uint8  <: Unsigned
-    bitstype 16 Int16  <: Signed
-    bitstype 16 Uint16 <: Unsigned
-    bitstype 32 Int32  <: Signed
-    bitstype 32 Uint32 <: Unsigned
-    bitstype 64 Int64  <: Signed
-    bitstype 64 Uint64 <: Unsigned
+    bitstype 8  Int8     <: Signed
+    bitstype 8  Uint8    <: Unsigned
+    bitstype 16 Int16    <: Signed
+    bitstype 16 Uint16   <: Unsigned
+    bitstype 32 Int32    <: Signed
+    bitstype 32 Uint32   <: Unsigned
+    bitstype 64 Int64    <: Signed
+    bitstype 64 Uint64   <: Unsigned
+    bitstype 128 Int128  <: Signed
+    bitstype 128 Uint128 <: Unsigned
 
 声明位类型的通用语法是： ::
 
