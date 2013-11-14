@@ -70,6 +70,7 @@ Julia 提供一系列控制流：
                println("x is equal to y")
              end
            end
+    test (generic function with 1 method)
 
     julia> test(1, 2)
     x is less than y
@@ -111,6 +112,7 @@ Julia 提供一系列控制流：
 
     julia> test(x, y) = println(x < y ? "x is less than y"    :
                                 x > y ? "x is greater than y" : "x is equal to y")
+	test (generic function with 1 method)
 
     julia> test(1, 2)
     x is less than y
@@ -125,7 +127,8 @@ Julia 提供一系列控制流：
 
 与 ``if``-``elseif``-``else`` 类似， ``:`` 前后的表达式，只有在对应条件表达式为 ``true`` 或 ``false`` 时才执行： ::
 
-    v(x) = (println(x); x)
+    julia> v(x) = (println(x); x)
+    v (generic function with 1 method)
 
     julia> 1 < 2 ? v("yes") : v("no")
     yes
@@ -147,8 +150,11 @@ Julia 提供一系列控制流：
 
 ``&&`` 和 ``||`` 都与右侧结合，但 ``&&`` 比 ``||`` 优先级高： ::
 
-    t(x) = (println(x); true)
-    f(x) = (println(x); false)
+    julia> t(x) = (println(x); true)
+    t (generic function with 1 method)
+
+    julia> f(x) = (println(x); false)
+    f (generic function with 1 method)
 
     julia> t(1) && t(2)
     1
@@ -380,8 +386,7 @@ Julia 提供一系列控制流：
 可以使用 ``throw`` 函数显式创建异常。例如，某个函数只对非负数做了定义，如果参数为负数，可以抛出 ``DomaineError`` 异常： ::
 
     julia> f(x) = x>=0 ? exp(-x) : throw(DomainError())
-    # methods for generic function f
-    f(x) at none:1
+    f (generic function with 1 method)
     
     julia> f(1)
     0.36787944117144233
@@ -405,7 +410,8 @@ Julia 提供一系列控制流：
 
 如下改写 ``sqrt`` 函数，当参数为负数时，提示错误，立即停止执行： ::
 
-    fussy_sqrt(x) = x >= 0 ? sqrt(x) : error("negative x not allowed")
+    julia> fussy_sqrt(x) = x >= 0 ? sqrt(x) : error("negative x not allowed")
+    fussy_sqrt (generic function with 1 method)
 
     julia> fussy_sqrt(2)
     1.4142135623730951
@@ -415,12 +421,13 @@ Julia 提供一系列控制流：
 
 当对负数调用 ``fussy_sqrt`` 时，它会立即返回，显示错误信息： ::
 
-    function verbose_fussy_sqrt(x)
-      println("before fussy_sqrt")
-      r = fussy_sqrt(x)
-      println("after fussy_sqrt")
-      return r
-    end
+    julia> function verbose_fussy_sqrt(x)
+             println("before fussy_sqrt")
+             r = fussy_sqrt(x)
+             println("after fussy_sqrt")
+             return r
+           end
+    verbose_fussy_sqrt (generic function with 1 method)
 
     julia> verbose_fussy_sqrt(2)
     before fussy_sqrt
@@ -458,8 +465,7 @@ Julia 还提供一些函数，用来向标准错误 I/O 输出一些消息，但
            catch
              sqrt(complex(x, 0))
            end
-    # methods for generic function f
-    f(x) at none:1
+    f (generic function with 1 method)
     
     julia> f(1)
     1.0
@@ -478,11 +484,9 @@ Julia 还提供一些函数，用来向标准错误 I/O 输出一些消息，但
                sqrt(complex(x[2], 0))
              elseif isa(y, BoundsError)
                sqrt(x)
-             end  
+             end
            end
-
-    # methods for generic function sqrt_second
-    sqrt_second(x) at none:1
+    sqrt_second (generic function with 1 method)
     
     julia> sqrt_second([1 4])
     2.0
@@ -497,7 +501,7 @@ Julia 还提供一些函数，用来向标准错误 I/O 输出一些消息，但
     ERROR: DomainError()
      in sqrt at math.jl:117
      in sqrt_second at none:7
-     
+
 Julia 还提供了更高级的异常处理函数 ``rethrow`` ， ``backtrace`` 和 ``catch_backtrace`` 。
 
 finally 语句

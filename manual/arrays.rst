@@ -118,7 +118,7 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
 3. 任意整数向量，包括空向量 ``[]``
 4. 布尔值向量
 
-结果 X 的维度通常为 ``(length(I_1), length(I_2), ..., length(I_n))`` ，且 X 的索引 ``(i_1, i_2, ..., i_n)`` 处的值为 ``A[I_1[i_1], I_2[i_2], ..., I_n[i_n]]`` 。缀在后面的标量索引的维度信息被舍弃。如，``A[I, 1]`` 的维度为 ``(length(I),)`` 。由布尔值向量索引的维度长度，是向量中 ``true`` 值的个数。
+结果 X 的维度通常为 ``(length(I_1), length(I_2), ..., length(I_n))`` ，且 X 的索引 ``(i_1, i_2, ..., i_n)`` 处的值为 ``A[I_1[i_1], I_2[i_2], ..., I_n[i_n]]`` 。缀在后面的标量索引的维度信息被舍弃。如，``A[I, 1]`` 的维度为 ``(length(I),)`` 。布尔值向量先由 ``find`` 函数进行转换。由布尔值向量索引的维度长度，是向量中 ``true`` 值的个数。
 
 索引语法与调用 ``getindex`` 等价： ::
 
@@ -152,7 +152,9 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
 3. 任意整数向量，包括空向量 ``[]``
 4. 布尔值向量
 
-X 的维度为 ``(length(I_1), length(I_2), ..., length(I_n))`` ，且 A 在 ``(i_1, i_2, ..., i_n)`` 处的值被覆写为 ``X[I_1[i_1], I_2[i_2], ..., I_n[i_n]]`` 。
+如果 ``X`` 是一个数组，它的维度应为 ``(length(I_1), length(I_2), ..., length(I_n))`` ，且 ``A`` 在 ``i_1, i_2, ..., i_n`` 处的值被覆写为 ``X[I_1[i_1], I_2[i_2], ..., I_n[i_n]]`` 。如果 ``X`` 不是数组，它的值被写进所有 ``A`` 被引用的地方。
+
+用于索引的布尔值向量与 ``getindex`` 中一样（先由 ``find`` 函数进行转换）。
 
 索引赋值语法等价于调用 ``setindex!`` ： ::
 
@@ -234,18 +236,20 @@ X 的维度为 ``(length(I_1), length(I_2), ..., length(I_n))`` ，且 A 在 ``(
 另外, Julia 提供了 ``@vectorize_1arg`` 和 ``@vectorize_2arg`` 两个宏，分别用来向量化任意的单参数或两个参数的函数。每个宏都接收两个参数，即函数参数的类型和函数名。例如： ::
 
     julia> square(x) = x^2
-    # methods for generic function square
-    square(x) at none:1
-    
+    square (generic function with 1 method)
+
     julia> @vectorize_1arg Number square
-    # methods for generic function square
-    square{T<:Number}(x::AbstractArray{T<:Number,1}) at operators.jl:216
-    square{T<:Number}(x::AbstractArray{T<:Number,2}) at operators.jl:217
-    square{T<:Number}(x::AbstractArray{T<:Number,N}) at operators.jl:219
+    square (generic function with 4 methods)
+
+    julia> methods(square)
+    # 4 methods for generic function "square":
+    square{T<:Number}(x::AbstractArray{T<:Number,1}) at operators.jl:236
+    square{T<:Number}(x::AbstractArray{T<:Number,2}) at operators.jl:237
+    square{T<:Number}(x::AbstractArray{T<:Number,N}) at operators.jl:239
     square(x) at none:1
-    
+
     julia> square([1 2 4; 5 6 7])
-    2x3 Int64 Array:
+    2x3 Array{Int64,2}:
       1   4  16
      25  36  49
 

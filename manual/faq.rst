@@ -17,7 +17,7 @@ Julia 没有 MATLAB 的 ``clear`` 函数；在 Julia 会话（准确来说， ``
 如何在会话中修改 type/immutable 的声明？
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Perhaps you've defined a type and and then realize you need to add a
+Perhaps you've defined a type and then realize you need to add a
 new field.  If you try this at the REPL, you get the error::
 
     ERROR: invalid redefinition of constant MyType

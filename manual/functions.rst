@@ -297,20 +297,20 @@ Julia 支持简单的多元组“析构”来给变量赋值： ::
 可选参数很方便参数个数不同的多方法定义（详见 :ref:`man-methods` ）。
 
 
-命名参数
---------
+关键字参数
+----------
 
-有些函数的参数个数很多，或者有很多行为。很难记住如何调用这种函数。命名参数，也称为关键词参数，允许通过参数名来区分参数，便于使用、扩展这些复杂接口。
+有些函数的参数个数很多，或者有很多行为。很难记住如何调用这种函数。关键字参数，允许通过参数名来区分参数，便于使用、扩展这些复杂接口。
 
-例如，函数 ``plot`` 用于画出一条线。此函数有许多可选项，控制线的类型、宽度、颜色等。如果它接收命名参数，我们要指明线的宽度时，可以调用 ``plot(x, y, width=2)`` 之类的形式。这样的调用方法给参数添加了标签，便于阅读；也可以按任何顺序传递部分参数。
+例如，函数 ``plot`` 用于画出一条线。此函数有许多可选项，控制线的类型、宽度、颜色等。如果它接收关键字参数，当我们要指明线的宽度时，可以调用 ``plot(x, y, width=2)`` 之类的形式。这样的调用方法给参数添加了标签，便于阅读；也可以按任何顺序传递部分参数。
 
-使用命名参数的函数，在函数签名中使用分号来定义： ::
+使用关键字参数的函数，在函数签名中使用分号来定义： ::
 
     function plot(x, y; style="solid", width=1, color="black")
         ###
     end
 
-额外的命名参数，可以像变参函数中一样，使用 ``...`` 来匹配： ::
+额外的关键字参数，可以像变参函数中一样，使用 ``...`` 来匹配： ::
 
     function f(x; args...)
         ###
@@ -318,9 +318,34 @@ Julia 支持简单的多元组“析构”来给变量赋值： ::
 
 在 ``f`` 内部， ``args`` 可以是 ``(key,value)`` 多元组的集合，其中 ``key`` 是符号。可以在函数调用时使用分号来传递这个集合,如 ``f(x; k...)`` 。也可以使用字典。
 
+Keyword argument default values are evaluated only when necessary
+(when a corresponding keyword argument is not passed), and in
+left-to-right order. Therefore default expressions may refer to
+prior keyword arguments.
+
+
+Evaluation Scope of Default Values
+----------------------------------
+
+Optional and keyword arguments differ slightly in how their default
+values are evaluated. When optional argument default expressions are
+evaluated, only *previous* arguments are in scope. For example, given
+this definition::
+
+    function f(x, a=b, b=1)
+        ###
+    end
+
+the ``b`` in ``a=b`` refers to the ``b`` in an outer scope, not the
+subsequent argument ``b``. However, if ``a`` and ``b`` were keyword
+arguments instead, then both would be created in the same scope and
+``a=b`` would result in an undefined variable error (since the
+default expressions are evaluated left-to-right, and ``b`` has not
+been assigned yet).
+
 
 函数参数的块语法
-------------------
+----------------
 
 将函数作为参数传递给其它函数，当行数较多时，有时不太方便。下例在多行函数中调用 ``map`` ： ::
 

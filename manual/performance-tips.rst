@@ -81,24 +81,24 @@ See also the discussion under :ref:`man-parametric-types`.
 
 假如我们知道 ``a`` 的第一个元素是 ``Int32`` 类型的，那就添加上这样的类型声明吧。如果这个元素不是这个类型，在运行时就会报错，这有助于调试代码。
 
-Declare types of named arguments
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Declare types of keyword arguments
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Named arguments can have declared types::
+Keyword arguments can have declared types::
 
-    function with_named(x; name::Int = 1)
+    function with_keyword(x; name::Int = 1)
         ...
     end
 
-Functions are specialized on the types of named arguments, so these
+Functions are specialized on the types of keyword arguments, so these
 declarations will not affect performance of code inside the function.
 However, they will reduce the overhead of calls to the function that
-include named arguments.
+include keyword arguments.
 
-Functions with named arguments have near-zero overhead for call sites
+Functions with keyword arguments have near-zero overhead for call sites
 that pass only positional arguments.
 
-Passing dynamic lists of named arguments, as in ``f(x; names...)``,
+Passing dynamic lists of keyword arguments, as in ``f(x; keywords...)``,
 can be slow and should be avoided in performance-sensitive code.
 
 把函数拆开

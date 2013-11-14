@@ -60,6 +60,7 @@
 ## to do
 
     ./manual/
+			functions.rst
             types.rst
             metaprogramming.rst
             networking-and-streams.rst
