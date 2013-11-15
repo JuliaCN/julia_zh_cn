@@ -6,19 +6,6 @@
 
 Julia 是个灵活的动态语言，适合科学和数值计算，性能可与传统静态类型语言媲美。
 
-Julia provides ease and expressiveness
-for high-level numerical computing, in the same way as languages such
-as R, MATLAB, and Python, but transcends its general programming
-limitations. 
-To achieve this, Julia builds upon the lineage of
-mathematical programming languages, but also borrows much from popular
-dynamic languages, including `Lisp
-<http://en.wikipedia.org/wiki/Lisp_(programming_language)>`_, `Perl
-<http://en.wikipedia.org/wiki/Perl_(programming_language)>`_, `Python
-<http://en.wikipedia.org/wiki/Python_(programming_language)>`_, `Lua
-<http://en.wikipedia.org/wiki/Lua_(programming_language)>`_, and `Ruby
-<http://en.wikipedia.org/wiki/Ruby_(programming_language)>`_.
-
 通过使用类型推断和 `即时(JIT)编译 <http://zh.wikipedia.org/zh-cn/%E5%8D%B3%E6%99%82%E7%B7%A8%E8%AD%AF>`_ ，以及 `LLVM <http://zh.wikipedia.org/wiki/LLVM>`_ ， Julia 具有可选的类型声明，重载，高性能等特性。Julia 是多编程范式的，包含指令式、函数式和面向对象编程的特征。
 它提供了简易和简洁的高等数值计算，它类似于 R 、 MATLAB 和 Python ，但避免了其局限性。
 为了达到这个目的，Julia 在数学编程语言的基础上，参考了不少流行动态语言： `Lisp <http://zh.wikipedia.org/zh-cn/LISP>`_ 、 `Perl <http://zh.wikipedia.org/zh-cn/Perl>`_ 、 `Python <http://zh.wikipedia.org/zh-cn/Python>`_ 、 `Lua <http://zh.wikipedia.org/zh-cn/Lua>`_ 和 `Ruby <http://zh.wikipedia.org/zh-cn/Ruby>`_ 。
