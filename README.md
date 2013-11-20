@@ -60,6 +60,7 @@
 ## to do
 
     ./manual/
+			control-flow.rst
 			functions.rst
             types.rst
             metaprogramming.rst
