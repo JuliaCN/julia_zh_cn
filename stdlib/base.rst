@@ -286,7 +286,7 @@ Types
    in the following manner to summarize information about a struct type::
 
         structinfo(T) = [zip(fieldoffsets(T),names(T),T.types)...]
-        structinfo(Stat)
+        structinfo(StatStruct)
 
 .. function:: fieldtype(value, name::Symbol)
 
@@ -2551,9 +2551,9 @@ Mathematical Functions
 
    Return :math:`\sqrt{x}`. Throws ``DomainError`` for negative ``Real`` arguments. Use complex negative arguments instead.
 
-.. function:: isqrt(x)
+.. function:: isqrt(n)
 
-   Integer square root.
+   Integer square root: the largest integer ``m`` such that ``m*m <= n``.
 
 .. function:: cbrt(x)
 
