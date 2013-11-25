@@ -43,8 +43,230 @@ while developing you might use a workflow something like this::
     ...
 
 
-类型声明和构造方法
-------------------
+类型，类型声明和构造方法
+------------------------
+
+.. _man-type-stable:
+
+什么是“类型稳定”？
+~~~~~~~~~~~~~~~~~~
+
+It means that the type of the output is predictable from the types
+of the inputs.  In particular, it means that the type of the output
+cannot vary depending on the *values* of the inputs. The following
+code is *not* type-stable::
+
+    function unstable(flag::Bool)
+        if flag
+            return 1
+        else
+            return 1.0
+        end
+    end
+
+It returns either an ``Int`` or a ``Float64`` depending on the value of its
+argument. Since Julia can't predict the return type of this function at
+compile-time, any computation that uses it will have to guard against both
+types possibly occurring, making generation of fast machine code difficult.
+
+
+Why does Julia use native machine integer arithmetic?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Julia uses machine arithmetic for integer computations. This means that the range of ``Int`` values is bounded and wraps around at either end so that adding, subtracting and multiplying integers can overflow or underflow, leading to some results that can be unsettling at first::
+
+    julia> typemax(Int)
+    9223372036854775807
+    
+    julia> ans+1
+    -9223372036854775808
+
+    julia> -ans
+    -9223372036854775808
+
+    julia> 2*ans
+    0
+
+Clearly, this is far from the way mathematical integers behave, and you might
+think it less than ideal for a high-level programming language to expose this
+to the user. For numerical work where efficiency and transparency are at a
+premium, however, the alternatives are worse.
+
+One alternative to consider would be to check each integer operation for
+overflow and promote results to bigger integer types such as ``Int128`` or
+``BigInt`` in the case of overflow. Unfortunately, this introduces major
+overhead on every integer operation (think incrementing a loop counter) – it
+requires emitting code to perform run-time overflow checks after arithmetic
+instructions and braches to handle potential overflows. Worse still, this
+would cause every computation involving integers to be type-unstable. As we
+mentioned above, `type-stability is crucial <#man-type-stable>`_ for effective
+generation of efficient code. If you can't count on the results of integer
+operations being integers, it's impossible to generate fast, simple code the
+way C and Fortran compilers do.
+
+A variation on this approach, which avoids the appearance of type instabilty is to merge the ``Int`` and ``BigInt`` types into a single hybrid integer type, that internally changes representation when a result no longer fits into the size of a machine integer. While this superficially avoids type-instability at the level of Julia code, it just sweeps the problem under the rug by foisting all of the same difficulties onto the C code implementing this hybrid integer type. This approach *can* be made to work and can even be made quite fast in many cases, but has several drawbacks. One problem is that the in-memory representation of integers and arrays of integers no longer match the natural representation used by C, Fortran and other languages with native machine integers. Thus, to interoperate with those languages, we would ultimately need to introduce native integer types anyway. Any unbounded representation of integers cannot have a fixed number of bits, and thus cannot be stored inline in an array with fixed-size slots – large integer values will always require separate heap-allcoated storage. And of course, no matter how clever a hybrid integer implementation one uses, there are always performance traps – situations where performance degrades unexpectedly. Complex representation, lack of interoperability with C and Fortran, the inability to represent integer arrays without additional heap storage, and unpredictable performance characteristics make even the cleverest hybrid integer implementations a poor choice for high-performance numerical work.
+
+An alternative to using hybrid integers or promoting to BigInts is to use
+saturating integer arithmetic, where adding to the largest integer value
+leaves it unchanged and likewise for subtracting from the smallest integer
+value. This is precisely what Matlab™ does::
+
+    >> int64(9223372036854775807)
+
+    ans =
+
+      9223372036854775807
+
+    >> int64(9223372036854775807) + 1
+
+    ans =
+
+      9223372036854775807
+
+    >> int64(-9223372036854775808)
+
+    ans =
+
+     -9223372036854775808
+
+    >> int64(-9223372036854775808) - 1
+
+    ans =
+
+     -9223372036854775808
+
+At first blush, this seems reasonable enough since 9223372036854775807 is much closer to 9223372036854775808 than -9223372036854775808 is and integers are still represented with a fixed size in a natural way that is compatible with C and Fortran. Saturated integer arithmetic, however, is deeply problematic. The first and most obvious issue is that this is not the way machine integer arithmetic works, so implementing saturated operations requires emiting instructions after each machine integer operation to check for underflow or overflow and replace the result with ``typemin(Int)`` or ``typemax(Int)`` as appropriate. This alone expands each integer operation from a single, fast instruction into half a dozen instructions, probably including branches. Ouch. But it gets worse – saturating integer arithmetic isn't associative.Consider this Matlab computation::
+
+    >> n = int64(2)^62
+    4611686018427387904
+    
+    >> n + (n - 1)
+    9223372036854775807
+    
+    >> (n + n) - 1
+    9223372036854775806
+    
+This makes it hard to write many basic integer algorithms since a lot of
+common techniques depend on the fact that machine addition with overflow *is*
+associative. Consider finding the midpoint between integer values ``lo`` and
+``hi`` in Julia using the expression ``(lo + hi) >>> 1``::
+
+    julia> n = 2^62
+    4611686018427387904
+    
+    julia> (n + 2n) >>> 1
+    6917529027641081856
+
+See? No problem. That's the correct midpoint between 2^62 and 2^63, despite
+the fact that ``n + 2n`` is -4611686018427387904. Now try it in Matlab::
+
+    >> (n + 2*n)/2
+    
+    ans =
+    
+      4611686018427387904
+
+Oops. Adding a ``>>>`` operator to Matlab wouldn't help, because saturation
+that occurs when adding ``n`` and ``2n`` has already destroyed the information
+necessary to compute the correct midpoint.
+
+Not only is lack of associativity unfortunate for programmers who cannot rely
+it for techniques like this, but it also defeats almost anything compilers
+might want to do to optimize integer arithmetic. For example, since Julia
+integers use normal machine integer arithmetic, LLVM is free to aggressively
+optimize simple little functions like ``f(k) = 5k-1``. The machine code for
+this function is just this::
+
+    julia> code_native(f,(Int,))
+        .section    __TEXT,__text,regular,pure_instructions
+    Filename: none
+    Source line: 1
+        push    RBP
+        mov RBP, RSP
+    Source line: 1
+        lea RAX, QWORD PTR [RDI + 4*RDI - 1]
+        pop RBP
+        ret
+
+The actual body of the function is a single ``lea`` instruction, which
+computes the integer multiply and add at once. This is even more beneficial
+when ``f`` gets inlined into another function::
+
+    julia> function g(k,n)
+             for i = 1:n
+               k = f(k)
+             end
+             return k
+           end
+    g (generic function with 2 methods)
+
+    julia> code_native(g,(Int,Int))
+        .section    __TEXT,__text,regular,pure_instructions
+    Filename: none
+    Source line: 3
+        push    RBP
+        mov RBP, RSP
+        test    RSI, RSI
+        jle 22
+        mov EAX, 1
+    Source line: 3
+        lea RDI, QWORD PTR [RDI + 4*RDI - 1]
+        inc RAX
+        cmp RAX, RSI
+    Source line: 2
+        jle -17
+    Source line: 5
+        mov RAX, RDI
+        pop RBP
+        ret
+
+Since the call to ``f`` gets inlined, the loop body ends up being just a
+single ``lea`` instruction. Next, consider what happens if we make the number
+of loop iterations fixed::
+
+    julia> function g(k)
+             for i = 1:10
+               k = f(k)
+             end
+             return k
+           end
+    g (generic function with 2 methods)
+
+    julia> code_native(g,(Int,))
+        .section    __TEXT,__text,regular,pure_instructions
+    Filename: none
+    Source line: 3
+        push    RBP
+        mov RBP, RSP
+    Source line: 3
+        imul    RAX, RDI, 9765625
+        add RAX, -2441406
+    Source line: 5
+        pop RBP
+        ret
+
+Because the compiler knows that integer addition and multiplication are
+associative and that multiplication distributes over addition – neither of
+which is true of saturating arithmetic – it can optimize the entire loop down
+to just a multiply and an add. Saturated arithmetic completely defeats this
+kind of optimization since associativity and distributivity can fail at each
+loop iteration, causing different outcomes depending on which iteration the
+failure occurs in. The compiler can unroll the loop, but it cannot
+algebraically reduce multiple operations into fewer equivalent operations.
+
+Saturated integer arithmetic is just one example of a really poor choice of
+language semantics that completely prevents effective performance
+optimization. There are many things that are difficult about C programming,
+but integer overflow is *not* one of them – especially on 64-bit systems. If
+my integers really might get bigger than 2^63-1, I can easily predict that. Am
+I looping over a number of actual things that are stored in the computer? Then
+it's not going to get that big. This is guaranteed, since I don't have that
+much memory. Am I counting things that occur in the real world? Unless they're
+grains of sand or atoms in the universe, 2^63-1 is going to be plenty big. Am
+I computing a factorial? Then sure, they might get that big – I should use a
+``BigInt``. See? Easy to distinguish.
+
+
 .. _man-abstract-fields:
 
 How do "abstract" or ambiguous fields in types interact with the compiler?
