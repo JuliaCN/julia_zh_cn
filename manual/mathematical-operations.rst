@@ -35,7 +35,9 @@ Julia 为它所有的基础数值类型，提供了整套的基础算术和位�
 
 Julia 的类型提升系统使得参数类型混杂的算术运算也很简单自然。详见 :ref:`man-conversion-and-promotion` 。
 
-算术运算的例子： ::
+算术运算的例子：
+
+.. doctest::
 
     julia> 1 + 2 + 3
     6
@@ -65,7 +67,9 @@ Expression   Name
 ``x << y``   向左逻辑/算术移位
 ===========  ===================================================================================
 
-位运算的例子： ::
+位运算的例子：
+
+.. doctest::
 
     julia> ~123
     -124
@@ -122,7 +126,9 @@ Expression   Name
 ``>=``   大于等于
 ======== ============
 
-一些例子： ::
+一些例子：
+
+.. doctest::
 
     julia> 1 == 1
     true
@@ -165,7 +171,9 @@ Expression   Name
 - ``-Inf`` 等于它本身，并且小于所有数, 除了 ``NaN``.
 - ``NaN`` 不等于、不大于、不小于任何数，包括它本身.
 
-上面最后一条是关于 ``NaN`` 的性质，值得留意： ::
+上面最后一条是关于 ``NaN`` 的性质，值得留意：
+
+.. doctest::
 
     julia> NaN == NaN
     false
@@ -179,7 +187,9 @@ Expression   Name
     julia> NaN > NaN
     false
 
-``NaN`` 在 :ref:`矩阵 <Arrays>` 中使用时会带来些麻烦： ::
+``NaN`` 在 :ref:`矩阵 <Arrays>` 中使用时会带来些麻烦：
+
+.. doctest::
 
     julia> [1 NaN] == [1 NaN]
     false
@@ -195,7 +205,9 @@ Julia 提供了附加函数, 用以测试这些特殊值，它们使用哈希值
 ``isnan(x)``      ``x`` 是否不是数
 ================= ========================
 
-``isequal`` 函数，认为 ``NaN`` 等于它本身： ::
+``isequal`` 函数，认为 ``NaN`` 等于它本身：
+
+.. doctest::
 
     julia> isequal(NaN,NaN)
     true
@@ -206,7 +218,9 @@ Julia 提供了附加函数, 用以测试这些特殊值，它们使用哈希值
     julia> isequal(NaN,NaN32)
     false
 
-``isequal`` 也可以用来区分有符号的零： ::
+``isequal`` 也可以用来区分有符号的零：
+
+.. doctest::
 
     julia> -0.0 == 0.0
     true
@@ -214,11 +228,12 @@ Julia 提供了附加函数, 用以测试这些特殊值，它们使用哈希值
     julia> isequal(-0.0, 0.0)
     false
 
-
 链式比较
 --------
 
-与大多数语言不同，Julia 支持 `Python链式比较 <http://en.wikipedia.org/wiki/Python_syntax_and_semantics#Comparison_operators>`_ ： ::
+与大多数语言不同，Julia 支持 `Python链式比较 <http://en.wikipedia.org/wiki/Python_syntax_and_semantics#Comparison_operators>`_ ：
+
+.. doctest::
 
     julia> 1 < 2 <= 2 < 3 == 3 > 2 >= 1 == 1 < 3 != 5
     true

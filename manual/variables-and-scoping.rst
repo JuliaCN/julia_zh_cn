@@ -94,10 +94,12 @@ Julia 内置了高效的函数 ``iseven`` 和 ``isodd`` 来验证奇偶性。
 
 在交互式模式下，可以假想有一层作用域块包在任何输入之外，类似于全局作用域： ::
 
+.. doctest::
+
     julia> for i = 1:1; y = 10; end
 
     julia> y
-    y not defined
+    ERROR: y not defined
 
     julia> y = 0
     0
@@ -149,6 +151,8 @@ Julia 内置了高效的函数 ``iseven`` 和 ``isodd`` 来验证奇偶性。
 
 由于 ``begin`` 块并不引入新作用域块，使用 ``let`` 来引入新作用域块是很有用的： ::
 
+.. doctest::
+
     julia> begin
              local x = 1
              begin
@@ -156,7 +160,7 @@ Julia 内置了高效的函数 ``iseven`` 和 ``isodd`` 来验证奇偶性。
              end
              x
            end
-    syntax error: local x declared twice
+    ERROR: syntax: local "x" declared twice
 
     julia> begin
              local x = 1

@@ -51,7 +51,9 @@
 1. 它在类型声明块儿内部被声明，而不是像普通方法一样在外部被声明
 2. 它调用本地已存在的 ``new`` 函数，来构造声明块儿的类型的对象
 
-例如，要声明一个保存实数对儿的类型，且第一个数不大于第二个数： ::
+例如，要声明一个保存实数对儿的类型，且第一个数不大于第二个数：
+
+.. testcode::
 
     type OrderedPair
       x::Real
@@ -60,13 +62,15 @@
       OrderedPair(x,y) = x > y ? error("out of order") : new(x,y)
     end
 
-仅当 ``x <= y`` 时，才会构造 ``OrderedPair`` 对象： ::
+仅当 ``x <= y`` 时，才会构造 ``OrderedPair`` 对象：
+
+.. doctest::
 
     julia> OrderedPair(1,2)
     OrderedPair(1,2)
 
     julia> OrderedPair(2,1)
-    out of order
+    ERROR: out of order
      in OrderedPair at none:5
 
 所有的外部构造方法，最终都会调用内部构造方法。
@@ -122,7 +126,9 @@
 
 但是，当没有任何实例来为 ``obj`` 域提供有效值时，如何构造第一个实例呢？唯一的解决方法是构造 ``obj`` 域未赋值的 ``SelfReferential`` 部分初始化实例，使用这个实例作为另一个实例（如它本身）中 ``obj`` 域的有效值。
 
-构造部分初始化对象时，Julia 允许调用 ``new`` 函数来处理比该类型域个数少的参数，返回部分域未初始化的对象。这时，内部构造函数可以使用这个不完整的对象，并在返回之前完成它的初始化。下例中，我们定义 ``SelfReferential`` 类型时，使用零参内部构造方法，返回一个 ``obj`` 域指向它本身的实例： ::
+构造部分初始化对象时，Julia 允许调用 ``new`` 函数来处理比该类型域个数少的参数，返回部分域未初始化的对象。这时，内部构造函数可以使用这个不完整的对象，并在返回之前完成它的初始化。下例中，我们定义 ``SelfReferential`` 类型时，使用零参内部构造方法，返回一个 ``obj`` 域指向它本身的实例：
+
+.. testcode::
 
     type SelfReferential
       obj::SelfReferential
@@ -130,9 +136,11 @@
       SelfReferential() = (x = new(); x.obj = x)
     end
 
-此构造方法可以运行并构造自引对象： ::
+此构造方法可以运行并构造自引对象：
 
-    x = SelfReferential();
+.. doctest::
+
+    julia> x = SelfReferential();
 
     julia> is(x, x)
     true
@@ -143,20 +151,23 @@
     julia> is(x, x.obj.obj)
     true
 
-内部构造方法最好返回完全初始化的对象，但也可以返回部分初始化对象： ::
+内部构造方法最好返回完全初始化的对象，但也可以返回部分初始化对象：
 
-    type Incomplete
-      xx
+.. doctest::
 
-      Incomplete() = new()
-    end
+    julia> type Incomplete
+             xx
+             Incomplete() = new()
+           end
 
     julia> z = Incomplete();
 
-尽管可以构造未初始化域的对象，但读取未初始化域会报错： ::
+尽管可以构造未初始化域的对象，但读取未初始化域会报错：
+
+.. doctest::
 
     julia> z.xx
-    access to undefined reference
+    ERROR: access to undefined reference
 
 可以在内部构造方法中，将不完整的对象传递给其它函数，来委托完成全部初始化： ::
 
@@ -171,37 +182,39 @@
 参数化构造方法
 --------------
 
-参数化构造方法的例子： ::
+参数化构造方法的例子：
 
-    type Point{T<:Real}
-      x::T
-      y::T
-    end
+.. doctest::
+
+    julia> type Point{T<:Real}
+             x::T
+             y::T
+           end
 
     ## implicit T ##
 
     julia> Point(1,2)
-    Point(1,2)
+    Point{Int64}(1,2)
 
     julia> Point(1.0,2.5)
-    Point(1.0,2.5)
+    Point{Float64}(1.0,2.5)
 
     julia> Point(1,2.5)
-    no method Point(Int64,Float64)
+    ERROR: no method Point{T<:Real}(Int64, Float64)
 
     ## explicit T ##
 
     julia> Point{Int64}(1,2)
-    Point(1,2)
+    Point{Int64}(1,2)
 
     julia> Point{Int64}(1.0,2.5)
-    no method Point(Float64,Float64)
+    ERROR: no method Point{Int64}(Float64, Float64)
 
     julia> Point{Float64}(1.0,2.5)
-    Point(1.0,2.5)
+    Point{Float64}(1.0,2.5)
 
     julia> Point{Float64}(1,2)
-    no method Point(Int64,Int64)
+    ERROR: no method Point{Float64}(Int64, Int64)
 
 上面的参数化构造方法等价于下面的声明： ::
 
@@ -216,37 +229,47 @@
 
 内部构造方法只定义 ``Point{T}`` 的方法，而非 ``Point`` 的构造函数的方法。 ``Point`` 不是具体类型，不能有内部构造方法。外部构造方法定义了 ``Point`` 的构造方法。
 
-可以将整数值 ``1`` “提升”为浮点数 ``1.0`` ，来完成构造： ::
+可以将整数值 ``1`` “提升”为浮点数 ``1.0`` ，来完成构造：
 
-    Point(x::Int64, y::Float64) = Point(convert(Float64,x),y)
+.. doctest::
 
-这样下例就可以正常运行： ::
+    julia> Point(x::Int64, y::Float64) = Point(convert(Float64,x),y);
+
+这样下例就可以正常运行：
+
+.. doctest::
 
     julia> Point(1,2.5)
-    Point(1.0,2.5)
+    Point{Float64}(1.0,2.5)
 
     julia> typeof(ans)
-    Point{Float64}
+    Point{Float64} (constructor with 1 method)
 
-但下例仍会报错： ::
+但下例仍会报错：
 
-    julia> Point(1.5,2)
-    no method Point(Float64,Int64)
-
-其实只需定义下列外部构造方法： ::
-
-    Point(x::Real, y::Real) = Point(promote(x,y)...)
-
-``promote`` 函数将它的所有参数转换为相同类型。现在，所有的实数参数都可以正常运行： ::
+.. doctest::
 
     julia> Point(1.5,2)
-    Point(1.5,2.0)
+    ERROR: no method Point{T<:Real}(Float64, Int64)
+
+其实只需定义下列外部构造方法：
+
+.. doctest::
+
+    julia> Point(x::Real, y::Real) = Point(promote(x,y)...);
+
+``promote`` 函数将它的所有参数转换为相同类型。现在，所有的实数参数都可以正常运行：
+
+.. doctest::
+
+    julia> Point(1.5,2)
+    Point{Float64}(1.5,2.0)
 
     julia> Point(1,1//2)
-    Point(1//1,1//2)
+    Point{Rational{Int64}}(1//1,1//2)
 
     julia> Point(1.0,1//2)
-    Point(1.0,0.5)
+    Point{Float64}(1.0,0.5)
 
 
 案例：分数
@@ -284,13 +307,15 @@
         complex(real(xy)//yy, imag(xy)//yy)
     end
 
-复数分数的例子： ::
+复数分数的例子：
+
+.. doctest::
 
     julia> (1 + 2im)//(1 - 2im)
     -3//5 + 4//5im
 
     julia> typeof(ans)
-    ComplexPair{Rational{Int64}}
+    Complex{Rational{Int64}} (constructor with 1 method)
 
     julia> ans <: Complex{Rational}
-    true
+    false

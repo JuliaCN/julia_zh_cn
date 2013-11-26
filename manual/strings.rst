@@ -19,7 +19,9 @@ Julia 中处理 `ASCII <http://zh.wikipedia.org/zh-cn/ASCII>`_ 文本简洁高�
 字符
 ----
 
-``Char`` 表示单个字符：它是 32 位整数，值参见 `Unicode 码位 <http://zh.wikipedia.org/zh-cn/%E7%A0%81%E4%BD%8D>`_ 。下面是如何输入和显示 ``Char`` ： ::
+``Char`` 表示单个字符：它是 32 位整数，值参见 `Unicode 码位 <http://zh.wikipedia.org/zh-cn/%E7%A0%81%E4%BD%8D>`_ 。下面是如何输入和显示 ``Char`` ：
+
+.. doctest::
 
     julia> 'x'
     'x'
@@ -27,7 +29,9 @@ Julia 中处理 `ASCII <http://zh.wikipedia.org/zh-cn/ASCII>`_ 文本简洁高�
     julia> typeof(ans)
     Char
 
-可以把 ``Char`` 转换为对应整数值： ::
+可以把 ``Char`` 转换为对应整数值：
+
+.. doctest::
 
     julia> int('x')
     120
@@ -35,12 +39,16 @@ Julia 中处理 `ASCII <http://zh.wikipedia.org/zh-cn/ASCII>`_ 文本简洁高�
     julia> typeof(ans)
     Int64
 
-在 32 位架构上， ``typeof(ans)`` 的类型为 ``Int32`` 。也可以把整数值转换为 ``Char`` ： ::
+在 32 位架构上， ``typeof(ans)`` 的类型为 ``Int32`` 。也可以把整数值转换为 ``Char`` ：
+
+.. doctest::
 
     julia> char(120)
     'x'
 
-并非所有的整数值都是有效的 Unicode 码位，但为了性能， ``char`` 一般不检查其是否有效。如果你想要确保其有效，使用 ``is_valid_char`` 函数： ::
+并非所有的整数值都是有效的 Unicode 码位，但为了性能， ``char`` 一般不检查其是否有效。如果你想要确保其有效，使用 ``is_valid_char`` 函数：
+
+.. doctest::
 
     julia> char(0x110000)
     '\U110000'
@@ -50,7 +58,9 @@ Julia 中处理 `ASCII <http://zh.wikipedia.org/zh-cn/ASCII>`_ 文本简洁高�
 
 目前，有效的 Unicode 码位为，从 ``U+00`` 至 ``U+d7ff`` ，以及从 ``U+e000`` 至 ``U+10ffff`` 。
 
-可以用单引号包住 ``\u`` 及跟着的最多四位十六进制数，或者 ``\U`` 及跟着的最多八位（有效的字符，最多需要六位）十六进制数，来输入 Unicode 字符： ::
+可以用单引号包住 ``\u`` 及跟着的最多四位十六进制数，或者 ``\U`` 及跟着的最多八位（有效的字符，最多需要六位）十六进制数，来输入 Unicode 字符：
+
+.. doctest::
 
     julia> '\u0'
     '\0'
@@ -64,7 +74,9 @@ Julia 中处理 `ASCII <http://zh.wikipedia.org/zh-cn/ASCII>`_ 文本简洁高�
     julia> '\U10ffff'
     '\U10ffff'
 
-Julia 使用系统默认的区域和语言设置来确定，哪些字符可以被正确显示，哪些需要用 ``\u`` 或 ``\U`` 的转义来显示。除 Unicode 转义格式之外，所有 `C 语言转义的输入格式 <http://en.wikipedia.org/wiki/C_syntax#Backslash_escapes>`_ 都能使： ::
+Julia 使用系统默认的区域和语言设置来确定，哪些字符可以被正确显示，哪些需要用 ``\u`` 或 ``\U`` 的转义来显示。除 Unicode 转义格式之外，所有 `C 语言转义的输入格式 <http://en.wikipedia.org/wiki/C_syntax#Backslash_escapes>`_ 都能使：
+
+.. doctest::
 
     julia> int('\0')
     0
@@ -87,7 +99,9 @@ Julia 使用系统默认的区域和语言设置来确定，哪些字符可以�
     julia> int('\xff')
     255
 
-可以对 ``Char`` 值比较大小，也可以做少量算术运算： ::
+可以对 ``Char`` 值比较大小，也可以做少量算术运算：
+
+.. doctest::
 
     julia> 'A' < 'a'
     true
@@ -107,12 +121,16 @@ Julia 使用系统默认的区域和语言设置来确定，哪些字符可以�
 字符串基础
 ----------
 
-用字符串初始化变量： ::
+用字符串初始化变量：
+
+.. doctest::
 
     julia> str = "Hello, world.\n"
     "Hello, world.\n"
 
-使用索引从字符串提取字符： ::
+使用索引从字符串提取字符：
+
+.. doctest::
 
     julia> str[1]
     'H'
@@ -125,7 +143,9 @@ Julia 使用系统默认的区域和语言设置来确定，哪些字符可以�
 
 Julia 中的索引都是从 1 开始的，最后一个元素的索引与字符串长度相同，都是 ``n`` 。
 
-在任何索引表达式中，关键词 ``end`` 都是最后一个索引值（由 ``endof(str)`` 计算得到）的缩写。可以对字符串做 ``end`` 算术或其它运算： ::
+在任何索引表达式中，关键词 ``end`` 都是最后一个索引值（由 ``endof(str)`` 计算得到）的缩写。可以对字符串做 ``end`` 算术或其它运算：
+
+.. doctest::
 
     julia> str[end-1]
     '.'
@@ -134,25 +154,35 @@ Julia 中的索引都是从 1 开始的，最后一个元素的索引与字符�
     ' '
 
     julia> str[end/3]
-    'o'
+    ERROR: InexactError()
+     in getindex at string.jl:58
 
     julia> str[end/4]
-    'l'
+    ERROR: InexactError()
+     in getindex at string.jl:58
 
-索引小于 1 或者大于 ``end`` ，会提示错误： ::
+索引小于 1 或者大于 ``end`` ，会提示错误：
+
+.. doctest::
 
     julia> str[0]
-    BoundsError()
+    ERROR: BoundsError()
+     in getindex at ascii.jl:11
 
     julia> str[end+1]
-    BoundsError()
+    ERROR: BoundsError()
+     in getindex at ascii.jl:11
 
-使用范围索引来提取子字符串： ::
+使用范围索引来提取子字符串：
+
+.. doctest::
 
     julia> str[4:9]
     "lo, wo"
 
-注意 ``str[k]`` 和 ``str[k:k]`` 的区别： ::
+注意 ``str[k]`` 和 ``str[k:k]`` 的区别：
+
+.. doctest::
 
     julia> str[6]
     ','
@@ -165,28 +195,36 @@ Julia 中的索引都是从 1 开始的，最后一个元素的索引与字符�
 Unicode 和 UTF-8
 ----------------
 
-Julia 完整支持 Unicode 字符和字符串。正如 `上文所讨论的 <#characters>`_ ，在字符文本中， Unicode 码位可以由 ``\u`` 和 ``\U`` 来转义，也可以使用标准 C 的转义序列。它们都可以用来写字符串文本： ::
+Julia 完整支持 Unicode 字符和字符串。正如 `上文所讨论的 <#characters>`_ ，在字符文本中， Unicode 码位可以由 ``\u`` 和 ``\U`` 来转义，也可以使用标准 C 的转义序列。它们都可以用来写字符串文本：
+
+.. doctest::
 
     julia> s = "\u2200 x \u2203 y"
     "∀ x ∃ y"
 
-非 ASCII 字符串文本使用 UTF-8 编码。 UTF-8 是一种变长编码，意味着并非所有的字符的编码长度都是相同的。在 UTF-8 中，码位低于 ``0x80 (128)`` 的字符即 ASCII 字符，编码如在 ASCII 中一样，使用单字节；其余码位的字符使用多字节，每字符最多四字节。这意味着 UTF-8 字符串中，并非所有的字节索引值都是有效的字符索引值。如果索引到无效的字节索引值，会抛出错误： ::
+非 ASCII 字符串文本使用 UTF-8 编码。 UTF-8 是一种变长编码，意味着并非所有的字符的编码长度都是相同的。在 UTF-8 中，码位低于 ``0x80 (128)`` 的字符即 ASCII 字符，编码如在 ASCII 中一样，使用单字节；其余码位的字符使用多字节，每字符最多四字节。这意味着 UTF-8 字符串中，并非所有的字节索引值都是有效的字符索引值。如果索引到无效的字节索引值，会抛出错误：
+
+.. doctest::
 
     julia> s[1]
     '∀'
 
     julia> s[2]
-    invalid UTF-8 character index
+    ERROR: invalid UTF-8 character index
+     in getindex at utf8.jl:63
 
     julia> s[3]
-    invalid UTF-8 character index
+    ERROR: invalid UTF-8 character index
+     in getindex at utf8.jl:63
 
     julia> s[4]
     ' '
 
 上例中，字符 ``∀`` 为 3 字节字符，所以索引值 2 和 3 是无效的，而下一个字符的索引值为 4。
 
-由于变长编码，字符串的字符数（由 ``length(s)`` 确定）不一定等于字符串的最后索引值。对字符串 ``s`` 进行索引，并从 1 遍历至 ``endof(s)`` ，如果没有抛出异常，返回的字符序列将包括 ``s`` 的序列。因而 ``length(s) <= endof(s)`` 。下面是个低效率的遍历 ``s`` 字符的例子： ::
+由于变长编码，字符串的字符数（由 ``length(s)`` 确定）不一定等于字符串的最后索引值。对字符串 ``s`` 进行索引，并从 1 遍历至 ``endof(s)`` ，如果没有抛出异常，返回的字符序列将包括 ``s`` 的序列。因而 ``length(s) <= endof(s)`` 。下面是个低效率的遍历 ``s`` 字符的例子：
+
+.. doctest::
 
     julia> for i = 1:endof(s)
              try
@@ -196,24 +234,26 @@ Julia 完整支持 Unicode 字符和字符串。正如 `上文所讨论的 <#cha
              end
            end
     ∀
-
+    <BLANKLINE>
     x
-
+    <BLANKLINE>
     ∃
-
+    <BLANKLINE>
     y
 
-所幸我们可以把字符串作为遍历对象，而不需处理异常： ::
+所幸我们可以把字符串作为遍历对象，而不需处理异常：
+
+.. doctest::
 
     julia> for c in s
              println(c)
            end
     ∀
-
+    <BLANKLINE>
     x
-
+    <BLANKLINE>
     ∃
-
+    <BLANKLINE>
     y
 
 Julia 不只支持 UTF-8 ，增加其它编码的支持也很简单。有关 UTF-8 的讨论，详见下面的 `字节数组文本 <#byte-array-literals>`_ 。
@@ -223,7 +263,9 @@ Julia 不只支持 UTF-8 ，增加其它编码的支持也很简单。有关 UTF
 内插
 ----
 
-字符串连接是最常用的操作： ::
+字符串连接是最常用的操作：
+
+.. doctest::
 
     julia> greet = "Hello"
     "Hello"
@@ -234,30 +276,38 @@ Julia 不只支持 UTF-8 ，增加其它编码的支持也很简单。有关 UTF
     julia> string(greet, ", ", whom, ".\n")
     "Hello, world.\n"
 
-像 Perl 一样， Julia 允许使用 ``$`` 来内插字符串文本： ::
+像 Perl 一样， Julia 允许使用 ``$`` 来内插字符串文本：
+
+.. doctest::
 
     julia> "$greet, $whom.\n"
     "Hello, world.\n"
 
 系统会将其重写为字符串文本连接。
 
-``$`` 将其后的最短的完整表达式内插进字符串。可以使用小括号将任意表达式内插： ::
+``$`` 将其后的最短的完整表达式内插进字符串。可以使用小括号将任意表达式内插：
+
+.. doctest::
 
     julia> "1 + 2 = $(1 + 2)"
     "1 + 2 = 3"
 
-字符串连接和内插都调用 ``string`` 函数来把对象转换为 ``String`` 。与在交互式会话中一样，大多数非 ``String`` 对象被转换为字符串： ::
+字符串连接和内插都调用 ``string`` 函数来把对象转换为 ``String`` 。与在交互式会话中一样，大多数非 ``String`` 对象被转换为字符串：
+
+.. doctest::
 
     julia> v = [1,2,3]
-    3-element Int64 Array:
+    3-element Array{Int64,1}:
      1
      2
      3
 
     julia> "v: $v"
-    "v: [1, 2, 3]"
+    "v: 1\n2\n3\n"
 
-``Char`` 值也可以被内插到字符串中： ::
+``Char`` 值也可以被内插到字符串中：
+
+.. doctest::
 
     julia> c = 'x'
     'x'
@@ -265,7 +315,9 @@ Julia 不只支持 UTF-8 ，增加其它编码的支持也很简单。有关 UTF
     julia> "hi, $c"
     "hi, x"
 
-要在字符串文本中包含 ``$`` 文本，应使用反斜杠将其转义： ::
+要在字符串文本中包含 ``$`` 文本，应使用反斜杠将其转义：
+
+.. doctest::
 
     julia> print("I have \$100 in my account.\n")
     I have $100 in my account.
@@ -273,7 +325,9 @@ Julia 不只支持 UTF-8 ，增加其它编码的支持也很简单。有关 UTF
 一般操作
 --------
 
-使用标准比较运算符，按照字典顺序比较字符串： ::
+使用标准比较运算符，按照字典顺序比较字符串：
+
+.. doctest::
 
     julia> "abracadabra" < "xylophone"
     true
@@ -287,7 +341,9 @@ Julia 不只支持 UTF-8 ，增加其它编码的支持也很简单。有关 UTF
     julia> "1 + 2 = 3" == "1 + 2 = $(1 + 2)"
     true
 
-使用 ``search`` 函数查找某个字符的索引值： ::
+使用 ``search`` 函数查找某个字符的索引值：
+
+.. doctest::
 
     julia> search("xylophone", 'x')
     1
@@ -298,7 +354,9 @@ Julia 不只支持 UTF-8 ，增加其它编码的支持也很简单。有关 UTF
     julia> search("xylophone", 'z')
     0
 
-可以通过提供第三个参数，从此偏移值开始查找： ::
+可以通过提供第三个参数，从此偏移值开始查找：
+
+.. doctest::
 
     julia> search("xylophone", 'o')
     4
@@ -309,7 +367,9 @@ Julia 不只支持 UTF-8 ，增加其它编码的支持也很简单。有关 UTF
     julia> search("xylophone", 'o', 8)
     0
 
-另一个好用的处理字符串的函数 ``repeat`` ： ::
+另一个好用的处理字符串的函数 ``repeat`` ：
+
+.. doctest::
 
     julia> repeat(".:Z:.", 10)
     ".:Z:..:Z:..:Z:..:Z:..:Z:..:Z:..:Z:..:Z:..:Z:..:Z:."
@@ -333,15 +393,19 @@ Julia 提供了 :ref:`非标准字符串文本 <man-non-standard-string-literals
 正则表达式
 ~~~~~~~~~~
 
-Julia 的正则表达式 (regexp) 与 Perl 兼容，由 `PCRE <http://www.pcre.org/>`_ 库提供。它是一种非标准字符串文本，前缀为 ``r`` ，最后面可再跟一些标识符。最基础的正则表达式仅为 ``r"..."`` 的形式： ::
+Julia 的正则表达式 (regexp) 与 Perl 兼容，由 `PCRE <http://www.pcre.org/>`_ 库提供。它是一种非标准字符串文本，前缀为 ``r`` ，最后面可再跟一些标识符。最基础的正则表达式仅为 ``r"..."`` 的形式：
+
+.. doctest::
 
     julia> r"^\s*(?:#|$)"
     r"^\s*(?:#|$)"
 
     julia> typeof(ans)
-    Regex
+    Regex (constructor with 3 methods)
 
-检查正则表达式是否匹配字符串，使用 ``ismatch`` 函数： ::
+检查正则表达式是否匹配字符串，使用 ``ismatch`` 函数：
+
+.. doctest::
 
     julia> ismatch(r"^\s*(?:#|$)", "not a comment")
     false
@@ -349,7 +413,9 @@ Julia 的正则表达式 (regexp) 与 Perl 兼容，由 `PCRE <http://www.pcre.o
     julia> ismatch(r"^\s*(?:#|$)", "# a comment")
     true
 
-``ismatch`` 根据正则表达式是否匹配字符串，返回真或假。 ``match`` 函数可以返回匹配的具体情况： ::
+``ismatch`` 根据正则表达式是否匹配字符串，返回真或假。 ``match`` 函数可以返回匹配的具体情况：
+
+.. doctest::
 
     julia> match(r"^\s*(?:#|$)", "not a comment")
 
@@ -365,7 +431,9 @@ Julia 的正则表达式 (regexp) 与 Perl 兼容，由 `PCRE <http://www.pcre.o
       println("blank or comment")
     end
 
-如果匹配成功， ``match`` 的返回值是一个 ``RegexMatch`` 对象。这个对象记录正则表达式是如何匹配的，包括类型匹配的子字符串，和其他捕获的子字符串。本例中仅捕获了匹配字符串的一部分，假如我们想要注释字符后的非空白开头的文本，可以这么写： ::
+如果匹配成功， ``match`` 的返回值是一个 ``RegexMatch`` 对象。这个对象记录正则表达式是如何匹配的，包括类型匹配的子字符串，和其他捕获的子字符串。本例中仅捕获了匹配字符串的一部分，假如我们想要注释字符后的非空白开头的文本，可以这么写：
+
+.. doctest::
 
     julia> m = match(r"^\s*(?:#\s*(.*?)\s*$|$)", "# a comment ")
     RegexMatch("# a comment ", 1="a comment")
@@ -377,7 +445,9 @@ Julia 的正则表达式 (regexp) 与 Perl 兼容，由 `PCRE <http://www.pcre.o
 -  完整匹配的起始偏移值： ``m.offset``
 -  捕获的子字符串的偏移值向量： ``m.offsets``
 
-对于没匹配的捕获， ``m.captures`` 的内容不是子字符串，而是 ``nothing`` ， ``m.offsets`` 为 0 偏移（ Julia 中的索引值都是从 1 开始的，因此 0 偏移值表示无效）： ::
+对于没匹配的捕获， ``m.captures`` 的内容不是子字符串，而是 ``nothing`` ， ``m.offsets`` 为 0 偏移（ Julia 中的索引值都是从 1 开始的，因此 0 偏移值表示无效）：
+
+.. doctest::
 
     julia> m = match(r"(a|b)(c)?(d)", "acd")
     RegexMatch("acd", 1="a", 2="c", 3="d")
@@ -386,7 +456,7 @@ Julia 的正则表达式 (regexp) 与 Perl 兼容，由 `PCRE <http://www.pcre.o
     "acd"
 
     julia> m.captures
-    3-element Union(UTF8String,ASCIIString,Nothing) Array:
+    3-element Array{Union(Nothing,SubString{UTF8String}),1}:
      "a"
      "c"
      "d"
@@ -395,7 +465,7 @@ Julia 的正则表达式 (regexp) 与 Perl 兼容，由 `PCRE <http://www.pcre.o
     1
 
     julia> m.offsets
-    3-element Int64 Array:
+    3-element Array{Int64,1}:
      1
      2
      3
@@ -407,7 +477,7 @@ Julia 的正则表达式 (regexp) 与 Perl 兼容，由 `PCRE <http://www.pcre.o
     "ad"
 
     julia> m.captures
-    3-element Union(UTF8String,ASCIIString,Nothing) Array:
+    3-element Array{Union(Nothing,SubString{UTF8String}),1}:
      "a"
      nothing
      "d"
@@ -416,12 +486,14 @@ Julia 的正则表达式 (regexp) 与 Perl 兼容，由 `PCRE <http://www.pcre.o
     1
 
     julia> m.offsets
-    3-element Int64 Array:
+    3-element Array{Int64,1}:
      1
      0
      2
 
-可以把结果多元组绑定给本地变量： ::
+可以把结果多元组绑定给本地变量：
+
+.. doctest::
 
     julia> first, second, third = m.captures; first
     "a"
@@ -440,7 +512,9 @@ manpage <http://perldoc.perl.org/perlre.html#Modifiers>`_ ： ::
 
     x   忽略大多数空白，除非是反斜杠。可以使用这个标识符，把正则表达式分为可读的小段。 '#' 字符被认为是引入注释的元字符
 
-例如，下面的正则表达式使用了所有选项： ::
+例如，下面的正则表达式使用了所有选项：
+
+.. doctest::
 
     julia> r"a+.*b+.*?d$"ism
     r"a+.*b+.*?d$"ims
@@ -459,24 +533,38 @@ manpage <http://perldoc.perl.org/perlre.html#Modifiers>`_ ： ::
 -  ``\x`` 和 八进制转义序列生成对应转义值的 *字节*
 -  Unicode 转义序列生成 UTF-8 码位的字节序列
 
-三种情况都有的例子： ::
+三种情况都有的例子：
+
+.. doctest::
 
     julia> b"DATA\xff\u2200"
-    [68,65,84,65,255,226,136,128]
+    8-element Array{Uint8,1}:
+     0x44
+     0x41
+     0x54
+     0x41
+     0xff
+     0xe2
+     0x88
+     0x80
 
-ASCII 字符串 "DATA" 对应于字节 68, 65, 84, 65 。 ``\xff`` 生成的单字节为 255 。Unicode 转义 ``\u2200`` 按 UTF-8 编码为三字节 226, 136, 128 。注意，字节数组的结果并不对应于一个有效的 UTF-8 字符串，如果把它当作普通的字符串文本，会得到语法错误： ::
+ASCII 字符串 "DATA" 对应于字节 68, 65, 84, 65 。 ``\xff`` 生成的单字节为 255 。Unicode 转义 ``\u2200`` 按 UTF-8 编码为三字节 226, 136, 128 。注意，字节数组的结果并不对应于一个有效的 UTF-8 字符串，如果把它当作普通的字符串文本，会得到语法错误：
+
+.. doctest::
 
     julia> "DATA\xff\u2200"
-    syntax error: invalid UTF-8 sequence
+    ERROR: syntax: invalid UTF-8 sequence
 
-``\xff`` 和 ``\uff`` 也不同：前者是 *字节 255* 的转义序列；后者是 *码位 255* 的转义序列，将被 UTF-8 编码为两个字节： ::
+``\xff`` 和 ``\uff`` 也不同：前者是 *字节 255* 的转义序列；后者是 *码位 255* 的转义序列，将被 UTF-8 编码为两个字节：
+
+.. doctest::
 
     julia> b"\xff"
-    1-element Uint8 Array:
+    1-element Array{Uint8,1}:
      0xff
 
     julia> b"\uff"
-    2-element Uint8 Array:
+    2-element Array{Uint8,1}:
      0xc3
      0xbf
 

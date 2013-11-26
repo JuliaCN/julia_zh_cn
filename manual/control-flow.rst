@@ -20,7 +20,9 @@ Julia 提供一系列控制流：
 复合表达式
 ----------
 
-用一个表达式按照顺序对一系列子表达式求值，并返回最后一个子表达式的值，有两种方法： ``begin`` 块和 ``(;)`` 链。 ``begin`` 块的例子： ::
+用一个表达式按照顺序对一系列子表达式求值，并返回最后一个子表达式的值，有两种方法： ``begin`` 块和 ``(;)`` 链。 ``begin`` 块的例子：
+
+.. doctest::
 
     julia> z = begin
              x = 1
@@ -29,12 +31,16 @@ Julia 提供一系列控制流：
            end
     3
 
-这个块很短也很简单，可以用 ``(;)`` 链语法将其放在一行上： ::
+这个块很短也很简单，可以用 ``(;)`` 链语法将其放在一行上：
+
+.. doctest::
 
     julia> z = (x = 1; y = 2; x + y)
     3
 
-这个语法在 :ref:`man-functions` 中的单行函数定义非常有用。 ``begin`` 块也可以写成单行， ``(;)`` 链也可以写成多行： ::
+这个语法在 :ref:`man-functions` 中的单行函数定义非常有用。 ``begin`` 块也可以写成单行， ``(;)`` 链也可以写成多行：
+
+.. doctest::
 
     julia> begin x = 1; y = 2; x + y end
     3
@@ -59,7 +65,9 @@ Julia 提供一系列控制流：
       println("x is equal to y")
     end
 
-如果条件表达式 ``x < y`` 为真，相应的语句块将会被执行；否则就执行条件表达式 ``x > y`` ，如果结果为真, 相应的语句块将被执行；如果两个表达式都是假， ``else`` 语句块将被执行。这是它用在实际中的例子： ::
+如果条件表达式 ``x < y`` 为真，相应的语句块将会被执行；否则就执行条件表达式 ``x > y`` ，如果结果为真, 相应的语句块将被执行；如果两个表达式都是假， ``else`` 语句块将被执行。这是它用在实际中的例子：
+
+.. doctest::
 
     julia> function test(x, y)
              if x < y
@@ -83,12 +91,14 @@ Julia 提供一系列控制流：
 
 ``elseif`` 及 ``else`` 块是可选的。
 
-如果条件表达式的值是除 ``true`` 和 ``false`` 之外的值，会出错： ::
+如果条件表达式的值是除 ``true`` 和 ``false`` 之外的值，会出错：
+
+.. doctest::
 
     julia> if 1
              println("true")
            end
-    type error: lambda: in if, expected Bool, got Int64
+    ERROR: type: non-boolean (Int64) used in boolean context
 
 “问号表达式”语法 ``?:`` 与 ``if``-``elseif``-``else`` 语法相关，但是适用于单个表达式： ::
 
@@ -96,7 +106,9 @@ Julia 提供一系列控制流：
 
 ``?`` 之前的 ``a`` 是条件表达式，如果为 ``true`` ，就执行 ``:`` 之前的 ``b`` 表达式，如果为 ``false`` ，就执行 ``:`` 的 ``c`` 表达式。
 
-用问号表达式来重写，可以使前面的例子更加紧凑。先看一个二选一的例子： ::
+用问号表达式来重写，可以使前面的例子更加紧凑。先看一个二选一的例子：
+
+.. doctest::
 
     julia> x = 1; y = 2;
 
@@ -108,11 +120,13 @@ Julia 提供一系列控制流：
     julia> println(x < y ? "less than" : "not less than")
     not less than
 
-三选一的例子需要链式调用问号表达式： ::
+三选一的例子需要链式调用问号表达式：
+
+.. doctest::
 
     julia> test(x, y) = println(x < y ? "x is less than y"    :
                                 x > y ? "x is greater than y" : "x is equal to y")
-	test (generic function with 1 method)
+    test (generic function with 1 method)
 
     julia> test(1, 2)
     x is less than y
@@ -125,10 +139,13 @@ Julia 提供一系列控制流：
 
 链式问号表达式的结合规则是从右到左。
 
-与 ``if``-``elseif``-``else`` 类似， ``:`` 前后的表达式，只有在对应条件表达式为 ``true`` 或 ``false`` 时才执行： ::
+与 ``if``-``elseif``-``else`` 类似， ``:`` 前后的表达式，只有在对应条件表达式为 ``true`` 或 ``false`` 时才执行：
+
+.. doctest::
 
     julia> v(x) = (println(x); x)
     v (generic function with 1 method)
+
 
     julia> 1 < 2 ? v("yes") : v("no")
     yes
@@ -148,7 +165,9 @@ Julia 提供一系列控制流：
 -  在表达式 ``a && b`` 中，只有 ``a`` 为 ``true`` 时才计算子表达式 ``b``
 -  在表达式 ``a || b`` 中，只有 ``a`` 为 ``false`` 时才计算子表达式 ``b``
 
-``&&`` 和 ``||`` 都与右侧结合，但 ``&&`` 比 ``||`` 优先级高： ::
+``&&`` 和 ``||`` 都与右侧结合，但 ``&&`` 比 ``||`` 优先级高：
+
+.. doctest::
 
     julia> t(x) = (println(x); true)
     t (generic function with 1 method)
@@ -192,7 +211,9 @@ Julia 提供一系列控制流：
     2
     false
 
-*非* 短路求值运算符，可以使用 :ref:`man-mathematical-operations` 中介绍的位布尔运算符 ``&`` 和 ``|`` ： ::
+*非* 短路求值运算符，可以使用 :ref:`man-mathematical-operations` 中介绍的位布尔运算符 ``&`` 和 ``|`` ：
+
+.. doctest::
 
     julia> f(1) & t(2)
     1
@@ -204,17 +225,21 @@ Julia 提供一系列控制流：
     2
     true
 
-``&&`` 和 ``||`` 的运算对象也必须是布尔值（ ``true`` 或 ``false`` ），否则会出现错误： ::
+``&&`` 和 ``||`` 的运算对象也必须是布尔值（ ``true`` 或 ``false`` ），否则会出现错误：
+
+.. doctest::
 
     julia> 1 && 2
-    type error: lambda: in if, expected Bool, got Int64
+    ERROR: type: non-boolean (Int64) used in boolean context
 
 .. _man-loops:
 
 重复求值: 循环
 --------------
 
-有两种循环表达式： ``while`` 循环和 ``for`` 循环。下面是 ``while`` 的例子： ::
+有两种循环表达式： ``while`` 循环和 ``for`` 循环。下面是 ``while`` 的例子：
+
+.. doctest::
 
     julia> i = 1;
 
@@ -228,7 +253,9 @@ Julia 提供一系列控制流：
     4
     5
 
-上例也可以重写为 ``for`` 循环： ::
+上例也可以重写为 ``for`` 循环：
+
+.. doctest::
 
     julia> for i = 1:5
              println(i)
@@ -239,7 +266,9 @@ Julia 提供一系列控制流：
     4
     5
 
-此处的 ``1:5`` 是一个 ``Range`` 对象，表示的是 1, 2, 3, 4, 5 序列。 ``for`` 循环遍历这些数，将其逐一赋给变量 ``i`` 。 ``while`` 循环和 ``for`` 循环的另一区别是变量的作用域。如果在其它作用域中没有引入变量 ``i`` ，那么它仅存在于 ``for`` 循环中。不难验证： ::
+此处的 ``1:5`` 是一个 ``Range`` 对象，表示的是 1, 2, 3, 4, 5 序列。 ``for`` 循环遍历这些数，将其逐一赋给变量 ``i`` 。 ``while`` 循环和 ``for`` 循环的另一区别是变量的作用域。如果在其它作用域中没有引入变量 ``i`` ，那么它仅存在于 ``for`` 循环中。不难验证：
+
+.. doctest::
 
     julia> for j = 1:5
              println(j)
@@ -251,11 +280,13 @@ Julia 提供一系列控制流：
     5
 
     julia> j
-    j not defined
+    ERROR: j not defined
 
 有关变量作用域，详见 :ref:`man-variables-and-scoping` 。
 
-通常， ``for`` 循环可以遍历任意容器。这时，应使用另一个（但是完全等价的）关键词 ``in`` ，而不是 ``=`` ，它使得代码更易阅读： ::
+通常， ``for`` 循环可以遍历任意容器。这时，应使用另一个（但是完全等价的）关键词 ``in`` ，而不是 ``=`` ，它使得代码更易阅读：
+
+.. doctest::
 
     julia> for i in [1,4,0]
              println(i)
@@ -273,7 +304,9 @@ Julia 提供一系列控制流：
 
 手册中将介绍各种可迭代容器（详见 :ref:`man-arrays` ）。
 
-有时要提前终止 ``while`` 或 ``for`` 循环。可以通过关键词 ``break`` 来实现： ::
+有时要提前终止 ``while`` 或 ``for`` 循环。可以通过关键词 ``break`` 来实现：
+
+.. doctest::
 
     julia> i = 1;
 
@@ -302,7 +335,9 @@ Julia 提供一系列控制流：
     4
     5
 
-有时需要中断本次循环，进行下一次循环，这时可以用关键字 ``continue`` ： ::
+有时需要中断本次循环，进行下一次循环，这时可以用关键字 ``continue`` ：
+
+.. doctest::
 
     julia> for i = 1:10
              if i % 3 != 0
@@ -314,7 +349,9 @@ Julia 提供一系列控制流：
     6
     9
 
-多层 ``for`` 循环可以被重写为一个外层循环，迭代类似于笛卡尔乘积的形式： ::
+多层 ``for`` 循环可以被重写为一个外层循环，迭代类似于笛卡尔乘积的形式：
+
+.. doctest::
 
     julia> for i = 1:2, j = 3:4
              println((i, j))
@@ -374,16 +411,22 @@ Julia 提供一系列控制流：
 | ``UndefRefError``      |
 +------------------------+
 
-例如，当对负实数使用内置的 ``sqrt`` 函数时，将抛出 ``DomainError()`` ： ::
+例如，当对负实数使用内置的 ``sqrt`` 函数时，将抛出 ``DomainError()`` ：
+
+.. doctest::
 
     julia> sqrt(-1)
-    ERROR: DomainError()
-     in sqrt at math.jl:117
+    ERROR: DomainError
+    sqrt will only return a complex result if called with a complex argument.
+    try sqrt(complex(x))
+     in sqrt at math.jl:284
 
 ``throw`` 函数
 ~~~~~~~~~~~~~~
 
-可以使用 ``throw`` 函数显式创建异常。例如，某个函数只对非负数做了定义，如果参数为负数，可以抛出 ``DomaineError`` 异常： ::
+可以使用 ``throw`` 函数显式创建异常。例如，某个函数只对非负数做了定义，如果参数为负数，可以抛出 ``DomaineError`` 异常：
+
+.. doctest::
 
     julia> f(x) = x>=0 ? exp(-x) : throw(DomainError())
     f (generic function with 1 method)
@@ -392,10 +435,12 @@ Julia 提供一系列控制流：
     0.36787944117144233
     
     julia> f(-1)
-    ERROR: DomainError()
+    ERROR: DomainError
      in f at none:1
 
-注意， ``DomainError`` 使用时需要使用带括号的形式，否则返回的并不是异常，而是异常的类型。必须带括号才能返回 ``Exception`` 对象： ::
+注意， ``DomainError`` 使用时需要使用带括号的形式，否则返回的并不是异常，而是异常的类型。必须带括号才能返回 ``Exception`` 对象：
+
+.. doctest::
 
     julia> typeof(DomainError()) <: Exception
     true
@@ -408,7 +453,9 @@ Julia 提供一系列控制流：
 
 ``error`` 函数用来产生 ``ErrorException`` ，阻断程序的正常执行。
 
-如下改写 ``sqrt`` 函数，当参数为负数时，提示错误，立即停止执行： ::
+如下改写 ``sqrt`` 函数，当参数为负数时，提示错误，立即停止执行：
+
+.. doctest::
 
     julia> fussy_sqrt(x) = x >= 0 ? sqrt(x) : error("negative x not allowed")
     fussy_sqrt (generic function with 1 method)
@@ -417,9 +464,12 @@ Julia 提供一系列控制流：
     1.4142135623730951
 
     julia> fussy_sqrt(-1)
-    negative x not allowed
+    ERROR: negative x not allowed
+     in fussy_sqrt at none:1
 
-当对负数调用 ``fussy_sqrt`` 时，它会立即返回，显示错误信息： ::
+当对负数调用 ``fussy_sqrt`` 时，它会立即返回，显示错误信息：
+
+.. doctest::
 
     julia> function verbose_fussy_sqrt(x)
              println("before fussy_sqrt")
@@ -436,15 +486,18 @@ Julia 提供一系列控制流：
 
     julia> verbose_fussy_sqrt(-1)
     before fussy_sqrt
-    negative x not allowed
+    ERROR: negative x not allowed
+     in fussy_sqrt at none:1
 
 ``warn`` 和 ``info`` 函数
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Julia 还提供一些函数，用来向标准错误 I/O 输出一些消息，但不抛出异常，因而并不会打断程序的执行： ::
+Julia 还提供一些函数，用来向标准错误 I/O 输出一些消息，但不抛出异常，因而并不会打断程序的执行：
+
+.. doctest::
 
     julia> info("Hi"); 1+1
-    MESSAGE: Hi
+    INFO: Hi
     2
     
     julia> warn("Hi"); 1+1
@@ -458,7 +511,9 @@ Julia 还提供一些函数，用来向标准错误 I/O 输出一些消息，但
 ``try/catch`` 语句
 ~~~~~~~~~~~~~~~~~~
 
-``try/catch`` 语句可以用于处理一部分预料中的异常 ``Exception`` 。例如，下面求平方根函数可以正确处理实数或者复数 ::
+``try/catch`` 语句可以用于处理一部分预料中的异常 ``Exception`` 。例如，下面求平方根函数可以正确处理实数或者复数：
+
+.. doctest::
 
     julia> f(x) = try
              sqrt(x)
@@ -475,7 +530,9 @@ Julia 还提供一些函数，用来向标准错误 I/O 输出一些消息，但
 
 但是处理异常比正常采用分支来处理，会慢得多。
 
-``try/catch`` 语句使用时也可以把异常赋值给某个变量。例如： ::
+``try/catch`` 语句使用时也可以把异常赋值给某个变量。例如：
+
+.. doctest::
 
     julia> sqrt_second(x) = try
              sqrt(x[2])
@@ -498,8 +555,10 @@ Julia 还提供一些函数，用来向标准错误 I/O 输出一些消息，但
     3.0
     
     julia> sqrt_second(-9)
-    ERROR: DomainError()
-     in sqrt at math.jl:117
+    ERROR: DomainError
+    sqrt will only return a complex result if called with a complex argument.
+    try sqrt(complex(x))
+     in sqrt at math.jl:284
      in sqrt_second at none:7
 
 Julia 还提供了更高级的异常处理函数 ``rethrow`` ， ``backtrace`` 和 ``catch_backtrace`` 。
@@ -532,17 +591,21 @@ finally 语句
 任务比较适合生产者-消费者模式，一个过程用来生产值，另一个用来消费值。消费者不能简单的调用生产者来得到值，因为两者的执行时间不一定协同。在任务中，两者则可以
 正常运行。
 
-Julia 提供了 ``produce`` 和 ``consume`` 函数来解决这个问题。生产者调用 ``produce`` 函数来生产值： ::
+Julia 提供了 ``produce`` 和 ``consume`` 函数来解决这个问题。生产者调用 ``produce`` 函数来生产值：
 
-    function producer()
-      produce("start")
-      for n=1:4
-        produce(2n)
-      end
-      produce("stop")
-    end
+.. doctest::
 
-要消费生产的值，先对生产者调用 ``Task`` 函数，然后对返回的对象重复调用 ``consume`` ： ::
+    julia> function producer()
+             produce("start")
+             for n=1:4
+               produce(2n)
+             end
+             produce("stop")
+           end;
+
+要消费生产的值，先对生产者调用 ``Task`` 函数，然后对返回的对象重复调用 ``consume`` ：
+
+.. doctest::
 
     julia> p = Task(producer)
     Task
@@ -565,7 +628,9 @@ Julia 提供了 ``produce`` 和 ``consume`` 函数来解决这个问题。生产
     julia> consume(p)
     "stop"
 
-可以在 ``for`` 循环中迭代任务，生产的值被赋值给循环变量： ::
+可以在 ``for`` 循环中迭代任务，生产的值被赋值给循环变量：
+
+.. doctest::
 
     julia> for x in Task(producer)
              println(x)

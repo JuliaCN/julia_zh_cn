@@ -50,6 +50,8 @@ Julia 提供了极其灵活的变量命名系统。变量名区分大小写。
 
 Julia 甚至允许重新定义内置的常数和函数： ::
 
+.. doctest::
+
     julia> pi
     π = 3.1415926535897...
     
@@ -74,11 +76,13 @@ Julia 甚至允许重新定义内置的常数和函数： ::
 
 内置的关键字不能当变量名： ::
 
+.. doctest::
+
     julia> else = false
-    ERROR: syntax: unexpected else
+    ERROR: syntax: unexpected "else"
     
     julia> try = "No"
-    ERROR: syntax: unexpected =
+    ERROR: syntax: unexpected "="
 
 命名规范
 ========
