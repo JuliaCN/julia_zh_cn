@@ -190,13 +190,15 @@ Julia 的编译器依靠参数类型来优化代码。第一个实现中，编�
 
 形如 ``strange_twos`` 之类的函数经常用于处理未知类型的数据。比如，从文件载入的数据，可能包含整数、浮点数、字符串，或者其他类型。
 
-Remember that arrays are column-major
--------------------------------------
+Access arrays in memory order, along columns
+--------------------------------------------
 
 Multidimensional arrays in Julia are stored in column-major order. This
 means that arrays are stacked one column at a time. This can be verified
 using the ``vec`` function or the syntax ``[:]`` as shown below (notice
-that the array is ordered ``[1 3 2 4]``, not ``[1 2 3 4]``)::
+that the array is ordered ``[1 3 2 4]``, not ``[1 2 3 4]``):
+
+.. doctest::
 
     julia> x = [1 2; 3 4]
     2x2 Array{Int64,2}:

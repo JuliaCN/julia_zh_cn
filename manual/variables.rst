@@ -9,7 +9,7 @@ Julia 提供了极其灵活的变量命名系统。变量名区分大小写。
 
     \begin{CJK*}{UTF8}{gbsn}
 
-.. code-block:: guess
+.. doctest::
 
     julia> ix = 1.0
     1.0
@@ -36,10 +36,10 @@ Julia 提供了极其灵活的变量命名系统。变量名区分大小写。
 
     \begin{CJK*}{UTF8}{mj}
 
-.. code-block:: guess
+.. doctest::
 
     julia> δ = 0.00001
-    0.00001
+    1.0e-5
 
     julia> 안녕하세요 = "Hello" 
     "Hello"

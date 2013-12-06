@@ -521,6 +521,10 @@ manpage <http://perldoc.perl.org/perlre.html#Modifiers>`_ ： ::
 
     julia> match(r"a+.*b+.*?d$"ism, "Goodbye,\nOh, angry,\nBad world\n")
     RegexMatch("angry,\nBad world")
+    
+Triple-quoted regex strings, of the form ``r"""..."""``, are also
+supported (and may be convenient for regular expressions containing
+quotation marks or newlines).
 
 .. _man-byte-array-literals:
 

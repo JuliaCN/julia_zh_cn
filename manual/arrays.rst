@@ -317,7 +317,7 @@ Julia 的基础数组类型是抽象类型 ``AbstractArray{T,n}`` ，其中维�
 
 下面的例子计算大数组中的一个小块的 QR 分解，无需构造临时变量，直接调用合适的 LAPACK 函数。
 
-.. code-block:: jlcon
+.. doctest::
 
     julia> a = rand(10,10)
     10x10 Float64 Array:
@@ -372,6 +372,12 @@ Julia 中，稀疏矩阵使用 `列压缩（CSC）格式 <http://en.wikipedia.or
     end
 
 列压缩存储便于按列简单快速地存取稀疏矩阵的元素，但按行存取则较慢。把非零值插入 CSC 结构等运算，都比较慢，这是因为稀疏矩阵中，在所插入元素后面的元素，都要逐一移位。
+
+If you have data in CSC format from a different application or library, 
+and wish to import it in Julia, make sure that you use 1-based indexing.
+The row indices in every column need to be sorted. If your `SparseMatrixCSC` 
+ojbect contains unsorted row indices, one quick way to sort them is by
+doing a double transpose.
 
 构造稀疏矩阵
 ------------
