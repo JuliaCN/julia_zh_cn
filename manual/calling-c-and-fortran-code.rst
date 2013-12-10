@@ -83,7 +83,7 @@ Julia 调用 C 和 Fortran 的函数，既简单又高效。
 
 ::
 
-    function compute_dot(DX::Vector, DY::Vector)
+    function compute_dot(DX::Vector{Float64}, DY::Vector{Float64})
       assert(length(DX) == length(DY))
       n = length(DX)
       incx = incy = 1
