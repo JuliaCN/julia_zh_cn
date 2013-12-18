@@ -302,3 +302,24 @@ should be coupled with the inner-most loop.
 -  对于较小的整数幂，使用 ``*`` 更好。如 ``x*x*x`` 比 ``x^3`` 好
 -  针对复数 ``z`` ，使用 ``abs2(z)`` 代替 ``abs(z)^2`` 。一般情况下，对于复数参数，尽量用 ``abs2`` 代替 ``abs``
 -  对于整数除法，使用 ``div(x,y)`` 和 ``fld(x,y)`` 代替 ``trunc(x/y)`` 和 ``floor(x/y)``
+
+
+工具
+----
+
+Julia includes some tools that may help you improve the performance of your code:
+
+- :ref:`stdlib-profiling` allows you to measure the performance of
+  your running code and identify lines that serve as bottlenecks.
+
+- Unexpectedly-large memory allocations---as reported by ``@time``,
+  ``@allocated``, or the profiler (through calls to the
+  garbage-collection routines)---hint that there might be issues with
+  your code.  If you don't see another reason for the allocations,
+  suspect a type problem.
+
+- Using ``code_typed()`` on your function can help identify sources of
+  type problems.  Look particularly for variables that, contrary to
+  your intentions, are inferred to be ``Union`` types.  Such problems
+  can usually be fixed using the tips above.
+  
