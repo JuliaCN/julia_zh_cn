@@ -19,7 +19,7 @@ Julia 中处理 `ASCII <http://zh.wikipedia.org/zh-cn/ASCII>`_ 文本简洁高�
 字符
 ----
 
-``Char`` 表示单个字符：它是 32 位整数，值参见 `Unicode 码位 <http://zh.wikipedia.org/zh-cn/%E7%A0%81%E4%BD%8D>`_ 。下面是如何输入和显示 ``Char`` ：
+``Char`` 表示单个字符：它是 32 位整数，值参见 `Unicode 码位 <http://zh.wikipedia.org/zh-cn/%E7%A0%81%E4%BD%8D>`_ 。 ``Char`` 必须使用单引号：
 
 .. doctest::
 
@@ -121,12 +121,15 @@ Julia 使用系统默认的区域和语言设置来确定，哪些字符可以�
 字符串基础
 ----------
 
-用字符串初始化变量：
+字符串文本应放在双引号 `"..."` 或三个双引号 `"""..."""` 中间：
 
 .. doctest::
 
     julia> str = "Hello, world.\n"
     "Hello, world.\n"
+    
+    julia> """Contains "quote" characters"""
+    "Contains \"quote\" characters"
 
 使用索引从字符串提取字符：
 
@@ -180,7 +183,7 @@ Julia 中的索引都是从 1 开始的，最后一个元素的索引与字符�
     julia> str[4:9]
     "lo, wo"
 
-注意 ``str[k]`` 和 ``str[k:k]`` 的区别：
+``str[k]`` 和 ``str[k:k]`` 的结果不同：
 
 .. doctest::
 

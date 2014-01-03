@@ -24,6 +24,12 @@ Julia 的语法和 MATLAB 很像。但 Julia 不是简单地复制 MATLAB ，它
 -  即使是无参数的函数，也要使用圆括号，如 ``tic()`` 和 ``toc()``
 -  表达式结尾不要使用分号。表达式的结果不会自动显示（除非在交互式提示符下）。 ``println`` 函数可以用来打印值并换行
 -  若 ``A`` 和 ``B`` 是数组， ``A == B`` 并不返回布尔值数组。应该使用 ``A .== B`` 。其它布尔值运算符可以类比， ``<``, ``>``, ``!=`` 等
+-  The operators ``&``, ``|``, and ``$`` perform the bitwise operations and,
+   or, and xor, respectively, and have precedence similar to Python's bitwise
+   operators (not like C). They can operate on scalars or elementwise
+   across arrays and can be used to combine logical arrays, but note the
+   difference in order of operations—parentheses may be required (e.g.,
+   to select elements of ``A`` equal to 1 or 2 use ``(A .== 1) | (A .== 2)``).
 -  可以用 ``...`` 把集合中的元素作为参数传递给函数，如 ``xs=[1,2]; f(xs...)``
 -  Julia 中 ``svd`` 返回的奇异值是向量而不是完整的对角矩阵
 -  Julia 中 ``...`` 不用来将一行代码拆成多行

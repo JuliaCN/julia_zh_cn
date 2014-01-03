@@ -1656,15 +1656,19 @@ Text I/O
 
    Read a matrix from the source with a given element type. If ``T`` is a numeric type, the result is an array of that type, with any non-numeric elements as ``NaN`` for floating-point types, or zero. Other useful values of ``T`` include ``ASCIIString``, ``String``, and ``Any``.
 
-.. function:: writedlm(filename, array, delim::Char)
+.. function:: writedlm(f, A, delim='\t')
 
-   Write an array to a text file using the given delimeter (defaults to comma).
+   Write ``A`` (either an array type or an iterable collection of iterable rows) as text to ``f`` (either a filename string or an ``IO`` stream) using the given delimeter ``delim`` (which defaults to tab, but can be any printable Julia object, typically a ``Char`` or ``String``).
+
+   For example, two vectors ``x`` and ``y`` of the same length can
+   be written as two columns of tab-delimited text to ``f`` by
+   either ``writedlm(f, [x y])`` or by ``writedlm(f, zip(x, y))``.
 
 .. function:: readcsv(source, [T::Type]; options...)
 
    Equivalent to ``readdlm`` with ``delim`` set to comma.
 
-.. function:: writecsv(filename, array)
+.. function:: writecsv(filename, A)
 
    Equivalent to ``writedlm`` with ``delim`` set to comma.
 
@@ -2195,14 +2199,14 @@ Mathematical Operators
    Boolean not
 
 .. _&&:
-.. function:: &&(x, y)
+.. function:: x && y
 
-   Boolean and
+   Short-circuiting boolean and
 
 .. _||:
-.. function:: ||(x, y)
+.. function:: x || y
 
-   Boolean or
+   Short-circuiting boolean or
 
 .. function:: A_ldiv_Bc(a,b)
 
@@ -3147,22 +3151,26 @@ Numbers
    ``BigFloat(2.1)`` may not yield what you expect. You may prefer to
    initialize constants using strings, e.g., ``BigFloat("2.1")``.
 
-.. function:: get_rounding()
+.. function:: get_rounding(T)
 
-   Get the current floating point rounding mode. Valid modes are ``RoundNearest``, ``RoundToZero``, ``RoundUp`` and ``RoundDown``.
+   Get the current floating point rounding mode for type ``T``. Valid modes
+   are ``RoundNearest``, ``RoundToZero``, ``RoundUp``, ``RoundDown``, and
+   ``RoundFromZero`` (``BigFloat`` only).
 
-.. function:: set_rounding(mode)
+.. function:: set_rounding(T, mode)
 
-   Set the floating point rounding mode. See ``get_rounding`` for available modes
+   Set the rounding mode of floating point type ``T``. Note that this may
+   affect other types, for instance changing the rounding mode of ``Float64``
+   will change the rounding mode of ``Float32``. See ``get_rounding`` for available modes
 
-.. function:: with_rounding(f::Function,mode)
+.. function:: with_rounding(f::Function, T, mode)
 
-   Change the floating point rounding mode for the duration of ``f``. It is logically equivalent to::
+   Change the rounding mode of floating point type ``T`` for the duration of ``f``. It is logically equivalent to::
 
-       old = get_rounding()
-       set_rounding(mode)
+       old = get_rounding(T)
+       set_rounding(T, mode)
        f()
-       set_rounding(old)
+       set_rounding(T, old)
 
    See ``get_rounding`` for available rounding modes.
 
@@ -3251,18 +3259,6 @@ The `BigFloat` type implements arbitrary-precision floating-point aritmetic usin
        set_bigfloat_precision(precision)
        f()
        set_bigfloat_precision(old)
-
-.. function:: get_bigfloat_rounding()
-
-   Get the current BigFloat rounding mode. Valid modes are ``RoundNearest``, ``RoundToZero``, ``RoundUp``, ``RoundDown``, ``RoundFromZero``
-
-.. function:: set_bigfloat_rounding(mode)
-
-   Set the BigFloat rounding mode. See get_bigfloat_rounding for available modes
-
-.. function:: with_bigfloat_rounding(f::Function,mode)
-
-   Change the BigFloat rounding mode for the duration of ``f``. See ``get_bigfloat_rounding`` for available rounding modes; see also ``with_bigfloat_precision``.
 
 Random Numbers
 --------------
@@ -3591,7 +3587,7 @@ Indexing, Assignment, and Concatenation
 
 .. function:: permutedims(A,perm)
 
-   Permute the dimensions of array ``A``. ``perm`` is a vector specifying a permutation of length ``ndims(A)``. This is a generalization of transpose for multi-dimensional arrays. Transpose is equivalent to ``permute(A,[2,1])``.
+   Permute the dimensions of array ``A``. ``perm`` is a vector specifying a permutation of length ``ndims(A)``. This is a generalization of transpose for multi-dimensional arrays. Transpose is equivalent to ``permutedims(A,[2,1])``.
 
 .. function:: ipermutedims(A,perm)
 
@@ -3809,6 +3805,16 @@ Combinatorics
    ``collect(partitions(array))`` to get an array of all partitions.
    The number of partitions to generete can be efficiently
    computed using ``length(partitions(array))``.
+
+.. function:: partitions(array, m)
+
+   Generate all set partitions of the elements of an array into exactly m
+   subsets, represented as arrays of arrays. Because the number of
+   partitions can be very large, this function returns an iterator object.
+   Use ``collect(partitions(array,m))`` to get an array of all partitions.
+   The number of partitions into m subsets is equal to the Stirling number
+   of the second kind and can be efficiently computed using
+   ``length(partitions(array,m))``.
 
 Statistics
 ----------

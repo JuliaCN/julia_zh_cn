@@ -13,6 +13,8 @@ Julia 的模块是一个独立的全局变量工作区。它由句法限制在 `
     module MyModule
     using Lib
     
+    import BigLib: bar, baz
+    
     export MyType, foo
     
     type MyType
@@ -31,6 +33,8 @@ Julia 的模块是一个独立的全局变量工作区。它由句法限制在 `
 这个模块定义了类型 ``MyType`` 和两个函数。 ``foo`` 函数和 ``MyType`` 类型被 export ，因此可以被 import 进其他模块使用。 ``bar`` 是 ``MyModule`` 的私有函数。
 
 语句 ``using Lib`` 表明， ``Lib``  模块在需要时可用来解析命名。若一个全局变量在当前模块中没有被定义，系统会在 ``Lib`` 中搜索，并在找到后把它 import 进来。在当前模块中凡是用到这个全局变量时，都会去找 ``Lib`` 中变量的定义。
+
+The statement ``import BigLib: bar, baz`` means that the names `bar` and `baz` from the `BigLib` module will be available as needed (but no other names).
 
 变量一旦被 import （即通过 ``import`` 关键字），当前模块就不能构造重名的变量了。import 的变量是只读的。给全局变量赋值，要么会影响当前模块的变量，要么会报错。
 

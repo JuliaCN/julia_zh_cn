@@ -423,7 +423,7 @@ Julia 提供了 ``eps`` 函数，可以用来检查 ``1.0`` 和下一个可表�
     julia> 1.1 + 0.1
     1.2000000000000002
 
-    julia> with_rounding(RoundDown) do
+    julia> with_rounding(Float64,RoundDown) do
            1.1 + 0.1
            end
     1.2
@@ -494,12 +494,12 @@ Julia 提供了 ``eps`` 函数，可以用来检查 ``1.0`` 和下一个可表�
 
 .. doctest::
 
-    julia> with_bigfloat_rounding(RoundUp) do
+    julia> with_rounding(BigFloat,RoundUp) do
            BigFloat(1) + BigFloat("0.1")
            end
     1.100000000000000000000000000000000000000000000000000000000000000000000000000003e+00 with 256 bits of precision
 
-    julia> with_bigfloat_rounding(RoundDown) do
+    julia> with_rounding(BigFloat,RoundDown) do
            BigFloat(1) + BigFloat("0.1")
            end
     1.099999999999999999999999999999999999999999999999999999999999999999999999999986e+00 with 256 bits of precision

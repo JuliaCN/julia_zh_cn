@@ -229,6 +229,22 @@ Julia 的 ``Char`` 类型是 32 位的，与所有平台的宽字符类型 (``wc
 
 如果所关注的指针是（位类型或不可变）的目标数据数组， ``pointer_to_array(ptr,dims,[own])`` 函数就非常有用啦。如果想要 Julia “控制”底层缓冲区并在返回的 ``Array`` 被释放时调用 ``free(ptr)`` ，最后一个参数应该为真。如果省略 ``own`` 参数或它为假，则调用者需确保缓冲区一直存在，直至所有的读取都结束。
 
+Passing Pointers for Modifying Inputs
+-------------------------------------
+
+Because C doesn't support multiple return values, often C functions will take
+pointers to data that the function will modify. To accomplish this within a
+``ccall`` you need to encapsulate the value inside an array of the appropriate
+type. When you pass the array as an argument with a ``Ptr`` type, julia will
+automatically pass a C pointer to the encapsulated data::
+
+    width = Cint[0]
+    range = Cfloat[0]
+    ccall(:foo, Void, (Ptr{Cint}, Ptr{Cfloat}), width, range)
+
+This is used extensively in Julia's LAPACK interface, where an integer ``info``
+is passed to LAPACK by reference, and on return, includes the success code.
+
 垃圾回收机制的安全
 ------------------
 
