@@ -2465,11 +2465,11 @@ Mathematical Functions
    Compute :math:`\cos(\pi x) / x - \sin(\pi x) / (\pi x^2)` if :math:`x \neq 0`, and :math:`0`
    if :math:`x = 0`. This is the derivative of ``sinc(x)``.
 
-.. function:: degrees2radians(x)
+.. function:: deg2rad(x)
 
    Convert ``x`` from degrees to radians
 
-.. function:: radians2degrees(x)
+.. function:: rad2deg(x)
 
    Convert ``x`` from radians to degrees
 
@@ -2497,9 +2497,9 @@ Mathematical Functions
 
    Accurate natural logarithm of ``1+x``.  Throws ``DomainError`` for ``Real`` arguments less than -1.
 
-.. function:: frexp(val, exp)
+.. function:: frexp(val)
 
-   Return a number ``x`` such that it has a magnitude in the interval ``[1/2, 1)`` or 0,
+   Return ``(x,exp)`` such that ``x`` has a magnitude in the interval ``[1/2, 1)`` or 0,
    and val = :math:`x \times 2^{exp}`.
 
 .. function:: exp(x)

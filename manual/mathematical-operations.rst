@@ -369,6 +369,9 @@ Julia 内置了所有的标准三角函数和双曲函数 ::
 
 除了 `atan2 <http://zh.wikipedia.org/zh-cn/Atan2>`_ 之外，都是单参数函数。 ``atan2`` 给出了 *x* 轴，与由 *x* 、 *y* 确定的点之间的 `弧度 <http://zh.wikipedia.org/zh-cn/%E5%BC%A7%E5%BA%A6>`_ 。
 
+Additionally, ``sinpi(x)`` and ``cospi(x)`` are provided for more accurate computations
+of ``sin(pi*x)`` and ``cos(pi*x)`` respectively.
+
 如果想要以度，而非弧度，为单位计算三角函数，应使用带 ``d`` 后缀的函数。例如， ``sind(x)`` 计算 ``x`` 的正弦值，这里 ``x`` 的单位是度。以下的列表是全部的以度为单位的三角函数： ::
 
     sind   cosd   tand   cotd   secd   cscd
