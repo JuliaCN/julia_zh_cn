@@ -45,16 +45,20 @@
     $ make helpdb.jl
     $ make latex
 
-此时 `_build/latex/` 目录下已经自动生成了编译所需的 TeX 文档。但此文档无法支持中文，需要手工打补丁。仿照 [这里](http://bone.twbbs.org.tw/blog/2012-03-23-SphinxXeTex.html) 的说明，进入 `_build/latex/` 目录，修改 `JuliaLanguage.tex`，将引言区的
+此时 `_build/latex/` 目录下已经自动生成了编译所需的 TeX 文档。
+下面这段目前未测试，很有可能仅需执行最后一段的操作就可以。
 
-    \usepackage[utf8]{inputenc}
-    
-            \DeclareUnicodeCharacter{00A0}{\nobreakspace}
-            \DeclareUnicodeCharacter{2203}{\ensuremath{\exists}}
-            \DeclareUnicodeCharacter{2200}{\ensuremath{\forall}}
-            \DeclareUnicodeCharacter{27FA}{\ensuremath{\Longleftrightarrow}}
+    但此文档无法支持中文，需要手工打补丁。仿照 [这里](http://bone.twbbs.org.tw/blog/2012-03-23-SphinxXeTex.html) 的说明，进入 `_build/latex/` 目录，修改 `JuliaLanguage.tex`，将引言区的
 
-语句删去，替换为 `\usepackage[adobefonts]{ctex}` 并保存（使用选项 `adobefonts` 需要在系统中安装 Adobe 的四个简体中文字体，也可使用 ctex 宏包的相应命令自定义中文字体，ctex 宏包说明可以在终端使用命令 `texdoc ctex` 查看）。然后在此目录下执行 `xelatex JuliaLanguage.tex` 两次即可生成中文 PDF 文档。编译过程如果遇到警告，使用回车跳过即可。
+        \usepackage[utf8]{inputenc}
+        
+                \DeclareUnicodeCharacter{00A0}{\nobreakspace}
+                \DeclareUnicodeCharacter{2203}{\ensuremath{\exists}}
+                \DeclareUnicodeCharacter{2200}{\ensuremath{\forall}}
+                \DeclareUnicodeCharacter{27FA}{\ensuremath{\Longleftrightarrow}}
+
+    语句删去，替换为 `\usepackage[adobefonts]{ctex}` 并保存（使用选项 `adobefonts` 需要在系统中安装 Adobe 的四个简体中文字体，也可使用 ctex 宏包的相应命令自定义中文字体，ctex 宏包说明可以在终端使用命令 `texdoc ctex` 查看）。
+    然后在此目录下执行 `xelatex JuliaLanguage.tex` 两次即可生成中文 PDF 文档。编译过程如果遇到警告，使用回车跳过即可。
 
 
 ## to do

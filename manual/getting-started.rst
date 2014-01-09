@@ -49,11 +49,21 @@ Julia 可以用 ``-p`` 或 ``--machinefile`` 选项来开启并行模式。 ``-p
 	
 如果你想让 Julia 在启动时运行一些代码，可以将代码放入 ``~\.juliarc.jl``::
 
+.. raw:: latex
+
+    \begin{CJK*}{UTF8}{mj}
+
+::
+
     $ echo 'println("Greetings! 你好! 안녕하세요?")' > ~/.juliarc.jl
     $ julia
     Greetings! 你好! 안녕하세요?
     
     ...
+
+.. raw:: latex
+
+    \end{CJK*}
 
 运行 Julia 有各种可选项： ::
 
