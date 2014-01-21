@@ -198,7 +198,7 @@ usepackage{CJKutf8}
 'preamble': '''
 \\hypersetup{unicode=true}
 \\usepackage{CJKutf8}
-\\begin{CJK}{UTF8}{gbsn}
+\\begin{CJK}{UTF8}{gkai}
 \\AtEndDocument{\\end{CJK}}
 ''',
 }
