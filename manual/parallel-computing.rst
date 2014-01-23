@@ -385,6 +385,25 @@ is ``DArray``\ -specific, but we list it here for completeness::
     end
 
 
+Shared Arrays (EXPERIMENTAL FEATURE)
+------------------------------------
+
+Shared Arrays use system shared memory to map the same array across many processes.
+
+The constructor for a shared array is of the form 
+  ``SharedArray(T::Type, dims::NTuple; init=false, pids=workers())``
+which creates a shared array of a bitstype ``T``  and size ``dims`` across the processes
+specified by ``pids`` - all of which have to be on the same host. 
+
+If an ``init`` function of the type ``initfn(S::SharedArray)`` is specified, 
+it is called on all the participating workers. 
+
+Unlike distributed arrays, a shared array is accessible only from those participating workers 
+specified by the ``pids`` named argument (and the creating process too, if it is on the same host).
+  
+SharedArray indexing (assignment and accessing values) is just like a regular array.
+
+
 ClusterManagers
 ---------------
 

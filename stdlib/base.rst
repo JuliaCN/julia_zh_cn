@@ -98,8 +98,8 @@ Getting Around
 
 .. function:: methodswith(typ[, showparents])
 
-   Show all methods with an argument of type ``typ``. If optional
-   ``showparents`` is ``true``, also show arguments with a parent type
+   Return an array of methods with an argument of type ``typ``. If optional
+   ``showparents`` is ``true``, also return arguments with a parent type
    of ``typ``, excluding type ``Any``.
 
 .. function:: @show
@@ -851,6 +851,16 @@ Dequeues
 .. function:: insert!(collection, index, item)
 
    Insert an item at the given index.
+
+.. function:: deleteat!(collection, index)
+
+   Remove the item at the given index, and return the modified collection. Subsequent items
+   are shifted to fill the resulting gap.
+
+.. function:: deleteat!(collection, itr)
+
+   Remove the items at the indices given by `itr`, and return the modified collection. Subsequent 
+   items are shifted to fill the resulting gap.  `itr` must be sorted and unique.
 
 .. function:: splice!(collection, index, [replacement]) -> item
 
@@ -1664,22 +1674,37 @@ Text I/O
 
    Create an iterable object that will yield each line from a stream.
 
-.. function:: readdlm(source, delim::Char; has_header=false, use_mmap=false, ignore_invalid_chars=false)
+.. function:: readdlm(source, delim::Char, T::Type, eol::Char; has_header=false, use_mmap=false, ignore_invalid_chars=false)
 
-   Read a matrix from the source where each line gives one row, with elements separated by the given delimeter. The source can be a text file, stream or byte array. Memory mapped filed can be used by passing the byte array representation of the mapped segment as source. 
+   Read a matrix from the source where each line (separated by ``eol``) gives one row, with elements separated by the given delimeter. The source can be a text file, stream or byte array. Memory mapped files can be used by passing the byte array representation of the mapped segment as source. 
 
-   If ``has_header`` is ``true`` the first row of data would be read as headers and the tuple ``(data_cells, header_cells)`` is returned instead of only ``data_cells``.
+   If ``T`` is a numeric type, the result is an array of that type, with any non-numeric elements as ``NaN`` for floating-point types, or zero. Other useful values of ``T`` include ``ASCIIString``, ``String``, and ``Any``.
 
-   If ``use_mmap`` is ``true`` the file specified by ``source`` is memory mapped for potential speedups.
+   If ``has_header`` is ``true``, the first row of data would be read as headers and the tuple ``(data_cells, header_cells)`` is returned instead of only ``data_cells``.
 
-   If ``ignore_invalid_chars`` is ``true`` bytes in ``source`` with invalid character encoding will be ignored. Otherwise an error is thrown indicating the offending character position.
+   If ``use_mmap`` is ``true``, the file specified by ``source`` is memory mapped for potential speedups.
+
+   If ``ignore_invalid_chars`` is ``true``, bytes in ``source`` with invalid character encoding will be ignored. Otherwise an error is thrown indicating the offending character position.
+
+.. function:: readdlm(source, delim::Char, eol::Char; options...)
 
    If all data is numeric, the result will be a numeric array. If some elements cannot be parsed as numbers, a cell array of numbers and strings is returned.
-
-
+   
 .. function:: readdlm(source, delim::Char, T::Type; options...)
 
-   Read a matrix from the source with a given element type. If ``T`` is a numeric type, the result is an array of that type, with any non-numeric elements as ``NaN`` for floating-point types, or zero. Other useful values of ``T`` include ``ASCIIString``, ``String``, and ``Any``.
+   The end of line delimiter is taken as ``\n``.
+
+.. function:: readdlm(source, delim::Char; options...)
+
+   The end of line delimiter is taken as ``\n``. If all data is numeric, the result will be a numeric array. If some elements cannot be parsed as numbers, a cell array of numbers and strings is returned.
+
+.. function:: readdlm(source, T::Type; options...)
+
+   The columns are assumed to be separated by one or more whitespaces. The end of line delimiter is taken as ``\n``.
+
+.. function:: readdlm(source; options...)
+
+   The columns are assumed to be separated by one or more whitespaces. The end of line delimiter is taken as ``\n``. If all data is numeric, the result will be a numeric array. If some elements cannot be parsed as numbers, a cell array of numbers and strings is returned.
 
 .. function:: writedlm(f, A, delim='\t')
 
@@ -3740,6 +3765,11 @@ Combinatorics
 
    Compute the kth lexicographic permutation of a vector.
 
+.. function:: nthperm(p)
+
+   Return the ``k`` that generated permutation ``p``.
+   Note that ``nthperm(nthperm([1:n], k)) == k`` for ``1 <= k <= factorial(n)``.
+
 .. function:: nthperm!(v, k)
 
    In-place version of :func:`nthperm`.
@@ -4500,6 +4530,37 @@ Distributed Arrays
 
    Get the vector of processors storing pieces of ``d``
 
+   
+Shared Arrays (EXPERIMENTAL FEATURE)
+------------------------------------
+
+.. function:: SharedArray(T::Type, dims::NTuple; init=false, pids=workers())
+
+    Construct a SharedArray of a bitstype ``T``  and size ``dims`` across the processes
+    specified by ``pids`` - all of which have to be on the same host. 
+
+    If an ``init`` function of the type ``initfn(S::SharedArray)`` is specified, 
+    it is called on all the participating workers. 
+
+    The following fields in type ``SharedArray`` are initialized appropriately on each 
+    participating process.
+    
+    ``loc_shmarr::Array{T,N}`` - the shared memory segment mapped appropriately into 
+    the current process. Note: For indexed access it is NOT required to use this field.
+    A ``SharedArray`` object can be used just like a regular array.
+    
+    ``loc_pididx::Int`` - index of the current process into the ``pids`` vector. Can be 
+    used while distributing computational work across participating workers
+    
+    ``loc_subarr_1d`` - a 1-d subarray of the entire array, when equally partitioned 
+    across participating workers. Can be used as a simple work partitioning scheme.
+    
+
+.. function:: procs(S::SharedArray)
+
+   Get the vector of processes that have mapped the shared array 
+   
+   
 System
 ------
 

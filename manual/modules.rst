@@ -40,6 +40,20 @@ The statement ``import BigLib: bar, baz`` means that the names `bar` and `baz` f
 
 方法的定义有点儿特殊：它们不去搜索 ``using`` 语句中的模块。除非 ``foo`` 是从某处 import 进来的， ``function foo()`` 声明会在当前模块构造一个新的 ``foo`` 。例如，上面的 ``MyModule`` 中，我们要给标准 ``show`` 函数添加一个方法，我们必须写 ``import Base.show`` 。
 
+
+Module paths
+------------
+
+The Julia variable LOAD_PATH contains the directories Julia searches for 
+modules. It can be extended using the ``push!`` method::
+
+    push!(LOAD_PATH, "/Path/To/My/Module/")
+
+Putting this statement to the ``~\.juliarc.jl`` file will extend LOAD_PATH 
+on every Julia startup. Alternatively, the Julia module load path can be
+extended by defining the environoment variable JULIA_LOAD_PATH and putting
+directories to it.
+
 模块和文件
 ----------
 
