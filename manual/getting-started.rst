@@ -45,7 +45,7 @@ Julia 的安装，不管是使用编译好的程序，还是自己从源代码�
     foo
     bar
 
-Julia 可以用 ``-p`` 或 ``--machinefile`` 选项来开启并行模式。 ``-p n`` 会发起额外的 ``n`` 个工作进程，而 ``--machinefile file`` 会为文件 ``file`` 的每一行发起一个工作进程。 ``file`` 定义的机器，必须要能经由 ``ssh`` 访问，且每个机器定义的格式为 ``[user@]host[:port]`` 。
+Julia 可以用 ``-p`` 或 ``--machinefile`` 选项来开启并行模式。 ``-p n`` 会发起额外的 ``n`` 个工作进程，而 ``--machinefile file`` 会为文件 ``file`` 的每一行发起一个工作进程。 ``file`` 定义的机器，必须要能经由无密码的 ``ssh`` 访问，且每个机器上的 Julia 安装的位置应完全相同，每个机器的定义为 ``[user@]host[:port]`` 。
 	
 如果你想让 Julia 在启动时运行一些代码，可以将代码放入 ``~\.juliarc.jl``::
 
