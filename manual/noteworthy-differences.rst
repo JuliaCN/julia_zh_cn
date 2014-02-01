@@ -12,6 +12,12 @@ Julia 的语法和 MATLAB 很像。但 Julia 不是简单地复制 MATLAB ，它
 -  数组用方括号来索引， ``A[i,j]``
 -  数组是用引用来赋值的。在 ``A=B`` 之后，对 ``B`` 赋值也会修改 ``A`` 
 -  使用引用来传递和赋值。如果一个函数修改了数组，调用函数会发现值也变了
+-  Matlab combines allocation and assignment into single statements,
+   e.g., ``a(4) = 3.2`` creates the array ``a = [0 0 0 3.2]`` and ``a(5) = 7``
+   grows it. Julia separates allocation and assignment:
+   if ``a`` is of length 4, ``a[5] = 7`` yields an error. Julia has a ``push!``
+   function which grows ``Vectors`` much more efficiently than Matlab's
+   ``a(end+1) = val``.
 -  虚数单位 ``sqrt(-1)`` 用 ``im`` 来表示
 -  多返回值和多重赋值需要使用圆括号，如 ``return (a, b)`` 和 ``(a, b) = f(x)``
 -  Julia 有一维数组。列向量的长度为 ``N`` ，而不是 ``Nx1`` 。例如， ``rand(N)`` 生成的是一维数组
@@ -34,6 +40,11 @@ Julia 的语法和 MATLAB 很像。但 Julia 不是简单地复制 MATLAB ，它
 -  Julia 中 ``svd`` 返回的奇异值是向量而不是完整的对角矩阵
 -  Julia 中 ``...`` 不用来将一行代码拆成多行
 -  变量 ``ans`` 是交互式会话中执行的最后一条表达式的值；以其它方式执行的表达式的值，不会赋值给它
+-  The closest analog to Julia's ``types`` are Matlab's
+   ``classes``. Matlab's ``structs`` behave somewhere between Julia's
+   ``types`` and ``Dicts``; in particular, if you need to be able to add
+   fields to a ``struct`` on-the-fly, use a ``Dict`` rather than a
+   ``type``.
 
 与 R 的区别
 -----------

@@ -162,13 +162,30 @@
 
     julia> z = Incomplete();
 
-尽管可以构造未初始化域的对象，但读取未初始化域会报错：
+尽管可以构造未初始化域的对象，但读取未初始化的引用会报错：
 
 .. doctest::
 
     julia> z.xx
     ERROR: access to undefined reference
 
+This avoids the need to continually check for ``null`` values.
+However, not all object fields are references. Julia considers some
+types to be "plain data", meaning all of their data is self-contained
+and does not reference other objects. The plain data types consist of bits
+types (e.g. ``Int``) and immutable structs of other plain data types.
+The initial contents of a plain data type is undefined::
+
+    julia> type HasPlain
+             n::Int
+             HasPlain() = new()
+           end
+
+    julia> HasPlain()
+    HasPlain(438103441441)
+
+Arrays of plain data types exhibit the same behavior.
+    
 可以在内部构造方法中，将不完整的对象传递给其它函数，来委托完成全部初始化： ::
 
     type Lazy

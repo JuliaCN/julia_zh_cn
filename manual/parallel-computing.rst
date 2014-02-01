@@ -305,7 +305,7 @@ equal the number of processors.
 
 ``localpart(a::DArray)`` 可用来获取 ``DArray`` 本地存储的部分。
 
-``myindexes(a::DArray)`` 返回本地处理器所存储的维度索引值范围多元组。
+``localindexes(a::DArray)`` 返回本地处理器所存储的维度索引值范围多元组。
 
 ``convert(Array, a::DArray)`` 将所有数据综合到本地处理器上。
 
