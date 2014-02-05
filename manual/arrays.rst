@@ -376,8 +376,15 @@ Julia 中，稀疏矩阵使用 `列压缩（CSC）格式 <http://en.wikipedia.or
 If you have data in CSC format from a different application or library, 
 and wish to import it in Julia, make sure that you use 1-based indexing.
 The row indices in every column need to be sorted. If your `SparseMatrixCSC` 
-ojbect contains unsorted row indices, one quick way to sort them is by
+object contains unsorted row indices, one quick way to sort them is by
 doing a double transpose.
+
+In some applications, it is convenient to store explicit zero values in 
+a `SparseMatrixCSC`. These *are* accepted by functions in ``Base`` (but
+there is no guarantee that they will be preserved in mutating operations).
+Because of this, ``countnz`` is not a constant-time operation; instead,
+``nfilled`` should be used to obtain the number of elements in a sparse
+matrix.
 
 构造稀疏矩阵
 ------------
@@ -387,10 +394,10 @@ doing a double transpose.
 .. doctest::
 
     julia> spzeros(3,5)
-    3x5 sparse matrix with 0 Float64 nonzeros:
+    3x5 sparse matrix with 0 Float64 entries:
 
     julia> speye(3,5)
-    3x5 sparse matrix with 3 Float64 nonzeros:
+    3x5 sparse matrix with 3 Float64 entries:
             [1, 1]  =  1.0
             [2, 2]  =  1.0
             [3, 3]  =  1.0
@@ -402,7 +409,7 @@ doing a double transpose.
     julia> I = [1, 4, 3, 5]; J = [4, 7, 18, 9]; V = [1, 2, -5, 3];
 
     julia> S = sparse(I,J,V)
-    5x18 sparse matrix with 4 Int64 nonzeros:
+    5x18 sparse matrix with 4 Int64 entries:
             [1 ,  4]  =  1
             [4 ,  7]  =  2
             [5 ,  9]  =  3
@@ -423,7 +430,7 @@ doing a double transpose.
 .. doctest::
 
     julia> sparse(eye(5))
-    5x5 sparse matrix with 5 Float64 nonzeros:
+    5x5 sparse matrix with 5 Float64 entries:
             [1, 1]  =  1.0
             [2, 2]  =  1.0
             [3, 3]  =  1.0
@@ -440,7 +447,7 @@ doing a double transpose.
 稀疏矩阵运算
 ------------
 
-稠密矩阵的算术运算也可以用在稀疏矩阵上。对稀疏矩阵进行赋值运算，是比较费资源的。大多数情况下，建议使用 ``find_nzs`` 函数把稀疏矩阵转换为 ``(I,J,V)`` 格式，在非零数或者稠密向量 ``(I,J,V)`` 的结构上做运算，最后再重构回稀疏矩阵。
+稠密矩阵的算术运算也可以用在稀疏矩阵上。对稀疏矩阵进行赋值运算，是比较费资源的。大多数情况下，建议使用 ``findnz`` 函数把稀疏矩阵转换为 ``(I,J,V)`` 格式，在非零数或者稠密向量 ``(I,J,V)`` 的结构上做运算，最后再重构回稀疏矩阵。
 
 稠密矩阵和稀疏矩阵函数对应关系
 ------------------------------
@@ -463,8 +470,7 @@ doing a double transpose.
 +-----------------------+-------------------+----------------------------------------+
 | ``speye(n)``          | ``eye(n)``        | 构造 *m* x *n* 的单位矩阵              |
 +-----------------------+-------------------+----------------------------------------+
-| ``dense(S)``,         | ``sparse(A)``     | 转换为稀疏矩阵和稠密矩阵                 |
-| ``full(S)``           |                   |                                        |
+| ``full(S)``           | ``sparse(A)``     | 转换为稀疏矩阵和稠密矩阵               |
 +-----------------------+-------------------+----------------------------------------+
 | ``sprand(m,n,d)``     | ``rand(m,n)``     | 构造 *m*-by-*n* 的随机矩阵（稠密度为   |
 |                       |                   | *d* ） 独立同分布的非零元素在 [0, 1]   |

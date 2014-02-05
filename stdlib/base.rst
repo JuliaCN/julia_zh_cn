@@ -951,6 +951,37 @@ Strings
 
    Convert a string to a contiguous UTF-8 string (all characters must be valid UTF-8 characters).
 
+.. function:: normalize_string(s, normalform::Symbol)
+
+   Normalize the string ``s`` according to one of the four "normal
+   forms" of the Unicode standard: ``normalform`` can be ``:NFC``,
+   ``:NFD``, ``:NFKC``, or ``:NFKD``.  Normal forms C (canonical
+   composition) and D (canonical decomposition) convert different
+   visually identical representations of the same abstract string into
+   a single canonical form, with form C being more compact.  Normal
+   forms KC and KD additionally canonicalize "compatibility
+   equivalents": they convert characters that are abstractly similar
+   but visually distinct into a single canonical choice (e.g. they expand
+   ligatures into the individual characters), with form KC being more compact.
+
+   Alternatively, finer control and additional transformations may be
+   be obtained by calling `normalize_string(s; keywords...)`, where
+   any number of the following boolean keywords options (which all default
+   to ``false`` except for ``compose``) are specified:
+
+   * ``compose=false``: do not perform canonical composition
+   * ``decompose=true``: do canonical decomposition instead of canonical composition (``compose=true`` is ignored if present)
+   * ``compat=true``: compatibility equivalents are canonicalized
+   * ``casefold=true``: perform Unicode case folding, e.g. for case-insensitive string comparison
+   * ``newline2lf=true``, ``newline2ls=true``, or ``newline2ps=true``: convert various newline sequences (LF, CRLF, CR, NEL) into a linefeed (LF), line-separation (LS), or paragraph-separation (PS) character, respectively
+   * ``stripmark=true``: strip diacritical marks (e.g. accents)
+   * ``stripignore=true``: strip Unicode's "default ignorable" characters (e.g. the soft hyphen or the left-to-right marker)
+   * ``stripcc=true``: strip control characters; horizontal tabs and form feeds are converted to spaces; newlines are also converted to spaces unless a newline-conversion flag was specified
+   * ``rejectna=true``: throw an error if unassigned code points are found
+   * ``stable=true``: enforce Unicode Versioning Stability
+
+   For example, NFKC corresponds to the options ``compose=true, compat=true, stable=true``.
+
 .. function:: is_valid_ascii(s) -> Bool
 
    Returns true if the string or byte vector is valid ASCII, false otherwise.
@@ -962,6 +993,10 @@ Strings
 .. function:: is_valid_char(c) -> Bool
 
    Returns true if the given char or integer is a valid Unicode code point.
+
+.. function:: is_assigned_char(c) -> Bool
+
+   Returns true if the given char or integer is an assigned Unicode code point.
 
 .. function:: ismatch(r::Regex, s::String) -> Bool
 
@@ -3397,9 +3432,9 @@ Basic functions
 
    Returns the number of elements in A
 
-.. function:: nnz(A)
+.. function:: countnz(A)
 
-   Counts the number of nonzero values in array A (dense or sparse)
+   Counts the number of nonzero values in array A (dense or sparse). Note that this is not a constant-time operation. For sparse matrices, one should usually use ``nfilled`` instead.
 
 .. function:: conj!(A)
 
