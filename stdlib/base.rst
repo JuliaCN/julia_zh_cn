@@ -301,11 +301,11 @@ Types
    Extract a named field from a value of composite type. The syntax ``a.b`` calls
    ``getfield(a, :b)``, and the syntax ``a.(b)`` calls ``getfield(a, b)``.
 
-.. function:: setfield(value, name::Symbol, x)
+.. function:: setfield!(value, name::Symbol, x)
 
    Assign ``x`` to a named field in ``value`` of composite type.
-   The syntax ``a.b = c`` calls ``setfield(a, :b, c)``, and the syntax ``a.(b) = c``
-   calls ``setfield(a, b, c)``.
+   The syntax ``a.b = c`` calls ``setfield!(a, :b, c)``, and the syntax ``a.(b) = c``
+   calls ``setfield!(a, b, c)``.
 
 .. function:: fieldoffsets(type)
 
@@ -4468,7 +4468,7 @@ Parallel Computing
 
    Call a function asynchronously on the given arguments on the specified processor. Returns a ``RemoteRef``.
 
-.. function:: wait(x)
+.. function:: wait([x])
 
    Block the current task until some event occurs, depending on the type
    of the argument:
@@ -4482,6 +4482,14 @@ Parallel Computing
    * ``Task``: Wait for a ``Task`` to finish, returning its result value.
 
    * ``RawFD``: Wait for changes on a file descriptor (see `poll_fd` for keyword arguments and return code)
+
+   If no argument is passed, the task blocks for an undefined period. If the task's
+   state is set to ``:waiting``, it can only be restarted by an explicit call to
+   ``schedule`` or ``yieldto``. If the task's state is ``:runnable``, it might be
+   restarted unpredictably.
+
+   Often ``wait`` is called within a ``while`` loop to ensure a waited-for condition
+   is met before proceeding.
 
 .. function:: fetch(RemoteRef)
 
@@ -4973,8 +4981,9 @@ C Interface
 
 .. function:: pointer(a[, index])
 
-   Get the native address of an array element. Be careful to ensure that a julia
-   reference to ``a`` exists as long as this pointer will be used.
+   Get the native address of an array or string element. Be careful to
+   ensure that a julia reference to ``a`` exists as long as this
+   pointer will be used.
 
 .. function:: pointer(type, int)
 
@@ -5185,11 +5194,11 @@ Tasks
 
 .. function:: Task(func)
 
-   Create a ``Task`` (i.e. thread, or coroutine) to execute the given function. The task exits when this function returns.
+   Create a ``Task`` (i.e. thread, or coroutine) to execute the given function (which must be callable with no arguments). The task exits when this function returns.
 
 .. function:: yieldto(task, args...)
 
-   Switch to the given task. The first time a task is switched to, the task's function is called with ``args``. On subsequent switches, ``args`` are returned from the task's last call to ``yieldto``.
+   Switch to the given task. The first time a task is switched to, the task's function is called with no arguments. On subsequent switches, ``args`` are returned from the task's last call to ``yieldto``. This is a low-level call that only switches tasks, not considering states or scheduling in any way.
 
 .. function:: current_task()
 
@@ -5212,7 +5221,7 @@ Tasks
 
 .. function:: yield()
 
-   For scheduled tasks, switch back to the scheduler to allow another scheduled task to run. A task that calls this function is still runnable, and will be restarted immediately if there are no other runnable tasks.
+   Switch to the scheduler to allow another scheduled task to run. A task that calls this function is still runnable, and will be restarted immediately if there are no other runnable tasks.
 
 .. function:: task_local_storage(symbol)
 
@@ -5246,11 +5255,15 @@ Tasks
    only one is. If ``error`` is true, the passed value is raised as an
    exception in the woken tasks.
 
-.. function:: schedule(t::Task)
+.. function:: schedule(t::Task, [val]; error=false)
 
    Add a task to the scheduler's queue. This causes the task to run constantly
    when the system is otherwise idle, unless the task performs a blocking
    operation such as ``wait``.
+
+   If a second argument is provided, it will be passed to the task (via the
+   return value of ``yieldto``) when it runs again. If ``error`` is true,
+   the value is raised as an exception in the woken task.
 
 .. function:: @schedule
 

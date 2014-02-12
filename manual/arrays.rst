@@ -216,14 +216,21 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
 向量化的运算符和函数
 --------------------
 
-数组支持下列运算符。在使用二元运算符时，如果两个输入都是向量，应使用带“点”（逐元素）版本的运算符；如果其中一个输入是标量，两种版本的运算符都可以使用。
+数组支持下列运算符。逐元素进行的运算，应使用带“点”（逐元素）版本的二元运算符。
 
 1.  一元： ``-``, ``+``, ``!``
 2.  二元： ``+``, ``-``, ``*``, ``.*``, ``/``, ``./``,
     ``\``, ``.\``, ``^``, ``.^``, ``div``, ``mod``
-3.  比较： ``==``, ``!=``, ``<``, ``<=``, ``>``, ``>=``
+3.  比较： ``.==``, ``.!=``, ``.<``, ``.<=``, ``.>``, ``.>=``
 4.  一元布尔值或位运算： ``~``
 5.  二元布尔值或位运算： ``&``, ``|``, ``$``
+
+Some operators without dots operate elementwise anyway when one argument is a
+scalar. These operators are ``+``, ``-``, ``*``, ``/``, ``\``, and the bitwise
+operators.
+
+Note that comparisons such as ``==`` operate on whole arrays, giving a single
+boolean answer. Use dot operators for elementwise comparisons.
 
 下列内置的函数也都是向量化的, 即函数是逐元素版本的： ::
 
@@ -240,7 +247,7 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
     beta dawson digamma erfcx erfi
     exponent eta zeta gamma
     hankelh1 hankelh2
-     ceil  floor  round  trunc
+    ceil  floor  round  trunc
     iceil ifloor iround itrunc
     isfinite isinf isnan
     lbeta lfact lgamma
@@ -248,7 +255,11 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
     copysign max min significand
     sqrt hypot
 
-另外, Julia 提供了 ``@vectorize_1arg`` 和 ``@vectorize_2arg`` 两个宏，分别用来向量化任意的单参数或两个参数的函数。每个宏都接收两个参数，即函数参数的类型和函数名。例如：
+Note that there is a difference between ``min`` and ``max``, which operate
+elementwise over multiple array arguments, and ``minimum`` and ``maximum``, which
+find the smallest and largest values within an array.
+    
+Julia 提供了 ``@vectorize_1arg`` 和 ``@vectorize_2arg`` 两个宏，分别用来向量化任意的单参数或两个参数的函数。每个宏都接收两个参数，即函数参数的类型和函数名。例如：
 
 .. doctest::
 

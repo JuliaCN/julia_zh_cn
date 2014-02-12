@@ -310,6 +310,7 @@ Julia 提供了一系列数学函数和运算符：
 ``div(x,y)``    截断取整除法；商向 0 舍入
 ``fld(x,y)``    向下取整除法；商向 ``-Inf`` 舍入 
 ``rem(x,y)``    除法余数；满足 ``x == div(x,y)*y + rem(x,y)`` ，与 ``x`` 同号
+``divrem(x,y)`` 返回 ``(div(x,y),rem(x,y))``
 ``mod(x,y)``    取模余数；满足 ``x == fld(x,y)*y + mod(x,y)`` ，与 ``y`` 同号
 ``mod2pi(x)``   modulus with respect to 2pi;  ``0 <= mod2pi(x)  < 2pi``
 ``gcd(x,y...)`` ``x``, ``y``, ... 的最大公约数，与 ``x`` 同号
