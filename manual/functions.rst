@@ -360,10 +360,9 @@ Julia 支持简单的多元组“析构”来给变量赋值：
 
 在 ``f`` 内部， ``args`` 可以是 ``(key,value)`` 多元组的集合，其中 ``key`` 是符号。可以在函数调用时使用分号来传递这个集合,如 ``f(x; k...)`` 。也可以使用字典。
 
-Keyword argument default values are evaluated only when necessary
-(when a corresponding keyword argument is not passed), and in
-left-to-right order. Therefore default expressions may refer to
-prior keyword arguments.
+
+关键字参数的默认值仅在必要的时候从左至右地被求值(当对应的关键字参数没有被传递)，所以默认的(关键字参数的)表达式可以调用在它之前的关键字参数。
+
 
 
 Evaluation Scope of Default Values
