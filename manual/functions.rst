@@ -364,25 +364,15 @@ Julia 支持简单的多元组“析构”来给变量赋值：
 关键字参数的默认值仅在必要的时候从左至右地被求值(当对应的关键字参数没有被传递)，所以默认的(关键字参数的)表达式可以调用在它之前的关键字参数。
 
 
-
-Evaluation Scope of Default Values
-----------------------------------
-
-Optional and keyword arguments differ slightly in how their default
-values are evaluated. When optional argument default expressions are
-evaluated, only *previous* arguments are in scope. For example, given
-this definition::
+默认值的求值作用域
+----------------
+可选参数和关键字参数的区别在于它们的默认值是怎样被求值的。当可选的参数被求值时，只有在它*之前的*的参数在作用域之内。比如，定义函数::
 
     function f(x, a=b, b=1)
-        ###
-    end
+            ###
+        end
 
-the ``b`` in ``a=b`` refers to the ``b`` in an outer scope, not the
-subsequent argument ``b``. However, if ``a`` and ``b`` were keyword
-arguments instead, then both would be created in the same scope and
-``a=b`` would result in an undefined variable error (since the
-default expressions are evaluated left-to-right, and ``b`` has not
-been assigned yet).
+在``a=b``中的``b``指的是该作用域之外的作用域上的``b``,而不是接下来的参数``b``。然而，如果``a``和``b``都是关键字参数，那么它们都将在生成在同一个作用域上， 并且``a=b``会得到未定义变量的错误(因为默认参数的表达式是自左而右的求值的,``b``并没有被赋值)。
 
 
 函数参数的块语法
