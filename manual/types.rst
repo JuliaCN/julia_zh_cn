@@ -13,12 +13,7 @@ Julia `类型系统 <http://zh.wikipedia.org/zh-cn/%E9%A1%9E%E5%9E%8B%E7%B3%BB%E
 -  值有类型，变量没有类型——变量仅仅是绑定了值的名字而已
 -  抽象类型和具体类型都可以被其它类型和值（目前是整数、符号、布尔值及由它们组成的多元组）参数化
 
-
-Julia's type system is designed to be powerful and expressive, yet
-clear, intuitive and unobtrusive. Many Julia programmers may never feel
-the need to write code that explicitly uses types. Some kinds of
-programming, however, become clearer, simpler, faster and more robust
-with declared types.
+Julia的类型系统的设计旨在有效及具表现力，既清楚直观又不夸张。许多Julia程序员可能永远不会觉得有必要去明确地指出类型。然而某些程序会因声明类型变得更清晰，更简单，更迅速及健壮。
 
 类型声明
 --------
@@ -215,30 +210,17 @@ Immutable Composite Types
       imag::Float64
     end
 
-Such types behave much like other composite types, except that instances
-of them cannot be modified. Immutable types have several advantages:
+这种类型和其他复合类型类似，除了它们的实例不能被更改。不可变复合类型具有以下几种优势：
 
-- They are more efficient in some cases. Types like the ``Complex``
-  example above can be packed efficiently into arrays, and in some
-  cases the compiler is able to avoid allocating immutable objects
-  entirely.
-- It is not possible to violate the invariants provided by the
-  type's constructors.
-- Code using immutable objects can be easier to reason about.
+- 它们在一些情况下更高效。像上面``Complex``例子里的类型就被有效地封装到数组里，而且有些时候编译器能够避免完整地分配不可变对象。
+- 不会与类型的构造函数提供的不变量冲突。
+- 用不可变对象的代码能更容易地被推理。
 
-An immutable object might contain mutable objects, such as arrays, as
-fields. Those contained objects will remain mutable; only the fields of the
-immutable object itself cannot be changed to point to different objects.
+一个不可变对象可以包含可变对象，比如数组，域。那些被包含的可变对象仍然保持可变;只有不可变对象自个儿的域不能被更改去指向别的对象。
 
-A useful way to think about immutable composites is that each instance is
-associated with specific field values --- the field values alone tell
-you everything about the object. In contrast, a mutable object is like a
-little container that might hold different values over time, and so is
-not identified with specific field values. In deciding whether to make a
-type immutable, ask whether two instances with the same field values
-would be considered identical, or if they might need to change independently
-over time. If they would be considered identical, the type should probably
-be immutable.
+理解不可变复合变量的一个有用的办法是每个实例都是和特定域的值相关联的 --- 这些域的值就能告诉你关于这个对象的一切。相反地，一个可变的对象就如同一个小的容器可能包含了各种各样的值，所以它不能从它的域的值确定出这个对象。在决定是否把一个类型定义为不变的，先问问是否两个实例包含相同的域的值就被认为是相同，或者它们会独立地改变。如果它们被认为是相同的，那么这个类型就该被定义成不可变的。
+
+
 
 Declared Types
 --------------
@@ -253,7 +235,7 @@ are actually all closely related. They share the same key properties:
 
 Because of these shared properties, these types are internally
 represented as instances of the same concept, ``DataType``, which
-is the type of any of these types::
+is the type of any of these types：
 
 .. doctest::
 
