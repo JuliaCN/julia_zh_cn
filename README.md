@@ -22,7 +22,7 @@
 
 ### 生成网页文档
 
-`readthedocs.org` 网站可以自动生成在线的网页版本，已经配置好了。除了在线阅读，也可到 [下载页面](https://readthedocs.org/projects/julia_zh_cn/downloads/) 下载最新的网页版文档压缩包。
+`readthedocs.org` 网站可以自动生成在线的网页版本，已经配置好了。除了在线阅读，也可到 [下载页面](https://readthedocs.org/projects/julia-zh-cn/downloads/) 下载最新的网页版文档压缩包。
 
 要在本地生成网页版文档，只需运行：
 
