@@ -200,7 +200,7 @@ Julia的类型系统的设计旨在有效及具表现力，既清楚直观又不
 
 .. _man-immutable-composite-types:
 
-Immutable Composite Types
+不可变复合类型
 -------------------------
 
 可以使用关键词 ``immutable`` 替代 ``type`` 来定义 *不可变* 复合类型：::
