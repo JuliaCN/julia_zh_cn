@@ -221,21 +221,17 @@ Julia的类型系统的设计旨在有效及具表现力，既清楚直观又不
 理解不可变复合变量的一个有用的办法是每个实例都是和特定域的值相关联的 --- 这些域的值就能告诉你关于这个对象的一切。相反地，一个可变的对象就如同一个小的容器可能包含了各种各样的值，所以它不能从它的域的值确定出这个对象。在决定是否把一个类型定义为不变的时候，先问问是否两个实例包含相同的域的值就被认为是相同，或者它们会独立地改变。如果它们被认为是相同的，那么这个类型就该被定义成不可变的。
 
 
-
-Declared Types
+被声明类型
 --------------
 
-The three kinds of types discussed in the previous three sections
-are actually all closely related. They share the same key properties:
+以上的三种类型是紧密相关的。它们有相同的特性：
 
-- They are explicitly declared.
-- They have names.
-- They have explicitly declared supertypes.
-- They may have parameters.
+- 明确地被声明
+- 有名字
+- 有明确的父类
+- 可以有参数
 
-Because of these shared properties, these types are internally
-represented as instances of the same concept, ``DataType``, which
-is the type of any of these types：
+正因有共有的特性，这些类型内在地表达为同一种概念的实例，``DataType``,是以下类型之一：
 
 .. doctest::
 
@@ -245,14 +241,11 @@ is the type of any of these types：
     julia> typeof(Int)
     DataType
 
-A ``DataType`` may be abstract or concrete. If it is concrete, it
-has a specified size, storage layout, and (optionally) field names.
-Thus a bits type is a ``DataType`` with nonzero size, but no field
-names. A composite type is a ``DataType`` that has field names or
-is empty (zero size).
+``DataType``既可以抽象也可以具体。如果是具体的，它会拥有既定的大小，存储安排和（可选的）名域。
+所以一个位类型是一个大小非零的``DataType``，但没有名域。一个复合类型是一个可能拥有名域也可以为空集(大小为零)的``DataType``
 
-Every concrete value in the system is either an instance of some
-``DataType``, or is a tuple.
+在这个系统里的每一个具体的值都是某个``DataType``的实例，或者一个多元组。
+
 
 多元组类型
 ----------
