@@ -46,12 +46,12 @@ The statement ``import BigLib: bar, baz`` means that the names `bar` and `baz` f
 .. Module paths
 .. ------------
 
-Julia设置的变量``LOAD_PATH``包含了Julia搜索模块的目录。可以用``push!``进行扩展::
+Julia设置的变量 ``LOAD_PATH`` 包含了Julia搜索模块的目录。可以用 ``push!`` 进行扩展::
 
     push!(LOAD_PATH, "/Path/To/My/Module/")
 
-将这一段代码放在 ``~\.juliarc.jl`` 里能够在每次Julia启动时对``LOAD_PATH``扩展。 此外，还可以通过定义环境变量
-``JULIA_LOAD_PATH``来扩展Julia的模块路径。
+将这一段代码放在 ``~\.juliarc.jl`` 里能够在每次Julia启动时对 ``LOAD_PATH`` 扩展。 此外，还可以通过定义环境变量
+``JULIA_LOAD_PATH`` 来扩展Julia的模块路径。
 
 .. The Julia variable LOAD_PATH contains the directories Julia searches for 
 .. modules. It can be extended using the ``push!`` method::
