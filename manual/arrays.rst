@@ -3,18 +3,53 @@
 **********
  多维数组
 **********
+.. **************************
+..  Multi-dimensional Arrays
+.. **************************
 
 数组是一个存在多维网格中的对象集合。通常，数组包含的对象的类型为 ``Any`` 。对大多数计算而言，数组对象一般更具体为 ``Float64`` 或 ``Int32`` 。
 
+.. Julia, like most technical computing languages, provides a first-class
+.. array implementation. Most technical computing languages pay a lot of
+.. attention to their array implementation at the expense of other
+.. containers. Julia does not treat arrays in any special way. The array
+.. library is implemented almost completely in Julia itself, and derives
+.. its performance from the compiler, just like any other code written in
+.. Julia.
+
+.. An array is a collection of objects stored in a multi-dimensional
+.. grid.  In the most general case, an array may contain objects of type
+.. ``Any``.  For most computational purposes, arrays should contain
+.. objects of a more specific type, such as ``Float64`` or ``Int32``.
+
 因为性能的原因，Julia 不希望把程序写成向量化的形式。
+
+.. In general, unlike many other technical computing languages, Julia does
+.. not expect programs to be written in a vectorized style for performance.
+.. Julia's compiler uses type inference and generates optimized code for
+.. scalar array indexing, allowing programs to be written in a style that
+.. is convenient and readable, without sacrificing performance, and using
+.. less memory at times.
+
 
 在 Julia 中，通过引用将参数传递给函数。Julia 的库函数不会修改传递给它的输入。用户写代码时，如果要想做类似的功能，要注意先把输入复制一份儿。
 
+.. In Julia, all arguments to functions are passed by reference. Some
+.. technical computing languages pass arrays by value, and this is
+.. convenient in many cases. In Julia, modifications made to input arrays
+.. within a function will be visible in the parent function. The entire
+.. Julia array library ensures that inputs are not modified by library
+.. functions. User code, if it needs to exhibit similar behaviour, should
+.. take care to create a copy of inputs that it may modify.
+
 数组
 ====
-
+.. Arrays
+.. ======
 基础函数
 --------
+.. Basic Functions
+.. ---------------
 
 =============== ========================================================================
 函数            说明
@@ -29,10 +64,30 @@
 ``strides(A)``  返回多元组，其元素为在每个维度上，邻接元素（在内存中）的线性索引距离
 =============== ========================================================================
 
+.. =============== ==============================================================================
+.. Function        Description
+.. =============== ==============================================================================
+.. ``eltype(A)``   the type of the elements contained in A
+.. ``length(A)``   the number of elements in A
+.. ``ndims(A)``    the number of dimensions of A
+.. ``size(A)``     a tuple containing the dimensions of A
+.. ``size(A,n)``   the size of A in a particular dimension
+.. ``stride(A,k)`` the stride (linear index distance between adjacent elements) along dimension k
+.. ``strides(A)``  a tuple of the strides in each dimension
+.. =============== ==============================================================================
+
 构造和初始化
 ------------
+.. Construction and Initialization
+.. -------------------------------
 
 下列函数中调用的 ``dims...`` 参数，既可以是维度的单多元组，也可以是维度作为可变参数时的一组值。
+
+.. Many functions for constructing and initializing arrays are provided. In
+.. the following list of such functions, calls with a ``dims...`` argument
+.. can either take a single tuple of dimension sizes or a series of
+.. dimension sizes passed as a variable number of arguments.
+
 
 ===================================== =====================================================================
 函数                                  说明
@@ -57,6 +112,38 @@
 ``fill!(A, x)``                       用值 ``x`` 填充数组 ``A``
 ===================================== =====================================================================
 
+.. ===================================== =====================================================================
+.. Function                              Description
+.. ===================================== =====================================================================
+.. ``Array(type, dims...)``              an uninitialized dense array
+.. ``cell(dims...)``                     an uninitialized cell array (heterogeneous array)
+.. ``zeros(type, dims...)``              an array of all zeros of specified type
+.. ``ones(type, dims...)``               an array of all ones of specified type
+.. ``trues(dims...)``                    a ``Bool`` array with all values ``true``
+.. ``falses(dims...)``                   a ``Bool`` array with all values ``false``
+.. ``reshape(A, dims...)``               an array with the same data as the given array, but with
+..                                       different dimensions.
+.. ``copy(A)``                           copy ``A``
+.. ``deepcopy(A)``                       copy ``A``, recursively copying its elements
+.. ``similar(A, element_type, dims...)`` an uninitialized array of the same type as the given array
+..                                       (dense, sparse, etc.), but with the specified element type and
+..                                       dimensions. The second and third arguments are both optional,
+..                                       defaulting to the element type and dimensions of ``A`` if omitted.
+.. ``reinterpret(type, A)``              an array with the same binary data as the given array, but with the
+..                                       specified element type
+.. ``rand(dims)``                        ``Array`` of ``Float64``\ s with random, iid[#]_ and uniformly
+..                                       distributed values in [0,1)
+.. ``randn(dims)``                       ``Array`` of ``Float64``\ s with random, iid and standard normally
+..                                       distributed random values
+.. ``eye(n)``                            ``n``-by-``n`` identity matrix
+.. ``eye(m, n)``                         ``m``-by-``n`` identity matrix
+.. ``linspace(start, stop, n)``          vector of ``n`` linearly-spaced elements from ``start`` to ``stop``
+.. ``fill!(A, x)``                       fill the array ``A`` with value ``x``
+.. ===================================== =====================================================================
+
+.. .. [#] *iid*, independently and identically distributed.
+
+
 Comprehensions
 --------------
 
@@ -65,6 +152,21 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
     A = [ F(x,y,...) for x=rx, y=ry, ... ]
 
 ``F(x,y,...)`` 根据变量 ``x``, ``y`` 等来求值。这些变量的值可以是任何迭代对象，但大多数情况下，都使用类似于 ``1:n`` 或 ``2:(n-1)`` 的范围对象，或显式指明为类似 ``[1.2, 3.4, 5.7]`` 的数组。它的结果是 N 维稠密数组。
+
+.. Comprehensions provide a general and powerful way to construct arrays.
+.. Comprehension syntax is similar to set construction notation in
+.. mathematics::
+
+..     A = [ F(x,y,...) for x=rx, y=ry, ... ]
+
+.. The meaning of this form is that ``F(x,y,...)`` is evaluated with the
+.. variables ``x``, ``y``, etc. taking on each value in their given list of
+.. values. Values can be specified as any iterable object, but will
+.. commonly be ranges like ``1:n`` or ``2:(n-1)``, or explicit arrays of
+.. values like ``[1.2, 3.4, 5.7]``. The result is an N-d dense array with
+.. dimensions that are the concatenation of the dimensions of the variable
+.. ranges ``rx``, ``ry``, etc. and each ``F(x,y,...)`` evaluation returns a
+.. scalar.
 
 下例计算在维度 1 上，当前元素及左右邻居元素的加权平均数：
 
