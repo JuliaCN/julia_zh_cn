@@ -154,7 +154,7 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
 ``F(x,y,...)`` 根据变量 ``x``, ``y`` 等来求值。这些变量的值可以是任何迭代对象，但大多数情况下，都使用类似于 ``1:n`` 或 ``2:(n-1)`` 的范围对象，或显式指明为类似 ``[1.2, 3.4, 5.7]`` 的数组。它的结果是 N 维稠密数组。
 
 .. Comprehensions provide a general and powerful way to construct arrays.
-.. Comprehension syntax is similar to set construction notation in
+.. Comprehension syntax is similar to set construction notation in 
 .. mathematics::
 
 ..     A = [ F(x,y,...) for x=rx, y=ry, ... ]
@@ -169,6 +169,8 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
 .. scalar.
 
 下例计算在维度 1 上，当前元素及左右邻居元素的加权平均数：
+.. The following example computes a weighted average of the current element
+.. and its left and right neighbor along a 1-d grid. :
 
 .. testsetup:: *
 
@@ -198,11 +200,23 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
 
 .. note:: 上例中， ``x`` 被声明为常量，因为对于非常量的全局变量，Julia 的类型推断不怎么样。
 
+.. .. note:: In the above example, ``x`` is declared as constant because type
+..   inference in Julia does not work as well on non-constant global
+..   variables.
+
 可在 comprehension 之前显式指明它的类型。如要避免在前例中声明 ``x`` 为常量，但仍要确保结果类型为 ``Float64`` ，应这样写： ::
+
+.. The resulting array type is inferred from the expression; in order to control
+.. the type explicitly, the type can be prepended to the comprehension. For example,
+.. in the above example we could have avoided declaring ``x`` as constant, and ensured
+.. that the result is of type ``Float64`` by writing::
 
     Float64[ 0.25*x[i-1] + 0.5*x[i] + 0.25*x[i+1] for i=2:length(x)-1 ]
 
 使用花括号来替代方括号，可以将它简写为 ``Any`` 类型的数组：
+
+.. Using curly brackets instead of square brackets is a shorthand notation for an
+.. array of type ``Any``:
 
 .. doctest::
 
@@ -228,7 +242,26 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
 3. 任意整数向量，包括空向量 ``[]``
 4. 布尔值向量
 
+.. The general syntax for indexing into an n-dimensional array A is::
+
+..     X = A[I_1, I_2, ..., I_n]
+
+.. where each I\_k may be:
+
+.. 1. A scalar value
+.. 2. A ``Range`` of the form ``:``, ``a:b``, or ``a:b:c``
+.. 3. An arbitrary integer vector, including the empty vector ``[]``
+.. 4. A boolean vector
+
 结果 X 的维度通常为 ``(length(I_1), length(I_2), ..., length(I_n))`` ，且 X 的索引 ``(i_1, i_2, ..., i_n)`` 处的值为 ``A[I_1[i_1], I_2[i_2], ..., I_n[i_n]]`` 。缀在后面的标量索引的维度信息被舍弃。如，``A[I, 1]`` 的维度为 ``(length(I),)`` 。布尔值向量先由 ``find`` 函数进行转换。由布尔值向量索引的维度长度，是向量中 ``true`` 值的个数。
+
+.. The result X generally has dimensions
+.. ``(length(I_1), length(I_2), ..., length(I_n))``, with location
+.. ``(i_1, i_2, ..., i_n)`` of X containing the value
+.. ``A[I_1[i_1], I_2[i_2], ..., I_n[i_n]]``. Trailing dimensions indexed with
+.. scalars are dropped. For example, the dimensions of ``A[I, 1]`` will be
+.. ``(length(I),)``. Boolean vectors are first transformed with ``find``; the size of
+.. a dimension indexed by a boolean vector will be the number of true values in the vector.
 
 索引语法与调用 ``getindex`` 等价： ::
 
@@ -250,6 +283,26 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
      6  10
      7  11
 
+.. Indexing syntax is equivalent to a call to ``getindex``::
+
+..     X = getindex(A, I_1, I_2, ..., I_n)
+
+.. Example:
+
+.. .. doctest::
+
+..     julia> x = reshape(1:16, 4, 4)
+..     4x4 Array{Int64,2}:
+..      1  5   9  13
+..      2  6  10  14
+..      3  7  11  15
+..      4  8  12  16
+
+..     julia> x[2:3, 2:end-1]
+..     2x2 Array{Int64,2}:
+..      6  10
+..      7  11
+
 赋值
 ----
 
@@ -264,9 +317,31 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
 3. 任意整数向量，包括空向量 ``[]``
 4. 布尔值向量
 
+.. Assignment
+.. ----------
+
+.. The general syntax for assigning values in an n-dimensional array A is::
+
+..     A[I_1, I_2, ..., I_n] = X
+
+.. where each I\_k may be:
+
+.. 1. A scalar value
+.. 2. A ``Range`` of the form ``:``, ``a:b``, or ``a:b:c``
+.. 3. An arbitrary integer vector, including the empty vector ``[]``
+.. 4. A boolean vector
+
 如果 ``X`` 是一个数组，它的维度应为 ``(length(I_1), length(I_2), ..., length(I_n))`` ，且 ``A`` 在 ``i_1, i_2, ..., i_n`` 处的值被覆写为 ``X[I_1[i_1], I_2[i_2], ..., I_n[i_n]]`` 。如果 ``X`` 不是数组，它的值被写进所有 ``A`` 被引用的地方。
 
+.. If ``X`` is an array, its size must be ``(length(I_1), length(I_2), ..., length(I_n))``,
+.. and the value in location ``i_1, i_2, ..., i_n`` of ``A`` is overwritten with
+.. the value ``X[I_1[i_1], I_2[i_2], ..., I_n[i_n]]``. If ``X`` is not an array, its
+.. value is written to all referenced locations of ``A``.
+
 用于索引的布尔值向量与 ``getindex`` 中一样（先由 ``find`` 函数进行转换）。
+
+.. A boolean vector used as an index behaves as in ``getindex`` (it is first transformed
+.. with ``find``).
 
 索引赋值语法等价于调用 ``setindex!`` ： ::
 
@@ -290,6 +365,29 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
      1  -1  -1
      2  -1  -1
      3   6   9
+
+.. Index assignment syntax is equivalent to a call to ``setindex!``::
+
+..       setindex!(A, X, I_1, I_2, ..., I_n)
+
+.. Example:
+
+.. .. doctest::
+
+..     julia> x = reshape(1:9, 3, 3)
+..     3x3 Array{Int64,2}:
+..      1  4  7
+..      2  5  8
+..      3  6  9
+
+..     julia> x[1:2, 2:3] = -1
+..     -1
+
+..     julia> x
+..     3x3 Array{Int64,2}:
+..      1  -1  -1
+..      2  -1  -1
+..      3   6   9    
 
 连接
 ----
