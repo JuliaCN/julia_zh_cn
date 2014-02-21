@@ -334,7 +334,7 @@ Julia 宏展开机制是这样解决命名冲突的。首先，宏结果的变�
 
     for line = lines
       m = match(r"^\s*(?:#|$)", line)
-      if m.match == nothing
+      if m == nothing
         # non-comment
       else
         # comment
@@ -346,7 +346,7 @@ Julia 宏展开机制是这样解决命名冲突的。首先，宏结果的变�
     re = Regex("^\\s*(?:#|\$)")
     for line = lines
       m = match(re, line)
-      if m.match == nothing
+      if m == nothing
         # non-comment
       else
         # comment
