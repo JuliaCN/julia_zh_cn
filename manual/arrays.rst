@@ -155,7 +155,7 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
 
 .. Comprehensions provide a general and powerful way to construct arrays.
 .. Comprehension syntax is similar to set construction notation in 
-.. mathematics::
+.. mathematics
 
 ..     A = [ F(x,y,...) for x=rx, y=ry, ... ]
 
@@ -210,7 +210,7 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
 .. The resulting array type is inferred from the expression; in order to control
 .. the type explicitly, the type can be prepended to the comprehension. For example,
 .. in the above example we could have avoided declaring ``x`` as constant, and ensured
-.. that the result is of type ``Float64`` by writing::
+.. that the result is of type ``Float64`` by writing
 
     Float64[ 0.25*x[i-1] + 0.5*x[i] + 0.25*x[i+1] for i=2:length(x)-1 ]
 
@@ -243,7 +243,7 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
 3. 任意整数向量，包括空向量 ``[]``
 4. 布尔值向量
 
-.. The general syntax for indexing into an n-dimensional array A is::
+.. The general syntax for indexing into an n-dimensional array A is
 
 ..     X = A[I_1, I_2, ..., I_n]
 
@@ -284,25 +284,11 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
      6  10
      7  11
 
-.. Indexing syntax is equivalent to a call to ``getindex``::
+.. Indexing syntax is equivalent to a call to ``getindex``
 
 ..     X = getindex(A, I_1, I_2, ..., I_n)
 
 .. Example:
-
-.. .. doctest::
-
-..     julia> x = reshape(1:16, 4, 4)
-..     4x4 Array{Int64,2}:
-..      1  5   9  13
-..      2  6  10  14
-..      3  7  11  15
-..      4  8  12  16
-
-..     julia> x[2:3, 2:end-1]
-..     2x2 Array{Int64,2}:
-..      6  10
-..      7  11
 
 赋值
 ----
@@ -367,28 +353,12 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
      2  -1  -1
      3   6   9
 
-.. Index assignment syntax is equivalent to a call to ``setindex!``::
+.. Index assignment syntax is equivalent to a call to ``setindex!``
 
 ..       setindex!(A, X, I_1, I_2, ..., I_n)
 
 .. Example:
-
-.. .. doctest::
-
-..     julia> x = reshape(1:9, 3, 3)
-..     3x3 Array{Int64,2}:
-..      1  4  7
-..      2  5  8
-..      3  6  9
-
-..     julia> x[1:2, 2:3] = -1
-..     -1
-
-..     julia> x
-..     3x3 Array{Int64,2}:
-..      1  -1  -1
-..      2  -1  -1
-..      3   6   9    
+ 
 
 连接
 ----
