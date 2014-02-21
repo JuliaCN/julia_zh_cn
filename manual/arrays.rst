@@ -169,6 +169,7 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
 .. scalar.
 
 下例计算在维度 1 上，当前元素及左右邻居元素的加权平均数：
+
 .. The following example computes a weighted average of the current element
 .. and its left and right neighbor along a 1-d grid. :
 
