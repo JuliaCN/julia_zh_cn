@@ -207,14 +207,16 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
 
 可在 comprehension 之前显式指明它的类型。如要避免在前例中声明 ``x`` 为常量，但仍要确保结果类型为 ``Float64`` ，应这样写： ::
 
+    Float64[ 0.25*x[i-1] + 0.5*x[i] + 0.25*x[i+1] for i=2:length(x)-1 ]
+
+使用花括号来替代方括号，可以将它简写为 ``Any`` 类型的数组：
+
 .. The resulting array type is inferred from the expression; in order to control
 .. the type explicitly, the type can be prepended to the comprehension. For example,
 .. in the above example we could have avoided declaring ``x`` as constant, and ensured
 .. that the result is of type ``Float64`` by writing
 
-    Float64[ 0.25*x[i-1] + 0.5*x[i] + 0.25*x[i+1] for i=2:length(x)-1 ]
-
-使用花括号来替代方括号，可以将它简写为 ``Any`` 类型的数组：
+..  Float64[ 0.25*x[i-1] + 0.5*x[i] + 0.25*x[i+1] for i=2:length(x)-1 ]
 
 .. Using curly brackets instead of square brackets is a shorthand notation for an
 .. array of type ``Any``:
@@ -307,7 +309,7 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
 .. Assignment
 .. ----------
 
-.. The general syntax for assigning values in an n-dimensional array A is::
+.. The general syntax for assigning values in an n-dimensional array A is
 
 ..     A[I_1, I_2, ..., I_n] = X
 
