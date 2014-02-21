@@ -73,11 +73,11 @@
 		N = div(length(x),3)
 		r = 0.0
 		for i = 1:N
-			for j = 1:N
-				for k = 1: N
-					r += x[i+2*j]+x[j+2*k]+x[k+2*i]
-				end
+		    for j = 1:N
+			for k = 1: N
+		            r += x[i+2*j]+x[j+2*k]+x[k+2*i]
 			end
+		    end
 		end
 		r
 		end
@@ -87,11 +87,11 @@
 		N = div(length(x),3)
 		r = 0.0
 		for i = 1:N
-			for j = 1:N
-				for k = 1: N
-					@inbounds r += x[i+2*j]+x[j+2*k]+x[k+2*i]
-				end
+		    for j = 1:N
+			for k = 1: N
+  			    @inbounds r += x[i+2*j]+x[j+2*k]+x[k+2*i]
 			end
+		    end
 		end
 		r
 		end
