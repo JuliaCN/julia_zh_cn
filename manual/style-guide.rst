@@ -264,8 +264,10 @@ when comparing to a known concrete type (e.g. ``T == Float64``), or if you
 不要写 ``x->f(x)``
 ------------------
 
-Since higher-order functions are often called with anonymous functions, it
-is easy to conclude that this is desirable or even necessary.
-But any function can be passed directly, without being "wrapped" in an
-anonymous function. Instead of writing ``map(x->f(x), a)``, write
-``map(f, a)``.
+高阶函数经常被用作匿名函数来调用，虽然这样很方便，但是尽量少这么写。例如，尽量把 ``map(x->f(x), a)`` 写成 ``map(f, a)`` 。
+
+.. Since higher-order functions are often called with anonymous functions, it
+.. is easy to conclude that this is desirable or even necessary.
+.. But any function can be passed directly, without being "wrapped" in an
+.. anonymous function. Instead of writing ``map(x->f(x), a)``, write
+.. ``map(f, a)``.

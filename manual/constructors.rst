@@ -168,13 +168,15 @@
 
     julia> z.xx
     ERROR: access to undefined reference
+    
+这避免了持续检查 ``null`` 值。但是，所有对象的域都是引用。Julia 认为一些类型是“普通数据”，即他们的数据都是独立的，都不引用其他的对象。普通数据类型是由位类型或者其他普通数据类型的不可变数据结构所构成的（例如 ``Int`` ）。普通数据类型的初始内容是未定义的： ::
 
-This avoids the need to continually check for ``null`` values.
-However, not all object fields are references. Julia considers some
-types to be "plain data", meaning all of their data is self-contained
-and does not reference other objects. The plain data types consist of bits
-types (e.g. ``Int``) and immutable structs of other plain data types.
-The initial contents of a plain data type is undefined::
+.. This avoids the need to continually check for ``null`` values.
+.. However, not all object fields are references. Julia considers some
+.. types to be "plain data", meaning all of their data is self-contained
+.. and does not reference other objects. The plain data types consist of bits
+.. types (e.g. ``Int``) and immutable structs of other plain data types.
+.. The initial contents of a plain data type is undefined::
 
     julia> type HasPlain
              n::Int
@@ -184,7 +186,9 @@ The initial contents of a plain data type is undefined::
     julia> HasPlain()
     HasPlain(438103441441)
 
-Arrays of plain data types exhibit the same behavior.
+普通数据类型所构成的数组具有相同的行为。
+
+.. Arrays of plain data types exhibit the same behavior.
     
 可以在内部构造方法中，将不完整的对象传递给其它函数，来委托完成全部初始化： ::
 
