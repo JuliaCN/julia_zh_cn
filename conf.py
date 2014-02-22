@@ -186,21 +186,16 @@ latex_elements = {
 
 # Additional stuff for the LaTeX preamble.
 #'preamble': '',
-'utf8extra': r'''
-usepackage{CJKutf8}
-\DeclareUnicodeCharacter{00A0}{\nobreakspace}
-\DeclareUnicodeCharacter{2203}{\ensuremath{\exists}}
-\DeclareUnicodeCharacter{2200}{\ensuremath{\forall}}
-\DeclareUnicodeCharacter{2286}{\ensuremath{\subseteq}}
-\DeclareUnicodeCharacter{2713}{x}
-\DeclareUnicodeCharacter{27FA}{\ensuremath{\Longleftrightarrow}}
-''',
-'preamble': '''
-\\hypersetup{unicode=true}
-\\usepackage{CJKutf8}
-\\begin{CJK}{UTF8}{gkai}
-\\AtEndDocument{\\end{CJK}}
-''',
+
+    'utf8extra': r'''
+        \usepackage{CJKutf8}
+        \DeclareUnicodeCharacter{00A0}{\nobreakspace}
+        \DeclareUnicodeCharacter{2203}{\ensuremath{\exists}}
+        \DeclareUnicodeCharacter{2200}{\ensuremath{\forall}}
+        \DeclareUnicodeCharacter{2286}{\ensuremath{\subseteq}}
+        \DeclareUnicodeCharacter{2713}{x}
+        \DeclareUnicodeCharacter{27FA}{\ensuremath{\Longleftrightarrow}}
+    ''',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
@@ -250,7 +245,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'JuliaLanguage', u'Julia 文档',
+  ('index', 'JuliaLanguage', u'Julia Language Documentation',
    AUTHORS, 'JuliaLanguage', 'One line description of project.',
    'Miscellaneous'),
 ]
