@@ -121,7 +121,7 @@ Julia 使用系统默认的区域和语言设置来确定，哪些字符可以�
 字符串基础
 ----------
 
-字符串文本应放在双引号 `"..."` 或三个双引号 `"""..."""` 中间：
+字符串文本应放在双引号 ``"..."`` 或三个双引号 ``"""..."""`` 中间：
 
 .. doctest::
 
@@ -525,9 +525,11 @@ manpage <http://perldoc.perl.org/perlre.html#Modifiers>`_ ： ::
     julia> match(r"a+.*b+.*?d$"ism, "Goodbye,\nOh, angry,\nBad world\n")
     RegexMatch("angry,\nBad world")
     
-Triple-quoted regex strings, of the form ``r"""..."""``, are also
-supported (and may be convenient for regular expressions containing
-quotation marks or newlines).
+Julia 支持三个双引号所引起来的正则表达式字符串，即 ``r"""..."""`` 。这种形式在正则表达式包含引号或换行符时比较有用。
+
+... Triple-quoted regex strings, of the form ``r"""..."""``, are also
+... supported (and may be convenient for regular expressions containing
+... quotation marks or newlines).
 
 .. _man-byte-array-literals:
 

@@ -274,7 +274,7 @@ Julia 运算优先级从高至低依次为：
 语法    ``: ..`` followed by ``|>``
 比较    ``> < >= <= == === != !== <:`` and ``.> .< .>= .<= .== .!=``
 逻辑    ``&&`` followed by ``||`` followed by ``?``
-赋值    ``= += -= *= /= //= \= ^= %= |= &= $= <<= >>= >>>=`` and ``.+= .-= .*= ./= .//= .\= .^= .%=``
+赋值    ``= += -= *= /= //= \= ^= %= |= &= $= <<= >>= >>>=`` 及 ``.+= .-= .*= ./= .//= .\= .^= .%=``
 ======= =============================================================================================
 
 
@@ -312,7 +312,7 @@ Julia 提供了一系列数学函数和运算符：
 ``rem(x,y)``    除法余数；满足 ``x == div(x,y)*y + rem(x,y)`` ，与 ``x`` 同号
 ``divrem(x,y)`` 返回 ``(div(x,y),rem(x,y))``
 ``mod(x,y)``    取模余数；满足 ``x == fld(x,y)*y + mod(x,y)`` ，与 ``y`` 同号
-``mod2pi(x)``   modulus with respect to 2pi;  ``0 <= mod2pi(x)  < 2pi``
+``mod2pi(x)``   对 2pi 取模余数； ``0 <= mod2pi(x)  < 2pi``
 ``gcd(x,y...)`` ``x``, ``y``, ... 的最大公约数，与 ``x`` 同号
 ``lcm(x,y...)`` ``x``, ``y``, ... 的最小公倍数，与 ``x`` 同号
 =============== ================================================================
@@ -384,8 +384,8 @@ of ``sin(pi*x)`` and ``cos(pi*x)`` respectively.
 ====================================== ==============================================================================
 ``erf(x)``                             ``x`` 处的 `误差函数 <http://en.wikipedia.org/wiki/Error_function>`_
 ``erfc(x)``                            补误差函数。当 ``x`` 较大时，精确计算 ``1-erf(x)``
-``erfinv(x)``                          the inverse function to ``erf``
-``erfcinv(x)``                         the inverse function to ``erfc``
+``erfinv(x)``                          ``erf`` 的反函数
+``erfcinv(x)``                         ``erfc`` 的反函数
 ``erfi(x)``                            the imaginary error function defined as ``-im * erf(x * im)``, where ``im`` is the imaginary unit
 ``erfcx(x)``                           the scaled complementary error function, i.e. accurate ``exp(x^2) * erfc(x)`` for large ``x``
 ``dawson(x)``                          the scaled imaginary error function, a.k.a. Dawson function, i.e. accurate ``exp(-x^2) * erfi(x) * sqrt(pi) / 2`` for large ``x``
@@ -398,9 +398,9 @@ of ``sin(pi*x)`` and ``cos(pi*x)`` respectively.
 ``eta(x)``                             the `Dirichlet eta function <http://en.wikipedia.org/wiki/Dirichlet_eta_function>`_ at ``x``
 ``zeta(x)``                            the `Riemann zeta function <http://en.wikipedia.org/wiki/Riemann_zeta_function>`_ at ``x``
 |airylist|                             the `Airy Ai function <http://en.wikipedia.org/wiki/Airy_function>`_ at ``z`` 
-|airyprimelist|                        the derivative of the Airy Ai function at ``z`` 
+|airyprimelist|                        Airy Ai 函数在 ``z`` 处的导数
 ``airybi(z)``, ``airy(2,z)``           the `Airy Bi function <http://en.wikipedia.org/wiki/Airy_function>`_ at ``z`` 
-``airybiprime(z)``, ``airy(3,z)``      the derivative of the Airy Bi function at ``z`` 
+``airybiprime(z)``, ``airy(3,z)``      Airy Bi 函数在 ``z`` 处的导数 
 ``besselj(nu,z)``                      the `Bessel function <http://en.wikipedia.org/wiki/Bessel_function>`_ of the first kind of order ``nu`` at ``z`` 
 ``besselj0(z)``                        ``besselj(0,z)``  
 ``besselj1(z)``                        ``besselj(1,z)``  

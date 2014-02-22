@@ -188,11 +188,13 @@ Julia 内部变量 ``WORD_SIZE`` 用以指示目标系统是 32 位还是 64 位
 
 可见, Julia 中的算数运算其实是一种 `同余算术 <http://zh.wikipedia.org/zh-cn/%E5%90%8C%E9%A4%98>`_ 。它反映了现代计算机底层整数算术运算特性。如果有可能发生溢出，一定要显式的检查是否溢出；或者使用 ``BigInt`` 类型（详见 :ref:`man-arbitrary-precision-arithmetic` ）。
 
-To minimize the practical impact of this overflow, integer addition,
-subtraction, multiplication, and exponentiation operands are promoted
-to ``Int`` or ``Uint`` from narrower integer types.  (However,
-divisions, remainders, and bitwise operations do not promote narrower
-types.)
+为了减小溢出所带来的影响，整数加减法、乘法、指数运算都会把原先范围较小的整数类型提升到 ``Int`` 或 ``Uint`` 类型。（除法、求余、位运算则不提升类型）。
+
+.. To minimize the practical impact of this overflow, integer addition,
+.. subtraction, multiplication, and exponentiation operands are promoted
+.. to ``Int`` or ``Uint`` from narrower integer types.  (However,
+.. divisions, remainders, and bitwise operations do not promote narrower
+.. types.)
 
 
 浮点数

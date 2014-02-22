@@ -712,18 +712,23 @@ waiting for any events. This is done by calling ``schedule(task)``, or using
 the ``@schedule`` or ``@async`` macros (see :ref:`man-parallel-computing` for
 more details).
 
-Task states
-~~~~~~~~~~~
+任务状态
+~~~~~~~~
 
-Tasks have a ``state`` field that describes their execution status. A task
-state is one of the following symbols:
+.. Task states
+.. ~~~~~~~~~~~
+
+任务包含一个 ``state`` 域，它用来描述任务的执行状态。任务状态取如下的几种符号中的一种：
+
+.. Tasks have a ``state`` field that describes their execution status. A task
+.. state is one of the following symbols:
 
 =============  ==================================================
-Symbol         Meaning
+符号           意义
 =============  ==================================================
-``:runnable``  Currently running, or available to be switched to
+``:runnable``  任务正在运行，或可被切换到该任务
 ``:waiting``   Blocked waiting for a specific event
 ``:queued``    In the scheduler's run queue about to be restarted
-``:done``      Successfully finished executing
-``:failed``    Finished with an uncaught exception
+``:done``      成功执行完毕
+``:failed``    由于未处理的异常而终止
 =============  ==================================================
