@@ -2,7 +2,7 @@
 
 这是 `Julia` 语言的中文文档。
 
-除了 [在线阅读](http://julia-zh-cn.readthedocs.org/zh_CN/latest/)，也可到 [下载页面](https://readthedocs.org/projects/julia-zh-cn/downloads/)
+除了 [在线阅读](http://julia-zh-cn.readthedocs.org/zh_CN/latest/)，也可到 [下载页面](https://readthedocs.org/projects/julia-zh-cn/downloads/) 瞧瞧。
 
 欢迎大伙儿来修订文档。仅翻译的话，什么都不用安装，直接找到要修改的文件，点击 `Edit` ，编辑好后提交即可。对 git 熟悉的请使用 git 。
 
