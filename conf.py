@@ -187,7 +187,7 @@ latex_elements = {
 # Additional stuff for the LaTeX preamble.
 #'preamble': '',
 'utf8extra': r'''
-usepackage{CJKutf8}
+\usepackage{CJKutf8}
 \DeclareUnicodeCharacter{00A0}{\nobreakspace}
 \DeclareUnicodeCharacter{2203}{\ensuremath{\exists}}
 \DeclareUnicodeCharacter{2200}{\ensuremath{\forall}}
