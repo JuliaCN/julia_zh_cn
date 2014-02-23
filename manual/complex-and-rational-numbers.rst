@@ -136,7 +136,7 @@ Julia 提供复数和分数类型，并对其支持所有的 :ref:`标准数学�
     julia> sqrt(-1 + 0im)
     0.0 + 1.0im
 
-:ref:`代数系数 <numeric-literal-coefficients>` 不能用于使用变量构造复数。乘法必须显式的写出来：
+:ref:`代数系数 <man-numeric-literal-coefficients>` 不能用于使用变量构造复数。乘法必须显式的写出来：
 
 .. doctest::
 

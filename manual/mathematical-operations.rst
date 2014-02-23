@@ -187,7 +187,7 @@ Expression   Name
     julia> NaN > NaN
     false
 
-``NaN`` 在 :ref:`矩阵 <Arrays>` 中使用时会带来些麻烦：
+``NaN`` 在 :ref:`矩阵 <man-arrays>` 中使用时会带来些麻烦：
 
 .. doctest::
 
