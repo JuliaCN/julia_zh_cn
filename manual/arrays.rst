@@ -496,11 +496,24 @@ Broadcasting
 
 Julia 的基础数组类型是抽象类型 ``AbstractArray{T,n}`` ，其中维度为 ``n`` ，元素类型为 ``T`` 。 ``AbstractVector`` 和 ``AbstractMatrix`` 分别是它 1 维 和 2 维的别名。
 
-``Array{T,n}`` 类型是 ``AbstractArray`` 的特殊实例，它的元素以列序为主序存储（详见 :ref:`man-performance-tips` ）。 ``Vector`` 和 ``Matrix`` 是分别是它 1 维 和 2 维的别名。
+The ``AbstractArray`` type includes anything vaguely array-like, and
+implementations of it might be quite different from conventional
+arrays. For example, elements might be computed on request rather than
+stored. Or, it might not be possible to assign or access every array
+location.
 
-``SubArray`` 是 ``AbstractArray`` 的特殊实例，它通过引用而不是复制来进行索引。使用 ``sub`` 函数来构造 ``SubArray`` ，它的调用方式与 ``getindex`` 相同（使用数组和一组索引参数）。 ``sub`` 的结果与 ``getindex`` 的结果类似，但它的数据仍留在原地。 ``sub`` 在 ``SubArray`` 对象中保存输入的索引向量，这个向量将被用来间接索引原数组。
+``StoredArray`` is an abstract subtype of ``AbstractArray`` intended to
+include all arrays that behave like memories: all elements are independent,
+can be accessed, and (for mutable arrays) all elements can be assigned.
+``DenseArray`` is a further abstract subtype of ``StoredArray``. Arrays of
+this type have storage for every possible index, and provide uniform access
+performance for all elements.
 
-``StridedVector`` 和 ``StridedMatrix`` 是为了方便而定义的别名。通过给他们传递 ``Array`` 或 ``SubArray`` 对象，可以使 Julia 大范围调用 BLAS 和 LAPACK 函数，提高索引和内存申请的效率。
+``Array{T,n}`` 类型是 ``DenseArray`` 的特殊实例，它的元素以列序为主序存储（详见 :ref:`man-performance-tips` ）。 ``Vector`` 和 ``Matrix`` 是分别是它 1 维 和 2 维的别名。
+
+``SubArray`` 是 ``StoredArray`` 的特殊实例，它通过引用而不是复制来进行索引。使用 ``sub`` 函数来构造 ``SubArray`` ，它的调用方式与 ``getindex`` 相同（使用数组和一组索引参数）。 ``sub`` 的结果与 ``getindex`` 的结果类似，但它的数据仍留在原地。 ``sub`` 在 ``SubArray`` 对象中保存输入的索引向量，这个向量将被用来间接索引原数组。
+
+``StridedVector`` 和 ``StridedMatrix`` 是为了方便而定义的别名。通过给他们传递 ``Array`` 或 ``SubArray`` 对象，可以使 Julia 大范围调用 BLAS 和 LAPACK 函数，提高内存申请和复制的效率。
 
 下面的例子计算大数组中的一个小块的 QR 分解，无需构造临时变量，直接调用合适的 LAPACK 函数。
 
