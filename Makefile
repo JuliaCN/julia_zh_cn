@@ -46,7 +46,7 @@ clean:
 	-rm -rf $(BUILDDIR)/*
 
 juliadoc-pkg: juliadoc/juliadoc/__init__.py
-	@-cd .. && git submodule update doc/juliadoc
+	git submodule update doc/juliadoc
 
 html: juliadoc-pkg
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
