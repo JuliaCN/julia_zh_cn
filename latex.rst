@@ -7,5 +7,6 @@
    :maxdepth: 1
 
    manual/index
+   note/index
    stdlib/index
 
