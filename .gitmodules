@@ -1,3 +1,3 @@
 [submodule "juliadoc"]
 	path = juliadoc
-	url = git://github.com/JuliaLang/JuliaDoc.git
+	url = https://github.com/JuliaCN/JuliaDoc
