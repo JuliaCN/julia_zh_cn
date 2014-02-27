@@ -191,7 +191,7 @@ latex_elements = {
 'preamble': '''
 \\hypersetup{unicode=true}
 \\usepackage{CJKutf8}
-\\begin{CJK}{UTF8}{gkai}
+\\begin{CJK}{UTF8}{gbsn}
 \\AtEndDocument{\\end{CJK}}
 '''
 }
