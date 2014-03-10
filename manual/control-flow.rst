@@ -654,63 +654,103 @@ Julia 提供了 ``produce`` 和 ``consume`` 函数来解决这个问题。生产
 
 ``produce`` 和 ``consume`` 但它并不在不同的 CPU 发起线程。我们将在 :ref:`man-parallel-computing` 中，讨论真正的内核线程。
 
-Core task operations
+.. Core task operations
+.. ~~~~~~~~~~~~~~~~~~~~
+核心任务操作
 ~~~~~~~~~~~~~~~~~~~~
 
-While ``produce`` and ``consume`` illustrate the essential nature of tasks, they
-are actually implemented as library functions using a more primitive function,
-``yieldto``. ``yieldto(task,value)`` suspends the current task, switches
-to the specified ``task``, and causes that task's last ``yieldto`` call to return
-the specified ``value``. Notice that ``yieldto`` is the only operation required
-to use task-style control flow; instead of calling and returning we are always
-just switching to a different task. This is why this feature is also called
-"symmetric coroutines"; each task is switched to and from using the same mechanism.
+.. While ``produce`` and ``consume`` illustrate the essential nature of tasks, they
+.. are actually implemented as library functions using a more primitive function,
+.. ``yieldto``. ``yieldto(task,value)`` suspends the current task, switches
+.. to the specified ``task``, and causes that task's last ``yieldto`` call to return
+.. the specified ``value``. Notice that ``yieldto`` is the only operation required
+.. to use task-style control flow; instead of calling and returning we are always
+.. just switching to a different task. This is why this feature is also called
+.. "symmetric coroutines"; each task is switched to and from using the same mechanism.
 
-``yieldto`` is powerful, but most uses of tasks do not invoke it directly.
-Consider why this might be. If you switch away from the current task, you will
-probably want to switch back to it at some point, but knowing when to switch
-back, and knowing which task has the responsibility of switching back, can
-require considerable coordination. For example, ``produce`` needs to maintain
-some state to remember who the consumer is. Not needing to manually keep track
-of the consuming task is what makes ``produce`` easier to use than ``yieldto``.
+尽管 ``produce`` 和 ``consume`` 已经阐释了任务的本质，但是他们实际上是由库函数调用更原始的函数
+ ``yieldto`` 实现的。 ``yieldto(task,value)`` 挂起当前任务，切换到特定的 ``task`` ， 并使这个
+ ``task`` 的最后一次 ``yeidlto`` 返回 特定的 ``value``。注意 ``yieldto`` 是唯一需要的操作来进行
+ '任务风格'的控制流; 不需要调用和返回，我们只用在不同的任务之间切换即可。 这就是为什么这个特性被称做
+ "对称式协程";每一个任务的切换都是用相同的机制。
 
-In addition to ``yieldto``, a few other basic functions are needed to use tasks
-effectively.
-``current_task()`` gets a reference to the currently-running task.
-``istaskdone(t)`` queries whether a task has exited.
-``istaskstarted(t)`` queries whether a task has run yet.
-``task_local_storage`` manipulates a key-value store specific to the current task.
+.. ``yieldto`` is powerful, but most uses of tasks do not invoke it directly.
+.. Consider why this might be. If you switch away from the current task, you will
+.. probably want to switch back to it at some point, but knowing when to switch
+.. back, and knowing which task has the responsibility of switching back, can
+.. require considerable coordination. For example, ``produce`` needs to maintain
+.. some state to remember who the consumer is. Not needing to manually keep track
+.. of the consuming task is what makes ``produce`` easier to use than ``yieldto``.
 
-Tasks and events
+``yeildto`` 很强大， 但是大多数时候并不直接调用它。 当你从当前的任务切换走，你有可能会想切换回来，
+但需要知道切换的时机和任务，这会需要相当的协调。 例如， ``procude`` 需要保持某个状态来记录消费者。
+无需手动地记录正在消费的任务让 ``produce`` 比 ``yieldto`` 更容易使用。
+
+.. In addition to ``yieldto``, a few other basic functions are needed to use tasks
+.. effectively.
+.. ``current_task()`` gets a reference to the currently-running task.
+.. ``istaskdone(t)`` queries whether a task has exited.
+.. ``istaskstarted(t)`` queries whether a task has run yet.
+.. ``task_local_storage`` manipulates a key-value store specific to the current task.
+
+除此之外， 为了高效地使用任务，其他一些基本的函数也同样必须。
+``current_task()`` 获得当前运行任务的引用。
+``istaskdone(t)`` 查询任务是否终止。
+``istaskstarted(t)`` 查询任务是否启动。
+``task_local_storage`` 处理当前任务的键值储存。
+
+.. Tasks and events
+.. ~~~~~~~~~~~~~~~~
+任务与事件
 ~~~~~~~~~~~~~~~~
 
-Most task switches occur as a result of waiting for events such as I/O
-requests, and are performed by a scheduler included in the standard library.
-The scheduler maintains a queue of runnable tasks, and executes an event loop
-that restarts tasks based on external events such as message arrival.
+.. Most task switches occur as a result of waiting for events such as I/O
+.. requests, and are performed by a scheduler included in the standard library.
+.. The scheduler maintains a queue of runnable tasks, and executes an event loop
+.. that restarts tasks based on external events such as message arrival.
 
-The basic function for waiting for an event is ``wait``. Several objects
-implement ``wait``; for example, given a ``Process`` object, ``wait`` will
-wait for it to exit. ``wait`` is often implicit; for example, a ``wait``
-can happen inside a call to ``read`` to wait for data to be available.
+.. @readproof
+大多数任务的切换都是在等待像 I/O 请求这样的事件的时候，并由标准库的调度器完成。调度器记录正在运行
+的任务的队列，并执行一个循环来根据外部事件(比如消息到达)重启任务。
 
-In all of these cases, ``wait`` ultimately operates on a ``Condition``
-object, which is in charge of queueing and restarting tasks. When a task
-calls ``wait`` on a ``Condition``, the task is marked as non-runnable, added
-to the condition's queue, and switches to the scheduler. The scheduler will
-then pick another task to run, or block waiting for external events.
-If all goes well, eventually an event handler will call ``notify`` on the
-condition, which causes tasks waiting for that condition to become runnable
-again.
+.. The basic function for waiting for an event is ``wait``. Several objects
+.. implement ``wait``; for example, given a ``Process`` object, ``wait`` will
+.. wait for it to exit. ``wait`` is often implicit; for example, a ``wait``
+.. can happen inside a call to ``read`` to wait for data to be available.
 
-A task created explicitly by calling ``Task`` is initially not known to the
-scheduler. This allows you to manage tasks manually using ``yieldto`` if
-you wish. However, when such a task waits for an event, it still gets restarted
-automatically when the event happens, as you would expect. It is also
-possible to make the scheduler run a task whenever it can, without necessarily
-waiting for any events. This is done by calling ``schedule(task)``, or using
-the ``@schedule`` or ``@async`` macros (see :ref:`man-parallel-computing` for
-more details).
+.. @readproof
+处理等待事件的基本函数是 ``wait``。 有几种对象实现了 ``wait``，比如对于 ``Process`` 对象，
+``wait`` 会等待它终止。更多的时候 ``wait`` 是隐式的， 比如 ``wait`` 可以发生在调用
+``read`` 的时候，等待数据变得可用。 
+
+.. In all of these cases, ``wait`` ultimately operates on a ``Condition``
+.. object, which is in charge of queueing and restarting tasks. When a task
+.. calls ``wait`` on a ``Condition``, the task is marked as non-runnable, added
+.. to the condition's queue, and switches to the scheduler. The scheduler will
+.. then pick another task to run, or block waiting for external events.
+.. If all goes well, eventually an event handler will call ``notify`` on the
+.. condition, which causes tasks waiting for that condition to become runnable
+.. again.
+
+.. @readproof
+在所有的情况中, ``wait`` 最终会操作在一个负责将任务排队和重启的 ``Condition`` 对象上。
+当任务在 ``Condition`` 上调用 ``wait``， 任务会被标记为不可运行，被加入到  ``Condition`` 的
+队列中，再切换至调度器。 调度器会选取另一个任务来运行， 或者等待外部事件。 如果一切正常， 最终一个事件句柄
+会在 ``Condition`` 上调用 ``notify``， 使正在等待的任务变得可以运行。
+
+.. A task created explicitly by calling ``Task`` is initially not known to the
+.. scheduler. This allows you to manage tasks manually using ``yieldto`` if
+.. you wish. However, when such a task waits for an event, it still gets restarted
+.. automatically when the event happens, as you would expect. It is also
+.. possible to make the scheduler run a task whenever it can, without necessarily
+.. waiting for any events. This is done by calling ``schedule(task)``, or using
+.. the ``@schedule`` or ``@async`` macros (see :ref:`man-parallel-computing` for
+.. more details).
+
+调用 ``Task`` 可以生成一个初始对调度器还未知的任务， 这允许你用 ``yieldto`` 手动管理任务。不管怎样，
+当这样的任务正在等待事件时，事件一旦发生，它仍然会自动重启。而且任何时候你都可以 调用 
+``schedule(task)``或者用宏 ``@schedule`` 或 ``@async`` 来让调度器来运行一个任务，
+根本不用去等到任何事件。(参见 :ref:`man-parallel-computing`)
 
 任务状态
 ~~~~~~~~
