@@ -670,10 +670,10 @@ Julia 提供了 ``produce`` 和 ``consume`` 函数来解决这个问题。生产
 
 
 尽管 ``produce`` 和 ``consume`` 已经阐释了任务的本质，但是他们实际上是由库函数调用更原始的函数
- ``yieldto`` 实现的。 ``yieldto(task,value)`` 挂起当前任务，切换到特定的 ``task`` ， 并使这个
- ``task`` 的最后一次 ``yeidlto`` 返回 特定的 ``value``。注意 ``yieldto`` 是唯一需要的操作来进行
- '任务风格'的控制流; 不需要调用和返回，我们只用在不同的任务之间切换即可。 这就是为什么这个特性被称做
- "对称式协程";每一个任务的切换都是用相同的机制。
+``yieldto`` 实现的。 ``yieldto(task,value)`` 挂起当前任务，切换到特定的 ``task`` ， 并使这个
+``task`` 的最后一次 ``yeidlto`` 返回 特定的 ``value``。注意 ``yieldto`` 是唯一需要的操作来进行
+'任务风格'的控制流; 不需要调用和返回，我们只用在不同的任务之间切换即可。 这就是为什么这个特性被称做
+"对称式协程";每一个任务的切换都是用相同的机制。
 
 .. ``yieldto`` is powerful, but most uses of tasks do not invoke it directly.
 .. Consider why this might be. If you switch away from the current task, you will
@@ -750,7 +750,7 @@ Julia 提供了 ``produce`` 和 ``consume`` 函数来解决这个问题。生产
 
 调用 ``Task`` 可以生成一个初始对调度器还未知的任务， 这允许你用 ``yieldto`` 手动管理任务。不管怎样，
 当这样的任务正在等待事件时，事件一旦发生，它仍然会自动重启。而且任何时候你都可以 调用 
-``schedule(task)``或者用宏 ``@schedule`` 或 ``@async`` 来让调度器来运行一个任务，
+``schedule(task)`` 或者用宏 ``@schedule`` 或 ``@async`` 来让调度器来运行一个任务，
 根本不用去等到任何事件。(参见 :ref:`man-parallel-computing`)
 
 任务状态
