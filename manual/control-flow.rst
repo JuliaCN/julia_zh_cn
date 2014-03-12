@@ -751,7 +751,7 @@ Julia 提供了 ``produce`` 和 ``consume`` 函数来解决这个问题。生产
 调用 ``Task`` 可以生成一个初始对调度器还未知的任务， 这允许你用 ``yieldto`` 手动管理任务。不管怎样，
 当这样的任务正在等待事件时，事件一旦发生，它仍然会自动重启。而且任何时候你都可以 调用 
 ``schedule(task)`` 或者用宏 ``@schedule`` 或 ``@async`` 来让调度器来运行一个任务，
-根本不用去等到任何事件。(参见 :ref:`man-parallel-computing`)
+根本不用去等待任何事件。(参见 :ref:`man-parallel-computing`)
 
 任务状态
 ~~~~~~~~
