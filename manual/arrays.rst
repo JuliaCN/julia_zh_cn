@@ -402,7 +402,7 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
 5.  二元布尔值或位运算： ``&``, ``|``, ``$``
 
 Some operators without dots operate elementwise anyway when one argument is a
-scalar. These operators are ``+``, ``-``, ``*``, ``/``, ``\``, and the bitwise
+scalar. These operators are ``*``, ``/``, ``\``, and the bitwise
 operators.
 
 Note that comparisons such as ``==`` operate on whole arrays, giving a single

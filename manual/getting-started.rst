@@ -85,9 +85,9 @@ Julia 可以用 ``-p`` 或 ``--machinefile`` 选项来开启并行模式。 ``-p
      --no-history             Don't load or save history
      -f --no-startup          Don't load ~/.juliarc.jl
      -F                       Load ~/.juliarc.jl, then handle remaining inputs
-	 --color=yes|no           Enable or disable color text
+     --color=yes|no           Enable or disable color text
 
-     -h --help                Print this message
+     --check-bounds=yes|no    Emit bounds checks always or never (ignoring declarations)
 
 资源
 ----

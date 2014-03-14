@@ -34,6 +34,7 @@
 ``SymTridiagonal``  对称三对角矩
 ``Bidiagonal``      上/下 `双对角矩阵 <http://en.wikipedia.org/wiki/Bidiagonal_matrix>`_
 ``Diagonal``        `对角矩阵 <http://zh.wikipedia.org/zh-cn/%E5%B0%8D%E8%A7%92%E7%9F%A9%E9%99%A3>`_
+``UniformScaling``  `缩放矩阵 <http://zh.wikipedia.org/zh-cn/%E7%BC%A9%E6%94%BE>`_
 =================== ============
 
 
@@ -54,6 +55,8 @@
 | ``Bidiagonal``     | X     | X     | XZ    | XY    |                                     |
 +--------------------+-------+-------+-------+-------+-------------------------------------+
 | ``Diagnoal``       | X     | X     | XY    | XY    | ``inv``, ``det``, ``logdet``, ``/`` |
++--------------------+-------+-------+-------+-------+-------------------------------------+
+| ``UniformScaling`` | X     | X     | XYZ   | XYZ   | ``/``                               |
 +--------------------+-------+-------+-------+-------+-------------------------------------+
 
 
@@ -96,3 +99,7 @@
 +---+--------------------------------------------------------+------------------------+
 | D | 已对寻找特征值 ``x=[x1, x2,...]`` 所对应的特征向量优化 | ``eigvecs(M, x)``      |
 +---+--------------------------------------------------------+------------------------+
+
+缩放运算
+--------
+A ``UniformScaling`` operator represents a scalar times the identity operator, ``λ*I``. The identity operator ``I`` is defined as a constant and is an instance of ``UniformScaling``. The size of these operators are generic and match the other matrix in the binary operations ``+``,``-``,``*`` and ``\``. For ``A+I`` and ``A-I`` this means that ``A`` must be square. Multiplication with the identity operator ``I`` is a noop (except for checking that the scaling factor is one) and therefore almost without overhead. 

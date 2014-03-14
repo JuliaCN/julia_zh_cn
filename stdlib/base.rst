@@ -1,5 +1,9 @@
 .. currentmodule:: Base
 
+**********************
+ The Standard Library
+**********************
+
 Introduction
 ------------
 
@@ -624,7 +628,7 @@ Iterable Collections
 
    Determine whether predicate ``p`` returns true for all elements of ``itr``.
 
-   **Example**: ``all((i) -> i>i, [4,5,6]) = true``
+   **Example**: ``all(i->(4<=i<=6), [4,5,6]) = true``
 
 .. function:: map(f, c...) -> collection
 
@@ -3442,10 +3446,6 @@ Random number generation in Julia uses the `Mersenne Twister library <http://www
 .. function:: randn!(A::Array{Float64,N})
 
    Fill the array A with normally-distributed (mean 0, standard deviation 1) random numbers. Also see the rand function.
-
-.. function:: randsym(n)
-
-   Generate a ``nxn`` symmetric array of normally-distributed random numbers with mean 0 and standard deviation 1.
 
 Arrays
 ------

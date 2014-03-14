@@ -43,9 +43,41 @@ Linear algebra functions in Julia are largely implemented by calling functions f
 
    Compute the LU factorization of ``A``, such that ``A[p,:] = L*U``.
 
-.. function:: lufact(A) -> LU
+.. function:: lufact(A) -> F
 
-   Compute the LU factorization of ``A``, returning an ``LU`` object for dense ``A`` or an ``UmfpackLU`` object for sparse ``A``. The individual components of the factorization ``F`` can be accesed by indexing: ``F[:L]``, ``F[:U]``, and ``F[:P]`` (permutation matrix) or ``F[:p]`` (permutation vector). An ``UmfpackLU`` object has additional components ``F[:q]`` (the left permutation vector) and ``Rs`` the vector of scaling factors. The following functions are available for both ``LU`` and ``UmfpackLU`` objects: ``size``, ``\`` and ``det``.  For ``LU`` there is also an ``inv`` method.  The sparse LU factorization is such that ``L*U`` is equal to``scale(Rs,A)[p,q]``.
+   Compute the LU factorization of ``A``. The return type of ``F`` depends on the type of ``A``.
+
+      ======================= ==================== ========================================
+      Type of input ``A``     Type of output ``F`` Relationship between ``F`` and ``A``
+      ----------------------- -------------------- ----------------------------------------
+      :func:`Matrix`           ``LU``              ``F[:L]*F[:U] == A[F[:p], :]``
+      :func:`Tridiagonal`      ``LUTridiagonal``     N/A
+      :func:`SparseMatrixCSC`  ``UmfpackLU``       ``F[:L]*F[:U] == Rs .* A[F[:p], F[:q]]``
+      ======================= ==================== ========================================
+
+   The individual components of the factorization ``F`` can be accessed by indexing:
+
+      =========== ======================================= ====== ================= =============
+      Component   Description                             ``LU`` ``LUTridiagonal`` ``UmfpackLU``
+      ----------- --------------------------------------- ------ ----------------- -------------
+      ``F[:L]``   ``L`` (lower triangular) part of ``LU``    ✓                      ✓
+      ``F[:U]``   ``U`` (upper triangular) part of ``LU``    ✓                      ✓
+      ``F[:p]``   (right) permutation ``Vector``             ✓                      ✓
+      ``F[:P]``   (right) permutation ``Matrix``             ✓
+      ``F[:q]``   left permutation ``Vector``                                       ✓
+      ``F[:Rs]``  ``Vector`` of scaling factors                                     ✓
+      ``F[:(:)]`` ``(L,U,p,q,Rs)`` components                                       ✓
+      =========== ======================================= ====== ================= =============
+
+      ================== ====== ================= =============
+      Supported function ``LU`` ``LUTridiagonal`` ``UmfpackLU``
+      ------------------ ------ ----------------- -------------
+           ``/``            ✓
+           ``\``            ✓        ✓             ✓
+           ``cond``         ✓                      ✓
+           ``det``          ✓                      ✓
+           ``size``         ✓
+      ================== ====== ================= =============
 
 .. function:: lufact!(A) -> LU
 
@@ -71,11 +103,57 @@ Linear algebra functions in Julia are largely implemented by calling functions f
 
    Compute the (pivoted) QR factorization of ``A`` such that either ``A = Q*R`` or ``A[:,p] = Q*R``. Also see ``qrfact``. The default is to compute a thin factorization. Note that ``R`` is not extended with zeros when the full ``Q`` is requested. 
 
-.. function:: qrfact(A,[pivot=false])
+.. function:: qrfact(A,[pivot=false]) -> F
 
-   Computes the QR factorization of ``A`` and returns either a ``QR`` type if ``pivot=false`` or ``QRPivoted`` type if ``pivot=true``. From a ``QR`` or  ``QRPivoted`` factorization ``F``, an orthogonal matrix ``F[:Q]`` and a triangular matrix ``F[:R]`` can be extracted. For ``QRPivoted`` it is also posiible to extract the permutation vector ``F[:p]`` or matrix ``F[:P]``.
-   The following functions are available for the ``QR`` objects: ``size``, ``\``. When ``A`` is rectangular ``\`` will return a least squares solution and if the soultion is not unique, the one with smallest norm is returned.
-   The orthogonal matrix ``Q=F[:Q]`` is a ``QRPackedQ`` type when ``F`` is a ``QR`` and a ``QRPivotedQ`` then ``F`` is a ``QRPivoted``. Both have the ``*`` operator overloaded to support efficient multiplication by ``Q`` and ``Q'``. Multiplication with respect to either thin or full ``Q`` is allowed, i.e. both ``F[:Q]*F[:R]`` and ``F[:Q]*A`` are supported. A ``Q`` matrix can be converted into a regular matrix with ``full`` which has a named argument ``thin``.
+   Computes the QR factorization of ``A``. The return type of ``F`` depends on the element type of ``A`` and whether pivoting is specified (with ``pivot=true``).
+
+      ================ ================= ========= =====================================
+      Return type      ``eltype(A)``     ``pivot``  Relationship between ``F`` and ``A``
+      ---------------- ----------------- --------- -------------------------------------
+      ``QR``           not ``BlasFloat`` either     ``A==F[:Q]*F[:R]``
+      ``QRCompactWY``  ``BlasFloat``     ``true``   ``A==F[:Q]*F[:R]``
+      ``QRPivoted``    ``BlasFloat``     ``false``  ``A[:,F[:p]]==F[:Q]*F[:R]``
+      ================ ================= ========= =====================================
+
+   ``BlasFloat`` refers to any of: ``Float32``, ``Float64``, ``Complex64`` or ``Complex128``.
+
+   The individual components of the factorization ``F`` can be accessed by indexing:
+
+      =========== ============================================= ================== ===================== ==================
+      Component   Description                                   ``QR``             ``QRCompactWY``       ``QRPivoted``
+      ----------- --------------------------------------------- ------------------ --------------------- ------------------
+      ``F[:Q]``   ``Q`` (orthogonal/unitary) part of ``QR``      ✓ (``QRPackedQ``)  ✓ (``QRCompactWYQ``)  ✓ (``QRPackedQ``)
+      ``F[:R]``   ``R`` (upper right triangular) part of ``QR``  ✓                  ✓                     ✓
+      ``F[:p]``   pivot ``Vector``                                                                        ✓
+      ``F[:P]``   (pivot) permutation ``Matrix``                                                          ✓
+      =========== ============================================= ================== ===================== ==================
+
+   The following functions are available for the ``QR`` objects: ``size``, ``\``. When ``A`` is rectangular, ``\`` will return a least squares solution and if the solution is not unique, the one with smallest norm is returned.
+
+   Multiplication with respect to either thin or full ``Q`` is allowed, i.e. both ``F[:Q]*F[:R]`` and ``F[:Q]*A`` are supported. A ``Q`` matrix can be converted into a regular matrix with :func:`full` which has a named argument ``thin``.
+
+   .. note::
+
+      ``qrfact`` returns multiple types because LAPACK uses several representations that minimize the memory storage requirements of products of Householder elementary reflectors, so that the ``Q`` and ``R`` matrices can be stored compactly rather as two separate dense matrices.
+
+      The data contained in ``QR`` or ``QRPivoted`` can be used to construct the ``QRPackedQ`` type, which is a compact representation of the rotation matrix:
+
+         .. math::
+
+            Q = \prod_{i=1}^{\min(m,n)} (I - \tau_i v_i v_i^T)
+
+      where :math:`\tau_i` is the scale factor and :math:`v_i` is the projection vector associated with the :math:`i^{th}` Householder elementary reflector.
+
+      The data contained in ``QRCompactWY`` can be used to construct the ``QRCompactWYQ`` type, which is a compact representation of the rotation matrix
+
+         .. math::
+
+            Q = I + Y T Y^T
+
+      where ``Y`` is :math:`m \times r` lower trapezoidal and ``T`` is :math:`r \times r` upper triangular. The *compact WY* representation [Schreiber1989]_ is not to be confused with the older, *WY* representation [Bischof1987]_. (The LAPACK documentation uses ``V`` in lieu of ``Y``.)
+
+   .. [Bischof1987] C Bischof and C Van Loan, The WY representation for products of Householder matrices, SIAM J Sci Stat Comput 8 (1987), s2-s13. doi:10.1137/0908009
+   .. [Schreiber1989] R Schreiber and C Van Loan, A storage-efficient WY representation for products of Householder transformations, SIAM J Sci Stat Comput 10 (1989), 53-57. doi:10.1137/0910005
 
 .. function:: qrfact!(A,[pivot=false])
 
@@ -83,7 +161,9 @@ Linear algebra functions in Julia are largely implemented by calling functions f
 
 .. function:: bkfact(A) -> BunchKaufman
 
-   Compute the Bunch-Kaufman factorization of a real symmetric or complex Hermitian matrix ``A`` and return a ``BunchKaufman`` object. The following functions are available for ``BunchKaufman`` objects: ``size``, ``\``, ``inv``, ``issym``, ``ishermitian``.
+   Compute the Bunch-Kaufman [Bunch1977]_ factorization of a real symmetric or complex Hermitian matrix ``A`` and return a ``BunchKaufman`` object. The following functions are available for ``BunchKaufman`` objects: ``size``, ``\``, ``inv``, ``issym``, ``ishermitian``.
+
+   .. [Bunch1977] J R Bunch and L Kaufman, Some stable methods for calculating inertia and solving symmetric linear systems, Mathematics of Computation 31:137 (1977), 163-179. `url<http://www.ams.org/journals/mcom/1977-31-137/S0025-5718-1977-0428694-0>`_.
 
 .. function:: bkfact!(A) -> BunchKaufman
 
@@ -138,7 +218,7 @@ Linear algebra functions in Julia are largely implemented by calling functions f
 
 .. function:: hessfact(A)
 
-   Compute the Hessenberg decomposition of ``A`` and return a ``Hessenberg`` object. If ``F`` is the factorization object, the unitary matrix can be accessed with ``F[:Q]`` and the Hessenberg matrix with ``F[:H]``. When ``Q`` is extracted, the resulting type is the ``HessenbergQ`` object, and may be converted to a regular matrix with ``full``.
+   Compute the Hessenberg decomposition of ``A`` and return a ``Hessenberg`` object. If ``F`` is the factorization object, the unitary matrix can be accessed with ``F[:Q]`` and the Hessenberg matrix with ``F[:H]``. When ``Q`` is extracted, the resulting type is the ``HessenbergQ`` object, and may be converted to a regular matrix with :func:`full`.
 
 .. function:: hessfact!(A)
 
@@ -228,9 +308,9 @@ Linear algebra functions in Julia are largely implemented by calling functions f
 
    Scale an array ``A`` by a scalar ``b``, returning a new array.
 
-   If ``A`` is a matrix and ``b`` is a vector, then ``scale!(A,b)``
+   If ``A`` is a matrix and ``b`` is a vector, then ``scale(A,b)``
    scales each column ``i`` of ``A`` by ``b[i]`` (similar to
-   ``A*diagm(b)``), while ``scale!(b,A)`` scales each row ``i`` of
+   ``A*diagm(b)``), while ``scale(b,A)`` scales each row ``i`` of
    ``A`` by ``b[i]`` (similar to ``diagm(b)*A``), returning a new array.
 
    Note: for large ``A``, ``scale`` can be much faster than ``A .* b`` or
@@ -238,7 +318,7 @@ Linear algebra functions in Julia are largely implemented by calling functions f
 
 .. function:: scale!(A, b), scale!(b, A)
 
-   Scale an array ``A`` by a scalar ``b``, similar to ``scale`` but
+   Scale an array ``A`` by a scalar ``b``, similar to :func:`scale` but
    overwriting ``A`` in-place.
 
    If ``A`` is a matrix and ``b`` is a vector, then ``scale!(A,b)``
@@ -249,16 +329,16 @@ Linear algebra functions in Julia are largely implemented by calling functions f
 
 .. function:: Tridiagonal(dl, d, du)
 
-   Construct a tridiagonal matrix from the lower diagonal, diagonal, and upper diagonal, respectively.  The result is of type ``Tridiagonal`` and provides efficient specialized linear solvers, but may be converted into a regular matrix with ``full``.
+   Construct a tridiagonal matrix from the lower diagonal, diagonal, and upper diagonal, respectively.  The result is of type ``Tridiagonal`` and provides efficient specialized linear solvers, but may be converted into a regular matrix with :func:`full`.
 
 .. function:: Bidiagonal(dv, ev, isupper)
 
    Constructs an upper (``isupper=true``) or lower (``isupper=false``) bidiagonal matrix
-   using the given diagonal (``dv``) and off-diagonal (``ev``) vectors.  The result is of type ``Bidiagonal`` and provides efficient specialized linear solvers, but may be converted into a regular matrix with ``full``.
+   using the given diagonal (``dv``) and off-diagonal (``ev``) vectors.  The result is of type ``Bidiagonal`` and provides efficient specialized linear solvers, but may be converted into a regular matrix with :func:`full`.
 
 .. function:: SymTridiagonal(d, du)
 
-   Construct a real symmetric tridiagonal matrix from the diagonal and upper diagonal, respectively. The result is of type ``SymTridiagonal`` and provides efficient specialized eigensolvers, but may be converted into a regular matrix with ``full``.
+   Construct a real symmetric tridiagonal matrix from the diagonal and upper diagonal, respectively. The result is of type ``SymTridiagonal`` and provides efficient specialized eigensolvers, but may be converted into a regular matrix with :func:`full`.
 
 .. function:: Woodbury(A, U, C, V)
 
