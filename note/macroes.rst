@@ -21,6 +21,8 @@
 	elapsed time: 0.04699993133544922 seconds
 	
 这个宏适合在优化代码等情况时使用。
+
+注: @time expr 与tic(); expr; toc();等价。
 	
 @which
 ------
@@ -107,3 +109,22 @@
 	elapsed time: 0.307557441 seconds (64 bytes allocated)
 	4.4966644948005027e8
 	
+@assert
+---------
+@assert 宏和C里的用法类似，当表达式的求值非真将显示错误,如果表达式值为真则什么都不返回，一般用于处理代码中的错误::
+
+	julia> @assert 1==2
+	ERROR: assertion failed: 1 == 2
+	 in error at error.jl:21
+
+	julia> @assert 1.000000000000001==1.0
+	ERROR: assertion failed: 1.000000000000001 == 1.0
+	 in error at error.jl:21
+
+	julia> @assert 1.0000000000000001==1.0
+
+注：最后这个实例在x64上通过。一般不用assert做测试。做测试的时候一般习惯使用 ``@test`` 宏， 使用前需要声明 ``using Base.Test`` 。
+
+
+
+
