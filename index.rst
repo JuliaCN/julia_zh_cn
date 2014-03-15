@@ -76,6 +76,7 @@
 .. toctree::
    :maxdepth: 1
    
+   note/index
    note/macroes
    note/uses
 
