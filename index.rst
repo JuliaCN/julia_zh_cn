@@ -1,10 +1,10 @@
-
 %%%%%%%%%%%%
  Julia 文档
 %%%%%%%%%%%%
 
 * :ref:`manual`
 * :ref:`stdlib`
+* :ref:`note`
 
 .. _manual:
 
@@ -65,3 +65,17 @@
    stdlib/graphics
    stdlib/test
    stdlib/profile
+
+
+.. _note:
+
+######
+ 笔记
+######
+
+.. toctree::
+   :maxdepth: 1
+   
+   note/macroes
+   note/uses
+
