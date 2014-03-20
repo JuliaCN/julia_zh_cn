@@ -13,6 +13,10 @@
 ``Cholesky``        `Cholesky 分解 <http://en.wikipedia.org/wiki/Cholesky_decomposition>`_
 ``CholeskyPivoted`` `主元 <http://zh.wikipedia.org/zh-cn/%E4%B8%BB%E5%85%83>`_ Cholesky 分解
 ``LU``              `LU 分解 <http://zh.wikipedia.org/zh-cn/LU%E5%88%86%E8%A7%A3>`_
+``LUTridiagonal``   LU factorization for Tridiagonal matrices
+``UmfpackLU``       LU factorization for sparse matrices (computed by UMFPack)
+``QR``              `QR factorization <http://en.wikipedia.org/wiki/QR_decomposition>`_
+``QRCompactWY``     Compact WY form of the QR factorization
 ``QRPivoted``       主元 `QR 分解 <http://zh.wikipedia.org/zh-cn/QR%E5%88%86%E8%A7%A3>`_
 ``Hessenberg``      `Hessenberg 分解 <http://mathworld.wolfram.com/HessenbergDecomposition.html>`_
 ``Eigen``           `特征分解 <http://zh.wikipedia.org/zh-cn/%E7%89%B9%E5%BE%81%E5%88%86%E8%A7%A3>`_

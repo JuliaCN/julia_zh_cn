@@ -231,6 +231,15 @@ All Objects
 
    Convert ``y`` to the type of ``x``.
 
+.. function:: widen(type | x)
+
+   If the argument is a type, return a "larger" type (for numeric types, this will be
+   a type with at least as much range and precision as the argument, and usually more).
+   Otherwise the argument ``x`` is converted to ``widen(typeof(x))``.
+
+   **Example**: ``widen(Int32) === Int64``
+   **Example**: ``widen(1.5f0) === 1.5``
+
 .. function:: identity(x)
 
    The identity function. Returns its argument.
@@ -545,19 +554,29 @@ Iterable Collections
 
 .. function:: maximum(itr)
 
-   Returns the largest element in a collection
+   Returns the largest element in a collection.
 
 .. function:: maximum(A, dims)
 
-   Compute the maximum value of an array over the given dimensions
+   Compute the maximum value of an array over the given dimensions.
+
+.. function:: maximum!(r, A)
+
+   Compute the maximum value of ``A`` over the singleton dimensions of ``r``, 
+   and write results to ``r``.
 
 .. function:: minimum(itr)
 
-   Returns the smallest element in a collection
+   Returns the smallest element in a collection.
 
 .. function:: minimum(A, dims)
 
-   Compute the minimum value of an array over the given dimensions
+   Compute the minimum value of an array over the given dimensions.
+
+.. function:: minimum!(r, A)
+
+   Compute the minimum value of ``A`` over the singleton dimensions of ``r``, 
+   and write results to ``r``.
 
 .. function:: extrema(itr)
 
@@ -566,27 +585,32 @@ Iterable Collections
 
 .. function:: indmax(itr) -> Integer
 
-   Returns the index of the maximum element in a collection
+   Returns the index of the maximum element in a collection.
 
 .. function:: indmin(itr) -> Integer
 
-   Returns the index of the minimum element in a collection
+   Returns the index of the minimum element in a collection.
 
 .. function:: findmax(itr) -> (x, index)
 
-   Returns the maximum element and its index
+   Returns the maximum element and its index.
 
 .. function:: findmin(itr) -> (x, index)
 
-   Returns the minimum element and its index
+   Returns the minimum element and its index.
 
 .. function:: sum(itr)
 
-   Returns the sum of all elements in a collection
+   Returns the sum of all elements in a collection.
 
 .. function:: sum(A, dims)
 
    Sum elements of an array over the given dimensions.
+
+.. function:: sum!(r, A)
+
+   Sum elements of ``A`` over the singleton dimensions of ``r``, 
+   and write results to ``r``. 
 
 .. function:: sum(f, itr)
 
@@ -594,27 +618,42 @@ Iterable Collections
 
 .. function:: prod(itr)
 
-   Returns the product of all elements of a collection
+   Returns the product of all elements of a collection.
 
 .. function:: prod(A, dims)
 
    Multiply elements of an array over the given dimensions.
 
+.. function:: prod!(r, A)
+
+   Multiply elements of ``A`` over the singleton dimensions of ``r``, 
+   and write results to ``r``.
+
 .. function:: any(itr) -> Bool
 
-   Test whether any elements of a boolean collection are true
+   Test whether any elements of a boolean collection are true.
 
 .. function:: any(A, dims)
 
    Test whether any values along the given dimensions of an array are true.
 
+.. function:: any!(r, A)
+
+   Test whether any values in ``A`` along the singleton dimensions of ``r`` are true, 
+   and write results to ``r``. 
+
 .. function:: all(itr) -> Bool
 
-   Test whether all elements of a boolean collection are true
+   Test whether all elements of a boolean collection are true.
 
 .. function:: all(A, dims)
 
    Test whether all values along the given dimensions of an array are true.
+
+.. function:: all!(r, A)
+
+   Test whether all values in ``A`` along the singleton dimensions of ``r`` are true, 
+   and write results to ``r``.
 
 .. function:: count(p, itr) -> Integer
 
@@ -1346,6 +1385,10 @@ I/O
 .. function:: read(stream, type, dims)
 
    Read a series of values of the given type from a stream, in canonical binary representation. ``dims`` is either a tuple or a series of integer arguments specifying the size of ``Array`` to return.
+
+.. function:: read!(stream, array::Array)
+
+   Read binary data from a stream, filling in the argument ``array``.
 
 .. function:: readbytes!(stream, b::Vector{Uint8}, nb=length(b))
 
@@ -2999,6 +3042,10 @@ Mathematical Functions
 
    Compute the number of digits in number ``n`` written in base ``b``.
 
+.. function:: widemul(x, y)
+
+   Multiply ``x`` and ``y``, giving the result as a larger type.
+
 Data Formats
 ------------
 
@@ -3439,11 +3486,11 @@ Random number generation in Julia uses the `Mersenne Twister library <http://www
 
    Fill an array with random boolean values. A may be an ``Array`` or a ``BitArray``.
 
-.. function:: randn(dims or [dims...])
+.. function:: randn([rng], dims or [dims...])
 
    Generate a normally-distributed random number with mean 0 and standard deviation 1. Optionally generate an array of normally-distributed random numbers.
 
-.. function:: randn!(A::Array{Float64,N})
+.. function:: randn!([rng], A::Array{Float64,N})
 
    Fill the array A with normally-distributed (mean 0, standard deviation 1) random numbers. Also see the rand function.
 
@@ -3516,14 +3563,6 @@ Constructors
 .. function:: ones(type, dims)
 
    Create an array of all ones of specified type
-
-.. function:: infs(type, dims)
-
-   Create an array where every element is infinite and of the specified type
-
-.. function:: nans(type, dims)
-
-   Create an array where every element is NaN of the specified type
 
 .. function:: trues(dims)
 
@@ -3969,6 +4008,10 @@ Statistics
    For applications requiring the handling of missing data, the ``DataArray``
    package is recommended.
 
+.. function:: mean!(r, v)
+
+   Compute the mean of ``v`` over the singleton dimensions of ``r``, and write results to ``r``.
+
 .. function:: std(v[, region])
 
    Compute the sample standard deviation of a vector or array ``v``, optionally along dimensions in ``region``. The algorithm returns an estimator of the generative distribution's standard deviation under the assumption that each entry of ``v`` is an IID drawn from that generative distribution. This computation is equivalent to calculating ``sqrt(sum((v - mean(v)).^2) / (length(v) - 1))``.
@@ -4020,6 +4063,11 @@ Statistics
    element at location ``i`` satisfies ``sum(e[i] .< v .<= e[i+1])``.
    Note: Julia does not ignore ``NaN`` values in the computation.
 
+.. function:: hist!(counts, v, e) -> e, counts
+
+   Compute the histogram of ``v``, using a vector/range ``e`` as the edges for the bins. 
+   This function writes the resultant counts to a pre-allocated array ``counts``.
+
 .. function:: hist2d(M, e1, e2) -> (edge1, edge2, counts)
 
    Compute a "2d histogram" of a set of N points specified by N-by-2 matrix ``M``.
@@ -4029,6 +4077,12 @@ Statistics
    used in the second dimension), and ``counts``, a histogram matrix of size
    ``(length(edge1)-1, length(edge2)-1)``.
    Note: Julia does not ignore ``NaN`` values in the computation.
+
+.. function:: hist2d!(counts, M, e1, e2) -> (e1, e2, counts)
+
+   Compute a "2d histogram" with respect to the bins delimited by the edges given 
+   in ``e1`` and ``e2``. This function writes the results to a pre-allocated
+   array ``counts``. 
 
 .. function:: histrange(v, n)
 
