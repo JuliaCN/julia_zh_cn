@@ -281,10 +281,13 @@ Julia的类型系统的设计旨在有效及具表现力，既清楚直观又不
     julia> typeof(())
     ()
 
-Tuple types are *covariant* in their constituent types, which means
-that one tuple type is a subtype of another if elements of the first
-are subtypes of the corresponding elements of the second. For
-example:
+.. Tuple types are *covariant* in their constituent types, which means
+.. that one tuple type is a subtype of another if elements of the first
+.. are subtypes of the corresponding elements of the second. For
+.. example:
+多元组类型是关于它的组成类型是协变的，一个多元组是另一个多元组的子类型
+意味着对应的第一个多元组的各元素的类型是第二个多元组对应元素类型的子类型。比如:
+
 
 .. doctest::
 
@@ -296,9 +299,12 @@ example:
 
     julia> (Int,String) <: (Real,)
     false
-
-Intuitively, this corresponds to the type of a function's arguments
-being a subtype of the function's signature (when the signature matches).
+    
+.. @readproof 
+.. -function signature
+.. Intuitively, this corresponds to the type of a function's arguments
+.. being a subtype of the function's signature (when the signature matches).
+直观地看，这就像一个函数的各个参数的类型必须是函数签名的子类型（当签名匹配的时候）。
 
 类型共用体
 ----------
