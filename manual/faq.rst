@@ -58,10 +58,13 @@ Julia 没有 MATLAB 的 ``clear`` 函数；在 Julia 会话（准确来说， ``
 什么是“类型稳定”？
 ~~~~~~~~~~~~~~~~~~
 
-It means that the type of the output is predictable from the types
-of the inputs.  In particular, it means that the type of the output
-cannot vary depending on the *values* of the inputs. The following
-code is *not* type-stable::
+.. It means that the type of the output is predictable from the types
+.. of the inputs.  In particular, it means that the type of the output
+.. cannot vary depending on the *values* of the inputs. The following
+.. code is *not* type-stable::
+
+这意味着输出的类型是可以由输入类型预测出来。特别地，这表示输出的类型不能因输入的值的变化而
+变化。下面这段代码 *不是* 类型稳定的 ::
 
     function unstable(flag::Bool)
         if flag
@@ -71,10 +74,12 @@ code is *not* type-stable::
         end
     end
 
-It returns either an ``Int`` or a ``Float64`` depending on the value of its
-argument. Since Julia can't predict the return type of this function at
-compile-time, any computation that uses it will have to guard against both
-types possibly occurring, making generation of fast machine code difficult.
+.. It returns either an ``Int`` or a ``Float64`` depending on the value of its
+.. argument. Since Julia can't predict the return type of this function at
+.. compile-time, any computation that uses it will have to guard against both
+.. types possibly occurring, making generation of fast machine code difficult.
+这段代码视参数的值的不同而返回一个 ``Int`` 或是 ``Float64``。 因为 Julia 无法在编译时预测
+函数返回值类型， 任何使用这个函数的计算都得考虑这两种可能的返回类型， 这样很难生成快速的机器码。
 
 
 Why does Julia use native machine integer arithmetic?

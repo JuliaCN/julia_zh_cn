@@ -285,7 +285,7 @@ Julia的类型系统的设计旨在有效及具表现力，既清楚直观又不
 .. that one tuple type is a subtype of another if elements of the first
 .. are subtypes of the corresponding elements of the second. For
 .. example:
-多元组类型是关于它的组成类型是协变的，一个多元组是另一个多元组的子类型
+多元组类型是关于它的组成类型是 *协变* 的，一个多元组是另一个多元组的子类型
 意味着对应的第一个多元组的各元素的类型是第二个多元组对应元素类型的子类型。比如:
 
 
