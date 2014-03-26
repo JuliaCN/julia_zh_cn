@@ -17,20 +17,27 @@ Julia 没有 MATLAB 的 ``clear`` 函数；在 Julia 会话（准确来说， ``
 如何在会话中修改 type/immutable 的声明？
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Perhaps you've defined a type and then realize you need to add a
-new field.  If you try this at the REPL, you get the error::
+.. Perhaps you've defined a type and then realize you need to add a
+.. new field.  If you try this at the REPL, you get the error::
+
+有时候你定义了一种类型但是后来发现你需要添加一个新的域。当你尝试在REPL里这样做时就会出错 ::
 
     ERROR: invalid redefinition of constant MyType
 
-Types in module ``Main`` cannot be redefined.
+.. Types in module ``Main`` cannot be redefined.
+``Main`` 模块里的类型不能被重新定义。
 
-While this can be inconvenient when you are developing new code,
-there's an excellent workaround.  Modules can be replaced by
-redefining them, and so if you wrap all your new code inside a module
-you can redefine types and constants.  You can't import the type names
-into ``Main`` and then expect to be able to redefine them there, but
-you can use the module name to resolve the scope.  In other words,
-while developing you might use a workflow something like this::
+.. While this can be inconvenient when you are developing new code,
+.. there's an excellent workaround.  Modules can be replaced by
+.. redefining them, and so if you wrap all your new code inside a module
+.. you can redefine types and constants.  You can't import the type names
+.. into ``Main`` and then expect to be able to redefine them there, but
+.. you can use the module name to resolve the scope.  In other words,
+.. while developing you might use a workflow something like this::
+
+当你在开发新代码时这会变得极其不方便，有一个很好的办法来处理。模块是可以用重新定义的办法来替换，
+所以把你的所有的代码封装在一个模块里就能够重新定义类型以及常数。你不能把类型名导入到 ``Main`` 里
+再去重新定义，但是你可以用模块名来解决这个问题。换句话说，当你开发的时候可以用这样的工作流 ::
 
     include("mynewcode.jl")              # this defines a module MyModule
     obj1 = MyModule.ObjConstructor(a, b)
