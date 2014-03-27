@@ -231,6 +231,12 @@ Julia 的 ``Char`` 类型是 32 位的，与所有平台的宽字符类型 (``wc
 
 如果所关注的指针是（位类型或不可变）的目标数据数组， ``pointer_to_array(ptr,dims,[own])`` 函数就非常有用啦。如果想要 Julia “控制”底层缓冲区并在返回的 ``Array`` 被释放时调用 ``free(ptr)`` ，最后一个参数应该为真。如果省略 ``own`` 参数或它为假，则调用者需确保缓冲区一直存在，直至所有的读取都结束。
 
+Arithmetic on the ``Ptr`` type in Julia (e.g. using ``+``) does not behave the
+same as C's pointer arithmetic. Adding an integer to a ``Ptr`` in Julia always
+moves the pointer by some number of *bytes*, not elements. This way, the
+address values obtained from pointer arithmetic do not depend on the
+element types of pointers.
+
 Passing Pointers for Modifying Inputs
 -------------------------------------
 

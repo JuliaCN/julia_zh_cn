@@ -391,7 +391,7 @@ Julia 不只支持 UTF-8 ，增加其它编码的支持也很简单。有关 UTF
 非标准字符串文本
 ----------------
 
-Julia 提供了 :ref:`非标准字符串文本 <man-non-standard-string-literals2>` 。它在正常的双引号括起来的字符串文本上，添加了前缀标识符。下面将要介绍的正则表达式，就是非标准字符串文本的一个例子。 :ref:`元编程 <man-non-standard-string-literals2>` 章节有另外的一些例子。
+Julia 提供了 :ref:`非标准字符串文本 <man-non-standard-string-literals2>` 。它在正常的双引号括起来的字符串文本上，添加了前缀标识符。下面将要介绍的正则表达式、字节数组文本和版本号文本，就是非标准字符串文本的例子。 :ref:`元编程 <man-non-standard-string-literals2>` 章节有另外的一些例子。
 
 正则表达式
 ~~~~~~~~~~
@@ -534,7 +534,7 @@ Julia 支持三个双引号所引起来的正则表达式字符串，即 ``r""".
 .. _man-byte-array-literals:
 
 字节数组文本
-~~~~~~~~~~~~
+------------
 
 另一类非标准字符串文本为 ``b"..."`` ，可以表示文本化的字节数组，如 ``Uint8`` 数组。习惯上，非标准文本的前缀为大写，会生成实际的字符串对象；而前缀为小写的，会生成非字符串对象，如字节数组或编译后的正则表达式。字节表达式的规则如下：
 
@@ -578,3 +578,54 @@ ASCII 字符串 "DATA" 对应于字节 68, 65, 84, 65 。 ``\xff`` 生成的单�
      0xbf
 
 在字符文本中，这两个是相同的。 ``\xff`` 也可以代表码位 255，因为字符 *永远* 代表码位。然而在字符串中， ``\x`` 转义永远表示字节而不是码位，而 ``\u`` 和 ``\U`` 转义永远表示码位，编码后为 1 或多个字节。
+
+
+.. _man-version-number-literals:
+
+Version Number Literals
+-----------------------
+
+Version numbers can easily be expressed with non-standard string literals of
+the form ``v"..."``. Version number literals create ``VersionNumber`` objects
+which follow the specifications of `semantic versioning <http://semver.org>`_,
+and therefore are composed of major, minor and patch numeric values, followed
+by pre-release and build alpha-numeric annotations. For example,
+``v"0.2.1-rc1+win64"`` is broken into major version ``0``, minor version ``2``,
+patch version ``1``, pre-release ``rc1`` and build ``win64``. When entering a
+version literal, everything except the major version number is optional,
+therefore e.g.  ``v"0.2"`` is equivalent to ``v"0.2.0"`` (with empty
+pre-release/build annotations), ``v"2"`` is equivalent to ``v"2.0.0"``, and so
+on.
+
+``VersionNumber`` objects are mostly useful to easily and correctly compare two
+(or more) versions. For example, the constant ``VERSION`` holds Julia verison
+number as a ``VersionNumber`` object, and therefore one can define some
+version-specific behaviour using simple statements as::
+
+    if v"0.2" <= VERSION < v"0.3-"
+        # do something specific to 0.2 release series
+    end
+
+Note that in the above example the non-standard version number ``v"0.3-"`` is
+used, with a trailing ``-``: this notation is a Julia extension of the
+standard, and it's used to indicate a version which is lower than any ``0.3``
+release, including all of its pre-releases. So in the above example the code
+would only run with stable ``0.2`` versions, and exclude such versions as
+``v"0.3.0-rc1"``. In order to also allow for unstable (i.e. pre-release)
+``0.2`` versions, the lower bound check should be modified like this: ``v"0.2-"
+<= VERSION``.
+
+Another non-standard version specification extension allows to use a trailing
+``+`` to express an upper limit on build versions, e.g.  ``VERSION >
+"v"0.2-rc1+"`` can be used to mean any version above ``0.2-rc1`` and any of its
+builds: it will return ``false`` for version ``v"0.2-rc1+win64"`` and ``true``
+for ``v"0.2-rc2"``.
+
+It is good practice to use such special versions in comparisons (particularly,
+the trailing ``-`` should always be used on upper bounds unless there's a good
+reason not to), but they must not be used as the actual version number of
+anything, as they are illegal in the semantic versioning scheme.
+
+Besides being used for the ``VERSION`` constant, ``VersionNumber`` objects are
+widely used in the ``Pkg`` module, to specify packages versions and their
+dependencies.
