@@ -91,6 +91,9 @@ Julia 提供一系列控制流：
 
 ``elseif`` 及 ``else`` 块是可选的。
 
+Note that very short conditional statements (one-liners) are frequently expressed using
+Short-Circuit Evaluation in Julia, as outlined in the next section.
+
 如果条件表达式的值是除 ``true`` 和 ``false`` 之外的值，会出错：
 
 .. doctest::
@@ -210,6 +213,33 @@ Julia 提供一系列控制流：
     1
     2
     false
+    
+This behavior is frequently used in Julia to form an alternative to very short
+``if`` statements. Instead of ``if <cond> <statement> end``, one can write 
+``<cond> && <statement>`` (which could be read as: <cond> *and then* <statement>).
+Similarly, instead of ``if ! <cond> <statement> end``, one can write
+``<cond> || <statement>`` (which could be read as: <cond> *or else* <statement>).
+
+For example, a recursive factorial routine could be defined like this:
+
+.. doctest::
+
+    julia> function factorial(n::Int)
+               n >= 0 || error("n must be non-negative")
+               n == 0 && return 1
+               n * factorial(n-1)
+           end
+    factorial (generic function with 1 method)
+    
+    julia> factorial(5)
+    120
+    
+    julia> factorial(0)
+    1
+    
+    julia> factorial(-1)
+    ERROR: n must be non-negative
+     in factorial at none:2
 
 *非* 短路求值运算符，可以使用 :ref:`man-mathematical-operations` 中介绍的位布尔运算符 ``&`` 和 ``|`` ：
 

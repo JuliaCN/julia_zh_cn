@@ -494,24 +494,34 @@ Broadcasting
 实现
 ----
 
-Julia 的基础数组类型是抽象类型 ``AbstractArray{T,n}`` ，其中维度为 ``n`` ，元素类型为 ``T`` 。 ``AbstractVector`` 和 ``AbstractMatrix`` 分别是它 1 维 和 2 维的别名。
+Julia 的基础数组类型是抽象类型 ``AbstractArray{T,N}`` ，其中维度为 ``N`` ，元素类型为 ``T`` 。 ``AbstractVector`` 和 ``AbstractMatrix`` 分别是它 1 维 和 2 维的别名。
 
 The ``AbstractArray`` type includes anything vaguely array-like, and
 implementations of it might be quite different from conventional
 arrays. For example, elements might be computed on request rather than
-stored. Or, it might not be possible to assign or access every array
-location.
+stored.  However, any concrete ``AbstractArray{T,N}`` type should
+generally implement at least ``size(A)`` (returing an ``Int`` tuple),
+``getindex(A,i)`` and ``getindex(A,i1,...,iN)`` (returning an element
+of type ``T``); mutable arrays should also implement ``setindex!``.  It
+is recommended that these operations have nearly constant time complexity,
+or technically Õ(1) complexity, as otherwise some array functions may
+be unexpectedly slow.   Concrete types should also typically provide
+a `similar(A,T=eltype(A),dims=size(A))` method, which is used to allocate
+a similar array for `copy` and other out-of-place operations.
 
-``StoredArray`` is an abstract subtype of ``AbstractArray`` intended to
-include all arrays that behave like memories: all elements are independent,
-can be accessed, and (for mutable arrays) all elements can be assigned.
-``DenseArray`` is a further abstract subtype of ``StoredArray``. Arrays of
-this type have storage for every possible index, and provide uniform access
-performance for all elements.
+``DenseArray`` is an abstract subtype of ``AbstractArray`` intended
+to include all arrays that are laid out at regular offsets in memory,
+and which can therefore be passed to external C and Fortran functions
+expecting this memory layout.  Subtypes should provide a method
+``stride(A,k)`` that returns the "stride" of dimension ``k``:
+increasing the index of dimension ``k`` by ``1`` should increase the
+index ``i`` of ``getindex(A,i)`` by ``stride(A,k)``.  If a
+pointer conversion method ``convert(Ptr{T}, A)`` is provided, the
+memory layout should correspond in the same way to these strides.
 
-``Array{T,n}`` 类型是 ``DenseArray`` 的特殊实例，它的元素以列序为主序存储（详见 :ref:`man-performance-tips` ）。 ``Vector`` 和 ``Matrix`` 是分别是它 1 维 和 2 维的别名。
+``Array{T,N}`` 类型是 ``DenseArray`` 的特殊实例，它的元素以列序为主序存储（详见 :ref:`man-performance-tips` ）。 ``Vector`` 和 ``Matrix`` 是分别是它 1 维 和 2 维的别名。
 
-``SubArray`` 是 ``StoredArray`` 的特殊实例，它通过引用而不是复制来进行索引。使用 ``sub`` 函数来构造 ``SubArray`` ，它的调用方式与 ``getindex`` 相同（使用数组和一组索引参数）。 ``sub`` 的结果与 ``getindex`` 的结果类似，但它的数据仍留在原地。 ``sub`` 在 ``SubArray`` 对象中保存输入的索引向量，这个向量将被用来间接索引原数组。
+``SubArray`` 是 ``AbstractArray`` 的特殊实例，它通过引用而不是复制来进行索引。使用 ``sub`` 函数来构造 ``SubArray`` ，它的调用方式与 ``getindex`` 相同（使用数组和一组索引参数）。 ``sub`` 的结果与 ``getindex`` 的结果类似，但它的数据仍留在原地。 ``sub`` 在 ``SubArray`` 对象中保存输入的索引向量，这个向量将被用来间接索引原数组。
 
 ``StridedVector`` 和 ``StridedMatrix`` 是为了方便而定义的别名。通过给他们传递 ``Array`` 或 ``SubArray`` 对象，可以使 Julia 大范围调用 BLAS 和 LAPACK 函数，提高内存申请和复制的效率。
 

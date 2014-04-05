@@ -80,7 +80,7 @@ reference 调用 ``wait`` ，以等待 remote call 执行完毕，然后通过 `
 
     julia> exception on 2: in anonymous: rand2 not defined 
 
-处理器 1 知道 ``rand2`` 函数，但处理器 2 不知道。 ``require`` 函数自动在当前所有可用的处理器上载入源文件，使所有的处理器都能运行代码： ::
+进程 1 知道 ``rand2`` 函数，但进程 2 不知道。 ``require`` 函数自动在当前所有可用的处理器上载入源文件，使所有的处理器都能运行代码： ::
 
     julia> require("myfile")
 
@@ -100,7 +100,7 @@ A file can also be preloaded on multiple processes at startup, and a driver scri
 Each process has an associated identifier. The process providing the interactive julia prompt
 always has an id equal to 1, as would the julia process running the driver script in the
 example above.
-The processors used by default for parallel operations are referred to as ``workers``.
+The processes used by default for parallel operations are referred to as ``workers``.
 When there is only one process, process 1 is considered a worker. Otherwise, workers are
 considered to be all processes other than process 1.
 
@@ -283,7 +283,7 @@ points: in this case, when ``remotecall_fetch`` is called.
     drandn(100,100,10)
     dfill(x, 100,100,10)
 
-最后一个例子中，数组的元素由值 ``x`` 来初始化。这些函数自动选取某个分布。如果要指明使用哪个处理器，如何分布数据，应这样写： ::
+最后一个例子中，数组的元素由值 ``x`` 来初始化。这些函数自动选取某个分布。如果要指明使用哪个进程，如何分布数据，应这样写： ::
 
     dzeros((100,100), [1:4], [1,4])
 
@@ -299,15 +299,15 @@ this array specifies how many pieces dimension n should be divided into.
 In this example the first dimension will not be divided, and the second
 dimension will be divided into 4 pieces. Therefore each local chunk will be
 of size ``(100,25)``. Note that the product of the distribution array must
-equal the number of processors.
+equal the number of processes.
 
 ``distribute(a::Array)`` 可用来将本地数组转换为分布式数组。
 
 ``localpart(a::DArray)`` 可用来获取 ``DArray`` 本地存储的部分。
 
-``localindexes(a::DArray)`` 返回本地处理器所存储的维度索引值范围多元组。
+``localindexes(a::DArray)`` 返回本地进程所存储的维度索引值范围多元组。
 
-``convert(Array, a::DArray)`` 将所有数据综合到本地处理器上。
+``convert(Array, a::DArray)`` 将所有数据综合到本地进程上。
 
 使用索引值范围来索引 ``DArray`` （方括号）时，会创建 ``SubArray`` 对象，但不复制数据。
 
@@ -319,7 +319,7 @@ equal the number of processors.
 
     DArray(init, dims[, procs, dist])
 
-``init`` 函数的参数，是索引值范围多元组。这个函数在本地声名一块分布式数组，并用指定索引值来进行初始化。 ``dims`` 是整个分布式数组的维度。 ``procs`` 是可选的，指明一个存有要使用的处理器 ID 的向量 。 ``dist`` 是一个整数向量，指明分布式数组在每个维度应该被分成几块。
+``init`` 函数的参数，是索引值范围多元组。这个函数在本地声名一块分布式数组，并用指定索引值来进行初始化。 ``dims`` 是整个分布式数组的维度。 ``procs`` 是可选的，指明一个存有要使用的进程 ID 的向量 。 ``dist`` 是一个整数向量，指明分布式数组在每个维度应该被分成几块。
 
 最后俩参数是可选的，忽略的时候使用默认值。
 
@@ -337,7 +337,7 @@ major utility is allowing communication to be done via array indexing, which
 is convenient for many problems. As an example, consider implementing the
 "life" cellular automaton, where each cell in a grid is updated according
 to its neighboring cells. To compute a chunk of the result of one iteration,
-each processor needs the immediate neighbor cells of its local chunk. The
+each process needs the immediate neighbor cells of its local chunk. The
 following code accomplishes this::
 
     function life_step(d::DArray)

@@ -7,13 +7,14 @@
 Introduction
 ------------
 
-The Julia standard library contains a range of functions and macros appropriate for performing scientific and numerical computing, but as broad as many general purpose programming languages.  Additional functionality is available from a growing collection of :ref:`available-packages`. Functions are grouped by topic below.  
+The Julia standard library contains a range of functions and macros appropriate for performing scientific and numerical computing, but is also as broad as those of many general purpose programming languages.  Additional functionality is available from a growing collection of :ref:`available-packages`. Functions are grouped by topic below.  
 
 Some general notes:
 
-* Except for functions in :ref:`built-in-modules`, all functions documented here are directly available for use in programs.
+* Except for functions in buit-in modules (:mod:`~Base.Pkg`, :mod:`~Base.Collections`, :mod:`~Base.Graphics`,
+  :mod:`~Base.Test` and :mod:`~Base.Profile`), all functions documented here are directly available for use in programs.
 * To use module functions, use ``import Module`` to import the module, and ``Module.fn(x)`` to use the functions.
-* Alternatively, ``using ModuleName`` will import all exported ``Module`` functions into the current namespace.
+* Alternatively, ``using Module`` will import all exported ``Module`` functions into the current namespace.
 * By convention, function names ending with an exclamation point (``!``) modify their arguments.  Some functions have both modifying (e.g., ``sort!``) and non-modifying (``sort``) versions.
 
 Getting Around
@@ -2262,6 +2263,10 @@ Mathematical Operators
 
    Called by ``:`` syntax for constructing ranges.
 
+.. function:: range(start, [step], length)
+
+   Construct a range by length, given a starting value and optional step (defaults to 1).
+
 .. _==:
 .. function:: ==(x, y)
 
@@ -4111,19 +4116,42 @@ Statistics
 
    Like ``quantile``, but overwrites the input vector.
 
-.. function:: cov(v1[, v2])
+.. function:: cov(v1[, v2][, vardim=1, corrected=true, mean=nothing])
 
-   Compute the Pearson covariance between two vectors ``v1`` and ``v2``. If
-   called with a single element ``v``, then computes covariance of columns of
-   ``v``.
-   Note: Julia does not ignore ``NaN`` values in the computation.
+   Compute the Pearson covariance between the vector(s) in ``v1`` and ``v2``. 
+   Here, ``v1`` and ``v2`` can be either vectors or matrices. 
 
-.. function:: cor(v1[, v2])
+   This function accepts three keyword arguments:
 
-   Compute the Pearson correlation between two vectors ``v1`` and ``v2``. If
-   called with a single element ``v``, then computes correlation of columns of
-   ``v``.
-   Note: Julia does not ignore ``NaN`` values in the computation.
+   - ``vardim``: the dimension of variables. When ``vardim = 1``, variables 
+   are considered in columns while observations in rows; when ``vardim = 2``, 
+   variables are in rows while observations in columns. By default, it is
+   set to ``1``.
+
+   - ``corrected``: whether to apply Bessel's correction (divide by ``n-1`` 
+   instead of ``n``). By default, it is set to ``true``.
+
+   - ``mean``: allow users to supply mean values that are known. By default, it 
+   is set to ``nothing``, which indicates that the mean(s) are unknown, and the 
+   function will compute the mean. Users can use ``mean=0`` to indicate that 
+   the input data are centered, and hence there's no need to subtract the mean.
+
+   The size of the result depends on the size of ``v1`` and ``v2``. When both 
+   ``v1`` and ``v2`` are vectors, it returns the covariance between them as a 
+   scalar. When either one is a matrix, it returns a covariance matrix of size
+   ``(n1, n2)``, where ``n1`` and ``n2`` are the numbers of slices in ``v1`` and
+   ``v2``, which depend on the setting of ``vardim``. 
+
+   Note: ``v2`` can be omitted, which indicates ``v2 = v1``. 
+
+
+.. function:: cor(v1[, v2][, vardim=1, mean=nothing])
+
+   Compute the Pearson correlation between the vector(s) in ``v1`` and ``v2``. 
+
+   Users can use the keyword argument ``vardim`` to specify the variable 
+   dimension, and ``mean`` to supply pre-computed mean values.
+
 
 Signal Processing
 -----------------
@@ -4514,11 +4542,11 @@ Parallel Computing
    
 .. function:: nprocs()
 
-   Get the number of available processors.
+   Get the number of available processes.
 
 .. function:: nworkers()
 
-   Get the number of available worker processors. This is one less than nprocs(). Equal to nprocs() if nprocs() == 1.
+   Get the number of available worker processes. This is one less than nprocs(). Equal to nprocs() if nprocs() == 1.
 
 .. function:: procs()
 
@@ -4540,7 +4568,7 @@ Parallel Computing
 
 .. function:: myid()
 
-   Get the id of the current processor.
+   Get the id of the current process.
 
 .. function:: pmap(f, lsts...; err_retry=true, err_stop=false)
 
@@ -4554,7 +4582,7 @@ Parallel Computing
 
 .. function:: remotecall(id, func, args...)
 
-   Call a function asynchronously on the given arguments on the specified processor. Returns a ``RemoteRef``.
+   Call a function asynchronously on the given arguments on the specified process. Returns a ``RemoteRef``.
 
 .. function:: wait([x])
 
@@ -4612,7 +4640,7 @@ Parallel Computing
 
 .. function:: RemoteRef(n)
 
-   Make an uninitialized remote reference on processor ``n``.
+   Make an uninitialized remote reference on process ``n``.
 
 .. function:: timedwait(testcb::Function, secs::Float64; pollint::Float64=0.1)
 
@@ -4621,13 +4649,13 @@ Parallel Computing
    
 .. function:: @spawn
 
-   Execute an expression on an automatically-chosen processor, returning a
+   Execute an expression on an automatically-chosen process, returning a
    ``RemoteRef`` to the result.
 
 .. function:: @spawnat
 
    Accepts two arguments, ``p`` and an expression, and runs the expression
-   asynchronously on processor ``p``, returning a ``RemoteRef`` to the result.
+   asynchronously on process ``p``, returning a ``RemoteRef`` to the result.
 
 .. function:: @fetch
 
@@ -4677,7 +4705,7 @@ Distributed Arrays
 
    Construct a distributed array. ``init`` is a function that accepts a tuple of index ranges. 
    This function should allocate a local chunk of the distributed array and initialize it for the specified indices. 
-   ``dims`` is the overall size of the distributed array. ``procs`` optionally specifies a vector of processor IDs to use. 
+   ``dims`` is the overall size of the distributed array. ``procs`` optionally specifies a vector of process IDs to use. 
    If unspecified, the array is distributed over all worker processes only. Typically, when runnning in distributed mode,
    i.e., ``nprocs() > 1``, this would mean that no chunk of the distributed array exists on the process hosting the 
    interactive julia prompt.
@@ -4717,12 +4745,12 @@ Distributed Arrays
 
 .. function:: localindexes(d)
 
-   A tuple describing the indexes owned by the local processor. Returns a tuple with empty ranges 
+   A tuple describing the indexes owned by the local process. Returns a tuple with empty ranges 
    if no local part exists on the calling process.
 
 .. function:: procs(d)
 
-   Get the vector of processors storing pieces of ``d``
+   Get the vector of processes storing pieces of ``d``
 
    
 Shared Arrays (Experimental, UNIX-only feature)
