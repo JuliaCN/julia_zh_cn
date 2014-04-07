@@ -431,9 +431,12 @@ boolean answer. Use dot operators for elementwise comparisons.
     copysign max min significand
     sqrt hypot
 
-Note that there is a difference between ``min`` and ``max``, which operate
-elementwise over multiple array arguments, and ``minimum`` and ``maximum``, which
-find the smallest and largest values within an array.
+注意 ``min`` ``max`` 和 ``minimum`` ``maximum`` 之间的区别，前者是对多个数组操作，找出各数组对应的的元素中的最大最小，后者是作用在一个数组上找出该数组的最大最小值。
+
+.. Note that there is a difference between ``min`` and ``max``, which operate
+.. elementwise over multiple array arguments, and ``minimum`` and ``maximum``, which
+.. find the smallest and largest values within an array.
+   
     
 Julia 提供了 ``@vectorize_1arg`` 和 ``@vectorize_2arg`` 两个宏，分别用来向量化任意的单参数或两个参数的函数。每个宏都接收两个参数，即函数参数的类型和函数名。例如：
 
