@@ -11,7 +11,7 @@ The Julia standard library contains a range of functions and macros appropriate 
 
 Some general notes:
 
-* Except for functions in buit-in modules (:mod:`~Base.Pkg`, :mod:`~Base.Collections`, :mod:`~Base.Graphics`,
+* Except for functions in built-in modules (:mod:`~Base.Pkg`, :mod:`~Base.Collections`, :mod:`~Base.Graphics`,
   :mod:`~Base.Test` and :mod:`~Base.Profile`), all functions documented here are directly available for use in programs.
 * To use module functions, use ``import Module`` to import the module, and ``Module.fn(x)`` to use the functions.
 * Alternatively, ``using Module`` will import all exported ``Module`` functions into the current namespace.
@@ -4536,8 +4536,9 @@ Parallel Computing
    Add processes on remote machines via SSH. 
    Requires julia to be installed in the same location on each node, or to be available via a shared file system.
    
-   ``machines`` is a vector of host definitions of the form ``[user@]host[:port]``. A worker is started
-   for each such definition.
+   ``machines`` is a vector of host definitions of the form ``[user@]host[:port] [bind_addr]``. ``user`` defaults 
+   to current user, ``port`` to the standard ssh port. Optionally, in case of multi-homed hosts, ``bind_addr`` 
+   may be used to explicitly specify an interface.
    
    Keyword arguments:
 
@@ -4725,27 +4726,27 @@ Distributed Arrays
 
 .. function:: dzeros(dims, ...)
 
-   Construct a distributed array of zeros. Trailing arguments are the same as those accepted by ``darray``.
+   Construct a distributed array of zeros. Trailing arguments are the same as those accepted by :func:`DArray`.
 
 .. function:: dones(dims, ...)
 
-   Construct a distributed array of ones. Trailing arguments are the same as those accepted by ``darray``.
+   Construct a distributed array of ones. Trailing arguments are the same as those accepted by :func:`DArray`.
 
 .. function:: dfill(x, dims, ...)
 
-   Construct a distributed array filled with value ``x``. Trailing arguments are the same as those accepted by ``darray``.
+   Construct a distributed array filled with value ``x``. Trailing arguments are the same as those accepted by :func:`DArray`.
 
 .. function:: drand(dims, ...)
 
-   Construct a distributed uniform random array. Trailing arguments are the same as those accepted by ``darray``.
+   Construct a distributed uniform random array. Trailing arguments are the same as those accepted by :func:`DArray`.
 
 .. function:: drandn(dims, ...)
 
-   Construct a distributed normal random array. Trailing arguments are the same as those accepted by ``darray``.
+   Construct a distributed normal random array. Trailing arguments are the same as those accepted by :func:`DArray`.
 
 .. function:: distribute(a)
 
-   Convert a local array to distributed
+   Convert a local array to distributed.
 
 .. function:: localpart(d)
 
@@ -4758,7 +4759,7 @@ Distributed Arrays
 
 .. function:: procs(d)
 
-   Get the vector of processes storing pieces of ``d``
+   Get the vector of processes storing pieces of ``d``.
 
    
 Shared Arrays (Experimental, UNIX-only feature)

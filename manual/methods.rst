@@ -87,6 +87,23 @@ Julia 的所有标准函数和运算符，如前面提到的 ``+`` 函数，都�
 
     julia> f
     f (generic function with 2 methods)
+    
+This output tells us that ``f`` is a function object with two
+methods. To find out what the signatures of those methods are, use the
+``methods`` function:
+
+.. doctest::
+
+    julia> methods(f)
+    # 2 methods for generic function "f":
+    f(x::Float64,y::Float64) at none:1
+    f(x::Number,y::Number) at none:1
+
+which shows that f has two methods, one taking two ``Float64``
+arguments and one taking arguments of type ``Number``. It also
+indicates the file and line number where the methods were defined:
+because these methods were defined at the REPL, we get the apparent
+line number ``none:1``.    
 
 定义类型时如果没使用 ``::`` ，则方法参数的类型默认为 ``Any`` 。对 ``f`` 定义一个总括匹配的方法：
 
