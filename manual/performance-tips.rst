@@ -392,6 +392,75 @@ versus::
 -  对于整数除法，使用 ``div(x,y)`` 和 ``fld(x,y)`` 代替 ``trunc(x/y)`` 和 ``floor(x/y)``
 
 
+Performance Annotations
+-----------------------
+
+Sometimes you can enable better optimization by promising certain program
+properties.
+
+-  Use ``@inbounds`` to eliminate array bounds checking within expressions.
+   Be certain before doing this. If the subscripts are ever out of bounds,
+   you may suffer crashes or silent corruption.
+-  Write ``@simd`` in front of ``for`` loops that are amenable to vectorization.
+   **This feature is experimental** and could change or disappear in future 
+   versions of Julia.  
+
+Here is an example with both forms of markup::
+
+    function inner( x, y )
+        s = zero(eltype(x))
+        for i=1:length(x)
+            @inbounds s += x[i]*y[i]
+        end
+        s
+    end
+
+    function innersimd( x, y )
+        s = zero(eltype(x))
+        @simd for i=1:length(x)
+            @inbounds s += x[i]*y[i]
+        end
+        s
+    end
+ 
+    function timeit( n, reps )
+        x = rand(Float32,n)
+        y = rand(Float32,n)
+        s = zero(Float64)
+        time = @elapsed for j in 1:reps
+            s+=inner(x,y)
+        end
+        println("GFlop        = ",2.0*n*reps/time*1E-9)
+        time = @elapsed for j in 1:reps
+            s+=innersimd(x,y)
+        end
+        println("GFlop (SIMD) = ",2.0*n*reps/time*1E-9)
+    end
+
+    timeit(1000,1000)
+
+On a computer with a 2.4GHz Intel Core i5 processor, this produces::
+
+    GFlop        = 1.9467069505224963
+    GFlop (SIMD) = 17.578554163920018
+
+The range for a ``@simd for`` loop should be a one-dimensional range.
+A variable used for accumulating, such as ``s`` in the example, is called
+a *reduction variable*. By using``@simd``, you are asserting several
+properties of the loop:
+
+-  It is safe to execute iterations in arbitrary or overlapping order,
+   with special consideration for reduction variables.
+-  Floating-point operations on reduction variables can be reordered,
+   possibly causing different results than without ``@simd``.
+-  No iteration ever waits on another iteration to make forward progress.
+-  The loop must be an innermost loop.
+-  The loop body must be straight-line code. This is why ``@inbounds`` is currently needed for all array accesses.
+-  Accesses must have a stride pattern and cannot be "gathers" (random-index reads) or "scatters" (random-index writes).
+- The stride should be unit stride.
+- In some simple cases, for example with 2-3 arrays accessed in a loop, the LLVM auto-vectorization may kick in automatically, leading to no further speedup with ``@simd``. 
+- Using ``@simd`` merely gives the compiler license to vectorize. Whether it actually does so depends on the compiler. The current implementation will not vectorize if there are possible early exits from the loop, such as from array bounds checking. This limitation may be lifted in the future.
+
 工具
 ----
 

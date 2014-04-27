@@ -6,6 +6,14 @@
 
 Julia 是个灵活的动态语言，适合科学和数值计算，性能可与传统静态类型语言媲美。
 
+Because Julia's compiler is different from the interpreters used
+for languages like Python or R, you may find that Julia's performance
+is unintuitive at first. If you find that something is slow, we highly
+recommend reading through the
+`Performance Tips <http://docs.julialang.org/en/latest/manual/performance-tips>`_
+section before trying anything else. Once you understand how Julia 
+works, it's easy to write code that's nearly as fast as C.
+
 通过使用类型推断和 `即时(JIT)编译 <http://zh.wikipedia.org/zh-cn/%E5%8D%B3%E6%99%82%E7%B7%A8%E8%AD%AF>`_ ，以及 `LLVM <http://zh.wikipedia.org/wiki/LLVM>`_ ， Julia 具有可选的类型声明，重载，高性能等特性。Julia 是多编程范式的，包含指令式、函数式和面向对象编程的特征。
 它提供了简易和简洁的高等数值计算，它类似于 R 、 MATLAB 和 Python ，支持一般用途的编程。
 为了达到这个目的，Julia 在数学编程语言的基础上，参考了不少流行动态语言： `Lisp <http://zh.wikipedia.org/zh-cn/LISP>`_ 、 `Perl <http://zh.wikipedia.org/zh-cn/Perl>`_ 、 `Python <http://zh.wikipedia.org/zh-cn/Python>`_ 、 `Lua <http://zh.wikipedia.org/zh-cn/Lua>`_ 和 `Ruby <http://zh.wikipedia.org/zh-cn/Ruby>`_ 。

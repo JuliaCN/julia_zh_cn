@@ -450,6 +450,12 @@ For example, a recursive factorial routine could be defined like this:
     sqrt will only return a complex result if called with a complex argument.
     try sqrt(complex(x))
      in sqrt at math.jl:284
+     
+You may define your own exceptions in the following way:
+
+.. doctest::
+
+    julia> type MyCustomException <: Exception end
 
 ``throw`` 函数
 ~~~~~~~~~~~~~~
@@ -477,6 +483,24 @@ For example, a recursive factorial routine could be defined like this:
     
     julia> typeof(DomainError) <: Exception
     false
+    
+Additionally, some exception types take one or more arguments that are used for
+error reporting:
+
+.. doctest::
+
+    julia> throw(UndefVarError(:x))
+    ERROR: x not defined
+
+This mechanism can be implemented easily by custom exception types following
+the way ``UndefVarError`` is written:
+
+.. doctest::
+
+    julia> type UndefVarError <: Exception
+               var::Symbol
+           end
+    julia> showerror(io::IO, e::UndefVarError) = print(io, e.var, " not defined")
 
 ``error`` 函数
 ~~~~~~~~~~~~~~

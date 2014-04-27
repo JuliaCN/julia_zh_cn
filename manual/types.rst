@@ -162,6 +162,15 @@ Julia的类型系统的设计旨在有效及具表现力，既清楚直观又不
 
     julia> Foo((), 23.5, 1)
     ERROR: no method Foo((), Float64, Int64)
+    
+You may find a list of field names using the ``names`` function.
+
+.. doctest::
+    julia> names(foo)
+    3-element Array{Any,1}:
+     :bar
+     :baz
+     :qux
 
 获取复合对象域的值：
 
