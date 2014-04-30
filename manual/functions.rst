@@ -404,13 +404,45 @@ Julia 提供了保留字 ``do`` 来重写这种代码，使之更清晰： ::
         end
     end
 
-``do x`` 语法构造了参数为 ``x`` 的匿名函数，将其传递给第一个参数 ``map`` 。这种语法拓展了 Julia 。例如，标准库中提供了 ``cd`` 函数来进入某个目录，运行完或终止一段代码后再返回原先目录； ``open`` 函数打开某个文件后确保文件最后关闭。我们可以将两个函数结合起来，来安全地向一个指定目录的文件执行写操作： ::
+The ``do x`` syntax creates an anonymous function with argument ``x``
+and passes it as the first argument to ``map``. Similarly, ``do a,b``
+would create a two-argument anonymous function, and a plain ``do``
+would declare that what follows is an anonymous function of the form
+``() -> ...``.
 
+How these arguments are initialized depends on the "outer" function;
+here, ``map`` will sequentially set ``x`` to ``A``, ``B``, ``C``,
+calling the anonymous function on each, just as would happen in the
+syntax ``map(func, [A, B, C])``.
 
-    cd("data") do
-        open("outfile", "w") do f
-            write(f, data)
+This syntax makes it easier to use functions to effectively extend the
+language, since calls look like normal code blocks. There are many
+possible uses quite different from ``map``, such as managing system
+state. For example, there is a version of ``open`` that runs code
+ensuring that the opened file is eventually closed::
+
+    open("outfile", "w") do io
+        write(io, data)
+    end
+
+This is accomplished by the following definition::
+
+    function open(f::Function, args...)
+        io = open(args...)
+        try
+            f(io)
+        finally
+            close(io)
         end
     end
 
-``cd`` 函数的参数不需要任何参数，而是一块儿代码。 ``open`` 的函数参数接收打开文件的句柄。
+In contrast to the ``map`` example, here ``io`` is initialized by the
+*result* of ``open("outfile", "w")``.  The stream is then passed to
+your anonymous function, which performs the writing; finally, the
+``open`` function ensures that the stream is closed after your
+function exits.  The ``try/finally`` construct will be described in
+:ref:`man-control-flow`.
+
+With the ``do`` block syntax, it helps to check the documentation or
+implementation to know how the arguments of the user function are
+initialized.
