@@ -4,6 +4,7 @@
 
 * :ref:`manual`
 * :ref:`stdlib`
+* :ref:`devdocs`
 * :ref:`note`
 
 .. _manual:
@@ -37,6 +38,7 @@
    manual/parallel-computing
    manual/running-external-programs
    manual/calling-c-and-fortran-code
+   manual/interacting-with-julia
    manual/embedding
    manual/packages
    manual/performance-tips
@@ -66,6 +68,16 @@
    stdlib/test
    stdlib/profile
 
+.. _devdocs:
+
+#######################
+Developer Documentation
+#######################
+
+.. toctree::
+   :maxdepth: 1
+
+   devdocs/cartesian
 
 .. _note:
 
