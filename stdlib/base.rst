@@ -210,11 +210,13 @@ All Objects
 
    While it isn't normally necessary, user-defined types can override the default ``deepcopy`` behavior by defining a specialized version of the function ``deepcopy_internal(x::T, dict::ObjectIdDict)`` (which shouldn't otherwise be used), where ``T`` is the type to be specialized for, and ``dict`` keeps track of objects copied so far within the recursion. Within the definition, ``deepcopy_internal`` should be used in place of ``deepcopy``, and the ``dict`` variable should be updated as appropriate before returning.
 
-.. function:: isdefined(object, index | symbol)
+.. function:: isdefined([object,] index | symbol)
 
    Tests whether an assignable location is defined. The arguments can be an
    array and index, a composite object and field name (as a symbol), or a
    module and a symbol.
+   With a single symbol argument, tests whether a global variable with that
+   name is defined in ``current_module()``.
 
 .. function:: convert(type, x)
 
@@ -388,9 +390,11 @@ Generic Functions
 Syntax
 ------
 
-.. function:: eval(expr::Expr)
+.. function:: eval([m::Module], expr::Expr)
 
-   Evaluate an expression and return the value.
+   Evaluate an expression in the given module and return the result.
+   Every module (except those defined with ``baremodule``) has its own 1-argument definition
+   of ``eval``, which evaluates expressions in that module.
 
 .. function:: @eval
 
@@ -1139,23 +1143,23 @@ Strings
 
 .. function:: strip(string, [chars])
 
-   Return ``string`` with any leading and trailing whitespace removed. If a string ``chars`` is provided, instead remove characters contained in that string.
+   Return ``string`` with any leading and trailing whitespace removed. If ``chars`` (a character, or vector or set of characters) is provided, instead remove characters contained in it.
 
 .. function:: lstrip(string, [chars])
 
-   Return ``string`` with any leading whitespace removed. If a string ``chars`` is provided, instead remove characters contained in that string.
+   Return ``string`` with any leading whitespace removed. If ``chars`` (a character, or vector or set of characters) is provided, instead remove characters contained in it.
 
 .. function:: rstrip(string, [chars])
 
-   Return ``string`` with any trailing whitespace removed. If a string ``chars`` is provided, instead remove characters contained in that string.
+   Return ``string`` with any trailing whitespace removed. If ``chars`` (a character, or vector or set of characters) is provided, instead remove characters contained in it.
 
-.. function:: beginswith(string, prefix)
+.. function:: beginswith(string, prefix | chars)
 
-   Returns ``true`` if ``string`` starts with ``prefix``.
+   Returns ``true`` if ``string`` starts with ``prefix``. If the second argument is a vector or set of characters, tests whether the first character of ``string`` belongs to that set.
 
-.. function:: endswith(string, suffix)
+.. function:: endswith(string, suffix | chars)
 
-   Returns ``true`` if ``string`` ends with ``suffix``.
+   Returns ``true`` if ``string`` ends with ``suffix``. If the second argument is a vector or set of characters, tests whether the last character of ``string`` belongs to that set.
 
 .. function:: uppercase(string)
 
@@ -2948,7 +2952,7 @@ Mathematical Functions
 
 .. function:: invmod(x,m)
 
-   Take the inverse of ``x`` modulo ``m``: `y` such that :math:`xy = 1 \pmod m`
+   Take the inverse of ``x`` modulo ``m``: ``y`` such that :math:`xy = 1 \pmod m`
 
 .. function:: powermod(x, p, m)
 
@@ -5514,6 +5518,7 @@ Reflection
 .. function:: isconst([m::Module], s::Symbol) -> Bool
 
    Determine whether a global is declared ``const`` in a given module.
+   The default module argument is ``current_module()``.
 
 .. function:: isgeneric(f::Function) -> Bool
 

@@ -255,12 +255,26 @@ For example, a recursive factorial routine could be defined like this:
     2
     true
 
-``&&`` 和 ``||`` 的运算对象也必须是布尔值（ ``true`` 或 ``false`` ），否则会出现错误：
+``&&`` 和 ``||`` 的运算对象也必须是布尔值（ ``true`` 或 ``false`` ）。Using a non-boolean value anywhere 
+except for the last entry in a conditional chain is an error ：
 
 .. doctest::
 
-    julia> 1 && 2
+    julia> 1 && true
     ERROR: type: non-boolean (Int64) used in boolean context
+
+On the other hand, any type of expression can be used at the end of a conditional chain.  
+It will be evaluated and returned depending on the preceding conditionals:
+
+.. doctest::
+
+    julia> true && (x = rand(2,2))
+    2x2 Array{Float64,2}:
+      0.104159  0.402732
+      0.377173  0.163156
+
+    julia> false && (x = rand(2,2))
+    false
 
 .. _man-loops:
 
