@@ -215,7 +215,11 @@ Julia 使用表达式内插和求值来生成重复的代码。下例定义了�
 宏
 --
 
-宏有点儿像编译时的表达式生成函数：它允许程序员，通过把零参或多个参数的表达式转换为单个结果表达式，来自动生成表达式。调用宏的语法为： ::
+宏有点儿像编译时的表达式生成函数。 Just as functions map a tuple of argument values to a 
+return value, macros map a tuple of argument *expressions* to a returned
+*expression*. They allow the programmer to arbitrarily transform the
+written code to a resulting expression, which then takes the place of
+the macro call in the final syntax tree.调用宏的语法为： ::
 
     @name expr1 expr2 ...
     @name(expr1, expr2, ...)
@@ -224,16 +228,17 @@ Julia 使用表达式内插和求值来生成重复的代码。下例定义了�
 
     @name (expr1, expr2, ...)
 
-程序运行前， ``name`` 展开函数会对表达式参数处理，用结果替代这个表达式。使用关键字 ``macro`` 来定义展开函数： ::
+程序运行前， ``@name`` 展开函数会对表达式参数处理，用结果替代这个表达式。使用关键字 ``macro`` 来定义展开函数： ::
 
     macro name(expr1, expr2, ...)
         ...
+        return resulting_expr
     end
 
-下例是 Julia 中 ``@assert`` 宏的定义（详见 `error.jl <https://github.com/JuliaLang/julia/blob/master/base/error.jl>`_ ）： ::
+下例是 Julia 中 ``@assert`` 宏的简单定义： ::
 
     macro assert(ex)
-        :($ex ? nothing : error("Assertion failed: ", $(string(ex))))
+        return :($ex ? nothing : error("Assertion failed: ", $(string(ex))))
     end
 
 这个宏可如下使用：
@@ -243,27 +248,120 @@ Julia 使用表达式内插和求值来生成重复的代码。下例定义了�
     julia> @assert 1==1.0
 
     julia> @assert 1==0
-    ERROR: assertion failed: :((1==0))
-     in error at error.jl:21
+    ERROR: Assertion failed: 1 == 0
+     in error at error.jl:22
 
-宏调用时被展开，因此上面调用等价于： ::
+宏调用在解析时被展开为返回的结果。这等价于： ::
 
     1==1.0 ? nothing : error("Assertion failed: ", "1==1.0")
     1==0 ? nothing : error("Assertion failed: ", "1==0")
 
-上例没法写成函数，因为只知道结果 *值* ，不知道要求值的表达式是什么。
+That is, in the first call, the expression ``:(1==1.0)`` is spliced into
+the test condition slot, while the value of ``string(:(1==1.0))`` is
+spliced into the assertion message slot. The entire expression, thus
+constructed, is placed into the syntax tree where the ``@assert`` macro
+call occurs. Then at execution time, if the test expression evaluates to
+true, then ``nothing`` is returned, whereas if the test is false, an error 
+is raised indicating the asserted expression that was false. Notice that 
+it would not be possible to write this as a function, since only the 
+*value* of the condition is available and it would be impossible to
+display the expression that computed it in the error message.
 
-``@assert`` 的例子也演示了如何在宏中使用 ``@quote`` 块儿。这种特性允许我们在宏内部方便地操作表达式。
+The actual definition of ``@assert`` in the standard library is more
+complicated. It allows the user to optionally specify their own error
+message, instead of just printing the failed expression. Just like in
+functions with a variable number of arguments, this is specified with an
+ellipses following the last argument::
+
+    macro assert(ex, msgs...)
+        msg_body = isempty(msgs) ? ex : msgs[1]
+        msg = string("assertion failed: ", msg_body)
+        return :($ex ? nothing : error($msg))
+    end
+
+Now ``@assert`` has two modes of operation, depending upon the number of
+arguments it receives! If there's only one argument, the tuple of expressions
+captured by ``msgs`` will be empty and it will behave the same as the simpler
+definition above. But now if the user specifies a second argument, it is
+printed in the message body instead of the failing expression. You can inspect
+the result of a macro expansion with the aptly named :func:`macroexpand`
+function:
+
+.. doctest::
+
+    julia> macroexpand(:(@assert a==b))
+    :(if a == b
+            nothing
+        else
+            error("assertion failed: a == b")
+        end)
+
+    julia> macroexpand(:(@assert a==b "a should equal b!"))
+    :(if a == b
+            nothing
+        else
+            error("assertion failed: a should equal b!")
+        end)
+
+There is yet another case that the actual ``@assert`` macro handles: what
+if, in addition to printing "a should equal b," we wanted to print their
+values? One might naively try to use string interpolation in the custom
+message, e.g., ``@assert a==b "a ($a) should equal b ($b)!"``, but this 
+won't work as expected with the above macro. Can you see why? Recall
+from :ref:`string interpolation <man-string-interpolation>` that an 
+interpolated string is rewritten to a call to the ``string`` function.
+Compare:
+
+.. doctest::
+
+    julia> typeof(:("a should equal b"))
+    ASCIIString (constructor with 1 method)
+
+    julia> typeof(:("a ($a) should equal b ($b)!"))
+    Expr
+
+    julia> dump(:("a ($a) should equal b ($b)!"))
+    Expr
+      head: Symbol string
+      args: Array(Any,(5,))
+        1: ASCIIString "a ("
+        2: Symbol a
+        3: ASCIIString ") should equal b ("
+        4: Symbol b
+        5: ASCIIString ")!"
+      typ: Any
+
+So now instead of getting a plain string in ``msg_body``, the macro is
+receiving a full expression that will need to be evaluated in order to
+display as expected. This can be spliced directly into the returned expression
+as an argument to the ``string`` call; see `error.jl
+<https://github.com/JuliaLang/julia/blob/master/base/error.jl>`_ for
+the complete implementation.
+
+The ``@assert`` macro makes great use of splicing into quoted expressions
+to simplify the manipulation of expressions inside the macro body.
 
 卫生宏
 ~~~~~~
 
-`卫生宏 <http://en.wikipedia.org/wiki/Hygienic_macro>`_ 是个更复杂的宏。Julia 需要确保宏引入和使用的变量不会与代码内插进宏的变量冲突。宏也可能在不是它所定义的模块中被调用。我们需要确保所有的全局变量都解析到正确的模块中。
+`卫生宏 <http://en.wikipedia.org/wiki/Hygienic_macro>`_ 是个更复杂的宏。In short, macros must
+ensure that the variables they introduce in their returned expressions do not
+accidentally clash with existing variables in the surrounding code they expand
+into. Conversely, the expressions that are passed into a macro as arguments are
+often *expected* to evaluate in the context of the surrounding code,
+interacting with and modifying the existing variables. Another concern arises
+from the fact that a macro may be called in a different module from where it
+was defined. In this case we need to ensure that all global variables are
+resolved to the correct module. Julia already has a major advantage over
+languages with textual macro expansion (like C) in that it only needs to
+consider the returned expression. All the other variables (such as ``msg`` in
+``@assert`` above) follow the :ref:`normal scoping block behavior
+<man-variables-and-scoping>`.
 
 来看一下 ``@time`` 宏，它的参数是一个表达式。它先记录下时间，运行表达式，再记录下时间，打印出这两次之间的时间差，它的最终值是表达式的值： ::
 
     macro time(ex)
-      quote
+      return quote
         local t0 = time()
         local val = $ex
         local t1 = time()
@@ -299,7 +397,7 @@ Julia 宏展开机制是这样解决命名冲突的。首先，宏结果的变�
 必要时这个转义机制可以用来“破坏”卫生，从而引入或操作自定义变量。下例在调用环境中宏将 ``x`` 设置为 0 ： ::
 
     macro zerox()
-      esc(:(x = 0))
+      return esc(:(x = 0))
     end
 
     function foo()

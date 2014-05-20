@@ -2,6 +2,26 @@
  变量
 ******
 
+A variable, in Julia, is a name associated (or bound) to a value. It's useful when you want to store a value (that you obtained after some math, for example) for later use. For example:
+
+.. doctest::
+
+    # Assign the value 10 to the variable x
+    julia> x = 10 
+    10
+    
+    # Doing math with x's value
+    julia> x + 1
+    11
+    
+    # Reassign x's value
+    julia> x = 1 + 1 
+    2
+    
+    # You can assign values of other types, like strings of text
+    julia> x = "Hello World!"
+    "Hello World!"
+
 Julia 提供了极其灵活的变量命名系统。变量名区分大小写。
 
 .. raw:: latex
@@ -10,7 +30,7 @@ Julia 提供了极其灵活的变量命名系统。变量名区分大小写。
 
 .. doctest::
 
-    julia> ix = 1.0
+    julia> x = 1.0
     1.0
 
     julia> y = -3
@@ -60,6 +80,9 @@ Julia 甚至允许重新定义内置的常数和函数：
     
     julia> pi
     3
+    
+    julia> sqrt(100)
+    10.0
     
     julia> sqrt = 4
     4

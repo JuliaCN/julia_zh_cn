@@ -183,7 +183,7 @@ Linear algebra functions in Julia are largely implemented by calling functions f
 
    Compute eigenvalues and eigenvectors of ``A``. See :func:`eigfact` for details on the ``balance`` keyword argument.
    
-   Example::
+   **Example**::
    
     julia> eig(a = [1.0 0.0 0.0; 0.0 3.0 0.0; 0.0 0.0 18.0])
     ([1.0,3.0,18.0],
@@ -325,7 +325,8 @@ Linear algebra functions in Julia are largely implemented by calling functions f
 
    Construct a diagonal matrix and place ``v`` on the ``k``-th diagonal.
 
-.. function:: scale(A, b), scale(b, A)
+.. function:: scale(A, b)
+.. function:: scale(b, A)
 
    Scale an array ``A`` by a scalar ``b``, returning a new array.
 
@@ -337,7 +338,8 @@ Linear algebra functions in Julia are largely implemented by calling functions f
    Note: for large ``A``, ``scale`` can be much faster than ``A .* b`` or
    ``b .* A``, due to the use of BLAS.
 
-.. function:: scale!(A, b), scale!(b, A)
+.. function:: scale!(A, b)
+.. function:: scale!(b, A)
 
    Scale an array ``A`` by a scalar ``b``, similar to :func:`scale` but
    overwriting ``A`` in-place.
@@ -443,6 +445,7 @@ Linear algebra functions in Julia are largely implemented by calling functions f
 .. function:: linreg(x, y) -> [a; b]
 
    Linear Regression. Returns ``a`` and ``b`` such that ``a+b*x`` is the closest line to the given points ``(x,y)``. In other words, this function determines parameters ``[a, b]`` that minimize the squared error between ``y`` and ``a+b*x``. 
+   
    **Example**::
       using PyPlot;
       x = float([1:12])
@@ -459,27 +462,27 @@ Linear algebra functions in Julia are largely implemented by calling functions f
 
    Matrix exponential.
 
-.. function:: issym(A)
+.. function:: issym(A) -> Bool
 
    Test whether a matrix is symmetric.
 
-.. function:: isposdef(A)
+.. function:: isposdef(A) -> Bool
 
    Test whether a matrix is positive definite.
 
-.. function:: isposdef!(A)
+.. function:: isposdef!(A) -> Bool
 
    Test whether a matrix is positive definite, overwriting ``A`` in the processes.
 
-.. function:: istril(A)
+.. function:: istril(A) -> Bool
 
    Test whether a matrix is lower triangular.
 
-.. function:: istriu(A)
+.. function:: istriu(A) -> Bool
 
    Test whether a matrix is upper triangular.
 
-.. function:: ishermitian(A)
+.. function:: ishermitian(A) -> Bool
 
    Test whether a matrix is Hermitian.
 
@@ -491,9 +494,9 @@ Linear algebra functions in Julia are largely implemented by calling functions f
 
    The conjugate transposition operator (``'``).
 
-.. function:: eigs(A; nev=6, which="LM", tol=0.0, maxiter=1000, sigma=nothing, ritzvec=true, op_part=:real,v0=zeros((0,))) -> (d,[v,],nconv,niter,nmult,resid)
+.. function:: eigs(A, [B,]; nev=6, which="LM", tol=0.0, maxiter=1000, sigma=nothing, ritzvec=true, v0=zeros((0,))) -> (d,[v,],nconv,niter,nmult,resid)
 
-   ``eigs`` computes eigenvalues ``d`` of ``A`` using Lanczos or Arnoldi iterations for real symmetric or general nonsymmetric matrices respectively. The following keyword arguments are supported:
+   ``eigs`` computes eigenvalues ``d`` of ``A`` using Lanczos or Arnoldi iterations for real symmetric or general nonsymmetric matrices respectively. If ``B`` is provided, the generalized eigen-problem is solved.  The following keyword arguments are supported:
     * ``nev``: Number of eigenvalues
     * ``which``: type of eigenvalues to compute. See the note below.
 
@@ -515,7 +518,6 @@ Linear algebra functions in Julia are largely implemented by calling functions f
     * ``maxiter``: Maximum number of iterations
     * ``sigma``: Specifies the level shift used in inverse iteration. If ``nothing`` (default), defaults to ordinary (forward) iterations. Otherwise, find eigenvalues close to ``sigma`` using shift and invert iterations.
     * ``ritzvec``: Returns the Ritz vectors ``v`` (eigenvectors) if ``true``
-    * ``op_part``: which part of linear operator to use for real ``A`` (``:real``, ``:imag``)
     * ``v0``: starting vector from which to start the iterations
 
    ``eigs`` returns the ``nev`` requested eigenvalues in ``d``, the corresponding Ritz vectors ``v`` (only if ``ritzvec=true``), the number of converged eigenvalues ``nconv``, the number of iterations ``niter`` and the number of matrix vector multiplications ``nmult``, as well as the final residual vector ``resid``.
