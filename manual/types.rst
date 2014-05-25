@@ -23,7 +23,7 @@ Julia的类型系统的设计旨在有效及具表现力，既清楚直观又不
 1. 作为断言，帮助确认程序是否正常运行
 2. 给编译器提供额外类型信息，帮助提升性能
 
-``::`` 运算符读作“前者是后者的实例”，它用来断言左侧表达式是否为右侧表达式的实例。如果右侧是具体类型，此类型应该是左侧的实例。如果右侧是抽象类型，左侧应是一个具体类型的实例的值，该具体类型是这个抽象类型的子类型。如果类型断言为假，将抛出异常，否则，返回左值：
+``::`` 运算符放在表示值的表达式之后时读作“前者是后者的实例”，它用来断言左侧表达式是否为右侧表达式的实例。如果右侧是具体类型，此类型应该是左侧的实例。如果右侧是抽象类型，左侧应是一个具体类型的实例的值，该具体类型是这个抽象类型的子类型。如果类型断言为假，将抛出异常，否则，返回左值：
 
 .. doctest::
 
@@ -33,9 +33,11 @@ Julia的类型系统的设计旨在有效及具表现力，既清楚直观又不
     julia> (1+2)::Int
     3
 
-可以在任何表达式的所在位置做类型断言。
+可以在任何表达式的所在位置做类型断言。The most common usage of ``::`` as an assertion is in
+function/methods signatures, such as ``f(x::Int8) = ...`` (see
+:ref:`man-methods`).
 
-``::`` 运算符跟在变量名后时，它声明变量应该是某个类型，有点儿类似于 C 等静态语言中的类型声明。赋给这个变量的值会被 ``convert`` 函数转换为所声明的类型：
+``::`` 运算符跟在表达式上下文中的 *变量名* 后时，它声明变量应该是某个类型，有点儿类似于 C 等静态语言中的类型声明。赋给这个变量的值会被 ``convert`` 函数转换为所声明的类型：
 
 .. doctest:: foo-func
 
@@ -59,7 +61,12 @@ Julia的类型系统的设计旨在有效及具表现力，既清楚直观又不
     local x::Int8  # in a local declaration
     x::Int8 = 10   # as the left-hand side of an assignment
 
-在值的上下文，如 ``f(x::Int8)`` 中， ``::`` 是类型断言而不是声明。现在还不能在全局作用域或 REPL 中做这种声明，因为 Julia 现在还没有常量类型的全局变量。
+and applies to the whole current scope, even before the declaration.
+Currently, type declarations cannot be used in global scope, e.g. in
+the REPL, since Julia does not yet have constant-type globals.  Note
+that in a function return statement, the first two of the above
+expressions compute a value and then ``::`` is a type assertion and
+not a declaration.
 
 .. _man-abstract-types:
 
