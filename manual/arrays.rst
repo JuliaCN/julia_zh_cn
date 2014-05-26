@@ -499,18 +499,20 @@ Broadcasting
 
 Julia 的基础数组类型是抽象类型 ``AbstractArray{T,N}`` ，其中维度为 ``N`` ，元素类型为 ``T`` 。 ``AbstractVector`` 和 ``AbstractMatrix`` 分别是它 1 维 和 2 维的别名。
 
-The ``AbstractArray`` type includes anything vaguely array-like, and
-implementations of it might be quite different from conventional
-arrays. For example, elements might be computed on request rather than
-stored.  However, any concrete ``AbstractArray{T,N}`` type should
-generally implement at least ``size(A)`` (returing an ``Int`` tuple),
-``getindex(A,i)`` and ``getindex(A,i1,...,iN)`` (returning an element
-of type ``T``); mutable arrays should also implement ``setindex!``.  It
-is recommended that these operations have nearly constant time complexity,
-or technically Õ(1) complexity, as otherwise some array functions may
-be unexpectedly slow.   Concrete types should also typically provide
-a `similar(A,T=eltype(A),dims=size(A))` method, which is used to allocate
-a similar array for `copy` and other out-of-place operations.
+``AbstractArray`` 类型包含任何形似数组的类型， 而且它的实现和通常的数组会很不一样。例如，任何具体的 ``AbstractArray{T，N}`` 至少要有 ``size(A)`` (返回 ``Int`` 多元组)， ``getindex(A,i)`` 和 ``getindex(A,i1,...,iN)`` (返回 ``T`` 类型的一个元素), 可变的数组要能 ``setindex！``。 这些操作都要求在近乎常数的时间复杂度或 O(1) 复杂度，否则某些数组函数就会特别慢。具体的类型也要提供类似于 ``similar(A,T=eltype(A),dims=size(A))`` 的方法用来分配一个拷贝。
+
+.. The ``AbstractArray`` type includes anything vaguely array-like, and
+.. implementations of it might be quite different from conventional
+.. arrays. For example, elements might be computed on request rather than
+.. stored.  However, any concrete ``AbstractArray{T,N}`` type should
+.. generally implement at least ``size(A)`` (returing an ``Int`` tuple),
+.. ``getindex(A,i)`` and ``getindex(A,i1,...,iN)`` (returning an element
+.. of type ``T``); mutable arrays should also implement ``setindex!``.  It
+.. is recommended that these operations have nearly constant time complexity,
+.. or technically Õ(1) complexity, as otherwise some array functions may
+.. be unexpectedly slow.   Concrete types should also typically provide
+.. a `similar(A,T=eltype(A),dims=size(A))` method, which is used to allocate
+.. a similar array for `copy` and other out-of-place operations.
 
 ``DenseArray`` is an abstract subtype of ``AbstractArray`` intended
 to include all arrays that are laid out at regular offsets in memory,

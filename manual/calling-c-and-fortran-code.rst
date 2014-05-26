@@ -227,33 +227,38 @@ Julia 的 ``Char`` 类型是 32 位的，与所有平台的宽字符类型 (``wc
 
 如果所关注的指针是（位类型或不可变）的目标数据数组， ``pointer_to_array(ptr,dims,[own])`` 函数就非常有用啦。如果想要 Julia “控制”底层缓冲区并在返回的 ``Array`` 被释放时调用 ``free(ptr)`` ，最后一个参数应该为真。如果省略 ``own`` 参数或它为假，则调用者需确保缓冲区一直存在，直至所有的读取都结束。
 
-Arithmetic on the ``Ptr`` type in Julia (e.g. using ``+``) does not behave the
-same as C's pointer arithmetic. Adding an integer to a ``Ptr`` in Julia always
-moves the pointer by some number of *bytes*, not elements. This way, the
-address values obtained from pointer arithmetic do not depend on the
-element types of pointers.
+``Ptr`` 的算术(比如 ``+``) 和 C 的指针算术不同， 对 ``Ptr`` 加一个整数会将指针移动一段距离的 *字节* ， 而不是元素。这样从指针运算上得到的地址不会依赖指针类型。
 
-Arithmetic on the ``Ptr`` type in Julia (e.g. using ``+``) does not behave the
-same as C's pointer arithmetic. Adding an integer to a ``Ptr`` in Julia always
-moves the pointer by some number of *bytes*, not elements. This way, the
-address values obtained from pointer arithmetic do not depend on the
-element types of pointers.
+.. Arithmetic on the ``Ptr`` type in Julia (e.g. using ``+``) does not behave the
+.. same as C's pointer arithmetic. Adding an integer to a ``Ptr`` in Julia always
+.. moves the pointer by some number of *bytes*, not elements. This way, the
+.. address values obtained from pointer arithmetic do not depend on the
+.. element types of pointers.
 
-Passing Pointers for Modifying Inputs
+用指针传递修改值
 -------------------------------------
 
-Because C doesn't support multiple return values, often C functions will take
-pointers to data that the function will modify. To accomplish this within a
-``ccall`` you need to encapsulate the value inside an array of the appropriate
-type. When you pass the array as an argument with a ``Ptr`` type, julia will
-automatically pass a C pointer to the encapsulated data::
+.. Passing Pointers for Modifying Inputs
+.. -------------------------------------
+
+.. Because C doesn't support multiple return values, often C functions will take
+.. pointers to data that the function will modify. To accomplish this within a
+.. ``ccall`` you need to encapsulate the value inside an array of the appropriate
+.. type. When you pass the array as an argument with a ``Ptr`` type, julia will
+.. automatically pass a C pointer to the encapsulated data
+
+因为 C 不支持多返回值， 所以通常 C 函数会用指针来修改值。 在 ``ccall`` 里完成这些需要把值放在适当类型的数组里。当你用 ``Ptr`` 传递整个数组时，
+Julia 会自动传递一个 C 指针到被这个值::
 
     width = Cint[0]
     range = Cfloat[0]
     ccall(:foo, Void, (Ptr{Cint}, Ptr{Cfloat}), width, range)
 
-This is used extensively in Julia's LAPACK interface, where an integer ``info``
-is passed to LAPACK by reference, and on return, includes the success code.
+这被广泛用在了 Julia 的 LAPACK 接口上， 其中整数类型的 ``info`` 被以引用的方式传到 LAPACK， 再返回是否成功。
+
+.. readproof
+.. This is used extensively in Julia's LAPACK interface, where an integer ``info``
+.. is passed to LAPACK by reference, and on return, includes the success code.
 
 垃圾回收机制的安全
 ------------------
