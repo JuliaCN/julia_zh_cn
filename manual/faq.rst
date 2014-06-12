@@ -118,6 +118,41 @@ Here we created a function ``change_array!()``, that assigns ``5`` to the first 
 这段代码视参数的值的不同而返回一个 ``Int`` 或是 ``Float64``。 因为 Julia 无法在编译时预测
 函数返回值类型， 任何使用这个函数的计算都得考虑这两种可能的返回类型， 这样很难生成快速的机器码。
 
+Why does Julia give a ``DomainError`` for perfectly-sensible operations?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Certain operations make perfect mathematical sense but result in
+errors::
+
+    julia> sqrt(-2.0)
+    ERROR: DomainError
+     in sqrt at math.jl:128
+
+    julia> 2^-5
+    ERROR: DomainError
+     in power_by_squaring at intfuncs.jl:70
+     in ^ at intfuncs.jl:84
+
+This behavior is an inconvenient consequence of the requirement for
+type-stability.  In the case of ``sqrt``, most users want
+``sqrt(2.0)`` to give a real number, and would be unhappy if it
+produced the complex number ``1.4142135623730951 + 0.0im``.  One could
+write the ``sqrt`` function to switch to a complex-valued output only
+when passed a negative number (which is what ``sqrt`` does in some
+other languages), but then the result would not be `type-stable
+<#man-type-stable>`_ and the ``sqrt`` function would have poor
+performance.
+
+In these and other cases, you can get the result you want by choosing
+an *input type* that conveys your willingness to accept an *output type* in
+which the result can be represented::
+
+    julia> sqrt(-2.0+0im)
+    0.0 + 1.4142135623730951im
+
+    julia> 2.0^-5
+    0.03125
+
 
 Why does Julia use native machine integer arithmetic?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -462,6 +497,8 @@ For reasons of length the results are not shown here, but you may wish
 to try this yourself. Because the type is fully-specified in the first
 case, the compiler doesn't need to generate any code to resolve the
 type at run-time.  This results in shorter and faster code.
+
+.. _man-abstract-container-type:
 
 如何声明“抽象容器类型”的域
 ~~~~~~~~~~~~~~~~~~~~~~~~~~

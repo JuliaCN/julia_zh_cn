@@ -26,7 +26,7 @@ reference 调用 ``wait`` ，以等待 remote call 执行完毕，然后通过 `
      0.60401   0.501111
      0.174572  0.157411
 
-    julia> s = @spawnat 2 1+fetch(r)
+    julia> s = @spawnat 2 1 .+ fetch(r)
     RemoteRef(2,1,7)
 
     julia> fetch(s)
@@ -50,14 +50,14 @@ reference 调用 ``wait`` ，以等待 remote call 执行完毕，然后通过 `
     julia> r = @spawn rand(2,2)
     RemoteRef(1,1,0)
 
-    julia> s = @spawn 1+fetch(r)
+    julia> s = @spawn 1 .+ fetch(r)
     RemoteRef(1,1,1)
 
     julia> fetch(s)
     1.10824216411304866 1.13798233877923116
     1.12376292706355074 1.18750497916607167
 
-注意，此处用 ``1+fetch(r)`` 而不是 ``1+r`` 。这是因为我们不知道代码在何处运行，而 ``fetch`` 会将需要的 ``r`` 移到做加法的处理器上。此例中， ``@spawn`` 很聪明，它知道在有 ``r`` 对象的处理器上进行计算，因而 ``fetch`` 将不做任何操作。
+注意，此处用 ``1 .+ fetch(r)`` 而不是 ``1 .+ r`` 。这是因为我们不知道代码在何处运行，而 ``fetch`` 会将需要的 ``r`` 移到做加法的处理器上。此例中， ``@spawn`` 很聪明，它知道在有 ``r`` 对象的处理器上进行计算，因而 ``fetch`` 将不做任何操作。
 
 （ ``@spawn`` 不是内置函数，而是 Julia 定义的 :ref:`宏 <man-macros>` ）
 

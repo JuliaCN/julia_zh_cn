@@ -111,6 +111,24 @@ Julia 内置了高效的函数 ``iseven`` 和 ``isodd`` 来验证奇偶性。
 
 前一个例子中， ``y`` 仅存在于 ``for`` 循环中。后一个例子中，外部声明的 ``y`` 被引入到循环中。由于会话的作用域与全局作用域差不多，因此在循环中不必声明 ``global y`` 。但是，不在交互式模式下运行的代码，必须声明全局变量。
 
+Multiple variables can be declared global using the following syntax::
+
+    function foo()
+        global x=1, y="bar", z=3
+    end
+    
+    julia> foo()
+    3
+    
+    julia> x
+    1
+    
+    julia> y
+    "bar"
+    
+    julia> z
+    3
+
 ``let`` 语句提供了另一种引入变量的方法。 ``let`` 语句每次运行都会声明新变量。 ``let`` 语法接受由逗号隔开的赋值语句或者变量名： ::
 
     let var1 = value1, var2, var3 = value3

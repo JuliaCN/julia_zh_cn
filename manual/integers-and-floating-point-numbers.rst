@@ -196,6 +196,14 @@ Julia 内部变量 ``WORD_SIZE`` 用以指示目标系统是 32 位还是 64 位
 .. divisions, remainders, and bitwise operations do not promote narrower
 .. types.)
 
+Division errors
+~~~~~~~~~~~~~~~
+
+Integer division (the ``div`` function) has two exceptional cases: dividing by
+zero, and dividing the lowest negative number (``typemin``) by -1. Both of
+these cases throw a ``DivideError``. The remainder and modulus functions
+(``rem`` and ``mod``) throw a ``DivideError`` when their second argument is
+zero.
 
 浮点数
 ------

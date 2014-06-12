@@ -116,11 +116,11 @@ Julia 自动调用 ``convert`` 函数，将参数转换为指定类型。例如�
 数组转换
 ~~~~~~~~
 
-把 ``Array{T}`` 作为一个 ``Ptr{T}`` 或 ``Ptr{Void}`` 参数传递给 C 时，“转换”过程是仅提取首元素的地址。这样做可以避免不必要的复制整个数组。
+把数组作为一个 ``Ptr{T}`` 参数传递给 C 时，它不进行转换。Julia 仅检查元素类型是否为 ``T`` ，然后传递首元素的地址。这样做可以避免不必要的复制整个数组。
 
 因此，如果 ``Array`` 中的数据格式不对时，要使用显式转换，如 ``int32(a)`` 。
 
-如果想把数组作为一个不同类型的指针传递时，要么声明参数为 ``Ptr{Void}`` 类型，要么显式调用 ``convert(Ptr{T}, pointer(A))`` 。
+如果想把数组 *不经转换* 而作为一个不同类型的指针传递时，要么声明参数为 ``Ptr{Void}`` 类型，要么显式调用 ``convert(Ptr{T}, pointer(A))`` 。
 
 类型相关
 ~~~~~~~~
@@ -208,6 +208,14 @@ Julia 的 ``Char`` 类型是 32 位的，与所有平台的宽字符类型 (``wc
 
     argv = [ "a.out", "arg1", "arg2" ]
     ccall(:main, Int32, (Int32, Ptr{Ptr{Uint8}}), length(argv), argv)
+
+For ``wchar_t*`` arguments, the Julia type should be ``Ptr{Wchar_t}``,
+and data can be converted to/from ordinary Julia strings by the
+``wstring(s)`` function (equivalent to either ``utf16(s)`` or ``utf32(s)``
+depending upon the width of ``Cwchar_t``.    Note also that ASCII, UTF-8,
+UTF-16, and UTF-32 string data in Julia is internally NUL-terminated, so
+it can be passed to C functions expecting NUL-terminated data without making
+a copy.
 
 
 通过指针读取数据
@@ -371,11 +379,10 @@ the execution of your "real" callback. Your callback
 needs to be written to take two inputs (which you'll most likely just
 discard) and then wrapped by ``SingleAsyncWork``::
 
-  cb_from_event_loop = (data, status) -> my_real_callback(args)
-  cb_packaged = Base.SingleAsyncWork(cb_from_event_loop)
+  cb = Base.SingleAsyncWork(data -> my_real_callback(args))
 
 The callback you pass to C should only execute a ``ccall`` to
-``:uv_async_send``, passing ``cb_packaged.handle`` as the argument.
+``:uv_async_send``, passing ``cb.handle`` as the argument.
 
 More About Callbacks
 ~~~~~~~~~~~~~~~~~~~~

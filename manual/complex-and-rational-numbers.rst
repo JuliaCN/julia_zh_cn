@@ -103,8 +103,15 @@ Julia 提供复数和分数类型，并对其支持所有的 :ref:`标准数学�
 
     julia> abs2(1 + 2im)
     5
+    
+    julia> angle(1 + 2im)
+    1.1071487177940904
 
-所有的 :ref:`man-elementary-functions` 也可以应用在复数上：
+As usual, the absolute value (``abs``) of a complex number is its
+distance from zero. The ``abs2`` function gives the square of the
+absolute value, and is of particular use for complex numbers where it
+avoids taking a square root. The ``angle`` function returns the phase
+angle in radians (also known as the *argument* or *arg* function). 所有的 :ref:`man-elementary-functions` 也可以应用在复数上：
 
 .. doctest::
 

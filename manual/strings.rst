@@ -259,7 +259,12 @@ Julia 完整支持 Unicode 字符和字符串。正如 `上文所讨论的 <#cha
     <BLANKLINE>
     y
 
-Julia 不只支持 UTF-8 ，增加其它编码的支持也很简单。有关 UTF-8 的讨论，详见下面的 `字节数组文本 <#byte-array-literals>`_ 。
+Julia 不只支持 UTF-8 ，增加其它编码的支持也很简单。In particular, Julia also provides
+``UTF16String`` and ``UTF32String`` types, constructed by the
+``utf16(s)`` and ``utf32(s)`` functions respectively, for UTF-16 and
+UTF-32 encodings.  It also provides aliases ``WString`` and
+``wstring(s)`` for either UTF-16 or UTF-32 strings, depending on the
+size of ``Cwchar_t``. 有关 UTF-8 的讨论，详见下面的 `字节数组文本 <#byte-array-literals>`_ 。
 
 .. _man-string-interpolation:
 
@@ -440,6 +445,20 @@ Julia 的正则表达式 (regexp) 与 Perl 兼容，由 `PCRE <http://www.pcre.o
 
     julia> m = match(r"^\s*(?:#\s*(.*?)\s*$|$)", "# a comment ")
     RegexMatch("# a comment ", 1="a comment")
+    
+When calling ``match``, you have the option to specify an index at
+which to start the search. For example:
+
+.. doctest::
+
+   julia> m = match(r"[0-9]","aaaa1aaaa2aaaa3",1)
+   RegexMatch("1")
+
+   julia> m = match(r"[0-9]","aaaa1aaaa2aaaa3",6)
+   RegexMatch("2")
+
+   julia> m = match(r"[0-9]","aaaa1aaaa2aaaa3",11)
+   RegexMatch("3")
 
 可以在 ``RegexMatch`` 对象中提取下列信息：
 
@@ -598,7 +617,7 @@ pre-release/build annotations), ``v"2"`` is equivalent to ``v"2.0.0"``, and so
 on.
 
 ``VersionNumber`` objects are mostly useful to easily and correctly compare two
-(or more) versions. For example, the constant ``VERSION`` holds Julia verison
+(or more) versions. For example, the constant ``VERSION`` holds Julia version
 number as a ``VersionNumber`` object, and therefore one can define some
 version-specific behaviour using simple statements as::
 

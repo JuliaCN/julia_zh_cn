@@ -596,14 +596,17 @@ Julia 中，稀疏矩阵使用 `列压缩（CSC）格式 <http://en.wikipedia.or
 .. object contains unsorted row indices, one quick way to sort them is by
 .. doing a double transpose.
 
-有时，在 `SparseMatrixCSC` 中存储一些零值，后面的运算比较方便。 ``Base`` 中允许这种行为（但是不保证在操作中会一直保留这些零值）。因此， ``countnz`` 函数不再是常数时间的操作；此时，要获取稀疏矩阵的元素个数，应使用 ``nfilled`` 函数。
+有时，在 `SparseMatrixCSC` 中存储一些零值，后面的运算比较方便。 ``Base`` 中允许这种行为（但是不保证在操作中会一直保留这些零值）。这些被存储的零被许多函数认为是非零值。 ``nnz`` 函数返回稀疏数据结构中存储的元素数目，包括被存储的零。要想得到准确的非零元素的数目，请使用 ``countnz`` 函数，它挨个检查每个元素的值（因此它的时间复杂度不再是常数，而是与元素数目成正比）。
 
-.. In some applications, it is convenient to store explicit zero values in 
-.. a `SparseMatrixCSC`. These *are* accepted by functions in ``Base`` (but
-.. there is no guarantee that they will be preserved in mutating operations).
-.. Because of this, ``countnz`` is not a constant-time operation; instead,
-.. ``nfilled`` should be used to obtain the number of elements in a sparse
-.. matrix.
+.. In some applications, it is convenient to store explicit zero values
+.. in a `SparseMatrixCSC`. These *are* accepted by functions in ``Base``
+.. (but there is no guarantee that they will be preserved in mutating
+.. operations).  Such explicitly stored zeros are treated as structural
+.. nonzeros by many routines.  The ``nnz`` function returns the number of
+.. elements explicitly stored in the sparse data structure,
+.. including structural nonzeros. In order to count the exact number of actual
+.. values that are nonzero, use ``countnz``, which inspects every stored
+.. element of a sparse matrix.
 
 构造稀疏矩阵
 ------------
