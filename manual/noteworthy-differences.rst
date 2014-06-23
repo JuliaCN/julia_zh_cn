@@ -12,12 +12,10 @@ Julia 的语法和 MATLAB 很像。但 Julia 不是简单地复制 MATLAB ，它
 -  数组用方括号来索引， ``A[i,j]``
 -  数组是用引用来赋值的。在 ``A=B`` 之后，对 ``B`` 赋值也会修改 ``A`` 
 -  使用引用来传递和赋值。如果一个函数修改了数组，调用函数会发现值也变了
--  Matlab combines allocation and assignment into single statements,
-   e.g., ``a(4) = 3.2`` creates the array ``a = [0 0 0 3.2]`` and ``a(5) = 7``
-   grows it. Julia separates allocation and assignment:
-   if ``a`` is of length 4, ``a[5] = 7`` yields an error. Julia has a ``push!``
-   function which grows ``Vectors`` much more efficiently than Matlab's
-   ``a(end+1) = val``.
+-  Matlab 把赋值和分配内存合并成了一个语句。比如：
+   ``a(4) = 3.2`` 会创建一个数组 ``a = [0 0 0 3.2]`` ，即为a分配了内存并且将每个元素初始化为0,然后为第四个元素赋值3.2，而 ``a(5) = 7`` 会为数组a增加长度，并且给第五个元素赋值7。
+   Julia 把赋值和分配内存分开了：
+   如果 ``a`` 长度为4, ``a[5] = 7`` 会抛出一个错误。 Julia 有一个专用的 ``push!`` 函数来向 ``Vecrots`` 里增加元素。并且远比Matlab的 ``a(end+1) = val`` 来的高效。
 -  虚数单位 ``sqrt(-1)`` 用 ``im`` 来表示
 -  多返回值和多重赋值需要使用圆括号，如 ``return (a, b)`` 和 ``(a, b) = f(x)``
 -  Julia 有一维数组。列向量的长度为 ``N`` ，而不是 ``Nx1`` 。例如， ``rand(N)`` 生成的是一维数组
