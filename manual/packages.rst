@@ -11,16 +11,18 @@ Julia 内置了一个包管理系统，可以用这个系统来完成包的管�
 扩展包状态
 ----------
 
-The ``Pkg.status()`` function prints out a summary of the state of packages you have installed.
-Initially, you'll have no packages installed::
+可以通过 ``Pkg.status()`` 这个方程，打印出一个你所有安装的包的总结。
+
+刚开始的时候，你没有安装任何包::
 
     julia> Pkg.status()
     INFO: Initializing package repository /Users/stefan/.julia/v0.3
     INFO: Cloning METADATA from git://github.com/JuliaLang/METADATA.jl
     No packages installed.
 
-Your package directory is automatically initialized the first time you run a ``Pkg`` command that expects it to exist – which includes ``Pkg.status()``.
-Here's an example non-trivial set of required and additional packages::
+当你第一次运行 ``Pkg`` 的一个命令时， 你的包目录（所有的包被安装在一个统一的目录下）会自动被初始化，因为 ``Pkg`` 希望有这样一个目录，这个目录的信息被包含于 ``Pkg.status()`` 中。
+
+这里是一个简单的，已经有少量被安装的包的例子::
 
     julia> Pkg.status()
     Required packages:
@@ -30,9 +32,10 @@ Here's an example non-trivial set of required and additional packages::
      - NumericExtensions             0.2.17
      - Stats                         0.2.6
 
-These packages are all on registered versions, managed by ``Pkg``.
-Packages can be in more complicated states, indicated by annotations to the right of the installed package version; we will explain these states and annotations as we encounter them.
-For programmatic usage, ``Pkg.installed()`` returns a dictionary, mapping installed package names to the version of that package which is installed::
+这些包，都是已注册了的版本，并且通过 ``Pkg`` 管理。
+安装了的包可以是一个更复杂的"状态"，通过"注释"来表明正确的版本；当我们遇到这些“状态”和“注释”时我们会解释的。
+
+为了编程需要，``Pkg.installed()`` 返回一个字典，这个字典对应了安装了的包的名字和其现在使用的版本::
 
     julia> Pkg.installed()
     ["Distributions"=>v"0.2.8","Stats"=>v"0.2.6","UTF16"=>v"0.2.0","NumericExtensions"=>v"0.2.17"]
