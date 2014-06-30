@@ -192,13 +192,9 @@ latex_elements = {
 
 # Additional stuff for the LaTeX preamble.
 #'preamble': '',
-'preamble': '''
-\\hypersetup{unicode=true}
-\\usepackage{CJKutf8}
-\\begin{CJK}{UTF8}{gbsn}
-\\AtEndDocument{\\end{CJK}}
-''',
-'utf8extra': r'''
+'preamble': r'''
+\hypersetup{unicode=true}
+\usepackage{CJKutf8}
 \DeclareUnicodeCharacter{00A0}{\nobreakspace}
 \DeclareUnicodeCharacter{2203}{\ensuremath{\exists}}
 \DeclareUnicodeCharacter{2200}{\ensuremath{\forall}}
@@ -207,6 +203,8 @@ latex_elements = {
 \DeclareUnicodeCharacter{27FA}{\ensuremath{\Longleftrightarrow}}
 \DeclareUnicodeCharacter{221A}{\ensuremath{\sqrt{}}}
 \DeclareUnicodeCharacter{221B}{\ensuremath{\sqrt[3]{}}}
+\begin{CJK}{UTF8}{gbsn}
+\AtEndDocument{\end{CJK}}
 ''',
 }
 
