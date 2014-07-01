@@ -11,3 +11,4 @@
 
    macroes
    uses
+   optimize
