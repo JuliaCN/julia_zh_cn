@@ -90,4 +90,5 @@
    
    note/macroes
    note/uses
+   note/optimize
 
