@@ -5,7 +5,7 @@
 ********
 
 Julia 内置了一个包管理系统，可以用这个系统来完成包的管理，当然，你也可以用你的操作系统自带的，或者从源码编译。
-你可以在`这 <https://github.com/JuliaLang/METADATA.jl#URLS>`_ 找到所有已注册（一种发布包的机制）的包的列表。
+你可以在这 :ref:`available-packages`  找到所有已注册（一种发布包的机制）的包的列表。
 所有的包管理命令都包含在 ``Pkg`` 这个module里面，Julia的 Base install 引入了 ``Pkg`` 。
 
 扩展包状态
@@ -49,7 +49,7 @@ So rather than installing a package, you just add it to the list of requirements
 In particular, this means that if some package had been installed because it was needed by a previous version of something you wanted, and a newer version doesn't have that requirement anymore, updating will actually remove that package.
 
 Your package requirements are in the file ``~/.julia/v0.3/REQUIRE``.
-You can edit this file by hand and then call clonable via any of the Pkg.resolve()`` to install, upgrade or remove packages to optimally satisfy the requirements, or you can do ``Pkg.edit()``, which will open ``REQUIRE`` in your editor (configured via the ``EDITOR`` or ``VISUAL`` environment variables), and then automatically call ``Pkg.resolve()`` afterwards if necessary.
+You can edit this file by hand and then call ``Pkg.resolve()`` to install, upgrade or remove packages to optimally satisfy the requirements, or you can do ``Pkg.edit()``, which will open ``REQUIRE`` in your editor (configured via the ``EDITOR`` or ``VISUAL`` environment variables), and then automatically call ``Pkg.resolve()`` afterwards if necessary.
 If you only want to add or remove the requirement for a single package, you can also use the non-interactive ``Pkg.add`` and ``Pkg.rm`` commands, which add or remove a single requirement to ``REQUIRE`` and then call ``Pkg.resolve()``.
 
 You can add a package to the list of requirements with the ``Pkg.add`` function, and the package and all the packages that it depends on will be installed::
