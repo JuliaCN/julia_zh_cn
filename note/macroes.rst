@@ -126,5 +126,30 @@
 注：最后这个实例在x64上通过。一般不用assert做测试。做测试的时候一般习惯使用 ``@test`` 宏， 使用前需要声明 ``using Base.Test`` 。
 
 
+@goto & @label
+---------------
+@goto 宏作用和C里的goto一致， 因为goto的滥用会导致程序可读性降低，所以现在的goto基本上只推荐用于跳出嵌套循环 ::
+	
+    julia>  function f()
+            i = 0
+            while (i < 10)
+                @printf("%d\n", i)
+                for j = 1:5
+                    if i > 5
+                        @goto loop_end
+                    end
+                end
+            end
+            @label loop_end
+            end
+    julia>  f()
+    0
+    1
+    2
+    3
+    4
+    5
+
+
 
 
