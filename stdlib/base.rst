@@ -7,7 +7,7 @@
 Introduction
 ------------
 
-The Julia standard library contains a range of functions and macros appropriate for performing scientific and numerical computing, but is also as broad as those of many general purpose programming languages.  Additional functionality is available from a growing collection of :ref:`available-packages`. Functions are grouped by topic below.  
+The Julia standard library contains a range of functions and macros appropriate for performing scientific and numerical computing, but is also as broad as those of many general purpose programming languages.  Additional functionality is available from a growing collection of available packages. Functions are grouped by topic below.  
 
 Some general notes:
 
@@ -1572,6 +1572,33 @@ I/O
 
    Seek a stream relative to the current position.
 
+.. function:: mark(s)
+
+   Add a mark at the current position of stream ``s``.  Returns the marked position.
+
+   See also :func:`unmark`, :func:`reset`, :func:`ismarked`
+
+.. function:: unmark(s)
+
+   Remove a mark from stream ``s``. 
+   Returns ``true`` if the stream was marked, ``false`` otherwise.
+
+   See also :func:`mark`, :func:`reset`, :func:`ismarked`
+
+.. function:: reset(s)
+
+   Reset a stream ``s`` to a previously marked position, and remove the mark.  
+   Returns the previously marked position.
+   Throws an error if the stream is not marked.
+
+   See also :func:`mark`, :func:`unmark`, :func:`ismarked`
+
+.. function:: ismarked(s)
+
+   Returns true if stream ``s`` is marked.
+
+   See also :func:`mark`, :func:`unmark`, :func:`reset`
+
 .. function:: eof(stream) -> Bool
 
    Tests whether an I/O stream is at end-of-file. If the stream is not yet
@@ -1753,7 +1780,7 @@ I/O
     04   Read Permission
    ==== =====================
 
-   For allowed arguments, see the stat method.
+   For allowed arguments, see ``stat``.
 
 .. function:: gperm(file)
 
@@ -2424,6 +2451,10 @@ Mathematical Operators
 .. function:: range(start, [step], length)
 
    Construct a range by length, given a starting value and optional step (defaults to 1).
+
+.. function:: linrange(start, end, length)
+
+   Construct a range by length, given a starting and ending value.
 
 .. _==:
 .. function:: ==(x, y)
@@ -3511,11 +3542,11 @@ Numbers
 
 .. function:: inf(f)
 
-   Returns infinity in the same floating point type as ``f`` (or ``f`` can by the type itself)
+   Returns positive infinity of the floating point type ``f`` or of the same floating point type as ``f``
 
 .. function:: nan(f)
 
-   Returns NaN in the same floating point type as ``f`` (or ``f`` can by the type itself)
+   Returns NaN (not-a-number) of the floating point type ``f`` or of the same floating point type as ``f``
 
 .. function:: nextfloat(f)
 
@@ -3838,6 +3869,7 @@ Constructors
 .. function:: linspace(start, stop, n)
 
    Construct a vector of ``n`` linearly-spaced elements from ``start`` to ``stop``.
+   See also: :func:`linrange` that constructs a range object.
 
 .. function:: logspace(start, stop, n)
 
