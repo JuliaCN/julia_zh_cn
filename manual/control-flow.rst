@@ -405,6 +405,9 @@ It will be evaluated and returned depending on the preceding conditionals:
     (2,3)
     (2,4)
 
+A ``break`` statement inside such a loop exits the entire nest of loops,
+not just the inner one.
+
 .. _man-exception-handling:
 
 异常处理

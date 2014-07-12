@@ -161,14 +161,22 @@ not a declaration.
     Foo("Hello, world.",23,1.5)
 
     julia> typeof(foo)
-    Foo (constructor with 1 method)
+    Foo (constructor with 2 methods)
 
-由于没有约束 ``bar`` 的类型，它可以被赋任意值； ``baz`` 则必须是 ``Int`` ， ``qux`` 必须是 ``Float64`` 。参数必须与构造类型签名 ``(Any,Int,Float64)`` 相匹配：
+When a type is applied like a function it is called a *constructor*.
+Two constructors are generated automatically (these are called *default
+constructors*). One accepts any arguments and calls ``convert`` to convert
+them to the types of the fields, and the other accepts arguments that
+match the field types exactly. The reason both of these are generated is
+that this makes it easier to add new definitions without inadvertently
+replacing a default constructor.
+
+由于没有约束 ``bar`` 的类型，它可以被赋任意值；但是 ``baz`` 必须能被转换为 ``Int`` ：
 
 .. doctest::
 
     julia> Foo((), 23.5, 1)
-    ERROR: no method Foo((), Float64, Int64)
+    ERROR: InexactError()
     
 You may find a list of field names using the ``names`` function.
 
@@ -456,6 +464,10 @@ Julia 的类型系统支持参数化：类型可以引入参数，这样类型�
 
     julia> Point{Float64}(1.0,2.0,3.0)
     ERROR: no method Point{Float64}(Float64, Float64, Float64)
+	
+Only one default constructor is generated for parametric types, since
+overriding it is not possible. This constructor accepts any arguments
+and converts them to the field types.
 
 大多数情况下不需要提供 ``Point`` 对象的类型，它可由参数类型来提供信息。因此，可以不提供 ``T`` 的值：
 

@@ -94,7 +94,7 @@
 
     type T2
       x::Int64
-      T2(x::Int64) = new(x)
+      T2(x) = new(x)
     end
 
     julia> T1(1)
@@ -104,10 +104,10 @@
     T2(1)
 
     julia> T1(1.0)
-    no method T1(Float64,)
+    T1(1)
 
     julia> T2(1.0)
-    no method T2(Float64,)
+    T2(1)
 
 内部构造方法能不写就不写。提供默认值之类的事儿，应该写成外部构造方法，由它们调用内部构造方法。
 
@@ -229,13 +229,13 @@
     Point{Int64}(1,2)
 
     julia> Point{Int64}(1.0,2.5)
-    ERROR: no method Point{Int64}(Float64, Float64)
+    ERROR: InexactError()
 
     julia> Point{Float64}(1.0,2.5)
     Point{Float64}(1.0,2.5)
 
     julia> Point{Float64}(1,2)
-    ERROR: no method Point{Float64}(Int64, Int64)
+    Point{Float64}(1.0,2.0)
 
 上面的参数化构造方法等价于下面的声明： ::
 
@@ -243,7 +243,7 @@
       x::T
       y::T
 
-      Point(x::T, y::T) = new(x,y)
+      Point(x,y) = new(x,y)
     end
 
     Point{T<:Real}(x::T, y::T) = Point{T}(x,y)
