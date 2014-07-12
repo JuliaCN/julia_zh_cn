@@ -107,7 +107,7 @@ Julia 没有 MATLAB 的 ``clear`` 函数；在 Julia 会话（准确来说， ``
 
 不行， 在函数中不能使用 ``using`` 或 ``import``。 如果你要导入一个模块但只是在某些函数里使用，你有两种方案::
 
-.. 1.  Use ``import``::
+
 1. 使用 ``import`` ::
 
         import Foo
