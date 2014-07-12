@@ -49,13 +49,20 @@ Julia 没有 MATLAB 的 ``clear`` 函数；在 Julia 会话（准确来说， ``
     obj3 = MyModule.someotherfunction(obj2, c)
     ...
 
-Functions
+.. Functions
+
+函数
 ---------
 
-I passed an argument ``x`` to a function, modified it inside that function, but on the outside, the variable ``x`` is still unchanged. Why?
+
+.. I passed an argument ``x`` to a function, modified it inside that function, but on the outside, the variable ``x`` is still unchanged. Why?
+
+我把参数 ``x`` 传递给一个函数， 并在函数内修改它的值， 但是在函数外 ``x`` 的值并未发生变化， 为什么呢？
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Suppose you call a function like this::
+.. Suppose you call a function like this::
+
+假设你像这样调用函数::
 
 	julia> x = 10
 	julia> function change_value!(y) # Create a new function
@@ -65,9 +72,11 @@ Suppose you call a function like this::
 	julia> x # x is unchanged!
 	10
 
-In Julia, any function (including ``change_value!()``) can't change the binding of a local variable. If ``x`` (in the calling scope) is bound to a immutable object (like a real number), you can't modify the object; likewise, if x is bound in the calling scope to a Dict, you can't change it to be bound to an ASCIIString. 
+.. In Julia, any function (including ``change_value!()``) can't change the binding of a local variable. If ``x`` (in the calling scope) is bound to a immutable object (like a real number), you can't modify the object; likewise, if x is bound in the calling scope to a Dict, you can't change it to be bound to an ASCIIString. 
+.. But here is a thing you should pay attention to: suppose ``x`` is bound to an Array (or any other mutable type). You cannot "unbind" ``x`` from this Array. But, since an Array is a *mutable* type, you can change its content. For example::
 
-But here is a thing you should pay attention to: suppose ``x`` is bound to an Array (or any other mutable type). You cannot "unbind" ``x`` from this Array. But, since an Array is a *mutable* type, you can change its content. For example::
+在 Julia 里， 所有的函数(包括 ``change_value!()``) 都不能修改局部变量的所属的类。 如果 ``x`` 被函数调用时被定义为一个不可变的对象(比如实数), 就不能修改; 同样地， 如果 ``x`` 被定义为一个 ``Dict`` 对象， 你不能把它改成ASCIIString。
+但是需要主要的是: 假设 ``x`` 是一个数组(或者任何可变类型)。 你不能让 ``x`` 不再代表这个数组，但由于数组是可变的对象，你能修改数组的元素::
 
 	julia> x = [1,2,3]
 	3-element Array{Int64,1}:
@@ -85,17 +94,21 @@ But here is a thing you should pay attention to: suppose ``x`` is bound to an Ar
 	2
 	3
 
-Here we created a function ``change_array!()``, that assigns ``5`` to the first element of the Array. We passed ``x`` (which was previously bound to an Array) to the function. Notice that, after the function call, ``x`` is still bound to the same Array, but the content of that Array changed.
+.. Here we created a function ``change_array!()``, that assigns ``5`` to the first element of the Array. We passed ``x`` (which was previously bound to an Array) to the function. Notice that, after the function call, ``x`` is still bound to the same Array, but the content of that Array changed.
+这里我们定义了函数 ``change_array!()``, 把整数 ``5`` 分配给了数组的第一个元素。 当我们把 ``x`` 传读给这个函数时， 注意到 ``x`` 依然是同一个数组，只是数组的元素发生了变化。
 
-
-Can I use ``using`` or ``import`` inside a function?
+.. Can I use ``using`` or ``import`` inside a function?
+我能在函数中使用 ``using`` 或者 ``import`` 吗？
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-No, you are not allowed to have a ``using`` or ``import`` statement inside
-a function.  If you want to import a module but only use its symbols
-inside a specific function or set of functions, you have two options:
+.. No, you are not allowed to have a ``using`` or ``import`` statement inside
+.. a function.  If you want to import a module but only use its symbols
+.. inside a specific function or set of functions, you have two options:
 
-1.  Use ``import``::
+不行， 在函数中不能使用 ``using`` 或 ``import``。 如果你要导入一个模块但只是在某些函数里使用，你有两种方案::
+
+
+1. 使用 ``import`` ::
 
         import Foo
         function bar(...)
@@ -103,13 +116,15 @@ inside a specific function or set of functions, you have two options:
         end
 
 
-    This loads the module Foo and defines a variable ``Foo`` that refers
-    to the module, but does not import any of the other symbols from the
-    module into the current namespace.  You refer to the ``Foo`` symbols by
-    their qualified names ``Foo.bar`` etc.
+..    This loads the module Foo and defines a variable ``Foo`` that refers
+..    to the module, but does not import any of the other symbols from the
+..    module into the current namespace.  You refer to the ``Foo`` symbols by
+..     their qualified names ``Foo.bar`` etc.
+    这把 Foo 模块载入并且用变量 ``Foo`` 代表这个模块，但是这并没有导入任何东西到当前命名空间。你还是需要像 ``Foo.bar`` 这样使用模块内的东西。
 
 
-2.  Wrap your function in a module::
+.. 2.  Wrap your function in a module::
+2. 把函数封装到模块里::
 
         module Bar
         export bar
@@ -120,7 +135,8 @@ inside a specific function or set of functions, you have two options:
         end
         using Bar
 
-    This imports all the symbols from Foo, but only inside the module Bar.
+..    This imports all the symbols from Foo, but only inside the module Bar.
+    这样会把 Foo 的内容全部导入，但仅仅导入到模块 Bar 里。
 
 
 类型，类型声明和构造方法

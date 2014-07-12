@@ -405,8 +405,12 @@ It will be evaluated and returned depending on the preceding conditionals:
     (2,3)
     (2,4)
 
-A ``break`` statement inside such a loop exits the entire nest of loops,
-not just the inner one.
+.. A ``break`` statement inside such a loop exits the entire nest of loops,
+.. not just the inner one.
+
+.. @readproof
+这种情况下用 ``break`` 可以直接跳出所有循环。
+
 
 .. _man-exception-handling:
 
