@@ -58,7 +58,7 @@ copyright = u'2012-2014, '+AUTHORS
 #
 try:
     # The full version, including alpha/beta/rc tags.
-    with open("../VERSION") as f:
+    with open("./VERSION") as f:
         release = f.read().rstrip()
     # The short X.Y version.
     version = '.'.join(re.split('[.-]', release)[:2])
