@@ -393,7 +393,7 @@ For more details on how to pass callbacks to C libraries, see this
 C++
 ---
 
-`Cpp <http://github.com/timholy/Cpp.jl>`_ 和 `Clang <https://github.com/ihnorton/Clang.jl>`_ 扩展包提供了有限的 C++ 支持。
+`Cpp <https://github.com/timholy/Cpp.jl>`_ 和 `Clang <https://github.com/ihnorton/Clang.jl>`_ 扩展包提供了有限的 C++ 支持。
 
 处理不同平台
 ------------

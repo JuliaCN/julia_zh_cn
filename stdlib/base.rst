@@ -128,6 +128,14 @@ Getting Around
    Print information about the version of Julia in use. If the ``verbose`` argument
    is true, detailed system information is shown as well.
 
+.. function:: workspace()
+
+   Replace the top-level module (``Main``) with a new one, providing a clean workspace.
+   The previous ``Main`` module is made available as ``LastMain``. A previously-loaded
+   package can be accessed using a statement such as ``using LastMain.Package``.
+
+   This function should only be used interactively.
+
 All Objects
 -----------
 
@@ -439,7 +447,7 @@ Syntax
 
 .. function:: esc(e::ANY)
 
-   Only valid in the context of an Expr returned from a macro. Prevents the macro hygine pass from turning embedded variables into gensym variables. See the :ref:`man-macros`
+   Only valid in the context of an Expr returned from a macro. Prevents the macro hygiene pass from turning embedded variables into gensym variables. See the :ref:`man-macros`
    section of the Metaprogramming chapter of the manual for more details and examples.
 
 .. function:: gensym([tag])
@@ -679,6 +687,32 @@ Iterable Collections
    For an array input, returns the value and index of the minimum over
    the given dimensions.
 
+.. function:: maxabs(itr)
+
+   Compute the maximum absolute value of a collection of values.
+
+.. function:: maxabs(A, dims)
+
+   Compute the maximum absolute values over given dimensions.
+
+.. function:: maxabs!(r, A)
+
+   Compute the maximum absolute values over the singleton dimensions of ``r``,
+   and write values to ``r``.
+
+.. function:: minabs(itr)
+
+   Compute the minimum absolute value of a collection of values.
+
+.. function:: minabs(A, dims)
+
+   Compute the minimum absolute values over given dimensions.
+
+.. function:: minabs!(r, A)
+
+   Compute the minimum absolute values over the singleton dimensions of ``r``,
+   and write values to ``r``.
+
 .. function:: sum(itr)
 
    Returns the sum of all elements in a collection.
@@ -695,6 +729,36 @@ Iterable Collections
 .. function:: sum(f, itr)
 
    Sum the results of calling function ``f`` on each element of ``itr``.
+
+.. function:: sumabs(itr)
+
+   Sum absolute values of all elements in a collection. This is
+   equivalent to `sum(abs(itr))` but faster.
+
+.. function:: sumabs(A, dims)
+
+   Sum absolute values of elements of an array over the given
+   dimensions.
+
+.. function:: sumabs!(r, A)
+
+   Sum absolute values of elements of ``A`` over the singleton
+   dimensions of ``r``, and write results to ``r``.
+
+.. function:: sumabs2(itr)
+
+   Sum squared absolute values of all elements in a collection. This
+   is equivalent to `sum(abs2(itr))` but faster.
+
+.. function:: sumabs2(A, dims)
+
+   Sum squared absolute values of elements of an array over the given
+   dimensions.
+
+.. function:: sumabs2!(r, A)
+
+   Sum squared absolute values of elements of ``A`` over the singleton
+   dimensions of ``r``, and write results to ``r``.
 
 .. function:: prod(itr)
 
@@ -1040,12 +1104,16 @@ Dequeues
    are shifted down to fill the resulting gap. If specified, replacement values from
    an ordered collection will be spliced in place of the removed item.
 
+   To insert `replacement` before an index `n` without removing any items, use ``splice(collection, n-1:n, replacement)``.
+
 .. function:: splice!(collection, range, [replacement]) -> items
 
    Remove items in the specified index range, and return a collection containing the
    removed items. Subsequent items are shifted down to fill the resulting gap.
    If specified, replacement values from an ordered collection will be spliced in place
    of the removed items.
+
+   To insert `replacement` before an index `n` without removing any items, use ``splice(collection, n-1:n, replacement)``.
 
 .. function:: resize!(collection, n) -> collection
 
@@ -2409,9 +2477,10 @@ Mathematical Operators
 
    Rational division
 
-.. function:: rationalize([Type,] x)
+.. function:: rationalize([Type=Int,] x; tol=eps(x))
 
-   Approximate the number x as a rational fraction
+   Approximate floating point number ``x`` as a Rational number with components of the given
+   integer type. The result will differ from ``x`` by no more than ``tol``.
 
 .. function:: num(x)
 
@@ -3250,7 +3319,7 @@ Mathematical Functions
 
    Modified Bessel function of the second kind of order ``nu``, :math:`K_\nu(x)`.
 
-.. function:: besselk(nu, x)
+.. function:: besselkx(nu, x)
 
    Scaled modified Bessel function of the second kind of order ``nu``, :math:`K_\nu(x) e^x`.
 
@@ -3780,7 +3849,7 @@ Basic functions
 
 .. function:: countnz(A)
 
-   Counts the number of nonzero values in array A (dense or sparse). Note that this is not a constant-time operation. For sparse matrices, one should usually use ``nfilled`` instead.
+   Counts the number of nonzero values in array A (dense or sparse). Note that this is not a constant-time operation. For sparse matrices, one should usually use ``nnz``, which returns the number of stored values.
 
 .. function:: conj!(A)
 
@@ -4663,9 +4732,15 @@ calling functions from `FFTW <http://www.fftw.org>`_.
 
    Undoes the effect of ``fftshift``.
 
-.. function:: filt(b,a,x)
+.. function:: filt(b, a, x, [si])
 
-   Apply filter described by vectors ``a`` and ``b`` to vector ``x``.
+   Apply filter described by vectors ``a`` and ``b`` to vector ``x``, with an
+   optional initial filter state vector ``si`` (defaults to zeros).
+
+.. function:: filt!(out, b, a, x, [si])
+
+   Same as :func:`filt` but writes the result into the ``out`` argument,
+   which may alias the input ``x`` to modify it in-place.
 
 .. function:: deconv(b,a)
 
@@ -4906,7 +4981,7 @@ Parallel Computing
 
 .. function:: put!(RemoteRef, value)
 
-   Store a value to a remote reference. Implements "shared queue of length 1" semantics: if a value is already present, blocks until the value is removed with ``take``. Returns its first argument.
+   Store a value to a remote reference. Implements "shared queue of length 1" semantics: if a value is already present, blocks until the value is removed with ``take!``. Returns its first argument.
 
 .. function:: take!(RemoteRef)
 
@@ -5194,6 +5269,15 @@ System
 
    Create all directories in the given ``path``, with permissions ``mode``.
    ``mode`` defaults to 0o777, modified by the current file creation mask.
+
+.. function:: symlink(target, link)
+
+   Creates a symbolic link to ``target`` with the name ``link``. 
+   
+   .. note::
+   
+      This function raises an error under operating systems that do not support
+      soft symbolic links, such as Windows XP.
 
 .. function:: getpid() -> Int32
 

@@ -318,6 +318,18 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
      6  10
      7  11
 
+Empty ranges of the form ``n:n-1`` are sometimes used to indicate the inter-index
+location between ``n-1`` and ``n``.  For example, the ``searchsorted`` function uses 
+this convention to indicate the insertion point of a value not found in a sorted
+array:
+
+.. doctest::
+
+    julia> a = [1,2,5,6,7];
+
+    julia> searchsorted(a, 3)
+    3:2
+    
 .. Indexing syntax is equivalent to a call to ``getindex``
 
 ..     X = getindex(A, I_1, I_2, ..., I_n)

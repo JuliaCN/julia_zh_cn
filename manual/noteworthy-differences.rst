@@ -61,7 +61,7 @@ Julia 也想成为数据分析和统计编程的高效语言。与 R 的区别�
 - Julia 不赞成把 main 命名空间塞满函数。大多数统计学函数可以在 `扩展包 <http://pkg.julialang.org/>`_ 中找到，比如 DataFrames 和 Distributions 包：
 
 	- `Distributions 包 <https://github.com/JuliaStats/Distributions.jl>`_ 提供了概率分布函数
-	- `DataFrames 包 <https://github.com/HarlanH/DataFrames.jl>`_ 提供了数据框架
+	- `DataFrames 包 <https://github.com/JuliaStats/DataFrames.jl>`_ 提供了数据框架
 	- GLM 公式必须要转义：使用 ``:(y ~ x)`` ，而不是 ``y ~ x``
 
 - Julia 提供了多元组和哈希表，但不提供 R 的列表。当返回多项时，应该使用多元组：不要使用 ``list(a = 1, b = 2)`` ，应该使用 ``(1, 2)``

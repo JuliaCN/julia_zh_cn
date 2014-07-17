@@ -102,6 +102,6 @@ Julia 可以用 ``-p`` 或 ``--machinefile`` 选项来开启并行模式。 ``-p
 - `Julia 和 IJulia 使用说明 <http://math.mit.edu/%7Estevenj/Julia-cheatsheet.pdf>`_
 - `速学 Julia <http://learnxinyminutes.com/docs/julia/>`_
 - `MIT 讲师 Homer Reid 数值分析课的教程 <http://homerreid.dyndns.org/teaching/18.330/JuliaProgramming.shtml>`_
-- `介绍 julia 的演讲 <https://github.com/ViralBShah/julia-presentations/raw/master/Fifth-Elephant-2013/Fifth-Elephant-2013.pdf>`_
+- `介绍 julia 的演讲 <https://raw.githubusercontent.com/ViralBShah/julia-presentations/master/Fifth-Elephant-2013/Fifth-Elephant-2013.pdf>`_
 - `来自 MIT 的 Julia 视频教程 <http://julialang.org/blog/2013/03/julia-tutorial-MIT/>`_
-- `Forio 的 Julia 教程  <http://forio.com/julia/tutorials-list>`_
+- `Forio 的 Julia 教程  <http://forio.com/labs/julia-studio/tutorials/>`_

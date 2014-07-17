@@ -464,7 +464,7 @@ Julia 提供了 ``eps`` 函数，可以用来检查 ``1.0`` 和下一个可表�
 任意精度的算术
 --------------
 
-为保证整数和浮点数计算的精度，Julia 打包了 `GNU Multiple Precision Arithmetic Library, GMP <http://gmplib.org>`_ 和 `GNU MPFR Library <http://www.mpfr.org>`_ 。Julia 相应提供了 ``BigInt`` 和 ``BigFloat`` 类型。
+为保证整数和浮点数计算的精度，Julia 打包了 `GNU Multiple Precision Arithmetic Library, GMP <https://gmplib.org>`_ 和 `GNU MPFR Library <http://www.mpfr.org>`_ 。Julia 相应提供了 ``BigInt`` 和 ``BigFloat`` 类型。
 
 可以通过基础数值类型或 ``String`` 类型来构造：
 
