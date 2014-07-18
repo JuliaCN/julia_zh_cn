@@ -110,7 +110,7 @@ can be slow and should be avoided in performance-sensitive code.
 
     function norm(A)
         if isa(A, Vector)
-            return sqrt(real(dot(x,x)))
+            return sqrt(real(dot(A,A)))
         elseif isa(A, Matrix)
             return max(svd(A)[2])
         else
@@ -120,7 +120,7 @@ can be slow and should be avoided in performance-sensitive code.
 
 如下重写会更精确、高效： ::
 
-    norm(A::Vector) = sqrt(real(dot(x,x)))
+    norm(x::Vector) = sqrt(real(dot(x,x)))
     norm(A::Matrix) = max(svd(A)[2])
 
 写“类型稳定”的函数
@@ -385,7 +385,6 @@ versus::
 
 注意些有些小事项，能使内部循环更紧致。
 
--  尽量使用 ``size(A,n)`` 来替代 ``size(A)`` 和 ``size(A)[n]``
 -  避免不必要的数组。例如，不要使用 ``sum([x,y,z])`` ，而应使用 ``x+y+z``
 -  对于较小的整数幂，使用 ``*`` 更好。如 ``x*x*x`` 比 ``x^3`` 好
 -  针对复数 ``z`` ，使用 ``abs2(z)`` 代替 ``abs(z)^2`` 。一般情况下，对于复数参数，尽量用 ``abs2`` 代替 ``abs``

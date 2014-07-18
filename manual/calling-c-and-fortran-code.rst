@@ -50,7 +50,7 @@ Julia 调用 C 和 Fortran 的函数，既简单又高效。
 
     function getenv(var::String)
       val = ccall( (:getenv, "libc"),
-                  Ptr{Uint8}, (Ptr{Uint8},), bytestring(var))
+                  Ptr{Uint8}, (Ptr{Uint8},), var)
       if val == C_NULL
         error("getenv: undefined variable: ", var)
       end
