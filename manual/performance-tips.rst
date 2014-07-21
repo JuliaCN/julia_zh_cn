@@ -81,25 +81,22 @@ See also the discussion under :ref:`man-parametric-types`.
 
 假如我们知道 ``a`` 的第一个元素是 ``Int32`` 类型的，那就添加上这样的类型声明吧。如果这个元素不是这个类型，在运行时就会报错，这有助于调试代码。
 
-Declare types of keyword arguments
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+显式声明命名参数的值的类型
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Keyword arguments can have declared types::
+命名参数可以显式指定类型::
 
     function with_keyword(x; name::Int = 1)
         ...
     end
 
-Functions are specialized on the types of keyword arguments, so these
-declarations will not affect performance of code inside the function.
-However, they will reduce the overhead of calls to the function that
-include keyword arguments.
+函数只处理指定类型的命名参数，因此这些声明不会对该函数内部代码的性能产生影响。
+不过，这会减少此类包含命名参数的函数的调用开销。
 
-Functions with keyword arguments have near-zero overhead for call sites
-that pass only positional arguments.
+与直接使用参数列表的函数相比，命名参数的函数调用新增的开销很少，基本上可算是零开销。
 
-Passing dynamic lists of keyword arguments, as in ``f(x; keywords...)``,
-can be slow and should be avoided in performance-sensitive code.
+如果传入函数的是命名参数的动态列表，例如``f(x; keywords...)``，速度会比较慢，性能敏感的代码慎用。
+
 
 把函数拆开
 ----------
