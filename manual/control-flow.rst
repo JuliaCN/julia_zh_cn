@@ -214,13 +214,18 @@ Short-Circuit Evaluation in Julia, as outlined in the next section.
     2
     false
     
-This behavior is frequently used in Julia to form an alternative to very short
-``if`` statements. Instead of ``if <cond> <statement> end``, one can write 
-``<cond> && <statement>`` (which could be read as: <cond> *and then* <statement>).
-Similarly, instead of ``if ! <cond> <statement> end``, one can write
-``<cond> || <statement>`` (which could be read as: <cond> *or else* <statement>).
+.. This behavior is frequently used in Julia to form an alternative to very short
+.. ``if`` statements. Instead of ``if <cond> <statement> end``, one can write 
+.. ``<cond> && <statement>`` (which could be read as: <cond> *and then* <statement>).
+.. Similarly, instead of ``if ! <cond> <statement> end``, one can write
+.. ``<cond> || <statement>`` (which could be read as: <cond> *or else* <statement>).
 
-For example, a recursive factorial routine could be defined like this:
+这种方式在 Julia 里经常作为 ``if`` 语句的一个简洁的替代。 可以把 ``if <cond> <statement> end`` 写成
+``<cond> && <statement> (读作 <cond> *从而* <statement>)。 类似地， 可以把 ``if ! <cond> <statement> end``
+写成 ``<cond> || <statement>`` (读作 <cond> *要不就* <statement>)。
+
+.. For example, a recursive factorial routine could be defined like this:
+例如, 递归阶乘可以这样写:
 
 .. doctest::
 

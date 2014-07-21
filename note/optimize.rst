@@ -17,7 +17,58 @@ Julia提供了很多inplace的函数，合理地使用能够避免分配不必�
 	julia> @time A_mul_B!(y,A,x);
 	elapsed time: 0.012711399 seconds (80 bytes allocated)
 
+手动优化循环(manual loop unrolling)
+-----------------------------------
+手动地将循环平铺开能削减循环带来的overhead， 因为每次进入循环都会进行 ``end-of-loop`` 检测， 手动增加一些代码会加速循环的运行。缺点是会产生更多的代码，不够简洁，尤其是在循环内部调用inline函数，反而有可能降低性能。一个比较好的例子是 Julia 的sum函数。这里只做个简单的对比 ::
 
+	function simple_sum(a::AbstractArray, first::Int, last::Int)
+	    b = a[first];
+	    for i = first + 1 : last
+	        @inbounds b += a[i]
+	    end
+	    return b
+	end
+	
+	function unroll_sum(a::AbstractArray, first::Int, last::Int)
+	    @inbounds if ifirst + 6 >= ilast # length(a) < 8
+	        i = ifirst
+	        s =  a[i] + a[i+1]
+	        i = i+1
+	        while i < ilast
+	            s +=a[i+=1]
+	        end
+	        return s
+
+	    else # length(a) >= 8, manual unrolling
+	        @inbounds s1 = a[ifirst] +  a[ifirst + 4]
+	        @inbounds s2 = a[ifirst + 1] + a[ifirst + 5]
+	        @inbounds s3 = a[ifirst + 2] +  a[ifirst + 6]
+	        @inbounds s4 = a[ifirst + 3] +  a[ifirst + 7]
+	        i = ifirst + 8
+	        il = ilast - 3
+	        while i <= il
+	          @inbounds  s1 +=  a[i]
+	          @inbounds  s2 += a[i+1]
+	          @inbounds  s3 += a[i+2]
+	          @inbounds  s4 += a[i+3]
+	            i += 4
+	        end
+	        while i <= ilast
+	          @inbounds  s1 += a[i]
+	            i += 1
+	        end
+	        return s1 + s2 + s3 + s4
+	    end
+	end
+
+运行结果如下 ::
+
+	julia>rand_arr = rand(500000);
+	julia>@time @inbounds ret_1 = simple_sum(rand_arr, 1, 500000)
+	elapsed time: 0.000699786 seconds (160 bytes allocated)
+	julia>@time @inbounds ret_2= unroll_sum(rand_arr,1,500000)
+	elapsed time: 0.000383906 seconds (96 bytes allocated)
+	
 调用C或Fortran加速
 ----------------------------
 尽管Julia声称速度和C相提并论，但是并不是所有的情况下都能有C的性能。合理地使用像LAPACK,BLAS,MUMPS这类已经高度优化的函数库有助于提升运行速度。

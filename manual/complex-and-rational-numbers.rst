@@ -107,11 +107,15 @@ Julia 提供复数和分数类型，并对其支持所有的 :ref:`标准数学�
     julia> angle(1 + 2im)
     1.1071487177940904
 
-As usual, the absolute value (``abs``) of a complex number is its
-distance from zero. The ``abs2`` function gives the square of the
-absolute value, and is of particular use for complex numbers where it
-avoids taking a square root. The ``angle`` function returns the phase
-angle in radians (also known as the *argument* or *arg* function). 所有的 :ref:`man-elementary-functions` 也可以应用在复数上：
+.. As usual, the absolute value (``abs``) of a complex number is its
+.. distance from zero. The ``abs2`` function gives the square of the
+.. absolute value, and is of particular use for complex numbers where it
+.. avoids taking a square root. The ``angle`` function returns the phase
+.. angle in radians (also known as the *argument* or *arg* function). 
+
+通常， 复数的绝对值( ``abs`` )是它到零的距离。 函数 ``abs2`` 返回绝对值的平方，
+特别地用在复数上来避免开根。``angle`` 函数返回弧度制的相位(即 *argument* 或 *arg* )。
+所有的 :ref:`man-elementary-functions` 也可以应用在复数上：
 
 .. doctest::
 

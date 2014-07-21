@@ -3,16 +3,20 @@
 .. highlight:: c
 
 **************************
- Embedding Julia
+ 嵌入式 Julia
 **************************
 
-As we have seen (:ref:`man-calling-c-and-fortran-code`) Julia has a simple and efficient way to call functions written in C. But there are situations where the opposite is needed: calling Julia function from C code. This can be used to integrate Julia code into a larger C/C++ project, without the need to rewrite everything in C/C++. Julia has a C API to make this possible. As almost all programming languages have some way to call C functions, the Julia C API can also be used to build further language bridges (e.g. calling Julia from Python or C#).
+.. As we have seen (:ref:`man-calling-c-and-fortran-code`) Julia has a simple and efficient way to call functions written .. in C. But there are situations where the opposite is needed: calling Julia function from C code. This can be used to .. integrate Julia code into a larger C/C++ project, without the need to rewrite everything in C/C++. Julia has a C API .. to make this possible. As almost all programming languages have some way to call C functions, the Julia C API can also .. be used to build further language bridges (e.g. calling Julia from Python or C#).
 
+我们已经知道 (:ref:`man-calling-c-and-fortran-code`) Julia 可以用简单有效的方式调用 C 函数。但是有很多情况下正好相反:需要从C 调用 Julia 函数。这可以把 Julia 代码整合到更大型的 C/C++ 项目中去， 而不需要重新把所有都用C/C++写一遍。 Julia提供了给C的API来实现这一点。正如大多数语言都有方法调用 C 函数一样， Julia的 API 也可以用于搭建和其他语言之间的桥梁。
 
-High-Level Embedding
+.. High-Level Embedding
+
+高级嵌入
 =====================
 
-We start with a simple C program that initializes Julia and calls some Julia code::
+.. We start with a simple C program that initializes Julia and calls some Julia code::
+我们从一个简单的C程序入手，它初始化Julia并且调用一些Julia的代码::
 
   #include <julia.h>
 
@@ -26,19 +30,28 @@ We start with a simple C program that initializes Julia and calls some Julia cod
       return 0;
   }
 
-In order to build this program you have to put the path to the Julia header into the include path and link against ``libjulia``. For instance, when Julia is installed to ``$JULIA_DIR``, one can compile the above test program ``test.c`` with gcc using::
+.. In order to build this program you have to put the path to the Julia header into the include path and link against   .. ``libjulia``. For instance, when Julia is installed to ``$JULIA_DIR``, one can compile the above test program        .. ``test .c`` with gcc using::
+
+编译这个程序你需要把 Julia的头文件包含在路径内并且链接函数库 ``libjulia``。 比方说 Julia安装在 ``$JULIA_DIR``， 就可以用gcc编译::
+
 
     gcc -o test -I$JULIA_DIR/include/julia -L$JULIA_DIR/usr/lib -ljulia test.c
 
-Alternatively, look at the ``embedding.c`` program in the julia source tree in the ``examples/`` folder.
+.. Alternatively, look at the ``embedding.c`` program in the julia source tree in the ``examples/`` folder.
+或者可以看看 Julia 源码里 ``example/`` 下的 ``embedding.c``。
 
-The first thing that has do be done before calling any other Julia C function is to initialize Julia. This is done by calling ``jl_init``, which takes as argument a C string (``const char*``) to the location where Julia is installed. When the argument is ``NULL``, Julia tries to determine the install location automatically.
+.. The first thing that has do be done before calling any other Julia C function is to initialize Julia. This is done by .. calling ``jl_init``, which takes as argument a C string (``const char*``) to the location where Julia is installed. 
+.. When the argument is ``NULL``, Julia tries to determine the install location automatically.
+
+调用Julia函数之前要先初始化Julia， 可以用 ``jl_init`` 完成，这个函数的参数是Julia安装路径，类型是 ``const char*`` 。如果没有任何参数，Julia会自动寻找Julia的安装路径。 
 
 The second statement initializes Julia's task scheduling system. This statement must appear in a function that will not return as long as calls into Julia will be made (``main`` works fine). Strictly speaking, this statement is optional, but operations that switch tasks will cause problems if it is omitted.
 
 The third statement in the test program evaluates a Julia statement using a call to ``jl_eval_string``.
 
-Converting Types
+.. Converting Types
+
+类型转换
 ========================
 
 Real applications will not just need to execute expressions, but also return their values to the host program. ``jl_eval_string`` returns a ``jl_value_t*``, which is a pointer to a heap-allocated Julia object. Storing simple data types like ``Float64`` in this way is called ``boxing``, and extracting the stored primitive data is called ``unboxing``. Our improved sample program that calculates the square root of 2 in Julia and reads back the result in C looks as follows::
@@ -60,7 +73,9 @@ Corresponding ``jl_box_...`` functions are used to convert the other way::
 
 As we will see next, boxing is required to call Julia functions with specific arguments.
 
-Calling Julia Functions
+.. Calling Julia Functions
+
+调用 Julia 的函数
 ========================
 
 While ``jl_eval_string`` allows C to obtain the result of a Julia expression, it does not allow passing arguments computed in C to Julia. For this you will need to invoke Julia functions directly, using ``jl_call``::
@@ -75,7 +90,9 @@ In the first step, a handle to the Julia function ``sqrt`` is retrieved by calli
 
 Its second argument ``args`` is an array of ``jl_value_t*`` arguments and ``nargs`` is the number of arguments.
 
-Memory Management
+.. Memory Management
+
+内存管理
 ========================
 
 As we have seen, Julia objects are represented in C as pointers. This raises the question of who is responsible for freeing these objects.
@@ -100,7 +117,9 @@ Several Julia values can be pushed at once using the ``JL_GC_PUSH2`` , ``JL_GC_P
     // Do something with args (e.g. call jl_... functions)
     JL_GC_POP();
 
-Manipulating the Garbage Collector
+.. Manipulating the Garbage Collector
+
+控制垃圾回收
 ---------------------------------------------------
 
 There are some functions to control the GC. In normal use cases, these should not be necessary.
@@ -111,7 +130,9 @@ There are some functions to control the GC. In normal use cases, these should no
 ``void jl_gc_enable()``    Enable the GC
 ========================= ==============================================================================
 
-Working with Arrays
+.. Working with Arrays
+
+处理数组
 ========================
 
 Julia and C can share array data without copying. The next example will show how this works.
@@ -150,7 +171,9 @@ Now let us call a Julia function that performs an in-place operation on ``x``::
 
 By printing the array, one can verify that the elements of ``x`` are now reversed.
 
-Accessing Returned Arrays
+.. Accessing Returned Arrays
+
+访问返回的数组
 ---------------------------------
 
 If a Julia function returns an array, the return value of ``jl_eval_string`` and ``jl_call`` can be cast to a ``jl_array_t*``::
@@ -161,7 +184,9 @@ If a Julia function returns an array, the return value of ``jl_eval_string`` and
 Now the content of ``y`` can be accessed as before using ``jl_array_data``.
 As always, be sure to keep a reference to the array while it is in use.
 
-Multidimensional Arrays
+.. Multidimensional Arrays
+
+高维数组
 ---------------------------------
 
 Julia's multidimensional arrays are stored in memory in column-major order. Here is some code that creates a 2D array and accesses its properties::
@@ -185,7 +210,9 @@ Julia's multidimensional arrays are stored in memory in column-major order. Here
 
 Notice that while Julia arrays use 1-based indexing, the C API uses 0-based indexing (for example in calling ``jl_array_dim``) in order to read as idiomatic C code.
 
-Exceptions
+.. Exceptions
+
+异常
 ==========
 
 Julia code can throw exceptions. For example, consider::
@@ -200,7 +227,9 @@ This call will appear to do nothing. However, it is possible to check whether an
 If you are using the Julia C API from a language that supports exceptions (e.g. Python, C#, C++), it makes sense to wrap each call into libjulia with a function that checks whether an exception was thrown, and then rethrows the exception in the host language.
 
 
-Throwing Julia Exceptions
+.. Throwing Julia Exceptions
+
+抛出 Julia 异常
 -------------------------
 
 When writing Julia callable functions, it might be necessary to validate arguments and throw exceptions to indicate errors. A typical type check looks like::
