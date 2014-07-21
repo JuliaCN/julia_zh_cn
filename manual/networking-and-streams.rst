@@ -4,17 +4,15 @@
  网络和流  
 **********
 
-Julia provides a rich interface to deal with streaming I/O objects such as
-Terminals, Pipes and Tcp Sockets. This interface, though asynchronous at the 
-system level, is presented in a synchronous manner to the programmer and it is
-usually unnecessary to think about the underlying asynchronous operation. This 
-is achieved by making heavy use of Julia cooperative threading (coroutine) 
-functionality.
+Julia 提供了一个丰富的接口处理终端、管道、tcp套接字等等I/O流对象。
+接口在系统层的实现是异步的，开发者以同步的方式调用该接口、一般无需关注底层异步实现。
+接口实现主要基于Julia支持的协程(coroutine)功能。
+
 
 基本流 I/O
 ----------
 
-All Julia streams expose at least a `read` and a `write` method, taking the stream as their first argument, e.g.::
+所有Julia流都至少提供一个`read`和一个`write`方法，且第一个参数都是流对象，例如::
 
     julia> write(STDOUT,"Hello World")
     Hello World
@@ -23,9 +21,9 @@ All Julia streams expose at least a `read` and a `write` method, taking the stre
 
     '\n'
 
-Note that I pressed enter again so that Julia would read the newline. Now, as you can see from this example, the
-`write` method takes the data to write as its second argument, while the read method takes the type of the
-data to be read as the second argument. For example, to read a simple byte array, we could do::
+注意我又输入了一次回车，这样Julia会读入换行符。现在，由例子可见，
+`write`方法的第二个参数是将要写入的数据，`read`方法的第二个参数是即将读入的数据类型。
+例如，要读入一个简单的字节数组，我们可以::
 
     julia> x = zeros(Uint8,4)
     4-element Uint8 Array:
@@ -42,8 +40,7 @@ data to be read as the second argument. For example, to read a simple byte array
      0x63
      0x64
 
-However, since this is slightly cumbersome, there are several convenience methods provided. For example, we could have written the
-above as::
+不过像上面这么写有点麻烦，还提供了一些简化的方法。例如，我们可以将上例重写成::
     
     julia> readbytes(STDIN,4)
     abcd 
@@ -53,14 +50,13 @@ above as::
      0x63
      0x64   
 
-or if we had wanted to read the entire line instead::
+或者直接读入整行数据::
 
     julia> readline(STDIN)
     abcd
     "abcd\n"
 
-Note that depending on your terminal settings, your TTY may be line buffered and might thus require an additional enter before the data
-is sent to julia.
+注意这取决于你的终端配置，你的TTY可能是行缓冲、需要多输入一个回车才会把数据传给julia。
 
 文本 I/O
 --------
