@@ -641,6 +641,22 @@ Julia 还提供一些函数，用来向标准错误 I/O 输出一些消息，但
      in sqrt at math.jl:284
      in sqrt_second at none:7
 
+Note that the symbol following ``catch`` will always be interpreted as a
+name for the exception, so care is needed when writing ``try/catch`` expressions
+on a single line. The following code will *not* work to return the value of ``x``
+in case of an error::
+
+    try bad() catch x end
+
+Instead, use a semicolon or insert a line break after ``catch``::
+
+    try bad() catch; x end
+
+    try bad()
+    catch
+      x
+    end
+
 Julia 还提供了更高级的异常处理函数 ``rethrow`` ， ``backtrace`` 和 ``catch_backtrace`` 。
 
 finally 语句

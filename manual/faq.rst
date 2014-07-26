@@ -170,11 +170,12 @@ Julia 没有 MATLAB 的 ``clear`` 函数；在 Julia 会话（准确来说， ``
 这段代码视参数的值的不同而返回一个 ``Int`` 或是 ``Float64``。 因为 Julia 无法在编译时预测
 函数返回值类型， 任何使用这个函数的计算都得考虑这两种可能的返回类型， 这样很难生成快速的机器码。
 
-Why does Julia give a ``DomainError`` for perfectly-sensible operations?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _man-domain-error:
 
-Certain operations make perfect mathematical sense but result in
-errors::
+Why does Julia give a ``DomainError`` for certain seemingly-sensible operations?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Certain operations make mathematical sense but result in errors::
 
     julia> sqrt(-2.0)
     ERROR: DomainError

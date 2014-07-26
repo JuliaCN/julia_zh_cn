@@ -17,6 +17,11 @@ Julia 的语法和 MATLAB 很像。但 Julia 不是简单地复制 MATLAB ，它
    Julia 把赋值和分配内存分开了：
    如果 ``a`` 长度为4, ``a[5] = 7`` 会抛出一个错误。 Julia 有一个专用的 ``push!`` 函数来向 ``Vectors`` 里增加元素。并且远比Matlab的 ``a(end+1) = val`` 来的高效。
 -  虚数单位 ``sqrt(-1)`` 用 ``im`` 来表示
+-  Literal numbers without a decimal point (such as ``42``) create integers 
+   instead of floating point numbers. Arbitrarily large integer
+   literals are supported. But this means that some operations such as
+   ``2^-1`` will throw a domain error as the result is not an integer (see
+   :ref:`the FAQ entry on domain errors <man-domain-error>` for details).
 -  多返回值和多重赋值需要使用圆括号，如 ``return (a, b)`` 和 ``(a, b) = f(x)``
 -  Julia 有一维数组。列向量的长度为 ``N`` ，而不是 ``Nx1`` 。例如， ``rand(N)`` 生成的是一维数组
 -  使用语法 ``[x,y,z]`` 来连接标量或数组，连接发生在第一维度（“垂直”）上。对于第二维度（“水平”）上的连接，需要使用空格，如 ``[x y z]`` 。   要想构造块矩阵，尽量使用语法 ``[a b; c d]``
@@ -34,7 +39,8 @@ Julia 的语法和 MATLAB 很像。但 Julia 不是简单地复制 MATLAB ，它
    如果想要判断变量 ``A`` 是等于1还是2, 要这样写 ``(A .== 1) | (A .== 2)`` 。
 -  可以用 ``...`` 把集合中的元素作为参数传递给函数，如 ``xs=[1,2]; f(xs...)``
 -  Julia 中 ``svd`` 返回的奇异值是向量而不是完整的对角矩阵
--  Julia 中 ``...`` 不用来将一行代码拆成多行
+-  Julia 中 ``...`` 不用来将一行代码拆成多行。Instead, incomplete
+   expressions automatically continue onto the next line.
 -  变量 ``ans`` 是交互式会话中执行的最后一条表达式的值；以其它方式执行的表达式的值，不会赋值给它
 -  The closest analog to Julia's ``types`` are Matlab's
    ``classes``. Matlab's ``structs`` behave somewhere between Julia's

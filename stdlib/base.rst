@@ -3123,7 +3123,7 @@ Mathematical Functions
 
 .. function:: cis(z)
 
-   Return ``cos(z) + i*sin(z)`` if z is real. Return ``(cos(real(z)) + i*sin(real(z)))/exp(imag(z))`` if ``z`` is complex
+   Return :math:`\exp(iz)`.
 
 .. function:: binomial(n,k)
 
@@ -5802,7 +5802,8 @@ Tasks
 
 .. function:: sleep(seconds)
 
-   Block the current task for a specified number of seconds.
+   Block the current task for a specified number of seconds. The minimum sleep
+   time is 1 millisecond or input of ``0.001``.
 
 Events
 ------
