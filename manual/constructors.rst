@@ -221,7 +221,7 @@
     Point{Float64}(1.0,2.5)
 
     julia> Point(1,2.5)
-    ERROR: no method Point{T<:Real}(Int64, Float64)
+    ERROR: `Point{T<:Real}` has no method matching Point{T<:Real}(::Int64, ::Float64)
 
     ## explicit T ##
 
@@ -271,7 +271,7 @@
 .. doctest::
 
     julia> Point(1.5,2)
-    ERROR: no method Point{T<:Real}(Float64, Int64)
+    ERROR: `Point{T<:Real}` has no method matching Point{T<:Real}(::Float64, ::Int64)
 
 其实只需定义下列外部构造方法：
 
@@ -333,7 +333,7 @@
 .. doctest::
 
     julia> (1 + 2im)//(1 - 2im)
-    -3//5 + 4//5im
+    -3//5 + 4//5*im
 
     julia> typeof(ans)
     Complex{Rational{Int64}} (constructor with 1 method)

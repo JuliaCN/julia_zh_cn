@@ -13,7 +13,11 @@ Julia 的模块是一个独立的全局变量工作区。它由句法限制在 `
     module MyModule
     using Lib
     
-    import BigLib: bar, baz
+    using BigLib: thing1, thing2
+
+    import Base.show
+
+    importall OtherLib
     
     export MyType, foo
     
@@ -24,7 +28,6 @@ Julia 的模块是一个独立的全局变量工作区。它由句法限制在 `
     bar(x) = 2x
     foo(a::MyType) = bar(a.x) + 1
     
-    import Base.show
     show(io, a::MyType) = print(io, "MyType $(a.x)")
     end
 
@@ -32,38 +35,62 @@ Julia 的模块是一个独立的全局变量工作区。它由句法限制在 `
 
 这个模块定义了类型 ``MyType`` 和两个函数。 ``foo`` 函数和 ``MyType`` 类型被 export ，因此可以被 import 进其他模块使用。 ``bar`` 是 ``MyModule`` 的私有函数。
 
-语句 ``using Lib`` 表明， ``Lib``  模块在需要时可用来解析命名。若一个全局变量在当前模块中没有被定义，系统会在 ``Lib`` 中搜索，并在找到后把它 import 进来。在当前模块中凡是用到这个全局变量时，都会去找 ``Lib`` 中变量的定义。
+语句 ``using Lib`` 表明， ``Lib``  模块在需要时可用来解析命名。若一个全局变量在当前模块中没有被定义，系统会在 ``Lib`` export 的变量中搜索，并在找到后把它 import 进来。在当前模块中凡是用到这个全局变量时，都会去找 ``Lib`` 中变量的定义。
 
-语句 ``import BigLib: bar, baz`` 意味着可以使用模块 `BigLib` 的 `bar` 和 `baz` (其他的都不可以使用)
- 
-.. The statement ``import BigLib: bar, baz`` means that the names `bar` and `baz` from the `BigLib` module will be available as needed (but no other names).
+语句 ``using BigLib: thing1, thing2`` 是 ``using BigLib.thing1, BigLib.thing2`` 的缩写。
 
-变量一旦被 import （即通过 ``import`` 关键字），当前模块就不能构造重名的变量了。import 的变量是只读的。给全局变量赋值，要么会影响当前模块的变量，要么会报错。
+The ``import`` keyword supports all the same syntax as ``using``, but only
+operates on a single name at a time. It does not add modules to be searched
+the way ``using`` does. ``import`` also differs from ``using`` in that
+functions must be imported using ``import`` to be extended with new methods.
 
-方法的定义有点儿特殊：它们不去搜索 ``using`` 语句中的模块。除非 ``foo`` 是从某处 import 进来的， ``function foo()`` 声明会在当前模块构造一个新的 ``foo`` 。例如，上面的 ``MyModule`` 中，我们要给标准 ``show`` 函数添加一个方法，我们必须写 ``import Base.show`` 。
+In ``MyModule`` above we wanted to add a method to the standard ``show``
+function, so we had to write ``import Base.show``.
+Functions whose names are only visible via ``using`` cannot be extended.
 
+The keyword ``importall`` explicitly imports all names exported by the
+specified module, as if ``import`` were individually used on all of them.
 
-模块路径
-------------
-.. Module paths
-.. ------------
+Once a variable is made visible via ``using`` or ``import``, a module may
+not create its own variable with the same name.
+Imported variables are read-only; assigning to a global variable always
+affects a variable owned by the current module, or else raises an error.
 
-Julia设置的变量 ``LOAD_PATH`` 包含了Julia搜索模块的目录。可以用 ``push!`` 进行扩展::
+Summary of module usage
+^^^^^^^^^^^^^^^^^^^^^^^
 
-    push!(LOAD_PATH, "/Path/To/My/Module/")
+To load a module, two main keywords can be used: ``using`` and ``import``. To understand their differences, consider the following example::
 
-将这一段代码放在 ``~\.juliarc.jl`` 里能够在每次Julia启动时对 ``LOAD_PATH`` 扩展。 此外，还可以通过定义环境变量
-``JULIA_LOAD_PATH`` 来扩展Julia的模块路径。
+    module MyModule
+    
+    export x, y
 
-.. The Julia variable LOAD_PATH contains the directories Julia searches for 
-.. modules. It can be extended using the ``push!`` method::
+    x() = "x"
+    y() = "y"
+    p() = "p"
+    
+    end
 
-..     push!(LOAD_PATH, "/Path/To/My/Module/")
+In this module we export the ``x`` and ``y`` functions (with the keyword ``export``), and also have the non-exported function ``p``. There are several different ways to load the Module and its inner functions into the current workspace:
 
-.. Putting this statement to the ``~\.juliarc.jl`` file will extend LOAD_PATH 
-.. on every Julia startup. Alternatively, the Julia module load path can be
-.. extended by defining the environoment variable JULIA_LOAD_PATH and putting
-.. directories to it.
++------------------------------------+----------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+|Import Command                      | What is brought into scope                                                                   | Available for method extension                                         |
++====================================+==============================================================================================+========================================================================+
+| ``using MyModule``                 | All ``export`` ed names (``x`` and ``y``), ``MyModule.x``, ``MyModule.y`` and ``MyModule.p`` | ``MyModule.x``, ``MyModule.y`` and ``MyModule.p``                      |
++------------------------------------+----------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| ``using MyModule.x, MyModule.p``   | ``x`` and ``p``                                                                              |                                                                        |
++------------------------------------+----------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| ``using MyModule: x, p``           | ``x`` and ``p``                                                                              |                                                                        |
++------------------------------------+----------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| ``import MyModule``                | ``MyModule.x``, ``MyModule.y`` and ``MyModule.p``                                            | ``MyModule.x``, ``MyModule.y`` and ``MyModule.p``                      |
++------------------------------------+----------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| ``import MyModule.x, MyModule.p``  | ``x`` and ``p``                                                                              | ``x`` and ``p``                                                        |
++------------------------------------+----------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| ``import MyModule: x, p``          | ``x`` and ``p``                                                                              | ``x`` and ``p``                                                        |
++------------------------------------+----------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| ``importall MyModule``             |  All ``export`` ed names (``x`` and ``y``)                                                   | ``x`` and ``y``                                                        |
++------------------------------------+----------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+
 
 模块和文件
 ----------
@@ -144,13 +171,35 @@ Base 是标准库（ 在 base/ 文件夹下）。所有的模块都隐含地调�
 模块 ``Parent`` 包含子模块 ``Utils`` 。如果想要 ``Utils`` 中的内容对 ``Parent`` 可见, 可以使用 ``using`` 加上英文句号。更多的句号表示在更下一层的命名空间进行搜索。例如， ``using ..Utils`` 将会在 ``Parent`` 模块的
 子模块内寻找 ``Utils`` 。
 
+模块文件路径
+------------
+.. Module file paths
+.. -----------------
+
+全局变量 ``LOAD_PATH`` 包含了调用 ``require`` 时 Julia搜索模块的目录。可以用 ``push!`` 进行扩展 ::
+
+    push!(LOAD_PATH, "/Path/To/My/Module/")
+
+将这一段代码放在 ``~\.juliarc.jl`` 里能够在每次 Julia启动时对 ``LOAD_PATH`` 扩展。 此外，还可以通过定义环境变量
+``JULIA_LOAD_PATH`` 来扩展 Julia的模块路径。
+
+.. The Julia variable LOAD_PATH contains the directories Julia searches for 
+.. modules. It can be extended using the ``push!`` method::
+
+..     push!(LOAD_PATH, "/Path/To/My/Module/")
+
+.. Putting this statement to the ``~\.juliarc.jl`` file will extend LOAD_PATH 
+.. on every Julia startup. Alternatively, the Julia module load path can be
+.. extended by defining the environoment variable JULIA_LOAD_PATH.
+
 
 小提示
 ------
 
 如果一个命名是有许可的(qualified)（如 ``Base.sin`` ），即使它没被 export ，仍能被外部读取。这在调试时非常有用。
 
-如果要在定义宏的模块外部使用这个宏，必须把它 export 。import 或 export 宏时，要在宏名字前添加 ``@`` 符号，例如 ``import Mod.@mac`` 。
+import 或 export 宏时，要在宏名字前添加 ``@`` 符号，例如 ``import Mod.@mac`` 。Macros in other modules can be invoked as ``Mod.@mac``
+or ``@Mod.mac``.
 
 形如 ``M.x = y`` 的语法是错的，不能给另一个模块中的全局变量赋值；全局变量的赋值都是在变量所在的模块中进行的。
 

@@ -58,6 +58,22 @@ Julia 提供了一个丰富的接口处理终端、管道、tcp套接字等等I/
 
 注意这取决于你的终端配置，你的TTY可能是行缓冲、需要多输入一个回车才会把数据传给julia。
 
+To read every line from STDIN you can use the eachline method::
+
+    for line in eachline(STDIN)
+        print("Found $line")
+    end
+
+or if you wanted to read by character instead::
+
+    while !eof(STDIN)
+        x = read(STDIN, Char)
+        println("Found: $x")
+    end
+
+Text I/O
+--------
+
 文本 I/O
 --------
 

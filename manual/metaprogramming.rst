@@ -24,7 +24,7 @@ Julia 代码表示为由 Julia 的 ``Expr`` 类型的数据结构而构成的语
 .. doctest::
 
     julia> ex = :(a+b*c+1)
-    :(+(a,*(b,c),1))
+    :(a + b * c + 1)
 
     julia> typeof(ex)
     Expr
@@ -37,10 +37,10 @@ Julia 代码表示为由 Julia 的 ``Expr`` 类型的数据结构而构成的语
 
     julia> ex.args
     4-element Array{Any,1}:
-      :+       
-      :a       
-      :(*(b,c))
-     1         
+      :+
+      :a
+      :(b * c)
+     1
 
     julia> typeof(ex.args[1])
     Symbol
@@ -66,7 +66,7 @@ Julia 代码表示为由 Julia 的 ``Expr`` 类型的数据结构而构成的语
     quote  # none, line 2:
         x = 1 # line 3:
         y = 2 # line 4:
-        +(x,y)
+        x + y
     end
 
 符号
@@ -112,13 +112,13 @@ Julia 代码表示为由 Julia 的 ``Expr`` 类型的数据结构而构成的语
 .. doctest::
 
     julia> :(1 + 2)
-    :(+(1,2))
+    :(1 + 2)
 
     julia> eval(ans)
     3
 
     julia> ex = :(a + b)
-    :(+(a,b))
+    :(a + b)
 
     julia> eval(ex)
     ERROR: a not defined
@@ -293,14 +293,14 @@ function:
     :(if a == b
             nothing
         else
-            error("assertion failed: a == b")
+            Base.error("assertion failed: a == b")
         end)
 
     julia> macroexpand(:(@assert a==b "a should equal b!"))
     :(if a == b
             nothing
         else
-            error("assertion failed: a should equal b!")
+            Base.error("assertion failed: a should equal b!")
         end)
 
 There is yet another case that the actual ``@assert`` macro handles: what
@@ -315,7 +315,7 @@ Compare:
 .. doctest::
 
     julia> typeof(:("a should equal b"))
-    ASCIIString (constructor with 1 method)
+    ASCIIString (constructor with 2 methods)
 
     julia> typeof(:("a ($a) should equal b ($b)!"))
     Expr

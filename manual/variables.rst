@@ -85,6 +85,7 @@ Julia 甚至允许重新定义内置的常数和函数：
     10.0
     
     julia> sqrt = 4
+	Warning: imported binding for sqrt overwritten in module Main
     4
     
 很显然, 不鼓励这样的做法。

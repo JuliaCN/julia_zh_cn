@@ -216,7 +216,7 @@ Julia 提供了附加函数, 用以测试这些特殊值，它们使用哈希值
     true
     
     julia> isequal(NaN,NaN32)
-    false
+    true
 
 ``isequal`` 也可以用来区分有符号的零：
 

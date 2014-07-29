@@ -505,7 +505,7 @@ Julia 提供了 ``eps`` 函数，可以用来检查 ``1.0`` 和下一个可表�
     -9223372036854775809
     
     julia> typeof(y)
-    BigInt (constructor with 7 methods)
+    BigInt (constructor with 10 methods)
 
 `BigFloat` 运算的默认精度（有效数字的位数）和舍入模型，是可以改的。然后，计算就都按照更改之后的设置来运行了：
 

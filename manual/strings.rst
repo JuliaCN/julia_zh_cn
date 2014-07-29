@@ -158,11 +158,11 @@ Julia 中的索引都是从 1 开始的，最后一个元素的索引与字符�
 
     julia> str[end/3]
     ERROR: InexactError()
-     in getindex at string.jl:58
+     in getindex at string.jl:59
 
     julia> str[end/4]
     ERROR: InexactError()
-     in getindex at string.jl:58
+     in getindex at string.jl:59
 
 索引小于 1 或者大于 ``end`` ，会提示错误：
 
@@ -170,11 +170,9 @@ Julia 中的索引都是从 1 开始的，最后一个元素的索引与字符�
 
     julia> str[0]
     ERROR: BoundsError()
-     in getindex at ascii.jl:11
 
     julia> str[end+1]
     ERROR: BoundsError()
-     in getindex at ascii.jl:11
 
 使用范围索引来提取子字符串：
 
@@ -214,11 +212,13 @@ Julia 完整支持 Unicode 字符和字符串。正如 `上文所讨论的 <#cha
 
     julia> s[2]
     ERROR: invalid UTF-8 character index
-     in getindex at utf8.jl:63
+     in next at ./utf8.jl:68
+     in getindex at string.jl:57
 
     julia> s[3]
     ERROR: invalid UTF-8 character index
-     in getindex at utf8.jl:63
+     in next at ./utf8.jl:68
+     in getindex at string.jl:57
 
     julia> s[4]
     ' '
@@ -467,9 +467,7 @@ which to start the search. For example:
 -  完整匹配的起始偏移值： ``m.offset``
 -  捕获的子字符串的偏移值向量： ``m.offsets``
 
-对于没匹配的捕获， ``m.captures`` 的内容不是子字符串，而是 ``nothing`` ， ``m.offsets`` 为 0 偏移（ Julia 中的索引值都是从 1 开始的，因此 0 偏移值表示无效）：
-
-.. doctest::
+对于没匹配的捕获， ``m.captures`` 的内容不是子字符串，而是 ``nothing`` ， ``m.offsets`` 为 0 偏移（ Julia 中的索引值都是从 1 开始的，因此 0 偏移值表示无效）： ::
 
     julia> m = match(r"(a|b)(c)?(d)", "acd")
     RegexMatch("acd", 1="a", 2="c", 3="d")
@@ -478,7 +476,7 @@ which to start the search. For example:
     "acd"
 
     julia> m.captures
-    3-element Array{Union(Nothing,SubString{UTF8String}),1}:
+    3-element Array{Union(SubString{UTF8String},Nothing),1}:
      "a"
      "c"
      "d"
@@ -499,7 +497,7 @@ which to start the search. For example:
     "ad"
 
     julia> m.captures
-    3-element Array{Union(Nothing,SubString{UTF8String}),1}:
+    3-element Array{Union(SubString{UTF8String},Nothing),1}:
      "a"
      nothing
      "d"
@@ -513,9 +511,7 @@ which to start the search. For example:
      0
      2
 
-可以把结果多元组绑定给本地变量：
-
-.. doctest::
+可以把结果多元组绑定给本地变量： ::
 
     julia> first, second, third = m.captures; first
     "a"

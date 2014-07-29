@@ -177,12 +177,14 @@ replacing a default constructor.
 
     julia> Foo((), 23.5, 1)
     ERROR: InexactError()
+     in Foo at no file
     
 You may find a list of field names using the ``names`` function.
 
 .. doctest::
+
     julia> names(foo)
-    3-element Array{Any,1}:
+    3-element Array{Symbol,1}:
      :bar
      :baz
      :qux
@@ -333,12 +335,10 @@ You may find a list of field names using the ``names`` function.
 类型共用体
 ----------
 
-类型共用体是特殊的抽象类型，使用 ``Union`` 函数来声明：
-
-.. doctest::
+类型共用体是特殊的抽象类型，使用 ``Union`` 函数来声明： ::
 
     julia> IntOrString = Union(Int,String)
-    Union(Int64,String)
+    Union(String,Int64)
 
     julia> 1 :: IntOrString
     1
@@ -490,7 +490,7 @@ and converts them to the field types.
 .. doctest::
 
     julia> Point(1,2.5)
-    ERROR: no method Point{T}(Int64, Float64)
+    ERROR: `Point{T}` has no method matching Point{T}(::Int64, ::Float64)
 
 这种情况其实也可以处理，详见 :ref:`man-constructors` 。
 
@@ -575,10 +575,10 @@ and converts them to the field types.
     Pointy{Real}
 
     julia> Pointy{String}
-    ERROR: type: Pointy: in T, expected Real, got Type{String}
+    ERROR: type: Pointy: in T, expected T<:Real, got Type{String}
 
     julia> Pointy{1}
-    ERROR: type: Pointy: in T, expected Real, got Int64
+    ERROR: type: Pointy: in T, expected T<:Real, got Int64
 
 参数化复合类型的类型参数，也可以同样被限制： ::
 
@@ -767,15 +767,13 @@ Julia 中，类型本身也是对象，可以对其使用普通的函数。如 `
     julia> super(Any)
     Any
 
-对其它类型对象（或非类型对象）使用 ``super`` ，会引发 “no method” 错误：
-
-.. doctest::
+对其它类型对象（或非类型对象）使用 ``super`` ，会引发 “no method” 错误： ::
 
     julia> super(Union(Float64,Int64))
-    ERROR: no method super(Type{Union(Float64,Int64)})
+    ERROR: `super` has no method matching super(::Type{Union(Float64,Int64)})
 
     julia> super(None)
-    ERROR: no method super(Type{None})
+    ERROR: `super` has no method matching super(::Type{None})
 
     julia> super((Float64,Int64))
-    ERROR: no method super(Type{(Float64,Int64)})
+    ERROR: `super` has no method matching super(::Type{(Float64,Int64)})

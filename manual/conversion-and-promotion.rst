@@ -40,8 +40,8 @@ Julia 可以将数学运算符的参数提升为同一个类型，这些参数�
 .. doctest::
 
     julia> convert(FloatingPoint, "foo")
-    ERROR: no method convert(Type{FloatingPoint}, ASCIIString)
-     in convert at base.jl:11
+    ERROR: `convert` has no method matching convert(::Type{FloatingPoint}, ::ASCIIString)
+     in convert at base.jl:13
 
 Julia 不做字符串和数字之间的类型转换。
 
@@ -64,7 +64,7 @@ Julia 不做字符串和数字之间的类型转换。
 
     julia> convert(Bool, 1im)
     ERROR: InexactError()
-     in convert at complex.jl:27
+     in convert at complex.jl:18
 
     julia> convert(Bool, 0im)
     false
@@ -137,7 +137,7 @@ Julia 使用 ``promote`` 函数来做类型提升，其参数个数可以是任�
     (1.5 + 0.0im,0.0 + 1.0im)
 
     julia> promote(1 + 2im, 3//4)
-    (1//1 + 2//1im,3//4 + 0//1im)
+    (1//1 + 2//1*im,3//4 + 0//1*im)
 
 浮点数值提升为最高的浮点数类型。整数值提升为本地机器的原生字长或最高的整数值类型。既有整数也有浮点数时，提升为可以包括所有值的浮点数类型。既有整数也有分数时，提升为分数。既有分数也有浮点数时，提升为浮点数。既有复数也有实数时，提升为适当的复数。
 

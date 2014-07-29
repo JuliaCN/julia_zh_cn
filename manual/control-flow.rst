@@ -271,12 +271,16 @@ except for the last entry in a conditional chain is an error ：
 On the other hand, any type of expression can be used at the end of a conditional chain.  
 It will be evaluated and returned depending on the preceding conditionals:
 
+.. testsetup::
+
+    srand(123)
+
 .. doctest::
 
     julia> true && (x = rand(2,2))
     2x2 Array{Float64,2}:
-      0.104159  0.402732
-      0.377173  0.163156
+     0.768448  0.673959
+     0.940515  0.395453
 
     julia> false && (x = rand(2,2))
     false
@@ -475,7 +479,7 @@ It will be evaluated and returned depending on the preceding conditionals:
     ERROR: DomainError
     sqrt will only return a complex result if called with a complex argument.
     try sqrt(complex(x))
-     in sqrt at math.jl:284
+     in sqrt at math.jl:131
      
 You may define your own exceptions in the following way:
 
@@ -523,10 +527,10 @@ the way ``UndefVarError`` is written:
 
 .. doctest::
 
-    julia> type UndefVarError <: Exception
+    julia> type MyUndefVarError <: Exception
                var::Symbol
            end
-    julia> showerror(io::IO, e::UndefVarError) = print(io, e.var, " not defined")
+    julia> Base.showerror(io::IO, e::MyUndefVarError) = print(io, e.var, " not defined");
 
 ``error`` 函数
 ~~~~~~~~~~~~~~
@@ -567,7 +571,7 @@ the way ``UndefVarError`` is written:
     julia> verbose_fussy_sqrt(-1)
     before fussy_sqrt
     ERROR: negative x not allowed
-     in fussy_sqrt at none:1
+     in verbose_fussy_sqrt at none:3
 
 ``warn`` 和 ``info`` 函数
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -636,9 +640,6 @@ Julia 还提供一些函数，用来向标准错误 I/O 输出一些消息，但
     
     julia> sqrt_second(-9)
     ERROR: DomainError
-    sqrt will only return a complex result if called with a complex argument.
-    try sqrt(complex(x))
-     in sqrt at math.jl:284
      in sqrt_second at none:7
 
 Note that the symbol following ``catch`` will always be interpreted as a
@@ -703,8 +704,7 @@ Julia 提供了 ``produce`` 和 ``consume`` 函数来解决这个问题。生产
 
 .. doctest::
 
-    julia> p = Task(producer)
-    Task
+    julia> p = Task(producer);
 
     julia> consume(p)
     "start"
