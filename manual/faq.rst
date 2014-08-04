@@ -172,10 +172,12 @@ Julia 没有 MATLAB 的 ``clear`` 函数；在 Julia 会话（准确来说， ``
 
 .. _man-domain-error:
 
-Why does Julia give a ``DomainError`` for certain seemingly-sensible operations?
+.. Why does Julia give a ``DomainError`` for certain seemingly-sensible operations?
+为什么看似合理的运算 Julia还是返回 ``DomainError`` ?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Certain operations make mathematical sense but result in errors::
+.. Certain operations make mathematical sense but result in errors::
+有些运算数学上讲得通但是会产生错误::
 
     julia> sqrt(-2.0)
     ERROR: DomainError
@@ -186,19 +188,23 @@ Certain operations make mathematical sense but result in errors::
      in power_by_squaring at intfuncs.jl:70
      in ^ at intfuncs.jl:84
 
-This behavior is an inconvenient consequence of the requirement for
-type-stability.  In the case of ``sqrt``, most users want
-``sqrt(2.0)`` to give a real number, and would be unhappy if it
-produced the complex number ``1.4142135623730951 + 0.0im``.  One could
-write the ``sqrt`` function to switch to a complex-valued output only
-when passed a negative number (which is what ``sqrt`` does in some
-other languages), but then the result would not be `type-stable
-<#man-type-stable>`_ and the ``sqrt`` function would have poor
-performance.
+.. This behavior is an inconvenient consequence of the requirement for
+.. type-stability.  In the case of ``sqrt``, most users want
+.. ``sqrt(2.0)`` to give a real number, and would be unhappy if it
+.. produced the complex number ``1.4142135623730951 + 0.0im``.  One could
+.. write the ``sqrt`` function to switch to a complex-valued output only
+.. when passed a negative number (which is what ``sqrt`` does in some
+.. other languages), but then the result would not be `type-stable
+.. <#man-type-stable>`_ and the ``sqrt`` function would have poor
+.. performance.
 
-In these and other cases, you can get the result you want by choosing
-an *input type* that conveys your willingness to accept an *output type* in
-which the result can be represented::
+这时由类型稳定造成的。对于 ``sqrt``， 大多数用户会用 ``sqrt(2.0)`` 得到一个实数而不是得到一个复数 ``1.4142135623730951 + 0.0im`` 。 也可以把 ``sqrt`` 写成当参数为负的时候返回复数， 但是这将不再是 `类型稳定 <#man-type-stable>`_ 而且 ``sqrt`` 会变的很慢。
+
+.. In these and other cases, you can get the result you want by choosing
+.. an *input type* that conveys your willingness to accept an *output type* in
+.. which the result can be represented::
+
+在这些情况下，你可以选择 *输入类型* 来得到想要的 *输出类型* ::
 
     julia> sqrt(-2.0+0im)
     0.0 + 1.4142135623730951im
