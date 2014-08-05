@@ -107,7 +107,7 @@ Julia 代码表示为由 Julia 的 ``Expr`` 类型的数据结构而构成的语
 求值和内插
 ~~~~~~~~~~
 
-指定一个表达式，Julia 可以使用 ``eval`` 函数在 *顶层* 作用域对其求值。这有点儿像在交互式会话中载入文件或输入命令：
+指定一个表达式，Julia 可以使用 ``eval`` 函数在 global 作用域对其求值。
 
 .. doctest::
 
@@ -128,7 +128,11 @@ Julia 代码表示为由 Julia 的 ``Expr`` 类型的数据结构而构成的语
     julia> eval(ex)
     3
 
-传递给 ``eval`` 的表达式可以不仅返回值，也可以带有改变顶层求值环境状态的副作用：
+Every :ref:`module <man-modules>` has its own ``eval`` function that
+evaluates expressions in its global scope.
+Expressions passed to ``eval`` are not limited to returning values
+— they can also have side-effects that alter the state of the enclosing
+module's environment:
 
 .. doctest::
 
