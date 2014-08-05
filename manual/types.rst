@@ -485,7 +485,7 @@ and converts them to the field types.
     julia> typeof(ans)
     Point{Int64} (constructor with 1 method)
 
-上例中， ``Point`` 的两个参数类型相同，因此可以 ``T`` 可以省略。但当参数类型不同时，会报错：
+上例中， ``Point`` 的两个参数类型相同，因此 ``T`` 可以省略。但当参数类型不同时，会报错：
 
 .. doctest::
 
