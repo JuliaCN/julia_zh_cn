@@ -163,13 +163,11 @@ not a declaration.
     julia> typeof(foo)
     Foo (constructor with 2 methods)
 
-When a type is applied like a function it is called a *constructor*.
-Two constructors are generated automatically (these are called *default
-constructors*). One accepts any arguments and calls ``convert`` to convert
-them to the types of the fields, and the other accepts arguments that
-match the field types exactly. The reason both of these are generated is
-that this makes it easier to add new definitions without inadvertently
-replacing a default constructor.
+当一个类型像函数一样被调用时，它可以被叫做类型构造函数（*constructor*)。
+每个类型有两种构造函数是自动被生成的（它们被叫做*默认构造函数*)。
+第一种是当传给构造函数的参数和这个类型的字段类型不一一匹配时，构造函数会把它的参数传给 ``convert`` 函数，并且转换到这个类型相应的字段类型。
+第二种是当传给构造函数的每个参数和这个类型的字段类型都一一相同时，构造函数直接生成类型。
+要自动生成两种默认构造函数的原因是：为了防止用户在声明别的新变量的时候不小心把构造函数给覆盖掉。
 
 由于没有约束 ``bar`` 的类型，它可以被赋任意值；但是 ``baz`` 必须能被转换为 ``Int`` ：
 
@@ -179,7 +177,7 @@ replacing a default constructor.
     ERROR: InexactError()
      in Foo at no file
     
-You may find a list of field names using the ``names`` function.
+你可以用 ``names`` 这个函数来获取类型的所有字段。
 
 .. doctest::
 
@@ -465,9 +463,7 @@ Julia 的类型系统支持参数化：类型可以引入参数，这样类型�
     julia> Point{Float64}(1.0,2.0,3.0)
     ERROR: no method Point{Float64}(Float64, Float64, Float64)
 	
-Only one default constructor is generated for parametric types, since
-overriding it is not possible. This constructor accepts any arguments
-and converts them to the field types.
+对于带有类型参数的类型，因为重载构造函数是不可能的，所以只有一种默认构造函数被自动生成——这个构造函数接受任何参数并且把们转换成对应的字段类型并赋值
 
 大多数情况下不需要提供 ``Point`` 对象的类型，它可由参数类型来提供信息。因此，可以不提供 ``T`` 的值：
 
