@@ -40,7 +40,7 @@
 .. Alternatively, look at the ``embedding.c`` program in the julia source tree in the ``examples/`` folder.
 或者可以看看 Julia 源码里 ``example/`` 下的 ``embedding.c``。
 
-.. The first thing that has do be done before calling any other Julia C function is to initialize Julia. This is done by .. calling ``jl_init``, which takes as argument a C string (``const char*``) to the location where Julia is installed. 
+.. The first thing that has to be done before calling any other Julia C function is to initialize Julia. This is done by .. calling ``jl_init``, which takes as argument a C string (``const char*``) to the location where Julia is installed. 
 .. When the argument is ``NULL``, Julia tries to determine the install location automatically.
 
 调用Julia函数之前要先初始化Julia， 可以用 ``jl_init`` 完成，这个函数的参数是Julia安装路径，类型是 ``const char*`` 。如果没有任何参数，Julia会自动寻找Julia的安装路径。 

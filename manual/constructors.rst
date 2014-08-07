@@ -298,7 +298,7 @@
 
 下面是 `rational.jl <https://github.com/JuliaLang/julia/blob/master/base/rational.jl>`_ 文件的开头部分，它实现了 Julia 的 :ref:`man-rational-numbers` ： ::
 
-    type Rational{T<:Integer} <: Real
+    immutable Rational{T<:Integer} <: Real
         num::T
         den::T
 
