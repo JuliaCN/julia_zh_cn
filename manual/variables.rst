@@ -63,6 +63,12 @@ Julia 提供了极其灵活的变量命名系统。变量名区分大小写。
     julia> 안녕하세요 = "Hello" 
     "Hello"
 
+In the Julia REPL and several other Julia editing environments, you
+can type many Unicode math symbols by typing the backslashed LaTeX symbol
+name followed by tab.  For example, the variable name ``δ`` can be
+entered by typing ``\delta``-*tab*, or even ``α̂₂`` by
+``\alpha``-*tab*-``\hat``-*tab*-``\_2``-*tab*.
+
 .. raw:: latex
 
     \end{CJK*}
@@ -93,9 +99,24 @@ Julia 甚至允许重新定义内置的常数和函数：
 可用的变量名
 ============
 
-变量名的第一个字符必须是字母 (A-Z 或 a-z) ，下划线，或者码位大于 00A0 的 Unicode 字符。后续的字符则可以增加 ! 和数字 (0-9) 。
+Variable names must begin with a letter (A-Z or a-z), underscore, or a
+subset of Unicode code points greater than 00A0; in particular, `Unicode character categories`_ Lu/Ll/Lt/Lm/Lo/Nl (letters), Sc/So (currency and
+other symbols), and a few other letter-like characters (e.g. a subset
+of the Sm math symbols) are allowed. Subsequent characters may also
+include ! and digits (0-9 and other characters in categories Nd/No),
+as well as other Unicode code points: diacritics and other modifying
+marks (categories Mn/Mc/Me/Sk), some punctuation connectors (category
+Pc), primes, and a few other characters.
 
-运算符都是有效的标识符，但被特殊的解析。某些情况下，运算符可以像变量一样使；例如 ``(+)`` 是加法函数，但是可用 ``(+) = f`` 来重定义。
+.. _Unicode character categories: http://www.fileformat.info/info/unicode/category/index.htm
+
+Operators like ``+`` are also valid identifiers, but are parsed specially. In
+some contexts, operators can be used just like variables; for example
+``(+)`` refers to the addition function, and ``(+) = f`` will reassign
+it.  Most of the Unicode infix operators (in category Sm),
+such as ``⊕``, are parsed as infix operators and are available for
+user-defined methods (e.g. you can use ``const ⊗ = kron`` to define
+``⊗`` as an infix Kronecker product).
 
 内置的关键字不能当变量名：
 
