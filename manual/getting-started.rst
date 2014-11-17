@@ -1,8 +1,8 @@
 .. _man-getting-started:
 
-************
- 打这儿开始
-************
+****
+开始
+****
 
 Julia 的安装，不管是使用编译好的程序，还是自己从源代码编译，都很简单。按照 `这儿 <http://julialang.org/downloads/>`_ 的说明下载并安装即可。
 
@@ -45,10 +45,10 @@ Julia 的安装，不管是使用编译好的程序，还是自己从源代码�
     foo
     bar
 
-Julia 可以用 ``-p`` 或 ``--machinefile`` 选项来开启并行模式。 ``-p n`` 会发起额外的 ``n`` 个工作进程，而 ``--machinefile file`` 会为文件 ``file`` 的每一行发起一个工作进程。 ``file`` 定义的机器，必须要能经由无密码的 ``ssh`` 访问，且每个机器上的 Julia 安装的位置应完全相同，每个机器的定义为 ``[user@]host[:port] [bind_addr]`` 。 ``user`` defaults to current user, 
-``port`` to the standard ssh port. Optionally, in case of multi-homed hosts, 
+Julia 可以用 ``-p`` 或 ``--machinefile`` 选项来开启并行模式。 ``-p n`` 会发起额外的 ``n`` 个工作进程，而 ``--machinefile file`` 会为文件 ``file`` 的每一行发起一个工作进程。 ``file`` 定义的机器，必须要能经由无密码的 ``ssh`` 访问，且每个机器上的 Julia 安装的位置应完全相同，每个机器的定义为 ``[user@]host[:port] [bind_addr]`` 。 ``user`` defaults to current user,
+``port`` to the standard ssh port. Optionally, in case of multi-homed hosts,
 ``bind_addr`` may be used to explicitly specify an interface.
-	
+
 如果你想让 Julia 在启动时运行一些代码，可以将代码放入 ``~\.juliarc.jl`` ：
 
 .. raw:: latex
@@ -60,7 +60,7 @@ Julia 可以用 ``-p`` 或 ``--machinefile`` 选项来开启并行模式。 ``-p
     $ echo 'println("Greetings! 你好! 안녕하세요?")' > ~/.juliarc.jl
     $ julia
     Greetings! 你好! 안녕하세요?
-    
+
     ...
 
 .. raw:: latex
