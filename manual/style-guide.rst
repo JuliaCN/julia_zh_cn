@@ -142,11 +142,22 @@ In this case ``cell(n)`` is better. It is also more helpful to the compiler
 to annotate specific uses (e.g. ``a[i]::Int``) than to try to pack many
 alternatives into one type.
 
-函数名不使用下划线
-------------------
+使用和 Julia ``base/`` 相同的命名传统
+-------------------------------------
 
-If a function name requires multiple words, it might represent more than one
-concept. It is better to keep identifier names concise.
+- 模块和类型名称以大写开头, 并且使用驼峰形式: ``module SparseMatrix``,
+  ``immutable UnitRange``.
+- 函数名称使用小写 (``maximum``, ``convert``). 在容易读懂的情况下把几
+  个单词连在一起写 (``isequal``, ``haskey``). 在必要的情况下, 使用下划
+  线作为单词的分隔符. 下划线也可以用来表示多个概念的组合
+  (``remotecall_fetch`` 相比 ``remotecall(fetch(...))`` 是一种更有效的
+  实现), 或者是为了区分 (``sum_kbn``). 简洁是提倡的, 但是要避免缩写
+  (``indexin`` 而不是 ``indxin``) 因为很难记住某些单词是否缩写或者怎么
+  缩写的.
+
+如果一个函数需要多个单词来描述, 想一下这个函数是否包含了多个概念, 这样
+的情况下最好分拆成多个部分.
+
 
 不要滥用 try-catch
 ------------------
