@@ -91,10 +91,10 @@ within the body.
 
 继续 Julia 的 ``Rational`` 类型的案例研究， `rational.jl <https://github.com/JuliaLang/julia/blob/master/base/rational.jl>`_ 中类型转换的声明紧跟在类型声明和构造函数之后： ::
 
-    convert{T<:Int}(::Type{Rational{T}}, x::Rational) = Rational(convert(T,x.num),convert(T,x.den))
-    convert{T<:Int}(::Type{Rational{T}}, x::Int) = Rational(convert(T,x), convert(T,1))
+    convert{T<:Integer}(::Type{Rational{T}}, x::Rational) = Rational(convert(T,x.num),convert(T,x.den))
+    convert{T<:Integer}(::Type{Rational{T}}, x::Integer) = Rational(convert(T,x), convert(T,1))
 
-    function convert{T<:Int}(::Type{Rational{T}}, x::FloatingPoint, tol::Real)
+    function convert{T<:Integer}(::Type{Rational{T}}, x::FloatingPoint, tol::Real)
         if isnan(x); return zero(T)//zero(T); end
         if isinf(x); return sign(x)//zero(T); end
         y = x
@@ -109,10 +109,10 @@ within the body.
             y = 1/y
         end
     end
-    convert{T<:Int}(rt::Type{Rational{T}}, x::FloatingPoint) = convert(rt,x,eps(x))
+    convert{T<:Integer}(rt::Type{Rational{T}}, x::FloatingPoint) = convert(rt,x,eps(x))
 
     convert{T<:FloatingPoint}(::Type{T}, x::Rational) = convert(T,x.num)/convert(T,x.den)
-    convert{T<:Int}(::Type{T}, x::Rational) = div(convert(T,x.num),convert(T,x.den))
+    convert{T<:Integer}(::Type{T}, x::Rational) = div(convert(T,x.num),convert(T,x.den))
 
 
 前四个定义可确保 ``a//b == convert(Rational{Int64}, a/b)`` 。后两个把分数转换为浮点数和整数类型。
@@ -199,7 +199,7 @@ Julia 使用 ``promote`` 函数来做类型提升，其参数个数可以是任�
 
 我们结束 Julia 分数类型的案例： ::
 
-    promote_rule{T<:Int}(::Type{Rational{T}}, ::Type{T}) = Rational{T}
-    promote_rule{T<:Int,S<:Int}(::Type{Rational{T}}, ::Type{S}) = Rational{promote_type(T,S)}
-    promote_rule{T<:Int,S<:Int}(::Type{Rational{T}}, ::Type{Rational{S}}) = Rational{promote_type(T,S)}
-    promote_rule{T<:Int,S<:FloatingPoint}(::Type{Rational{T}}, ::Type{S}) = promote_type(T,S)
+    promote_rule{T<:Integer}(::Type{Rational{T}}, ::Type{T}) = Rational{T}
+    promote_rule{T<:Integer,S<:Integer}(::Type{Rational{T}}, ::Type{S}) = Rational{promote_type(T,S)}
+    promote_rule{T<:Integer,S<:Integer}(::Type{Rational{T}}, ::Type{Rational{S}}) = Rational{promote_type(T,S)}
+    promote_rule{T<:Integer,S<:FloatingPoint}(::Type{Rational{T}}, ::Type{S}) = promote_type(T,S)
