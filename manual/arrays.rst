@@ -150,7 +150,7 @@
 连接
 ----
 
-使用下列函数，可在任意维度连接数组： 
+使用下列函数，可在任意维度连接数组：
 
 ================ ======================================================
 Function         Description
@@ -175,6 +175,7 @@ Expression          Calls
 ``hvcat`` concatenates in both dimension 1 (with semicolons) and dimension 2
 (with spaces).
 
+.. _comprehensions:
 
 Comprehensions
 --------------
@@ -186,7 +187,7 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
 ``F(x,y,...)`` 根据变量 ``x``, ``y`` 等来求值。这些变量的值可以是任何迭代对象，但大多数情况下，都使用类似于 ``1:n`` 或 ``2:(n-1)`` 的范围对象，或显式指明为类似 ``[1.2, 3.4, 5.7]`` 的数组。它的结果是 N 维稠密数组。
 
 .. Comprehensions provide a general and powerful way to construct arrays.
-.. Comprehension syntax is similar to set construction notation in 
+.. Comprehension syntax is similar to set construction notation in
 .. mathematics
 
 ..     A = [ F(x,y,...) for x=rx, y=ry, ... ]
@@ -219,7 +220,7 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
      0.699456
      0.977653
      0.994953
-     0.41084 
+     0.41084
      0.809411
 
     julia> [ 0.25*x[i-1] + 0.5*x[i] + 0.25*x[i+1] for i=2:length(x)-1 ]
@@ -228,7 +229,7 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
      0.57468
      0.685417
      0.912429
-     0.8446  
+     0.8446
      0.656511
 
 .. note:: 上例中， ``x`` 被声明为常量，因为对于非常量的全局变量，Julia 的类型推断不怎么样。
@@ -319,7 +320,7 @@ Comprehensions 用于构造数组。它的语法类似于数学中的集合标�
      7  11
 
 Empty ranges of the form ``n:n-1`` are sometimes used to indicate the inter-index
-location between ``n-1`` and ``n``.  For example, the ``searchsorted`` function uses 
+location between ``n-1`` and ``n``.  For example, the ``searchsorted`` function uses
 this convention to indicate the insertion point of a value not found in a sorted
 array:
 
@@ -329,7 +330,7 @@ array:
 
     julia> searchsorted(a, 3)
     3:2
-    
+
 .. Indexing syntax is equivalent to a call to ``getindex``
 
 ..     X = getindex(A, I_1, I_2, ..., I_n)
@@ -404,7 +405,7 @@ array:
 ..       setindex!(A, X, I_1, I_2, ..., I_n)
 
 .. Example:
- 
+
 
 向量化的运算符和函数
 --------------------
@@ -453,8 +454,8 @@ boolean answer. Use dot operators for elementwise comparisons.
 .. Note that there is a difference between ``min`` and ``max``, which operate
 .. elementwise over multiple array arguments, and ``minimum`` and ``maximum``, which
 .. find the smallest and largest values within an array.
-   
-    
+
+
 Julia 提供了 ``@vectorize_1arg`` 和 ``@vectorize_2arg`` 两个宏，分别用来向量化任意的单参数或两个参数的函数。每个宏都接收两个参数，即函数参数的类型和函数名。例如：
 
 .. doctest::
@@ -607,9 +608,9 @@ Julia 中，稀疏矩阵使用 `列压缩（CSC）格式 <http://en.wikipedia.or
 
 如果你从其他地方获得的数据是 CSC 格式储存的，想用 Julia 来读取，应确保它的序号从 1 开始索引。每一列中的行索引值应该是排好序的。如果你的 `SparseMatrixCSC` 对象包含未排序的行索引值，对它们进行排序的最快的方法是转置两次。
 
-.. If you have data in CSC format from a different application or library, 
+.. If you have data in CSC format from a different application or library,
 .. and wish to import it in Julia, make sure that you use 1-based indexing.
-.. The row indices in every column need to be sorted. If your `SparseMatrixCSC` 
+.. The row indices in every column need to be sorted. If your `SparseMatrixCSC`
 .. object contains unsorted row indices, one quick way to sort them is by
 .. doing a double transpose.
 

@@ -116,16 +116,16 @@ Multiple variables can be declared global using the following syntax::
     function foo()
         global x=1, y="bar", z=3
     end
-    
+
     julia> foo()
     3
-    
+
     julia> x
     1
-    
+
     julia> y
     "bar"
-    
+
     julia> z
     3
 
@@ -194,7 +194,7 @@ Multiple variables can be declared global using the following syntax::
 For 循环及 Comprehensions
 ----------------------------
 
-For 循环及 Comprehensions 有特殊的行为：在其中声明的新变量，都会在每次循环中重新声明。因此，它有点儿类似于带有内部 ``let`` 块的 ``while`` 循环： ::
+For 循环及 :ref:`Comprehensions <comprehensions>` 有特殊的行为：在其中声明的新变量，都会在每次循环中重新声明。因此，它有点儿类似于带有内部 ``let`` 块的 ``while`` 循环： ::
 
     Fs = cell(2)
     for i = 1:2
