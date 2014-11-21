@@ -1,5 +1,7 @@
 .. _man-metaprogramming:
 
+.. currentmodule:: Base
+
 ********
  元编程
 ********
@@ -219,7 +221,7 @@ Julia 使用表达式内插和求值来生成重复的代码。下例定义了�
 宏
 --
 
-宏有点儿像编译时的表达式生成函数。 Just as functions map a tuple of argument values to a 
+宏有点儿像编译时的表达式生成函数。 Just as functions map a tuple of argument values to a
 return value, macros map a tuple of argument *expressions* to a returned
 *expression*. They allow the programmer to arbitrarily transform the
 written code to a resulting expression, which then takes the place of
@@ -265,9 +267,9 @@ the test condition slot, while the value of ``string(:(1==1.0))`` is
 spliced into the assertion message slot. The entire expression, thus
 constructed, is placed into the syntax tree where the ``@assert`` macro
 call occurs. Then at execution time, if the test expression evaluates to
-true, then ``nothing`` is returned, whereas if the test is false, an error 
-is raised indicating the asserted expression that was false. Notice that 
-it would not be possible to write this as a function, since only the 
+true, then ``nothing`` is returned, whereas if the test is false, an error
+is raised indicating the asserted expression that was false. Notice that
+it would not be possible to write this as a function, since only the
 *value* of the condition is available and it would be impossible to
 display the expression that computed it in the error message.
 
@@ -310,9 +312,9 @@ function:
 There is yet another case that the actual ``@assert`` macro handles: what
 if, in addition to printing "a should equal b," we wanted to print their
 values? One might naively try to use string interpolation in the custom
-message, e.g., ``@assert a==b "a ($a) should equal b ($b)!"``, but this 
+message, e.g., ``@assert a==b "a ($a) should equal b ($b)!"``, but this
 won't work as expected with the above macro. Can you see why? Recall
-from :ref:`string interpolation <man-string-interpolation>` that an 
+from :ref:`string interpolation <man-string-interpolation>` that an
 interpolated string is rewritten to a call to the ``string`` function.
 Compare:
 
@@ -420,7 +422,7 @@ Julia 宏展开机制是这样解决命名冲突的。首先，宏结果的变�
 :ref:`字符串 <man-non-standard-string-literals>` 中曾讨论过带标识符前缀的字符串文本被称为非标准字符串文本，它们有特殊的语义。例如：
 
 -  ``r"^\s*(?:#|$)"`` 生成正则表达式对象而不是字符串
--  ``b"DATA\xff\u2200"`` 是字节数组文本 ``[68,65,84,65,255,226,136,128]`` 
+-  ``b"DATA\xff\u2200"`` 是字节数组文本 ``[68,65,84,65,255,226,136,128]``
 
 事实上，这些行为不是 Julia 解释器或编码器内置的，它们调用的是特殊名字的宏。例如，正则表达式宏的定义如下： ::
 
@@ -490,7 +492,7 @@ each field in a ``Point`` is stored in the ``types`` field of the Point object::
 **Subtypes** The *direct* subtypes of any DataType may be listed using
 ``subtypes(t::DataType)``. For example, the abstract DataType ``FloatingPoint``
 has four (concrete) subtypes::
-	
+
 	julia> subtypes(FloatingPoint)
 	4-element Array{Any,1}:
 	 BigFloat
@@ -508,7 +510,7 @@ stored with C-compatible aligment. The offsets of each field may be listed
 using ``fieldoffsets(T::DataType)``.
 
 **Function methods** The methods of any function may be listed using
-``methods(f::Function)``. 
+``methods(f::Function)``.
 
 **Function representations** Functions may be introspected at several levels
 of representation. The lowered form of a function is available
