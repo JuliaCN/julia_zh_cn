@@ -329,7 +329,7 @@ with
         end
         y
     end
-    
+
 Timing results::
 
     julia> @time loopinc()
@@ -385,7 +385,7 @@ versus::
 -  避免不必要的数组。例如，不要使用 ``sum([x,y,z])`` ，而应使用 ``x+y+z``
 -  对于较小的整数幂，使用 ``*`` 更好。如 ``x*x*x`` 比 ``x^3`` 好
 -  针对复数 ``z`` ，使用 ``abs2(z)`` 代替 ``abs(z)^2`` 。一般情况下，对于复数参数，尽量用 ``abs2`` 代替 ``abs``
--  对于整数除法，使用 ``div(x,y)`` 和 ``fld(x,y)`` 代替 ``trunc(x/y)`` 和 ``floor(x/y)``
+-  对于整数除法，使用 ``div(x,y)`` 而不是 ``trunc(x/y)``, 使用 ``fld(x,y)`` 而不是 ``floor(x/y)``, 使用 ``cld(x,y)`` 而不是 ``ceil(x/y)``.
 
 
 Performance Annotations
@@ -398,8 +398,8 @@ properties.
    Be certain before doing this. If the subscripts are ever out of bounds,
    you may suffer crashes or silent corruption.
 -  Write ``@simd`` in front of ``for`` loops that are amenable to vectorization.
-   **This feature is experimental** and could change or disappear in future 
-   versions of Julia.  
+   **This feature is experimental** and could change or disappear in future
+   versions of Julia.
 
 Here is an example with both forms of markup::
 
@@ -418,7 +418,7 @@ Here is an example with both forms of markup::
         end
         s
     end
- 
+
     function timeit( n, reps )
         x = rand(Float32,n)
         y = rand(Float32,n)
@@ -451,16 +451,16 @@ properties of the loop:
    possibly causing different results than without ``@simd``.
 -  No iteration ever waits on another iteration to make forward progress.
 
-Using ``@simd`` merely gives the compiler license to vectorize. Whether 
-it actually does so depends on the compiler. To actually benefit from the 
-current implementation, your loop should have the following additional 
+Using ``@simd`` merely gives the compiler license to vectorize. Whether
+it actually does so depends on the compiler. To actually benefit from the
+current implementation, your loop should have the following additional
 properties:
 
 -  The loop must be an innermost loop.
 -  The loop body must be straight-line code. This is why ``@inbounds`` is currently needed for all array accesses.
 -  Accesses must have a stride pattern and cannot be "gathers" (random-index reads) or "scatters" (random-index writes).
 - The stride should be unit stride.
-- In some simple cases, for example with 2-3 arrays accessed in a loop, the LLVM auto-vectorization may kick in automatically, leading to no further speedup with ``@simd``. 
+- In some simple cases, for example with 2-3 arrays accessed in a loop, the LLVM auto-vectorization may kick in automatically, leading to no further speedup with ``@simd``.
 
 工具
 ----
@@ -480,4 +480,3 @@ Julia includes some tools that may help you improve the performance of your code
   type problems.  Look particularly for variables that, contrary to
   your intentions, are inferred to be ``Union`` types.  Such problems
   can usually be fixed using the tips above.
-  
