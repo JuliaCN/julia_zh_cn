@@ -51,15 +51,15 @@
   julia> Date(Dates.Month(7),Dates.Year(2013))
   2013-07-01
 
-  ``Date`` 和 ``DateTime`` 解析是通过格式化的字符串实现的. 格式化的字符串是指 *分隔* 的或者 *固定宽度* 的 "字符段" 来表示一段时间, 然后传递给 ``Date`` 或者 ``DateTime`` 的构造函数.
+``Date`` 和 ``DateTime`` 解析是通过格式化的字符串实现的. 格式化的字符串是指 *分隔* 的或者 *固定宽度* 的 "字符段" 来表示一段时间, 然后传递给 ``Date`` 或者 ``DateTime`` 的构造函数.
 
-  使用分隔的字符段方法, 需要显示指明分隔符, 所以 ``"y-m-d"`` 告诉解析器第一个和第二个字符段中间有一个 ``-``, 例如 ``"2014-07-16"``, ``y``, ``m`` 和 ``d`` 字符告诉解析器每个字符段的含义.
+使用分隔的字符段方法, 需要显示指明分隔符, 所以 ``"y-m-d"`` 告诉解析器第一个和第二个字符段中间有一个 ``-``, 例如 ``"2014-07-16"``, ``y``, ``m`` 和 ``d`` 字符告诉解析器每个字符段的含义.
 
-  固定宽度字符段是使用固定宽度的字符串来表示时间. 所以 ``"yyyymmdd"`` 相对应的时间字符串为 ``"20140716"``.
+固定宽度字符段是使用固定宽度的字符串来表示时间. 所以 ``"yyyymmdd"`` 相对应的时间字符串为 ``"20140716"``.
 
-  同时字符表示的月份也可以被解析, 通过使用 ``u`` 和 ``U``, 分别是月份的简称和全称. 默认支持英文的月份名称, 所以 ``u`` 对应于 ``Jan``, ``Feb``, ``Mar`` 等等, ``U`` 对应于 ``January``, ``February``, ``March`` 等等. 然而, 同 ``dayname`` 和 ``monthname`` 一样, 本地化的输出也可以实现, 通过向 ``Dates.MONTHTOVALUEABBR`` 和 ``Dates.MONTHTOVALUE`` 字典添加 ``locale=>Dict{UTF8String, Int}`` 类型的映射.
+同时字符表示的月份也可以被解析, 通过使用 ``u`` 和 ``U``, 分别是月份的简称和全称. 默认支持英文的月份名称, 所以 ``u`` 对应于 ``Jan``, ``Feb``, ``Mar`` 等等, ``U`` 对应于 ``January``, ``February``, ``March`` 等等. 然而, 同 ``dayname`` 和 ``monthname`` 一样, 本地化的输出也可以实现, 通过向 ``Dates.MONTHTOVALUEABBR`` 和 ``Dates.MONTHTOVALUE`` 字典添加 ``locale=>Dict{UTF8String, Int}`` 类型的映射.
 
-  <https://github.com/quinnj/Dates.jl/blob/master/test/io.jl>`_ 有一整套的解析和格式化的例子.
+更多的解析和格式化的例子可以参考 ``tests/dates``.
 
 时间间隔/比较
 ----------
@@ -357,6 +357,5 @@
   julia> div(y3,3) # 类似于整数除法
   3 years
 
-Function API reference for the Dates module is available `here <http://docs.julialang.org/en/latest/stdlib/dates/>`_.
 
-``Dates`` 模块的函数 API 文档在 `这里 <http://docs.julialang.org/en/latest/stdlib/dates/>`_.
+另请参考 :mod:`Dates` 模块的 API 索引.
