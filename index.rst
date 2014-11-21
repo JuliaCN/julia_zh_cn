@@ -36,6 +36,7 @@
    manual/linear-algebra
    manual/networking-and-streams
    manual/parallel-computing
+   manual/dates
    manual/running-external-programs
    manual/calling-c-and-fortran-code
    manual/interacting-with-julia
@@ -65,6 +66,7 @@
    stdlib/pkg
    stdlib/collections
    stdlib/graphics
+   stdlib/dates
    stdlib/test
    stdlib/profile
 
@@ -87,8 +89,7 @@
 
 .. toctree::
    :maxdepth: 1
-   
+
    note/macroes
    note/uses
    note/optimize
-
