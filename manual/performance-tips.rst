@@ -26,13 +26,86 @@ Writing functions is better style. It leads to more reusable code and
 clarifies what steps are being done, and what their inputs and outputs
 are.
 
+使用 ``@time`` 来衡量性能并且留心内存分配
+-------------------------------------
+
+衡量计算性能最有用的工具是 ``@time`` 宏. 下面的例子展示了良好的使用方式 ::
+
+  julia> function f(n)
+             s = 0
+             for i = 1:n
+                 s += i/2
+             end
+             s
+          end
+  f (generic function with 1 method)
+
+  julia> @time f(1)
+  elapsed time: 0.008217942 seconds (93784 bytes allocated)
+  0.5
+
+  julia> @time f(10^6)
+  elapsed time: 0.063418472 seconds (32002136 bytes allocated)
+  2.5000025e11
+
+在第一次调用时 (``@time f(1)``), ``f`` 会被编译. (如果你在这次会话中还
+没有使用过 ``@time``, 计时函数也会被编译.) 这时的结果没有那么重要. 在
+第二次调用时, 函数打印了执行所耗费的时间, 同时请注意, 在这次执行过程中
+分配了一大块的内存. 相对于函数形式的 ``tic`` 和 ``toc``, 这是
+``@time`` 宏的一大优势.
+
+出乎意料的大块内存分配往往意味着程序的某个部分存在问题, 通常是关于类型
+稳定性. 因此, 除了关注内存分配本身的问题, 很可能 Julia 为你的函数生成
+的代码存在很大的性能问题. 这时候要认真对待这些问题并遵循下面的一些个建
+议.
+
+另外, 作为一个引子, 上面的问题可以优化为无内存分配 (除了向 REPL 返回结
+果), 计算速度提升 30 倍 ::
+
+  julia> @time f_improved(10^6)
+  elapsed time: 0.00253829 seconds (112 bytes allocated)
+  2.5000025e11
+
+你可以从下面的章节学到如何识别 ``f`` 存在的问题并解决.
+
+在有些情况下, 你的函数可能需要为本身的操作分配内存, 这样会使得问题变得
+复杂. 在这种情况下, 可以考虑使用下面的 :ref:`工具
+<man-performance-tools>` 之一来甄别问题, 或者将函数拆分, 一部分处理内存分
+配, 另一部分处理算法 (参见 :ref:`预分配内存 <man-preallocation>`).
+
+.. _man-performance-tools:
+
+工具
+---
+
+Julia 提供了一些工具包来鉴别性能问题所在 :
+
+- :ref:`stdlib-profiling` 可以用来衡量代码的性能, 同时鉴别出瓶颈所在.
+  对于复杂的项目, 可以使用 `ProfileView
+  <https://github.com/timholy/ProfileView.jl>` 扩展包来直观的展示分析
+  结果.
+
+- 出乎意料的大块内存分配, -- ``@time``, ``@allocated``, 或者
+  -profiler - 意味着你的代码可能存在问题. 如果你看不出内存分配的问题,
+  -那么类型系统可能存在问题. 也可以使用 ``--track-allocation=user`` 来
+  -启动 Julia, 然后查看 ``*.mem`` 文件来找出内存分配是在哪里出现的.
+
+- `TypeCheck <https://github.com/astrieanna/TypeCheck.jl`_ 可以帮助找
+  出部分类型系统相关的问题. 另一个更费力但是更全面的工具是
+  ``code_typed``. 特别留意类型为 ``Any`` 的变量, 或者 ``Union`` 类型.
+  这些问题可以使用下面的建议解决.
+
+- `Lint <https://github.com/tonyhffong/Lint.jl>`_ 扩展包可以指出程序一
+  些问题.
+
+
 Avoid containers with abstract type parameters
 ----------------------------------------------
 
 When working with parameterized types, including arrays, it is best to
 avoid parameterizing with abstract types where possible.
 
-Consider the following::
+Consider the following ::
 
     a = Real[]    # typeof(a) = Array{Real,1}
     if (f = rand()) < .8
@@ -284,6 +357,8 @@ of the ``Matrix`` and fills it one column at a time. Additionally,
 our rule of thumb that the first element to appear in a slice expression
 should be coupled with the inner-most loop.
 
+.. _man-preallocation:
+
 Pre-allocating outputs
 ----------------------
 
@@ -461,22 +536,3 @@ properties:
 -  Accesses must have a stride pattern and cannot be "gathers" (random-index reads) or "scatters" (random-index writes).
 - The stride should be unit stride.
 - In some simple cases, for example with 2-3 arrays accessed in a loop, the LLVM auto-vectorization may kick in automatically, leading to no further speedup with ``@simd``.
-
-工具
-----
-
-Julia includes some tools that may help you improve the performance of your code:
-
-- :ref:`stdlib-profiling` allows you to measure the performance of
-  your running code and identify lines that serve as bottlenecks.
-
-- Unexpectedly-large memory allocations---as reported by ``@time``,
-  ``@allocated``, or the profiler (through calls to the
-  garbage-collection routines)---hint that there might be issues with
-  your code.  If you don't see another reason for the allocations,
-  suspect a type problem.
-
-- Using ``code_typed()`` on your function can help identify sources of
-  type problems.  Look particularly for variables that, contrary to
-  your intentions, are inferred to be ``Union`` types.  Such problems
-  can usually be fixed using the tips above.
