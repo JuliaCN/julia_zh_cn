@@ -22,7 +22,7 @@ Julia 使用倒引号 ````` 来运行外部程序：
     julia> run(`echo hello`)
     hello
 
-``hello`` 是 ``echo`` 命令的输出，它被送到标准输出。 ``run`` 方法本身返回 ``nothing`` 。如果外部命令没有正确运行，将抛出 ``ErrorException`` 异常。 
+``hello`` 是 ``echo`` 命令的输出，它被送到标准输出。 ``run`` 方法本身返回 ``nothing`` 。如果外部命令没有正确运行，将抛出 ``ErrorException`` 异常。
 
 使用 ``readall`` 读取命令的输出： ::
 
@@ -80,7 +80,7 @@ command.  For example::
 
     julia> files = ["/etc/passwd","/Volumes/External HD/data.csv"]
     2-element ASCIIString Array:
-     "/etc/passwd"                  
+     "/etc/passwd"
      "/Volumes/External HD/data.csv"
 
 
@@ -182,7 +182,12 @@ Shell 元字符，如 ``|``, ``&``, 及 ``>`` 在 Julia 倒引号语法中并是
     213
     214
 
-它打印 UNIX 系统五个最高级用户的 ID 。 ``cut``, ``sort`` 和 ``tail`` 命令都作为当前 ``julia`` 进程的直接子进程运行，shell 进程没有介入。Julia 自己来设置管道，连接文件描述符。
+它打印 UNIX 系统五个最高级用户的 ID 。 ``cut``, ``sort`` 和 ``tail``
+命令都作为当前 ``julia`` 进程的直接子进程运行，shell 进程没有介入。
+Julia 自己来设置管道并连接文件描述符, 这些工作通常由 shell 来完成。也
+因此, Julia 可以对子进程实现更好的控制, 也可以实现 shell 不能实现的一
+些功能. 值得注意的是, ``|>`` 仅仅是重定向了 ``stdout``. 使用 ``.>`` 来
+重定向 ``stderr``.
 
 Julia 可以并行运行多个命令： ::
 
