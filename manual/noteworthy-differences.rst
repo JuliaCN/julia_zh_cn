@@ -10,14 +10,14 @@
 Julia 的语法和 MATLAB 很像。但 Julia 不是简单地复制 MATLAB ，它们有很多句法和功能上的区别。以下是一些值得注意的区别：
 
 -  数组用方括号来索引， ``A[i,j]``
--  数组是用引用来赋值的。在 ``A=B`` 之后，对 ``B`` 赋值也会修改 ``A`` 
+-  数组是用引用来赋值的。在 ``A=B`` 之后，对 ``B`` 赋值也会修改 ``A``
 -  使用引用来传递和赋值。如果一个函数修改了数组，调用函数会发现值也变了
 -  Matlab 把赋值和分配内存合并成了一个语句。比如：
    ``a(4) = 3.2`` 会创建一个数组 ``a = [0 0 0 3.2]`` ，即为a分配了内存并且将每个元素初始化为0,然后为第四个元素赋值3.2，而 ``a(5) = 7`` 会为数组a增加长度，并且给第五个元素赋值7。
    Julia 把赋值和分配内存分开了：
    如果 ``a`` 长度为4, ``a[5] = 7`` 会抛出一个错误。 Julia 有一个专用的 ``push!`` 函数来向 ``Vectors`` 里增加元素。并且远比Matlab的 ``a(end+1) = val`` 来的高效。
 -  虚数单位 ``sqrt(-1)`` 用 ``im`` 来表示
--  Literal numbers without a decimal point (such as ``42``) create integers 
+-  Literal numbers without a decimal point (such as ``42``) create integers
    instead of floating point numbers. Arbitrarily large integer
    literals are supported. But this means that some operations such as
    ``2^-1`` will throw a domain error as the result is not an integer (see
@@ -66,9 +66,9 @@ Julia 也想成为数据分析和统计编程的高效语言。与 R 的区别�
 - Julia 不能在赋值语句左侧调用函数：不能写 ``diag(M) = ones(n)``
 - Julia 不赞成把 main 命名空间塞满函数。大多数统计学函数可以在 `扩展包 <http://pkg.julialang.org/>`_ 中找到，比如 DataFrames 和 Distributions 包：
 
-	- `Distributions 包 <https://github.com/JuliaStats/Distributions.jl>`_ 提供了概率分布函数
+	- `Distributions 包 <https://github.com/JuliaStats/Distributions.jl>`_ 提供了概率分布函数.
 	- `DataFrames 包 <https://github.com/JuliaStats/DataFrames.jl>`_ 提供了数据框架
-	- GLM 公式必须要转义：使用 ``:(y ~ x)`` ，而不是 ``y ~ x``
+	- `GLM 扩展包 <https://github.com/JuliaStats/GLM.jl>`_ 提供了广义的线性模型.
 
 - Julia 提供了多元组和哈希表，但不提供 R 的列表。当返回多项时，应该使用多元组：不要使用 ``list(a = 1, b = 2)`` ，应该使用 ``(1, 2)``
 - 鼓励自定义类型。Julia 的类型比 R 中的 S3 或 S4 对象简单。Julia 的重载系统使 ``table(x::TypeA)`` 和 ``table(x::TypeB)`` 等价于 R 中的 ``table.TypeA(x)`` 和 ``table.TypeB(x)``
@@ -76,7 +76,7 @@ Julia 也想成为数据分析和统计编程的高效语言。与 R 的区别�
 - 使用 ``hcat`` 和 ``vcat`` 来连接向量和矩阵，而不是 ``c``, ``rbind`` 和 ``cbind``
 - Julia 的范围对象如 ``a:b`` 与 R 中的定义向量的符号不同。它是一个特殊的对象，用于低内存开销的迭代。要把范围对象转换为向量，应该用方括号把范围对象括起来 ``[a:b]``
 - ``max``, ``min`` are the equivalent of ``pmax`` and ``pmin`` in R, but both arguments need to have the same dimensions.  While ``maximum``, ``minimum`` replace ``max`` and ``min`` in R, there are important differences.
-- The functions ``sum``, ``prod``, ``maximum``, ``minimum`` are different from their counterparts in R. They all accept one or two arguments. The first argument is an iterable collection such as an array.  If there is a second argument, then this argument indicates the dimensions, over which the operation is carried out.  For instance, let ``A=[[1 2],[3,4]]`` in Julia and ``B=rbind(c(1,2),c(3,4))`` be the same matrix in R.  Then ``sum(A)`` gives the same result as ``sum(B)``, but ``sum(A,1)`` is a row vector containing the sum over each column and ``sum(A,2)`` is a column vector containing the sum over each row.  This contrasts to the behavior of R, where ``sum(B,1)=11`` and ``sum(B,2)=12``.  If the second argument is a vector, then it specifies all the dimensions over which the sum is performed, e.g., ``sum(A,[1,2])=10``.  It should be noted that there is no error checking regarding the second argument. 
+- The functions ``sum``, ``prod``, ``maximum``, ``minimum`` are different from their counterparts in R. They all accept one or two arguments. The first argument is an iterable collection such as an array.  If there is a second argument, then this argument indicates the dimensions, over which the operation is carried out.  For instance, let ``A=[[1 2],[3,4]]`` in Julia and ``B=rbind(c(1,2),c(3,4))`` be the same matrix in R.  Then ``sum(A)`` gives the same result as ``sum(B)``, but ``sum(A,1)`` is a row vector containing the sum over each column and ``sum(A,2)`` is a column vector containing the sum over each row.  This contrasts to the behavior of R, where ``sum(B,1)=11`` and ``sum(B,2)=12``.  If the second argument is a vector, then it specifies all the dimensions over which the sum is performed, e.g., ``sum(A,[1,2])=10``.  It should be noted that there is no error checking regarding the second argument.
 - Julia 有许多函数可以修改它们的参数。例如， ``sort(v)`` 和 ``sort!(v)`` 函数中，带感叹号的可以修改 ``v``
 - ``colMeans()`` 和 ``rowMeans()``, ``size(m, 1)`` 和 ``size(m, 2)``
 - 在 R 中，需要向量化代码来提高性能。在 Julia 中与之相反：使用非向量化的循环通常效率最高
