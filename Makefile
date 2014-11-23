@@ -159,5 +159,6 @@ doctest: juliadoc-pkg
 	      "results in $(BUILDDIR)/doctest/output.txt."
 
 helpdb.jl: stdlib/*.rst juliadoc-pkg
+	python -c "import sphinx,sys; sys.exit(not sphinx.__version__ < '1.2')"
 	$(SPHINXBUILD) -b jlhelp $(ALLSPHINXOPTS) $(BUILDDIR)/jlhelp
 	mv $(BUILDDIR)/jlhelp/jlhelp.jl helpdb_zh_CN.jl
