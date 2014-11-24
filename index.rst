@@ -37,9 +37,10 @@
    manual/networking-and-streams
    manual/parallel-computing
    manual/dates
+   manual/nullable-types
+   manual/interacting-with-julia
    manual/running-external-programs
    manual/calling-c-and-fortran-code
-   manual/interacting-with-julia
    manual/embedding
    manual/packages
    manual/performance-tips
