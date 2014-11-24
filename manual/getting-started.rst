@@ -49,7 +49,7 @@ Julia 可以用 ``-p`` 或 ``--machinefile`` 选项来开启并行模式。 ``-p
 ``port`` to the standard ssh port. Optionally, in case of multi-homed hosts,
 ``bind_addr`` may be used to explicitly specify an interface.
 
-如果你想让 Julia 在启动时运行一些代码，可以将代码放入 ``~\.juliarc.jl`` ：
+如果你想让 Julia 在启动时运行一些代码，可以将代码放入 ``~/.juliarc.jl`` ：
 
 .. raw:: latex
 
