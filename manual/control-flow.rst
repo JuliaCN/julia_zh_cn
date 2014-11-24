@@ -213,9 +213,9 @@ Short-Circuit Evaluation in Julia, as outlined in the next section.
     1
     2
     false
-    
+
 .. This behavior is frequently used in Julia to form an alternative to very short
-.. ``if`` statements. Instead of ``if <cond> <statement> end``, one can write 
+.. ``if`` statements. Instead of ``if <cond> <statement> end``, one can write
 .. ``<cond> && <statement>`` (which could be read as: <cond> *and then* <statement>).
 .. Similarly, instead of ``if ! <cond> <statement> end``, one can write
 .. ``<cond> || <statement>`` (which could be read as: <cond> *or else* <statement>).
@@ -235,13 +235,13 @@ Short-Circuit Evaluation in Julia, as outlined in the next section.
                n * factorial(n-1)
            end
     factorial (generic function with 1 method)
-    
+
     julia> factorial(5)
     120
-    
+
     julia> factorial(0)
     1
-    
+
     julia> factorial(-1)
     ERROR: n must be non-negative
      in factorial at none:2
@@ -260,7 +260,7 @@ Short-Circuit Evaluation in Julia, as outlined in the next section.
     2
     true
 
-``&&`` 和 ``||`` 的运算对象也必须是布尔值（ ``true`` 或 ``false`` ）。Using a non-boolean value anywhere 
+``&&`` 和 ``||`` 的运算对象也必须是布尔值（ ``true`` 或 ``false`` ）。Using a non-boolean value anywhere
 except for the last entry in a conditional chain is an error ：
 
 .. doctest::
@@ -268,7 +268,7 @@ except for the last entry in a conditional chain is an error ：
     julia> 1 && true
     ERROR: type: non-boolean (Int64) used in boolean context
 
-On the other hand, any type of expression can be used at the end of a conditional chain.  
+On the other hand, any type of expression can be used at the end of a conditional chain.
 It will be evaluated and returned depending on the preceding conditionals:
 
 .. testsetup::
@@ -470,6 +470,9 @@ It will be evaluated and returned depending on the preceding conditionals:
 +------------------------+
 | ``UndefRefError``      |
 +------------------------+
+| ``UndefVarError``      |
++------------------------+
+
 
 例如，当对负实数使用内置的 ``sqrt`` 函数时，将抛出 ``DomainError()`` ：
 
@@ -480,7 +483,7 @@ It will be evaluated and returned depending on the preceding conditionals:
     sqrt will only return a complex result if called with a complex argument.
     try sqrt(complex(x))
      in sqrt at math.jl:131
-     
+
 You may define your own exceptions in the following way:
 
 .. doctest::
@@ -496,10 +499,10 @@ You may define your own exceptions in the following way:
 
     julia> f(x) = x>=0 ? exp(-x) : throw(DomainError())
     f (generic function with 1 method)
-    
+
     julia> f(1)
     0.36787944117144233
-    
+
     julia> f(-1)
     ERROR: DomainError
      in f at none:1
@@ -510,10 +513,10 @@ You may define your own exceptions in the following way:
 
     julia> typeof(DomainError()) <: Exception
     true
-    
+
     julia> typeof(DomainError) <: Exception
     false
-    
+
 Additionally, some exception types take one or more arguments that are used for
 error reporting:
 
@@ -583,11 +586,11 @@ Julia 还提供一些函数，用来向标准错误 I/O 输出一些消息，但
     julia> info("Hi"); 1+1
     INFO: Hi
     2
-    
+
     julia> warn("Hi"); 1+1
     WARNING: Hi
     2
-    
+
     julia> error("Hi"); 1+1
     ERROR: Hi
      in error at error.jl:21
@@ -605,10 +608,10 @@ Julia 还提供一些函数，用来向标准错误 I/O 输出一些消息，但
              sqrt(complex(x, 0))
            end
     f (generic function with 1 method)
-    
+
     julia> f(1)
     1.0
-    
+
     julia> f(-1)
     0.0 + 1.0im
 
@@ -628,16 +631,16 @@ Julia 还提供一些函数，用来向标准错误 I/O 输出一些消息，但
              end
            end
     sqrt_second (generic function with 1 method)
-    
+
     julia> sqrt_second([1 4])
     2.0
-    
+
     julia> sqrt_second([1 -4])
     0.0 + 2.0im
-    
+
     julia> sqrt_second(9)
     3.0
-    
+
     julia> sqrt_second(-9)
     ERROR: DomainError
      in sqrt_second at none:7
@@ -818,7 +821,7 @@ Julia 提供了 ``produce`` 和 ``consume`` 函数来解决这个问题。生产
 .. @readproof
 处理等待事件的基本函数是 ``wait``。 有几种对象实现了 ``wait``，比如对于 ``Process`` 对象，
 ``wait`` 会等待它终止。更多的时候 ``wait`` 是隐式的， 比如 ``wait`` 可以发生在调用
-``read`` 的时候，等待数据变得可用。 
+``read`` 的时候，等待数据变得可用。
 
 .. In all of these cases, ``wait`` ultimately operates on a ``Condition``
 .. object, which is in charge of queueing and restarting tasks. When a task
@@ -845,7 +848,7 @@ Julia 提供了 ``produce`` 和 ``consume`` 函数来解决这个问题。生产
 .. more details).
 
 调用 ``Task`` 可以生成一个初始对调度器还未知的任务， 这允许你用 ``yieldto`` 手动管理任务。不管怎样，
-当这样的任务正在等待事件时，事件一旦发生，它仍然会自动重启。而且任何时候你都可以 调用 
+当这样的任务正在等待事件时，事件一旦发生，它仍然会自动重启。而且任何时候你都可以 调用
 ``schedule(task)`` 或者用宏 ``@schedule`` 或 ``@async`` 来让调度器来运行一个任务，
 根本不用去等待任何事件。(参见 :ref:`man-parallel-computing`)
 
