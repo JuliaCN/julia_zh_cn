@@ -72,7 +72,7 @@ Julia 没有 MATLAB 的 ``clear`` 函数；在 Julia 会话（准确来说， ``
 	julia> x # x is unchanged!
 	10
 
-.. In Julia, any function (including ``change_value!()``) can't change the binding of a local variable. If ``x`` (in the calling scope) is bound to a immutable object (like a real number), you can't modify the object; likewise, if x is bound in the calling scope to a Dict, you can't change it to be bound to an ASCIIString. 
+.. In Julia, any function (including ``change_value!()``) can't change the binding of a local variable. If ``x`` (in the calling scope) is bound to a immutable object (like a real number), you can't modify the object; likewise, if x is bound in the calling scope to a Dict, you can't change it to be bound to an ASCIIString.
 .. But here is a thing you should pay attention to: suppose ``x`` is bound to an Array (or any other mutable type). You cannot "unbind" ``x`` from this Array. But, since an Array is a *mutable* type, you can change its content. For example::
 
 在 Julia 里， 所有的函数(包括 ``change_value!()``) 都不能修改局部变量的所属的类。 如果 ``x`` 被函数调用时被定义为一个不可变的对象(比如实数), 就不能修改; 同样地， 如果 ``x`` 被定义为一个 ``Dict`` 对象， 你不能把它改成ASCIIString。
@@ -220,7 +220,7 @@ Julia uses machine arithmetic for integer computations. This means that the rang
 
     julia> typemax(Int)
     9223372036854775807
-    
+
     julia> ans+1
     -9223372036854775808
 
@@ -282,13 +282,13 @@ At first blush, this seems reasonable enough since 9223372036854775807 is much c
 
     >> n = int64(2)^62
     4611686018427387904
-    
+
     >> n + (n - 1)
     9223372036854775807
-    
+
     >> (n + n) - 1
     9223372036854775806
-    
+
 This makes it hard to write many basic integer algorithms since a lot of
 common techniques depend on the fact that machine addition with overflow *is*
 associative. Consider finding the midpoint between integer values ``lo`` and
@@ -296,7 +296,7 @@ associative. Consider finding the midpoint between integer values ``lo`` and
 
     julia> n = 2^62
     4611686018427387904
-    
+
     julia> (n + 2n) >>> 1
     6917529027641081856
 
@@ -304,9 +304,9 @@ See? No problem. That's the correct midpoint between 2^62 and 2^63, despite
 the fact that ``n + 2n`` is -4611686018427387904. Now try it in Matlab::
 
     >> (n + 2*n)/2
-    
+
     ans =
-    
+
       4611686018427387904
 
 Oops. Adding a ``>>>`` operator to Matlab wouldn't help, because saturation
@@ -498,7 +498,7 @@ to change the type of field ``a``:
 
     julia> t.a = 4.5f0
     4.5f0
-    
+
     julia> typeof(t.a)
     Float32
 
@@ -509,10 +509,10 @@ change:
 
     julia> m.a = 4.5f0
     4.5
-    
+
     julia> typeof(m.a)
     Float64
-    
+
 The fact that the type of ``m.a`` is known from ``m``'s type---coupled
 with the fact that its type cannot change mid-function---allows the
 compiler to generate highly-optimized code for objects like ``m`` but
@@ -529,10 +529,10 @@ an abstract type:
 
     julia> typeof(m.a)
     Float64
-    
+
     julia> m.a = 4.5f0
     4.5f0
-    
+
     julia> typeof(m.a)
     Float32
 
@@ -635,7 +635,7 @@ versions of the outer function for different element types of
     end
 
 This works fine for ``Vector{T}``, but we'd also have to write
-explicit versions for ``Range1{T}`` or other abstract types. To
+explicit versions for ``UnitRange{T}`` or other abstract types. To
 prevent such tedium, you can use two parameters in the declaration of
 ``MyContainer``::
 
@@ -647,7 +647,7 @@ prevent such tedium, you can use two parameters in the declaration of
     julia> b = MyContainer(1.3:5);
 
     julia> typeof(b)
-    MyContainer{Float64,Range1{Float64}}
+    MyContainer{Float64,UnitRange{Float64}}
 
 Note the somewhat surprising fact that ``T`` doesn't appear in the
 declaration of field ``a``, a point that we'll return to in a moment.
@@ -671,7 +671,7 @@ With this approach, one can write functions such as::
 
     julia> myfunc(MyContainer(1:3))
     2
-    
+
     julia> myfunc(MyContainer(1.0:3))
     3.0
 
@@ -685,10 +685,10 @@ However, there's one remaining hole: we haven't enforced that ``A``
 has element type ``T``, so it's perfectly possible to construct an
 object like this::
 
-  julia> b = MyContainer{Int64, Range1{Float64}}(1.3:5);
+  julia> b = MyContainer{Int64, UnitRange{Float64}}(1.3:5);
 
   julia> typeof(b)
-  MyContainer{Int64,Range1{Float64}}
+  MyContainer{Int64,UnitRange{Float64}}
 
 To prevent this, we can add an inner constructor::
 
@@ -703,10 +703,10 @@ To prevent this, we can add an inner constructor::
     julia> b = MyBetterContainer(1.3:5);
 
     julia> typeof(b)
-    MyBetterContainer{Float64,Range1{Float64}}
+    MyBetterContainer{Float64,UnitRange{Float64}}
 
-    julia> b = MyBetterContainer{Int64, Range1{Float64}}(1.3:5);
-    ERROR: no method MyBetterContainer(Range1{Float64},)
+    julia> b = MyBetterContainer{Int64, UnitRange{Float64}}(1.3:5);
+    ERROR: no method MyBetterContainer(UnitRange{Float64},)
 
 The inner constructor requires that the element type of ``A`` be ``T``.
 
