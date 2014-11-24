@@ -162,6 +162,24 @@ The Julia REPL makes great use of key bindings.  Several control-key bindings we
 | Delete, ``^D``         | Forward delete one character (when buffer has text)|
 +------------------------+----------------------------------------------------+
 
+自定义快捷键
+~~~~~~~~~~
+
+Julia REPL 的快捷键可以通过向 ``REPL.setup_interface()`` 传入字典类型的数据来实现自定义. 字典的关键字可以是字符, 也可以是字符串. 字符 ``*`` 代表默认默认操作. ``^x`` 代表快捷键 Control 键加 ``x`` 键. Meta 键加 ``x`` 键可以写作 ``"\\Mx"``.  字典的数据必须是 ``nothing`` (代表忽略该操作), 或者参数为 ``(PromptState, AbstractREPL, Char`` 的函数. 例如, 为了实现绑定上下键到搜索历史记录, 可以把下面的代码加入到 ``.juliarc.jl`` ::
+
+  import Base: LineEdit, REPL
+
+  const mykeys = {
+    # Up Arrow
+    "\e[A" => (s,o...)->(LineEdit.edit_move_up(s) || LineEdit.history_prev(s, LineEdit.mode(s).hist)),
+    # Down Arrow
+    "\e[B" => (s,o...)->(LineEdit.edit_move_up(s) || LineEdit.history_next(s, LineEdit.mode(s).hist))
+  }
+
+  Base.active_repl.interface = REPL.setup_interface(Base.active_repl; extra_repl_keymap = mykeys)
+
+可供使用的按键和操作请参阅 ``base/LineEdit.jl``.
+
 Tab 补全
 -------
 
