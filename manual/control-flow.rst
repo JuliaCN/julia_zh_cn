@@ -91,8 +91,7 @@ Julia 提供一系列控制流：
 
 ``elseif`` 及 ``else`` 块是可选的。
 
-Note that very short conditional statements (one-liners) are frequently expressed using
-Short-Circuit Evaluation in Julia, as outlined in the next section.
+注意，很短 (单行) 的条件语句在 Julia 中经常被写为短路求值的形式 (见下节).
 
 如果条件表达式的值是除 ``true`` 和 ``false`` 之外的值，会出错：
 
@@ -214,17 +213,10 @@ Short-Circuit Evaluation in Julia, as outlined in the next section.
     2
     false
 
-.. This behavior is frequently used in Julia to form an alternative to very short
-.. ``if`` statements. Instead of ``if <cond> <statement> end``, one can write
-.. ``<cond> && <statement>`` (which could be read as: <cond> *and then* <statement>).
-.. Similarly, instead of ``if ! <cond> <statement> end``, one can write
-.. ``<cond> || <statement>`` (which could be read as: <cond> *or else* <statement>).
-
-这种方式在 Julia 里经常作为 ``if`` 语句的一个简洁的替代。 可以把 ``if <cond> <statement> end`` 写成
-``<cond> && <statement> (读作 <cond> *从而* <statement>)。 类似地， 可以把 ``if ! <cond> <statement> end``
+这种方式在 Julia 里经常作为短 ``if`` 语句的一个简洁的替代。可以把 ``if <cond> <statement> end`` 写成
+``<cond> && <statement>`` (读作 <cond> *从而* <statement>)。 类似地，可以把 ``if ! <cond> <statement> end``
 写成 ``<cond> || <statement>`` (读作 <cond> *要不就* <statement>)。
 
-.. For example, a recursive factorial routine could be defined like this:
 例如, 递归阶乘可以这样写:
 
 .. doctest::
@@ -260,16 +252,14 @@ Short-Circuit Evaluation in Julia, as outlined in the next section.
     2
     true
 
-``&&`` 和 ``||`` 的运算对象也必须是布尔值（ ``true`` 或 ``false`` ）。Using a non-boolean value anywhere
-except for the last entry in a conditional chain is an error ：
+``&&`` 和 ``||`` 的运算对象也必须是布尔值（ ``true`` 或 ``false`` ）。除了最后一项外，在短路求值中使用非布尔值是一个错误：
 
 .. doctest::
 
     julia> 1 && true
     ERROR: type: non-boolean (Int64) used in boolean context
 
-On the other hand, any type of expression can be used at the end of a conditional chain.
-It will be evaluated and returned depending on the preceding conditionals:
+另一方面，短路求值的最后一项可以是任何类型的表达式。取决于之前的条件，它可以被求值并返回。
 
 .. testsetup::
 
@@ -414,11 +404,7 @@ It will be evaluated and returned depending on the preceding conditionals:
     (2,3)
     (2,4)
 
-.. A ``break`` statement inside such a loop exits the entire nest of loops,
-.. not just the inner one.
-
-.. @readproof
-这种情况下用 ``break`` 可以直接跳出所有循环。
+这种情况下用 ``break`` 会直接跳出所有循环，而不仅仅是最内层的循环。
 
 
 .. _man-exception-handling:
@@ -484,7 +470,7 @@ It will be evaluated and returned depending on the preceding conditionals:
     try sqrt(complex(x))
      in sqrt at math.jl:131
 
-You may define your own exceptions in the following way:
+你可以用以下方式定义自己的异常：
 
 .. doctest::
 
@@ -517,16 +503,14 @@ You may define your own exceptions in the following way:
     julia> typeof(DomainError) <: Exception
     false
 
-Additionally, some exception types take one or more arguments that are used for
-error reporting:
+另外，某些异常接受一个或多个参数：
 
 .. doctest::
 
     julia> throw(UndefVarError(:x))
     ERROR: x not defined
 
-This mechanism can be implemented easily by custom exception types following
-the way ``UndefVarError`` is written:
+仿照 ``UndefVarError`` 定义的方式，这个机制也可以在自定义异常类型中使用：
 
 .. doctest::
 
@@ -645,14 +629,11 @@ Julia 还提供一些函数，用来向标准错误 I/O 输出一些消息，但
     ERROR: DomainError
      in sqrt_second at none:7
 
-Note that the symbol following ``catch`` will always be interpreted as a
-name for the exception, so care is needed when writing ``try/catch`` expressions
-on a single line. The following code will *not* work to return the value of ``x``
-in case of an error::
+注意，紧跟 ``catch`` 的符号会作为异常的名字，所以在将 ``try/catch`` 写在单行内的时候需要特别注意。下面的代码 *不会* 在发生错误的时候返回 ``x`` 的值::
 
     try bad() catch x end
 
-Instead, use a semicolon or insert a line break after ``catch``::
+相对的，使用分号或在 ``catch`` 后另起一行::
 
     try bad() catch; x end
 
@@ -753,122 +734,55 @@ Julia 提供了 ``produce`` 和 ``consume`` 函数来解决这个问题。生产
 
 ``produce`` 和 ``consume`` 但它并不在不同的 CPU 发起线程。我们将在 :ref:`man-parallel-computing` 中，讨论真正的内核线程。
 
-.. Core task operations
-.. ~~~~~~~~~~~~~~~~~~~~
 核心任务操作
 ~~~~~~~~~~~~~~~~~~~~
 
-.. While ``produce`` and ``consume`` illustrate the essential nature of tasks, they
-.. are actually implemented as library functions using a more primitive function,
-.. ``yieldto``. ``yieldto(task,value)`` suspends the current task, switches
-.. to the specified ``task``, and causes that task's last ``yieldto`` call to return
-.. the specified ``value``. Notice that ``yieldto`` is the only operation required
-.. to use task-style control flow; instead of calling and returning we are always
-.. just switching to a different task. This is why this feature is also called
-.. "symmetric coroutines"; each task is switched to and from using the same mechanism.
+尽管 ``produce`` 和 ``consume`` 已经阐释了任务的本质，他们实际上是由库函数调用更原始的函数
+``yieldto`` 实现的。 ``yieldto(task,value)`` 挂起当前任务，切换到指定的 ``task`` ，
+并使这个 ``task`` 的上一次 ``yeidlto`` 返回指定的 ``value`` 。注意 ``yieldto``
+是任务风格的控制流唯一需要的操作；取代调用和返回，我们只用在不同的任务之间切换即可。这就是为什么
+这个特性被称做 “对称式协程”：每一个任务的切换都是用相同的机制。
 
+尽管 ``yeildto`` 很强大，但是大多数任务并不直接调用它。这当中的原因可以理解。当你从当前的任务
+切换走，你一般还会切换回来。然而正确的处理切换的时机和任务需要相当的协调。例如， ``procude`` 需要保持某个状态来记录消费者。无需手动地记录正在消费的任务让 ``produce`` 比 ``yieldto`` 更容易使用。
 
-尽管 ``produce`` 和 ``consume`` 已经阐释了任务的本质，但是他们实际上是由库函数调用更原始的函数
-``yieldto`` 实现的。 ``yieldto(task,value)`` 挂起当前任务，切换到特定的 ``task`` ， 并使这个
-``task`` 的最后一次 ``yeidlto`` 返回 特定的 ``value``。注意 ``yieldto`` 是唯一需要的操作来进行
-'任务风格'的控制流; 不需要调用和返回，我们只用在不同的任务之间切换即可。 这就是为什么这个特性被称做
-"对称式协程";每一个任务的切换都是用相同的机制。
-
-.. ``yieldto`` is powerful, but most uses of tasks do not invoke it directly.
-.. Consider why this might be. If you switch away from the current task, you will
-.. probably want to switch back to it at some point, but knowing when to switch
-.. back, and knowing which task has the responsibility of switching back, can
-.. require considerable coordination. For example, ``produce`` needs to maintain
-.. some state to remember who the consumer is. Not needing to manually keep track
-.. of the consuming task is what makes ``produce`` easier to use than ``yieldto``.
-
-``yeildto`` 很强大， 但是大多数时候并不直接调用它。 当你从当前的任务切换走，你有可能会想切换回来，
-但需要知道切换的时机和任务，这会需要相当的协调。 例如， ``procude`` 需要保持某个状态来记录消费者。
-无需手动地记录正在消费的任务让 ``produce`` 比 ``yieldto`` 更容易使用。
-
-.. In addition to ``yieldto``, a few other basic functions are needed to use tasks
-.. effectively.
-.. ``current_task()`` gets a reference to the currently-running task.
-.. ``istaskdone(t)`` queries whether a task has exited.
-.. ``istaskstarted(t)`` queries whether a task has run yet.
-.. ``task_local_storage`` manipulates a key-value store specific to the current task.
-
-除此之外， 为了高效地使用任务，其他一些基本的函数也同样必须。
+除 ``yieldto`` 之外，我们也需要一些其他的基本函数以高效地使用任务。
 ``current_task()`` 获得当前运行任务的引用。
 ``istaskdone(t)`` 查询任务是否终止。
 ``istaskstarted(t)`` 查询任务是否启动。
 ``task_local_storage`` 处理当前任务的键值储存。
 
-.. Tasks and events
-.. ~~~~~~~~~~~~~~~~
 任务与事件
 ~~~~~~~~~~~~~~~~
 
-.. Most task switches occur as a result of waiting for events such as I/O
-.. requests, and are performed by a scheduler included in the standard library.
-.. The scheduler maintains a queue of runnable tasks, and executes an event loop
-.. that restarts tasks based on external events such as message arrival.
+大多数任务的切换发生在等待 I/O 请求这样的事件的时候，并由标准库的调度器完成。调度器记录正在运行
+的任务的队列，并执行一个循环来根据外部事件（比如消息到达）重启任务。
 
-.. @readproof
-大多数任务的切换都是在等待像 I/O 请求这样的事件的时候，并由标准库的调度器完成。调度器记录正在运行
-的任务的队列，并执行一个循环来根据外部事件(比如消息到达)重启任务。
-
-.. The basic function for waiting for an event is ``wait``. Several objects
-.. implement ``wait``; for example, given a ``Process`` object, ``wait`` will
-.. wait for it to exit. ``wait`` is often implicit; for example, a ``wait``
-.. can happen inside a call to ``read`` to wait for data to be available.
-
-.. @readproof
-处理等待事件的基本函数是 ``wait``。 有几种对象实现了 ``wait``，比如对于 ``Process`` 对象，
+处理等待事件的基本函数是 ``wait`` 。有几种对象实现了 ``wait``，比如对于 ``Process`` 对象，
 ``wait`` 会等待它终止。更多的时候 ``wait`` 是隐式的， 比如 ``wait`` 可以发生在调用
-``read`` 的时候，等待数据变得可用。
+``read`` 的时候，以等待可用数据。
 
-.. In all of these cases, ``wait`` ultimately operates on a ``Condition``
-.. object, which is in charge of queueing and restarting tasks. When a task
-.. calls ``wait`` on a ``Condition``, the task is marked as non-runnable, added
-.. to the condition's queue, and switches to the scheduler. The scheduler will
-.. then pick another task to run, or block waiting for external events.
-.. If all goes well, eventually an event handler will call ``notify`` on the
-.. condition, which causes tasks waiting for that condition to become runnable
-.. again.
-
-.. @readproof
 在所有的情况中, ``wait`` 最终会操作在一个负责将任务排队和重启的 ``Condition`` 对象上。
-当任务在 ``Condition`` 上调用 ``wait``， 任务会被标记为不可运行，被加入到  ``Condition`` 的
-队列中，再切换至调度器。 调度器会选取另一个任务来运行， 或者等待外部事件。 如果一切正常， 最终一个事件句柄
-会在 ``Condition`` 上调用 ``notify``， 使正在等待的任务变得可以运行。
+当任务在 ``Condition`` 上调用 ``wait`` ，任务会被标记为不可运行，并被加入到 ``Condition``
+的队列中，再切换至调度器。调度器会选取另一个任务来运行，或者等待外部事件。如果一切正常，最终一个
+事件句柄会在 ``Condition`` 上调用 ``notify`` ，使正在等待的任务再次变得可以运行。
 
-.. A task created explicitly by calling ``Task`` is initially not known to the
-.. scheduler. This allows you to manage tasks manually using ``yieldto`` if
-.. you wish. However, when such a task waits for an event, it still gets restarted
-.. automatically when the event happens, as you would expect. It is also
-.. possible to make the scheduler run a task whenever it can, without necessarily
-.. waiting for any events. This is done by calling ``schedule(task)``, or using
-.. the ``@schedule`` or ``@async`` macros (see :ref:`man-parallel-computing` for
-.. more details).
-
-调用 ``Task`` 可以生成一个初始对调度器还未知的任务， 这允许你用 ``yieldto`` 手动管理任务。不管怎样，
-当这样的任务正在等待事件时，事件一旦发生，它仍然会自动重启。而且任何时候你都可以 调用
+调用 ``Task`` 可以生成一个未被调度器管理的任务，这允许你用 ``yieldto`` 手动管理任务。不管怎样，
+当这样的任务正在等待事件时，事件一旦发生，它仍然会自动重启。而且任何时候你都可以调用
 ``schedule(task)`` 或者用宏 ``@schedule`` 或 ``@async`` 来让调度器来运行一个任务，
-根本不用去等待任何事件。(参见 :ref:`man-parallel-computing`)
+而不用去等待任何事件。(参见 :ref:`man-parallel-computing`)
 
 任务状态
 ~~~~~~~~
 
-.. Task states
-.. ~~~~~~~~~~~
-
 任务包含一个 ``state`` 域，它用来描述任务的执行状态。任务状态取如下的几种符号中的一种：
-
-.. Tasks have a ``state`` field that describes their execution status. A task
-.. state is one of the following symbols:
 
 =============  ==================================================
 符号           意义
 =============  ==================================================
 ``:runnable``  任务正在运行，或可被切换到该任务
-``:waiting``   Blocked waiting for a specific event
-``:queued``    In the scheduler's run queue about to be restarted
+``:waiting``   正在阻塞等待事件
+``:queued``    在调度器的队列中将要重新开始运行
 ``:done``      成功执行完毕
 ``:failed``    由于未处理的异常而终止
 =============  ==================================================
