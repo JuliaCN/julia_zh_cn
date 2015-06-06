@@ -133,7 +133,7 @@ Julia 代码表示为由 Julia 的 ``Expr`` 类型的数据结构而构成的语
 Every :ref:`module <man-modules>` has its own ``eval`` function that
 evaluates expressions in its global scope.
 Expressions passed to ``eval`` are not limited to returning values
-— they can also have side-effects that alter the state of the enclosing
+— they can also have side-effects that alter the state of the enclosing
 module's environment:
 
 .. doctest::

@@ -215,7 +215,7 @@ algorithm for numeric values, including integers and floats.
 
 ``MergeSort`` is an O(n log n) stable sorting algorithm but is not
 in-place – it requires a temporary array of equal size to the
-input array – and is typically not quite as fast as ``QuickSort``.
+input array – and is typically not quite as fast as ``QuickSort``.
 It is the default algorithm for non-numeric data.
 
 The sort functions select a reasonable default algorithm, depending on
