@@ -95,9 +95,12 @@ Its second argument ``args`` is an array of ``jl_value_t*`` arguments and ``narg
 内存管理
 ========================
 
-As we have seen, Julia objects are represented in C as pointers. This raises the question of who is responsible for freeing these objects.
+..As we have seen, Julia objects are represented in C as pointers. This raises the question of who is responsible for freeing these objects.:
+正如我们看到的，Julia 的对象在 C 中是以指针形式呈现的。而这也就给出了一个问题：由谁来负责释放这些对象对应的内存呢？
 
-Typically, Julia objects are freed by a garbage collector (GC), but the GC does not automatically know that we are holding a reference to a Julia value from C. This means the GC can free objects out from under you, rendering pointers invalid.
+..Typically, Julia objects are freed by a garbage collector (GC), but the GC does not automatically know that we are holding a reference to a Julia value from C. This means the GC can free objects out from under you, rendering pointers invalid.:
+一般情况下，Julia 的对象由垃圾回收机制来释放，但垃圾回收机制并不能自动获知我们正在 C 中使用 Julia 对象的引用。这意味着垃圾回收机制可能会释放我们正在使用的对象，造成该指针失效。
+
 
 The GC can only run when Julia objects are allocated. Calls like ``jl_box_float64`` perform allocation, and allocation might also happen at any point in running Julia code. However, it is generally safe to use pointers in between ``jl_...`` calls. But in order to make sure that values can survive ``jl_...`` calls, we have to tell Julia that we hold a reference to a Julia value. This can be done using the ``JL_GC_PUSH`` macros::
 
@@ -122,7 +125,8 @@ Several Julia values can be pushed at once using the ``JL_GC_PUSH2`` , ``JL_GC_P
 控制垃圾回收
 ---------------------------------------------------
 
-There are some functions to control the GC. In normal use cases, these should not be necessary.
+..There are some functions to control the GC. In normal use cases, these should not be necessary.:
+有一些函数可以帮助控制垃圾回收。在一般情况下，它们都不需要被用到。
 
 ========================= ==============================================================================
 ``void jl_gc_collect()``   Force a GC run
