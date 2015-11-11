@@ -444,13 +444,9 @@ Julia 提供了保留字 ``do`` 来重写这种代码，使之更清晰： ::
         end
     end
 
-In contrast to the ``map`` example, here ``io`` is initialized by the
-*result* of ``open("outfile", "w")``.  The stream is then passed to
-your anonymous function, which performs the writing; finally, the
-``open`` function ensures that the stream is closed after your
-function exits.  The ``try/finally`` construct will be described in
-:ref:`man-control-flow`.
 
-With the ``do`` block syntax, it helps to check the documentation or
-implementation to know how the arguments of the user function are
-initialized.
+相较``map``的例子而言，这里``io``由``open("outfile", "w")``返回的的结果初始化。
+该串流之后被传递至负责写入的匿名函数；最终，``open``函数将保证你的函数退出之后该串流被正确关闭。
+ ``try/finally``结构将在:ref:`man-control-flow`部分介绍。
+
+``do`` 块结构帮助检查文档以确定用户函数的参数如何被初始化。
