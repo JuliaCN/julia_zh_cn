@@ -416,28 +416,24 @@ Julia 提供了保留字 ``do`` 来重写这种代码，使之更清晰： ::
         end
     end
 
-The ``do x`` syntax creates an anonymous function with argument ``x``
-and passes it as the first argument to ``map``. Similarly, ``do a,b``
-would create a two-argument anonymous function, and a plain ``do``
-would declare that what follows is an anonymous function of the form
-``() -> ...``.
 
-How these arguments are initialized depends on the "outer" function;
-here, ``map`` will sequentially set ``x`` to ``A``, ``B``, ``C``,
-calling the anonymous function on each, just as would happen in the
-syntax ``map(func, [A, B, C])``.
+``do x`` 语法会建立一个以``x``为参数的匿名函数，并将其作为第一个参数传递给
+``map``. 类似地， ``do a,b`` 会创造一个含双参数的匿名函数，而一个普通的
+``do``将声明其后是一个形式为``() -> ...``的匿名函数。
 
-This syntax makes it easier to use functions to effectively extend the
-language, since calls look like normal code blocks. There are many
-possible uses quite different from ``map``, such as managing system
-state. For example, there is a version of ``open`` that runs code
-ensuring that the opened file is eventually closed::
+这些参数的初始化方式取决于"outer"函数；这里``map``将依次将``x``设为``A``, ``B``, ``C``,
+各自调用匿名函数，效果就像使用语法``map(func, [A, B, C])``一样。
+
+
+这一语法使得函数使用更为容易，函数调用就像普通的代码块，从而有效拓展了这一语言。
+也有许多不同于``map``的使用方法存在，例如管理系统状态。例如，有一个版本的``open``语法可
+确保所打开的文件最终被关闭::
 
     open("outfile", "w") do io
         write(io, data)
     end
 
-This is accomplished by the following definition::
+这一功能由如下的定义所实现::
 
     function open(f::Function, args...)
         io = open(args...)
