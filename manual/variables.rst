@@ -2,7 +2,7 @@
  变量
 ******
 
-A variable, in Julia, is a name associated (or bound) to a value. It's useful when you want to store a value (that you obtained after some math, for example) for later use. For example:
+Julia 中，变量即是关联到某个值的名字。当你想存储一个值（比如数学计算中的某个中间变量）以备后用时，变量的作用就体现出来了。举个例子：
 
 .. doctest::
 
@@ -63,11 +63,10 @@ Julia 提供了极其灵活的变量命名系统。变量名区分大小写。
     julia> 안녕하세요 = "Hello" 
     "Hello"
 
-In the Julia REPL and several other Julia editing environments, you
-can type many Unicode math symbols by typing the backslashed LaTeX symbol
-name followed by tab.  For example, the variable name ``δ`` can be
-entered by typing ``\delta``-*tab*, or even ``α̂₂`` by
-``\alpha``-*tab*-``\hat``-*tab*-``\_2``-*tab*.
+在 Julia REPL 和其它一些 Julia 的编辑环境中，支持 Unicode 数学符号
+的输入。只需要键入对应的 LaTeX 语句，再按 tab 键即可完成输入。
+比如，变量名 ``δ`` 可以通过 ``\delta``-*tab* 来输入，又如 ``α̂₂``可以由
+``\alpha``-*tab*-``\hat``-*tab*-``\_2``-*tab* 来完成。
 
 .. raw:: latex
 
