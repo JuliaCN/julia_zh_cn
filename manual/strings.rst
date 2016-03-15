@@ -644,8 +644,11 @@ ASCII 字符串 "DATA" 对应于字节 68, 65, 84, 65 。 ``\xff`` 生成的单�
 
 .. _man-version-number-literals:
 
-Version Number Literals
+版本号常量
 -----------------------
+
+版本号可以很容易的用非标准的字符串常量表达 ``v"..."`` 。 版本号常量会按照`语义版本控制 <http://semver.org>`_ 的规格创建一个 ``VersionNumber`` 对象， 因此，会根据 pre-release 生成版本号
+
 
 Version numbers can easily be expressed with non-standard string literals of
 the form ``v"..."``. Version number literals create :obj:`VersionNumber` objects
