@@ -196,14 +196,16 @@ Julia 内部变量 ``WORD_SIZE`` 用以指示目标系统是 32 位还是 64 位
 .. divisions, remainders, and bitwise operations do not promote narrower
 .. types.)
 
-Division errors
+除法错误
 ~~~~~~~~~~~~~~~
 
-Integer division (the ``div`` function) has two exceptional cases: dividing by
-zero, and dividing the lowest negative number (``typemin``) by -1. Both of
-these cases throw a ``DivideError``. The remainder and modulus functions
-(``rem`` and ``mod``) throw a ``DivideError`` when their second argument is
-zero.
+整数除法（``div``函数）有两种可能的情况：
+
+- 除以 0
+- 将最小的负数 （:func:`typemin`） 除以 -1
+
+这两种情况都会报 :exc:`DivideError` ，此外，取余函数和求模函数（``rem`` 和 ``mod``）也会在第二个参数为 0 时报错。
+
 
 浮点数
 ------
@@ -623,5 +625,4 @@ Julia 提供了一些函数, 用以得到特定数据类型的零和一文本。
     1
 
     julia> one(BigFloat)
-    1e+00 with 256 bits of precision
-
+    1.000000000000000000000000000000000000000000000000000000000000000000000000000000

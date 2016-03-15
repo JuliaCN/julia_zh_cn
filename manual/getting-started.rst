@@ -12,10 +12,10 @@ Julia 的安装，不管是使用编译好的程序，还是自己从源代码�
                    _
        _       _ _(_)_     |  A fresh approach to technical computing
       (_)     | (_) (_)    |  Documentation: http://docs.julialang.org
-       _ _   _| |_  __ _   |  Type "help()" to list help topics
+       _ _   _| |_  __ _   |  Type "?help" for help.
       | | | | | | |/ _` |  |
-      | | |_| | | | (_| |  |  Version 0.3.0-prerelease+3690 (2014-06-16 05:11 UTC)
-     _/ |\__'_|_|_|\__'_|  |  Commit 1b73f04* (0 days old master)
+      | | |_| | | | (_| |  |  Version 0.5.0-dev+2440 (2016-02-01 02:22 UTC)
+     _/ |\__'_|_|_|\__'_|  |  Commit 2bb94d6 (11 days old master)
     |__/                   |  x86_64-apple-darwin13.1.0
 
     julia> 1 + 2
@@ -23,6 +23,7 @@ Julia 的安装，不管是使用编译好的程序，还是自己从源代码�
 
     julia> ans
     3
+
 
 输入 ``^D`` — ``ctrl`` 键加 ``d`` 键，或者输入 ``quit()`` ，可以退出交互式会话。交互式模式下， ``julia`` 会显示一个横幅，并提示用户来输入。一旦用户输入了完整的表达式，例如 ``1 + 2`` ，然后按回车，交互式会话就对表达式求值并返回这个值。如果输入的表达式末尾有分号，就不会显示它的值了。变量 ``ans`` 的值就是上一次计算的表达式的值，无论上一次是否被显示。变量 ``ans`` 仅适用于交互式会话，不适用于以其它方式运行的 Julia 代码。
 
@@ -44,6 +45,11 @@ Julia 的安装，不管是使用编译好的程序，还是自己从源代码�
     $ julia script.jl foo bar
     foo
     bar
+
+定界符``--`` 可以用来将脚本文件和命令行的变量分割开来： ::
+
+    $ julia --color=yes -O -- foo.jl arg1 arg2..
+
 
 Julia 可以用 ``-p`` 或 ``--machinefile`` 选项来开启并行模式。 ``-p n`` 会发起额外的 ``n`` 个工作进程，而 ``--machinefile file`` 会为文件 ``file`` 的每一行发起一个工作进程。 ``file`` 定义的机器，必须要能经由无密码的 ``ssh`` 访问，且每个机器上的 Julia 安装的位置应完全相同，每个机器的定义为 ``[user@]host[:port] [bind_addr]`` 。 ``user`` defaults to current user,
 ``port`` to the standard ssh port. Optionally, in case of multi-homed hosts,
