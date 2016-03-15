@@ -8,8 +8,8 @@ Julia 中处理 `ASCII <http://zh.wikipedia.org/zh-cn/ASCII>`_ 文本简洁高�
 
 关于 Julia 字符串，有一些值得注意的高级特性：
 
--  ``String`` 是个抽象类型，不是具体类型
--  Julia 的 ``Char`` 类型代表单字符，是由 32 位整数表示的 Unicode 码位
+-  ``AbstractString`` 是个抽象类型，不是具体类型——很多不同的表述都可以实现 ``AbstractString`` 的接口， 但他们很容易清晰地展示出相互关系并很容易的被一起使用。任何字符串类型的变量都可以传入一个在函数定义中声明了``AbstractString``类型的自变量。
+- 和 C语言 以及Java 一样（但和大部分动态语言不同）， Julia 的 ``Char`` 类型代表单字符，是由 32 位整数表示的 Unicode 码位
 -  与 Java 中一样，字符串不可更改： ``String`` 对象的值不能改变。要得到不同的字符串，需要构造新的字符串
 -  概念上，字符串是从索引值映射到字符的 *部分函数* ，对某些索引值，如果不是字符，会抛出异常
 -  Julia 支持全部 Unicode 字符: 文本字符通常都是 ASCII 或 `UTF-8 <http://zh.wikipedia.org/zh-cn/UTF-8>`_ 的，但也支持其它编码
@@ -46,7 +46,7 @@ Julia 中处理 `ASCII <http://zh.wikipedia.org/zh-cn/ASCII>`_ 文本简洁高�
     julia> char(120)
     'x'
 
-并非所有的整数值都是有效的 Unicode 码位，但为了性能， ``char`` 一般不检查其是否有效。如果你想要确保其有效，使用 ``is_valid_char`` 函数：
+并非所有的整数值都是有效的 Unicode 码位，但为了性能， ``Char`` 一般不检查其是否有效。如果你想要确保其有效，使用 ``isvalid`` 函数：
 
 .. doctest::
 
@@ -328,6 +328,55 @@ size of ``Cwchar_t``. 有关 UTF-8 的讨论，详见下面的 `字节数组文�
     julia> print("I have \$100 in my account.\n")
     I have $100 in my account.
 
+Triple-Quoted String Literals
+-----------------------------
+
+When strings are created using triple-quotes (``"""..."""``) they have some
+special behavior that can be useful for creating longer blocks of text. First,
+if the opening ``"""`` is followed by a newline, the newline is stripped from
+the resulting string.
+
+::
+
+    """hello"""
+
+is equivalent to
+
+::
+
+    """
+    hello"""
+
+but
+
+::
+
+    """
+
+    hello"""
+
+will contain a literal newline at the beginning. Trailing whitespace is left
+unaltered. They can contain ``"`` symbols without escaping. Triple-quoted strings
+are also dedented to the level of the least-indented line. This is useful for
+defining strings within code that is indented. For example:
+
+.. doctest::
+
+    julia> str = """
+               Hello,
+               world.
+             """
+    "  Hello,\n  world.\n"
+
+In this case the final (empty) line before the closing ``"""`` sets the
+indentation level.
+
+Note that line breaks in literal strings, whether single- or triple-quoted,
+result in a newline (LF) character ``\n`` in the string, even if your
+editor uses a carriage return ``\r`` (CR) or CRLF combination to end lines.
+To include a CR in a string, use an explicit escape ``\r``; for example,
+you can enter the literal string ``"a CRLF line ending\r\n"``.
+
 一般操作
 --------
 
@@ -599,7 +648,7 @@ Version Number Literals
 -----------------------
 
 Version numbers can easily be expressed with non-standard string literals of
-the form ``v"..."``. Version number literals create ``VersionNumber`` objects
+the form ``v"..."``. Version number literals create :obj:`VersionNumber` objects
 which follow the specifications of `semantic versioning <http://semver.org>`_,
 and therefore are composed of major, minor and patch numeric values, followed
 by pre-release and build alpha-numeric annotations. For example,
@@ -610,10 +659,10 @@ therefore e.g.  ``v"0.2"`` is equivalent to ``v"0.2.0"`` (with empty
 pre-release/build annotations), ``v"2"`` is equivalent to ``v"2.0.0"``, and so
 on.
 
-``VersionNumber`` objects are mostly useful to easily and correctly compare two
+:obj:`VersionNumber` objects are mostly useful to easily and correctly compare two
 (or more) versions. For example, the constant ``VERSION`` holds Julia version
-number as a ``VersionNumber`` object, and therefore one can define some
-version-specific behaviour using simple statements as::
+number as a :obj:`VersionNumber` object, and therefore one can define some
+version-specific behavior using simple statements as::
 
     if v"0.2" <= VERSION < v"0.3-"
         # do something specific to 0.2 release series
@@ -628,7 +677,7 @@ would only run with stable ``0.2`` versions, and exclude such versions as
 ``0.2`` versions, the lower bound check should be modified like this: ``v"0.2-"
 <= VERSION``.
 
-Another non-standard version specification extension allows to use a trailing
+Another non-standard version specification extension allows one to use a trailing
 ``+`` to express an upper limit on build versions, e.g.  ``VERSION >
 "v"0.2-rc1+"`` can be used to mean any version above ``0.2-rc1`` and any of its
 builds: it will return ``false`` for version ``v"0.2-rc1+win64"`` and ``true``
@@ -637,8 +686,8 @@ for ``v"0.2-rc2"``.
 It is good practice to use such special versions in comparisons (particularly,
 the trailing ``-`` should always be used on upper bounds unless there's a good
 reason not to), but they must not be used as the actual version number of
-anything, as they are illegal in the semantic versioning scheme.
+anything, as they are invalid in the semantic versioning scheme.
 
-Besides being used for the ``VERSION`` constant, ``VersionNumber`` objects are
-widely used in the ``Pkg`` module, to specify packages versions and their
+Besides being used for the :const:`VERSION` constant, :obj:`VersionNumber` objects are
+widely used in the :mod:`Pkg <Base.Pkg>` module, to specify packages versions and their
 dependencies.
