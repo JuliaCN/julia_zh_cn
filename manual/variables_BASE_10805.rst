@@ -2,23 +2,23 @@
  变量
 ******
 
-Julia 中，变量即是关联到某个值的名字。当你想存储一个值（比如数学计算中的某个中间变量）以备后用时，变量的作用就体现出来了。举个例子：
+A variable, in Julia, is a name associated (or bound) to a value. It's useful when you want to store a value (that you obtained after some math, for example) for later use. For example:
 
 .. doctest::
 
-    # 将 整数 10 赋值给变量 x
+    # Assign the value 10 to the variable x
     julia> x = 10 
     10
     
-    # 对 x 所存储的值做数值运算
+    # Doing math with x's value
     julia> x + 1
     11
     
-    # 重新定义 x 的值
+    # Reassign x's value
     julia> x = 1 + 1 
     2
-
-    # 你也可以给它赋予其它类型的值, 比如字符串    
+    
+    # You can assign values of other types, like strings of text
     julia> x = "Hello World!"
     "Hello World!"
 
@@ -63,11 +63,11 @@ Julia 提供了极其灵活的变量命名系统。变量名区分大小写。
     julia> 안녕하세요 = "Hello" 
     "Hello"
 
-
-在 Julia REPL 和其它一些 Julia 的编辑环境中，支持 Unicode 数学符号
-的输入。只需要键入对应的 LaTeX 语句，再按 tab 键即可完成输入。
-比如，变量名 ``δ`` 可以通过 ``\delta``-*tab* 来输入，又如 ``α̂₂``可以由
-``\alpha``-*tab*-``\hat``-*tab*-``\_2``-*tab* 来完成。
+In the Julia REPL and several other Julia editing environments, you
+can type many Unicode math symbols by typing the backslashed LaTeX symbol
+name followed by tab.  For example, the variable name ``δ`` can be
+entered by typing ``\delta``-*tab*, or even ``α̂₂`` by
+``\alpha``-*tab*-``\hat``-*tab*-``\_2``-*tab*.
 
 .. raw:: latex
 
@@ -99,20 +99,24 @@ Julia 甚至允许重新定义内置的常数和函数：
 可用的变量名
 ============
 
-变量名必须的开头必须是如下字符:
-
-- 字母
-- 比 00A0大的unicode 子集 具体是指, `Unicode character categories`_:
-    + Lu/Ll/Lt/Lm/Lo/Nl(字母))开头
-    + Sc/So(货币和其它符号)
-    + 以及其它一些类似于字母的符号(比如 Sm 数学符号)
-
-在变量名中的字符还可以包含 ! 和数字, 同时也可以是 Unicode 编码点: 变音符号 以及 其它 修饰符号, 一些标点连接符, 元素, 以及一些其它的字符.
-
+Variable names must begin with a letter (A-Z or a-z), underscore, or a
+subset of Unicode code points greater than 00A0; in particular, `Unicode character categories`_ Lu/Ll/Lt/Lm/Lo/Nl (letters), Sc/So (currency and
+other symbols), and a few other letter-like characters (e.g. a subset
+of the Sm math symbols) are allowed. Subsequent characters may also
+include ! and digits (0-9 and other characters in categories Nd/No),
+as well as other Unicode code points: diacritics and other modifying
+marks (categories Mn/Mc/Me/Sk), some punctuation connectors (category
+Pc), primes, and a few other characters.
 
 .. _Unicode character categories: http://www.fileformat.info/info/unicode/category/index.htm
 
-类似于 ``+`` 的运算符也是允许的标识符, 但会以其它方式解析. 在上下文中, 运算符会被类似于变量一样使用; 比如 ``(+)`` 代表了加法函数, 而 ``(+) = f`` 会重新给它赋值. 大部分的 Unicode 运算符,比如 ``⊕``, 会被当做运算符解析, 并且可以由用户来定义. 比如, 您可以使用 ``const ⊗ = kron`` 来定义 ``⊗``  为一个直乘运算符.
+Operators like ``+`` are also valid identifiers, but are parsed specially. In
+some contexts, operators can be used just like variables; for example
+``(+)`` refers to the addition function, and ``(+) = f`` will reassign
+it.  Most of the Unicode infix operators (in category Sm),
+such as ``⊕``, are parsed as infix operators and are available for
+user-defined methods (e.g. you can use ``const ⊗ = kron`` to define
+``⊗`` as an infix Kronecker product).
 
 内置的关键字不能当变量名：
 
