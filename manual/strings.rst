@@ -647,50 +647,20 @@ ASCII 字符串 "DATA" 对应于字节 68, 65, 84, 65 。 ``\xff`` 生成的单�
 版本号常量
 -----------------------
 
-版本号可以很容易的用非标准的字符串常量表达 ``v"..."`` 。 版本号常量会按照`语义版本控制 <http://semver.org>`_ 的规格创建一个 ``VersionNumber`` 对象， 因此，会根据 pre-release 生成版本号
+版本号可以很容易的用非标准的字符串常量表达 ``v"..."`` 。 版本号常量会按照`语义版本控制 <http://semver.org>`_ 的规格，根据预览版本和 build alpha-numeric 注释，创建一个 ``VersionNumber`` 对象。例如，``v"0.2.1-rc1+win64"``会被拆成主版本 ``0``，次要版本 ``2``，修补版本 ``1``，预览版本 ``rc1`` 和构建版本 ``win64``。 在版本号常量中，除了主版本号以外的都是可选的，比如 ``v"0.2"`` 等价于 ``v"0.2.0"``（没有预览版和编译注释），``v"2"`` 等价于 ``v"2.0.0"``, 以此类推。
 
-
-Version numbers can easily be expressed with non-standard string literals of
-the form ``v"..."``. Version number literals create :obj:`VersionNumber` objects
-which follow the specifications of `semantic versioning <http://semver.org>`_,
-and therefore are composed of major, minor and patch numeric values, followed
-by pre-release and build alpha-numeric annotations. For example,
-``v"0.2.1-rc1+win64"`` is broken into major version ``0``, minor version ``2``,
-patch version ``1``, pre-release ``rc1`` and build ``win64``. When entering a
-version literal, everything except the major version number is optional,
-therefore e.g.  ``v"0.2"`` is equivalent to ``v"0.2.0"`` (with empty
-pre-release/build annotations), ``v"2"`` is equivalent to ``v"2.0.0"``, and so
-on.
-
-:obj:`VersionNumber` objects are mostly useful to easily and correctly compare two
-(or more) versions. For example, the constant ``VERSION`` holds Julia version
-number as a :obj:`VersionNumber` object, and therefore one can define some
-version-specific behavior using simple statements as::
+``VersionNumber`` 对象对正确地对比两个或多个版本非常有用，常数 ``VERSION`` 将Julia的版本皓以 ``VersionNumber`` 对象的形式存储下来， 于是这使得我们可以用如下简单的命令来规范版本： ::
 
     if v"0.2" <= VERSION < v"0.3-"
         # do something specific to 0.2 release series
     end
 
-Note that in the above example the non-standard version number ``v"0.3-"`` is
-used, with a trailing ``-``: this notation is a Julia extension of the
-standard, and it's used to indicate a version which is lower than any ``0.3``
-release, including all of its pre-releases. So in the above example the code
-would only run with stable ``0.2`` versions, and exclude such versions as
-``v"0.3.0-rc1"``. In order to also allow for unstable (i.e. pre-release)
-``0.2`` versions, the lower bound check should be modified like this: ``v"0.2-"
-<= VERSION``.
+注意上面的例子使用了非标准的版本号 ``v"0.3-"``， 加上了一个后缀 ``-`` ：这代表比 ``0.3`` 版本要老的旧版本， 也就是说这个代码只能在稳定的 ``0.2`` 版本上运行， 并会排除类似于``v"0.3.0-rc1"`` 这样的版本。为了使得不稳定的 ``0.2`` 版本也能使用， 最低版本检查应该这样写： ``v"0.2-"
+<= VERSION``。
 
-Another non-standard version specification extension allows one to use a trailing
-``+`` to express an upper limit on build versions, e.g.  ``VERSION >
-"v"0.2-rc1+"`` can be used to mean any version above ``0.2-rc1`` and any of its
-builds: it will return ``false`` for version ``v"0.2-rc1+win64"`` and ``true``
-for ``v"0.2-rc2"``.
+另外一种非标准的版本规范扩展允许使用一个 ``+`` 作为后缀来表达更高的版本，例如 ``VERSION >
+"v"0.2-rc1+"`` 可以用来代表所有 ``0.2-rc1`` 以后的版本和它的编译版本： 对于 ``v"0.2-rc1+win64"``会返回``false``对于 ``v"0.2-rc2"`` 则会返回 ``true``。
 
-It is good practice to use such special versions in comparisons (particularly,
-the trailing ``-`` should always be used on upper bounds unless there's a good
-reason not to), but they must not be used as the actual version number of
-anything, as they are invalid in the semantic versioning scheme.
+一般来讲``-`` 总应当作为后缀出现在上界的限定中，但不能用来做为真实的版本号， 因为它在语义版本控制的标准中不存在。
 
-Besides being used for the :const:`VERSION` constant, :obj:`VersionNumber` objects are
-widely used in the :mod:`Pkg <Base.Pkg>` module, to specify packages versions and their
-dependencies.
+此外常数``VERSION`` 和对象 ``VersionNumber`` 常常用来在 ``Pkg <Base.Pkg>`` 模块中指定依赖关系。
