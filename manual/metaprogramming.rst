@@ -108,11 +108,11 @@ Sometimes extra parentheses around the argument to : are needed to avoid ambigui
     julia> :(::)
     :(::)
     
-Expressions and evaluation
+表达式及其计算
 ----------------------------          
 
 Quoting
-----------------------------      
+~~~~~~~~~    
 The second syntactic purpose of the : character is to create expression objects without using the explicit Expr constructor. This is referred to as quoting. The : character, followed by paired parentheses around a single statement of Julia code, produces an Expr object based on the enclosed code. Here is example of the short form used to quote an arithmetic expression： ::
 
     julia> ex = :(a+b*c+1)
@@ -149,7 +149,7 @@ There is a second syntactic form of quoting for multiple expressions: blocks of 
     Expr
 
 内插 (Interpolation)
-------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Direct construction of Expr objects with value arguments is powerful, but Expr constructors can be tedious compared to “normal” Julia syntax. As an alternative, Julia allows “splicing” or interpolation of literals or expressions into quoted expressions. Interpolation is indicated by the $ prefix.
 
@@ -178,8 +178,8 @@ Interpolating symbols into a nested expression requires enclosing each symbol in
                    
 The use of $ for expression interpolation is intentionally reminiscent of string interpolation and command interpolation. Expression interpolation allows convenient, readable programmatic construction of complex Julia expressions.
 
-``eval()`` and effects
-------------
+``eval()`` 函数及其效果
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Given an expression object, one can cause Julia to evaluate (execute) it at global scope using eval()： ::
 
     julia> :(1 + 2)
@@ -232,8 +232,8 @@ The value of a is used to construct the expression ex which applies the + functi
 The value of the variable a at expression construction time is used as an immediate value in the expression. Thus, the value of a when the expression is evaluated no longer matters: the value in the expression is already 1, independent of whatever the value of a might be.
 On the other hand, the symbol :b is used in the expression construction, so the value of the variable b at that time is irrelevant — :b is just a symbol and the variable b need not even be defined. At expression evaluation time, however, the value of the symbol :b is resolved by looking up the value of the variable b.
 
-Functions on Expressions
-------------
+表达式的函数
+~~~~~~~~~~~~~~~
 
 As hinted above, one extremely useful feature of Julia is the capability to generate and manipulate Julia code within Julia itself. We have already seen one example of a function returning Expr objects: the parse() function, which takes a string of Julia code and returns the corresponding Expr. A function can also take one or more Expr objects as arguments, and return another Expr. Here is a simple, motivating example： ::
 
