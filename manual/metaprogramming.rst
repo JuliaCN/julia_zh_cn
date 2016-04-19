@@ -112,7 +112,7 @@ Expressions and evaluation
 ----------------------------          
 
 Quoting
-^^^^^^^^^^^^^^^^^^^^^^^^^^^    
+----------------------------      
 The second syntactic purpose of the : character is to create expression objects without using the explicit Expr constructor. This is referred to as quoting. The : character, followed by paired parentheses around a single statement of Julia code, produces an Expr object based on the enclosed code. Here is example of the short form used to quote an arithmetic expression： ::
 
     julia> ex = :(a+b*c+1)
