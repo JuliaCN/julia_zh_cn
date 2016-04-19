@@ -5,8 +5,9 @@
 ********
  元编程
 ********
+在julia语言中，对元编程的支持，是继承自Lisp语言的最强大遗产。类似Lisp，julia自身的代码也是语言本身的数据结构。由于代码是由这门语言本身所构造和处理的对象所表示的，因此程序也可以转换成和生成自身语言的代码。这样不用额外的构建步骤，依然可以生成复杂而精细的高级代码，并且也可以让真正Lisp风格的宏在抽象语法树(abstract syntax trees)层面进行操作。同时元编程的另一个功能是反射，它可以在程序运行时动态展现程序本身的特性。
 
-类似 Lisp ， Julia  自身的代码也是语言本身的数据结构。由于代码是由这门语言本身所构造和处理的对象所表示的，因此程序也可以转换并生成自身语言的代码。元编程的另一个功能是反射，它可以在程序运行时动态展现程序本身的特性。
+In contrast, preprocessor “macro” systems, like that of C and C++, perform textual manipulation and substitution before any actual parsing or interpretation occurs. Because all data types and code in Julia are represented by Julia data structures, powerful reflection capabilities are available to explore the internals of a program and its types just like any other data.
 
 表达式和求值
 ------------
