@@ -9,14 +9,14 @@
 
 程序的表示
 ------------
-每一个julia程序都是从一个字符串开始它的生命的（所有的程序源代码都是字符串）：
+每一个julia程序都是从一个字符串开始它的生命的（所有的程序源代码都是字符串）： ::
 
     julia> prog = "1 + 1"
     "1 + 1"
     
 下一步将发生什么呢？
 
-下一步是把每一个字符串解析 (`parse <https://en.wikipedia.org/wiki/Parsing#Computer_languages>`_) 成一种被称之为表达式 (Expression) 的对象，用julia类型Expr来表示：
+下一步是把每一个字符串解析 (`parse <https://en.wikipedia.org/wiki/Parsing#Computer_languages>`_) 成一种被称之为表达式 (Expression) 的对象，用julia类型 ``Expr`` 来表示： ::
 
     julia> ex1 = parse(prog)
     :(1 + 1)
