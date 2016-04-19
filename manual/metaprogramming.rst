@@ -5,7 +5,7 @@
 ********
  元编程(目标: Release 0.4.0版本)
 ********
-在julia语言中，对元编程的支持，是继承自Lisp语言的最强大遗产。类似Lisp，julia自身的代码也是语言本身的数据结构。由于代码是由这门语言本身所构造和处理的对象所表示的，因此程序也可以转换成和生成自身语言的代码。这样不用额外的构建步骤，依然可以生成复杂而精细的高级代码，并且也可以让真正Lisp风格的宏在抽象语法树(`abstract syntax trees <https://en.wikipedia.org/wiki/Abstract_syntax_tree>`_) 层面进行操作。与此相反的是，称之为预处理器“宏”系统，例如C和C++就采用了这种系统。它所实现的是，在执行任何实际内插(inter -pretation) 操作或者从语法上解析(parse) 操作之前，执行文本处理和代入操作（julia与此相反）。因为所有在julia中的数据类型和代码都是通过julia数据结构来表示的，所以用反射(`reflection <https://en.wikipedia.org/wiki/Reflection_%28computer_programming%29>`_) 功能可以探索程序内部的内容以及这些内容的类型，就像任何其他类型的数据一样。
+在julia语言中，对元编程的支持，是继承自Lisp语言的最强大遗产。类似Lisp，julia自身的代码也是语言本身的数据结构。由于代码是由这门语言本身所构造和处理的对象所表示的，因此程序也可以转换成和生成自身语言的代码。这样不用额外的构建步骤，依然可以生成复杂而精细的高级代码，并且也可以让真正Lisp风格的宏在抽象语法树 (`abstract syntax trees <https://en.wikipedia.org/wiki/Abstract_syntax_tree>`_) 层面进行操作。与此相反的是，称之为预处理器“宏”系统，例如C和C++就采用了这种系统。它所实现的是，在执行任何实际内插 (inter-pretation) 操作或者从语法上解析 (parse) 操作之前，执行文本处理和代入操作（julia与此相反）。因为所有在julia中的数据类型和代码都是通过julia数据结构来表示的，所以用反射 (`reflection <https://en.wikipedia.org/wiki/Reflection_%28computer_programming%29>`_) 功能可以探索程序内部的内容以及这些内容的类型，就像任何其他类型的数据一样。
 
 表达式和求值
 ------------
