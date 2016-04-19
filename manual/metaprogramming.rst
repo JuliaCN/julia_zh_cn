@@ -54,9 +54,9 @@
     julia> ex1 == ex2
     true
 
-**这里的要点是 that Julia code is internally represented as a data structure that is accessible from the language itself**
+**这里的要点是，julia语言的代码内在地被表示成了一种，可以被外界通过julia语言自身所获取的数据结构**
 
-这个 ``dump()`` 函数提供了 provides indented and annotated display of Expr objects： ::
+这个 ``dump()`` 函数可以显示带缩进和注释的 ``Expr`` 对象： ::
 
     julia> dump(ex2)
     Expr
@@ -67,15 +67,208 @@
         3: Int64 1
       typ: Any
       
-``Expr`` 对象也可以是嵌套的： ::
+``Expr`` 对象也可以是嵌套形式的： ::
 
     julia> ex3 = parse("(4 + 4) / 2")
     :((4 + 4) / 2)
     
-另一种偷窥表达式内部的方法是用 ``Meta.show_sexpr`` 函数, which displays the S-expression form of a given Expr, which may look very familiar to users of Lisp. Here’s an example illustrating the display on a nested Expr: ::
+另一种偷窥表达式内部的方法是用 ``Meta.show_sexpr`` 函数, 它可以把一个给定的``Expr``显示成S-expression形式, Lisp用户肯定会觉得这个形式很眼熟。这有一个例子，用来说明怎样显示一个嵌套形式的 ``Expr``对象: ::
 
     julia> Meta.show_sexpr(ex3)
     (:call, :/, (:call, :+, 4, 4), 2)
+
+符号（们）
+------------
+在Julia中，这个字符： ``:`` 有两个语法的目的. The first form creates a ``Symbol``, an (`interned string <https://en.wikipedia.org/wiki/String_interning>`_) used as one building-block of expressions： ::
+
+    julia> :foo
+    :foo
+
+    julia> typeof(ans)
+    Symbol
+
+``Symbol``s can also be created using ``symbol()``, which takes any number of arguments and creates a new symbol by concatenating their string representations together： ::
+
+    julia> :foo == symbol("foo")
+    true
+
+    julia> symbol("func",10)
+    :func10
+
+    julia> symbol(:var,'_',"sym")
+    :var_sym
+    
+In the context of an expression, symbols are used to indicate access to variables; when an expression is evaluated, a symbol is replaced with the value bound to that symbol in the appropriate scope.
+
+Sometimes extra parentheses around the argument to : are needed to avoid ambiguity in parsing.： ::
+
+    julia> :(:)
+    :(:)
+
+    julia> :(::)
+    :(::)
+    
+Expressions and evaluation
+------------
+Quoting
+------------
+The second syntactic purpose of the : character is to create expression objects without using the explicit Expr constructor. This is referred to as quoting. The : character, followed by paired parentheses around a single statement of Julia code, produces an Expr object based on the enclosed code. Here is example of the short form used to quote an arithmetic expression： ::
+
+    julia> ex = :(a+b*c+1)
+    :(a + b * c + 1)
+
+    julia> typeof(ex)
+    Expr
+    
+(to view the structure of this expression, try ex.head and ex.args, or use dump() as above)
+
+Note that equivalent expressions may be constructed using parse() or the direct Expr form： ::
+
+    julia>      :(a + b*c + 1)  ==
+           parse("a + b*c + 1") ==
+           Expr(:call, :+, :a, Expr(:call, :*, :b, :c), 1)
+    true
+
+Expressions provided by the parser generally only have symbols, other expressions, and literal values as their args, whereas expressions constructed by Julia code can have arbitrary run-time values without literal forms as args. In this specific example, + and a are symbols, *(b,c) is a subexpression, and 1 is a literal 64-bit signed integer.
+
+There is a second syntactic form of quoting for multiple expressions: blocks of code enclosed in quote ... end. Note that this form introduces QuoteNode elements to the expression tree, which must be considered when directly manipulating an expression tree generated from quote blocks. For other purposes, :( ... ) and quote .. end blocks are treated identically. ::
+
+    julia> ex = quote
+               x = 1
+               y = 2
+               x + y
+           end
+    quote  # none, line 2:
+        x = 1 # none, line 3:
+        y = 2 # none, line 4:
+        x + y
+    end
+
+    julia> typeof(ex)
+    Expr
+
+Interpolation
+------------
+
+Direct construction of Expr objects with value arguments is powerful, but Expr constructors can be tedious compared to “normal” Julia syntax. As an alternative, Julia allows “splicing” or interpolation of literals or expressions into quoted expressions. Interpolation is indicated by the $ prefix.
+
+In this example, the literal value of a is interpolated： ::
+
+    julia> a = 1;
+
+    julia> ex = :($a + b)
+    :(1 + b)
+    
+Interpolating into an unquoted expression is not supported and will cause a compile-time error： ::
+
+    julia> $a + b
+    ERROR: unsupported or misplaced expression $
+In this example, the tuple (1,2,3) is interpolated as an expression into a conditional test： ::
+
+    julia> ex = :(a in $:((1,2,3)) )
+    :($(Expr(:in, :a, :((1,2,3)))))
+    
+Interpolating symbols into a nested expression requires enclosing each symbol in an enclosing quote block： ::
+
+    julia> :( :a in $( :(:a + :b) ) )
+                   ^^^^^^^^^^
+                   quoted inner expression
+                   
+The use of $ for expression interpolation is intentionally reminiscent of string interpolation and command interpolation. Expression interpolation allows convenient, readable programmatic construction of complex Julia expressions.
+
+``eval()`` and effects
+------------
+Given an expression object, one can cause Julia to evaluate (execute) it at global scope using eval()： ::
+
+    julia> :(1 + 2)
+    :(1 + 2)
+
+    julia> eval(ans)
+    3
+
+    julia> ex = :(a + b)
+    :(a + b)
+
+    julia> eval(ex)
+    ERROR: UndefVarError: b not defined
+
+    julia> a = 1; b = 2;
+
+    julia> eval(ex)
+    3
+
+Every module has its own eval() function that evaluates expressions in its global scope. Expressions passed to eval() are not limited to returning values — they can also have side-effects that alter the state of the enclosing module’s environment： ::
+
+    julia> ex = :(x = 1)
+    :(x = 1)
+
+    julia> x
+    ERROR: UndefVarError: x not defined
+
+    julia> eval(ex)
+    1
+
+    julia> x
+    1
+    
+Here, the evaluation of an expression object causes a value to be assigned to the global variable x.
+
+Since expressions are just Expr objects which can be constructed programmatically and then evaluated, it is possible to dynamically generate arbitrary code which can then be run using eval(). Here is a simple example： ::
+
+    julia> a = 1;
+
+    julia> ex = Expr(:call, :+, a, :b)
+    :(1 + b)
+
+    julia> a = 0; b = 2;
+
+    julia> eval(ex)
+    3
+
+The value of a is used to construct the expression ex which applies the + function to the value 1 and the variable b. Note the important distinction between the way a and b are used:
+
+The value of the variable a at expression construction time is used as an immediate value in the expression. Thus, the value of a when the expression is evaluated no longer matters: the value in the expression is already 1, independent of whatever the value of a might be.
+On the other hand, the symbol :b is used in the expression construction, so the value of the variable b at that time is irrelevant — :b is just a symbol and the variable b need not even be defined. At expression evaluation time, however, the value of the symbol :b is resolved by looking up the value of the variable b.
+
+Functions on Expressions
+------------
+
+As hinted above, one extremely useful feature of Julia is the capability to generate and manipulate Julia code within Julia itself. We have already seen one example of a function returning Expr objects: the parse() function, which takes a string of Julia code and returns the corresponding Expr. A function can also take one or more Expr objects as arguments, and return another Expr. Here is a simple, motivating example： ::
+
+    julia> function math_expr(op, op1, op2)
+             expr = Expr(:call, op, op1, op2)
+             return expr
+           end
+
+     julia>  ex = math_expr(:+, 1, Expr(:call, :*, 4, 5))
+     :(1 + 4*5)
+
+     julia> eval(ex)
+     21
+ 
+As another example, here is a function that doubles any numeric argument, but leaves expressions alone： ::
+
+    julia> function make_expr2(op, opr1, opr2)
+             opr1f, opr2f = map(x -> isa(x, Number) ? 2*x : x, (opr1, opr2))
+             retexpr = Expr(:call, op, opr1f, opr2f)
+
+             return retexpr
+       end
+    make_expr2 (generic function with 1 method)
+
+    julia> make_expr2(:+, 1, 2)
+    :(2 + 4)
+
+    julia> ex = make_expr2(:+, 1, Expr(:call, :*, 5, 8))
+    :(2 + 5 * 8)
+
+    julia> eval(ex)
+    42
+
+Macros
+------------
+
+Macros provide a method to include generated code in the final body of a program. A macro maps a tuple of arguments to a returned expression, and the resulting expression is compiled directly rather than requiring a runtime eval() call. Macro arguments may include expressions, literal values, and symbols.
 
 表达式和求值
 ------------
