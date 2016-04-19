@@ -31,7 +31,7 @@
     julia> ex1.head
     :call
 
-* （一堆）表达式参数, 他们可能是符号，其他表达式, 或者立即数： ::
+* （一堆）表达式参数, 他们可能是符号，其他表达式, 或者立即数/字面值： ::
 
     julia> ex1.args
     3-element Array{Any,1}:
@@ -72,7 +72,7 @@
     julia> ex3 = parse("(4 + 4) / 2")
     :((4 + 4) / 2)
     
-另一种偷窥表达式内部的方法是用 ``Meta.show_sexpr`` 函数, 它可以把一个给定的``Expr``显示成S-expression形式, Lisp用户肯定会觉得这个形式很眼熟。这有一个例子，用来说明怎样显示一个嵌套形式的 ``Expr``对象: ::
+另一种偷窥表达式内部的方法是用 ``Meta.show_sexpr`` 函数, 它可以把一个给定的 ``Expr`` 显示成S-expression形式, Lisp用户肯定会觉得这个形式很眼熟。这有一个例子，用来说明怎样显示一个嵌套形式的 ``Expr`` 对象: ::
 
     julia> Meta.show_sexpr(ex3)
     (:call, :/, (:call, :+, 4, 4), 2)
@@ -87,7 +87,7 @@
     julia> typeof(ans)
     Symbol
 
-``Symbol``s can also be created using ``symbol()``, which takes any number of arguments and creates a new symbol by concatenating their string representations together： ::
+``Symbol``s 也可以被 ``symbol()`` 函数构建, which takes any number of arguments and creates a new symbol by concatenating their string representations together： ::
 
     julia> :foo == symbol("foo")
     true
@@ -98,7 +98,7 @@
     julia> symbol(:var,'_',"sym")
     :var_sym
     
-In the context of an expression, symbols are used to indicate access to variables; when an expression is evaluated, a symbol is replaced with the value bound to that symbol in the appropriate scope.
+在表达式语境里, symbols are used to indicate access to variables; when an expression is evaluated, a symbol is replaced with the value bound to that symbol in the appropriate scope.
 
 Sometimes extra parentheses around the argument to : are needed to avoid ambiguity in parsing.： ::
 
@@ -109,9 +109,10 @@ Sometimes extra parentheses around the argument to : are needed to avoid ambigui
     :(::)
     
 Expressions and evaluation
-------------
+----------------------------          
+
 Quoting
-------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^    
 The second syntactic purpose of the : character is to create expression objects without using the explicit Expr constructor. This is referred to as quoting. The : character, followed by paired parentheses around a single statement of Julia code, produces an Expr object based on the enclosed code. Here is example of the short form used to quote an arithmetic expression： ::
 
     julia> ex = :(a+b*c+1)
@@ -120,7 +121,7 @@ The second syntactic purpose of the : character is to create expression objects 
     julia> typeof(ex)
     Expr
     
-(to view the structure of this expression, try ex.head and ex.args, or use dump() as above)
+（为了偷窥这个表达式的结构, 请尝试上文提到过的 ``ex.head`` 函数、 ``ex.args`` 或者 ``dump()``）
 
 Note that equivalent expressions may be constructed using parse() or the direct Expr form： ::
 
@@ -147,12 +148,12 @@ There is a second syntactic form of quoting for multiple expressions: blocks of 
     julia> typeof(ex)
     Expr
 
-Interpolation
+内插 (Interpolation)
 ------------
 
 Direct construction of Expr objects with value arguments is powerful, but Expr constructors can be tedious compared to “normal” Julia syntax. As an alternative, Julia allows “splicing” or interpolation of literals or expressions into quoted expressions. Interpolation is indicated by the $ prefix.
 
-In this example, the literal value of a is interpolated： ::
+在这个例子里，被内插的字面值是： ::
 
     julia> a = 1;
 
@@ -163,7 +164,8 @@ Interpolating into an unquoted expression is not supported and will cause a comp
 
     julia> $a + b
     ERROR: unsupported or misplaced expression $
-In this example, the tuple (1,2,3) is interpolated as an expression into a conditional test： ::
+    
+在这个例子里, 串 (tuple) (1,2,3) 作为一个表达式，被内插进一个条件测试： ::
 
     julia> ex = :(a in $:((1,2,3)) )
     :($(Expr(:in, :a, :((1,2,3)))))
