@@ -77,9 +77,9 @@
     julia> Meta.show_sexpr(ex3)
     (:call, :/, (:call, :+, 4, 4), 2)
 
-符号（们）
+符号对象（们）
 ------------
-在Julia中，这个字符： ``:`` 有两个语法的目的. The first form creates a ``Symbol``, an (`interned string <https://en.wikipedia.org/wiki/String_interning>`_) used as one building-block of expressions： ::
+在Julia中，这个字符： ``:`` 有两个语法的功能. 第一个功能是创建一个 ``Symbol``对象, 把一个驻留字符串 (`interned string <https://en.wikipedia.org/wiki/String_interning>`_)用作表达式的构建块： ::
 
     julia> :foo
     :foo
@@ -87,7 +87,7 @@
     julia> typeof(ans)
     Symbol
 
-``Symbol``s 也可以被 ``symbol()`` 函数构建, which takes any number of arguments and creates a new symbol by concatenating their string representations together： ::
+符号对象（们）也可以被 ``symbol()`` 函数构建, which takes any number of arguments and 创建一个新的符号对象 by concatenating their string representations together： ::
 
     julia> :foo == symbol("foo")
     true
@@ -98,9 +98,9 @@
     julia> symbol(:var,'_',"sym")
     :var_sym
     
-在表达式语境里, symbols are used to indicate access to variables; when an expression is evaluated, a symbol is replaced with the value bound to that symbol in the appropriate scope.
+在表达式语境里, 符号被用来表明变量的值; 当计算一个表达式的时候, a symbol is replaced with the value bound to that symbol in the appropriate scope.
 
-Sometimes extra parentheses around the argument to : are needed to avoid ambiguity in parsing.： ::
+有时 extra parentheses around the argument to : are needed to avoid ambiguity in parsing.： ::
 
     julia> :(:)
     :(:)
