@@ -5,18 +5,18 @@
 ********
  元编程(Release 0.4.0版本)
 ********
-在julia语言中，对元编程的支持，是继承自Lisp语言的最强大遗产。类似Lisp，julia自身的代码也是语言本身的数据结构。由于代码是由这门语言本身所构造和处理的对象所表示的，因此程序也可以转换成和生成自身语言的代码。这样不用额外的构建步骤，依然可以生成复杂而精细的高级代码，并且也可以让真正Lisp风格的宏在抽象语法树 (`abstract syntax trees <https://en.wikipedia.org/wiki/Abstract_syntax_tree>`_) 层面进行操作。与此相反的是，称之为预处理器“宏”系统，例如C和C++就采用了这种系统。它所实现的是，在执行任何实际内插 (inter-pretation) 操作或者从语法上解析 (parse) 操作之前，执行文本处理和代入操作（julia与此相反）。因为所有在julia中的数据类型和代码都是通过julia数据结构来表示的，所以用反射 (`reflection <https://en.wikipedia.org/wiki/Reflection_%28computer_programming%29>`_) 功能可以探索程序内部的内容以及这些内容的类型，就像任何其他类型的数据一样。
+在Julia语言中，对元编程的支持，是继承自Lisp语言的最强大遗产。类似Lisp，Julia自身的代码也是语言本身的数据结构。由于代码是由这门语言本身所构造和处理的对象所表示的，因此程序也可以转换成和生成自身语言的代码。这样不用额外的构建步骤，依然可以生成复杂而精细的高级代码，并且也可以让真正Lisp风格的宏在抽象语法树 (`abstract syntax trees <https://en.wikipedia.org/wiki/Abstract_syntax_tree>`_) 层面进行操作。与此相反的是，称之为预处理器“宏”系统，例如C和C++就采用了这种系统。它所实现的是，在执行任何实际内插 (inter-pretation) 操作或者从语法上解析 (parse) 操作之前，执行文本处理和代入操作（Julia与此相反）。因为所有在julia中的数据类型和代码都是通过julia数据结构来表示的，所以用反射 (`reflection <https://en.wikipedia.org/wiki/Reflection_%28computer_programming%29>`_) 功能可以探索程序内部的内容以及这些内容的类型，就像任何其他类型的数据一样。
 
 程序的表示
 ------------
-每一个julia程序都是从一个字符串开始它的生命的（所有的程序源代码都是字符串）： ::
+每一个Julia程序都是从一个字符串开始它的生命的（所有的程序源代码都是字符串）： ::
 
     julia> prog = "1 + 1"
     "1 + 1"
     
 **下一步将发生什么呢？**
 
-下一步是把每一个字符串解析 (`parse <https://en.wikipedia.org/wiki/Parsing#Computer_languages>`_) 成一种被称之为表达式 (Expression) 的对象，用julia类型 ``Expr`` 来表示： ::
+下一步是把每一个字符串解析 (`parse <https://en.wikipedia.org/wiki/Parsing#Computer_languages>`_) 成一种被称之为表达式 (Expression) 的对象，用Julia类型 ``Expr`` 来表示： ::
 
     julia> ex1 = parse(prog)
     :(1 + 1)
@@ -54,7 +54,7 @@
     julia> ex1 == ex2
     true
 
-**这里的要点是，julia语言的代码内在地被表示成了一种，可以被外界通过julia语言自身所获取的数据结构**
+**这里的要点是，Julia语言的代码内在地被表示成了一种，可以被外界通过Julia语言自身所获取的数据结构**
 
 这个 ``dump()`` 函数可以显示带缩进和注释的 ``Expr`` 对象： ::
 
@@ -72,7 +72,7 @@
     julia> ex3 = parse("(4 + 4) / 2")
     :((4 + 4) / 2)
     
-另一种偷窥表达式内部的方法是用 ``Meta.show_sexpr`` 函数, 它可以把一个给定的 ``Expr`` 显示成S-expression形式, Lisp用户肯定会觉得这个形式很眼熟。这有一个例子，用来说明怎样显示一个嵌套形式的 ``Expr`` 对象: ::
+另一种查看表达式内部的方法是用 ``Meta.show_sexpr`` 函数, 它可以把一个给定的 ``Expr`` 显示成S-expression形式, Lisp用户肯定会觉得这个形式很眼熟。这有一个例子，用来说明怎样显示一个嵌套形式的 ``Expr`` 对象: ::
 
     julia> Meta.show_sexpr(ex3)
     (:call, :/, (:call, :+, 4, 4), 2)
@@ -87,7 +87,7 @@
     julia> typeof(ans)
     Symbol
 
-符号对象（们）也可以被 ``symbol()`` 函数构建, which takes any number of arguments and 创建一个新的符号对象 by concatenating their string representations together： ::
+符号对象（们）也可以被 ``symbol()`` 函数构建, 它把所有参数的值（数，字符，字符串）链接起来，整体创建的一个新的符号对象 ： ::
 
     julia> :foo == symbol("foo")
     true
@@ -98,9 +98,9 @@
     julia> symbol(:var,'_',"sym")
     :var_sym
     
-在表达式语境里, 符号被用来表明变量的值; 当计算一个表达式的时候, a symbol is replaced with the value bound to that symbol in the appropriate scope.
+在表达式语境里, 符号被用来表明变量的值; 当计算一个表达式的时候, 每个符号都被替换成它在当前变量作用范围内 (scope) 所代表的值。
 
-有时 extra parentheses around the argument to : are needed to avoid ambiguity in parsing.： ::
+有时用额外的圆括号包住的``:``来表示 ``:``的字符意义（而不是语法意义，在语法意义中，它表示把自己之后的字符串变成一个符号） 从而避免在解析时出现混淆。： ::
 
     julia> :(:)
     :(:)
@@ -111,9 +111,9 @@
 表达式及其计算
 ----------------------------          
 
-Quoting
+引用 (Quote)
 ~~~~~~~~~    
-The second syntactic purpose of the : character is to create expression objects without using the explicit Expr constructor. This is referred to as quoting. The : character, followed by paired parentheses around a single statement of Julia code, produces an Expr object based on the enclosed code. Here is example of the short form used to quote an arithmetic expression： ::
+这个``:`` 字符的第二个语法目的是，不用显示的 (explicit)``Expr``对象构建器，构建一个表达式对对象。这被称之为引用。 这个``:`` 字符, followed by paired parentheses around a single statement of Julia code, produces an Expr object based on the enclosed code. 这个例子表明了对一个简短的算数运算的引用： ::
 
     julia> ex = :(a+b*c+1)
     :(a + b * c + 1)
@@ -121,9 +121,9 @@ The second syntactic purpose of the : character is to create expression objects 
     julia> typeof(ex)
     Expr
     
-（为了偷窥这个表达式的结构, 请尝试上文提到过的 ``ex.head`` 函数、 ``ex.args`` 或者 ``dump()``）
+（为了查看这个表达式的结构, 请尝试上文提到过的 ``ex.head`` 函数、 ``ex.args`` 或者 ``dump()``）
 
-Note that equivalent expressions may be constructed using parse() or the direct Expr form： ::
+注意：用这种方法构建出来的表达式对象，和用``Expr``对象构建器直接构建，或者用 ``parse()`` 函数构建，构建出来的表达式对象是等价的： ::
 
     julia>      :(a + b*c + 1)  ==
            parse("a + b*c + 1") ==
