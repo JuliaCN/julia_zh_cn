@@ -26,7 +26,7 @@
 
 ``Expr`` 对象包含三部分：
 
-* 一个 ``Symbol`` 用来表示表达式的种类。符号 (symbol) 是 interned string identifier （详见下文）。 ::
+* 一个 ``Symbol`` 用来表示表达式的种类。符号 (symbol) 是驻留字符串 (interned string) 的标识符（详见下文）。 ::
 
     julia> ex1.head
     :call
@@ -87,7 +87,7 @@
     julia> typeof(ans)
     Symbol
 
-符号对象（们）也可以被 ``symbol()`` 函数构建, 它把所有参数的值（数，字符，字符串）链接起来，整体创建的一个新的符号对象 ： ::
+符号对象（们）也可以被 ``symbol()`` 函数构建, 它把所有参数的值（数，字符，字符串,现有的符号对象，或者是用:新构建的符号对象）链接起来，整体创建的一个新的符号对象 ： ::
 
     julia> :foo == symbol("foo")
     true
