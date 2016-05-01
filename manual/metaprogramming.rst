@@ -151,7 +151,7 @@
 内插 (Interpolation)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Direct construction of Expr objects with value arguments is powerful, but Expr constructors can be tedious compared to “normal” Julia syntax. As an alternative, Julia allows “splicing” or interpolation of literals or expressions into quoted expressions. Interpolation is indicated by the $ prefix.
+用参数值直接构建 (`Expr`) 对象，这种方法是非常强大的, 但是与“正常”的julia 语法相比， (`Expr`) 对象构建器就可能显得非常冗长。作为另一个选择， julia 允许, 把字面值或者表达式 “拼接 (splicing) ” 或者“内插” 进 一个被引用的表达式。 内插的内容之前加"$"前缀.
 
 在这个例子里，被内插的字面值是： ::
 
@@ -160,7 +160,7 @@ Direct construction of Expr objects with value arguments is powerful, but Expr c
     julia> ex = :($a + b)
     :(1 + b)
     
-Interpolating into an unquoted expression is not supported and will cause a compile-time error： ::
+对于没有被引用的表达式，是不能做“内插”操作的，并且如果对这种表达式做内插操作，将会导致一个编译错误 (compile-time error)。： ::
 
     julia> $a + b
     ERROR: unsupported or misplaced expression $
@@ -170,17 +170,17 @@ Interpolating into an unquoted expression is not supported and will cause a comp
     julia> ex = :(a in $:((1,2,3)) )
     :($(Expr(:in, :a, :((1,2,3)))))
     
-Interpolating symbols into a nested expression requires enclosing each symbol in an enclosing quote block： ::
+把符号对象内插进一个嵌套的表达式需要在一个封闭的引用块里（如下所示）内附每一个符号对象： ::
 
     julia> :( :a in $( :(:a + :b) ) )
-                   ^^^^^^^^^^
-                   quoted inner expression
+                       ^^^^^^^^^^
+                   被引用的内部表达式
                    
-The use of $ for expression interpolation is intentionally reminiscent of string interpolation and command interpolation. Expression interpolation allows convenient, readable programmatic construction of complex Julia expressions.
+The use of $ for expression interpolation is intentionally reminiscent of string interpolation and command interpolation. 表达式内插这一功能，使得复杂julia表达式，得以方便，可读，程序化的被构建。 
 
 ``eval()`` 函数及其效果
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Given an expression object, one can cause Julia to evaluate (execute) it at global scope using eval()： ::
+使用 `eval()` 函数,可以在全局作用域，让julia执行 (evaluate) 一个表达式对象： ::
 
     julia> :(1 + 2)
     :(1 + 2)
@@ -199,7 +199,7 @@ Given an expression object, one can cause Julia to evaluate (execute) it at glob
     julia> eval(ex)
     3
 
-Every module has its own eval() function that evaluates expressions in its global scope. Expressions passed to eval() are not limited to returning values — they can also have side-effects that alter the state of the enclosing module’s environment： ::
+每个模块都有自己的 `eval()` 函数来在全局作用域执行表达式。 通过 `eval()` 函数执行的表达式，不仅可以得到返回值 — 而且 they can also have side-effects that alter the state of the enclosing module’s environment： ::
 
     julia> ex = :(x = 1)
     :(x = 1)
@@ -213,9 +213,9 @@ Every module has its own eval() function that evaluates expressions in its globa
     julia> x
     1
     
-Here, the evaluation of an expression object causes a value to be assigned to the global variable x.
+这里, 对表达式对象所进行的计算使得给全局变量x赋了一个值（1）。
 
-Since expressions are just Expr objects which can be constructed programmatically and then evaluated, it is possible to dynamically generate arbitrary code which can then be run using eval(). Here is a simple example： ::
+既然表达式都仅仅是那些可以被程序化构建和计算的 `Expr` 对象, 也就可以动态的生成任意的代码，然后这些代码可以通过`eval()`函数执行。 这里有一个简单的例子： ::
 
     julia> a = 1;
 
@@ -227,10 +227,11 @@ Since expressions are just Expr objects which can be constructed programmaticall
     julia> eval(ex)
     3
 
-The value of a is used to construct the expression ex which applies the + function to the value 1 and the variable b. Note the important distinction between the way a and b are used:
+`a` 的值被用来构建表达式`ex`， `ex` 用 `+` 函数来加”值1“和”变量b“。 注意 `a`和`b`的用法有着重要的不同点：
 
-The value of the variable a at expression construction time is used as an immediate value in the expression. Thus, the value of a when the expression is evaluated no longer matters: the value in the expression is already 1, independent of whatever the value of a might be.
-On the other hand, the symbol :b is used in the expression construction, so the value of the variable b at that time is irrelevant — :b is just a symbol and the variable b need not even be defined. At expression evaluation time, however, the value of the symbol :b is resolved by looking up the value of the variable b.
+在构建表达式时，变量 `a` 的值，被用来作为一个用在表达式中的立即数。 因此, 当计算这个表达式的时候，变量 `a` 的值是什么都无所谓了： 在表达式中，这个值已经是1了，与`a`这个变量的值后来变成什么就没关系了。
+
+另一方面而言, 符号 `:b` 被用在了表达式里, 所以在构建表达式时，变量`b`的值就无所谓是多少了  — `:b` 只是一个符号对象，甚至变量`b`的值在那个时候都没必要被定义。然而在计算这个表达式的时候, 把这个时候变量 `b` 的值当做符号 `:b` 的值，来进行计算。
 
 表达式的函数
 ~~~~~~~~~~~~~~~
@@ -272,215 +273,7 @@ Macros
 
 Macros provide a method to include generated code in the final body of a program. A macro maps a tuple of arguments to a returned expression, and the resulting expression is compiled directly rather than requiring a runtime eval() call. Macro arguments may include expressions, literal values, and symbols.
 
-表达式和求值
-------------
-
-Julia 代码表示为由 Julia 的 ``Expr`` 类型的数据结构而构成的语法树。下面是 ``Expr`` 类型的定义： ::
-
-    type Expr
-      head::Symbol
-      args::Array{Any,1}
-      typ
-    end
-
-``head`` 是标明表达式种类的符号； ``args`` 是子表达式数组，它可能是求值时引用变量值的符号，也可能是嵌套的 ``Expr`` 对象，还可能是真实的对象值。 ``typ`` 域被类型推断用来做类型注释，通常可以被忽略。
-
-有两种“引用”代码的方法，它们可以简单地构造表达式对象，而不需要显式构造 ``Expr`` 对象。第一种是内联表达式，使用 ``:`` ，后面跟单表达式；第二种是代码块儿，放在 ``quote ... end`` 内部。下例是第一种方法，引用一个算术表达式：
-
-.. doctest::
-
-    julia> ex = :(a+b*c+1)
-    :(a + b * c + 1)
-
-    julia> typeof(ex)
-    Expr
-
-    julia> ex.head
-    :call
-
-    julia> typeof(ans)
-    Symbol
-
-    julia> ex.args
-    4-element Array{Any,1}:
-      :+
-      :a
-      :(b * c)
-     1
-
-    julia> typeof(ex.args[1])
-    Symbol
-
-    julia> typeof(ex.args[2])
-    Symbol
-
-    julia> typeof(ex.args[3])
-    Expr
-
-    julia> typeof(ex.args[4])
-    Int64
-
-下例是第二种方法：
-
-.. doctest::
-
-    julia> quote
-             x = 1
-             y = 2
-             x + y
-           end
-    quote  # none, line 2:
-        x = 1 # line 3:
-        y = 2 # line 4:
-        x + y
-    end
-
-符号
-~~~~
-
-``:`` 的参数为符号时，结果为 ``Symbol`` 对象，而不是 ``Expr`` ：
-
-.. doctest::
-
-    julia> :foo
-    :foo
-
-    julia> typeof(ans)
-    Symbol
-
-在表达式的上下文中，符号用来指示对变量的读取。当表达式被求值时，符号的值受限于符号的作用域（详见 :ref:`man-variables-and-scoping` ）。
-
-有时, 为了防止解析时产生歧义， ``:`` 的参数需要添加额外的括号：
-
-.. doctest::
-
-    julia> :(:)
-    :(:)
-
-    julia> :(::)
-    :(::)
-
-``Symbol`` 也可以使用 ``symbol`` 函数来创建，参数为一个字符或者字符串：
-
-.. doctest::
-
-    julia> symbol('\'')
-    :'
-
-    julia> symbol("'")
-    :'
-
-求值和内插
-~~~~~~~~~~
-
-指定一个表达式，Julia 可以使用 ``eval`` 函数在 global 作用域对其求值。
-
-.. doctest::
-
-    julia> :(1 + 2)
-    :(1 + 2)
-
-    julia> eval(ans)
-    3
-
-    julia> ex = :(a + b)
-    :(a + b)
-
-    julia> eval(ex)
-    ERROR: a not defined
-
-    julia> a = 1; b = 2;
-
-    julia> eval(ex)
-    3
-
-Every :ref:`module <man-modules>` has its own ``eval`` function that
-evaluates expressions in its global scope.
-Expressions passed to ``eval`` are not limited to returning values
-— they can also have side-effects that alter the state of the enclosing
-module's environment:
-
-.. doctest::
-
-    julia> ex = :(x = 1)
-    :(x = 1)
-
-    julia> x
-    ERROR: x not defined
-
-    julia> eval(ex)
-    1
-
-    julia> x
-    1
-
-表达式仅仅是一个 ``Expr`` 对象，它可以通过编程构造，然后对其求值：
-
-.. doctest::
-
-    julia> a = 1;
-
-    julia> ex = Expr(:call, :+,a,:b)
-    :(+(1,b))
-
-    julia> a = 0; b = 2;
-
-    julia> eval(ex)
-    3
-
-注意上例中 ``a`` 与 ``b`` 使用时的区别：
-
--  表达式构造时，直接使用 *变量* ``a`` 的值。因此，对表达式求值时 ``a`` 的值没有任何影响：表达式中的值为 ``1`` ，与现在 ``a`` 的值无关
--  表达式构造时，使用的是 *符号* ``:b`` 。因此，构造时变量 ``b`` 的值是无关的—— ``:b`` 仅仅是个符号，此时变量 ``b`` 还未定义。对表达式求值时，通过查询变量 ``b`` 的值来解析符号 ``:b`` 的值
-
-这样构造 ``Expr`` 对象太丑了。Julia 允许对表达式对象内插。因此上例可写为：
-
-.. doctest::
-
-    julia> a = 1;
-
-    julia> ex = :($a + b)
-    :(+(1,b))
-
-编译器自动将这个语法翻译成上面带 ``Expr`` 的语法。
-
-代码生成
-~~~~~~~~
-
-Julia 使用表达式内插和求值来生成重复的代码。下例定义了一组操作三个参数的运算符： ::
-
-    for op = (:+, :*, :&, :|, :$)
-      eval(quote
-        ($op)(a,b,c) = ($op)(($op)(a,b),c)
-      end)
-    end
-
-上例可用 ``:`` 前缀引用格式写的更精简： ::
-
-    for op = (:+, :*, :&, :|, :$)
-      eval(:(($op)(a,b,c) = ($op)(($op)(a,b),c)))
-    end
-
-使用 ``eval(quote(...))`` 模式进行语言内的代码生成，这种方式太常见了。Julia 用宏来简写这个模式： ::
-
-    for op = (:+, :*, :&, :|, :$)
-      @eval ($op)(a,b,c) = ($op)(($op)(a,b),c)
-    end
-
-``@eval`` 宏重写了这个调用，使得代码更精简。 ``@eval`` 的参数也可以是块代码： ::
-
-    @eval begin
-      # multiple lines
-    end
-
-对非引用表达式进行内插，会引发编译时错误：
-
-.. doctest::
-
-    julia> $a + b
-    ERROR: unsupported or misplaced expression $
-
-.. _man-macros:
+** （以下是0.3.0版本内容） **
 
 宏
 --
