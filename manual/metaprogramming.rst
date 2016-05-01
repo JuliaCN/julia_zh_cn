@@ -77,7 +77,7 @@
     julia> Meta.show_sexpr(ex3)
     (:call, :/, (:call, :+, 4, 4), 2)
 
-符号对象（们）
+符号对象
 ------------
 在Julia中，这个字符： ``:`` 有两个语法的功能. 第一个功能是创建一个 ``Symbol``对象, 把一个驻留字符串 (`interned string <https://en.wikipedia.org/wiki/String_interning>`_)用作表达式的构建块： ::
 
@@ -87,7 +87,7 @@
     julia> typeof(ans)
     Symbol
 
-符号对象（们）也可以被 ``symbol()`` 函数构建, 它把所有参数的值（数，字符，字符串,现有的符号对象，或者是用:新构建的符号对象）链接起来，整体创建的一个新的符号对象 ： ::
+符号对象也可以被 ``symbol()`` 函数构建, 它把所有参数的值（数，字符，字符串,现有的符号对象，或者是用:新构建的符号对象）链接起来，整体创建的一个新的符号对象 ： ::
 
     julia> :foo == symbol("foo")
     true
@@ -113,7 +113,7 @@
 
 引用 (Quote)
 ~~~~~~~~~    
-这个``:`` 字符的第二个语法目的是，不用显示的 (explicit)``Expr``对象构建器，构建一个表达式对对象。这被称之为引用。 这个``:`` 字符, followed by paired parentheses around a single statement of Julia code, produces an Expr object based on the enclosed code. 这个例子表明了对一个简短的算数运算的引用： ::
+这个``:`` 字符的第二个语法目的是，不用显式的 (explicit)``Expr``对象构建器，而构建一个``Expr``对象。这被称之为引用。 通过使用这个``:`` 字符, 以及后面跟着的由一对圆括号所包住的一条julia语句, 生成一个基于这条被包括住的语句的``Expr``对象。 这个例子表明了对一个简短的算数运算的引用： ::
 
     julia> ex = :(a+b*c+1)
     :(a + b * c + 1)
@@ -130,9 +130,9 @@
            Expr(:call, :+, :a, Expr(:call, :*, :b, :c), 1)
     true
 
-Expressions provided by the parser generally only have symbols, other expressions, and literal values as their args, whereas expressions constructed by Julia code can have arbitrary run-time values without literal forms as args. In this specific example, + and a are symbols, *(b,c) is a subexpression, and 1 is a literal 64-bit signed integer.
+由解析器 (parser) 生成的表达式 (`Expr` 对象) 通常把符号 (`Symbol`对象)、其他表达式、或者字面值作为他们的参数, 然而用julia代码构建的表达式可以把任意实时值 (run-time values) 而不是字面值作为参数。 在上面这个具体的例子里, + 和 a 都是符号, *(b,c) 是一个子表达式, 还有 1 是一个字面值（64位有符号整数）
 
-There is a second syntactic form of quoting for multiple expressions: blocks of code enclosed in quote ... end. Note that this form introduces QuoteNode elements to the expression tree, which must be considered when directly manipulating an expression tree generated from quote blocks. For other purposes, :( ... ) and quote .. end blocks are treated identically. ::
+引用的第二种语法是通过“引用块”实现多重表达式： 在引用块里，代码被包含在 quote ... end中。 注意，当直接操作由引用块生成的表达式树时，一定要注意到，这种形式把 QuoteNode 元素引入了表达式树。其他情况下 :( ... ) 和 quote .. end 块会被当做一样的对象来处理。 ::
 
     julia> ex = quote
                x = 1
