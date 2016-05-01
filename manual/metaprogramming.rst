@@ -121,7 +121,7 @@
     julia> typeof(ex)
     Expr
     
-（为了查看这个表达式对象的结构, 请尝试上文提到过的 ``ex.head`` 函数、 ``ex.args`` 或者 ``dump()``）
+（为了查看这个表达式对象的结构, 请尝试上文提到过的 ``ex.head``、 ``ex.args`` 或者 ``dump()``）
 
 注意：用这种方法构建出来的表达式对象，和用``Expr``对象构建器直接构建，或者用 ``parse()`` 函数构建，构建出来的表达式对象是等价的： ::
 
@@ -214,7 +214,7 @@
     julia> x
     1
     
-这里, 对表达式对象所进行的计算使得给全局变量x赋了一个值（1）。
+这里, 对表达式对象所进行的计算使得给全局变量``x``赋了一个值（1）。
 
 既然表达式语句都是可以通过先程序化的构建表达式对象，再计算这个对象从而生成的， 这也就是说，可以动态的生成任意代码（动态的构建表达式对象），然后这些代码可以用``eval()``函数执行。 这里有一个简单的例子： ::
 
@@ -237,7 +237,7 @@
 表达式的函数
 ~~~~~~~~~~~~~~~
 
-As hinted above, one extremely useful feature of Julia is the capability to generate and manipulate Julia code within Julia itself. We have already seen one example of a function returning Expr objects: the parse() function, which takes a string of Julia code and returns the corresponding Expr. A function can also take one or more Expr objects as arguments, and return another Expr. Here is a simple, motivating example： ::
+正如上文所提示过的, julia 的一个极其有用的特性是用 julia 程序有能力自己生成和操作这个程序自己的代码。 We have already seen one example of a function returning Expr objects: the parse() function, which takes a string of Julia code and returns the corresponding Expr. A function can also take one or more Expr objects as arguments, and return another Expr. Here is a simple, motivating example： ::
 
     julia> function math_expr(op, op1, op2)
              expr = Expr(:call, op, op1, op2)
@@ -250,7 +250,7 @@ As hinted above, one extremely useful feature of Julia is the capability to gene
      julia> eval(ex)
      21
  
-As another example, here is a function that doubles any numeric argument, but leaves expressions alone： ::
+比如另一个例子,这里有一个函数，把任何数值参数都翻倍，其他部分不变，只返回新的表达式对象： ::
 
     julia> function make_expr2(op, opr1, opr2)
              opr1f, opr2f = map(x -> isa(x, Number) ? 2*x : x, (opr1, opr2))
