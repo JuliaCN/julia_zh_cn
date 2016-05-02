@@ -3,7 +3,7 @@
 .. currentmodule:: Base
 
 ********
- 元编程(Release 0.4.0版本)
+ 元编程(Release 0.4.0)
 ********
 在Julia语言中，对元编程的支持，是继承自Lisp语言的最强大遗产。类似Lisp，Julia自身的代码也是语言本身的数据结构。由于代码是由这门语言本身所构造和处理的对象所表示的，因此程序也可以转换成和生成自身语言的代码。这样不用额外的构建步骤，依然可以生成复杂而精细的高级代码，并且也可以让真正Lisp风格的宏在抽象语法树 (`abstract syntax trees <https://en.wikipedia.org/wiki/Abstract_syntax_tree>`_) 层面进行操作。与此相反的是，称之为预处理器“宏”系统，例如C和C++就采用了这种系统。它所实现的是，在执行任何实际内插 (inter-pretation) 操作或者从语法上解析 (parse) 操作之前，执行文本处理和代入操作（Julia与此相反）。因为所有在julia中的数据类型和代码都是通过julia数据结构来表示的，所以用反射 (`reflection <https://en.wikipedia.org/wiki/Reflection_%28computer_programming%29>`_) 功能可以探索程序内部的内容以及这些内容的类型，就像任何其他类型的数据一样。
 
@@ -100,7 +100,7 @@
     
 在表达式对象的语境里, 符号被用来表明变量的值; 当计算一个表达式对象的时候, 每个符号都被替换成它在当前变量作用范围内 (scope) 所代表的值。
 
-有时用额外的圆括号包住的``:``来表示 ``:``的字符意义（而不是语法意义，在语法意义中，它表示把自己之后的字符串变成一个符号） 从而避免在解析时出现混淆。： ::
+有时用额外的圆括号包住的 ``:`` 来表示 ``:`` 的字符意义（而不是语法意义，在语法意义中，它表示把自己之后的字符串变成一个符号） 从而避免在解析时出现混淆。： ::
 
     julia> :(:)
     :(:)
@@ -171,13 +171,13 @@
     julia> ex = :(a in $b )
     :($(Expr(:in, :a, :((1,2,3)))))
     
-把符号对象内插进一个嵌套的表达式对象需要在一个封闭的引用块（如下所示的``:(:a + :b)``）内附每一个符号对象： ::
+把符号对象内插进一个嵌套的表达式对象需要在一个封闭的引用块（如下所示的 `` :(:a + :b) `` ）内附每一个符号对象： ::
 
     julia> :( :a in $( :(:a + :b) ) )
                        ^^^^^^^^^^
                    被引用的内部表达式
                    
-用于表达式内插的``$``的用法，令人想起字符串内插和指令内插。表达式内插这一功能，使得复杂julia表达式，得以方便，可读，程序化的被构建。 
+用于表达式内插的 `` $ `` 的用法，令人想起字符串内插和指令内插。表达式内插这一功能，使得复杂julia表达式，得以方便，可读，程序化的被构建。 
 
 ``eval()`` 函数及其效果
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -237,7 +237,7 @@
 表达式的函数
 ~~~~~~~~~~~~~~~
 
-正如上文所提示过的, julia 的一个极其有用的特性是用 julia 程序有能力自己生成和操作这个程序自己的代码。 We have already seen one example of a function returning Expr objects: the parse() function, which takes a string of Julia code and returns the corresponding Expr. A function can also take one or more Expr objects as arguments, and return another Expr. Here is a simple, motivating example： ::
+正如上文所提示过的, julia 的一个极其有用的特性是用 julia 程序有能力自己生成和操作这个程序自己的代码。我们已经见过这样的一个例子，一个函数的返回值是一个表达式对象：``parse()`` 函数，它输入的是一个 julia 代码构成的字符串，输出的是这些代码所对应的表达式对象。 一个函数也可以把一个或者更多的表达式对象当做参数，然后返回另一个表达式对象。这是一个简单的有启发性的例子： ::
 
     julia> function math_expr(op, op1, op2)
              expr = Expr(:call, op, op1, op2)
