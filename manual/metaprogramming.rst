@@ -3,80 +3,83 @@
 .. currentmodule:: Base
 
 ********
- 元编程
+ 元编程(Release 0.4.0)
 ********
+在Julia语言中，对元编程的支持，是继承自Lisp语言的最强大遗产。类似Lisp，Julia自身的代码也是语言本身的数据结构。由于代码是由这门语言本身所构造和处理的对象所表示的，因此程序也可以转换成和生成自身语言的代码。这样不用额外的构建步骤，依然可以生成复杂而精细的高级代码，并且也可以让真正Lisp风格的宏在抽象语法树 (`abstract syntax trees <https://en.wikipedia.org/wiki/Abstract_syntax_tree>`_) 层面进行操作。与此相反的是，称之为预处理器“宏”系统，例如C和C++就采用了这种系统。它所实现的是，在执行任何实际内插 (inter-pretation) 操作或者从语法上解析 (parse) 操作之前，执行文本处理和代入操作（Julia与此相反）。因为所有在julia中的数据类型和代码都是通过julia数据结构来表示的，所以用反射 (`reflection <https://en.wikipedia.org/wiki/Reflection_%28computer_programming%29>`_) 功能可以探索程序内部的内容以及这些内容的类型，就像任何其他类型的数据一样。
 
-类似 Lisp ， Julia  自身的代码也是语言本身的数据结构。由于代码是由这门语言本身所构造和处理的对象所表示的，因此程序也可以转换并生成自身语言的代码。元编程的另一个功能是反射，它可以在程序运行时动态展现程序本身的特性。
-
-表达式和求值
+程序的表示
 ------------
+每一个Julia程序都是从一个字符串开始它的生命的（所有的程序源代码都是字符串）： ::
 
-Julia 代码表示为由 Julia 的 ``Expr`` 类型的数据结构而构成的语法树。下面是 ``Expr`` 类型的定义： ::
+    julia> prog = "1 + 1"
+    "1 + 1"
+    
+**下一步将发生什么呢？**
 
-    type Expr
-      head::Symbol
-      args::Array{Any,1}
-      typ
-    end
+下一步是把每一个字符串解析 (`parse <https://en.wikipedia.org/wiki/Parsing#Computer_languages>`_) 成一种被称之为表达式 (Expression) 的对象，用Julia类型 ``Expr`` 来表示： ::
 
-``head`` 是标明表达式种类的符号； ``args`` 是子表达式数组，它可能是求值时引用变量值的符号，也可能是嵌套的 ``Expr`` 对象，还可能是真实的对象值。 ``typ`` 域被类型推断用来做类型注释，通常可以被忽略。
+    julia> ex1 = parse(prog)
+    :(1 + 1)
 
-有两种“引用”代码的方法，它们可以简单地构造表达式对象，而不需要显式构造 ``Expr`` 对象。第一种是内联表达式，使用 ``:`` ，后面跟单表达式；第二种是代码块儿，放在 ``quote ... end`` 内部。下例是第一种方法，引用一个算术表达式：
-
-.. doctest::
-
-    julia> ex = :(a+b*c+1)
-    :(a + b * c + 1)
-
-    julia> typeof(ex)
+    julia> typeof(ex1)
     Expr
 
-    julia> ex.head
+``Expr`` 对象包含三部分：
+
+* 一个 ``Symbol`` 用来表示表达式对象的种类。符号 (symbol) 是驻留字符串 (interned string) 的标识符（详见下文）。 ::
+
+    julia> ex1.head
     :call
 
-    julia> typeof(ans)
-    Symbol
+* （一堆）表达式对象的参数, 他们可能是符号，其他表达式, 或者立即数/字面值： ::
 
-    julia> ex.args
-    4-element Array{Any,1}:
-      :+
-      :a
-      :(b * c)
+    julia> ex1.args
+    3-element Array{Any,1}:
+     :+
+     1
      1
 
-    julia> typeof(ex.args[1])
-    Symbol
+* 最后，是表达式对象的返回值的类型, 它可能被用户注释或者被编译器推断出来（而且可以被完全忽略，比如在本章里）： ::
 
-    julia> typeof(ex.args[2])
-    Symbol
+    julia> ex1.typ
+    Any
 
-    julia> typeof(ex.args[3])
+通过前缀符号，表达式对象也可以被直接构建： ::
+
+    julia> ex2 = Expr(:call, :+, 1, 1)
+    :(1 + 1)
+
+通过上述两种方式 – 解析或者直接构建 – 构建出的表达式对象是等价的： ::
+
+    julia> ex1 == ex2
+    true
+
+**这里的要点是，Julia语言的代码内在地被表示成了一种，可以被外界通过Julia语言自身所获取的数据结构**
+
+这个 ``dump()`` 函数可以显示带缩进和注释的表达式对象： ::
+
+    julia> dump(ex2)
     Expr
+      head: Symbol call
+      args: Array(Any,(3,))
+        1: Symbol +
+        2: Int64 1
+        3: Int64 1
+      typ: Any
+      
+表达式对象也可以是嵌套形式的： ::
 
-    julia> typeof(ex.args[4])
-    Int64
+    julia> ex3 = parse("(4 + 4) / 2")
+    :((4 + 4) / 2)
+    
+另一种查看表达式内部的方法是用 ``Meta.show_sexpr`` 函数, 它可以把一个给定的表达式对象显示成S-expression形式, Lisp用户肯定会觉得这个形式很眼熟。这有一个例子，用来说明怎样显示一个嵌套形式的表达式对象: ::
 
-下例是第二种方法：
+    julia> Meta.show_sexpr(ex3)
+    (:call, :/, (:call, :+, 4, 4), 2)
 
-.. doctest::
-
-    julia> quote
-             x = 1
-             y = 2
-             x + y
-           end
-    quote  # none, line 2:
-        x = 1 # line 3:
-        y = 2 # line 4:
-        x + y
-    end
-
-符号
-~~~~
-
-``:`` 的参数为符号时，结果为 ``Symbol`` 对象，而不是 ``Expr`` ：
-
-.. doctest::
+符号对象
+------------
+在Julia中，这个字符： ``:`` 有两个语法的功能. 第一个功能是创建一个 ``Symbol`` 对象, 把一个驻留字符串 (`interned string <https://en.wikipedia.org/wiki/String_interning>`_)用作表达式对象的构建块： ::
 
     julia> :foo
     :foo
@@ -84,34 +87,101 @@ Julia 代码表示为由 Julia 的 ``Expr`` 类型的数据结构而构成的语
     julia> typeof(ans)
     Symbol
 
-在表达式的上下文中，符号用来指示对变量的读取。当表达式被求值时，符号的值受限于符号的作用域（详见 :ref:`man-variables-and-scoping` ）。
+符号对象也可以被 ``symbol()`` 函数构建, 它把所有参数的值（数、字符、字符串、现有的符号对象，或者是用 ``:`` 新构建的符号对象）链接起来，整体创建的一个新的符号对象 ： ::
 
-有时, 为了防止解析时产生歧义， ``:`` 的参数需要添加额外的括号：
+    julia> :foo == symbol("foo")
+    true
 
-.. doctest::
+    julia> symbol("func",10)
+    :func10
+
+    julia> symbol(:var,'_',"sym")
+    :var_sym
+    
+在表达式对象的语境里, 符号被用来表明变量的值; 当计算一个表达式对象的时候, 每个符号都被替换成它在当前变量作用范围内 (scope) 所代表的值。
+
+有时用额外的圆括号包住的 ``:`` 来表示 ``:`` 的字符意义（而不是语法意义，在语法意义中，它表示把自己之后的字符串变成一个符号） 从而避免在解析时出现混淆。 ::
 
     julia> :(:)
     :(:)
 
     julia> :(::)
     :(::)
+    
+表达式及其计算
+----------------------------          
 
-``Symbol`` 也可以使用 ``symbol`` 函数来创建，参数为一个字符或者字符串：
+引用 (Quote)
+~~~~~~~~~    
+这个 ``:`` 字符的第二个语法功能是，不用显式的 (explicit)表达式对象构建器，从而构建一个表达式对象。这被称之为引用。 通过使用这个 ``:`` 字符, 以及后面跟着的由一对圆括号所包住的一条 julia 表达式语句（注意表达式语句和表达式对象不一样，表达式语句就是一条 julia 程序/脚本的语句）, 生成一个基于这条被包括住的语句的表达式对象。 这个例子表明了对一个简短的算数运算的引用： ::
 
-.. doctest::
+    julia> ex = :(a+b*c+1)
+    :(a + b * c + 1)
 
-    julia> symbol('\'')
-    :'
+    julia> typeof(ex)
+    Expr
+    
+（为了查看这个表达式对象的结构, 请尝试上文提到过的 ``ex.head``、 ``ex.args`` 或者 ``dump()``）
 
-    julia> symbol("'")
-    :'
+注意：用这种方法构建出来的表达式对象，和用``Expr``对象构建器直接构建，或者用 ``parse()`` 函数构建，构建出来的表达式对象是等价的： ::
 
-求值和内插
-~~~~~~~~~~
+    julia>      :(a + b*c + 1)  ==
+           parse("a + b*c + 1") ==
+           Expr(:call, :+, :a, Expr(:call, :*, :b, :c), 1)
+    true
 
-指定一个表达式，Julia 可以使用 ``eval`` 函数在 global 作用域对其求值。
+由解析器 (parser) 生成的表达式对象通常把符号对象、其他表达式对象、或者字面值作为他们的参数, 然而用 julia 代码（即 ``Expr()`` , ``:()`` 这些方法）构建的表达式可以不通过字面形式，把任意实时值 (run-time values) 作为参数（比如可以把变量 ``a`` 的实时值当做参数，而不是变量 ``a`` 这一字面形式作为参数，后文有详细描述）。 在上面这个具体的例子里,  ``+``  和 ``a`` 都是符号对象, ``*(b,c)`` 是一个子表达式对象, 以及 ``1`` 是一个字面值（64位有符号整数）
 
-.. doctest::
+引用的另一种语法是通过“引用块”实现多重表达式： 在引用块里，代码被包含在 quote ... end中。 注意，当直接操作由引用块生成的表达式树时，一定要注意到，这种形式把 QuoteNode 元素引入了表达式树。其他情况下比如 ``:( ... )`` 和 ``quote .. end`` 块会被当做一样的对象来处理。 ::
+
+    julia> ex = quote
+               x = 1
+               y = 2
+               x + y
+           end
+    quote  # none, line 2:
+        x = 1 # none, line 3:
+        y = 2 # none, line 4:
+        x + y
+    end
+
+    julia> typeof(ex)
+    Expr
+
+内插 (Interpolation)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+用参数值直接构建表达式对象，这种方法是非常强大的, 但是与“正常”的julia 语法相比， ``Expr`` 对象构建器就可能显得冗长。作为另一个选择， julia 允许, 把字面值或者表达式对象 “拼接 (splicing) ” 或者“内插” 进 一个被引用的表达式语句（即表达式对象）。 内插的内容之前加 ``$`` 前缀.
+
+在这个例子里，被内插的是变量 ``a`` 的值： ::
+
+    julia> a = 1;
+
+    julia> ex = :($a + b)
+    :(1 + b)
+    
+对于没有被引用的表达式语句，是不能做“内插”操作的，并且如果对这种表达式语句做内插操作，将会导致一个编译错误 (compile-time error)。： ::
+
+    julia> $a + b
+    ERROR: unsupported or misplaced expression $
+    
+在这个例子里, tuple ``(1,2,3)`` 作为一个表达式语句，先被 ``:`` 引用成了表达式对象 ``b`` ，再被内插进一个条件测试： ::
+
+    julia> b = :(1,2,3)
+    julia> ex = :(a in $b )
+    :($(Expr(:in, :a, :((1,2,3)))))
+    
+把符号对象内插进一个嵌套的表达式对象需要在一个封闭的引用块（如下所示的 ``:(:a + :b)`` ）内附每一个符号对象： ::
+
+    julia> :( :a in $( :(:a + :b) ) )
+                       ^^^^^^^^^^
+                   被引用的内部表达式
+                   
+用于表达式内插的 ``$`` 的用法，令人想起字符串内插和指令内插。表达式内插这一功能，使得复杂julia表达式，得以方便，可读，程序化的被构建。 
+
+``eval()`` 函数及其效果
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+使用 ``eval()`` 函数,可以在全局作用域，让 julia 执行 (evaluate) 一个表达式对象： ::
 
     julia> :(1 + 2)
     :(1 + 2)
@@ -123,100 +193,88 @@ Julia 代码表示为由 Julia 的 ``Expr`` 类型的数据结构而构成的语
     :(a + b)
 
     julia> eval(ex)
-    ERROR: a not defined
+    ERROR: UndefVarError: b not defined
 
     julia> a = 1; b = 2;
 
     julia> eval(ex)
     3
 
-Every :ref:`module <man-modules>` has its own ``eval`` function that
-evaluates expressions in its global scope.
-Expressions passed to ``eval`` are not limited to returning values
-— they can also have side-effects that alter the state of the enclosing
-module's environment:
-
-.. doctest::
+每个模块都有自己的 ``eval()`` 函数，用来在全局作用域执行表达式对象。 用 ``eval()`` 函数执行表达式对象，不仅可以得到返回值 — 而且还有这样一个附带后果：在当前作用域，修改在这个表达式对象中所被修改的状态量： ::
 
     julia> ex = :(x = 1)
     :(x = 1)
 
     julia> x
-    ERROR: x not defined
+    ERROR: UndefVarError: x not defined
 
     julia> eval(ex)
     1
 
     julia> x
     1
+    
+这里, 对表达式对象所进行的计算给全局变量 ``x`` 赋了一个值（1）。
 
-表达式仅仅是一个 ``Expr`` 对象，它可以通过编程构造，然后对其求值：
-
-.. doctest::
+既然表达式语句都是可以通过先程序化的构建表达式对象，再计算这个对象从而生成的， 这也就是说，可以动态的生成任意代码（动态的构建表达式对象），然后这些代码可以用 ``eval()`` 函数执行。 这里有一个简单的例子： ::
 
     julia> a = 1;
 
-    julia> ex = Expr(:call, :+,a,:b)
-    :(+(1,b))
+    julia> ex = Expr(:call, :+, a, :b)
+    :(1 + b)
 
     julia> a = 0; b = 2;
 
     julia> eval(ex)
     3
 
-注意上例中 ``a`` 与 ``b`` 使用时的区别：
+``a`` 的值被用来构建表达式对象 ``ex`` ，  ``ex``  用  ``+``  函数来加”值1“和“变量 ``b`` ”。 注意  ``a`` 和 ``b`` 的用法有着重要的不同点：
 
--  表达式构造时，直接使用 *变量* ``a`` 的值。因此，对表达式求值时 ``a`` 的值没有任何影响：表达式中的值为 ``1`` ，与现在 ``a`` 的值无关
--  表达式构造时，使用的是 *符号* ``:b`` 。因此，构造时变量 ``b`` 的值是无关的—— ``:b`` 仅仅是个符号，此时变量 ``b`` 还未定义。对表达式求值时，通过查询变量 ``b`` 的值来解析符号 ``:b`` 的值
+在构建表达式时，变量 ``a`` 的值，被用作一个用在表达式中的立即数。 因此, 当计算这个表达式的时候，变量 ``a`` 的值是什么都无所谓了： 在表达式中，这个值已经是1了，与``a``这个变量的值后来变成什么就没关系了。
 
-这样构造 ``Expr`` 对象太丑了。Julia 允许对表达式对象内插。因此上例可写为：
+另一方面而言, 符号 ``:b`` 被用在了表达式里, 所以在构建表达式时，变量 ``b`` 的值就无所谓是多少了 — ``:b``  只是一个符号对象，甚至变量 ``b`` 在那个时候（计算 ``ex`` 之前）都没必要被定义。然而在计算 ``ex`` 的时候, 把这个时候变量 ``b`` 的值当做符号 ``:b`` 的值，来进行计算。
 
-.. doctest::
+表达式的函数
+~~~~~~~~~~~~~~~
 
-    julia> a = 1;
+正如上文所提示过的, julia 的一个极其有用的特性是用 julia 程序有能力自己生成和操作这个程序自己的代码。我们已经见过这样的一个例子，一个函数的返回值是一个表达式对象：``parse()`` 函数，它输入的是一个 julia 代码构成的字符串，输出的是这些代码所对应的表达式对象。 一个函数也可以把一个或者更多的表达式对象当做参数，然后返回另一个表达式对象。这是一个简单的有启发性的例子： ::
 
-    julia> ex = :($a + b)
-    :(+(1,b))
+    julia> function math_expr(op, op1, op2)
+             expr = Expr(:call, op, op1, op2)
+             return expr
+           end
 
-编译器自动将这个语法翻译成上面带 ``Expr`` 的语法。
+     julia>  ex = math_expr(:+, 1, Expr(:call, :*, 4, 5))
+     :(1 + 4*5)
 
-代码生成
-~~~~~~~~
+     julia> eval(ex)
+     21
+ 
+比如另一个例子,这里有一个函数，把任何数值参数都翻倍，其他部分不变，只返回新的表达式对象： ::
 
-Julia 使用表达式内插和求值来生成重复的代码。下例定义了一组操作三个参数的运算符： ::
+    julia> function make_expr2(op, opr1, opr2)
+             opr1f, opr2f = map(x -> isa(x, Number) ? 2*x : x, (opr1, opr2))
+             retexpr = Expr(:call, op, opr1f, opr2f)
 
-    for op = (:+, :*, :&, :|, :$)
-      eval(quote
-        ($op)(a,b,c) = ($op)(($op)(a,b),c)
-      end)
-    end
+             return retexpr
+       end
+    make_expr2 (generic function with 1 method)
 
-上例可用 ``:`` 前缀引用格式写的更精简： ::
+    julia> make_expr2(:+, 1, 2)
+    :(2 + 4)
 
-    for op = (:+, :*, :&, :|, :$)
-      eval(:(($op)(a,b,c) = ($op)(($op)(a,b),c)))
-    end
+    julia> ex = make_expr2(:+, 1, Expr(:call, :*, 5, 8))
+    :(2 + 5 * 8)
 
-使用 ``eval(quote(...))`` 模式进行语言内的代码生成，这种方式太常见了。Julia 用宏来简写这个模式： ::
+    julia> eval(ex)
+    42
 
-    for op = (:+, :*, :&, :|, :$)
-      @eval ($op)(a,b,c) = ($op)(($op)(a,b),c)
-    end
+Macros
+------------
 
-``@eval`` 宏重写了这个调用，使得代码更精简。 ``@eval`` 的参数也可以是块代码： ::
+Macros provide a method to include generated code in the final body of a program. A macro maps a tuple of arguments to a returned expression, and the resulting expression is compiled directly rather than requiring a runtime eval() call. Macro arguments may include expressions, literal values, and symbols.
 
-    @eval begin
-      # multiple lines
-    end
-
-对非引用表达式进行内插，会引发编译时错误：
-
-.. doctest::
-
-    julia> $a + b
-    ERROR: unsupported or misplaced expression $
-
-.. _man-macros:
+** （以下是0.3.0版本内容） **
 
 宏
 --
