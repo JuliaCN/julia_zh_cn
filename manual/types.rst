@@ -40,8 +40,7 @@ Julia的类型系统的设计旨在有效及具表现力，既清楚直观又不
     julia> (1+2)::Int
     3
 
-可以在任何表达式的所在位置做类型断言。The most common usage of ``::`` as an assertion is in
-function/methods signatures, such as ``f(x::Int8) = ...`` (see
+可以在任何表达式的所在位置做类型断言。``::``运算符最常见的用法就是用在函数定义中，来声明操作对象的类型，例如 ``f(x::Int8) = ...`` (详情请看
 :ref:`man-methods`).
 
 ``::`` 运算符跟在表达式上下文中的 *变量名* 后时，它声明变量应该是某个类型，有点儿类似于 C 等静态语言中的类型声明。赋给这个变量的值会被 ``convert`` 函数转换为所声明的类型：
