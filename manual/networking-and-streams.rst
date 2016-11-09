@@ -58,43 +58,39 @@ Julia 提供了一个丰富的接口处理终端、管道、tcp套接字等等I/
 
 注意这取决于你的终端配置，你的TTY可能是行缓冲、需要多输入一个回车才会把数据传给julia。
 
-To read every line from STDIN you can use the eachline method::
+如果想要读入 STDIN 中的每一行，你可以使用 eachline 函数::
 
     for line in eachline(STDIN)
         print("Found $line")
     end
 
-or if you wanted to read by character instead::
+当然，你有可能会想一个字符一个字符地读::
 
     while !eof(STDIN)
         x = read(STDIN, Char)
         println("Found: $x")
     end
 
-Text I/O
---------
 
 文本 I/O
 --------
 
-Note that the write method mentioned above operates on binary streams. In particular, values do not get converted to any canoncical text 
-representation but are written out as is::
+注意上面所说的write方法是用来操作二进制流的，也就是说读入的值不会转换成任何其他格式，即使输出的时候看起来好像转换了一样::
+
     
     julia> write(STDOUT,0x61)
     a
 
-For Text I/O, use the `print` or `show` methods, depending on your needs (see the standard library reference for a detailed discussion of
-the difference between the two)::
+对于字符 I/O，应该使用`print`或`show`方法 (关于它们有什么区别，你可以去看看标准库的文档)::
 
     julia> print(STDOUT,0x61)
     97
 
-Working with Files
+处理文件
 ------------------
 
-Like many other environments, Julia has an `open` function, which takes a filename and returns an `IOStream` object
-that you can use to read and write things from the file. For example if we have a file, `hello.txt`, whose contents
-are "Hello, World!"::
+很自然地，Julia也会有一个`open`函数，可以输入一个文件名，返回一个`IOStream`对象。
+你可以用这个对象来对文件进行输入输出，比如说我们打开了一个文件`hello.txt`，里面就一行"Hello, World!"::
 
     julia> f = open("hello.txt")
     IOStream(<file hello.txt>)
@@ -103,7 +99,7 @@ are "Hello, World!"::
     1-element Array{Union(ASCIIString,UTF8String),1}:
      "Hello, World!\n"
     
-If you want to write to a file, you can open it with the write (`"w"`) flag::
+如果你想往里面输出些东西，你需要在打开的时候加上一个(`"w"`)::
 
     julia> f = open("hello.txt","w")
     IOStream(<file hello.txt>)
@@ -111,31 +107,28 @@ If you want to write to a file, you can open it with the write (`"w"`) flag::
     julia> write(f,"Hello again.")
     12
     
-If you examine the contents of `hello.txt` at this point, you will notice that it is empty; nothing has actually
-been written to disk yet. This is because the IOStream must be closed before the write is actually flushed to disk::
+如果你这时手动点开`hello.txt`你会看到并没有东西被写进去，这是因为IOStream被关闭之后，真正的写入才会完成::
 
     julia> close(f)
     
-Examining hello.txt again will show it's contents have been changed.
+现在你可以去点开看看，此时文件已经写入了内容。
 
-Opening a file, doing something to it's contents, and closing it again is a very common pattern.
-To make this easier, there exists another invocation of `open` which takes a function
-as it's first argument and filename as it's second, opens the file, calls the function with the file as
-an argument, and then closes it again. For example, given a function::
+打开一个文件，对其内容做出一些修改，然后关闭它，这是很常用的操作流程。
+为了简化这个常用操作，我们有另一个使用`open`的方式，你可以传入一个函数作为第一个参数，然后文件名作为第二个参数。打开文件后，文件将会传入你的函数，做一点微小的工作，然后自动`close`。
+比如说我们写出下面这个函数::
 
     function read_and_capitalize(f::IOStream)
         return uppercase(readall(f))
     end
     
-You can call::
+你可以这样用::
 
     julia> open(read_and_capitalize, "hello.txt")
     "HELLO AGAIN."
     
-to open `hello.txt`, call `read_and_capitalize on it`, close `hello.txt`. and return the capitalized contents.
+打开了`hello.txt`，对它施放`read_and_capitalize`，然后关闭掉`hello.txt`，然后返回大写的文字，在REPL显示出来。
 
-To avoid even having to define a named function, you can use the `do` syntax, which creates an anonymous
-function on the fly::
+为了省去你打函数名的劳累，你还可以使用`do`语法来创建一个匿名函数，此处f是匿名函数的形参::
 
     julia> open("hello.txt") do f
               uppercase(readall(f))
@@ -146,7 +139,7 @@ function on the fly::
 简单的 TCP 例子
 ---------------
 
-Let's jump right in with a simple example involving Tcp Sockets. Let's first create a simple server:: 
+我们来看看下面这个使用Tcp Sockets的例子，首先创建一个简单的服务器程序:: 
 
     julia> @async begin
              server = listen(2000)
@@ -159,11 +152,8 @@ Let's jump right in with a simple example involving Tcp Sockets. Let's first cre
 
     julia>
 
-To those familiar with the Unix socket API, the method names will feel familiar, 
-though their usage is somewhat simpler than the raw Unix socket API. The first
-call to `listen` will create a server waiting for incoming connections on the 
-specified port (2000) in this case. The same function may also be used to 
-create various other kinds of servers::
+对于了解Unix socket API的人来说，我们用到的方法名看起来很熟悉，
+尽管它们用起来比Unix socket API简单。首先在这个例子中，`listen`方法将会创建一个监听(2000)端口等待连接的服务器。它还可以用于创建各种各样其他种类的服务器::
     
     julia> listen(2000) # Listens on localhost:2000 (IPv4)
     TcpServer(active)
@@ -183,9 +173,7 @@ create various other kinds of servers::
     julia> listen("testsocket") # Listens on a domain socket/named pipe
     PipeServer(active)
 
-Note that the return type of the last invocation is different. This is because 
-this server does not listen on TCP, but rather on a Named Pipe (Windows 
-terminology) - also called a Domain Socket (UNIX Terminology). The difference 
+注意，最后一个调用的返回值是不一样的，这是因为这个服务器并不是监听TCP，而是监听一个Named Pipe(Windows黑科技术语)，也叫Domain Socket(UNIX术语)。The difference 
 is subtle and has to do with the `accept` and `connect` methods. The `accept`
 method retrieves a connection to the client that is connecting on the server we
 just created, while the `connect` function connects to a server using the 
