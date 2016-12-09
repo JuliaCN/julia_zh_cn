@@ -33,7 +33,7 @@ Julia 中处理 `ASCII <http://zh.wikipedia.org/zh-cn/ASCII>`_ 文本简洁高�
 
 .. doctest::
 
-    julia> int('x')
+    julia> Int('x')
     120
 
     julia> typeof(ans)
@@ -43,17 +43,17 @@ Julia 中处理 `ASCII <http://zh.wikipedia.org/zh-cn/ASCII>`_ 文本简洁高�
 
 .. doctest::
 
-    julia> char(120)
+    julia> Char(120)
     'x'
 
 并非所有的整数值都是有效的 Unicode 码位，但为了性能， ``Char`` 一般不检查其是否有效。如果你想要确保其有效，使用 ``isvalid`` 函数：
 
 .. doctest::
 
-    julia> char(0x110000)
+    julia> Char(0x110000)
     '\U110000'
 
-    julia> is_valid_char(0x110000)
+    julia> isvalid(Char, 0x110000)
     false
 
 目前，有效的 Unicode 码位为，从 ``U+00`` 至 ``U+d7ff`` ，以及从 ``U+e000`` 至 ``U+10ffff`` 。
@@ -78,25 +78,25 @@ Julia 使用系统默认的区域和语言设置来确定，哪些字符可以�
 
 .. doctest::
 
-    julia> int('\0')
+    julia> Int('\0')
     0
 
-    julia> int('\t')
+    julia> Int('\t')
     9
 
-    julia> int('\n')
+    julia> Int('\n')
     10
 
-    julia> int('\e')
+    julia> Int('\e')
     27
 
-    julia> int('\x7f')
+    julia> Int('\x7f')
     127
 
-    julia> int('\177')
+    julia> Int('\177')
     127
 
-    julia> int('\xff')
+    julia> Int('\xff')
     255
 
 可以对 ``Char`` 值比较大小，也可以做少量算术运算：
