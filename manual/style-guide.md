@@ -49,7 +49,7 @@ complex(float(x))
 
 <!-- The second version will convert `x` to an appropriate type, instead of always the same type. -->
 
-函数的参数和这一点代码风格尤其相关。例如，当一个参数可以是任何整数时，不要声明它的类型是 `Int` 或 [`Int32`](@ref)，而要使用抽象类型（abstract type）[`Integer`](@ref) 来表示。事实上，除非有需要和其它的方法定义区分，很多情况下你可以干脆完全省略掉参数的类型，因为如果你的操作中有不支持某种参数类型的话，反正都会抛出 [`MethodError`](@ref) 的。这也被叫做 [鸭子类型](https://zh.wikipedia.org/wiki/%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B)）
+函数的参数和这一点代码风格尤其相关。例如，当一个参数可以是任何整数时，不要声明它的类型是 `Int` 或 [`Int32`](@ref)，而要使用抽象类型（abstract type）[`Integer`](@ref) 来表示。事实上，除非有需要和其它的方法定义区分，很多情况下你可以干脆完全省略掉参数的类型，因为如果你的操作中有不支持某种参数类型的话，反正都会抛出 [`MethodError`](@ref) 的。这也被叫做 [鸭子类型](https://zh.wikipedia.org/wiki/%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B)）。
 
 <!-- This style point is especially relevant to function arguments. For example, don't declare an argument
 to be of type `Int` or [`Int32`](@ref) if it really could be any integer, expressed with the abstract
@@ -71,7 +71,7 @@ addone(x::Number) = x + oneunit(x)     # any numeric type
 addone(x) = x + oneunit(x)             # any type supporting + and oneunit
 ```
 
-最后一种定义可以处理所有支持 [`oneunit`](@ref) （返回和 `x` 相同类型的 1，以避免不需要的类型提升（type promotion））以及 [`+`](@ref) 函数的类型。关键之处在于需要意识到，**只**定义通用的 `addone(x) = x + oneunit(x)` 并**不会**带来性能上的损失，因为 Julia 会在需要的时候自动编译特定的版本。比如说，当你第一次调用 `addone(12)` 时，Julia 会自动编译一个特定的 `addone` 函数，它接受一个 `x::Int` 的参数，并把调用的 `oneunit` 替换为内连的值 `1`。因此，上述的前三种 `addone` 的定义对于第四种来说是完全多余的。
+最后一种定义可以处理所有支持 [`oneunit`](@ref) （返回和 `x` 相同类型的 1，以避免不需要的类型提升（type promotion））以及 [`+`](@ref) 函数的类型。这里的关键点在于，**只**定义通用的 `addone(x) = x + oneunit(x)` 并**不会**带来性能上的损失，因为 Julia 会在需要的时候自动编译特定的版本。比如说，当第一次调用 `addone(12)` 时，Julia 会自动编译一个特定的 `addone` 函数，它接受一个 `x::Int` 的参数，并把调用的 `oneunit` 替换为内连的值 `1`。因此，上述的前三种 `addone` 的定义对于第四种来说是完全多余的。
 
 <!-- The last definition of `addone` handles any type supporting [`oneunit`](@ref) (which returns 1 in
 the same type as `x`, which avoids unwanted type promotion) and the [`+`](@ref) function with
@@ -459,7 +459,7 @@ end
 getindex(x::NativeType, i) = unsafe_load(x.p, i)
 ```
 
-这里的问题在于，这个类型的用户可能在意识不到操作时不安全的情况下写出 `x[i]`，然后容易遇到内存错误。
+这里的问题在于，这个类型的用户可能会在意识不到这个操作不安全的情况下写出 `x[i]`，然后容易遇到内存错误。
 
 <!-- The problem is that users of this type can write `x[i]` without realizing that the operation is
 unsafe, and then be susceptible to memory bugs. -->
