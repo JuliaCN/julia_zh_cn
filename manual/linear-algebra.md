@@ -87,7 +87,7 @@ julia> eigvecs(A)
  -0.166924-0.278207im  -0.166924+0.278207im
 ``` -->
 
-除此之外，Julia 还提供了许多常用于速算的 [矩阵分解](@ref man-linalg-factorizations)，例如求线性解或是矩阵幂，
+除此之外，Julia 还提供了许多常用于加速计算的 [矩阵分解](@ref man-linalg-factorizations)，例如求线性解或是矩阵幂，
 通过运算前的预分解将矩阵转变为更易于处理的形式（考虑执行效率或内存）来解决问题。
 戳一戳 [`factorize`](@ref)来获得更详细的信息。下面是一个例子：
 
@@ -122,7 +122,7 @@ LinearAlgebra.LU{Float64,Array{Float64,2}} with factors L and U:
 [-10.0 2.3 4.0; 0.0 2.345 -3.4; 0.0 0.0 -5.24947]
 ``` -->
 
-当 `A` 不是埃尔米特矩阵、对称矩阵、三角矩阵、三对角矩阵或双对角矩阵时，LU 分解也许是最好的方法。比较如下：
+当 `A` 不是厄米矩阵、对称矩阵、三角矩阵、三对角矩阵或双对角矩阵时，LU 分解也许是最好的方法。比较如下：
 
 <!-- Since `A` is not Hermitian, symmetric, triangular, tridiagonal, or bidiagonal, an LU factorization may be the
 best we can do. Compare with: -->
